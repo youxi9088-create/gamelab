@@ -1,0 +1,21 @@
+{
+  "directory": "production-inputs/wechat-fruit",
+  "route": "A",
+  "tool_name": "微信开源移植 · REA 与浏览器验证",
+  "batch_name": "正式方向验证 · 微信合成小游戏",
+  "candidate": {
+    "title": "合成大西瓜 · 微信开源移植",
+    "url": "https://github.com/Amition/minigame-engine",
+    "source": "微信小游戏方向 · MIT 开源",
+    "category": "微信小游戏 / 合成益智",
+    "engine": "TypeScript / Canvas 2D",
+    "rights": "open",
+    "description": "真实开源合成大西瓜游戏移植，固定上游提交2b0b812。包含投放、碰撞合成、计分、暂停、堆积失败和重开。MIT许可已保留，完整TS工程集中在game-library/projects/wechat-fruit。Web可试玩，微信包已构建但未验证开发者工具或真机。不是商业客户端反编译成果。",
+    "observations": {
+      "controls": "点击开始，按住拖动瞄准，松手投放水果；右上角暂停",
+      "rules": "同级水果碰撞后合成更大水果并计分，超过警戒线持续一段时间失败，可重开",
+      "evidence": "真实浏览器28次投放、19次合成、175分；溢出失败用QA构建白盒物理场景验证；详见gameplay-qa.json",
+      "source_commit": "2b0b8125309f1394d15206cd1b5b043981a7f4e3"
+    }
+  }
+}

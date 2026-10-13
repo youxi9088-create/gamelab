@@ -61,4 +61,6 @@ GET `/api/session` 建立本机管理 Cookie 并返回 csrf；所有管理 POST 
 
 GET `/api/versions/{id}/download` 用管理会话下载对应源码版本 ZIP。试玩 GET `/play/{artifact_id}/{entry}` 在独立端口提供只读静态文件，不提供管理接口，不需要 worker 在线。当前内部预览地址不是权限隔离的私密链接；需要对外部署时增加预览鉴权及正式发布路由。
 
+POST `/api/jobs/{id}/reconstruct` 为管理员明确选择玩法重建，需 `reason`（至少10字）及候选已有 `observations`。只允许 queued/blocked/failed 的 REA 任务，拒绝运行中任务。记录 `rea_attempted:false`，不会把没有原包伪报为反编译失败；后续由独立 reconstruct 工具提交产物。
+
 错误响应为 `{"error":"原因"}`。常见状态：400 参数不符、401 缺少认证、403 权限不符、404 记录不存在、409 状态/租约/幂等冲突、413 请求过大、415 内容类型错误。

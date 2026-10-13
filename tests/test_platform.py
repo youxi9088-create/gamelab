@@ -61,6 +61,21 @@ class PlatformTest(unittest.TestCase):
         self.s.mutate('/api/tools/' + self.tool['id'] + '/toggle', {})
         self.expect_error(403, lambda: self.s.authenticate(self.token))
 
+    def test_explicit_reconstruction_requires_observations_and_idle_job(self):
+        c=self.enqueue()
+        job=self.s.state()['jobs'][0]
+        path='/api/jobs/'+job['id']+'/reconstruct'
+        reason={'reason':'没有原始代码包，依据公开规则独立实现核心玩法'}
+        self.expect_error(400,lambda:self.s.mutate(path,reason))
+        self.s.mutate('/api/candidates/'+c['id']+'/update',{'observations':{'rules':'资源分配、寒冷生存、胜负与重开'}})
+        routed=self.s.mutate(path,reason)['job']
+        self.assertEqual('reconstruct',routed['stage'])
+        self.assertFalse(routed['report']['rea_attempted'])
+        claimed=self.claim()
+        self.expect_error(409,lambda:self.s.mutate(path,reason))
+        finished=self.completion(claimed,'ready_review')
+        self.assertEqual('B',finished['route'])
+
     def test_canonical_dedup_retains_multiple_tool_sources(self):
         first = self.candidate('https://EXAMPLE.org/game/?b=2&utm_source=x&a=1#top', tool=self.tool)
         second_tool, _ = self.register('collector2', ['collect'])

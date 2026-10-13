@@ -1,0 +1,36 @@
+{
+  "directory": "production-inputs/frost-hearth",
+  "route": "B",
+  "gameplay_report": "qa-output/frost-report.json",
+  "tool_name": "AI 编码代理 · 寒冬生存核心重建",
+  "batch_name": "正式方向验证 · 无尽冬日核心玩法",
+  "routing_reason": "公开检索未核实到可复用的原版核心源码，未获得原版客户端包；明确选择依据公开玩法资料独立编写单机核心玩法，不声称反编译失败。",
+  "candidate": {
+    "title": "霜原炉火 · 寒冬生存核心重建",
+    "url": "https://www.whiteoutsurvival.com/",
+    "source": "无尽冬日方向 · 独立玩法重建",
+    "category": "无尽冬日方向 / 生存经营",
+    "engine": "Canvas 2D · 原创实现",
+    "rights": "owned",
+    "description": "依据寒冬生存题材和公开核心机制独立实现：炉火供暖、木材食物、6位居民分工、营地升级、昼夜与暴雪、七日胜负及重开。原创代码与程序化画面。不是无尽冬日完整客户端；不含英雄、联盟、PvP、内购或原版服务端。",
+    "observations": {
+      "basis": "公开玩法资料，不是本次对原版客户端的试玩录制；原始资料见provenance.json",
+      "controls": "按钮分配村民、设置炉火功率、建设升级、按小时推进或自动推进",
+      "rules": "生产木材和食物并消耗燃料与口粮；低温或饥饿降低健康；夜间减产且更冷，第3、5、7天暴雪",
+      "win": "生存168小时，炉火和保温屋均至少2级；健康归零失败",
+      "restart": "重新开始按钮恢复初始资源、建筑与时间",
+      "actions": [
+        {"type":"click","selector":"#advance","assert_selector":"#clock","expect_text":"07:00"},
+        {"type":"click","selector":"#upgradeFurnace","assert_selector":"#furnaceLevel","expect_text":"2"},
+        {"type":"click","selector":"#restart","assert_selector":"#clock","expect_text":"06:00"}
+      ]
+    }
+  },
+  "report": {
+    "implementation": "External AI coding agent authored original code in the current task",
+    "scope": "Single-player core survival management, not a full Whiteout Survival clone",
+    "original_client_decompiled": false,
+    "original_assets_copied": false,
+    "acceptance": "Separate browser gameplay QA required before approval"
+  }
+}

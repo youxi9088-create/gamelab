@@ -210,6 +210,18 @@ class Service:
                 return {'job':dict(job,input=c,settings=settings)}
             return {'job':None}
         if kind=='jobs' and key:
+            if action=='reconstruct' and not tool:
+                job=self.get(db,'jobs',key)
+                require(job['status'] in ('queued','blocked','failed') and job['stage']=='rea','只能将尚未执行或已阻断的 REA 任务转为玩法重建',409)
+                reason=str(b.get('reason','')).strip()
+                require(len(reason)>=10,'请记录跳过代码恢复的具体原因')
+                candidate=self.get(db,'candidates',job['candidate_id'])
+                require(candidate.get('observations'),'玩法重建需要先提供玩法观察材料')
+                job.update(status='queued',stage='reconstruct',route='B',progress=0,attempt=0,reason=reason,report={'routing':'explicit_reconstruction','rea_attempted':False,'reason':reason})
+                job.pop('lease_token',None);job.pop('lease_expires_at',None)
+                batch=self.get(db,'batches',job['batch_id']);batch['status']='running';s.put(db,'batches',batch)
+                s.put(db,'jobs',job);s.event(db,'明确选择玩法重建（不表示反编译失败）：'+reason,key,'reconstruct')
+                return {'job':job}
             if action=='retry' and not tool:
                 job=self.get(db,'jobs',key)
                 require(job['status'] in ('blocked','failed'),'只能重试失败或阻断任务',409)

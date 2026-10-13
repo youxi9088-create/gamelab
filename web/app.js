@@ -22,7 +22,7 @@ const nav = [
   ["settings", "⚙", "来源与规则"],
 ];
 let page = location.hash.slice(1) || "overview",
-  demo = localStorage.getItem("replica-demo") !== "false",
+  demo = localStorage.getItem("replica-demo") === "true",
   state = {},
   query = "",
   filter = "",

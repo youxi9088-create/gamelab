@@ -11,6 +11,10 @@ const assert = require("node:assert/strict");
     viewport: { width: 1440, height: 1100 },
   });
   const errors = [];
+  await page.addInitScript(() => {
+    if (window === window.top && localStorage.getItem("replica-demo") === null)
+      localStorage.setItem("replica-demo", "true");
+  });
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto(process.env.PLATFORM_URL || "http://127.0.0.1:8765");
   await page.waitForSelector(".gamecard");
@@ -40,7 +44,7 @@ const assert = require("node:assert/strict");
   );
   await page.locator('[data-nav="library"]').first().click();
   await page.waitForSelector("[data-play]");
-  await page.locator("[data-play]").first().click();
+  await page.locator(".gamecard").filter({ hasText: "系统自检" }).locator("[data-play]").first().click();
   await page.waitForSelector("iframe");
   const frame = page.frameLocator("iframe");
   await frame.locator("#game").waitFor();

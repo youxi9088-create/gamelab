@@ -940,6 +940,12 @@ iframe {
   margin-top: 10px;
   overflow: auto;
 }
+
+/* Preserve portrait game screenshots instead of cropping away the play field. */
+.gamecard .cover img {
+  object-fit: contain;
+  background: #11121b;
+}
 .screenshot-strip button {
   padding: 0;
   flex: none;

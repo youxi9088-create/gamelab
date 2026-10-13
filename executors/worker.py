@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parent
 ALLOWED = {'.html', '.js', '.mjs', '.css', '.json', '.svg', '.md', '.txt', '.ts', '.tsx', '.jsx', '.map'}
 BINARY = {'.png', '.jpg', '.jpeg', '.webp', '.gif', '.mp3', '.wav', '.ogg', '.woff', '.woff2', '.wasm'}
 IGNORED = {'node_modules', '.git', '.env', '__pycache__'}
+TEXT_NAMES = {'LICENSE', 'NOTICE', 'COPYING'}
 
 
 class Blocked(Exception):
@@ -59,7 +60,7 @@ def validate_files(files):
             raise ValueError('Unsafe artifact path')
         if p.suffix.lower() in BINARY and isinstance(content, dict) and content.get('encoding') == 'base64':
             total += len(base64.b64decode(content['content'], validate=True))
-        elif p.suffix.lower() in ALLOWED and isinstance(content, str):
+        elif (p.suffix.lower() in ALLOWED or p.name in TEXT_NAMES) and isinstance(content, str):
             total += len(content.encode('utf-8'))
         else:
             raise ValueError('Unsupported artifact type')
@@ -81,7 +82,7 @@ def source_files(source):
         if path.suffix.lower() in BINARY:
             files[rel.as_posix()] = {'encoding': 'base64', 'content': base64.b64encode(path.read_bytes()).decode('ascii')}
             continue
-        if path.suffix.lower() not in ALLOWED:
+        if path.suffix.lower() not in ALLOWED and path.name not in TEXT_NAMES:
             raise Blocked(f'Binary/dependency asset {rel} requires an external packaging adapter; not silently omitted')
         files[rel.as_posix()] = path.read_text(encoding='utf-8')
     return validate_files(files)
