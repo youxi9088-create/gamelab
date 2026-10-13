@@ -141,11 +141,11 @@ function overview() {
   const stats = [
     ["成功获取", m.acquired ?? cs.length, "款", "候选与资源完成汇总", "▧"],
     [
-      "REA 恢复成功",
+      "REA 整理可运行",
       m.recovered ??
         js.filter((j) => j.route === "A" && j.status === "completed").length,
       "款",
-      "可维护工程已通过初检",
+      "静态分析与浏览器加载检查通过",
       "⌘",
     ],
     [
