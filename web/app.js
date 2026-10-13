@@ -126,12 +126,19 @@ function render() {
 function head(title, desc, buttons = "") {
   return `<div class="pagehead"><div><div class="eyebrow">REPLICA WORKSPACE</div><h1>${title}</h1><p>${desc}</p></div><div class="actions">${buttons}</div></div>`;
 }
+function gameSummary(c) {
+  const o = c.observations;
+  if (o && typeof o === "object" && (o.controls || o.rules))
+    return [o.controls, o.rules].filter(Boolean).join("。") + "。";
+  return c.description || "查看游戏详情，了解玩法与处理记录。";
+}
 function card(c, lib = false) {
   const v = (state.versions || []).find(
     (v) =>
       v.candidate_id === c.id && ["approved", "published"].includes(v.status),
   );
-  return `<article class="gamecard"><div class="cover" data-detail="${esc(c.id)}"><img src="${esc(lib ? cover(v) : cover(c))}" alt="${esc(c.title)}${demo ? " · 演示插画" : " · 游戏预览"}" loading="lazy"><div class="cover-badge">${badge(lib ? v.status : c.status || "discovered")}<span class="badge">${esc(c.engine || "待识别")}</span></div>${demo ? '<span class="demo-img">DEMO · CONCEPT ART</span>' : ""}</div><div class="gamebody"><h3>${esc(c.title)}</h3><div class="gamemeta">${esc(c.category || "未分类")} <span>·</span> ${esc(c.source || "手动提交")}</div><div class="gamefoot"><span>${lib ? "版本 " + esc(v?.commit?.slice(0, 7) || "待关联") : date(c.created_at)}</span><div class="actions">${lib ? `<button class="smallbtn" data-play="${esc(v?.id || "")}">▷ 试玩</button>` : `<button class="smallbtn ${selected.has(c.id) ? "primary" : ""}" data-select="${esc(c.id)}">${selected.has(c.id) ? "✓ 已选择" : "+ 选择"}</button>`}<button class="textbtn" data-detail="${esc(c.id)}">详情 ↗</button></div></div></div></article>`;
+  const shot = lib ? cover(v) : (c.cover ? cover(c) : v?.cover || cover(c));
+  return `<article class="gamecard"><div class="cover" data-detail="${esc(c.id)}"><img src="${esc(shot)}" alt="${esc(c.title)}${demo ? " · 演示插画" : " · 游戏预览"}" loading="lazy"><div class="cover-badge">${badge(lib ? v.status : c.status || "discovered")}</div>${demo ? '<span class="demo-img">DEMO · CONCEPT ART</span>' : `<span class="preview-label">${v?.cover || c.cover ? '实机画面' : '待补充截图'}</span>`}</div><div class="gamebody"><div class="game-category">${esc(c.category || "未分类")}</div><h3>${esc(c.title)}</h3><p class="game-description">${esc(gameSummary(c))}</p><div class="gamemeta">${esc(c.engine || "待识别")}<span>·</span>${esc(c.source || "手动提交")}</div><div class="gamefoot"><span>${lib ? "版本 " + esc(v?.commit?.slice(0, 7) || "待关联") : date(c.created_at)}</span><div class="actions">${lib ? `<button class="smallbtn primary" data-play="${esc(v?.id || "")}">▷ 试玩</button>` : `<button class="smallbtn ${selected.has(c.id) ? "primary" : ""}" data-select="${esc(c.id)}">${selected.has(c.id) ? "✓ 已选择" : "+ 选择"}</button>`}<button class="textbtn" data-detail="${esc(c.id)}">详情 ↗</button></div></div></div></article>`;
 }
 function overview() {
   const cs = state.candidates || [],
@@ -224,8 +231,14 @@ function library() {
       .filter((v) => ["approved", "published"].includes(v.status))
       .map((v) => v.candidate_id),
   );
+  const games = (state.candidates || []).filter(c => ids.has(c.id));
+  const featured = games.find(c => !c.title.includes("系统自检")) || games[0];
+  const version = featured && (state.versions || []).find(v => v.candidate_id === featured.id && ["approved", "published"].includes(v.status));
+  const feature = featured && !query && !filter ? `<section class="library-feature"><div class="feature-copy"><div class="eyebrow">${demo ? "DESIGN PREVIEW · 演示内容" : "LATEST RELEASE · 最新入库"}</div><h2>${esc(featured.title.split(" · ")[0])}</h2><p>${esc(gameSummary(featured))}</p><div class="feature-tags">${badge(version.status)}<span>${esc(featured.category)}</span><span>${demo ? "演示空间" : "真实运行版本"}</span></div><div class="actions"><button class="primary" data-play="${esc(version.id)}">▷ ${demo ? "查看演示" : "开始试玩"}</button><button class="feature-detail" data-detail="${esc(featured.id)}">查看版本详情 ↗</button></div></div><div class="feature-preview"><img src="${esc(cover(version))}" alt="${esc(featured.title)}${demo ? '演示插画' : '运行截图'}"><span>${demo ? 'DEMO · 非实际游戏' : 'GAMEPLAY CAPTURE · 实机截图'}</span></div></section>` : "";
   return (
-    head("小游戏库", "已验收、可发布、可追溯。浏览和试玩独立于生产工具。") +
+    head("小游戏库", "发现玩法，打开体验。每一款游戏都有可追溯的版本。", `<span class="collection-count"><b>${games.length}</b> 款已入库</span>`) +
+    feature +
+    `<div class="collection-heading"><h2>全部游戏 <span>${games.length}</span></h2><p>${demo ? "演示数据" : "运行截图 · 隔离试玩 · 源码归档"}</p></div>` +
     filters() +
     `<div class="cards">${
       filtered((state.candidates || []).filter((c) => ids.has(c.id)))
