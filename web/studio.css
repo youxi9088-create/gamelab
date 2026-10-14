@@ -1,0 +1,73 @@
+/* Screenshot-led game studio. Scoped overrides of the existing functional UI. */
+:root{--bg:#101017;--panel:#1d1d28;--line:#33313f;--text:#f4f2fa;--muted:#a9a6b9;--purple:#ac8bfa}
+body{background:var(--bg);font-family:"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif}
+.sidebar{background:#16161f;border-right:1px solid #ffffff0b;padding-top:30px}
+.brand{font-size:18px;letter-spacing:-.4px}
+.brandmark{background:#b194f7;color:#251735;box-shadow:none;border-radius:9px}
+.brand small{letter-spacing:1px;font-size:9px;color:#aaa2ba}
+.navlabel{letter-spacing:0;font-size:11px;color:#8c879b}
+.navbtn{padding-top:12px;padding-bottom:12px;color:#b0aabb;font-size:13px}
+.navbtn.active{background:#2c243b;box-shadow:inset 3px 0 #bfa0ff;border-color:transparent;color:#ebdfff}
+.topbar{background:#101017;border-bottom-color:#ffffff0a;height:66px}
+.avatar{background:#2d253d;color:#d6c0ff}
+.content{padding-top:38px;max-width:1570px}
+.pagehead{align-items:flex-end;margin-bottom:30px}
+.pagehead h1{font-size:32px;font-weight:650;letter-spacing:-1px}
+.pagehead p{font-size:13px;color:#a9a6b9}
+.primary{background:#b393fc;border-color:#b393fc;color:#21142e;box-shadow:none;font-weight:650}
+.primary:hover{background:#c6aeff;color:#21142e;border-color:#c6aeff}
+.textbtn,a{color:#cfb8ff}
+.collection-count{border:0;background:#211d2b;border-radius:8px;color:#b7accc}
+.collection-count b{color:#e4d6ff}
+.library-feature{grid-template-columns:1fr 1.06fr;min-height:428px;border:0;background:#1b1926;border-radius:14px;margin-bottom:42px}
+.feature-preview{grid-column:1;grid-row:1;margin:0;min-height:428px;border:0;border-radius:0;background:#2d2540}
+.feature-preview img{height:382px;max-width:94%;border-radius:10px;box-shadow:0 12px 32px #0003}
+.feature-preview>span{font-size:11px;letter-spacing:0;bottom:16px;right:16px;background:#17121e9c;color:#d2c5e2}
+.feature-copy{grid-column:2;padding:36px 40px;justify-content:center}
+.feature-copy .eyebrow{letter-spacing:0;text-transform:none;font-size:12px;font-weight:400;color:#b59dd6;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.feature-copy .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:#bea0fa}
+.feature-copy h2{font-size:44px;letter-spacing:-1.5px;font-weight:650;margin:0 0 19px}
+.feature-copy p{font-size:14px;line-height:1.95;color:#c1bacc;max-width:36em;-webkit-line-clamp:4}
+.feature-tags{margin:22px 0 30px;color:#a99bbd;gap:12px}
+.feature-tags>span:last-child{display:none}
+.feature-copy .primary{min-height:46px;padding:12px 28px;border-radius:8px}
+.feature-detail{border:0;background:transparent;color:#c5b7dc;font-size:12px;padding-left:10px}
+.collection-heading{margin-bottom:19px}
+.collection-heading h2{font-size:19px;letter-spacing:-.4px}
+.collection-heading h2 span{background:none;color:#a298b2;font-size:13px;font-weight:400;padding:0;margin-left:10px}
+.collection-heading p{font-size:12px;color:#9f97ad}
+.filters{background:transparent;border:0;border-top:1px solid #ffffff10;border-radius:0;padding:17px 0;margin-bottom:12px}
+.filters input,.filters select{background:#1a1923;border-color:#35313f;border-radius:7px;min-height:43px}
+.cards{gap:28px}
+.gamecard{border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
+.gamecard:hover{transform:none;box-shadow:none;border:0}
+.gamecard .cover{aspect-ratio:1.4;background:#201c2c;border-radius:11px;border:1px solid #ffffff09}
+.gamecard .cover img{padding:11px;transition:filter .18s}
+.gamecard:hover .cover img{filter:brightness(1.06)}
+.gamebody{padding:17px 1px 4px}
+.game-category{font-size:11px;color:#af9aca;margin-bottom:7px}
+.gamebody h3{font-size:17px;font-weight:600;line-height:1.55;margin-bottom:8px;letter-spacing:-.3px}
+.game-description{font-size:12px;line-height:1.8;color:#aaa2b7;height:44px}
+.gamemeta{display:none}
+.gamefoot{border-top:0;padding-top:6px;margin-top:9px;color:#8c859d}
+.gamefoot .primary{padding:7px 17px;font-size:12px;border-radius:7px}
+.badge{font-size:10px;border-radius:4px}
+.preview-label{font-size:10px;letter-spacing:0;color:#c5bad5;background:#17131ede}
+.stat{background:#1b1925;border:1px solid #ffffff0b;border-radius:10px;box-shadow:none;padding:23px}
+.stat-value{font-weight:600;font-size:38px;letter-spacing:-1.5px}
+.stat-icon{background:transparent!important;color:#a798ba!important}
+.panel{background:#191820;border:1px solid #ffffff0b;border-radius:10px;box-shadow:none}
+.healthrow{border-bottom-color:#ffffff0b}
+.tool-avatar{background:#2b2437;color:#bca5d9;border-radius:7px}
+.panelhead h2{font-size:16px;font-weight:600}
+.table th{font-size:11px;color:#a79fb7;background:#201d2a}
+.table td{font-size:12px;line-height:1.65}
+.table tbody tr:hover{background:#b393fc06}
+.table small{color:#9f94af}
+.demo-banner{border-radius:6px;background:#2c23384d}
+.modal{border-radius:14px}
+@media(min-width:1700px){.cards{gap:26px}}
+@media(max-width:1150px){.feature-copy{padding:28px}.feature-copy h2{font-size:35px}.feature-preview{min-height:390px}.feature-preview img{height:346px}.library-feature{min-height:390px}.cards{gap:22px}}
+@media(max-width:850px){.brandmark{width:34px;flex:none}.sidebar{padding:20px 8px}.navbtn{padding:13px}.feature-copy{padding:24px}.feature-copy h2{font-size:30px}.feature-copy p{font-size:13px}.feature-tags{gap:8px}.pagehead h1{font-size:29px}.feature-preview img{height:316px}.feature-preview{min-height:360px}.library-feature{min-height:360px}}
+@media(max-width:620px){.library-feature{grid-template-columns:1fr}.feature-preview{grid-column:1;grid-row:1;min-height:300px}.feature-preview img{height:270px}.feature-copy{grid-column:1;grid-row:2;padding:24px}.feature-copy h2{font-size:32px}.feature-copy p{-webkit-line-clamp:4}.feature-copy .actions{gap:5px}.feature-tags{margin:16px 0 20px}.feature-copy .primary{padding:11px 21px}.pagehead{margin-bottom:24px}.pagehead h1{font-size:28px}.cards{gap:32px}.stat{padding:16px}.stat-value{font-size:32px}.gamebody h3{font-size:16px}.filters{padding:15px 0;margin-bottom:8px}.feature-copy .eyebrow{font-size:11px}.content{padding-top:28px}.collection-heading{margin-bottom:5px}}
+@media(prefers-reduced-motion:reduce){.gamecard .cover img{transition:none}}

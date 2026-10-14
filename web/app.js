@@ -124,7 +124,7 @@ function render() {
   bind();
 }
 function head(title, desc, buttons = "") {
-  return `<div class="pagehead"><div><div class="eyebrow">REPLICA WORKSPACE</div><h1>${title}</h1><p>${desc}</p></div><div class="actions">${buttons}</div></div>`;
+  return `<div class="pagehead"><div><h1>${title}</h1><p>${desc}</p></div><div class="actions">${buttons}</div></div>`;
 }
 function gameSummary(c) {
   const o = c.observations;
@@ -173,8 +173,8 @@ function overview() {
   ];
   return (
     head(
-      "让每个创意，成为可玩的游戏",
-      "统一汇总游戏来源，追踪重建进度，管理每一个可交付版本。",
+      "游戏生产概览",
+      "查看今日采集、复刻与入库进展。",
       `<button data-nav="tools">⌁ 接入工具</button><button class="primary" data-action="new-batch">＋ 创建批次</button>`,
     ) +
     `<div class="stats">${stats.map(([t, n, u, f, i]) => `<div class="stat"><div class="stat-icon">${i}</div><div class="stat-label">${t} <span class="tiny muted">/ 今日</span></div><div class="stat-value">${n}<small>${u}</small></div><div class="stat-foot">${f}</div></div>`).join("")}</div><div class="grid2"><section class="panel"><div class="panelhead"><h2>获取与入库趋势 <small>近 7 天</small></h2><div class="legend"><span><i class="dot"></i>成功获取</span><span><i class="dot gray"></i>新增入库</span></div></div>${trendChart(m.trend)}</section><section class="panel"><div class="panelhead"><h2>执行工具</h2><button class="textbtn" data-nav="tools">管理接入 ↗</button></div>${
@@ -234,9 +234,9 @@ function library() {
   const games = (state.candidates || []).filter(c => ids.has(c.id));
   const featured = games.find(c => !c.title.includes("系统自检")) || games[0];
   const version = featured && (state.versions || []).find(v => v.candidate_id === featured.id && ["approved", "published"].includes(v.status));
-  const feature = featured && !query && !filter ? `<section class="library-feature"><div class="feature-copy"><div class="eyebrow">${demo ? "DESIGN PREVIEW · 演示内容" : "LATEST RELEASE · 最新入库"}</div><h2>${esc(featured.title.split(" · ")[0])}</h2><p>${esc(gameSummary(featured))}</p><div class="feature-tags">${badge(version.status)}<span>${esc(featured.category)}</span><span>${demo ? "演示空间" : "真实运行版本"}</span></div><div class="actions"><button class="primary" data-play="${esc(version.id)}">▷ ${demo ? "查看演示" : "开始试玩"}</button><button class="feature-detail" data-detail="${esc(featured.id)}">查看版本详情 ↗</button></div></div><div class="feature-preview"><img src="${esc(cover(version))}" alt="${esc(featured.title)}${demo ? '演示插画' : '运行截图'}"><span>${demo ? 'DEMO · 非实际游戏' : 'GAMEPLAY CAPTURE · 实机截图'}</span></div></section>` : "";
+  const feature = featured && !query && !filter ? `<section class="library-feature"><div class="feature-copy"><div class="eyebrow">${demo ? "演示内容" : "最新入库"}</div><h2>${esc(featured.title.split(" · ")[0])}</h2><p>${esc(gameSummary(featured))}</p><div class="feature-tags">${badge(version.status)}<span>${esc(featured.category)}</span><span>${demo ? "演示空间" : "真实运行版本"}</span></div><div class="actions"><button class="primary" data-play="${esc(version.id)}">▷ ${demo ? "查看演示" : "开始试玩"}</button><button class="feature-detail" data-detail="${esc(featured.id)}">查看版本详情 ↗</button></div></div><div class="feature-preview"><img src="${esc(cover(version))}" alt="${esc(featured.title)}${demo ? '演示插画' : '运行截图'}"><span>${demo ? '演示插画' : '实机截图'}</span></div></section>` : "";
   return (
-    head("小游戏库", "发现玩法，打开体验。每一款游戏都有可追溯的版本。", `<span class="collection-count"><b>${games.length}</b> 款已入库</span>`) +
+    head("小游戏库", "浏览已入库的游戏，直接试玩或查看源码版本。", `<span class="collection-count"><b>${games.length}</b> 款已入库</span>`) +
     feature +
     `<div class="collection-heading"><h2>全部游戏 <span>${games.length}</span></h2><p>${demo ? "演示数据" : "运行截图 · 隔离试玩 · 源码归档"}</p></div>` +
     filters() +
