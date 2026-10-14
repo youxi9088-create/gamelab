@@ -21,7 +21,7 @@ const nav = [
   ["tools", "⌁", "工具接入"],
   ["settings", "⚙", "来源与规则"],
 ];
-let page = location.hash.slice(1) || "overview",
+let page = location.hash.slice(1) || "library",
   demo = localStorage.getItem("replica-demo") === "true",
   state = {},
   query = "",
@@ -106,7 +106,7 @@ async function load() {
   }
 }
 function shell() {
-  return `<aside class="sidebar"><div class="brand"><div class="brandmark">✦</div><div>AI 游戏中心<small>REPLICA STUDIO</small></div></div>${nav.map(([id, icon, title], i) => `${[0, 1, 3, 6].includes(i) ? `<div class="navlabel">${{ 0: "工作空间", 1: "游戏资产", 3: "生产管理", 6: "平台管理" }[i]}</div>` : ""}<button class="navbtn ${page === id ? "active" : ""}" data-nav="${id}"><span class="icon">${icon}</span><span>${title}</span></button>`).join("")}<div class="sidebar-bottom"><span class="online"></span>${demo ? "演示工作空间" : "本地工作空间"}<br><span class="muted">统一采集 · 重建 · 发布</span></div></aside><main class="main"><header class="topbar"><div class="breadcrumb">工作空间 <b>/ ${nav.find((n) => n[0] === page)?.[2] || "总览看板"}</b></div><div class="topright"><input class="search" id="global-search" placeholder="搜索游戏、任务…" aria-label="搜索游戏、任务"><button class="smallbtn" data-action="mode">${demo ? "◉ 演示模式" : "○ 实时数据"}</button><button class="textbtn" data-action="refresh">↻ 刷新</button><div class="avatar">AD</div></div></header><div class="content">${demo ? '<div class="demo-banner"><span>◇ 演示工作空间 · 数据与游戏插画仅用于交互设计演示</span><span>不代表已采集或复刻</span></div>' : ""}<div id="page"></div></div></main>`;
+  return `<header class="site-header"><button class="site-brand" data-nav="library" aria-label="小游戏库首页"><span class="pixel-mark" aria-hidden="true">✣</span> Game Lab<span class="brand-cn">游戏实验室</span></button><div class="topright"><input class="search" id="global-search" placeholder="搜索游戏、任务…" aria-label="搜索游戏、任务"><button class="smallbtn" data-action="mode">${demo ? "◉ 演示模式" : "○ 实时数据"}</button><button class="textbtn" data-action="refresh">↻ 刷新</button></div></header><nav class="site-nav" aria-label="主导航">${[nav[2],nav[1],nav[0],...nav.slice(3)].map(([id,icon,title])=>`<button class="navbtn ${page===id?'active':''}" data-nav="${id}" ${page===id?'aria-current="page"':''}>${title}</button>`).join('')}</nav><main class="main ${page==='library'?'is-library':''}"><div class="content">${demo ? '<div class="demo-banner"><span>◇ 演示工作空间 · 数据与游戏插画仅用于交互设计演示</span><span>不代表已采集或复刻</span></div>' : ""}<div id="page"></div></div></main>`;
 }
 function render() {
   if (!nav.some((n) => n[0] === page)) page = "overview";
@@ -236,9 +236,9 @@ function library() {
   const version = featured && (state.versions || []).find(v => v.candidate_id === featured.id && ["approved", "published"].includes(v.status));
   const feature = featured && !query && !filter ? `<section class="library-feature"><div class="feature-copy"><div class="eyebrow">${demo ? "演示内容" : "最新入库"}</div><h2>${esc(featured.title.split(" · ")[0])}</h2><p>${esc(gameSummary(featured))}</p><div class="feature-tags">${badge(version.status)}<span>${esc(featured.category)}</span><span>${demo ? "演示空间" : "真实运行版本"}</span></div><div class="actions"><button class="primary" data-play="${esc(version.id)}">▷ ${demo ? "查看演示" : "开始试玩"}</button><button class="feature-detail" data-detail="${esc(featured.id)}">查看版本详情 ↗</button></div></div><div class="feature-preview"><img src="${esc(cover(version))}" alt="${esc(featured.title)}${demo ? '演示插画' : '运行截图'}"><span>${demo ? '演示插画' : '实机截图'}</span></div></section>` : "";
   return (
-    head("小游戏库", "浏览已入库的游戏，直接试玩或查看源码版本。", `<span class="collection-count"><b>${games.length}</b> 款已入库</span>`) +
+    (!query && !filter ? `<section class="playground-hero" aria-label="游戏实验室"><div class="hero-shots" aria-hidden="true">${games.slice(0,3).map((c,i)=>{const v=state.versions.find(v=>v.candidate_id===c.id&&["approved","published"].includes(v.status));return `<div class="hero-shot shot-${i}"><img src="${esc(cover(v))}" alt=""><span>${esc(c.title.split(' · ')[0])}</span></div>`}).join('')}</div><div class="hero-center"><p class="hero-kicker">小游戏库 · ${games.length} 款已入库${demo?' · 演示空间':''}</p><img class="pixel-title" src="/assets/game-lab.svg" alt="Game Lab"><h1>发现下一款好游戏。</h1><p class="hero-description">从灵感到可玩的作品，在这里探索与试玩。</p><div class="hero-actions">${version?`<button class="primary" data-play="${esc(version.id)}">▷ 开始试玩</button>`:''}<button class="hero-browse" data-browse>探索游戏 ↓</button></div><span class="hero-caption">${demo?'演示插画':'背景为已入库游戏的实机截图'}</span></div></section>` : head("小游戏库", "搜索与发现已入库的游戏")) +
     feature +
-    `<div class="collection-heading"><h2>全部游戏 <span>${games.length}</span></h2><p>${demo ? "演示数据" : "运行截图 · 隔离试玩 · 源码归档"}</p></div>` +
+    `<div class="collection-heading" id="discover"><div><h2>探索游戏 <span>${games.length}</span></h2><p>找到你的下一场小冒险。</p></div><span class="muted">${demo ? "演示数据" : "每一款，都可以即刻试玩"}</span></div>` +
     filters() +
     `<div class="cards">${
       filtered((state.candidates || []).filter((c) => ids.has(c.id)))
@@ -523,6 +523,7 @@ function formDialog(type) {
   };
 }
 function bind() {
+  document.querySelector("[data-browse]")?.addEventListener("click", () => { document.querySelector("#filter-query")?.focus({preventScroll:true}); document.querySelector("#discover")?.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"}); });
   document
     .querySelectorAll("[data-vgallery]")
     .forEach(
