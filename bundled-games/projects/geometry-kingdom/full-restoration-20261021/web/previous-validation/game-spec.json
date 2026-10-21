@@ -1,0 +1,184 @@
+{
+  "title": "几何王国",
+  "category": "放置战斗 / 阵容策略",
+  "scope": "本地五关规则重建版：原Cocos场景、角色、布阵与战斗；新增金币升级至5级。关卡奖励100金币，升级费用100/150/200/250金币；生命、物理伤害、魔法伤害、防御每级增加基础值的20%。不代表原服务器数值；联网、商业化、其他养成未恢复。",
+  "controls": [
+    "点击地图骷髅进入布阵",
+    "点击英雄切换上阵；开始战斗后自动战斗",
+    "胜利后点击空白返回地图，再点骷髅进入下一关",
+    "英雄页选择角色，点击升级；金币不足时不能升级。",
+    "失败后再次挑战，点击另一英雄加入阵容，再开始战斗。"
+  ],
+  "mechanics": [
+    "2个初始角色，5个单波本地关卡",
+    "敌方原英雄101的基础数值按0.55至0.95缩放",
+    "客户端原战斗产生胜负；本地结算幂等发放100金币",
+    "刷新恢复进度；不提供联网防作弊",
+    "金币升级与关卡奖励共用本地存档；战斗中禁止升级。"
+  ],
+  "states": [
+    "主界面",
+    "布阵",
+    "战斗",
+    "胜负结算",
+    "下一关",
+    "五关完成"
+  ],
+  "unknowns": [],
+  "dependencies": [
+    "Cocos Creator 2.4.15客户端发布代码和原资源",
+    "local-campaign.js为可编辑规则、结算与存档模块",
+    "静态HTTP服务及浏览器localStorage；无需原API/微信运行环境"
+  ],
+  "reuse": [
+    "已验证可复用：独立local-campaign.js通过注入配置和存储实现协议、阵容校验、幂等结算",
+    "需拆解适配：原战斗、角色、技能、UI等发布JS模块依赖Cocos与原资源",
+    "未验证：跨游戏移植、原服务器数值一致性、全商业功能；原代码不是原作者工程"
+  ],
+  "evidence": [
+    "validation/growth-report.json",
+    "validation/defeat-report.json",
+    "DIFFERENCES.md"
+  ],
+  "cases": [
+    {
+      "id": "startup",
+      "mode": "browser",
+      "expected": "原主场景加载且无运行错误",
+      "reason": "",
+      "steps": [
+        {
+          "type": "wait",
+          "ms": 6500
+        },
+        {
+          "type": "expect_scene",
+          "value": "MainScene"
+        },
+        {
+          "type": "expect_no_errors"
+        }
+      ]
+    },
+    {
+      "id": "campaign-and-save",
+      "mode": "browser",
+      "expected": "原角色完成首关战斗，奖励100金币，进入第二关并刷新保留进度",
+      "reason": "",
+      "steps": [
+        {
+          "type": "wait",
+          "ms": 6500
+        },
+        {
+          "type": "expect_scene",
+          "value": "MainScene"
+        },
+        {
+          "type": "expect_no_errors"
+        },
+        {
+          "type": "click",
+          "selector": "#GameCanvas",
+          "x": 511,
+          "y": 510
+        },
+        {
+          "type": "wait",
+          "ms": 3500
+        },
+        {
+          "type": "click",
+          "selector": "#GameCanvas",
+          "x": 281,
+          "y": 945
+        },
+        {
+          "type": "wait",
+          "ms": 15000
+        },
+        {
+          "type": "expect_storage",
+          "key": "geometry-local-campaign-v1",
+          "path": "localBattle.settled",
+          "value": true
+        },
+        {
+          "type": "expect_storage",
+          "key": "geometry-local-campaign-v1",
+          "path": "localBattle.result.win",
+          "value": true
+        },
+        {
+          "type": "expect_storage",
+          "key": "geometry-local-campaign-v1",
+          "path": "resource.gold",
+          "value": 100
+        },
+        {
+          "type": "wait",
+          "ms": 1600
+        },
+        {
+          "type": "click",
+          "selector": "#GameCanvas",
+          "x": 281,
+          "y": 850
+        },
+        {
+          "type": "wait",
+          "ms": 1200
+        },
+        {
+          "type": "click",
+          "selector": "#GameCanvas",
+          "x": 511,
+          "y": 510
+        },
+        {
+          "type": "wait",
+          "ms": 3200
+        },
+        {
+          "type": "expect_storage",
+          "key": "geometry-local-campaign-v1",
+          "path": "barrierInfo.barrierId",
+          "value": 2
+        },
+        {
+          "type": "reload"
+        },
+        {
+          "type": "wait",
+          "ms": 6500
+        },
+        {
+          "type": "expect_storage",
+          "key": "geometry-local-campaign-v1",
+          "path": "barrierInfo.barrierId",
+          "value": 2
+        },
+        {
+          "type": "expect_no_errors"
+        }
+      ]
+    },
+    {
+      "id": "growth-five-stages",
+      "mode": "manual",
+      "expected": "原英雄页升级扣费、属性增长、余额不足不升级、刷新保存并完成五关",
+      "reason": "由独立Playwright脚本validation/verify-growth.cjs执行；共享声明式执行器尚不支持场景节点定位和隔离存档夹具。",
+      "steps": []
+    },
+    {
+      "id": "defeat-retry",
+      "mode": "manual",
+      "expected": "隔离第五关单火女真实战败；再次挑战加入骑士，原战斗获胜且只奖励100金币",
+      "reason": "由独立Playwright脚本validation/verify-defeat.cjs执行；共享声明式执行器尚不支持场景节点定位和隔离存档夹具。",
+      "steps": []
+    }
+  ],
+  "digest": "9c88a1a5a1121f29cdc7da28a88c23096036449b80a193d247de33c37526c132",
+  "revision": 4,
+  "updated_at": "2026-10-21T05:08:41+00:00"
+}

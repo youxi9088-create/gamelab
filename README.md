@@ -2,6 +2,8 @@
 
 本地管理平台：游戏发现、资源采集与 REA 分析、现有引擎适配、AI 续作、浏览器验证、人工验收、版本库与下游模板供货。
 
+九款已入库游戏随仓库保存在 [bundled-games](bundled-games/README.md)。首次启动前执行 `python tools/game_snapshot.py restore` 可恢复到空数据目录。
+
 ## 文档入口
 
 | 内容 | 文档 |

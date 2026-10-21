@@ -1,0 +1,27 @@
+{
+  "title": "合成大西瓜 · 开源微信双端移植",
+  "upstream_url": "https://github.com/Amition/minigame-engine",
+  "commit": "2b0b8125309f1394d15206cd1b5b043981a7f4e3",
+  "license": "MIT",
+  "copyright": "2026 Ambition",
+  "acquisition": "authorized open-source clone; not commercial online decompilation",
+  "changes": [
+    "Web adapter loads bundled audio and manifest from embedded bytes for strict CSP sandbox",
+    "Packaged release Web and wx builds with complete source in game-library/projects/wechat-fruit and license"
+  ],
+  "verified": [
+    "TypeScript typecheck",
+    "112 upstream game tests",
+    "web and wx release builds",
+    "Edge real mouse input: start, 28 drops, 19 merges, score 175",
+    "Pause/resume, white-box overflow fixture and restart",
+    "Release IIFE tested under opaque sandbox connect-src none; no page errors"
+  ],
+  "limitations": [
+    "WeChat devtools and real-device runtime not tested",
+    "Wechat project uses touristappid; no store upload",
+    "New upstream engine, not claimed production-proven",
+    "Sandbox storage falls back to session memory"
+  ],
+  "source_project": "projects/wechat-fruit"
+}

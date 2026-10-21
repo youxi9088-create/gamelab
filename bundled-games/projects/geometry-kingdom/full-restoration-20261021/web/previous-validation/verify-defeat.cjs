@@ -1,0 +1,20 @@
+const fs=require('fs');const assert=require('node:assert/strict');const {chromium}=require('../executors/node_modules/playwright');
+const base='F:/youxi/door/game-library/projects/geometry-kingdom/campaign-20261021/';
+const {createCampaign}=require(base+'web/local-campaign.js');const mem=new Map();
+const service=createCampaign({config:JSON.parse(fs.readFileSync(base+'web/local-config.json')),template:JSON.parse(fs.readFileSync(base+'web/local-player-template.json')),storage:{getItem:k=>mem.get(k),setItem:(k,v)=>mem.set(k,v)},id:()=> 'qa-fixture'});
+const fixture=service.dispatch('/basic/login').data;fixture.barrierInfo.barrierId=5;fixture.barrierInfo.troop[1]=[401,0,0,0,0];
+(async()=>{const b=await chromium.launch({channel:'msedge',headless:true});const report={fixture:'Isolated stage 5, level 1 mage alone; no production progress modified',errors:[]};try{
+const c=await b.newContext({viewport:{width:750,height:1334}});const p=await c.newPage();p.on('pageerror',e=>report.errors.push(e.message));
+await p.addInitScript(f=>{if(!localStorage.getItem('geometry-local-campaign-v1'))localStorage.setItem('geometry-local-campaign-v1',JSON.stringify(f))},fixture);
+await p.goto('http://127.0.0.1:5768');await p.waitForFunction(()=>window.cc?.director.getScene()?.name==='MainScene',null,{timeout:45000});await p.waitForTimeout(3000);
+await p.mouse.click(682,680);await p.waitForTimeout(3000);await p.screenshot({path:base+'evidence/solo-formation.png'});
+await p.mouse.click(375,1260);await p.waitForFunction(()=>JSON.parse(localStorage.getItem('geometry-local-campaign-v1')).localBattle?.settled,null,{timeout:90000});
+report.result=await p.evaluate(()=>JSON.parse(localStorage.getItem('geometry-local-campaign-v1')));await p.waitForTimeout(1500);await p.screenshot({path:base+'evidence/defeat.png'});
+assert.equal(report.result.localBattle.result.win,false);assert.equal(report.result.resource.gold,0);assert.equal(report.result.barrierInfo.barrierId,5);
+await p.mouse.click(375,980);await p.waitForTimeout(3000);await p.screenshot({path:base+'evidence/retry-formation.png'});
+await p.mouse.click(234,872);await p.waitForTimeout(1000);await p.screenshot({path:base+'evidence/changed-formation.png'});
+await p.mouse.click(375,1260);
+await p.waitForFunction(()=>{const s=JSON.parse(localStorage.getItem('geometry-local-campaign-v1'));return s.localBattle?.settled&&s.localBattle.result.win},null,{timeout:90000});
+const after=await p.evaluate(()=>JSON.parse(localStorage.getItem('geometry-local-campaign-v1')));assert.equal(after.resource.gold,100);assert.equal(after.barrierInfo.barrierId,5);assert.deepEqual(after.barrierInfo.troop[1].filter(Boolean).sort(),[101,401]);assert.notEqual(after.localBattle.id,report.result.localBattle.id);
+await p.waitForTimeout(1500);await p.screenshot({path:base+'evidence/retry-victory.png'});assert.deepEqual(report.errors,[]);report.retry={win:true,gold:after.resource.gold,troop:after.barrierInfo.troop[1]};report.passed=true;
+}catch(e){report.passed=false;report.failure=e.stack;process.exitCode=1;}finally{fs.writeFileSync(base+'evidence/defeat-report.json',JSON.stringify(report,null,2));await b.close();}console.log({passed:report.passed,failure:report.failure,win:report.result?.localBattle?.result.win});})();

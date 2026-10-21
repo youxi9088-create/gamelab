@@ -1,0 +1,38 @@
+{
+  "source": "F:\\youxi\\door\\game-library\\projects\\geometry-kingdom\\portrait-20261021\\web\\local-config.json",
+  "source_sha256": "ab81aa55a964157663e6ee8349b0ac21e2a59083be33b9799ed7dc348fd71d8f",
+  "heroLevelCosts_count": 200,
+  "level_2": {
+    "id": 2,
+    "level": 2,
+    "upgradeConsumeNum": [
+      100
+    ],
+    "upgradeConsumeType": [
+      "exp"
+    ]
+  },
+  "hangup_first": {
+    "id": 1,
+    "mExp": 40,
+    "mGold": 80,
+    "mPrestige": 40,
+    "passLevel": [
+      1,
+      1,
+      1
+    ]
+  },
+  "confirmed": [
+    "原升级消耗exp，完整保留200条费用",
+    "原UI每小时显示60乘mExp/mGold/mPrestige",
+    "原单级升级UI限制max(roleLevel,10)"
+  ],
+  "unresolved": [
+    "主线barrierConfigs由登录下发，静态配置缺失",
+    "属性增长公式没有恢复，仍保留旧本地20%临时公式",
+    "挂机6小时上限、逐秒向下取整为本地策略",
+    "主线敌人暂仍为101占位；未声称已还原",
+    "队伍等级和声望升级尚未恢复"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "version_id": "v-8c49ecc8dbea",
+  "routing": {
+    "schema_version": 1,
+    "recorded": true,
+    "route": "revision",
+    "label": "沿已有版本续作",
+    "source_kind": "web",
+    "evidence": [
+      "平台已绑定不可变基线版本"
+    ],
+    "missing": [
+      "网页游戏入口：核对完整玩法和原版差异",
+      "游戏配置：核对完整玩法和原版差异",
+      "网页宿主接口：核对完整玩法和原版差异"
+    ],
+    "next_action": "按所选路径执行资源校验、宿主适配和规格测试",
+    "scope": "仅现有 Cocos Web 方案、Cocos 3.5.1/define 原包、内嵌 lib 契约与静态源码；分析不是验收"
+  },
+  "resource_status": "static_pass",
+  "spec_digest": null,
+  "verification_gaps": [
+    "尚未登记固定玩法规格与验收用例"
+  ],
+  "missing_profile_fields": [
+    "玩法类型",
+    "画面维度",
+    "视角与布局",
+    "核心玩法",
+    "核心体验",
+    "操作方式",
+    "游戏流程",
+    "内容规模",
+    "奖励与成长",
+    "存档方式"
+  ],
+  "limitations": [
+    "本地存档替代原站存档，不提交在线排名",
+    "完整玩法与跨游戏业务模块复用未验证"
+  ],
+  "reuse": {
+    "level": "需拆解适配",
+    "editable_files": [
+      "game-0.js",
+      "local-config.js",
+      "local-host.js",
+      "resource-downloads.json",
+      "verification/0fa13fbb-b836-457d-9eaa-beaa54702488-render-comparison.json",
+      "verification/0fa13fbb-b836-457d-9eaa-beaa54702488-revision-1.json",
+      "verification/0fa13fbb-b836-457d-9eaa-beaa54702488-source-fidelity.json",
+      "verification/17b5d7bb-0949-4cd1-8f23-387816418da9-revision-4.json",
+      "verification/17b5d7bb-0949-4cd1-8f23-387816418da9-source-fidelity.json",
+      "verification/28e66dd5-ff12-4984-b3b1-f7ec9f0442d6-revision-2.json",
+      "verification/28e66dd5-ff12-4984-b3b1-f7ec9f0442d6-source-fidelity.json",
+      "verification/6a4c6890-da2e-406b-8f56-e4f826780f8c-revision-1.json",
+      "verification/74ce89f8-3401-4a5b-8389-a4a9361ba574-revision-12.json",
+      "verification/revision-10.json",
+      "verification/revision-3.json"
+    ],
+    "portable_modules": [],
+    "cross_game_verified": false
+  }
+}

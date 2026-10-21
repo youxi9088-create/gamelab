@@ -1,0 +1,106 @@
+{
+  "profile": {
+    "engine": "cocos2",
+    "ready_scene": "Main",
+    "verifier": "cocos2-minesweeper",
+    "bundles": [
+      "internal",
+      "audio",
+      "language",
+      "resources",
+      "main"
+    ],
+    "external_scripts": [
+      {
+        "url": "https://c.17yoo.cn/sdknew/main.js",
+        "adapter": "mini-game-sdk"
+      }
+    ],
+    "patches": [
+      {
+        "file": "index.html",
+        "sha256": "587096c94af4a0b6b05ea9f111941976d54cdb98d611ab400b39f8b1e85fd69a",
+        "replacements": [
+          {
+            "find": "https://c.17yoo.cn/sdknew/main.js",
+            "replace": "local-host.js"
+          }
+        ]
+      },
+      {
+        "file": "style-mobile.c65cd.css",
+        "sha256": "36b2f4be5c4f55492dfeb7fdbc15e58583d062d6ad5485d5879cd8b3048ba416",
+        "replacements": [
+          {
+            "find": "url(./../logo/landscape.gif)",
+            "replace": "none"
+          }
+        ]
+      },
+      {
+        "file": "assets/main/index.dbe26.js",
+        "sha256": "131a8a9e0b1e7bd2db4299f873de6d21e5e04f26687764cdbe62601fcd3179a9",
+        "replacements": [
+          {
+            "find": "e.prototype.onBtnPlay5=function(){s.default.playEffect(\"clicknew\"),cc.log(\"+++++++++++++onBtnPlay5+++++++++\",a.default.LocalInfo.isGameListInfoExit()),a.default.LocalInfo.isGameListInfoExit()?window.MINI_GAME_SDK.video({start:function(){},success:function(){var t=this;a.default.ResourceUtils.loadResourcePrefabs(\"View/MainNode/MainView\",function(e){t.mainView.addChild(e),e.getComponent(\"MainView\").startFight(5)}),u.default.getSingtonInstance().dot()},fail:function(){},end:function(){}}):a.default.EasyLoading.showTips(\"noArchiEvement\")}",
+            "replace": "e.prototype.onBtnPlay5=function(){var t=this;s.default.playEffect(\"clicknew\"),a.default.LocalInfo.isGameListInfoExit()&&a.default.ResourceUtils.loadResourcePrefabs(\"View/MainNode/MainView\",function(e){t.mainView.addChild(e),e.getComponent(\"MainView\").startFight(5)})}"
+          },
+          {
+            "find": "e.prototype.onGameShowQz=function(){var t=this;if(c.default.playEffect(\"clicknew\"),this._isOver)return this.labelTips.getComponent(cc.Label).string=\"\\u672c\\u5c40\\u6e38\\u620f\\u5df2\\u7ed3\\u675f\",this.labelTips.stopAllActions(),this.labelTips.opacity=255,this.labelTips.active=!0,void this.labelTips.runAction(cc.sequence(cc.repeat(cc.sequence(cc.fadeTo(.4,100),cc.fadeTo(.4,255)),3),cc.delayTime(1),cc.callFunc(function(){t.labelTips.active=!1,t.labelTips.opacity=255})));if(!this._isFirstStart)return this.labelTips.getComponent(cc.Label).string=\"\\u8bf7\\u5148\\u7ffb\\u5f00\\u4e00\\u4e2a\\u65b9\\u5757\",this.labelTips.stopAllActions(),this.labelTips.opacity=255,this.labelTips.active=!0,void this.labelTips.runAction(cc.sequence(cc.repeat(cc.sequence(cc.fadeTo(.4,100),cc.fadeTo(.4,255)),3),cc.delayTime(1),cc.callFunc(function(){t.labelTips.active=!1,t.labelTips.opacity=255})));var e=this.onChooseQz(!0);null==e&&(e=this.onChooseQz(!1)),null==e?(this.labelTips.getComponent(cc.Label).string=\"\\u70b8\\u5f39\\u5df2\\u7ecf\\u5168\\u90e8\\u6807\\u8bb0\\u51fa\",this.labelTips.stopAllActions(),this.labelTips.opacity=255,this.labelTips.active=!0,this.labelTips.runAction(cc.sequence(cc.repeat(cc.sequence(cc.fadeTo(.4,100),cc.fadeTo(.4,255)),3),cc.delayTime(1),cc.callFunc(function(){t.labelTips.active=!1,t.labelTips.opacity=255})))):a.default.CommonUtils.playVideo(function(o){1==o&&(t._tFlag[e]=1,t._curMineCount-=1,t.updateMineCount(),t.updateItemView(),t.showWin())})}",
+            "replace": "e.prototype.onGameShowQz=function(){this.labelTips.getComponent(cc.Label).string=\"本地版不提供广告提示\",this.labelTips.active=!0}"
+          },
+          {
+            "find": "5==t?(cc.log(\"++++++++++++startFight+++++++++++++++++++\",r),this._curDiffer=r._curDiffer)",
+            "replace": "5==t?(this._cusW=r._cusW,this._cusH=r._cusH,this._cusM=r._cusM,this._curDiffer=r._curDiffer)"
+          },
+          {
+            "find": "o._curDiffer=this._curDiffer,o._tNum=this._tNum",
+            "replace": "o._cusW=this._cusW,o._cusH=this._cusH,o._cusM=this._cusM,o._curDiffer=this._curDiffer,o._tNum=this._tNum"
+          },
+          {
+            "find": "o.cancelCallback=function(){a.default.CommonUtils.playVideo(function(){u.default.getSingtonInstance().dot(),a.default.ResourceUtils.loadResourcePrefabs(\"View/MainNode/MainView\",function(t){e.mainView.addChild(t),t.getComponent(\"MainView\").startFight(5)})})}",
+            "replace": "o.cancelCallback=function(){a.default.ResourceUtils.loadResourcePrefabs(\"View/MainNode/MainView\",function(t){e.mainView.addChild(t),t.getComponent(\"MainView\").startFight(5)})}"
+          },
+          {
+            "find": "return null!=this._levelInfo.lastInfo&&(this._levelInfo.lastInfo._curDiffer,!1)",
+            "replace": "return null!=this._levelInfo.lastInfo&&this._levelInfo.lastInfo._curDiffer>0"
+          },
+          {
+            "find": "this.onBtnContinue.active=!0:this.onBtnContinue.active=!1",
+            "replace": "(this.onBtnContinue.active=!0,this.onBtnContinue.setPosition(this.onBtnContinue.parent.convertToNodeSpaceAR(cc.v2(cc.winSize.width*.82,cc.winSize.height*.18)))):this.onBtnContinue.active=!1"
+          }
+        ]
+      }
+    ],
+    "delivery_notes": "本地单人扫雷：保留原生成雷区、揭开、插旗、计时、结算与最佳成绩；继续游戏不要求广告。补齐自定义棋盘尺寸存档。无原站广告和在线排名。",
+    "game_profile": {
+      "category": "益智 / 扫雷",
+      "dimension": "2D",
+      "perspective": "平面棋盘",
+      "core_gameplay": "揭开安全格，按相邻雷数推断并插旗，避开地雷。",
+      "core_experience": "数字推理、风险选择与计时挑战。",
+      "controls": "鼠标左键揭开、右键插旗；界面可切换操作模式。",
+      "game_loop": "选难度—揭开与标记—成功或失败—重试或返回；可刷新继续未完成棋局。",
+      "content": "初级9×9/10雷，中级16×9/40雷，高级30×16/99雷，自定义棋盘。",
+      "progression": "记录各难度最佳用时。",
+      "save": "浏览器本地保存未完成棋局与最佳成绩。"
+    }
+  },
+  "changes": [
+    {
+      "file": "index.html",
+      "original_sha256": "587096c94af4a0b6b05ea9f111941976d54cdb98d611ab400b39f8b1e85fd69a",
+      "adapted_sha256": "036b7ab37c4c27052bd0d80f993905e3be8da7f6fa4e41846e5c61b85daad788"
+    },
+    {
+      "file": "style-mobile.c65cd.css",
+      "original_sha256": "36b2f4be5c4f55492dfeb7fdbc15e58583d062d6ad5485d5879cd8b3048ba416",
+      "adapted_sha256": "341d51e739e896c9613c7face56710952c1d5d2eab70f799070ede424a80bfde"
+    },
+    {
+      "file": "assets/main/index.dbe26.js",
+      "original_sha256": "131a8a9e0b1e7bd2db4299f873de6d21e5e04f26687764cdbe62601fcd3179a9",
+      "adapted_sha256": "aa1cdce1b363175d2df98f7e90427af373f5257974d8b39ef70943246c90eb91"
+    }
+  ]
+}

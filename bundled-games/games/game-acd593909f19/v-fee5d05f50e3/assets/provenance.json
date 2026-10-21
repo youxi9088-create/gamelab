@@ -1,0 +1,131 @@
+{
+  "source": "4k99 5234 / 微信小游戏原始缓存Unity资源",
+  "used_resources": [
+    {
+      "bundle": "14.bundle",
+      "id": "5428396281817977130",
+      "type": "Mesh",
+      "name": "jake_Mesh",
+      "path": "meshes/14_5428396281817977130_jake_Mesh.json",
+      "vertices": 1230
+    },
+    {
+      "bundle": "2.bundle",
+      "id": "-7204417583319942860",
+      "type": "Texture2D",
+      "name": "props_tex",
+      "path": "textures/2_-7204417583319942860_props_tex.png",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "bundle": "2.bundle",
+      "id": "-7185562361706514671",
+      "type": "Mesh",
+      "name": "currency_coin",
+      "path": "meshes/2_-7185562361706514671_currency_coin.json",
+      "vertices": 85
+    },
+    {
+      "bundle": "2.bundle",
+      "id": "-6131116581919049601",
+      "type": "Texture2D",
+      "name": "Luoyang_environment",
+      "path": "textures/2_-6131116581919049601_Luoyang_environment.png",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "bundle": "4.bundle",
+      "id": "-6668723308550715338",
+      "type": "Mesh",
+      "name": "med_01_left",
+      "path": "meshes/4_-6668723308550715338_med_01_left.json",
+      "vertices": 3338
+    },
+    {
+      "bundle": "4.bundle",
+      "id": "1170457709394845258",
+      "type": "Texture2D",
+      "name": "props_tex",
+      "path": "textures/4_1170457709394845258_props_tex.png",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "bundle": "4.bundle",
+      "id": "1201736264032383771",
+      "type": "Mesh",
+      "name": "ground",
+      "path": "meshes/4_1201736264032383771_ground.json",
+      "vertices": 28
+    },
+    {
+      "bundle": "4.bundle",
+      "id": "2061558046453292778",
+      "type": "Mesh",
+      "name": "train_standard_LOD0",
+      "path": "meshes/4_2061558046453292778_train_standard_LOD0.json",
+      "vertices": 934
+    },
+    {
+      "bundle": "4.bundle",
+      "id": "3402886252768179896",
+      "type": "Mesh",
+      "name": "track",
+      "path": "meshes/4_3402886252768179896_track.json",
+      "vertices": 387
+    },
+    {
+      "bundle": "4.bundle",
+      "id": "5713399166773495940",
+      "type": "Mesh",
+      "name": "blocker_roll",
+      "path": "meshes/4_5713399166773495940_blocker_roll.json",
+      "vertices": 869
+    },
+    {
+      "bundle": "4.bundle",
+      "id": "7859319720102355641",
+      "type": "Mesh",
+      "name": "blocker_jump",
+      "path": "meshes/4_7859319720102355641_blocker_jump.json",
+      "vertices": 456
+    },
+    {
+      "bundle": "9.bundle",
+      "id": "130001134351505729",
+      "type": "Texture2D",
+      "name": "jake_tex_low",
+      "path": "textures/9_130001134351505729_jake_tex_low.png",
+      "width": 256,
+      "height": 256
+    }
+  ],
+  "animation_files": [
+    "jake-skeleton.json",
+    "jake-clips.json"
+  ],
+  "audio": [
+    "audio/4_1468199407134043205_music_luoyang_music_luoyang.m4a",
+    "audio/4_5701420766982499548_Hr_H_crash_Hr_H_crash.m4a"
+  ],
+  "adaptations": [
+    "Unity原始网格/UV/贴图保留，Three.js材质与光照适配",
+    "Jake原骨骼和解码原clip run/jump/roll，移动及碰撞为网页新逻辑",
+    "金币剔除Y<-5的远端分离辅助三角，保留主体网格",
+    "关卡为程序生成布局，未完整还原原游戏关卡和系统",
+    "地面/建筑按浏览器跑道尺度重排；未使用旧Canvas占位美术"
+  ],
+  "current_scenery": {
+    "source": "小女孩跑酷unity-2021.3.4f1.zip",
+    "manifest": "runner-scenery/provenance.json",
+    "slots": [
+      "building",
+      "track",
+      "ground",
+      "barrier",
+      "overhead"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Synty 资源替换实验</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#101c2c;color:#edf6ff;font:14px system-ui;height:100vh;display:flex;flex-direction:column;align-items:center}header{padding:12px;display:flex;align-items:center;gap:24px}button,a{color:inherit}button{background:#2c475e;border:1px solid #638098;border-radius:6px;padding:6px 14px;cursor:pointer}#stage{position:relative;flex:1;min-height:0;aspect-ratio:9/16;max-width:100vw}canvas{width:100%;height:100%;display:block;background:#15293e}#loading{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:25px;background:#15293e}progress{width:240px;max-width:80vw}footer{padding:8px;color:#b4c6d8;font-size:12px}#error{white-space:pre-wrap;max-width:600px;color:#ffbfab}</style>
+<header><strong>Frost Land · Synty 树石全量替换 · 无广告版</strong><button id="fullscreen">全屏</button></header>
+<div id="stage"><canvas id="game" tabindex="0"></canvas><div id="loading"><p id="status">正在加载本地游戏资源…</p><progress id="progress" max="1" value="0"></progress><p id="error"></p></div></div>
+<footer>WASD / 方向键 / 鼠标移动 · 树木、树桩与岩石全量替换 · 广告入口已移除</footer>
+<script>
+const variant=new URLSearchParams(location.search);if(variant.has('original')||variant.has('direct')){document.querySelector('header strong').textContent=variant.has('direct')?'原包图形模式对照测试':'原始资源包对照测试';document.querySelector('footer').textContent='诊断对照：当前未加载 Synty 替换资源';}
+const log=(type,message)=>fetch('/__log',{method:'POST',body:JSON.stringify({type,message:String(message).slice(0,6000)})}).catch(()=>{});
+window.addEventListener('error',e=>log('error',e.message));window.addEventListener('unhandledrejection',e=>log('rejection',e.reason));
+let beats=0;setInterval(()=>{if(beats++<12)log('heartbeat',beats)},5000);log('variant',location.search||'patched');const originalError=console.error;console.error=(...a)=>{log('console.error',a.join(' '));originalError.apply(console,a)};
+</script><script src="Build/game.loader.js"></script><script>
+createUnityInstance(document.querySelector('#game'),{
+ dataUrl:'Build/full-replacement.data',frameworkUrl:'Build/no-ads.framework.js',codeUrl:'Build/game.wasm',streamingAssetsUrl:'StreamingAssets',
+ companyName:'UltraGames Entertainment',productName:'Frost Land',productVersion:'132',
+ print:message=>{log('unity',message);console.log(message)},printErr:message=>{log('unity-error',message);console.warn(message)},
+ showBanner:(message,type)=>{log(type,message);if(type==='error')document.querySelector('#error').textContent=message}
+},value=>document.querySelector('#progress').value=value).then(instance=>{
+ window.gameInstance=instance;document.querySelector('#loading').style.display='none';document.querySelector('#game').focus();log('ready','Unity initialized');
+ document.querySelector('#fullscreen').onclick=()=>instance.SetFullscreen(1);
+}).catch(error=>{document.querySelector('#status').textContent='启动未完成';document.querySelector('#error').textContent=String(error);log('startup failed',error)});
+</script></html>
+
+
+
+
+
+
+
+

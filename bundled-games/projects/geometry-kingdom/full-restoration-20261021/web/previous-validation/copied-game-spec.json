@@ -1,0 +1,50 @@
+{
+  "title": "几何王国",
+  "category": "放置战斗 / 阵容策略",
+  "scope": "还原开发副本：原经验费用、挂机首档收益和界面；主线敌人和属性公式仍待核对。",
+  "controls": [
+    "巡逻窗口领取资源",
+    "英雄页选择角色并升级",
+    "布阵战斗并推进五关"
+  ],
+  "mechanics": [
+    "挂机首档每分钟80金币、40经验和40声望",
+    "英雄升级消耗原表中的经验",
+    "当前队伍等级下英雄上限10级"
+  ],
+  "states": [
+    "主界面",
+    "巡逻收益",
+    "英雄升级",
+    "布阵",
+    "战斗",
+    "结算"
+  ],
+  "unknowns": [
+    "主线敌方映射和波次",
+    "服务端升级属性公式",
+    "声望与队伍等级推进",
+    "升星与装备材料来源"
+  ],
+  "dependencies": [
+    "Cocos Creator 2.4.15客户端发布代码和原资源",
+    "local-campaign.js为可编辑规则、结算与存档模块",
+    "静态HTTP服务及浏览器localStorage；无需原API/微信运行环境"
+  ],
+  "reuse": [
+    "本地规则可编辑且已测试；原Cocos模块跨游戏移植未验证"
+  ],
+  "evidence": [
+    "validation/source-audit.json",
+    "validation/progression-browser.json"
+  ],
+  "cases": [
+    {
+      "id": "experience-progression",
+      "mode": "manual",
+      "expected": "原挂机窗口领取经验，原英雄页升级只扣经验并刷新保存",
+      "reason": "独立Playwright测试 evidence/progression-browser.json",
+      "steps": []
+    }
+  ]
+}

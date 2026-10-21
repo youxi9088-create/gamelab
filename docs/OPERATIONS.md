@@ -31,7 +31,9 @@
 
 停写后分别备份：平台 data（数据库、配置、任务材料）、game-library（完整独立 Git 历史与产物）、原包服务私有 data，以及供货分发目录。密钥与备份使用受控存储，不通过本源码仓库迁移。
 
-新主机恢复相同数据，核对 Python/Node/浏览器、源资源目录、试玩地址、原包 key 与供货下载地址后启动。单独 git clone 只得到代码和示例，不包含原机器的九款游戏、微信缓存或私人配置。
+新主机恢复相同数据，核对 Python/Node/浏览器、源资源目录、试玩地址、原包 key 与供货下载地址后启动。仓库另包含 bundled-games 九款游戏快照，不含微信缓存或私人配置。
+
+干净克隆后，在首次启动平台前执行 `python tools/game_snapshot.py restore`，将九款游戏恢复到空 data 目录，再正常启动。也可指定 `--data-dir data-restored` 并以 `python server.py --data-dir data-restored` 启动。恢复拒绝已有非空目录，不覆盖生产记录；不包含任务对话、用量、历史轮次和供货记录。完整性检查：`python tools/game_snapshot.py verify`。
 
 ## 故障定位
 
