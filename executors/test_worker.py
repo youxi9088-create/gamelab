@@ -38,10 +38,10 @@ class WorkerTests(unittest.TestCase):
         self.assertEqual(result['outcome'], 'blocked')
         self.assertNotIn('artifact_id', result)
 
-    def test_missing_observations_blocks(self):
+    def test_missing_observations_asks_for_input(self):
         client = Client()
         worker.execute(client, {'id':'unit-no-observations', 'lease_token':'test', 'stage':'reconstruct', 'input':{}})
-        self.assertEqual(client.calls[-1][1]['outcome'], 'blocked')
+        self.assertTrue(client.calls[-1][0].endswith('/ask'))
 
     def test_ai_key_missing_blocks(self):
         with patch.dict('os.environ', {}, clear=True):

@@ -1,6 +1,10 @@
 # 独立执行器
 
+> 当前端到端路径与预算边界以 [转换流程](../docs/AUTO-CONVERSION.md) 和 [服务要求](../docs/SERVICE_REQUIREMENTS.md) 为准。本文早期 A/B 路径之外，已有原包转换、登记 Web 配置、内嵌 HTML/lib 适配与检查点续作。
+
 此目录独立于管理站点和试玩服务。Python 3.11+ 标准库执行器通过公开 HTTP 接口领取任务、保持租约、上传产物并回传结果。支持多个进程，以平台原子任务领取与租约校验避免重复写入。
+
+平台启动时已自动注册并启动内置执行器，自动处理链接提交任务；下列手工启动方式用于原有手动批次和调试。详见 [链接自动转换服务](../docs/AUTO-CONVERSION.md)。
 
 ## 安装和启动
 
@@ -8,7 +12,7 @@
 
 ```powershell
 $env:PLATFORM_URL = 'http://127.0.0.1:8765'
-$env:PLATFORM_TOOL_TOKEN = '<在工具接入页注册工具取得的凭证>'
+$env:PLATFORM_TOOL_TOKEN = '<由运维通过管理员 POST /api/tools 注册取得的凭证>'
 $env:NODE_BINARY = '<node 可执行文件绝对路径>'
 python executors/worker.py --once
 # 持续领取任务：去掉 --once
@@ -54,7 +58,7 @@ $env:REPLICA_AI_API_KEY = '<secret>'
 - `POST /api/v1/artifacts`：`job_id`, `lease_token`, 文本 `files`, `entry`, `report`。
 - `POST /api/v1/jobs/{id}/complete`：租约、唯一事件 ID、结果、原因、报告和可选产物 ID。
 
-所有调用使用 Bearer 工具凭证。工具凭证不写入日志。模型密钥仅从环境读取，不提交到 Git。源路径必须是管理员可信选择，不能直接信任任意外部采集器提供的服务器路径。生产 worker 应运行在独立低权限环境。
+所有调用使用 Bearer 工具凭证。工具凭证不写入日志。模型配置优先读取平台 `data/services.json`，未保存配置时兼容上述环境变量；密钥不提交到 Git。独立部署时用 `REPLICA_SERVICE_CONFIG` 指定配置文件，详见 [服务配置](../docs/SERVICES.md)。源路径必须是管理员可信选择，不能直接信任任意外部采集器提供的服务器路径。生产 worker 应运行在独立低权限环境。
 
 ## 验证与研究边界
 
@@ -69,9 +73,11 @@ $env:REPLICA_AI_API_KEY = '<secret>'
 - https://github.com/PlayableIntelligence/game-creator — 2D/3D 游戏工程与 QA 流程参考，未声称安装或实测该插件。
 - https://github.com/leigest519/OpenGame — 生成和迭代架构参考，未声称接入该项目。
 
-当前 AI 服务凭证未提供，因此真实模型端到端运行尚未验证。源码整理和模型生成产物均须经过平台验收，不会自动公开上架。
+真实模型的可用性取决于部署账户的 Codex 登录或 API 配置。仓库隔离回归使用本地假模型，只验证协议与修复流程，不代表真实模型质量。源码整理和生成产物均须经过人工验收，不自动公开上架。
 
 独立采集器示例（只提交明确提供的本地资源包，URL 作为来源记录，不自动抓取）：
+
+交付报告应包含 `game_profile` 对象，所有字段为文字：`category`、`dimension`（2D/3D/2.5D/混合）、`perspective`、`core_gameplay`、`core_experience`、`controls`、`game_loop`、`content`（实际数量）、`progression`、`save`。只描述交付游戏的事实，不写复刻过程；未知字段留空。共享入库服务生成文字说明书和 JSON 档案；空字段会使索引标为 incomplete，不能声称档案完成。下游 AI 从 `catalog/index.json` 查找游戏，再按 specification 路径读取全文。
 
 ```powershell
 python executors/collector.py --url https://example.com/owned-game --title "自有样例" --directory executors/fixtures/orbit-catch --rights owned

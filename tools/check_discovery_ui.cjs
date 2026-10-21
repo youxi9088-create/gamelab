@@ -1,0 +1,41 @@
+const {chromium}=require('../executors/node_modules/playwright');
+const assert=require('assert/strict');
+(async()=>{
+ const browser=await chromium.launch({channel:'msedge',headless:true});
+ try {
+  const page=await browser.newPage({viewport:{width:1360,height:960}}), errors=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(process.argv[2]+'/#discovery');
+  await page.getByRole('heading',{name:'采集建议',exact:true}).waitFor();
+  assert.equal(await page.locator('[data-recommendation]').count(),2);
+  assert.equal(await page.getByRole('table',{name:'采集建议列表'}).count(),1);
+  assert.equal(await page.locator('.discovery-group').count(),2);
+  await page.locator('#discovery-category').selectOption({label:'益智 · 1'});
+  assert.equal(await page.locator('[data-recommendation]').count(),1);
+  await page.locator('[data-recommendation]').check();
+  await page.locator('#discovery-category').selectOption('');
+  assert.equal(await page.locator('[data-recommendation]:checked').count(),0);
+  await page.locator('#discovery-source').selectOption({label:'fixture · 2'});
+  assert.equal(await page.locator('[data-recommendation]').count(),2);
+  await page.locator('#discovery-source').selectOption('');
+  await page.locator('.discovery-description summary').first().click();
+  assert(await page.locator('.discovery-description details').first().evaluate(el=>el.open));
+  await page.locator('[data-recommendation]').first().check();
+  await page.locator('[data-discovery-decision="approve"]').click();
+  await page.waitForFunction(()=>document.querySelectorAll('[data-recommendation]').length===1);
+  await page.locator('[data-recommendation]').first().check();
+  await page.locator('[data-discovery-decision="reject"]').click();
+  await page.getByText('当前没有对应清单',{exact:true}).waitFor();
+  await page.locator('#discovery-status').selectOption('pending_capture');
+  assert.equal(await page.locator('[data-recommendation]').count(),1);
+  await page.screenshot({path:'qa-output/discovery-desktop.png',fullPage:true});
+  await page.setViewportSize({width:390,height:844});
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+  await page.screenshot({path:'qa-output/discovery-mobile.png',fullPage:true});
+  await page.locator('[data-discovery-settings]').click();
+  await page.locator('[name="hour"]').fill('10');
+  await page.locator('#discovery-settings-form .primary').click();
+  await page.getByText(/每天北京时间 10:00/).waitFor();
+  assert.deepEqual(errors,[]);
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exit(1)});

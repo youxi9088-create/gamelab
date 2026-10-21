@@ -1,0 +1,107 @@
+"""Append-only inference usage. Missing provider usage/pricing is never zero cost."""
+from datetime import datetime,timedelta,timezone
+import math
+from .store import now
+
+def record(store,db,job,value,pricing):
+    if not isinstance(value,dict):raise ValueError('用量记录格式错误')
+    key=str(value.get('call_id',''))
+    if not key or len(key)>80:raise ValueError('缺少调用 ID')
+    key=job['id']+':'+key
+    existing=store.get(db,'ai_usage',key)
+    if existing:return existing
+    row={k:str(value.get(k,''))[:120] for k in ('provider','model','status','stage')}
+    row.update(id=key,job_id=job['id'],candidate_id=job['candidate_id'],round=job.get('round',1),created_at=now())
+    for name in ('input_tokens','output_tokens'):
+        n=value.get(name)
+        if n is not None and (type(n)!=int or not 0<=n<=1_000_000_000):raise ValueError('Token 数量无效')
+        row[name]=n
+    seconds=value.get('duration_seconds',0)
+    if not isinstance(seconds,(int,float)) or not math.isfinite(seconds) or not 0<=seconds<=86400:raise ValueError('耗时无效')
+    row['duration_seconds']=round(seconds,3);row['estimated_cost']=None;row['currency']=None
+    rate=(pricing or {}).get(row['provider']+':'+row['model'])
+    if rate and all(row[k] is not None for k in ('input_tokens','output_tokens')):
+        row.update(currency=rate['currency'],pricing=rate,
+                   estimated_cost=(row['input_tokens']*rate['input_per_million']+row['output_tokens']*rate['output_per_million'])/1_000_000)
+    return store.put(db,'ai_usage',row)
+
+def validate_pricing(value):
+    if not isinstance(value,dict) or len(value)>100:raise ValueError('价格表格式错误')
+    result={}
+    for key,row in value.items():
+        if not isinstance(key,str) or ':' not in key or len(key)>240 or not isinstance(row,dict):raise ValueError('价格键应为 provider:model')
+        if row.get('currency') not in ('CNY','USD'):raise ValueError('币种须为 CNY 或 USD')
+        for field in ('input_per_million','output_per_million'):
+            n=row.get(field)
+            if type(n) not in (int,float) or not math.isfinite(n) or not 0<=n<=1_000_000:raise ValueError('每百万 Token 价格无效')
+        result[key]={k:row[k] for k in ('currency','input_per_million','output_per_million')}
+    return result
+
+def aggregate(rows,period='day'):
+    result={};tz=timezone(timedelta(hours=8))
+    for row in rows:
+        day=datetime.fromisoformat(row['created_at']).astimezone(tz).date()
+        bucket=day.isoformat() if period=='day' else (day-timedelta(days=day.weekday())).isoformat() if period=='week' else day.strftime('%Y-%m')
+        key=(bucket,row['candidate_id'],row['stage']);r=result.setdefault(key,dict(period=bucket,candidate_id=row['candidate_id'],stage=row['stage'],calls=0,input_tokens=0,output_tokens=0,unknown_usage_calls=0,unknown_cost_calls=0,duration_seconds=0,costs={}))
+        r['calls']+=1;r['duration_seconds']+=row['duration_seconds']
+        for field in ('input_tokens','output_tokens'):r[field]+=row.get(field) or 0
+        if row.get('input_tokens') is None or row.get('output_tokens') is None:r['unknown_usage_calls']+=1
+        if row.get('estimated_cost') is None:r['unknown_cost_calls']+=1
+        else:r['costs'][row['currency']]=r['costs'].get(row['currency'],0)+row['estimated_cost']
+    return sorted(result.values(),key=lambda x:(x['period'],x['candidate_id'],x['stage']),reverse=True)
+
+def operations(events,jobs,period='day'):
+    owners={j['id']:j['candidate_id'] for j in jobs};starts={};rows={};tz=timezone(timedelta(hours=8))
+    for e in sorted(events,key=lambda x:x.get('created_at','')):
+        if not e.get('node') or e.get('job_id') not in owners:continue
+        key=(e['job_id'],e.get('round'),e.get('attempt'),e['node'])
+        if e.get('node_status')=='running':starts[key]=e;continue
+        if e.get('node_status') not in ('succeeded','failed','cancelled') or key not in starts:continue
+        start=starts.pop(key);end=datetime.fromisoformat(e['created_at']);day=end.astimezone(tz).date()
+        bucket=day.isoformat() if period=='day' else (day-timedelta(days=day.weekday())).isoformat() if period=='week' else day.strftime('%Y-%m')
+        group=(bucket,owners[e['job_id']],e['node'])
+        r=rows.setdefault(group,dict(period=bucket,candidate_id=group[1],stage=e['node'],executions=0,failed=0,duration_seconds=0))
+        r['executions']+=1;r['failed']+=e['node_status']!='succeeded';r['duration_seconds']+=max(0,(end-datetime.fromisoformat(start['created_at'])).total_seconds())
+    return sorted(rows.values(),key=lambda r:r['period'],reverse=True)
+
+
+def game_totals(candidates, jobs, events, usage):
+    """Recorded execution time: union intervals, excluding queue/review waits."""
+    owners={j['id']:j['candidate_id'] for j in jobs}
+    rows={c['id']:dict(candidate_id=c['id'],calls=0,input_tokens=0,output_tokens=0,
+          unknown_usage_calls=0,known_token_fields=0,input_known_calls=0,output_known_calls=0,duration_seconds=None,unpaired_events=0)
+          for c in candidates if not c.get('observations',{}).get('catalog_hidden')}
+    intervals={cid:[] for cid in rows};starts={}
+    for e in sorted(events,key=lambda x:x.get('created_at','')):
+        cid=owners.get(e.get('job_id'))
+        if cid not in rows or e.get('node') not in ('identify','acquire','analysis','adapt','test','delivery'):continue
+        key=(e['job_id'],e.get('round'),e.get('attempt'),e['node'])
+        if e.get('node_status')=='running':
+            if key in starts:rows[cid]['unpaired_events']+=1
+            starts[key]=e['created_at']
+        elif e.get('node_status') in ('succeeded','failed','cancelled'):
+            start=starts.pop(key,None)
+            if start:
+                a=datetime.fromisoformat(start);b=datetime.fromisoformat(e['created_at'])
+                if b>=a:intervals[cid].append((a,b))
+                else:rows[cid]['unpaired_events']+=1
+            else:rows[cid]['unpaired_events']+=1
+    for key in starts:rows[owners[key[0]]]['unpaired_events']+=1
+    for cid,spans in intervals.items():
+        merged=[]
+        for a,b in sorted(spans):
+            if merged and a<=merged[-1][1]:merged[-1]=(merged[-1][0],max(b,merged[-1][1]))
+            else:merged.append((a,b))
+        if merged:rows[cid]['duration_seconds']=sum((b-a).total_seconds() for a,b in merged)
+    seen=set()
+    for u in usage:
+        cid=u.get('candidate_id');uid=u.get('id')
+        if cid not in rows or (uid and uid in seen):continue
+        if uid:seen.add(uid)
+        r=rows[cid];r['calls']+=1
+        for field in ('input_tokens','output_tokens'):
+            r[field]+=u.get(field) or 0
+            r['known_token_fields']+=u.get(field) is not None
+            r['input_known_calls' if field=='input_tokens' else 'output_known_calls']+=u.get(field) is not None
+        if u.get('input_tokens') is None or u.get('output_tokens') is None:r['unknown_usage_calls']+=1
+    return list(rows.values())

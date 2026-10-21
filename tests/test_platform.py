@@ -40,11 +40,11 @@ class PlatformTest(unittest.TestCase):
     def claim(self, tool=None):
         return self.s.mutate('/api/v1/jobs/claim', {'capabilities': ['rea', 'reconstruct']}, tool or self.tool)['job']
 
-    def completion(self, job, outcome='recovered'):
+    def completion(self, job, outcome='recovered', report=None):
         artifact = self.s.mutate('/api/v1/artifacts', {'job_id': job['id'], 'lease_token': job['lease_token'],
             'files': {'index.html': '<html><body>Owned test fixture</body></html>', 'src/main.js': 'const version = 1;'}, 'entry': 'index.html'}, self.tool)
         return self.s.mutate('/api/v1/jobs/' + job['id'] + '/complete', {'lease_token': job['lease_token'],
-            'outcome': outcome, 'artifact_id': artifact['artifact_id'], 'report': {'smoke': True}}, self.tool)['job']
+            'outcome': outcome, 'artifact_id': artifact['artifact_id'], 'report': report or {'smoke': True}}, self.tool)['job']
 
     def expect_error(self, status, call):
         with self.assertRaises(ApiError) as error:
@@ -139,7 +139,10 @@ class PlatformTest(unittest.TestCase):
         endpoint = '/api/versions/' + vid
         self.expect_error(409, lambda: self.s.mutate(endpoint + '/publish', {}))
         checks = {'gameplay': True, 'visual': True, 'rights': True}
-        self.expect_error(400, lambda: self.s.mutate(endpoint + '/approve', {'checks': checks}))
+        self.s.mutate(endpoint + '/approve', {'checks': checks})
+        self.expect_error(400, lambda: self.s.mutate(endpoint + '/publish', {}))
+        with self.s.store.tx() as db:
+            version=self.s.get(db,'versions',vid);version['status']='review';self.s.store.put(db,'versions',version)
         self.s.mutate('/api/candidates/' + candidate['id'] + '/update', {'rights': 'owned'})
         self.expect_error(400, lambda: self.s.mutate(endpoint + '/approve', {'checks': {'gameplay': True}}))
         self.s.mutate(endpoint + '/approve', {'checks': checks})

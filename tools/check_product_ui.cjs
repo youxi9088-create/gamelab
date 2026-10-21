@@ -1,0 +1,60 @@
+const {chromium}=require('../executors/node_modules/playwright');
+const assert=require('assert/strict');
+(async()=>{
+ const browser=await chromium.launch({channel:'msedge',headless:true});
+ try{
+  const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(process.argv[2]+'/#library');
+  await page.locator('.gamecard').first().waitFor();
+  assert.equal(await page.locator('.gamecard').count(),8);
+  assert((await page.locator('.gamecard').first().boundingBox()).width<=241);
+  await page.locator('[data-library-category="益智"]').click();
+  assert.equal(await page.locator('.gamecard').count(),4);
+  await page.locator('[data-library-engine="Cocos"]').click();
+  assert.equal(await page.locator('.gamecard').count(),2);
+  await page.waitForTimeout(3300);
+  assert.equal(await page.locator('[data-library-engine="Cocos"]').getAttribute('aria-pressed'),'true');
+  await page.locator('[data-library-reset]').click();
+  assert.equal(await page.locator('.gamecard').count(),8);
+  await page.evaluate(()=>window.scrollTo(0,0));
+  await page.screenshot({path:'qa-output/product-library-desktop.png',fullPage:true});
+  await page.setViewportSize({width:390,height:844});
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+  await page.screenshot({path:'qa-output/product-library-mobile.png',fullPage:true});
+  await page.setViewportSize({width:1440,height:1000});
+  await page.goto(process.argv[2]+'/#jobs');
+  await page.locator('[data-job]').first().click();
+  await page.locator('.task-detail').waitFor();
+  assert.equal(await page.locator('.task-pane:visible').count(),1);
+  await page.locator('[data-task-section="conversation"]').click();
+  await page.waitForTimeout(250);
+  await page.locator('#task-message').fill('保留未发送的隔离验证草稿');
+  await page.waitForTimeout(3500);
+  assert.equal(await page.locator('#task-message').inputValue(),'保留未发送的隔离验证草稿');
+  assert(await page.locator('#task-message').isVisible());
+  await page.locator('[data-task-section="versions"]').click();
+  assert(await page.locator('[data-task-play]').first().isVisible());
+  await page.locator('[data-task-section="evidence"]').click();
+  await page.screenshot({path:'qa-output/product-task-desktop.png',fullPage:true});
+  await page.setViewportSize({width:390,height:844});
+  await page.locator('[data-task-section="conversation"]').click();
+  assert(await page.evaluate(()=>document.querySelector('.modal').scrollWidth<=document.querySelector('.modal').clientWidth+1));
+  await page.screenshot({path:'qa-output/product-task-mobile.png',fullPage:true});
+  await page.getByRole('button',{name:'关闭',exact:true}).click();
+  const audit=[];
+  for(const route of ['overview','candidates','library','jobs','batches','reviews','discovery','tools','settings']){
+   await page.goto(process.argv[2]+'/#'+route);
+   await page.waitForTimeout(200);
+   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),route+' page overflow');
+   const fonts=await page.locator('#page').evaluate(el=>[...new Set([...el.querySelectorAll('h1,h2,h3,p,button,input,select,label,td,small')].filter(e=>e.getClientRects().length).map(e=>getComputedStyle(e).fontFamily))]);
+   audit.push({route,fonts});
+   assert(fonts.every(f=>f.includes('Segoe UI')),route+' has inconsistent font '+fonts);
+   const sizes=await page.locator('#page').evaluate(el=>[...new Set([...el.querySelectorAll('h1,h2,h3,p,td,small')].filter(e=>e.getClientRects().length).map(e=>getComputedStyle(e).fontSize))]);
+   audit[audit.length-1].sizes=sizes;
+   assert(sizes.every(s=>['12px','14px','16px','18px','22px','28px'].includes(s)),route+' inconsistent text scale '+sizes);
+  }
+  require('fs').writeFileSync('qa-output/product-font-audit.json',JSON.stringify(audit,null,2));
+  assert.deepEqual(errors,[]);
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exit(1)});

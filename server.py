@@ -13,6 +13,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
 from controlplane.service import Service, ApiError, require
+from controlplane.service_registry import ServiceRegistry
 
 ROOT=Path(__file__).resolve().parent
 
@@ -86,6 +87,7 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send(200,out.getvalue(),'application/zip')
             if path.startswith('/api/'):
                 self.admin()
+                if path=='/api/services':return self.send(200,self.server.registry.public())
                 if path=='/api/state':return self.send(200,self.server.service.state())
                 if path=='/api/demo':return self.file(ROOT/'web/demo.json',ROOT/'web')
                 if path=='/api/docs':return self.file(ROOT/'docs/API.md',ROOT/'docs')
@@ -123,7 +125,13 @@ class Handler(BaseHTTPRequestHandler):
             try:body=json.loads(self.rfile.read(length))
             except (json.JSONDecodeError,UnicodeDecodeError):raise ApiError(400,'无效的 JSON')
             idem=self.headers.get('Idempotency-Key') or (body.get('event_id') if isinstance(body,dict) else None)
-            result=self.server.service.mutate(path,body,tool,idem)
+            if path in ('/api/supply-service/save','/api/supply-service/check'):
+                result = self.server.supply_service.save(body) if path.endswith('/save') else self.server.supply_service.check()
+            elif path.startswith('/api/services/'):
+                parts=path.strip('/').split('/')
+                require(len(parts)==4 and parts[3] in ('save','test'),'接口不存在',404)
+                result=getattr(self.server.registry,parts[3])(parts[2],body) if parts[3]=='save' else self.server.registry.test(parts[2])
+            else:result=self.server.service.mutate(path,body,tool,idem)
             self.send(200,result)
         except ApiError as e:self.send(e.status,{'error':e.message})
         except (ValueError,TypeError,KeyError) as e:self.send(400,{'error':'参数无效：'+str(e)[:200]})
@@ -143,17 +151,23 @@ class Handler(BaseHTTPRequestHandler):
         if path=='/health':return self.send(200,{'ok':True,'service':'playback'})
         # Independent read-only playback: only registered artifact directories, never repository or API.
         parts=path.strip('/').split('/')
-        require(len(parts)>=3 and parts[0]=='play','试玩版本不存在',404)
+        require(len(parts)>=3 and parts[0] in ('play','runtime'),'试玩版本不存在',404)
         artifact_id=parts[1]
         with self.server.service.store.tx() as db:
-            self.server.service.get(db,'artifacts',artifact_id)
+            artifact=self.server.service.get(db,'artifacts',artifact_id)
+            require(parts[0]!='runtime' or artifact.get('runtime_local'),'版本未启用独立运行',403)
         root=self.server.service.repo.artifacts/artifact_id
         csp="sandbox allow-scripts; default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors http://127.0.0.1:* http://localhost:*"
+        if parts[0]=='runtime':
+            csp="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
         return self.file(root/'/'.join(parts[2:]),root,{'Content-Security-Policy':csp})
 
 def build_server(service,port,playback=False):
     server=ThreadingHTTPServer(('127.0.0.1',port),Handler)
     server.service=service;server.playback=playback;server.sessions={};server.session_lock=threading.Lock()
+    server.registry=ServiceRegistry(service.data_dir/'services.json')
+    from controlplane.supply_service import SupplyService
+    server.supply_service=SupplyService(service)
     return server
 
 def main():
@@ -161,16 +175,38 @@ def main():
     p.add_argument('--port',type=int,default=8765);p.add_argument('--play-port',type=int,default=8766)
     p.add_argument('--data-dir',default=str(ROOT/'data'));p.add_argument('--repo-dir',default=str(ROOT/'game-library'))
     p.add_argument('--service',choices=['all','admin','play'],default='all')
+    p.add_argument('--no-executor',action='store_true',help='Disable automatic conversion worker (isolated tests)')
+    p.add_argument('--no-discovery',action='store_true',help='Disable daily discovery scheduler')
     args=p.parse_args()
     service=Service(Path(args.data_dir).resolve(),Path(args.repo_dir).resolve(),f'http://127.0.0.1:{args.play_port}')
     servers=[]
     if args.service in ('all','admin'):servers.append(build_server(service,args.port))
     if args.service in ('all','play'):servers.append(build_server(service,args.play_port,True))
+    executor=None
+    discovery=None
+    supply=None
+    if args.service in ('all','admin'):
+        from controlplane.supply import SupplyWorker
+        supply=SupplyWorker(service)
+        supply.start()
+    if args.service in ('all','admin') and not args.no_discovery:
+        from controlplane.discovery import DiscoveryScheduler
+        discovery=DiscoveryScheduler(service)
+        discovery.start()
+    if args.service in ('all','admin') and not args.no_executor:
+        from controlplane.executor import Executor
+        executor=Executor(service,args.port)
+        servers[0].registry.executor=executor
+        executor.start()
+        threading.Thread(target=servers[0].registry.test,args=('ai',),daemon=True).start()
     for server in servers[:-1]:threading.Thread(target=server.serve_forever,daemon=True).start()
     print(f'Admin: http://127.0.0.1:{args.port}\nPlayback: http://127.0.0.1:{args.play_port}\nLocal-only binding. Ctrl+C to stop.',flush=True)
     try:servers[-1].serve_forever()
     except KeyboardInterrupt:pass
     finally:
+        if supply:supply.close()
+        if discovery:discovery.close()
+        if executor:executor.close()
         for server in servers:server.server_close()
 
 if __name__=='__main__':main()

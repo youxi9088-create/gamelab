@@ -15,6 +15,9 @@ def git_binary():
     configured = os.getenv('GIT_BIN')
     bundled = Path.home()/'.cache/codex-runtimes/codex-primary-runtime/dependencies/native/git/cmd/git.exe'
     found = configured or shutil.which('git') or (str(bundled) if bundled.exists() else None)
+    if not found and os.environ.get('LOCALAPPDATA'):
+        local=Path(os.environ['LOCALAPPDATA'])/'door-runtime/mingit/cmd/git.exe'
+        if local.is_file():found=str(local)
     if not found:
         raise RuntimeError('Git is required. Set GIT_BIN to its executable.')
     return found
@@ -90,7 +93,25 @@ class Repository:
             target = self.root/rel
             if not target.exists():
                 shutil.copytree(self.artifacts/artifact['id'],target)
+                from .game_catalog import write_delivery
+                write_delivery(target/'platform-delivery', candidate, version)
+                from .delivery_audit import write as write_audit
+                write_audit(target,target/'platform-delivery',candidate,version)
                 (target/'game.json').write_text(json.dumps(dict(id=candidate['id'],title=candidate['title'],version=version['id'],entry=artifact['entry'],source=candidate['url'],rights=candidate.get('rights','unknown'),artifact_sha256=artifact['sha256']),ensure_ascii=False,indent=2),encoding='utf-8')
+                spec=version.get('report',{}).get('game_spec')
+                if spec:
+                    documentation=target/'platform-delivery'
+                    documentation.mkdir(exist_ok=True)
+                    (documentation/'game-spec.json').write_text(json.dumps(spec,ensure_ascii=False,indent=2),encoding='utf-8')
+                    from .game_specs import test_report
+                    tests=test_report(version.get('report',{})) or {}
+                    (documentation/'test-report.json').write_text(json.dumps(tests,ensure_ascii=False,indent=2),encoding='utf-8')
+                    parts=[f"# {candidate['title']} · 游戏规格",f"品类：{spec['category']}",f"范围：{spec['scope']}"]
+                    for key,label in [('controls','操作'),('mechanics','玩法'),('states','状态'),('dependencies','依赖'),('reuse','代码复用边界'),('unknowns','未确认项'),('evidence','来源证据')]:
+                        parts.append('## '+label+'\n\n'+'\n'.join('- '+str(x) for x in spec.get(key,[])))
+                    parts.append('## 验收用例\n\n'+'\n'.join('- '+c['id']+'：'+c['expected']+'（'+c['mode']+'）' for c in spec['cases']))
+                    parts.append('测试报告仅覆盖已执行断言，不替代人工验收或资源分发许可。')
+                    (documentation/'GAME_SPEC.md').write_text('\n\n'.join(parts),encoding='utf-8')
                 if not (target/'README.md').exists():
                     (target/'README.md').write_text(f"# {candidate['title']}\n\nStatic entry: `{artifact['entry']}`. Serve this directory with an HTTP server.\nSource: {candidate['url']}\n\nThis is a review version, not publication approval.\n",encoding='utf-8')
                 self.run('add','--',rel)

@@ -1,0 +1,19 @@
+{
+  "submission_id": "替换为你方业务主键-16到64位",
+  "archive_url": "https://替换为已登记的下载主机/path/game.zip",
+  "archive_sha256": "替换为 python scripts/supply_api.py sha256 game.zip 的输出",
+  "game_name": "替换为游戏名（≤40 字）",
+  "license_declaration": {
+    "distributable": "yes",
+    "owner": "替换为权利人名称",
+    "note": "可选：授权说明"
+  },
+  "acceptance_steps": [
+    {"action": "wait", "value": "1500"},
+    {"action": "click", "target": "#start-button", "note": "点开始进入玩法"},
+    {"action": "key", "value": "ArrowRight", "hold_ms": 800, "playing": true},
+    {"action": "expect_visible", "target": "#score"}
+  ],
+  "known_limitations": ["可选：你方已知并接受的限制，如「背景音乐在 Safari 下需点击后才播放」"],
+  "contact_note": "可选：排障联系人或备注（≤500 字）"
+}

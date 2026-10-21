@@ -1,0 +1,12 @@
+{
+ "openapi":"3.1.0","info":{"title":"WeChat Web Converter","version":"0.1.0","description":"Offline Cocos 3.5.1 conversion. built_unverified is not gameplay acceptance."},
+ "servers":[{"url":"http://127.0.0.1:8770"}],
+ "components":{"securitySchemes":{"bearerAuth":{"type":"http","scheme":"bearer"}}},
+ "security":[{"bearerAuth":[]}],
+ "paths":{
+  "/health":{"get":{"security":[],"responses":{"200":{"description":"Service alive"}}}},
+  "/v1/jobs":{"get":{"responses":{"200":{"description":"Up to 100 jobs belonging to this API key"},"401":{"description":"Invalid API key"}}},"post":{"requestBody":{"required":true,"content":{"application/zip":{"schema":{"type":"string","format":"binary"}}}},"responses":{"202":{"description":"Queued job with id, status, stage, appid and timestamps"},"400":{"description":"Invalid ZIP or manifest"},"401":{"description":"Invalid API key"},"413":{"description":"Upload too large"},"415":{"description":"Expected application/zip"},"429":{"description":"Queue full"}}}},
+  "/v1/jobs/{id}":{"parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string","pattern":"^[0-9a-f]{32}$"}}],"get":{"responses":{"200":{"description":"Job status and compatibility report; terminal states built_unverified, failed, interrupted"},"401":{"description":"Invalid API key"},"404":{"description":"Unknown job or belongs to another tenant"}}}},
+  "/v1/jobs/{id}/download":{"parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string","pattern":"^[0-9a-f]{32}$"}}],"get":{"responses":{"200":{"description":"Static Web ZIP","content":{"application/zip":{"schema":{"type":"string","format":"binary"}}}},"401":{"description":"Invalid API key"},"404":{"description":"Unknown job or belongs to another tenant"},"409":{"description":"Artifact not ready"}}}}
+ }
+}

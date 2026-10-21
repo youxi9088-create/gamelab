@@ -8,6 +8,7 @@ import unittest
 from unittest.mock import patch
 import worker
 from test_worker import Client
+from controlplane.delivery_requirements import REQUIRED
 
 
 class MockModelIntegration(unittest.TestCase):
@@ -15,7 +16,8 @@ class MockModelIntegration(unittest.TestCase):
         good = worker.source_files(worker.ROOT/'fixtures/orbit-catch')
         responses = [
             {'observed_rules':['click ball to score','10 points wins','restart resets'], 'acceptance_tests':['restart button visible'], 'unknowns':[]},
-            {'files':{'index.html':'<html><body><script>throw new Error("intentional mock-model broken build")</script></body></html>'},'entry':'index.html'},
+            {'files':{'index.html':'<html><body><script>throw new Error("intentional mock-model broken build")</script></body></html>'},'entry':'index.html',
+             'foundation_checks':{k:{'status':'verified','evidence':['index.html']} for k in REQUIRED}},
             {'files':good,'entry':'index.html'}
         ]
         calls=[]
@@ -30,7 +32,8 @@ class MockModelIntegration(unittest.TestCase):
         server=http.server.ThreadingHTTPServer(('127.0.0.1',0),Handler)
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
         try:
-            with patch.dict(os.environ,{'REPLICA_AI_BASE_URL':f'http://127.0.0.1:{server.server_port}/v1','REPLICA_AI_API_KEY':'mock-only-test-key','REPLICA_AI_MODEL':'MOCK-NOT-A-LIVE-MODEL','REPLICA_AI_MAX_CALLS':'3','REPLICA_AI_VISION':'1'}):
+            config={'backend':'api','base_url':f'http://127.0.0.1:{server.server_port}/v1','api_key':'mock-only-test-key','model':'MOCK-NOT-A-LIVE-MODEL'}
+            with patch.dict(os.environ,{'REPLICA_AI_MAX_CALLS':'3','REPLICA_AI_VISION':'1'}), patch.object(worker,'ai_config',return_value=config):
                 client=Client()
                 worker.execute(client,{'id':'mock-model-integration','lease_token':'test-only','stage':'reconstruct','settings':{'reconstruct_minutes':2,'repair_rounds':1},'input':{'observations':{'controls':'click ball','win':'10 points','restart':'button'}}})
             complete=client.calls[-1][1]

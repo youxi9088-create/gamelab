@@ -1,0 +1,8 @@
+[
+  {"action": "wait", "value": "1500", "note": "等加载完（毫秒，1–60000）"},
+  {"action": "click", "target": "#start-button", "note": "点开始；target 必填（CSS 选择器）"},
+  {"action": "key", "value": "Space", "playing": true, "note": "playing 标出这一步已进入玩法"},
+  {"action": "click", "target": "canvas", "point": [0.5, 0.72], "note": "画布上按比例坐标点击（0–1）"},
+  {"action": "drag", "target": "canvas", "point": [0.3, 0.5], "to": [0.7, 0.5], "hold_ms": 300},
+  {"action": "expect_visible", "target": "#score"}
+]

@@ -1,0 +1,28 @@
+const {chromium}=require('../executors/node_modules/playwright');
+const fs=require('fs');
+(async()=>{
+ const browser=await chromium.launch({channel:'msedge',headless:true});
+ const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
+ page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:8765/#jobs');
+ await page.waitForSelector('#toggle-completed');
+ const rows=await page.locator('#page .panel table tbody tr').count();
+ if(rows!==4)throw Error('Expected four current tasks, got '+rows);
+ await page.locator('#page [data-job]').first().click();
+ await page.waitForSelector('#task-message-form');
+ await page.screenshot({path:'qa-output/conversation-task.png',fullPage:true});
+ const detail=await page.locator('#task-message-form').innerText();
+ await page.keyboard.press('Escape');
+ await page.goto('http://127.0.0.1:8765/#reviews');
+ await page.waitForSelector('.review-cards');
+ const reviews=await page.locator('.review-cards .gamecard').count();
+ if(reviews!==4)throw Error('Expected four review cards, got '+reviews);
+ await page.goto('http://127.0.0.1:8765/#jobs');await page.waitForSelector('#toggle-completed');
+ await page.screenshot({path:'qa-output/conversation-jobs.png',fullPage:true});
+ await page.locator('#toggle-completed').click();
+ if(await page.locator('#page .panel table tbody tr').count()!==7)throw Error('Completed task toggle failed');
+ if(errors.length)throw Error(errors.join('\n'));
+ fs.writeFileSync('qa-output/conversation-ui.json',JSON.stringify({passed:true,currentTasks:rows,reviewCards:reviews,detail,errors},null,2));
+ console.log('UI passed: four current tasks, four review cards, conversation dialog and history toggle.');
+ await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});
