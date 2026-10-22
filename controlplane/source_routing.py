@@ -34,7 +34,7 @@ def web_block_reason(observations):
     if probes:
         lead=probes[0]
         return '页面声明了 iframe 入口候选：'+str(lead.get('declared_url',''))[:400]+'；平台已在隔离页探测，但未观察到游戏画布（HTTP '+str(lead.get('http_status') or '未确认')+'）。该地址仍是候选，不能当作已取得游戏包。'
-    iframe_hints=[item for item in discovery.get('iframe_hints',[]) if isinstance(item,dict) and item.get('evidence') in ('iframe-data-url','iframe-data-src') and str(item.get('url','')).startswith(('http://','https://'))]
+    iframe_hints=[item for item in discovery.get('iframe_hints',[]) if isinstance(item,dict) and item.get('evidence') in ('iframe-src','iframe-data-url','iframe-data-src') and str(item.get('url','')).startswith(('http://','https://'))]
     if iframe_hints:
         hint=iframe_hints[0]
         return '页面源码声明了待确认的游戏 iframe 地址：'+str(hint['url'])[:500]+'。该地址尚未作为运行入口验证；请先确认广告拦截层已关闭，并检查入口可访问性。'

@@ -20,7 +20,7 @@ def decide(previous, gaps, report, max_stalled=3, max_rounds=8):
     # Older Web snapshots used a blocker for ordinary unfinished verification.
     # Resume only an actually running supported package; real failures still stop.
     runtime=report.get('runtime_smoke') or {}
-    resumable_web=(report.get('recovery_kind') in ('discovered-web-cocos2','discovered-web-ruffle')
+    resumable_web=(report.get('recovery_kind') in ('discovered-web-cocos2','discovered-web-ruffle','discovered-web-three')
                    and report.get('runtime_verified') is True and runtime.get('passed') is True)
     if (resumable_web and isinstance(blocker,dict)
             and blocker.get('code') in ('WEB_GAMEPLAY_REVIEW','WEB_VERIFICATION_BUDGET')):

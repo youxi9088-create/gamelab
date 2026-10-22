@@ -494,7 +494,8 @@ def execute(client, job):
                         client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
                             'reason':'REA 分析、资源下载及本地启动检查已完成；保存原版可编辑草稿，完整玩法待验收'})
                         return
-                    if acquired.get('web_discovery',{}).get('entries'):
+                    from modular_web import candidate as modular_candidate
+                    if acquired.get('web_discovery',{}).get('entries') or modular_candidate(acquired):
                         from discovered_web import convert
                         report=measured('adapt',convert)(inp,acquired,run,budget,chat)
                         current_dependencies=dependencies or {}
