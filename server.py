@@ -25,6 +25,7 @@ class Handler(BaseHTTPRequestHandler):
         print(f'[{self.command}] {urlsplit(self.path).path} {args[1] if len(args)>1 else ""}',flush=True)
 
     def send(self,status,body,content_type='application/json; charset=utf-8',headers=None):
+        self.response_status=status
         if isinstance(body,(dict,list)):body=json.dumps(body,ensure_ascii=False).encode()
         elif isinstance(body,str):body=body.encode()
         self.send_response(status)
@@ -222,6 +223,12 @@ class Handler(BaseHTTPRequestHandler):
         except Exception:
             traceback.print_exc();self.send(500,{'error':'服务内部错误，请查看服务日志'})
         finally:
+            if getattr(self,'response_status',200)>=400 and getattr(self,'actor',None):
+                from controlplane.store import ident,now
+                try:
+                    with self.server.service.store.tx() as db:
+                        self.server.service.store.put(db,'audit',dict(id=ident('audit'),actor_id=self.actor['id'],actor_name=self.actor['username'],path=urlsplit(self.path).path,created_at=now(),result='denied_or_failed',http_status=self.response_status))
+                except Exception:traceback.print_exc()
             if actor_token is not None:
                 from controlplane.store import ACTOR
                 ACTOR.reset(actor_token)

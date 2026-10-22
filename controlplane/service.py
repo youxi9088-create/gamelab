@@ -82,6 +82,10 @@ class Service(Conversations,Discovery):
             from .conversations import message_presentation
             for message in state['messages']:
                 message['presentation']=message_presentation(message,state['jobs'],state['events'],state['rounds'])
+            actor_names={u['id']:u['username'] for u in self.store.all(db,'users')}
+            for collection in ('jobs','messages','versions','candidates'):
+                for row in state[collection]:
+                    if row.get('created_by'):row['created_by_name']=actor_names.get(row['created_by'],row['created_by'])
             state['features']={'link_batches':True,'pipeline_timeline':True}
             state['features']['discovery']=True
             state['features']['supply']=True
