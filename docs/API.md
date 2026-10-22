@@ -8,6 +8,20 @@
 
 本地管理入口默认 `http://127.0.0.1:8765`，独立试玩入口默认 `http://127.0.0.1:8766`。当前仅绑定本机，不是公网多租户服务。请求体为 JSON 对象，单次 HTTP 请求不超过 30 MiB。时间保存为 UTC，看板按 Asia/Shanghai 统计。
 
+## 门户管理员登录
+
+设置环境变量 `PORTAL_ADMIN_USERNAME` 和 `PORTAL_ADMIN_PASSWORD`（必须同时设置）启用管理员登录。未设置时沿用本机管理模式。此功能为单管理员账号，不开放注册或账号管理。登录页面通过 `POST /api/auth/login` 建立 12 小时 HttpOnly、SameSite=Strict 会话；连续 10 次失败后该来源地址暂停登录 15 分钟。`GET /api/auth/status` 返回是否启用及当前会话状态；`POST /api/auth/logout` 退出。启用后管理 API 和 `/api/session` 均要求已登录，原 CSRF 校验继续生效。工具 Bearer 接口维持独立认证。
+
+PowerShell 启动示例：
+
+```powershell
+$env:PORTAL_ADMIN_USERNAME = 'admin'
+$env:PORTAL_ADMIN_PASSWORD = '请替换为长随机密码'
+.\start.ps1
+```
+
+不要把真实密码提交到仓库。当前服务只绑定回环地址；登录功能不提供 HTTPS、远程监听、密码重置或多用户权限管理。
+
 ## 工具认证
 
 管理员在工具接入页面创建工具，能力为 `collect`、`rea`、`reconstruct` 的组合。返回的令牌仅显示一次；调用时发送 `Authorization: Bearer <token>`。数据库保存令牌哈希。工具不能调用管理接口，停用后无法认证。
@@ -93,6 +107,12 @@ POST /api/jobs/{id}/work-log：管理端提交 message（10–4000 字符），�
 `GET /api/state` 的每个 job 增加 `pipeline={current,nodes,note}`，仅作只读投影。
 执行器 `POST /api/v1/jobs/{id}/events` 可附 `node` 和 `node_status`：
 节点为 identify/acquire/analysis/adapt/test/delivery/review/publish，状态为 running/succeeded/failed/waiting_input/skipped/cancelled。必须持有效租约；原 message/stage 事件兼容。时间线中的历史无证据节点保留等待或有记录，不伪造已完成。
+
+# AI 用量与价格
+
+`POST /api/ai-pricing` 接收 `{rates:{"provider:model":rate}}`，保存整张价格表；修改一个模型时应保留其他键。`rate` 包含 `currency`（USD/CNY）、`input_per_million`、`output_per_million`，可选 `cached_input_per_million`、`cache_write_per_million`。可选 `long_context` 包含正整数 `threshold` 及相同价格项；总输入严格超过阈值时，整次请求按长上下文价格计算。
+
+用量记录的 `input_tokens` 包含缓存读取 `cached_input_tokens` 和缓存写入 `cache_write_tokens`，两者不能再次加到总输入。普通输入为总输入减去两类缓存。配置缓存价格却缺少对应用量时，费用为未知，不按零计费；非标准 `service_tier` 暂不估算。调用保存价格快照、档位、费用拆分及未知原因，调整价格不回填历史记录。相同任务的相同 `call_id` 幂等，不重复累计。日、周、月和单游戏统计均使用同一调用账本，缺失数据单独计数。
 
 # 每日采集建议
 

@@ -238,6 +238,7 @@ class SupplyWorker:
     def tick(self):
         store = self.service.store
         with store.tx() as db:
+            if (store.get(db,'settings','maintenance') or {}).get('draining'):return
             row = next((r for r in store.all(db, 'supply')
                         if r['status'] not in ('blocked', 'done') and r.get('next_poll', 0) <= time.time()
                         and r.get('lease_until', 0) <= time.time()), None)

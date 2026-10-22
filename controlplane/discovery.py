@@ -118,6 +118,7 @@ class DiscoveryScheduler:
         instant=instant or datetime.now(TZ)
         s=self.service.store;day=instant.astimezone(TZ).date().isoformat()
         with s.tx() as db:
+            if (s.get(db,'settings','maintenance') or {}).get('draining'):return
             cfg=config(s,db);runs=s.all(db,'discovery_runs')
             # Crash recovery does not lose the audit or silently repeat a run.
             for old in runs:
@@ -143,6 +144,8 @@ class DiscoveryScheduler:
             source={**source,'excluded_urls':excluded,'discovery_rule':{'max_games':cfg['max_games'],'max_pages':cfg['max_pages'],**source.get('discovery_rule',{})}}
             try: result=self.scanner(source)
             except Exception as exc: result={'games':[],'categories':[],'status':'failed','errors':[{'error':str(exc)[:300]}],'coverage':'扫描未完成'}
+            from .discovery_language import translate
+            translate(result['games'],self.service,run['id'])
             with s.tx() as db:
                 previous=s.get(db,'discovery_sources',source['id']) or {'categories':[]}
                 seen=set(previous['categories'])

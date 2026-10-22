@@ -110,10 +110,15 @@ def acquire(url, run, budget, observations=None):
     observation.update(cache_checked=True,cache_package_count=len(cache),
         resource_directory=str(directory/'unpacked'),resource_policy='original-resources-first',
         resource_package_inventory=cache,matched_local_resource_roots=list(dict.fromkeys(local_roots)))
+    limitations=['宣传页面不等于原游戏运行记录']
+    if observation['source_kind']=='wechat':
+        limitations.append('未取得或未适配的微信接口、原版素材和完整关卡不视为已还原')
+    else:
+        limitations.append('未确认网页游戏的实际运行入口、远程资源和完整玩法，不视为已还原')
     observation.update(code_excerpts=snippets[:10],cache_status=cache_status,analysis_directory=str(analysis),
         evidence={'directory':str(directory),'html_sha256':hashlib.sha256((directory/'source.html').read_bytes()).hexdigest() if not share else None,
                   'source_url':url,'cache_package_count':len(cache),'mode':'confirmed-wechat-cache' if share else 'public-page-gameplay-reconstruction',
                   'rea_scope':[p.name for p in analysis.glob('*.js')],
-                  'limitations':['宣传页面不等于原游戏运行记录','未取得或未适配的微信接口、原版素材和完整关卡不视为已还原']})
+                  'limitations':limitations})
     (directory/'collected.json').write_text(json.dumps(observation,ensure_ascii=False,indent=2),'utf-8')
     return observation

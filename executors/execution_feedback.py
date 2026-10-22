@@ -10,6 +10,16 @@ def previous_execution(job):
     if run.parent!=ROOT.resolve():return None
     try:
         if json.loads((run/'job-binding.json').read_text('utf-8')).get('job_id')!=job['id']:return None
+        web_reports=sorted(run.glob('web-review-*/runtime.json'),key=lambda p:int(p.parent.name.split('-')[-1]))
+        for report in reversed(web_reports):
+            runtime=json.loads(report.read_text('utf-8'))
+            if not runtime.get('passed'):continue
+            history=[]
+            for model in sorted(run.glob('web-review-*/model.json'),key=lambda p:int(p.parent.name.split('-')[-1])):
+                value=json.loads(model.read_text('utf-8'))
+                history.append({k:value[k] for k in ('summary','actions') if k in value})
+            return {'runtime':runtime,'actions':runtime.get('actions',[]),'web_source':str(run/'converted'),
+                    'model_history':history[-16:],'source':'Prior platform execution; source must match the current baseline before replay'}
         reports=sorted(run.glob('revision-*/runtime-report.json'),key=lambda p:int(p.parent.name.split('-')[-1]))
         if not reports:return None
         report=reports[-1];runtime=json.loads(report.read_text('utf-8'))

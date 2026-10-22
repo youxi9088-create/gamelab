@@ -39,7 +39,7 @@ class Service(Conversations,Discovery):
         self.play_url=play_url
         with self.store.tx() as db:
             if not self.store.get(db,'settings','main'):
-                self.store.put(db,'settings',dict(id='main',concurrency=2,lease_seconds=300,max_attempts=3,rea_minutes=45,reconstruct_minutes=180,repair_rounds=3,timezone='Asia/Shanghai',auto_publish=False))
+                self.store.put(db,'settings',dict(id='main',concurrency=1,lease_seconds=300,max_attempts=3,rea_minutes=45,reconstruct_minutes=180,repair_rounds=3,timezone='Asia/Shanghai',auto_publish=False))
             for name,url in [('Astrocade','https://www.astrocade.com/'),('Remix','https://remix.gg/'),('Rosebud','https://rosebud.ai/play/c/new'),('itch.io','https://itch.io/games/html5'),('Poki','https://poki.com/'),('CrazyGames','https://www.crazygames.com/')]:
                 key=name.lower().replace('.','-')
                 if not self.store.get(db,'sources',key):
@@ -63,6 +63,9 @@ class Service(Conversations,Discovery):
     def state(self):
         with self.store.tx() as db:
             state={k:self.store.all(db,k) for k in ('candidates','sources','batches','jobs','versions','tools','events','messages','rounds')}
+            from .catalog_facets import effective_engine
+            for candidate in state['candidates']:
+                candidate['engine']=effective_engine(candidate,state['versions'])
             state['game_test_runs']=self.store.all(db,'game_test_runs')
             profiles={p['id']:p for p in self.store.all(db,'game_profiles')}
             for version in state['versions']:
@@ -99,6 +102,8 @@ class Service(Conversations,Discovery):
             state['discovery_settings']=config(self.store,db)
             for collection in ('recommendations','discovery_runs'):
                 state[collection]=self.store.all(db,collection)
+            from .discovery_language import public as chinese_recommendation
+            state['recommendations']=[chinese_recommendation(r) for r in state['recommendations']]
             from .dependencies import summary
             from .catalog_facets import facets
             for candidate in state['candidates']:
@@ -111,8 +116,9 @@ class Service(Conversations,Discovery):
                 c=next((c for c in state['candidates'] if c['id']==job['candidate_id']),{})
                 job['conversion_plan']=job.get('conversion_plan') or conversion_plan(c,continuation=bool(job.get('continuation')),stage=job.get('stage','rea'))
                 job.pop('lease_token',None)
-                from .pipeline import timeline
+                from .pipeline import timeline, progress_summary
                 job['pipeline']=timeline(job,state['events'],state['versions'])
+                job['progress_label']=progress_summary(job,state['versions'])
                 version=next((v for v in state['versions'] if v['id']==job.get('version_id')),None)
                 job['has_draft']=bool(version and version['status']=='draft')
                 job['last_attempt_status']=job['status']
@@ -121,6 +127,13 @@ class Service(Conversations,Discovery):
             for tool in state['tools']:
                 tool['online']=bool(tool.get('last_seen') and tool['last_seen']>later(-90))
             state['settings']=self.get(db,'settings','main')
+            state['settings']['concurrency']=1
+            batches={b['id']:b for b in state['batches']}
+            queue=sorted((j for j in reversed(state['jobs']) if j['status']=='queued' and batches.get(j['batch_id'],{}).get('status')=='running'),key=lambda j:j.get('queued_at',j.get('created_at','')))
+            for position,job in enumerate(queue,1):
+                job['queue_position']=position
+                job['progress_label']=f'排队第 {position} 位 · 等待空闲执行器'
+            state['conversion_queue']={'limit':1,'running':sum(j['status']=='running' for j in state['jobs']),'waiting':len(queue)}
             state['repository']={'path':str(self.repo.root),'strategy':'monorepo','branch':'main','head':self.repo.run('rev-parse','HEAD'),'remote_configured':bool(self.repo.run('remote'))}
             today=datetime.now(timezone(timedelta(hours=8))).date().isoformat()
             def day(t):
@@ -158,7 +171,8 @@ class Service(Conversations,Discovery):
 
     def mutate(self,path,body,tool=None,idem=None):
         require(isinstance(body,dict),'请求体必须是 JSON 对象')
-        scope=(tool['id'] if tool else 'admin')+':'+path
+        from .store import ACTOR
+        scope=(tool['id'] if tool else (ACTOR.get() or {}).get('id','admin'))+':'+path
         digest=hashlib.sha256(json.dumps(body,sort_keys=True).encode()).hexdigest()
         with self.store.tx() as db:
             if idem:
@@ -407,7 +421,7 @@ class Service(Conversations,Discovery):
                 for job in s.all(db,'jobs'):
                     if job['batch_id']!=key or job['status']!='stopped':continue
                     require(not any(other['candidate_id']==job['candidate_id'] and other['id']!=job['id'] and other['status'] in ('queued','running','review','waiting_input') for other in s.all(db,'jobs')),'游戏已有后续活动任务，请先处理后续任务',409)
-                    job.update(status='queued',attempt=0,automatic=bool(b.get('automatic',job.get('automatic',False))))
+                    job.update(status='queued',queued_at=now(),attempt=0,automatic=bool(b.get('automatic',job.get('automatic',False))))
                     s.put(db,'jobs',job)
                 batch['status']='running'
                 s.event(db,'批次恢复，未完成任务重新排队',batch_id=key)
@@ -430,6 +444,7 @@ class Service(Conversations,Discovery):
             s.put(db,'batches',batch);return {'batch':batch}
         if kind=='jobs' and key=='claim':
             require(tool,'领取任务需要工具凭证',401)
+            if (s.get(db,'settings','maintenance') or {}).get('draining'):return {'job':None}
             settings=self.get(db,'settings','main')
             jobs=s.all(db,'jobs')
             for j in jobs:
@@ -438,9 +453,10 @@ class Service(Conversations,Discovery):
                     j['reason']='执行租约超时';j.pop('lease_token',None);s.put(db,'jobs',j)
                     s.event(db,'执行租约超时，已保留阶段产物',j['id'],j['stage'])
             running=[j for j in jobs if j['status']=='running']
-            if len(running)>=settings['concurrency']:return {'job':None}
+            # Global capacity, across tools and all conversion entry points.
+            if len(running)>=1:return {'job':None}
             caps=set(b.get('capabilities',[])) & set(tool['capabilities'])
-            for job in reversed(jobs):
+            for job in sorted(reversed(jobs),key=lambda j:j.get('queued_at',j.get('created_at',''))):
                 batch=self.get(db,'batches',job['batch_id'])
                 if job['status']!='queued' or job['stage'] not in caps or batch['status']!='running':continue
                 if b.get('automatic_only') and not job.get('automatic'):continue
@@ -452,7 +468,7 @@ class Service(Conversations,Discovery):
                 c['status']='running';s.put(db,'candidates',c)
                 if c.get('source_bundle_id'):
                     c=dict(c,source_bundle_url='/api/v1/source-bundles/'+c['source_bundle_id']+'/download')
-                return {'job':dict(job,input=self.continuation_input(db,job,c),settings=settings)}
+                return {'job':dict(job,input=self.continuation_input(db,job,c),settings={**settings,'concurrency':1})}
             return {'job':None}
         if kind=='jobs' and key:
             if action=='delete' and not tool:
@@ -560,6 +576,8 @@ class Service(Conversations,Discovery):
                     s.event(db,str(b.get('message',''))[:5000],key,str(b.get('stage',job['stage']))[:60],**extra)
                 s.put(db,'jobs',job);return {'ok':True,'lease_expires_at':job['lease_expires_at']}
             if action=='complete':
+                finished_round=job.get('round',1)
+                finished_stage=job['stage']
                 outcome=b.get('outcome'); report=b.get('report',{})
                 require(isinstance(report,dict),'report 必须为对象')
                 require(outcome in ('recovered','fallback','ready_review','draft','blocked','failed','checkpoint'),'未知处理结果')
@@ -629,8 +647,10 @@ class Service(Conversations,Discovery):
                     job.update(status='review',route=version['route'],progress=100,completed_at=now(),version_id=version['id'])
                     job.pop('revision_checkpoint',None);job.pop('checkpoint_slices',None);job.pop('blocker',None)
                     if is_draft:
-                        job.update(status='blocked',progress=90)
+                        job.update(status='blocked',progress=0)
                         candidate['status']='blocked';s.put(db,'candidates',candidate)
+                    if report.get('runtime_verified'):
+                        s.event(db,('运行已通过；剩余检查：'+'；'.join(gaps) if gaps else '运行证据已保存；本轮仍按草稿提交') if is_draft else '运行与交付检查通过，等待人工试玩验收',key,'test',node='test',node_status='waiting_input' if is_draft else 'succeeded',round=finished_round)
                     self.message(db,job,'assistant',job.get('reason') or '新版本已生成，请试玩验收',kind='result')
                     if is_draft:
                         from .auto_followup import decide
@@ -647,7 +667,8 @@ class Service(Conversations,Discovery):
                     job.update(status=outcome,completed_at=now())
                     candidate=self.get(db,'candidates',job['candidate_id']);candidate['status']=outcome;s.put(db,'candidates',candidate)
                 job.pop('lease_token',None);job.pop('lease_expires_at',None);s.put(db,'jobs',job)
-                s.event(db,f"阶段结束：{outcome}。{job['reason']}",key,job['stage'])
+                result_label={'draft':'草稿已保存，验证未完成','ready_review':'转换完成，等待人工验收','recovered':'产物已提交','checkpoint':'接续检查点已保存','fallback':'转入复刻路径','blocked':'本轮阻断','failed':'本轮失败'}[outcome]
+                s.event(db,f"本轮结果：{result_label}。{str(b.get('reason',''))[:5000]}",key,finished_stage,round=finished_round)
                 self.update_batch(db,job['batch_id'])
                 return {'job':job}
         if kind=='artifacts' and tool:
@@ -740,7 +761,7 @@ class Service(Conversations,Discovery):
             s.put(db,'sources',item);return {'source':item}
         if kind=='settings' and not tool:
             item=self.get(db,'settings','main')
-            limits={'concurrency':(1,8),'lease_seconds':(30,1800),'max_attempts':(1,10),'rea_minutes':(1,180),'reconstruct_minutes':(1,600),'repair_rounds':(1,5)}
+            limits={'concurrency':(1,1),'lease_seconds':(30,1800),'max_attempts':(1,10),'rea_minutes':(1,180),'reconstruct_minutes':(1,600),'repair_rounds':(1,5)}
             for field,(low,high) in limits.items():
                 if field in b:
                     require(isinstance(b[field],int) and low<=b[field]<=high,f'{field} 范围为 {low}–{high}')

@@ -49,7 +49,10 @@ class Repository:
                 self.commit('Initialize game library')
 
     def run(self,*args):
-        r = subprocess.run([self.git,'-C',str(self.root),*args],capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=60)
+        # The library checkout is provisioned by the deployment account while
+        # the service runs as LOCAL SERVICE. Scope Git's ownership exception to
+        # this exact repository instead of weakening global safe.directory.
+        r = subprocess.run([self.git,'-c',f'safe.directory={self.root.as_posix()}','-C',str(self.root),*args],capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=60)
         if r.returncode:
             raise RuntimeError('Git operation failed: '+r.stderr[:700])
         return r.stdout.strip()
@@ -89,6 +92,15 @@ class Repository:
 
     def record(self, candidate, version, artifact):
         with REPO_LOCK:
+            # Read metadata only: never patch a verified artifact during intake.
+            viewport_file = self.artifacts/artifact['id']/'runtime-viewport.json'
+            if viewport_file.is_file():
+                from .runtime_viewport import validate as validate_viewport
+                viewport = validate_viewport(json.loads(viewport_file.read_text('utf-8')))
+                declared = version.get('report', {}).get('runtime_viewport')
+                if declared and any(declared.get(k) != viewport[k] for k in ('width','height','fit')):
+                    raise ValueError('Runtime viewport metadata does not match the package')
+                version.setdefault('report', {})['runtime_viewport'] = viewport
             rel = f"games/{candidate['id']}/versions/{version['id']}"
             target = self.root/rel
             if not target.exists():

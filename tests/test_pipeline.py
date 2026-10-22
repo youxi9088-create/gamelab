@@ -37,14 +37,14 @@ class TimelineTests(unittest.TestCase):
     def test_legacy_logs_do_not_fake_completion(self):
         j=dict(id='j',stage='rea',status='blocked',reason='缺少缓存')
         p=timeline(j,[dict(id='e',job_id='j',stage='rea',message='开始分析',created_at='2026-10-20T00:00:00+00:00')],[])
-        self.assertEqual(p['nodes'][0]['status'],'pending')
+        self.assertEqual(p['nodes'][0]['status'],'unrecorded')
         self.assertEqual(p['nodes'][2]['status'],'blocked')
         self.assertFalse(any(n['status']=='succeeded' for n in p['nodes']))
 
     def test_import_does_not_invent_test_success(self):
         p=timeline(dict(id='j',stage='packaging',status='review',version_id='v'),[],
                    [dict(id='v',job_id='j',status='review',created_at='2026-10-20T00:00:00+00:00')])
-        self.assertEqual(p['nodes'][4]['status'],'pending')
+        self.assertEqual(p['nodes'][4]['status'],'unrecorded')
         self.assertEqual(p['nodes'][5]['status'],'succeeded')
         self.assertEqual(p['current'],'review')
 

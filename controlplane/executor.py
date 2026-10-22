@@ -65,13 +65,13 @@ class Executor:
                         result=subprocess.run([node,str(ROOT/'executors/readiness.cjs')],capture_output=True,text=True,timeout=20,
                             creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
                         reported=json.loads(result.stdout)['checks']
-                        checks.update({key:result.returncode==0 and reported.get(key) is True for key in ('rea','playwright','browser')})
+                        checks.update({key:result.returncode==0 and reported.get(key) is True for key in ('rea','rea-analysis','playwright','browser')})
                     except (OSError,ValueError,KeyError,subprocess.TimeoutExpired):checks['probe']=False
                 self._probe=checks;self._probe_time=time.monotonic()
             checks=dict(self._probe)
         missing=[key for key,value in checks.items() if not value]
         ready=running and not missing
-        detail='执行器及 Node、REA 安装、浏览器启动检查通过；不代表任意游戏可自动适配'
+        detail='执行器及 Node、REA 原生分析样例、Playwright 和浏览器启动检查通过；不代表任意游戏可自动适配'
         if not running:detail='内置执行器未运行'
         if missing:detail+='；依赖检查未通过：'+', '.join(missing)
         return dict(ok=ready,ready=ready,capabilities=['wechat_to_web'],restarts=self.restarts,checks=checks,detail=detail)

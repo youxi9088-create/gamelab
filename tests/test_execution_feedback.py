@@ -8,6 +8,21 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'executors'))
 import execution_feedback
 
 class ExecutionFeedbackTests(unittest.TestCase):
+    def test_web_progress_uses_last_successful_job_bound_observation(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t);run=root/'run';run.mkdir()
+            (run/'job-binding.json').write_text(json.dumps({'job_id':'web-one'}))
+            for step,passed in [(0,True),(1,False)]:
+                iteration=run/f'web-review-{step}';iteration.mkdir()
+                (iteration/'runtime.json').write_text(json.dumps({'passed':passed,'actions':[{'type':'click','x':step,'y':1}]}))
+                (iteration/'model.json').write_text(json.dumps({'summary':'Observed fixture'}))
+            with patch.object(execution_feedback,'ROOT',root):
+                result=execution_feedback.previous_execution({'id':'web-one','report':{'run_directory':str(run)}})
+                self.assertTrue(result['runtime']['passed'])
+                self.assertEqual(result['actions'][0]['x'],0)
+                self.assertEqual(result['web_source'],str(run/'converted'))
+                self.assertIsNone(execution_feedback.previous_execution({'id':'other','report':{'run_directory':str(run)}}))
+
     def test_failed_observations_are_bound_to_job(self):
         with tempfile.TemporaryDirectory() as t:
             root=Path(t);run=root/'run';run.mkdir();iteration=run/'revision-2';iteration.mkdir()

@@ -9,6 +9,16 @@
   --green: #63d9b2;
   --red: #f78998;
 }
+.login-page { min-height:100vh; display:grid; place-items:center; padding:24px; background:radial-gradient(ellipse at 50% 35%,#1a1a31 0%,#0b0c13 62%); }
+.login-card { width:min(100%,400px); padding:36px; border:1px solid #303147; border-radius:18px; background:rgba(19,21,31,.96); box-shadow:0 24px 80px #0008; }
+.login-card .pixel-mark { display:inline-grid; place-items:center; width:40px; height:40px; color:var(--purple); font-size:28px; }
+.login-card .eyebrow { margin:14px 0 8px; color:#b8a5ff; font-size:11px; letter-spacing:.16em; }
+.login-card h1 { margin:0; font-size:26px; }
+.login-card label { display:block; margin:20px 0 7px; color:#c7c9d6; }
+.login-card input { width:100%; min-height:44px; padding:10px 12px; border-radius:8px; }
+.login-card .login-error { min-height:20px; margin:12px 0; color:var(--red); }
+.login-card button { width:100%; min-height:44px; }
+.login-card .tiny { margin:16px 0 0; text-align:center; }
 * {
   box-sizing: border-box;
 }
@@ -1038,3 +1048,5 @@ iframe { height:min(72vh,760px); min-height:430px; }
   .row-left {min-width:0;}
   .row-left h3 {overflow-wrap:anywhere;}
 }
+
+#admin-operations .kv span:last-child{overflow-wrap:anywhere;min-width:0} #admin-users,#admin-operations{margin-bottom:20px}

@@ -86,3 +86,40 @@ class AutoFollowupTests(unittest.TestCase):
         report['spec_tests']['created_at']='later'
         current,_=decide(previous,['different explanation'],report)
         self.assertEqual(current['stalled'],1)
+
+    def test_web_draft_automatically_continues_saved_version(self):
+        j=self.f.claim()
+        with self.s.store.tx() as db:
+            row=self.s.get(db,'jobs',j['id']);row['automatic']=True;self.s.store.put(db,'jobs',row)
+        report={'runtime_verified':True,'runtime_smoke':{'passed':True},
+                'recovery_kind':'discovered-web-cocos2',
+                'blocker':{'code':'WEB_GAMEPLAY_REVIEW','reason':'Pending gameplay','next_action':'Continue'}}
+        result=self.draft(j,report)
+        self.assertEqual(result['status'],'queued')
+        self.assertEqual(result['base_version_id'],result['version_id'])
+        self.assertNotIn('blocker',result)
+        claimed=self.f.claim()
+        self.assertEqual(claimed['input']['base_version']['report'],report)
+
+    def test_only_verified_supported_web_work_is_resumable(self):
+        for code in ('WEB_GAMEPLAY_REVIEW','WEB_VERIFICATION_BUDGET'):
+            report={'runtime_verified':True,'runtime_smoke':{'passed':True},
+                    'recovery_kind':'discovered-web-ruffle',
+                    'blocker':{'code':code,'reason':'Pending gameplay','next_action':'Continue'}}
+            self.assertIsNone(decide(None,['pending'],report)[1])
+            for change in ({'runtime_verified':False},{'runtime_smoke':{'passed':False}},
+                           {'recovery_kind':'discovered-web-unknown'}):
+                self.assertEqual(decide(None,['pending'],{**report,**change})[1]['code'],code)
+        report['blocker']={'code':'WEB_AI_INTERRUPTED','reason':'Provider down','next_action':'Restore service'}
+        self.assertEqual(decide(None,['pending'],report)[1]['code'],'WEB_AI_INTERRUPTED')
+
+    def test_web_continuation_remains_bounded(self):
+        report={'runtime_verified':True,'runtime_smoke':{'passed':True},
+                'recovery_kind':'discovered-web-cocos2',
+                'blocker':{'code':'WEB_VERIFICATION_BUDGET','reason':'Pending gameplay','next_action':'Continue'}}
+        previous=None
+        for _ in range(4):previous,blocker=decide(previous,['pending'],report)
+        self.assertEqual(blocker['code'],'NO_VERIFICATION_PROGRESS')
+        previous=None
+        for n in range(8):previous,blocker=decide(previous,['pending']*(n+1),report)
+        self.assertEqual(blocker['code'],'AUTO_FOLLOWUP_LIMIT')

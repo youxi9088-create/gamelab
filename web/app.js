@@ -95,6 +95,7 @@ const nav = [
   ["reviews", "☑", "验收中心"],
   ["tools", "⌁", "工具服务"],
   ["settings", "⚙", "来源与规则"],
+  ["administration", "⚙", "账号与运维"],
 ];
 let page = location.hash.slice(1) || "library",
   demo = localStorage.getItem("replica-demo") === "true",
@@ -102,7 +103,7 @@ let page = location.hash.slice(1) || "library",
   query = "",
   filter = "",
   csrf = "",
-  selected = new Set(), mutationEpoch = 0;
+  selected = new Set(), mutationEpoch = 0, authRequired = false;
 const statusMap = {
   candidate: "待选品",
   draft: "草稿",
@@ -143,6 +144,13 @@ const date = (v) =>
 const safeUrl = (v) => {
   try {
     const u = new URL(v, location.origin);
+    if (
+      location.protocol === "https:" &&
+      u.port === "8766" &&
+      (u.hostname === "127.0.0.1" || u.hostname === "localhost")
+    ) {
+      return new URL(`${u.pathname}${u.search}${u.hash}`, location.origin).href;
+    }
     return ["https:", "http:"].includes(u.protocol) ? u.href : "#";
   } catch {
     return "#";
@@ -174,6 +182,9 @@ async function api(path, body) {
 async function load() {
   mutationEpoch++;
   try {
+    const auth = await api('/api/auth/status');
+    authRequired = auth.required;
+    if (authRequired && !auth.authenticated) { renderLogin(); return; }
     csrf = (await api("/api/session")).csrf;
     if (demo) {
       state = await api("/api/demo");
@@ -183,15 +194,27 @@ async function load() {
     state.services = await api("/api/services");
     render();
   } catch (e) {
+    if (authRequired && (e.message.includes('登录') || e.message.includes('会话'))) { renderLogin(); return; }
     state = {};
     render();
     toast("无法连接平台：" + e.message);
   }
 }
+function renderLogin(error='') {
+  document.title='账号登录 · Game Lab';
+  $('#app').innerHTML=`<main class="login-page"><form class="login-card" id="portal-login"><span class="pixel-mark" aria-hidden="true">✣</span><p class="eyebrow">GAME LAB · 管理门户</p><h1>欢迎回来</h1><p class="muted">登录以继续管理游戏与转换任务。</p><label for="portal-username">账号</label><input id="portal-username" name="username" autocomplete="username" required autofocus><label for="portal-password">密码</label><input id="portal-password" name="password" type="password" autocomplete="current-password" required><p class="login-error" role="alert">${esc(error)}</p><button class="primary" type="submit">登录门户</button><p class="tiny muted">登录会话有效期为 12 小时。</p></form></main>`;
+  $('#portal-login').onsubmit=async event=>{
+    event.preventDefault();
+    const form=event.currentTarget,button=form.querySelector('button');button.disabled=true;button.textContent='正在登录…';
+    try {const values=Object.fromEntries(new FormData(form));const result=await api('/api/auth/login',values);csrf=result.csrf;await load();}
+    catch(error){renderLogin(error.message);}
+  };
+}
 function shell() {
-  return `<header class="site-header"><button class="site-brand" data-nav="library" aria-label="小游戏库首页"><span class="pixel-mark" aria-hidden="true">✣</span> Game Lab<span class="brand-cn">游戏实验室</span></button><div class="topright"><input class="search" id="global-search" placeholder="搜索游戏、任务…" aria-label="搜索游戏、任务"><button class="smallbtn" data-action="mode">${demo ? "◉ 演示模式" : "○ 实时数据"}</button><span class="tiny muted" id="sync-status" role="status">${demo ? "演示数据" : "自动同步中"}</span><button class="textbtn" data-action="refresh">↻ 刷新</button></div></header><nav class="site-nav" aria-label="主导航">${['library','overview','discovery','candidates','jobs','reviews','tools','settings'].map(id=>nav.find(n=>n[0]===id)).map(([id,icon,title])=>`<button class="navbtn ${(page==='batches'?'jobs':page)===id?'active':''}" data-nav="${id}" ${(page==='batches'?'jobs':page)===id?'aria-current="page"':''}>${title}</button>`).join('')}</nav><main class="main ${page==='library'?'is-library':''}"><div class="content">${demo ? '<div class="demo-banner"><span>◇ 演示工作空间 · 数据与游戏插画仅用于交互设计演示</span><span>不代表已采集或复刻</span></div>' : ""}<div id="page"></div></div></main>`;
+  return `<header class="site-header"><button class="site-brand" data-nav="library" aria-label="小游戏库首页"><span class="pixel-mark" aria-hidden="true">✣</span> Game Lab<span class="brand-cn">游戏实验室</span></button><div class="topright"><input class="search" id="global-search" placeholder="搜索游戏、任务…" aria-label="搜索游戏、任务"><button class="smallbtn" data-action="mode">${demo ? "◉ 演示模式" : "○ 实时数据"}</button><span class="tiny muted" id="sync-status" role="status">${demo ? "演示数据" : "自动同步中"}</span><button class="textbtn" data-action="refresh">↻ 刷新</button>${authRequired?'<button class="textbtn" data-action="logout">退出登录</button>':''}</div></header><nav class="site-nav" aria-label="主导航">${['library','overview','discovery','candidates','jobs','reviews','tools','settings',...(state.current_user?.role==='admin'?['administration']:[])].map(id=>nav.find(n=>n[0]===id)).map(([id,icon,title])=>`<button class="navbtn ${(page==='batches'?'jobs':page)===id?'active':''}" data-nav="${id}" ${(page==='batches'?'jobs':page)===id?'aria-current="page"':''}>${title}</button>`).join('')}</nav><main class="main ${page==='library'?'is-library':''}"><div class="content">${demo ? '<div class="demo-banner"><span>◇ 演示工作空间 · 数据与游戏插画仅用于交互设计演示</span><span>不代表已采集或复刻</span></div>' : ""}<div id="page"></div></div></main>`;
 }
 function render() {
+  if(page==='administration'&&state.current_user?.role!=='admin')page='library';
   if (!nav.some((n) => n[0] === page)) page = "overview";
   document.title = `${nav.find(n => n[0] === (page === 'batches' ? 'jobs' : page))[2]} · Game Lab`;
   $("#app").innerHTML = shell();
@@ -206,12 +229,32 @@ function render() {
     tools: toolPage,
     settings,
     discovery: discoveryPage,
+    administration: administrationPage,
   }[page]();
   const navigation = $(".site-nav"), active = navigation.querySelector('.active');
   if (active && navigation.scrollWidth > navigation.clientWidth) {
     navigation.scrollLeft = active.offsetLeft - navigation.clientWidth / 2 + active.offsetWidth / 2;
   }
   bind();
+  if(page==='administration')loadAdministration();
+}
+
+function administrationPage(){
+  return head('账号与运维','项目内共享数据；管理员管理账号，操作员处理任务，只读用户查看游戏和记录。')+'<section class="panel" id="admin-users">正在读取账号…</section><section class="panel" id="admin-operations">正在读取运行状态…</section>';
+}
+async function loadAdministration(){
+  try{
+    const [accounts,ops]=await Promise.all([api('/api/accounts'),api('/api/operations')]);
+    if(page!=='administration')return;
+    const roles={admin:'管理员',operator:'操作员',viewer:'只读用户'};
+    $('#admin-users').innerHTML=`<h2>项目账号</h2><p class="muted">管理员可配置服务、验收、供货并管理账号；操作员可提交转换、回复和重试任务；只读用户不能修改数据。修改角色、密码或停用账号会使其旧会话失效。</p>${accounts.users.map(u=>`<div class="kv"><span>${esc(u.username)} · ${roles[u.role]} · ${u.enabled?'启用':'停用'}</span><button class="smallbtn" data-edit-user="${esc(u.id)}">编辑 / 重置密码</button></div>`).join('')}<h3 id="account-heading">创建账号</h3><form id="account-form"><input name="id" type="hidden"><label>账号</label><input name="username" autocomplete="off" required minlength="3" maxlength="80"><label>角色</label><select name="role"><option value="viewer">只读用户</option><option value="operator">操作员</option><option value="admin">管理员</option></select><label>密码（12至256位；编辑时留空保持不变）</label><input name="password" type="password" autocomplete="new-password" minlength="12" maxlength="256"><label class="checkrow"><input name="enabled" type="checkbox" checked>启用账号</label><p id="account-error" role="status"></p><button class="primary">保存账号</button><button type="button" id="account-clear">取消编辑</button></form>`;
+    const form=$('#account-form');
+    document.querySelectorAll('[data-edit-user]').forEach(button=>button.onclick=()=>{const u=accounts.users.find(x=>x.id===button.dataset.editUser);for(const k of ['id','username','role'])form.elements[k].value=u[k];form.elements.username.readOnly=true;form.elements.enabled.checked=u.enabled;form.elements.password.value='';$('#account-heading').textContent='编辑账号：'+u.username;});
+    $('#account-clear').onclick=()=>loadAdministration();
+    form.onsubmit=async e=>{e.preventDefault();const b=form.querySelector('button');b.disabled=true;try{const body=Object.fromEntries(new FormData(form));body.enabled=form.elements.enabled.checked;await api('/api/accounts/save',body);toast('账号已保存');await loadAdministration();}catch(err){$('#account-error').textContent=err.message;}finally{b.disabled=false;}};
+    $('#admin-operations').innerHTML=`<h2>云端运行与生产数据</h2><p>${esc(ops.note)}</p><div class="kv"><span>生产数据根目录</span><span>${esc(ops.shared_root)}</span></div><div class="kv"><span>程序版本</span><span>${esc(ops.release?.commit||'尚未通过标准发布流程登记')}</span></div><div class="kv"><span>磁盘剩余</span><span>${(ops.disk_free_bytes/1024**3).toFixed(1)} GiB</span></div><div class="kv"><span>最近备份</span><span>${esc(ops.backup?.completed_at||'尚无备份记录')}</span></div><div class="kv"><span>监测状态</span><span>${esc(ops.monitor?.summary||'尚无监测记录')}</span></div><div class="kv"><span>任务领取</span><span>${ops.draining?'已暂停领取新任务':'允许领取任务'}</span></div><button id="toggle-drain">${ops.draining?'恢复领取任务':'暂停领取新任务'}</button><h3>最近操作记录</h3>${ops.audit.map(a=>`<p class="tiny">${date(a.created_at)} · ${esc(a.actor_name)} · ${esc(a.path)} · ${esc(a.result)}</p>`).join('')||'<p>尚无操作记录</p>'}`;
+    $('#toggle-drain').onclick=async()=>{await api('/api/operations/drain',{enabled:!ops.draining});loadAdministration();};
+  }catch(err){if($('#admin-users'))$('#admin-users').textContent=err.message;}
 }
 function head(title, desc, buttons = "") {
   return `<div class="pagehead"><div><h1>${title}</h1><p>${desc}</p></div><div class="actions">${buttons}</div></div>`;
@@ -248,14 +291,20 @@ function currentJobs() {
 }
 function usagePanel() {
   const periods={day:'日',week:'周',month:'月'};
-  return `<section class="panel"><div class="panelhead"><h2>调用用量与费用</h2><button class="smallbtn" data-action="ai-pricing">配置模型单价</button></div><p class="tiny muted">北京时间分组，费用为按调用时价格估算；币种分开统计。缺用量或价格显示未知，本机 Codex 未提供 Token 用量时不按免费计算。</p>${Object.entries(periods).map(([key,label])=>`<details><summary>按${label}统计</summary><div class="table-wrap" style="overflow:auto"><table class="table" style="min-width:720px"><thead><tr><th>周期</th><th>游戏 / 阶段</th><th>调用</th><th>已知 Token（输入 / 输出）</th><th>耗时</th><th>估算费用</th></tr></thead><tbody>${(state.usage?.[key]||[]).slice(0,100).map(r=>`<tr><td>${esc(r.period)}</td><td>${esc(cBy(r.candidate_id).title||r.candidate_id)} / ${esc(r.stage)}</td><td>${r.calls}</td><td>${r.input_tokens} / ${r.output_tokens}${r.unknown_usage_calls?`；${r.unknown_usage_calls} 次未知`:''}</td><td>${Number(r.duration_seconds).toFixed(1)} 秒</td><td>${Object.entries(r.costs).map(([c,n])=>esc(c)+' '+Number(n).toFixed(6)).join('；')||'—'}${r.unknown_cost_calls?`；${r.unknown_cost_calls} 次费用未知`:''}</td></tr>`).join('')||'<tr><td colspan="6">尚无已记录调用；历史用量不推算补录。</td></tr>'}</tbody></table></div></details>`).join('')}<p>下游已返回模板：${state.downstream_summary?.templates??'—'}，已发布：${state.downstream_summary?.published??'—'}。${esc(state.downstream_summary?.scope||'')}</p></section>`;
+  return `<section class="panel"><div class="panelhead"><h2>调用用量与费用</h2><button class="smallbtn" data-action="ai-pricing">配置模型单价</button></div><p class="tiny muted">北京时间分组，费用为按调用时价格估算；币种分开统计。缓存读取和写入属于总输入的一部分；缺用量、缓存明细或价格时费用显示未知。标准档估算不等于服务商账单。</p>${Object.entries(periods).map(([key,label])=>`<details><summary>按${label}统计</summary><div class="table-wrap" style="overflow:auto"><table class="table" style="min-width:720px"><thead><tr><th>周期</th><th>游戏 / 阶段</th><th>调用</th><th>已知 Token（输入 / 输出）</th><th>耗时</th><th>估算费用</th></tr></thead><tbody>${(state.usage?.[key]||[]).slice(0,100).map(r=>`<tr><td>${esc(r.period)}</td><td>${esc(cBy(r.candidate_id).title||r.candidate_id)} / ${esc(r.stage)}</td><td>${r.calls}</td><td>${r.input_tokens} / ${r.output_tokens}${r.unknown_usage_calls?`；${r.unknown_usage_calls} 次未知`:''}<small>${r.cache_known_calls?`其中缓存读取 ${r.cached_input_tokens} / 写入 ${r.cache_write_tokens}`:'缓存明细不完整或未记录'}${r.cache_unknown_calls?`；${r.cache_unknown_calls} 次明细缺失`:''}</small></td><td>${Number(r.duration_seconds).toFixed(1)} 秒</td><td>${Object.entries(r.costs).map(([c,n])=>esc(c)+' '+Number(n).toFixed(6)).join('；')||'—'}${r.unknown_cost_calls?`；${r.unknown_cost_calls} 次费用未知`:''}</td></tr>`).join('')||'<tr><td colspan="6">尚无已记录调用；历史用量不推算补录。</td></tr>'}</tbody></table></div></details>`).join('')}<p>下游已返回模板：${state.downstream_summary?.templates??'—'}，已发布：${state.downstream_summary?.published??'—'}。${esc(state.downstream_summary?.scope||'')}</p></section>`;
 }
 function operationPanel() {
   return `<section class="panel"><h2>节点执行统计</h2><p class="tiny muted">按有成对起止事件的执行记录统计，包含重试；各节点可嵌套，耗时不可相加作为总墙钟时间。</p>${Object.entries({day:'日',week:'周',month:'月'}).map(([key,label])=>`<details><summary>按${label}统计</summary><div class="table-wrap"><table class="table"><thead><tr><th>周期</th><th>游戏 / 节点</th><th>执行 / 失败</th><th>累计耗时</th></tr></thead><tbody>${(state.operation_stats?.[key]||[]).slice(0,100).map(r=>`<tr><td>${esc(r.period)}</td><td>${esc(cBy(r.candidate_id).title||r.candidate_id)} / ${esc(r.stage)}</td><td>${r.executions} / ${r.failed}</td><td>${Number(r.duration_seconds).toFixed(1)} 秒</td></tr>`).join('')||'<tr><td colspan="4">尚无可统计记录；历史耗时不推算。</td></tr>'}</tbody></table></div></details>`).join('')}</section>`;
 }
 function pricingDialog() {
-  modal('模型价格配置',`<p>仅影响后续调用估算；不会覆盖历史费用。请填写提供方的实际价格。</p><form id="pricing-form"><label>提供方</label><select name="provider"><option value="api">API</option><option value="codex">Codex</option></select><label>模型名（须与调用记录完全相同）</label><input name="model" required maxlength="120"><label>币种</label><select name="currency"><option>USD</option><option>CNY</option></select><label>每百万输入 Token</label><input name="input" type="number" min="0" step="any" required><label>每百万输出 Token</label><input name="output" type="number" min="0" step="any" required><button class="primary">保存单价</button></form>`);
-  document.querySelector('#pricing-form').onsubmit=async e=>{e.preventDefault();try{const f=new FormData(e.target),rates={...(state.ai_pricing||{})};rates[f.get('provider')+':'+f.get('model').trim()]={currency:f.get('currency'),input_per_million:Number(f.get('input')),output_per_million:Number(f.get('output'))};await api('/api/ai-pricing',{rates});closeModal();await load();}catch(err){document.querySelector('#modal-error').textContent=err.message;}};
+  const fields=[['input','未命中缓存的输入','input_per_million'],['cached','缓存读取','cached_input_per_million'],['write','缓存写入','cache_write_per_million'],['output','输出','output_per_million']];
+  const inputs=prefix=>fields.map(([name,label])=>`<label>${prefix?'长上下文 · ':''}${label}（每百万 Token）<input name="${prefix+name}" type="number" min="0" step="any" ${!prefix&&['input','output'].includes(name)?'required':''}></label>`).join('');
+  modal('模型价格配置',`<p>按标准服务档估算，仅影响后续调用，不覆盖历史费用。缓存读取和写入已包含在总输入中，不重复累加 Token。</p><form id="pricing-form"><label>提供方<select name="provider"><option value="api">API</option><option value="codex">Codex</option></select></label><label>模型名（须与调用记录完全相同）<input name="model" required maxlength="120"></label><label>币种<select name="currency"><option>USD</option><option>CNY</option></select></label>${inputs('')}<label>长上下文输入阈值（超过时整次请求切换价格）<input name="threshold" type="number" min="1" step="1"></label>${inputs('long-')}<p class="tiny muted">不用的缓存价格和长上下文档留空。启用缓存计价后，服务未返回相应 Token 明细时费用显示未知；其他服务档需单独适配。</p><button class="primary">保存单价</button></form>`);
+  const form=document.querySelector('#pricing-form'),rates=state.ai_pricing||{};
+  const fill=()=>{const rate=rates[form.elements.provider.value+':'+form.elements.model.value.trim()]||{};form.elements.currency.value=rate.currency||'USD';for(const [name,,key] of fields){form.elements[name].value=rate[key]??'';form.elements['long-'+name].value=rate.long_context?.[key]??'';}form.elements.threshold.value=rate.long_context?.threshold??'';};
+  const first=Object.keys(rates)[0];if(first){const split=first.indexOf(':');form.elements.provider.value=first.slice(0,split);form.elements.model.value=first.slice(split+1);fill();}
+  form.elements.model.onchange=fill;form.elements.provider.onchange=fill;
+  form.onsubmit=async e=>{e.preventDefault();try{const f=new FormData(form),updated={...rates},rate={currency:f.get('currency')};for(const [name,,key] of fields)if(String(f.get(name)).trim()!=='')rate[key]=Number(f.get(name));if(String(f.get('threshold')).trim()!==''){rate.long_context={threshold:Number(f.get('threshold'))};for(const [name,,key] of fields)if(String(f.get('long-'+name)).trim()!=='')rate.long_context[key]=Number(f.get('long-'+name));}else if(fields.some(([name])=>String(f.get('long-'+name)).trim()!==''))throw Error('请填写长上下文输入阈值');updated[f.get('provider')+':'+f.get('model').trim()]=rate;await api('/api/ai-pricing',{rates:updated});closeModal();await load();}catch(err){document.querySelector('#modal-error').textContent=err.message;}};
 }
 function overview() {
   const cs = catalogCandidates(), js = currentJobs(), m = state.metrics || {};
@@ -265,7 +314,7 @@ function overview() {
   const reviews = (state.versions || []).filter(v => v.status === 'review');
   const stats = [
     ['累计抓取游戏', cs.filter(c => catalogVersion(c.id)).length, '个', '已验收入库 · 与小游戏库数量一致', '↓'],
-    ['分析游戏', production.analyzed, '款', '已记录代码或玩法分析', '⌕'],
+    ['分析游戏', production.analyzed, '款', '含来源页面信息分析 · 按游戏去重', '⌕'],
     ['AI 复刻生成', production.generated, '款', '已保存生成产物 · 含草稿', '✦'],
     ['下游模板', state.downstream_summary?.templates, '个', '下游实际返回的模板', '▧'],
   ];
@@ -402,7 +451,7 @@ function batchDetail(id) {
 function hasDraft(j){return Boolean(j.has_draft||(state.versions||[]).some(v=>v.id===j.version_id&&v.status==='draft'));}
 function jobTable(list) {
   return list.length
-    ? `<div class="table-wrap"><table class="table"><thead><tr><th>游戏 / 任务</th><th>当前阶段</th><th>处理路径</th><th>任务状态</th><th>进度</th><th>操作</th></tr></thead><tbody>${list.map((j) => `<tr><td><b>${esc(cBy(j.candidate_id).title)}</b><br><small>${esc(j.id)}</small></td><td>${esc(j.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || (j.display_status==="dependency_pending"?"依赖分析与适配":{ rea: "REA 分析", reconstruct: "AI 复刻", packaging: "运行包整理" }[j.stage] || j.stage || "等待分析"))}</td><td><span class="badge ${j.route === "A" ? "green" : ""}">${j.display_status==="dependency_pending" ? "原版优先" : j.route === "A" ? "A · 代码整理" : j.route === "B" ? "B · AI 复刻" : j.route === "local" ? "本地运行包" : "待 REA 分流"}</span></td><td>${badge(j.display_status||j.status)}${hasDraft(j)?'<p class="tiny muted">已有可试玩草稿</p>':''}${j.display_status==='needs_work'&&j.status==='failed'?'<p class="tiny muted">上次续作失败，可重试</p>':''}</td><td><small>${j.progress || 0}%</small><div class="progress"><span style="width:${Math.max(0, Math.min(100, j.progress || 0))}%"></span></div></td><td><button class="textbtn" data-job="${esc(j.id)}">继续沟通 / 记录</button>${["failed", "blocked"].includes(j.status) ? `<button class="smallbtn" data-retry="${esc(j.id)}">重试</button>` : ""}</td></tr>`).join("")}</tbody></table></div>`
+    ? `<div class="table-wrap"><table class="table"><thead><tr><th>游戏 / 任务</th><th>当前阶段</th><th>处理路径</th><th>任务状态</th><th>进度</th><th>操作</th></tr></thead><tbody>${list.map((j) => `<tr><td><b>${esc(cBy(j.candidate_id).title)}</b><br><small>${esc(j.id)}</small></td><td>${esc(j.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || (j.display_status==="dependency_pending"?"依赖分析与适配":{ rea: "REA 分析", reconstruct: "AI 复刻", packaging: "运行包整理" }[j.stage] || j.stage || "等待分析"))}</td><td><span class="badge ${j.route === "A" ? "green" : ""}">${j.display_status==="dependency_pending" ? "原版优先" : j.route === "A" ? "A · 代码整理" : j.route === "B" ? "B · AI 复刻" : j.route === "local" ? "本地运行包" : "待 REA 分流"}</span></td><td>${badge(j.display_status||j.status)}${hasDraft(j)?'<p class="tiny muted">已有可试玩草稿</p>':''}${j.display_status==='needs_work'&&j.status==='failed'?'<p class="tiny muted">上次续作失败，可重试</p>':''}</td><td><small>${esc(j.progress_label||"等待阶段记录")}</small></td><td><button class="textbtn" data-job="${esc(j.id)}">继续沟通 / 记录</button>${["failed", "blocked"].includes(j.status) ? `<button class="smallbtn" data-retry="${esc(j.id)}">重试</button>` : ""}</td></tr>`).join("")}</tbody></table></div>`
     : empty("暂无任务记录", "从批次管理启动任务，执行工具将领取并回传进度。");
 }
 let showCompletedTasks=false;
@@ -463,8 +512,10 @@ function supplyReportDialog() {
 }
 function serviceDialog(id) {
   const s = state.services.find(s => s.id === id);
-  modal(serviceNames[id], `<form id="service-form"><label>运行方式</label><select name="backend" id="service-backend">${id === 'ai' ? '<option value="codex">本机 Codex</option><option value="auto">API 优先，Codex 备用</option><option value="api">仅 API</option>' : '<option value="wxapkg_v1">ZIP / v1/jobs</option><option value="builtin">平台内置执行器</option><option value="auto">外部转换服务</option>'}</select><div id="remote-service-fields"><label>服务地址</label><input name="base_url" type="url" value="${esc(s.base_url)}" placeholder="https://example.com/v1">${id === 'ai' ? `<label>模型名称</label><input name="model" value="${esc(s.model)}">` : ''}<label>API Key / 令牌</label><input name="api_key" type="password" autocomplete="new-password" placeholder="${s.has_key ? '留空保留已保存密钥' : '未配置'}"></div><p class="tiny muted">Codex 使用本机已有登录状态。密钥仅保存在服务端。外部转换服务需实现 POST /convert 并返回 files、entry。</p><div class="modalfooter"><button type="submit" class="primary">保存配置</button></div></form>`);
+  modal(serviceNames[id], `<form id="service-form"><label>运行方式</label><select name="backend" id="service-backend">${id === 'ai' ? '<option value="codex">本机 Codex</option><option value="auto">API 优先，Codex 备用</option><option value="api">仅 API</option>' : '<option value="wxapkg_v1">ZIP / v1/jobs</option><option value="builtin">平台内置执行器</option><option value="auto">外部转换服务</option>'}</select><div id="remote-service-fields"><label>服务地址</label><input name="base_url" type="url" value="${esc(s.base_url)}" placeholder="https://example.com/v1">${id === 'ai' ? `<label>模型名称</label><input name="model" value="${esc(s.model)}"><label>接口协议</label><select name="wire_api"><option value="chat_completions">Chat Completions</option><option value="responses">Responses API</option></select><label>附加授权头（可选）</label><input name="actor_authorization" type="password" autocomplete="new-password" placeholder="${s.has_actor_authorization ? '留空保留已保存值' : '未配置'}">` : ''}<label>API Key / 令牌</label><input name="api_key" type="password" autocomplete="new-password" placeholder="${s.has_key ? '留空保留已保存密钥' : '未配置'}"></div><p class="tiny muted">Codex 使用本机已有登录状态。密钥仅保存在服务端。外部转换服务需实现 POST /convert 并返回 files、entry。</p><div class="modalfooter"><button type="submit" class="primary">保存配置</button></div></form>`);
   $('#service-backend').value = s.backend === 'builtin' ? 'builtin' : id === 'ai' && !s.base_url ? 'codex' : s.backend || 'auto';
+  const wireApi = $('#service-form [name="wire_api"]');
+  if (wireApi) wireApi.value = s.wire_api || 'chat_completions';
   const packageOption = $('#service-backend option[value="wxapkg_v1"]');
   if (packageOption) packageOption.textContent = '原包转换服务（异步 ZIP）';
   const toggleFields = () => {
@@ -486,7 +537,7 @@ function serviceDialog(id) {
 function settings() {
   const s = state.settings || {};
   const fields = [
-    ['concurrency', '最大并发任务', 1, 8, s.concurrency || 2],
+    ['concurrency', '云服务器同时转换任务数（固定为 1）', 1, 1, 1],
     ['rea_minutes', 'REA 尝试上限（分钟）', 1, 180, s.rea_minutes || 45],
     ['reconstruct_minutes', 'AI 复刻上限（分钟）', 1, 600, s.reconstruct_minutes || 180],
     ['repair_rounds', '自动修复轮数', 1, 5, s.repair_rounds ?? 3],
@@ -614,8 +665,8 @@ function pipelineRecords(records) {
 function pipelinePanel(job) {
   const pipe=job.pipeline;
   if(!pipe)return '<p class="muted">当前服务尚未提供节点时间线。</p>';
-  const labels={pending:'等待执行',recorded:'有执行记录 · 结果未记录',running:'执行中',succeeded:'成功',failed:'失败',blocked:'待处理',waiting_input:'等待处理',skipped:'已跳过',cancelled:'已取消'};
-  return `<section class="pipeline"><h3>执行时间线</h3><p class="tiny muted">${esc(pipe.note)}</p><ol>${pipe.nodes.map(n=>`<li data-node="${esc(n.key)}" data-status="${esc(n.status)}" ${pipe.current===n.key?'aria-current="step"':''}><details ${pipe.current===n.key?'open':''}><summary><strong>${esc(n.label)}</strong><span>${esc(labels[n.status]||n.status)}${pipe.current===n.key?' · 当前节点':''}</span></summary>${n.started_at?`<p>开始 ${date(n.started_at)}</p>`:''}${n.ended_at?`<p>结束 ${date(n.ended_at)}</p>`:''}${n.duration_seconds!=null?`<p>耗时 ${n.duration_seconds} 秒</p>`:''}${n.reason&&n.reason!==job.question&&!n.records.some(r=>r.message?.trim()===n.reason.trim())?`<p>${esc(n.reason)}</p>`:''}${n.version_id?`<p>关联版本 ${esc(n.version_id)}</p>`:''}${pipelineRecords(n.records)}</details></li>`).join('')}</ol></section>`;
+  const labels={draft_saved:'草稿已保存 · 尚未完成交付',unrecorded:'本轮无记录',pending:'等待执行',recorded:'有历史记录 · 本轮无完成结论',running:'执行中',succeeded:'成功',failed:'失败',blocked:'待处理',waiting_input:'等待处理',skipped:'已跳过',cancelled:'已取消'};
+  return `<section class="pipeline"><h3>执行时间线</h3><p class="tiny muted">${esc(pipe.note)}</p><ol>${pipe.nodes.map(n=>`<li data-node="${esc(n.key)}" data-status="${esc(n.status)}" ${pipe.current===n.key?'aria-current="step"':''}><details ${pipe.current===n.key?'open':''}><summary><strong>${esc(n.label)}</strong><span>${esc(labels[n.status]||n.status)}${pipe.current===n.key?' · 当前节点':''}</span></summary>${n.started_at?`<p>开始 ${date(n.started_at)}</p>`:''}${n.ended_at?`<p>结束 ${date(n.ended_at)}</p>`:''}${n.duration_seconds!=null?`<p>耗时 ${n.duration_seconds} 秒</p>`:''}${n.reason&&n.reason!==job.question&&!n.records.some(r=>r.message?.trim()===n.reason.trim())?`<p>${esc(n.reason)}</p>`:''}${n.version_id?`<p>关联版本 ${esc(n.version_id)}</p>`:''}${pipelineRecords(n.records.filter(r=>(r.round||1)===(job.round||1)))}${n.records.some(r=>(r.round||1)!==(job.round||1))?`<details><summary>此前轮次记录</summary>${pipelineRecords(n.records.filter(r=>(r.round||1)!==(job.round||1)))}</details>`:''}</details></li>`).join('')}</ol></section>`;
 }
 function gameSpecPanel(candidate,job) {
   const spec=candidate.game_spec;
@@ -646,10 +697,10 @@ function jobDetail(id) {
   const canReply=['review','waiting_input','blocked','failed','completed'].includes(j.status);
   const next={queued:'等待执行器领取',running:'AI 正在处理，完成后可继续反馈',waiting_input:'等待你回答下面的问题',review:'等待你试玩验收，或提交修改要求',completed:'已验收；仍可提出新修改',failed:'查看错误后重试或补充要求',blocked:'查看错误后重试或补充要求'};
   modal(cBy(j.candidate_id).title+' · 持续任务',`
-    <div class="kv"><span>当前状态</span>${badge(j.display_status||j.status)}</div><div class="kv"><span>下一步</span><span>${esc(j.display_status==='dependency_pending'?'按依赖清单继续获取、适配及验证；尚未完成自动执行':j.display_status==='needs_work'?'已有草稿，基础还原尚未完成；可试玩后补充修改要求':next[j.status]||'历史记录')}</span></div>
+    <div class="kv"><span>当前状态</span>${badge(j.display_status||j.status)}</div><div class="kv"><span>实际进展</span><span>${esc(j.progress_label||"等待阶段记录")}</span></div><div class="kv"><span>下一步</span><span>${esc(j.display_status==='dependency_pending'?'按依赖清单继续获取、适配及验证；尚未完成自动执行':j.display_status==='needs_work'?'已有草稿，基础还原尚未完成；可试玩后补充修改要求':next[j.status]||'历史记录')}</span></div>
     ${j.display_status==='needs_work'&&j.status==='failed'?'<div class="notice">上次续作失败，原因见下方记录；已有草稿仍可试玩，可继续沟通或重试。</div>':''}
     <p class="tiny muted">任务 ${esc(j.id)} · 第 ${j.round||1} 轮</p>${j.reason&&!represented(j.reason)?`<p>${esc(j.reason)}</p>`:''}
-    <div class="task-tabs" role="group" aria-label="任务详情分区">${[['summary','进度概览'],['conversation','沟通与操作'],['versions','交付版本'],['evidence','分析与记录']].map(([key,label])=>`<button type="button" data-task-section="${key}" aria-pressed="false">${label}</button>`).join('')}</div><section class="task-pane" data-task-pane="summary">${pipelinePanel(j)}<p class="tiny muted">详细分析与执行依据见“分析与记录”；提交要求和回复见“沟通与操作”。</p></section><section class="task-pane" data-task-pane="evidence">
+    <div class="task-tabs" role="group" aria-label="任务详情分区">${[['summary','进度概览'],['conversation','沟通与操作'],['versions','交付版本'],['evidence','分析与记录']].map(([key,label])=>`<button type="button" data-task-section="${key}" aria-pressed="false">${label}</button>`).join('')}</div><section class="task-pane" data-task-pane="summary">${pipelinePanel(j)}${j.auto_followup?.gaps?.length?`<section><h3>最近一次检查的未完成项</h3><ul>${j.auto_followup.gaps.map(g=>`<li>${esc(g)}</li>`).join('')}</ul><p class="tiny muted">执行中的新结果尚未计入，不代表剩余操作次数。</p></section>`:''}<p class="tiny muted">详细分析与执行依据见“分析与记录”；提交要求和回复见“沟通与操作”。</p></section><section class="task-pane" data-task-pane="evidence">
     ${j.conversion_plan?`<details class="task-game-spec"><summary>转换分析与分流 · ${esc(j.conversion_plan.label)}</summary><p>${esc(j.conversion_plan.scope)}</p><p class="tiny muted">${j.conversion_plan.recorded?"已记录的执行决策":"依据当前材料评估；历史执行未记录分流报告"}</p><h4>已取得的依据</h4><ul>${(j.conversion_plan.evidence||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul><h4>待处理</h4><ul>${(j.conversion_plan.missing||[]).map(x=>`<li>${esc(x)}</li>`).join('')||'<li>分流阶段未列出缺项；仍需运行和玩法验证。</li>'}</ul><p>下一步：${esc(j.conversion_plan.next_action)}</p></details>`:''}
     ${!versions.length&&['blocked','failed','waiting_input'].includes(j.status)&&(state.web_profiles||[]).length?`<section class="panel"><h3>Web 原版恢复</h3><p class="muted">为现成网页游戏选择已登记方案。平台执行原资源采集、版本哈希核对、适配及离线玩法验证；不匹配时保留原因并停止。</p><form id="restore-web-form"><label for="web-profile">恢复方案</label><select id="web-profile"><option value="auto">自动识别网页来源</option>${state.web_profiles.filter(p=>(cBy(j.candidate_id).web_restore_profiles||[]).includes(p.id)).map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('')}</select>${state.web_profiles.filter(p=>(cBy(j.candidate_id).web_restore_profiles||[]).includes(p.id)).map(p=>`<p class="tiny muted">${esc(p.name)}：${esc(p.description)}</p>`).join('')}<button class="primary" type="submit">按此方案恢复并验证</button></form></section>`:''}
     ${cBy(j.candidate_id).observations?.web_profile_id?`<p class="tiny muted">Web 恢复方案：${esc(cBy(j.candidate_id).observations.web_profile_id)} · 执行结果保存在版本报告与任务记录中。</p>`:''}
@@ -697,14 +748,39 @@ function play(id) {
     true,
   );
 }
+const specificationViews = new Map();
+function specificationHtml(markdown) {
+  // Only headings and paragraphs are emitted by the shared document generator.
+  // Treat Markdown body/HTML as text, never execute embedded markup or links.
+  return String(markdown).split(/\n\s*\n/).map(block => {
+    const heading=block.match(/^(#{1,2}) (.*)$/);
+    return heading ? `<h${heading[1].length+2}>${esc(heading[2])}</h${heading[1].length+2}>`
+      : `<p style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(block)}</p>`;
+  }).join('');
+}
 function review(id) {
   const v = (state.versions || []).find((v) => v.id === id),
     c = cBy(v.candidate_id);
   modal(
     c.title + (["approved","published"].includes(v.status) ? " · 验收结果" : " · 版本验收"),
-    `<div class="preview-pair" style="grid-template-columns:minmax(0,1fr)"><div><h3>产出版本 ${badge(v.status)}</h3>${reviewImage(v,"产出版本实机截图")}<p class="tiny muted">${demo ? "演示插画，非复刻成果" : screenshotItems(v).length ? "该版本运行截图" : "该版本尚未提供运行截图"}</p><button class="smallbtn" data-play="${esc(v.id)}">▷ 打开产出试玩</button></div></div><div class="code" style="margin-top:20px">${esc(typeof v.report === "string" ? v.report : JSON.stringify(v.report || { message: "待提交自动检测报告" }, null, 2))}</div>${provenancePanel(c)}<form id="review-form"><label class="checkrow"><input type="checkbox" name="gameplay" required>核心玩法、计分或胜负、重开符合规格</label><label class="checkrow"><input type="checkbox" name="visual" required>画面可用且无阻断运行错误</label><p class="tiny muted">此处确认玩法与画面，完成学习项目的功能验收入库。资源使用信息另行记录，发布前核对。</p><label>验收意见 / 退回原因</label><textarea name="reason" placeholder="记录需要修复的问题…"></textarea><div class="modalfooter"><button type="button" id="reject-version">退回修复</button><button type="submit" class="primary">${v.status === "approved" ? "发布到小游戏库" : "通过验收"}</button></div></form>`,
+    `<div class="preview-pair" style="grid-template-columns:minmax(0,1fr)"><div><h3>产出版本 ${badge(v.status)}</h3>${reviewImage(v,"产出版本实机截图")}<p class="tiny muted">${demo ? "演示插画，非复刻成果" : screenshotItems(v).length ? "该版本运行截图" : "该版本尚未提供运行截图"}</p><button class="smallbtn" data-play="${esc(v.id)}">▷ 打开产出试玩</button></div></div><details id="game-specification" class="panel" style="margin-top:20px" ${specificationViews.get(id)?.open ? "open" : ""}><summary><strong>游戏规格说明书</strong> <span class="tiny muted">Markdown · 点击阅读</span></summary><article id="game-specification-content" style="margin-top:16px">${specificationViews.get(id)?.html || '<p class="muted">展开后加载说明书。</p>'}</article></details>${provenancePanel(c)}<form id="review-form"><label class="checkrow"><input type="checkbox" name="gameplay" required>核心玩法、计分或胜负、重开符合规格</label><label class="checkrow"><input type="checkbox" name="visual" required>画面可用且无阻断运行错误</label><p class="tiny muted">此处确认玩法与画面，完成学习项目的功能验收入库。资源使用信息另行记录，发布前核对。</p><label>验收意见 / 退回原因</label><textarea name="reason" placeholder="记录需要修复的问题…"></textarea><div class="modalfooter"><button type="button" id="reject-version">退回修复</button><button type="submit" class="primary">${v.status === "approved" ? "发布到小游戏库" : "通过验收"}</button></div></form>`,
     true,
   );
+  const specification = $('#game-specification');
+  specification.ontoggle = async () => {
+    const view=specificationViews.get(id)||{};
+    view.open=specification.open;specificationViews.set(id,view);
+    if(!view.open||view.html||view.loading)return;
+    view.loading=true;
+    const content=specification.querySelector('article');content.textContent='正在加载说明书…';
+    try {
+      const response=await fetch(`/api/versions/${encodeURIComponent(id)}/specification.md`,{credentials:'same-origin'});
+      if(!response.ok)throw new Error(response.status===401?'请重新登录后查看说明书':'说明书加载失败，请收起后重试');
+      view.html=specificationHtml(await response.text());
+      if(content.isConnected)content.innerHTML=view.html;
+    } catch(error) { if(content.isConnected)content.textContent=error.message; }
+    finally { view.loading=false; }
+  };
   liveDialog = () => review(id);
   if (["rejected","superseded"].includes(v.status)) {
     $("#review-form").outerHTML = `<div class="notice" style="margin-top:20px">此版本已退回或被新版替代：${esc(v.reason || "请查看任务记录中的修复意见")}。修复要求会进入当前任务，提交新版本后再验收。</div><div class="modalfooter"><button id="review-back-to-jobs" class="primary">前往任务中心</button></div>`;
@@ -928,6 +1004,7 @@ function bind() {
       (b.onclick = () => {
         const a = b.dataset.action;
         if(a==='ai-pricing')return pricingDialog();
+        if(a==='logout') {api('/api/auth/logout',{}).catch(()=>{}).finally(()=>{csrf='';load();});return;}
         if (a === "mode") {
           demo = !demo;
           localStorage.setItem("replica-demo", demo);

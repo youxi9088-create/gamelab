@@ -14,7 +14,10 @@ class SourceRoutingTests(unittest.TestCase):
 
     def test_confirmed_wechat_identity_retained(self):
         self.assertEqual(source_kind('#小程序://测试/path'),'wechat')
-        self.assertEqual(source_kind('https://example.org/game',{'appids':['wx0123456789abcdef']}),'wechat')
+        self.assertEqual(source_kind('',{'appids':['wx0123456789abcdef']}),'wechat')
+
+    def test_incidental_appid_does_not_reclassify_web_source(self):
+        self.assertEqual(source_kind('https://www.4k99.com/detail/7333',{'appids':['wxd1b553c5c80e693e']}),'web')
 
     def test_web_inventory_does_not_claim_package_or_cache(self):
         result=inventory({'source_kind':'web','web_discovery':{'entries':[]}})
@@ -23,7 +26,13 @@ class SourceRoutingTests(unittest.TestCase):
         self.assertNotIn('微信',str(result))
 
     def test_missing_entry_and_missing_adapter_are_distinct(self):
-        self.assertIn('尚未识别',web_block_reason({}))
+        missing=web_block_reason({})
+        self.assertIn('尚未识别',missing)
+        self.assertNotIn('微信',missing)
+        lead=web_block_reason({'web_discovery':{'launch_links':[{'url':'https://example.org/play','label':'开始游戏'}]}})
+        self.assertIn('可能的启动链接',lead)
+        control=web_block_reason({'web_discovery':{'launch_controls':[{'label':'开始游戏'}]}})
+        self.assertIn('只记录线索、不自动点击',control)
         self.assertIn('已识别',web_block_reason({'web_discovery':{'entries':[{'url':'https://example.org/play'}]}}))
 
     def test_wrong_adapter_is_rejected(self):

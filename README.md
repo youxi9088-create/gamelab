@@ -8,6 +8,8 @@
 
 | 内容 | 文档 |
 |---|---|
+| 云端数据、账号、Git 发布与回退、备份恢复 | [云端交付手册](docs/CLOUD_DELIVERY.md) |
+| 系统组成、数据流、任务调度、部署与边界 | [平台架构说明书](docs/ARCHITECTURE.md) |
 | 全流程、支持路径、自动推进与限制 | [转换流程](docs/AUTO-CONVERSION.md) |
 | 服务职责、端口、配置与健康检查 | [服务清单](docs/SERVICES.md) |
 | 安装、隔离检查、备份与迁移 | [运维手册](docs/OPERATIONS.md) |
@@ -24,7 +26,7 @@
 ./start.ps1
 ```
 
-也可安装执行器锁定依赖后运行 `python server.py`。管理站点为 http://127.0.0.1:8765 ，独立试玩端口 8766，可选 Cocos 原包服务 8770。默认本机绑定，这是本机工作台会话模式，不能直接当公网多租户认证系统。
+也可安装执行器锁定依赖后运行 `python server.py`。管理站点为 http://127.0.0.1:8765 ，独立试玩端口 8766，可选 Cocos 原包服务 8770。默认本机绑定。需要管理员登录时，在启动前同时设置 `PORTAL_ADMIN_USERNAME` 和 `PORTAL_ADMIN_PASSWORD`；PowerShell 配置示例见 [API 文档](docs/API.md#门户管理员登录)。该登录适用于单管理员本机门户，不会把服务变成公网多租户系统。
 
 ## 使用
 

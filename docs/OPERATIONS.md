@@ -8,6 +8,7 @@
 4. `NODE_BINARY` 指定平台执行器 Node，原包服务使用 `NODE_BIN`；未显式指定时平台优先 PATH，再检查本机附带运行时。
 5. 运行 `python server.py` 或 `./start.ps1`。默认管理 8765、试玩 8766，数据目录 data，游戏仓库 game-library。
 6. 工具页配置 AI；Codex 模式需服务运行账户已有登录，API 模式填写实际模型和凭据。配置供货前可先使用平台转换和人工验收。
+7. Windows Server 计划任务使用 `NT AUTHORITY\LOCAL SERVICE` 运行级别，执行 `tools/configure_windows_service_identity.ps1` 配置目录权限与任务身份。不要以 SYSTEM 运行 REA；健康检查会使用自有样例实际执行 REA 分析。
 
 `--port`、`--play-port`、`--data-dir`、`--repo-dir`、`--service all|admin|play` 可分开部署。`--no-executor` 与 `--no-discovery` 用于隔离环境，不代表停掉供货线程；测试必须使用临时 data/repo 目录。
 
@@ -40,6 +41,11 @@
 | 现象 | 检查 |
 |---|---|
 | 自动任务没有运行 | 工具服务依赖检查、data/executor.log、批次暂停/停止、租约与具体阻断 |
+| Windows 上 REA 被阻断 | 核对 GameLabPlatform 实际账户为 LOCAL SERVICE、REA 原生样例分析健康项及 `tools/configure_windows_service_identity.ps1` 授权 |
+
+Windows 门户由 `GameLabPlatform` 开机任务托管，启动脚本 `tools/run-platform.ps1` 会在门户进程退出后记录退出码，并于 15 秒后自动拉起。配置脚本也为启动器异常退出设置每分钟重试（最多连续 999 次）；若门户不可用，检查任务状态和 `C:\GameLab\logs\platform.log`，恢复任务后确认本机 8765、HTTPS 入口以及转换器健康检查均正常。
+
+若登录后主页返回“服务内部错误”，检查 `platform.log` 中 Git 的 `dubious ownership`。源码库由部署账户创建、门户由 `LOCAL SERVICE` 运行时，Git 命令需对 `C:\GameLab\app\game-library` 单独声明 `safe.directory`；仓库代码已在每条 Git 调用中限定此路径，不要改用全局通配信任。
 | 原包服务无法就绪 | 转换模式、8770 监听、NODE_BIN、data/package-converter.log、key 是否匹配 |
 | 资源采集缺失 | 每轮索引、下载拒绝/容量记录、AppID 匹配、来源页面访问报告 |
 | 续作停止 | 当前轮原因、问题输入、检查点基线、三段额度/无进展上限 |

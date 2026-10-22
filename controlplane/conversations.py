@@ -105,7 +105,7 @@ class Conversations:
             candidate=self.get(db,'candidates',job['candidate_id'])
             if job['stage']=='packaging' or source_kind(candidate.get('url',''),candidate.get('observations'))=='web':
                 job['stage']='rea'
-        job.update(status='queued', automatic=True, progress=0, attempt=0, reason=text.strip())
+        job.update(status='queued', automatic=True, progress=0, attempt=0, reason=text.strip(),queued_at=now())
         candidate=self.get(db,'candidates',job['candidate_id']);candidate['status']='queued';s.put(db,'candidates',candidate)
         for field in ('lease_token','lease_expires_at','completed_at','question'):
             job.pop(field,None)

@@ -10,6 +10,8 @@
 
 在本目录运行 `pnpm install --frozen-lockfile --ignore-scripts` 安装锁定的 `rea-agents@6.4.0`。REA 使用包公开声明的 `scripts/rea.mjs` CLI；不注册全局 MCP、不修改个人配置，不安装无关引擎。
 
+Windows Server 的内置 `GameLabPlatform` 计划任务应使用 `NT AUTHORITY\LOCAL SERVICE`（受限运行级别），不要以 `SYSTEM` 运行 REA。部署时运行 `tools/configure_windows_service_identity.ps1`，它会备份任务 XML 并按目录授权代码读取、运行数据写入和配置读取。必须在该任务身份下检查转换服务健康状态；管理员或 SYSTEM 进程的手工运行不能代表平台 worker。
+
 ```powershell
 $env:PLATFORM_URL = 'http://127.0.0.1:8765'
 $env:PLATFORM_TOOL_TOKEN = '<由运维通过管理员 POST /api/tools 注册取得的凭证>'
@@ -46,7 +48,7 @@ $env:REPLICA_AI_API_KEY = '<secret>'
 
 `REPLICA_AI_VISION=1` 时向支持视觉输入的模型发送实际截图。观察输入支持 `actions` 数组，例如 `[{"type":"click","selector":"#restart","expect_text":"得分 0","assert_selector":"#score"}]`；也支持 key 和有上限的 wait。每步保存截图，只验证显式预期，不自动宣称完整玩法正确。提供本地源包和 actions 时，先对原游戏执行这些动作获取观察材料。没有自动推断未知控件并自主通关的能力。
 
-浏览器校验使用 `playwright@1.62.1`；Windows 自动检测已有 Edge，也可通过 `BROWSER_EXECUTABLE` 设置浏览器路径。禁止游戏请求外部网络，临时本地服务器只提供显式产物文件，截图和报告保存在 `runs/`。这不是容器级隔离，生产 worker 仍必须部署在专用隔离环境。
+浏览器校验使用锁定的 `playwright@1.62.1` 默认 Chromium；不会自动检测并切换到系统 Edge。仅显式设置 `BROWSER_EXECUTABLE` 才覆盖默认浏览器。Windows 服务部署应以运行执行器的账户安装 Playwright Chromium，并让服务进程继承相同的 `PLAYWRIGHT_BROWSERS_PATH`，避免服务账户和管理员账户的浏览器缓存不一致。禁止游戏请求外部网络，临时本地服务器只提供显式产物文件，截图和报告保存在 `runs/`。这不是容器级隔离，生产 worker 仍必须部署在专用隔离环境。
 
 ## 接口
 

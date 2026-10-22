@@ -45,7 +45,7 @@ class ServiceRegistry:
                 c = self.config(kind)
                 if kind=='wechat' and self.executor and not c.get('base_url'):
                     health=self.executor.health()
-                    result.append(dict(id=kind,base_url='',model='',has_key=False,status='在线' if health['ready'] else '异常',detail=health['detail'],checked_at=time.time(),backend='builtin'))
+                    result.append(dict(id=kind,base_url='',model='',has_key=False,status='在线' if health['ready'] else '异常',detail=health['detail'],checks=health['checks'],checked_at=time.time(),backend='builtin'))
                     continue
                 from .ai_provider import codex_binary
                 backend=c.get('backend','auto')
@@ -59,7 +59,8 @@ class ServiceRegistry:
                     except (OSError,ValueError):pass
                 fresh = time.time() - check.get('time', 0) < 300
                 status = ('在线' if check.get('ok') else '异常') if configured and fresh else ('待检测' if configured else '未配置')
-                result.append(dict(id=kind, backend=backend, base_url=c.get('base_url', ''), model=c.get('model', ''), has_key=bool(c.get('api_key')), status=status, detail=check.get('detail', '') if fresh else ('检测结果已过期，请重新检测' if check else '等待实际调用检测'), checked_at=check.get('time')))
+                actor_headers=c.get('http_headers',{})
+                result.append(dict(id=kind, backend=backend, base_url=c.get('base_url', ''), model=c.get('model', ''), wire_api=c.get('wire_api','chat_completions'), has_actor_authorization=bool(isinstance(actor_headers,dict) and actor_headers.get('x-openai-actor-authorization')), has_key=bool(c.get('api_key')), status=status, detail=check.get('detail', '') if fresh else ('检测结果已过期，请重新检测' if check else '等待实际调用检测'), checked_at=check.get('time')))
             return result
 
     def save(self, kind, body):
@@ -85,6 +86,11 @@ class ServiceRegistry:
             if kind == 'ai':
                 c['model'] = str(body.get('model', '')).strip()
                 require(c['model'] and key, '请填写模型名称和 API Key')
+                c['wire_api'] = str(body.get('wire_api') or old.get('wire_api') or 'chat_completions').strip()
+                require(c['wire_api'] in ('chat_completions', 'responses'), '无效 AI 接口协议')
+                actor = str(body.get('actor_authorization', '')).strip() or old.get('http_headers', {}).get('x-openai-actor-authorization', '')
+                require(not any(x in actor for x in ('\r', '\n')) and len(actor) <= 4096, '附加授权头格式无效')
+                c['http_headers'] = {'x-openai-actor-authorization': actor} if actor else {}
             data = self.configs()
             data[kind] = c
             self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -99,7 +105,7 @@ class ServiceRegistry:
             c = dict(self.config(kind))
         if kind=='wechat' and self.executor and not c.get('base_url'):
             return self.public()
-        if kind=='ai' and c.get('backend','auto')!='api':
+        if kind=='ai':
             from .ai_provider import complete
             try:
                 value,provider=complete([{'role':'user','content':'Return a JSON object with ok set to true.'}],c,180)
@@ -116,9 +122,6 @@ class ServiceRegistry:
         if c.get('api_key'): headers['Authorization'] = 'Bearer ' + c['api_key']
         body = None
         suffix = '/health'
-        if kind == 'ai':
-            suffix = '/chat/completions'
-            body = json.dumps(dict(model=c['model'], messages=[dict(role='user', content='Return a JSON object with ok set to true.')], response_format={'type': 'json_object'}, max_tokens=32)).encode()
         ok = False
         try:
             request = urllib.request.Request(c['base_url'] + suffix, data=body, headers=headers)

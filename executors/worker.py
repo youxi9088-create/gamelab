@@ -173,16 +173,26 @@ def analyze(source, run, budget=None):
 
 def chat(messages, budget=None):
     config = ai_config()
-    if budget:
-        if budget.calls <= 0:
-            raise Blocked('AI call count budget exhausted')
-        budget.calls -= 1
-    try:
-        value, provider = complete(messages, config, budget.remaining(600) if budget else 600)
-        chat.last_provider = provider
-        return value
-    except Exception as exc:
-        raise Blocked('AI 调用未完成：' + (str(exc)[:160] if isinstance(exc, RuntimeError) else type(exc).__name__)) from None
+    for attempt in range(2):
+        if budget:
+            if budget.calls <= 0:
+                raise Blocked('AI call count budget exhausted')
+            budget.calls -= 1
+        try:
+            value, provider = complete(messages, config, budget.remaining(600) if budget else 600)
+            chat.last_provider = provider
+            return value
+        except Exception as exc:
+            detail=str(exc)[:160] if isinstance(exc,RuntimeError) else type(exc).__name__
+            transient=isinstance(exc,RuntimeError) and detail.startswith('AI API 调用失败：') and any(
+                marker in detail for marker in ('URLError','超时','流式响应提前结束','IncompleteRead','RemoteDisconnected','ConnectionResetError','HTTP 408','HTTP 429','HTTP 500','HTTP 502','HTTP 503','HTTP 504','HTTP 520','HTTP 522','HTTP 524'))
+            if transient and attempt==0 and (budget is None or budget.calls>0):
+                # Each attempt is a separate metered provider call and consumes
+                # the task's call budget. Authentication/schema errors stop.
+                continue
+            error=Blocked('AI 调用未完成：' + detail)
+            error.safe_detail=detail
+            raise error from None
 
 
 def visual_content(text, run):
@@ -290,14 +300,18 @@ def execute(client, job):
     def measured(node, fn):
         def invoke(*args, **kwargs):
             previous=phase[0];phase[0]=node
-            client.post(prefix+'events',{**lease,'node':node,'node_status':'running','message':'开始执行 '+node})
+            from controlplane.pipeline import STAGES
+            label=dict(STAGES)[node]
+            client.post(prefix+'events',{**lease,'node':node,'node_status':'running','message':'开始'+label})
             try:
                 result=fn(*args,**kwargs)
             except Exception:
                 phase[0]=previous
-                client.post(prefix+'events',{**lease,'node':node,'node_status':'failed','message':node+' 未完成，具体原因见任务结果'})
+                client.post(prefix+'events',{**lease,'node':node,'node_status':'failed','message':label+'未完成，具体原因见本轮任务结果'})
                 raise
-            client.post(prefix+'events',{**lease,'node':node,'node_status':'succeeded','message':node+' 本次步骤完成；检查覆盖范围以报告为准'})
+            report=result[-1] if isinstance(result,tuple) and isinstance(result[-1],dict) else result if isinstance(result,dict) else {}
+            incomplete=node=='test' and (report.get('blocker') or report.get('delivery_gaps'))
+            client.post(prefix+'events',{**lease,'node':node,'node_status':'waiting_input' if incomplete else 'succeeded','message':label+('本段已结束，仍有未完成检查；详见本轮结果' if incomplete else '本次步骤完成；检查覆盖范围以报告为准')})
             phase[0]=previous
             return result
         return invoke
@@ -356,9 +370,13 @@ def execute(client, job):
                 acquired=acquire(inp['url'],run,budget,observations=inp.get('observations'))
                 from resource_policy import original_resources
                 raise Blocked('已自动检查并提取缓存资源；当前旧版是替代画面版本，原资源接入需重新适配。不能要求用户手工重复导出缓存，也不会继续交付替代素材版。')
-            from continuation import revise
-            changes,entry,report=measured('adapt',revise)(inp,run,budget,chat,smoke,NeedsInput,
-                progress=lambda message:client.post(prefix+'events',{**lease,'message':message,'stage':'reconstruct'}))
+            if str(base_report.get('recovery_kind','')).startswith('discovered-web-'):
+                from discovered_web import revise
+            else:
+                from continuation import revise
+            revision_node='test' if str(base_report.get('recovery_kind','')).startswith('discovered-web-') else 'adapt'
+            changes,entry,report=measured(revision_node,revise)(inp,run,budget,chat,smoke,NeedsInput,
+                progress=lambda message:client.post(prefix+'events',{**lease,'message':message,'stage':revision_node}))
             if fidelity:
                 changes[inp['_source_fidelity_path']]=json.dumps(fidelity,ensure_ascii=False)
                 report['source_fidelity']=fidelity
@@ -372,7 +390,24 @@ def execute(client, job):
                 report['dependencies']=saved['dependencies']
             gaps=delivery_gaps(report,available)
             report['delivery_gaps']=gaps
-            artifact=client.post('artifacts',{**lease,'job_id':job['id'],'changes':changes,'entry':entry,'report':report,'screenshots':{f'screenshots/revision-{i}.png':base64.b64encode(p.read_bytes()).decode() for i,p in enumerate(sorted((run/report['iteration']).glob('*.png'))[:4])}})['artifact_id']
+            screenshots=list(sorted((run/report['iteration']).glob('*.png')))[:4]
+            if str(report.get('recovery_kind','')).startswith('discovered-web-'):
+                # The platform may have fetched genuinely missing binary files
+                # from the original source. Snapshot this lease's full package,
+                # preserving the immutable baseline and all previous versions.
+                from controlplane.repository import safe_relative
+                for name,text in changes.items():
+                    safe_relative(name)
+                    destination=run/'converted'/name
+                    destination.parent.mkdir(parents=True,exist_ok=True)
+                    destination.write_bytes(text.encode('utf-8'))
+                for i,p in enumerate(screenshots):
+                    destination=run/'converted'/f'screenshots/revision-{i}.png'
+                    destination.parent.mkdir(parents=True,exist_ok=True)
+                    destination.write_bytes(p.read_bytes())
+                artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':entry,'report':report})['artifact_id']
+            else:
+                artifact=client.post('artifacts',{**lease,'job_id':job['id'],'changes':changes,'entry':entry,'report':report,'screenshots':{f'screenshots/revision-{i}.png':base64.b64encode(p.read_bytes()).decode() for i,p in enumerate(screenshots)}})['artifact_id']
             client.post(prefix+'complete',{**lease,'outcome':'draft' if gaps else 'ready_review','artifact_id':artifact,'report':report,'reason':report['summary']})
             return
         if job['stage'] == 'rea':
@@ -458,6 +493,16 @@ def execute(client, job):
                         artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
                         client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
                             'reason':'REA 分析、资源下载及本地启动检查已完成；保存原版可编辑草稿，完整玩法待验收'})
+                        return
+                    if acquired.get('web_discovery',{}).get('entries'):
+                        from discovered_web import convert
+                        report=measured('adapt',convert)(inp,acquired,run,budget,chat)
+                        current_dependencies=dependencies or {}
+                        client.post('candidates/'+job['candidate_id']+'/dependencies',
+                            {**lease,'job_id':job['id'],'revision':current_dependencies.get('revision',1),'dependencies':report['dependencies']})
+                        artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
+                        client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
+                            'reason':'原 Web 游戏资源采集、本地适配和离线启动完成，玩法验证范围见本轮交付报告'})
                         return
                     web_dependencies=inventory(acquired)
                     if inp.get('dependencies'):

@@ -3,6 +3,25 @@ import re
 from .source_routing import source_kind
 
 
+def effective_engine(candidate, versions):
+    """Use version evidence for missing engine labels; never rewrite stored history."""
+    current = str(candidate.get('engine') or '').strip()
+    if current and current.lower() not in ('待分析', '待识别', '未识别', 'unknown'):
+        return current
+    names = {'discovered-web-cocos2': 'Cocos 2',
+             'discovered-web-ruffle': 'Ruffle / Flash'}
+    matching = sorted((v for v in versions if v.get('candidate_id') == candidate.get('id')),
+                      key=lambda v: v.get('created_at', ''), reverse=True)
+    for version in matching:
+        report = version.get('report') or {}
+        if not isinstance(report, dict):
+            continue
+        engine = report.get('engine') or names.get(report.get('recovery_kind'))
+        if isinstance(engine, str) and engine.strip() and engine.lower() not in ('待分析', '待识别', '未识别', 'unknown'):
+            return engine.strip()[:120]
+    return current or '未识别'
+
+
 def facets(candidate, aliases=None):
     aliases = aliases or {}
     raw = str(candidate.get('category') or '').strip()

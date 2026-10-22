@@ -3,8 +3,11 @@ import contextlib
 import json
 import sqlite3
 import uuid
+from contextvars import ContextVar
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+
+ACTOR=ContextVar('request_actor',default=None)
 
 def now():
     return datetime.now(timezone.utc).isoformat(timespec='seconds')
@@ -49,8 +52,20 @@ class Store:
 
     @staticmethod
     def put(db, kind, value):
+        actor=ACTOR.get()
+        if actor and kind in ('jobs','candidates','batches','messages','versions'):
+            if not db.execute('SELECT 1 FROM records WHERE kind=? AND id=?',(kind,value['id'])).fetchone():
+                value.setdefault('created_by',actor['id'])
+            value['updated_by']=actor['id']
         db.execute('INSERT INTO records VALUES (?,?,?) ON CONFLICT(kind,id) DO UPDATE SET data=excluded.data', (kind,value['id'],json.dumps(value,ensure_ascii=False)))
         return value
 
     def event(self, db, message, job_id=None, stage='', **extra):
+        actor=ACTOR.get()
+        if actor:
+            extra.setdefault('actor_id',actor['id']);extra.setdefault('actor_name',actor['username'])
+        if job_id and 'round' not in extra:
+            job=self.get(db,'jobs',job_id)
+            if job:
+                extra.update(round=job.get('round',1),attempt=job.get('attempt',0))
         return self.put(db,'events',dict(id=ident('ev'),message=message,job_id=job_id,stage=stage,created_at=now(),**extra))
