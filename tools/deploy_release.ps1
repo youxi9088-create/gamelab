@@ -18,13 +18,16 @@ function CheckedPython([string]$Script,[string[]]$Arguments=@()) {
     if($LASTEXITCODE -ne 0){throw 'Python deployment step failed'}
 }
 function Stop-Platform {
+    # Prevent Task Scheduler recovery from restarting the old release during backup.
+    Disable-ScheduledTask -TaskName GameLabPlatform | Out-Null
     Stop-ScheduledTask -TaskName GameLabPlatform -ErrorAction Stop
     foreach($port in @(8765,8766)) {
         $listener=Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue
         if($listener){
             $process=Get-CimInstance Win32_Process -Filter "ProcessId=$($listener[0].OwningProcess)"
             if($process.CommandLine -notlike '*GameLab*server.py*'){throw 'Unexpected listener; refusing to stop'}
-            Stop-Process -Id $process.ProcessId -Force
+            & taskkill /PID $process.ProcessId /T /F | Out-Null
+            if($LASTEXITCODE -ne 0 -and (Get-Process -Id $process.ProcessId -ErrorAction SilentlyContinue)){throw 'Could not stop platform process tree'}
         }
     }
 }
@@ -128,6 +131,7 @@ with sqlite3.connect(p,timeout=30) as db:
     }
     Link-Directory $app $target
     Copy-Item -LiteralPath (Join-Path $target 'tools\run-platform.ps1') -Destination (Join-Path $Root 'run-platform.ps1') -Force
+    Enable-ScheduledTask -TaskName GameLabPlatform | Out-Null
     Start-ScheduledTask -TaskName GameLabPlatform
     $healthy=$false
     for($i=0;$i -lt 20;$i++){
@@ -135,6 +139,8 @@ with sqlite3.connect(p,timeout=30) as db:
         try{if((Invoke-RestMethod http://127.0.0.1:8765/health).ok -and (Invoke-RestMethod http://127.0.0.1:8766/health).ok){$healthy=$true;break}}catch{}
     }
     if(-not $healthy){throw 'New release health check failed'}
+    $workers=@(Get-CimInstance Win32_Process | Where-Object {$_.Name -eq 'python.exe' -and $_.CommandLine -like '*GameLab*executors*worker.py*'})
+    if($workers.Count -ne 1 -or $workers[0].CommandLine -notlike ('*'+$target+'\executors\worker.py*')){throw 'Worker does not belong to the selected release'}
     CheckedPython @'
 import sys,json,sqlite3,datetime
 from pathlib import Path
@@ -155,6 +161,7 @@ print('release',record['commit'])
             if((Test-Path -LiteralPath $app) -and (Get-Item -LiteralPath $app).LinkType){[IO.Directory]::Delete($app)}
             if(-not(Test-Path -LiteralPath $app)){Link-Directory $app $oldTarget}
         }
+        Enable-ScheduledTask -TaskName GameLabPlatform | Out-Null
         Start-ScheduledTask -TaskName GameLabPlatform
     }
     throw

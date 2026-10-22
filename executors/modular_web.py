@@ -8,22 +8,19 @@ import json
 import posixpath
 import re
 import shutil
+import subprocess
 import urllib.parse
 import urllib.request
 from pathlib import Path
 from remote_assets import validate_url, NoRedirect, tls_context
 
 ROOT=Path(__file__).resolve().parent
-IMPORT=re.compile(r'''(?:\bfrom\s*|\bimport\s*(?:\(\s*)?)["']([^"']+)["']''')
 ABSOLUTE=re.compile(r'''https://[^\s"'<>`\\]+''')
 
 
 def candidate(observation):
-    leads=observation.get('web_discovery',{}).get('iframe_hints',[])
-    urls={r['url'] for r in leads if r.get('width',0)>200 and r.get('height',0)>150
-          and urllib.parse.urlsplit(r.get('url','')).hostname and
-          urllib.parse.urlsplit(r['url']).hostname.endswith('.games.remix.gg')}
-    return next(iter(urls)) if len(urls)==1 else None
+    from controlplane.source_routing import modular_candidate
+    return modular_candidate(observation)
 
 
 def capture(url,referer,run,budget):
@@ -66,13 +63,22 @@ def capture(url,referer,run,budget):
         out=original/local;out.parent.mkdir(parents=True,exist_ok=True);out.write_bytes(data)
         if module:
             text=data.decode('utf-8')
-            def replace(m):
-                ref=m[1]
+            from controlplane.runtime import node_binary
+            parsed_imports=subprocess.run([node_binary(),str(ROOT/'module-imports.cjs')],input=text,
+                capture_output=True,encoding='utf-8',timeout=budget.remaining(40))
+            if parsed_imports.returncode:raise ValueError('模块语法解析失败：'+parsed_imports.stderr[-800:])
+            replacements=[]
+            for item in json.loads(parsed_imports.stdout):
+                ref=item['value']
                 if not ref.startswith(('/','./','../','https://')):raise ValueError('未解析的模块引用：'+ref)
                 child=dependency(urllib.parse.urljoin(address,ref),True)
                 relative=posixpath.relpath(child,posixpath.dirname(local))
-                return m[0].replace(ref,'./'+relative)
-            text=IMPORT.sub(replace,text)
+                replacements.append((item['start'],item['end'],json.dumps('./'+relative)))
+            # Babel offsets are UTF-16 code units, including astral characters.
+            encoded=text.encode('utf-16-le')
+            for start,end,value in sorted(replacements,reverse=True):
+                encoded=encoded[:start*2]+value.encode('utf-16-le')+encoded[end*2:]
+            text=encoded.decode('utf-16-le')
             sources[local]=text.encode()
         else:sources[local]=data
         return local

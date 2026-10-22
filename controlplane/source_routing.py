@@ -3,6 +3,15 @@ import re
 from urllib.parse import urlsplit
 
 
+def modular_candidate(observation):
+    leads=observation.get('web_discovery',{}).get('iframe_hints',[])
+    urls={r['url'] for r in leads if isinstance(r,dict) and r.get('evidence')=='iframe-src'
+          and r.get('width',0)>200 and r.get('height',0)>150
+          and urlsplit(r.get('url','')).scheme=='https'
+          and (urlsplit(r['url']).hostname or '').endswith('.games.remix.gg')}
+    return next(iter(urls)) if len(urls)==1 else None
+
+
 def source_kind(url, observations=None):
     o=observations if isinstance(observations,dict) else {}
     source=str(url).strip()
