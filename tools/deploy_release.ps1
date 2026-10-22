@@ -93,6 +93,10 @@ with sqlite3.connect(p,timeout=30) as db:
     }
     $secret=Join-Path $shared 'config\portal-secrets.ps1'
     if(-not(Test-Path -LiteralPath $secret)){Copy-Item -LiteralPath C:\ProgramData\GameLab\portal-secrets.ps1 -Destination $secret}
+    . $secret
+    $configValue=Get-Content -LiteralPath $deploymentConfig -Raw | ConvertFrom-Json
+    $configValue | Add-Member -NotePropertyName public_origin -NotePropertyValue $env:PORTAL_PUBLIC_ORIGIN -Force
+    $configValue | ConvertTo-Json | Set-Content -LiteralPath $deploymentConfig -Encoding UTF8
     if(Test-Path (Join-Path $Root 'Caddyfile')){Copy-Item -LiteralPath (Join-Path $Root 'Caddyfile') -Destination (Join-Path $shared 'config\Caddyfile') -Force}
     foreach($task in @('GameLabPlatform','GameLabReverseProxy','GameLabCertificateRenewal')){Export-ScheduledTask -TaskName $task | Set-Content -LiteralPath (Join-Path $shared ('config\'+$task+'.xml')) -Encoding UTF8}
     foreach($name in @('run-proxy.ps1','renew-ip-cert.ps1')){if(Test-Path (Join-Path $Root $name)){Copy-Item -LiteralPath (Join-Path $Root $name) -Destination (Join-Path $shared ('config\'+$name)) -Force}}
