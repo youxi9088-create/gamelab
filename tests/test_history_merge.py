@@ -45,6 +45,21 @@ class HistoryMergeTests(unittest.TestCase):
             plan = merge(archive, shared)
             self.assertEqual([g['id'] for g in plan['games']], ['unique'])
             self.assertFalse((shared / 'data/artifacts/a1').exists())
+            with sqlite3.connect(shared / 'data/platform.sqlite3') as db:
+                db.execute("UPDATE records SET data=? WHERE kind='settings'", (json.dumps({'id': 'maintenance', 'draining': False}),))
+            db.close()
+            with self.assertRaisesRegex(ValueError, 'Pause new work'):
+                merge(archive, shared, True)
+            self.assertFalse((shared / 'data/artifacts/a1').exists())
+            with sqlite3.connect(shared / 'data/platform.sqlite3') as db:
+                db.execute("UPDATE records SET data=? WHERE kind='settings'", (json.dumps({'id': 'maintenance', 'draining': True}),))
+                db.execute('INSERT INTO records VALUES (?,?,?)', ('artifacts', 'a1', json.dumps({'id': 'a1'})))
+            db.close()
+            with self.assertRaisesRegex(ValueError, 'Record ID collision'):
+                merge(archive, shared, True)
+            with sqlite3.connect(shared / 'data/platform.sqlite3') as db:
+                db.execute("DELETE FROM records WHERE kind='artifacts' AND id='a1'")
+            db.close()
             self.assertTrue(merge(archive, shared, True)['applied'])
             with sqlite3.connect(shared / 'data/platform.sqlite3') as db:
                 values = {(k, i): json.loads(v) for k, i, v in db.execute('SELECT * FROM records')}
