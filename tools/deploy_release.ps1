@@ -65,8 +65,8 @@ p=Path(sys.argv[1])/'data/platform.sqlite3'
 with sqlite3.connect(p,timeout=30) as db:
  db.execute('BEGIN IMMEDIATE')
  rows=[(k,json.loads(v)) for k,v in db.execute('SELECT kind,data FROM records')]
- assert not any(k=='jobs' and r.get('status')=='running' for k,r in rows),'转换正在运行，请完成后重新发布'
- assert not any(k=='discovery_runs' and r.get('status')=='running' for k,r in rows),'来源扫描正在运行'
+ assert not any(k=='jobs' and r.get('status')=='running' for k,r in rows),'An active conversion must finish before deployment'
+ assert not any(k=='discovery_runs' and r.get('status')=='running' for k,r in rows),'Source discovery is still running'
  value={'id':'maintenance','draining':True}
  db.execute("INSERT INTO records VALUES ('settings','maintenance',?) ON CONFLICT(kind,id) DO UPDATE SET data=excluded.data",(json.dumps(value),))
 '@ @($app)
