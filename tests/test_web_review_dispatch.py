@@ -18,6 +18,9 @@ class WebReviewDispatchTests(unittest.TestCase):
                 'steps':[{'screenshot':n} for n in names]+[{'screenshot':'../outside.png'}]}
             images=web.review_images(root,runtime,None,[])
             self.assertEqual([p.name for p,_ in images],['step-3.png','step-4.png','step-5.png','step-6.png'])
+            current=root/'current.png';current.write_bytes(b'current')
+            images=web.review_images(root,runtime,current,[current])
+            self.assertEqual([p.name for p,_ in images],['step-3.png','step-4.png','step-5.png','current.png'])
 
     def test_reload_requires_separate_observation(self):
         class Budget:calls=3

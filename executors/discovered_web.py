@@ -26,9 +26,11 @@ def review_images(target, runtime, prior_image, current_images):
             path = target / name
             if path.is_file():
                 steps.append((path, f'本轮真实操作序号 {int(match[1])+1} 执行后的画面（按执行顺序，不代表当前画面）'))
-    images.extend(steps[-4:])
+    # The current image supersedes the final action screenshot. Keep all four
+    # action outcomes within the bridge's four-image contract without a restart.
+    images.extend(steps[-4:-1] if current_images and steps else steps[-4:])
     images.extend((p, '本轮最新实际画面') for p in current_images)
-    return images
+    return images[-4:]
 
 
 class ReviewBrowser:

@@ -38,7 +38,7 @@ def prepare(messages, directory):
                 value=part.get('image_url',{}).get('url','')
                 header,encoded=value.split(',',1)
                 suffix={'data:image/png;base64':'.png','data:image/jpeg;base64':'.jpg'}.get(header)
-                if not suffix or len(images)>=6:raise ValueError('image format/count')
+                if not suffix or len(images)>=4:raise ValueError('image format/count')
                 raw=base64.b64decode(encoded,validate=True)
                 if not 0<len(raw)<=2_000_000:raise ValueError('image size')
                 path=directory/('observation-'+str(len(images)+1)+suffix);path.write_bytes(raw);images.append(path)
@@ -96,7 +96,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.path!='/v1/chat/completions':return self.send_json(404,{'error':{'code':'not_found'}})
         try:length=int(self.headers.get('Content-Length','0'))
         except ValueError:return self.send_json(400,{'error':{'code':'invalid_length'}})
-        if not 0<length<=24_000_000:return self.send_json(413,{'error':{'code':'body_limit'}})
+        if not 0<length<=12_000_000:return self.send_json(413,{'error':{'code':'body_limit'}})
         # A following request can arrive before the previous handler flushes its
         # log and releases the lock. Briefly queue instead of reporting false 429.
         if not self.server.busy.acquire(timeout=10):return self.send_json(429,{'error':{'code':'local_codex_busy'}})
