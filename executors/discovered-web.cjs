@@ -182,11 +182,11 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   browser=await chromium.launch(require('./browser-options.cjs')());
   const c=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block'});
   await c.route('**/*',r=>{const u=new URL(r.request().url());if(u.origin===origin||['data:','blob:'].includes(u.protocol))return r.continue();report.external.push(u.origin+u.pathname);return r.abort();});
-  page=await c.newPage();page.on('pageerror',e=>report.errors.push(e.message));page.on('response',r=>{if(r.status()>=400)report.missing.push(r.url().replace(origin,''));});
+  page=await c.newPage();page.on('pageerror',e=>report.errors.push((e.stack||e.message).slice(0,3000)));page.on('response',r=>{if(r.status()>=400)report.missing.push(r.url().replace(origin,''));});
   page.on('console',m=>{const text=m.text();if(report.renderDiagnostics.length<40&&/renderer|webgl|webgpu|adapter|panic/i.test(text))report.renderDiagnostics.push(text.slice(0,500));});
   await page.goto(origin,{waitUntil:'domcontentloaded'});
   let missingProbe;
-  try{await Promise.race([gameplayReady(page,acq.engine),new Promise((resolve,reject)=>{missingProbe=setInterval(()=>{if(report.missing.length)reject(Error('Missing local runtime resources'));},500);})]);}
+  try{await Promise.race([gameplayReady(page,acq.engine),new Promise((resolve,reject)=>{missingProbe=setInterval(()=>{if(report.errors.length)reject(Error('Runtime script error: '+report.errors[0]));else if(report.missing.length)reject(Error('Missing local runtime resources'));},500);})]);}
   finally{clearInterval(missingProbe);}
   report.steps.push({...await state(page,acq.engine),storage:await storageEvidence(page)});await screenshot(page,path.join(root,'screenshots/startup.png'));
   if(viewportReview){

@@ -21,7 +21,7 @@ class ModularWebTests(unittest.TestCase):
     def test_capture_preserves_source_and_localizes_graph(self):
         url='https://g-example.games.remix.gg/versions/a'
         html='<html><script src="https://cdn.jsdelivr.net/npm/@remix-gg/sdk@0.16.0/dist/index.min.js"></script><script type="importmap">'+json.dumps({'imports':{'@remix-gg/three':'https://esm.sh/runtime','@remix-gg/three/three':'https://esm.sh/engine'}})+'</script><script type="module">import {game} from "@remix-gg/three"; game();</script></html>'
-        data={url:html.encode(),'https://esm.sh/runtime':'const label=`😀 from "srgb-linear"`; import "/engine"; export const game=()=>{};'.encode(), 'https://esm.sh/engine':b'export const Engine=1;'}
+        data={url:html.encode(),'https://esm.sh/runtime':'/* module header */\nconst label=`😀 from "srgb-linear"`;\nimport "/engine";\nexport const game=()=>{};'.encode(), 'https://esm.sh/engine':b'export const Engine=1;'}
         class Client:
             def open(self,req,timeout):return io.BytesIO(data[req.full_url])
         class Budget:
@@ -36,6 +36,8 @@ class ModularWebTests(unittest.TestCase):
             module=next((root/'converted/vendor').glob('*runtime*')).read_text()
             self.assertIn('./002-engine.js',module)
             self.assertIn('from "srgb-linear"',module)
+            parsed=m.subprocess.run([__import__('controlplane.runtime',fromlist=['node_binary']).node_binary(),str(m.ROOT/'module-imports.cjs')],input=module.encode(),capture_output=True)
+            self.assertEqual(parsed.returncode,0,parsed.stderr)
             self.assertIn('game();',output)
 
 

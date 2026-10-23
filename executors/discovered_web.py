@@ -279,6 +279,7 @@ pending_delivery 是平台共享交付检查返回的剩余缺项。本轮必须
 修复只允许页面宿主代码，返回 changes:{新宿主文件或已完整阅读文件:全文} 或 edits:[{path,sha256,old,new}]。
 不得修改 assets/、vendor/、screenshots/、evidence/、verification/，不得注入胜负、数值、存档或游戏状态以通过验证。不得伪造网络登录或奖励成功。
 基于已执行的实际截图、日志及原包证据，完成代表性基础玩法检查后才返回 complete:true，带 foundation_checks（gameplay/resources/scene/objects/characters/animation/ui，每项status verified/pending/not_applicable、reason），dependency_updates:[{id,status,reason}]。
+结束时同时返回 game_profile，用中文填写交付游戏本身的 category、dimension（2D/3D/2.5D/混合）、perspective、core_gameplay、core_experience、controls、game_loop、content、progression、save，所有值均为字符串。只写源码与本轮实证支持的事实；未确认规模或机制明确写未验证，不能编造关卡数。该资料用于生成可在平台查看的 Markdown 游戏规格说明书。
 dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable 项；仍待处理的依赖保留现有状态并写入总结，不提交 available/unknown 更新。
 后端依赖按本轮代表性基础流程评估：检查实际外部请求、结算与保存恢复记录，必要时读取相关网络及存档代码。若该流程已证实使用本地代码和存储完成且不依赖后端，可将 web-backend 标为 not_applicable，并明确仅覆盖此流程；未访问的广告、排行或后续关卡写入覆盖边界，不要求穷举。不能仅凭启动时 external=[] 下结论；证据不足就继续核对，不用“全游戏后端未验证”代替具体缺项分析。
 保留未访问关卡的覆盖边界，不要求穷举全游戏；未验证的必需核心流程保持pending。人工验收独立。若能力不足，返回 blocker:{code,reason,next_action}，说明具体不足。
@@ -421,6 +422,10 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
         'dependency_updates': [{**d, 'evidence': proof} for d in final.get('dependency_updates', [])
             if isinstance(d, dict) and d.get('status') in ('verified', 'not_applicable')]}
     report.pop('blocker', None)
+    if isinstance(final.get('game_profile'),dict):
+        from controlplane.game_catalog import normalize, document
+        report['game_profile']=normalize(final['game_profile'])
+        changes['GAME_SPECIFICATION.md']=document(inp.get('title','游戏'),report['game_profile'])
     if not completed:
         report['blocker'] = final.get('blocker') or {'code': 'WEB_VERIFICATION_BUDGET', 'reason': '本轮平台自动验证尚未完成核心闭环', 'next_action': '依据本轮实际截图与输入记录继续原任务'}
     changes['RESTORATION_REPORT.txt'] = (previous.get('source_reuse', {}).get('notes', '') + '\n'

@@ -64,9 +64,11 @@ def capture(url,referer,run,budget):
         if module:
             text=data.decode('utf-8')
             from controlplane.runtime import node_binary
-            parsed_imports=subprocess.run([node_binary(),str(ROOT/'module-imports.cjs')],input=text,
-                capture_output=True,encoding='utf-8',timeout=budget.remaining(40))
-            if parsed_imports.returncode:raise ValueError('模块语法解析失败：'+parsed_imports.stderr[-800:])
+            # Binary pipes preserve LF exactly on Windows; text stdin expands it
+            # to CRLF, invalidating parser offsets into the original source.
+            parsed_imports=subprocess.run([node_binary(),str(ROOT/'module-imports.cjs')],input=text.encode('utf-8'),
+                capture_output=True,timeout=budget.remaining(40))
+            if parsed_imports.returncode:raise ValueError('模块语法解析失败：'+parsed_imports.stderr.decode('utf-8',errors='replace')[-800:])
             replacements=[]
             for item in json.loads(parsed_imports.stdout):
                 ref=item['value']

@@ -12,6 +12,7 @@ $runtime=Join-Path $Root 'runtime'
 $lockPath=Join-Path $Root 'deploy.lock'
 $lock=[IO.File]::Open($lockPath,'OpenOrCreate','ReadWrite','None')
 $oldTarget=$null
+$previousRecord=$null
 $stopped=$false
 function CheckedPython([string]$Script,[string[]]$Arguments=@()) {
     $Script | & $Python - @Arguments
@@ -37,6 +38,7 @@ function Link-Directory([string]$Link,[string]$Target) {
 }
 try {
     New-Item -ItemType Directory -Path $shared,$releases,$runtime -Force | Out-Null
+    if(Test-Path (Join-Path $shared 'release.json')){$previousRecord=[IO.File]::ReadAllText((Join-Path $shared 'release.json'))}
     $prepared=CheckedPython @'
 import sys,zipfile,json,hashlib,re
 from pathlib import Path
@@ -147,9 +149,10 @@ from pathlib import Path
 root,target,previous=map(Path,sys.argv[1:])
 manifest=json.loads((target/'RELEASE_MANIFEST.json').read_text())
 record={'commit':manifest['commit'],'deployed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'path':str(target),'previous':str(previous)}
-(root/'release.json').write_text(json.dumps(record,indent=2),'utf-8')
+temporary=root/'release.json.tmp'
+temporary.write_text(json.dumps(record,indent=2),'utf-8');temporary.replace(root/'release.json')
 with (root/'releases.jsonl').open('a') as f:f.write(json.dumps(record)+'\n')
-with sqlite3.connect(root/'data/platform.sqlite3') as db:
+with sqlite3.connect(root/'data/platform.sqlite3',timeout=30) as db:
  db.execute("UPDATE records SET data=? WHERE kind='settings' AND id='maintenance'",(json.dumps({'id':'maintenance','draining':False}),))
 print('release',record['commit'])
 '@ @($shared,$target,$oldTarget)
@@ -160,6 +163,7 @@ print('release',record['commit'])
         if($oldTarget -and (Test-Path -LiteralPath $oldTarget)){
             if((Test-Path -LiteralPath $app) -and (Get-Item -LiteralPath $app).LinkType){[IO.Directory]::Delete($app)}
             if(-not(Test-Path -LiteralPath $app)){Link-Directory $app $oldTarget}
+            if($previousRecord){[IO.File]::WriteAllText((Join-Path $shared 'release.json'),$previousRecord)}
         }
         Enable-ScheduledTask -TaskName GameLabPlatform | Out-Null
         Start-ScheduledTask -TaskName GameLabPlatform
