@@ -62,7 +62,7 @@ test('screenshot remembers the working capture mode for that page only',async()=
 test('missing resources use only the observed original directory and never replace files',async()=>{
  const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-resource-fixture-')),original=request.newContext;
  const fetched=[];
- request.newContext=async()=>({get:async url=>{fetched.push(url);return {ok:()=>true,headers:()=>({}),body:async()=>Buffer.from('fixture-original-bytes'),dispose:async()=>{}};},dispose:async()=>{}});
+ request.newContext=async()=>({get:async url=>{fetched.push(url);return {ok:()=>true,status:()=>200,headers:()=>({}),body:async()=>Buffer.from('fixture-original-bytes'),dispose:async()=>{}};},dispose:async()=>{}});
  try{
   fs.mkdirSync(path.join(run,'converted/evidence'),{recursive:true});
   fs.writeFileSync(path.join(run,'web-acquisition.json'),JSON.stringify({url:'https://fixture.example/game/index.html',files:[],bytes:0}));

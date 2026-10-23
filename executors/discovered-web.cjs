@@ -355,7 +355,8 @@ async function repairResources(run){
    if(url.origin!==new URL(base).origin||relative!==decodeURIComponent(local.split('?')[0].slice(1))||relative.startsWith('_remote/'))throw Error('Resource repair must remain in the observed original directory');
    const dest=path.resolve(root,relative);
    if(!dest.startsWith(path.resolve(root)+path.sep)||fs.existsSync(dest))throw Error('Resource repair cannot replace existing files');
-   const response=await client.get(url.href,{maxRedirects:0,timeout:30000});
+   acq.redirects=acq.redirects||[];
+   const response=await followResourceRedirects(value=>client.get(value,{maxRedirects:0,timeout:30000}),url.href,acq.redirects);
    if(!response.ok())throw Error('Original missing resource HTTP '+response.status()+': '+url.href);
    if(Number(response.headers()['content-length']||0)>20*1024*1024)throw Error('Resource exceeds repair byte limit');
    const data=await response.body();bytes+=data.length;
