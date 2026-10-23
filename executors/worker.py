@@ -359,7 +359,7 @@ def execute(client, job):
             client.post(prefix+'plan',{**lease,'plan':plan})
         save_plan()
         settings = job.get('settings', {})
-        budget = Budget(max(1, int(settings.get('rea_minutes' if job['stage']=='rea' else 'reconstruct_minutes', 45 if job['stage']=='rea' else 180))) * 60, max(2, min(16, int(os.environ.get('REPLICA_AI_MAX_CALLS', '12')))))
+        budget = Budget(max(1, int(settings.get('rea_minutes' if job['stage']=='rea' else 'reconstruct_minutes', 45 if job['stage']=='rea' else 180))) * 60, max(2, min(32, int(os.environ.get('REPLICA_AI_MAX_CALLS', '24')))))
         if not inp.get('source_path') and inp.get('source_bundle_url'):
             inp = {**inp, 'source_path': str(client.source_bundle(inp['source_bundle_url'], run / 'source'))}
             save_plan()

@@ -246,7 +246,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   report.replay_action_count=replaying?actions.length:0;
   report.captured_screenshots=['screenshots/startup.png'];
   while(batch!==null){
-  if(!Array.isArray(batch)||report.actions.length+batch.length>(nextBatch?100:20))throw Error('Invalid actions');
+  if(!Array.isArray(batch)||report.actions.length+batch.length>(nextBatch?300:20))throw Error('Invalid actions');
   for(const requested of batch){
    let a={...requested};
    const i=report.actions.length;

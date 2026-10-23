@@ -15,6 +15,9 @@ class LocalCodexBridgeTests(unittest.TestCase):
             texts,images=prepare([{'role':'user','content':[{'type':'text','text':'actual screenshot'},{'type':'image_url','image_url':{'url':'data:image/png;base64,aW1hZ2U='}}]}],Path(folder))
             self.assertEqual(images[0].read_bytes(),b'image')
             self.assertNotIn('base64',texts[0]['content'])
+            part={'type':'image_url','image_url':{'url':'data:image/png;base64,aW1hZ2U='}}
+            self.assertEqual(len(prepare([{'role':'user','content':[part]*6}],Path(folder))[1]),6)
+            with self.assertRaises(ValueError):prepare([{'role':'user','content':[part]*7}],Path(folder))
             with self.assertRaises(ValueError):prepare([{'role':'user','content':[{'type':'image_url','image_url':{'url':'https://example.org/secret.png'}}]}],Path(folder))
 
     def test_requires_auth_and_returns_actual_inference_usage(self):
