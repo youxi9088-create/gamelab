@@ -32,10 +32,12 @@ function resourcePath(value,base){
  if(p.split('/').some(s=>!s||s==='.'||s==='..'||/[\\:\x00-\x1f<>"|?*]/.test(s)))throw Error('Unsafe captured resource path');
  return p;
 }
-function detect(html){
+function detect(html,plan){
  if(/RufflePlayer/.test(html)&&/\.swf["']/.test(html))return 'ruffle';
  if(/_CCSettings/.test(html)&&/cocos2d-js/.test(html))return 'cocos2';
- throw Error('入口已取得，但运行引擎不属于当前 Cocos 2 / Ruffle 适配范围');
+ if(plan?.engine==='defold'&&plan.source_sha256===hash(html.replace(/\r\n/g,'\n'))&&html.includes('EngineLoader.load(')&&html.includes('dmloader.js'))return 'defold';
+ if(plan?.engine==='browser'&&plan.source_sha256===hash(html.replace(/\r\n/g,'\n'))&&/<script\b/i.test(html))return 'browser';
+ throw Error('入口已取得，运行契约尚未配置；请分析已保留入口与依赖代码，再选择适配方案');
 }
 function ruffleEntry(html,url){
  const swf=html.match(/\.load\(\s*["']([^"']+\.swf)["']/),scripts=[...html.matchAll(/<script\b[^>]*src=["']([^"']+)["']/gi)].map(m=>m[1]);
@@ -53,7 +55,11 @@ function adaptClient(text){
  return {text:text.replace(pattern,'$1.prototype.isServerEnable=function(){return false}'),changed:true};
 }
 async function ready(page,engine){
- if(engine==='three'){
+ if(engine==='defold'){
+  await page.waitForFunction(()=>!!window.Module?.calledRun&&!!window.Module?.canvas?.width,null,{timeout:90000});
+  await page.waitForTimeout(3000);return;
+ }
+ if(engine==='three'||engine==='browser'){
   await page.waitForFunction(()=>[...document.querySelectorAll('canvas')].some(c=>c.width>0&&c.height>0),null,{timeout:90000});
   await page.waitForTimeout(3000);return;
  }
@@ -77,8 +83,9 @@ async function state(page,engine){
     if(b&&b.interactable){const xy=n.convertToWorldSpaceAR(cc.v2(0,0));result.buttons.push({path:name,handlers:b.clickEvents.map(e=>e.handler),x:rect.left+xy.x/cc.winSize.width*rect.width,y:rect.top+(1-xy.y/cc.winSize.height)*rect.height});}
     n.children.forEach(c=>walk(c,name));}
    walk(cc.director.getScene(),'');result.labels=result.labels.slice(0,120);result.buttons=result.buttons.slice(0,80);
-  }else if(kind==='three'){
+  }else if(kind==='three'||kind==='defold'||kind==='browser'){
    result.loaded=result.canvasCount>0;result.text=document.body.innerText.slice(0,5000);
+   if(kind==='defold'){result.loaded=!!window.Module?.calledRun;result.runtime={calledRun:!!window.Module?.calledRun,host:window.__offlineHost||null};}
    result.labels=[...document.querySelectorAll('h1,h2,p,button,[role="button"]')].filter(n=>n.getClientRects().length).slice(0,80).map(n=>({path:n.id||n.tagName,text:n.innerText.slice(0,200)}));
    result.buttons=[...document.querySelectorAll('button,[role="button"]')].filter(n=>n.getClientRects().length).slice(0,40).map(n=>{const r=n.getBoundingClientRect();return {path:n.id||n.tagName,label:n.innerText,x:r.x+r.width/2,y:r.y+r.height/2};});
   }else{result.loaded=window.gameLoaded===true;result.playerState=window.player?.readyState;}
@@ -97,17 +104,42 @@ async function capture(input,run){
   if(!response.ok())throw Error('运行入口 HTTP '+response.status());
   const html=await response.text();if(Buffer.byteLength(html)>2e6)throw Error('Entry too large');
   fs.writeFileSync(path.join(original,'source-entry.html'),html);
-  const engine=detect(html);report.engine=engine;
+  const planFile=path.join(run,'runtime-plan.json'),plan=fs.existsSync(planFile)?JSON.parse(fs.readFileSync(planFile)):null;
+  let engine;
+  try{engine=detect(html,plan);}catch(e){
+   // Retain declared loader text for the provider-independent investigation tools.
+   const sourceRoot=path.join(run,'repair-sources');fs.mkdirSync(sourceRoot,{recursive:true});
+   report.declaredScripts=[];
+   for(const m of [...html.matchAll(/<script\b[^>]*src=["']([^"']+)["']/gi)].slice(0,6)){
+    const u=safeURL(new URL(m[1],entry).href);if(u.origin!==entry.origin||!u.pathname.startsWith(new URL(base).pathname))continue;
+    const item={url:u.href,path:'repair-sources/'+hash(u.href).slice(0,12)+'.js'};report.declaredScripts.push(item);
+    try{const res=await context.request.get(u.href,{timeout:20000,maxRedirects:0});
+     item.status=res.status();if(res.ok()&&Number(res.headers()['content-length']||0)<1_000_000){const data=await res.body();if(data.length<=1_000_000){fs.writeFileSync(path.join(run,item.path),data);item.sha256=hash(data);}}
+     await res.dispose();
+    }catch(err){item.error=err.message.slice(0,200);}
+   }
+   throw e;
+  }
+  report.engine=engine;report.runtimePlan=plan;
   let runtimeHTML=html;
   const sdk=[...html.matchAll(/<script\b[^>]*src=["']([^"']+)["']/gi)].map(m=>new URL(m[1],entry).href).filter(u=>u==='https://c.17yoo.cn/sdknew/main.js');
   if(engine==='ruffle'){const r=ruffleEntry(html,entry);runtimeHTML=r.html;report.movie=r.movie;report.patches.push({kind:'ruffle-local-host',reason:'Preserve SWF and engine; replace portal loading UI with a standalone player'});}
   else if(sdk.length){runtimeHTML=runtimeHTML.replace(sdk[0],'local-host.js');fs.copyFileSync(path.join(__dirname,'adapters/mini-game-sdk.js'),path.join(out,'local-host.js'));report.patches.push({kind:'mini-game-sdk',reason:'Local host; rewarded ads explicitly fail, no fake login or rewards'});}
+  const poki=plan?.sdk==='poki-offline';
+  if(poki){
+   const scripts=[...html.matchAll(/<script\b[^>]*src=["']([^"']+)["']/gi)].map(m=>m[1]).filter(u=>/^https:\/\/game-cdn\.poki\.com\/scripts\/[^?#]+\/poki-sdk\.js$/.test(u));
+   if(scripts.length!==1)throw Error('Poki host plan requires one explicitly declared SDK');
+   runtimeHTML=runtimeHTML.replace(scripts[0],'runtime-host.js');
+   fs.copyFileSync(path.join(__dirname,'adapters/poki-offline.js'),path.join(out,'runtime-host.js'));
+   report.patches.push({kind:'poki-offline',reason:'Use original SDK rejection branch; advertisements and rewards unavailable',before:hash(html),after:hash(runtimeHTML)});
+  }
   const seen=new Map();
   let preloading=false;
   await context.route('**/*',async route=>{
    const req=route.request();let u;try{u=safeURL(req.url());}catch{return route.abort();}
    if(u.href===entry.href&&req.isNavigationRequest())return route.fulfill({contentType:'text/html',body:runtimeHTML});
    if(u.href===new URL('local-host.js',base).href&&sdk.length)return route.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.join(out,'local-host.js'))});
+   if(u.href===new URL('runtime-host.js',base).href&&poki)return route.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.join(out,'runtime-host.js'))});
    if(u.origin!==entry.origin&&!['image','font','stylesheet','media'].includes(req.resourceType())){report.external.push(u.origin+u.pathname);return route.abort();}
    const task=(async()=>{
     // Fetch and retain bytes before fulfilling the browser request. Large SWFs
@@ -219,7 +251,10 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
    const i=report.actions.length;
    const storageBeforeReload=a.type==='reload'?await storageEvidence(page):null;
    if(a.type==='click'&&Number.isFinite(a.x)&&Number.isFinite(a.y)&&a.x>=0&&a.x<=1000&&a.y>=0&&a.y<=760)await page.mouse.click(a.x,a.y);
-   else if(a.type==='key'&&['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','Enter','w','a','s','d','r','p','Shift','Escape'].includes(a.key))await page.keyboard.press(a.key);
+   else if(a.type==='key'&&['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','Enter','w','a','s','d','r','p','Shift','Escape'].includes(a.key)){
+    const hold=Math.max(0,Math.min(10000,Number(a.hold_ms)||0));
+    await page.keyboard.down(a.key);try{if(hold)await page.waitForTimeout(hold);}finally{await page.keyboard.up(a.key);}
+   }
    else if(a.type==='drag'&&[a.x,a.y,a.to_x,a.to_y].every(Number.isFinite)&&a.x>=0&&a.x<=1000&&a.to_x>=0&&a.to_x<=1000&&a.y>=0&&a.y<=760&&a.to_y>=0&&a.to_y<=760){await page.mouse.move(a.x,a.y);await page.mouse.down();await page.mouse.move(a.to_x,a.to_y,{steps:12});await page.waitForTimeout(Math.max(100,Math.min(3000,a.hold_ms||300)));await page.mouse.up();}
    else if(a.type==='wait'){}
    else if(a.type==='reload'){await page.reload({waitUntil:'domcontentloaded'});await gameplayReady(page,acq.engine);}

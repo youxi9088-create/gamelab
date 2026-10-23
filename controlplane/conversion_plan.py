@@ -17,7 +17,7 @@ def build(inp, observation=None, converter=None, continuation=False, stage='rea'
     elif converter.get('base_url') and converter.get('backend')!='wxapkg_v1':route='external';evidence.append('已配置外部转换协议；实际能力由服务验证')
     elif kind=='web' and source and assets:route='embedded-lib';evidence.append('显式内嵌 HTML 与资源映射；宿主契约由执行器核对')
     elif kind=='web' and modular_candidate(o):route='discovered-web';evidence.append('页面声明唯一 Remix 游戏 iframe；核对显式 Three 模块契约后采集，再验证本地运行')
-    elif kind=='web' and o.get('web_discovery',{}).get('entries'):route='discovered-web';evidence.append('已观察到运行入口；继续探测 Cocos 2 / Ruffle，引擎不支持或资源不闭合时保留具体错误')
+    elif kind=='web' and o.get('web_discovery',{}).get('entries'):route='discovered-web';evidence.append('已观察到运行入口；读取加载契约，必要时由 AI 分析源码与失败证据，选择原包适配或通用浏览器探测；资源不闭合时保留具体错误')
     elif inp.get('source_path'):route='provided-source';evidence.append('已提供平台登记的本地源码包')
     else:
         route='blocked'
@@ -26,4 +26,4 @@ def build(inp, observation=None, converter=None, continuation=False, stage='rea'
         if item.get('status') not in ('verified','not_applicable'):missing.append(item.get('name','依赖')+'：'+(item.get('next_action') or item.get('reason','待验证')))
     return {'schema_version':1,'recorded':False,'route':route,'label':LABELS[route],'source_kind':kind,'evidence':evidence,'missing':missing,
             'next_action':'按所选路径执行资源校验、宿主适配和规格测试' if route!='blocked' else missing[0],
-            'scope':'登记方案、Cocos 2 / Ruffle 原包及显式 Remix Three 模块契约；引擎能力和资源闭合仍需实际执行，分析不是验收'}
+            'scope':'登记方案、Cocos 2 / Ruffle / Defold 原包、显式 Remix Three 模块契约及通用浏览器探测；引擎能力和资源闭合仍需实际执行，分析不是验收'}

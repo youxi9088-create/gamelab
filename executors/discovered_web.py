@@ -133,8 +133,8 @@ def convert(inp, observation, run, budget, chat):
             ('web-backend', '后端依赖', 'backend', 'unknown', '启动无外部请求；存档及结算尚未验证', '验证保存恢复和阶段结果'),
             ('web-host', '宿主接口', 'platform', 'verified', '本地引擎启动通过；广告不伪造奖励', ''),
         ]]}
-    limited = acquisition['engine'] == 'ruffle'
-    notes = ('保留原 Three.js 游戏逻辑和模块；URL 本地化，Remix 宿主替换为独立本地适配。可修改业务代码；跨游戏模块复用仍需拆解。在线账户、排行和购买不提供。' if acquisition['engine']=='three' else 'SWF 核心逻辑仍为运行包；HTML 播放宿主可修改，未恢复 ActionScript 工程。' if limited else
+    limited = acquisition['engine'] in ('ruffle','defold','browser')
+    notes = ('通用浏览器运行包：保留实际捕获的原始代码与资源；宿主可修改，核心逻辑的可编辑性和可移植模块须依据实际文件进一步验证，不宣称恢复原作者工程。' if acquisition['engine']=='browser' else '保留原 Defold HTML5/WASM 引擎与游戏归档；页面及宿主接口可修改。核心逻辑仍为运行包，未恢复 Lua 工程，跨游戏模块提取需另行拆解验证。' if acquisition['engine']=='defold' else '保留原 Three.js 游戏逻辑和模块；URL 本地化，Remix 宿主替换为独立本地适配。可修改业务代码；跨游戏模块复用仍需拆解。在线账户、排行和购买不提供。' if acquisition['engine']=='three' else 'SWF 核心逻辑仍为运行包；HTML 播放宿主可修改，未恢复 ActionScript 工程。' if limited else
              '保留原 Cocos 发布 JavaScript 与资源，可修改发布代码；模块提取和跨游戏移植需拆解适配。')
     (target / 'RESTORATION_REPORT.txt').write_text(
         notes + '\n依赖：' + acquisition['engine'] + ' 浏览器运行引擎及本地资源。\n验证：隔离浏览器禁用外网启动；玩法、胜负、进度和存档尚未完整验证。\n原始文件与哈希在执行目录 web-original 和 evidence/acquisition.json；AI 分析与真实运行证据分开。\n', 'utf-8')
@@ -287,7 +287,7 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
 task_requests 是管理员通过平台提交的任务要求，按时间从旧到新排列；最新要求决定本轮范围。沿已有版本只处理剩余项，保留已验证结果，不重新采集或转换、不把上一轮报告扩展成新的通关目标。
 pending_delivery 是平台共享交付检查返回的剩余缺项。本轮必须逐项处理这些缺项，不重复仅总结已经通过的项目；需要更多证据时读取相关源码或执行针对性操作，能力不足时说明具体阻碍。
 每次返回 JSON：{actions:[...], summary, complete:false}，actions 是要追加的真实鼠标/键盘动作：
-{type:"click",x:0..1000,y:0..760,wait_ms:200..10000}、{type:"key",key:"ArrowLeft|ArrowRight|ArrowUp|ArrowDown|Space|Enter|w|a|s|d|r|p|Shift|Escape"}、{type:"drag",x,y,to_x,to_y,hold_ms:100..3000}、{type:"wait",wait_ms:...}、{type:"reload"}。
+{type:"click",x:0..1000,y:0..760,wait_ms:200..10000}、{type:"key",key:"ArrowLeft|ArrowRight|ArrowUp|ArrowDown|Space|Enter|w|a|s|d|r|p|Shift|Escape",hold_ms:0..10000}（hold_ms是真实持续按住，用于行走；默认点按）、{type:"drag",x,y,to_x,to_y,hold_ms:100..3000}、{type:"wait",wait_ms:...}、{type:"reload"}。
 先进入真正玩法，不把加载画面或菜单当完成。操作必须基于给定截图或 buttons 坐标。每次最多4个动作，本轮最多20个新动作，累计回放上限100个。
 整个分析过程保持同一个隔离浏览器，模型分析期间游戏时间仍会继续。每轮截图是当前真实状态，不能假设动画被暂停。已有动作前缀在续作开始时只回放一次，不要重复添加。
 必须观察操作产生实际反馈、阶段进度或结果、继续/重试，以及适用时的保存恢复。Cocos 可在动作加 expect_labels:["实际应显示的文字"] 做执行断言。

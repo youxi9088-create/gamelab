@@ -52,6 +52,44 @@ test('engine detection does not route by game name or URL',()=>{
  assert.match(r.html,/allowNetworking:'none'/);
 });
 
+test('AI runtime plans require matching source evidence and known loader contract',()=>{
+ const html='<script src="dmloader.js"></script><script>EngineLoader.load("canvas","fixture")</script>';
+ const sha=require('node:crypto').createHash('sha256').update(html).digest('hex');
+ assert.throws(()=>detect(html));
+ assert.equal(detect(html,{engine:'defold',source_sha256:sha}),'defold');
+ assert.throws(()=>detect(html,{engine:'defold',source_sha256:'stale'}));
+ assert.throws(()=>detect('<canvas/>',{engine:'defold',source_sha256:sha}));
+});
+
+test('offline SDK rejects initialization and never grants rewarded advertisements',async()=>{
+ const vm=require('node:vm'),window={};
+ vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../executors/adapters/poki-offline.js'),'utf8'),{window,URL,location:{href:'https://fixture.example/'}});
+ await assert.rejects(window.PokiSDK.init());
+ assert.equal(await window.PokiSDK.rewardedBreak(),false);
+ assert.equal(await window.PokiSDK.commercialBreak(),false);
+ assert.equal(window.__offlineHost.events[0].name,'init-unavailable');
+});
+
+test('Defold browser evidence records held input and read-only IndexedDB across reload',async()=>{
+ const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-idb-fixture-'));
+ try{
+  fs.mkdirSync(path.join(run,'converted'));fs.writeFileSync(path.join(run,'web-acquisition.json'),JSON.stringify({engine:'defold'}));
+  fs.writeFileSync(path.join(run,'converted/index.html'),`<canvas width="400" height="300"></canvas><script>
+   window.Module={calledRun:true,canvas:document.querySelector('canvas')};
+   Module.canvas.getContext('2d').fillRect(10,10,80,60);
+   let down=0;addEventListener('keydown',()=>down=Date.now());addEventListener('keyup',()=>localStorage.setItem('held-ms',Date.now()-down));
+   const request=indexedDB.open('fixture-save',1);request.onupgradeneeded=()=>request.result.createObjectStore('files');
+   request.onsuccess=()=>{const db=request.result,tx=db.transaction('files','readwrite');tx.objectStore('files').put({contents:new Uint8Array([1,2,3])},'save.bin');tx.oncomplete=()=>db.close();};
+  </script>`);
+  const report=await verify(run,[{type:'key',key:'ArrowRight',hold_ms:300},{type:'reload'}]);
+  assert.equal(report.passed,true);
+  const before=report.steps[1].storage.areas.indexedDB,after=report.steps[2].storage.areas.indexedDB;
+  assert.equal(before.complete,true);assert.equal(after.complete,true);
+  assert.equal(before.databases[0].stores[0].entries[0].sha256,after.databases[0].stores[0].entries[0].sha256);
+  const held=report.steps[1].storage.areas.localStorage.entries.find(e=>e.key==='held-ms');assert.ok(held);
+ }finally{fs.rmSync(run,{recursive:true,force:true});}
+});
+
 test('Cocos scene existence does not certify a loading screen',async()=>{
  const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-loading-fixture-'));
  try{
