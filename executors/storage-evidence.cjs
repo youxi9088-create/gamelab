@@ -38,11 +38,12 @@ async function storageEvidence(page){
          const tx=db.transaction(name,'readonly'),records=[];const cursor=tx.objectStore(name).openCursor();
          cursor.onerror=()=>reject(cursor.error);tx.onabort=()=>reject(tx.error||Error('ReadAborted'));
          cursor.onsuccess=()=>{
-          const c=cursor.result;if(!c){store.complete=true;resolve(records);return;}
+          const c=cursor.result;if(!c){store.complete=!store.limit_reached;resolve(records);return;}
           try{
            const value=JSON.stringify(c.value,(k,v)=>ArrayBuffer.isView(v)?{typed:v.constructor.name,bytes:Array.from(new Uint8Array(v.buffer,v.byteOffset,v.byteLength))}:v instanceof ArrayBuffer?{bytes:Array.from(new Uint8Array(v))}:v);
            const key=JSON.stringify(c.key);const size=(value||'').length+key.length;
-           if(++entries>100||bytes+size>4_000_000){store.limit_reached=true;resolve(records);return;}
+           if(++entries>100){store.limit_reached=true;resolve(records);return;}
+           if(bytes+size>4_000_000){store.limit_reached=true;store.skipped_entries=(store.skipped_entries||0)+1;c.continue();return;}
            bytes+=size;records.push({key,value:value||'null'});c.continue();
           }catch(e){reject(e);}
          };

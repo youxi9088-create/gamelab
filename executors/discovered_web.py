@@ -455,6 +455,10 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
         changes['GAME_SPECIFICATION.md']=document(inp.get('title','游戏'),report['game_profile'])
     if not completed:
         report['blocker'] = final.get('blocker') or {'code': 'WEB_VERIFICATION_BUDGET', 'reason': '本轮平台自动验证尚未完成核心闭环', 'next_action': '依据本轮实际截图与输入记录继续原任务'}
+        if (len(actions)>=action_limit and runtime.get('passed') is True
+                and report['blocker'].get('code')=='ACTION_BUDGET_EXHAUSTED'):
+            report['blocker']={**report['blocker'],'code':'WEB_VERIFICATION_BUDGET',
+                'next_action':'保留本轮产物和输入证据，由平台自动接续；回放后重新观察实际状态，再补剩余检查'}
     changes['RESTORATION_REPORT.txt'] = (previous.get('source_reuse', {}).get('notes', '') + '\n'
         + report['summary'] + '\n实际输入、截图和模型评估见 ' + proof
         + '\n仅覆盖已访问的代表性流程；未访问关卡、完整通关和人工验收不在本轮证明范围内。\n')
