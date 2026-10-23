@@ -8,6 +8,14 @@ from revision_context import SourceContext,digest,RevisionYield
 from continuation import revise
 
 class RevisionContextTests(unittest.TestCase):
+    def test_zero_match_search_remains_visible_to_model(self):
+        c=SourceContext({'index.html':'const score=0;'},'index.html');payload={}
+        result=c.search([{'path':'index.html','text':'saveState'}]);c.retain(payload,result)
+        self.assertEqual(payload['source_search_results'][0]['total_matches'],0)
+        self.assertEqual(payload['source_search_results'][0]['characters_searched'],14)
+        self.assertEqual(payload['source_search_results'][0]['sha256'],digest('const score=0;'))
+        c.retain(payload,result)
+        self.assertEqual(len(payload['source_search_results']),1)
     def test_failed_component_regression_cannot_be_delivered(self):
         from unittest.mock import patch
         with tempfile.TemporaryDirectory() as t:

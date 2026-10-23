@@ -34,6 +34,12 @@ class SourceContext:
     def retain(self,payload,parts):
         flat=[]
         for part in parts:flat.extend(part.get('matches',[]) if 'matches' in part else [part])
+        searches={}
+        for part in [p for p in parts if 'matches' in p]+payload.get('source_search_results',[]):
+            key=(part.get('path'),part.get('query'))
+            if key not in searches:
+                searches[key]={k:v for k,v in part.items() if k!='matches'}
+        payload['source_search_results']=list(searches.values())[:32]
         unique={}
         for part in flat+payload.get('source_excerpts',[]):
             key=(part.get('path'),part.get('offset'),part.get('sha256'))
@@ -69,7 +75,9 @@ class SourceContext:
                 pos=text.find(needle,offset)
                 if pos<0:break
                 matches.append(self.read(name,max(0,pos-1000),3000));offset=pos+len(needle)
-            results.append({'path':name,'query':needle,'matches':matches,'limit':8})
+            results.append({'path':name,'query':needle,'matches':matches,'limit':8,
+                'total_matches':text.count(needle),'characters_searched':len(text),'sha256':digest(text),
+                'scope':'完整文本字面量搜索；零命中不代表排除别名或动态构造的调用'})
         return results
 
     def covered(self,name,start,end):

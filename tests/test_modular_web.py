@@ -15,6 +15,8 @@ class ModularWebTests(unittest.TestCase):
         self.assertTrue(m.candidate(o))
         from controlplane.conversion_plan import build
         self.assertEqual(build({'url':'https://example.org'},o)['route'],'discovered-web')
+        from controlplane.catalog_facets import effective_engine
+        self.assertEqual(effective_engine({'id':'fixture','engine':'待分析'},[{'candidate_id':'fixture','report':{'recovery_kind':'discovered-web-three'}}]),'Three.js')
         o['web_discovery']['iframe_hints'].append({'url':'https://g-other.games.remix.gg/versions/b','width':900,'height':600,'evidence':'iframe-src'})
         self.assertIsNone(m.candidate(o))
 

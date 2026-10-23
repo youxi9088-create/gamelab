@@ -9,6 +9,7 @@ def effective_engine(candidate, versions):
     if current and current.lower() not in ('待分析', '待识别', '未识别', 'unknown'):
         return current
     names = {'discovered-web-cocos2': 'Cocos 2',
+             'discovered-web-three': 'Three.js',
              'discovered-web-ruffle': 'Ruffle / Flash'}
     matching = sorted((v for v in versions if v.get('candidate_id') == candidate.get('id')),
                       key=lambda v: v.get('created_at', ''), reverse=True)
