@@ -79,12 +79,21 @@ test('Defold browser evidence records held input and read-only IndexedDB across 
    Module.canvas.getContext('2d').fillRect(10,10,80,60);
    let down=0;addEventListener('keydown',()=>down=Date.now());addEventListener('keyup',()=>localStorage.setItem('held-ms',Date.now()-down));
    const request=indexedDB.open('fixture-save',1);request.onupgradeneeded=()=>request.result.createObjectStore('files');
-   request.onsuccess=()=>{const db=request.result,tx=db.transaction('files','readwrite');tx.objectStore('files').put({contents:new Uint8Array([1,2,3])},'save.bin');tx.oncomplete=()=>db.close();};
+   const save=new Uint8Array([1,2,3]);
+   Module.FS={readdir:()=>['.','..','save.bin'],lstat:p=>({size:p==='/data'?0:3,mode:p==='/data'?1:2}),
+     isLink:()=>false,isDir:m=>m===1,isFile:m=>m===2,readFile:()=>save};
+   request.onsuccess=()=>{const db=request.result,tx=db.transaction('files','readwrite');
+    tx.objectStore('files').put({contents:new Uint8Array(2_000_000).fill(255)},'a-large-cache.bin');
+    tx.objectStore('files').put({contents:save},'save.bin');tx.oncomplete=()=>db.close();};
   </script>`);
   const report=await verify(run,[{type:'key',key:'ArrowRight',hold_ms:300},{type:'reload'}]);
   assert.equal(report.passed,true);
   const before=report.steps[1].storage.areas.indexedDB,after=report.steps[2].storage.areas.indexedDB;
   assert.equal(before.complete,true);assert.equal(after.complete,true);
+  assert.equal(before.databases[0].stores[0].entries.length,2);
+  assert.equal(before.databases[0].stores[0].entries[0].content_bytes,2_000_000);
+  assert.equal(before.databases[0].stores[0].entries[1].content_sha256,report.steps[1].storage.areas.wasmFS.entries[1].content_sha256);
+  assert.equal(report.steps[1].storage.areas.wasmFS.complete,true);
   assert.equal(before.databases[0].stores[0].entries[0].sha256,after.databases[0].stores[0].entries[0].sha256);
   const held=report.steps[1].storage.areas.localStorage.entries.find(e=>e.key==='held-ms');assert.ok(held);
  }finally{fs.rmSync(run,{recursive:true,force:true});}

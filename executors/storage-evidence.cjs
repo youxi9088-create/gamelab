@@ -2,8 +2,26 @@
 async function storageEvidence(page){
  try{return await page.evaluate(async()=>{
   const result={scope:'isolated-page-web-storage',origin:location.origin,observed_at:new Date().toISOString(),areas:{},
-   limitation:'Storage presence/hash does not prove game progress was loaded. IndexedDB is read-only and bounded; in-memory state is not inspected.'};
+   limitation:'Storage hashes do not prove game progress was loaded. IndexedDB and exposed WASM /data files are read-only snapshots, not an atomic cross-store snapshot. Save bodies are never returned.'};
   const digest=async value=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value))),b=>b.toString(16).padStart(2,'0')).join('');
+  const binary=v=>ArrayBuffer.isView(v)?new Uint8Array(v.buffer,v.byteOffset,v.byteLength):v instanceof ArrayBuffer?new Uint8Array(v):null;
+  const rawHash=async v=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',v)),b=>b.toString(16).padStart(2,'0')).join('');
+  const sizeOf=(v,seen=new Set(),depth=0)=>{
+   if(depth>20||seen.has(v))throw Error('UnsupportedStructuredValue');
+   const b=binary(v);if(b)return b.byteLength;
+   if(typeof Blob!=='undefined'&&v instanceof Blob)return v.size;
+   if(v instanceof Date)return 24;
+   if(typeof v==='string')return v.length*2;
+   if(v&&typeof v==='object'){seen.add(v);let n=0;for(const k of Object.keys(v)){n+=k.length*2+sizeOf(v[k],seen,depth+1);}seen.delete(v);return n;}
+   return 16;
+  };
+  const summarize=async v=>{
+   const b=binary(v);if(b)return {type:v.constructor.name,bytes:b.byteLength,sha256:await rawHash(b)};
+   if(typeof Blob!=='undefined'&&v instanceof Blob)return {type:'Blob',bytes:v.size,sha256:await rawHash(await v.arrayBuffer())};
+   if(v instanceof Date)return {type:'Date',value:v.toISOString()};
+   if(v&&typeof v==='object'){const r=Array.isArray(v)?[]:{};for(const k of Object.keys(v).sort())r[k]=await summarize(v[k]);return r;}
+   return v;
+  };
   for(const area of ['localStorage','sessionStorage']){
    const evidence={available:false,complete:false,entries:[]};result.areas[area]=evidence;
    try{
@@ -40,15 +58,22 @@ async function storageEvidence(page){
          cursor.onsuccess=()=>{
           const c=cursor.result;if(!c){store.complete=!store.limit_reached;resolve(records);return;}
           try{
-           const value=JSON.stringify(c.value,(k,v)=>ArrayBuffer.isView(v)?{typed:v.constructor.name,bytes:Array.from(new Uint8Array(v.buffer,v.byteOffset,v.byteLength))}:v instanceof ArrayBuffer?{bytes:Array.from(new Uint8Array(v))}:v);
-           const key=JSON.stringify(c.key);const size=(value||'').length+key.length;
+           const key=JSON.stringify(c.key);const size=sizeOf(c.value)+key.length;
            if(++entries>100){store.limit_reached=true;resolve(records);return;}
-           if(bytes+size>4_000_000){store.limit_reached=true;store.skipped_entries=(store.skipped_entries||0)+1;c.continue();return;}
-           bytes+=size;records.push({key,value:value||'null'});c.continue();
+           if(bytes+size>64*1024*1024){store.limit_reached=true;store.skipped_entries=(store.skipped_entries||0)+1;(store.omitted??=[]).push({key:key.slice(0,160),bytes:size,reason:'byte-limit'});c.continue();return;}
+           bytes+=size;records.push({key,value:c.value,bytes:size});c.continue();
           }catch(e){reject(e);}
          };
         });
-        for(const v of values)store.entries.push({key:v.key.slice(0,160),key_sha256:await digest(v.key),characters:v.value.length,sha256:await digest(v.value)});
+        for(const v of values){
+         const summary=await summarize(v.value),content=summary?.contents;
+         store.entries.push({key:v.key.slice(0,160),key_sha256:await digest(v.key),bytes:v.bytes,
+          sha256:await digest(JSON.stringify(summary)),hash_format:'structured-binary-sha256-v1',
+          ...(content?.sha256?{content_sha256:content.sha256,content_bytes:content.bytes}:{}),
+          ...(typeof v.value?.mode==='number'?{mode:v.value.mode}:{}),
+          ...(v.value?.timestamp instanceof Date?{modified_at:v.value.timestamp.toISOString()}:{}),
+         });
+        }
         if(!store.complete)item.complete=false;
        }
       })(),new Promise((resolve,reject)=>{timer=setTimeout(()=>reject(Error('ReadTimeout')),3000);})]);
@@ -57,6 +82,26 @@ async function storageEvidence(page){
      if(!item.complete)idb.complete=false;
     }
    }catch(e){idb.complete=false;idb.error=String(e.name||'IndexedDBReadError');}
+  }
+  const wasm={available:false,complete:false,root:'/data',entries:[]};result.areas.wasmFS=wasm;
+  const filesystem=window.Module?.FS||(typeof FS!=='undefined'?FS:null);
+  if(filesystem?.readdir&&filesystem?.lstat&&filesystem?.readFile){
+   try{
+    let total=0;wasm.available=true;wasm.complete=true;const pending=['/data'];
+    while(pending.length){
+     if(wasm.entries.length>=100){wasm.complete=false;wasm.limit_reached=true;break;}
+     const name=pending.shift(),s=filesystem.lstat(name),item={path:name,bytes:s.size,mode:s.mode};
+     wasm.entries.push(item);
+     if(filesystem.isLink(s.mode)){item.skipped='symlink';wasm.complete=false;continue;}
+     if(filesystem.isDir(s.mode)){
+      for(const child of filesystem.readdir(name).sort())if(child!=='.'&&child!=='..'&&!child.includes('/'))pending.push(name+'/'+child);
+     }else if(filesystem.isFile(s.mode)){
+      if(total+s.size>64*1024*1024){item.skipped='byte-limit';wasm.complete=false;continue;}
+      const data=filesystem.readFile(name);total+=data.byteLength;item.content_sha256=await rawHash(data);
+      if(filesystem.lstat(name).mtime?.getTime()!==s.mtime?.getTime()){item.changed_during_read=true;wasm.complete=false;}
+     }
+    }
+   }catch(e){wasm.complete=false;wasm.error=String(e.name||'FileSystemReadError');}
   }
   return result;
  });}catch(e){return {scope:'isolated-page-web-storage',available:false,error:String(e.name||'StorageObservationError')};}
