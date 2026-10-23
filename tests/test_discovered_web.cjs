@@ -119,6 +119,7 @@ test('offline browser validates authored local fixture and rejects external depe
   const doc='<canvas width="400" height="300"></canvas><script>window.player={readyState:2};window.gameLoaded=true;const c=document.querySelector("canvas");c.getContext("2d").fillRect(10,10,80,60);</script>';
   fs.writeFileSync(path.join(run,'converted/index.html'),doc);
   const report=await verify(run,[{type:'click',x:30,y:30}]);assert.equal(report.passed,true);assert.equal(report.steps.length,2);
+  assert.equal(report.actions[0].hold_ms,100);
   fs.writeFileSync(path.join(run,'converted/index.html'),doc+'<script src="https://example.org/missing.js"></script>');
   await assert.rejects(()=>verify(run),/Offline check failed/);
   const failed=JSON.parse(fs.readFileSync(path.join(run,'converted/evidence/runtime.json')));assert.equal(failed.passed,false);assert.equal(failed.external[0],'https://example.org/missing.js');

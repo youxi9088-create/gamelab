@@ -326,6 +326,8 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
             iteration = run / f'web-review-{step}'
             iteration.mkdir()
             runtime = browser.observe(actions, restart)
+            if runtime.get('passed') and isinstance(runtime.get('actions'), list):
+                actions = list(runtime['actions'])  # Retain actual input timing for later replays.
             restart = False
             current_acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
             protected.update(f['path'] for f in current_acquisition.get('files', []))
