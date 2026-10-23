@@ -8,7 +8,7 @@ from datetime import datetime
 STAGES = (
     ('identify', '发现与识别'), ('acquire', '获取代码与资源'),
     ('analysis', '解包与分析'), ('adapt', 'Web 适配'),
-    ('test', '运行与玩法验证'), ('delivery', '产物保存与入库'),
+    ('test', '运行与玩法验证'), ('repair', 'AI 诊断与修复'), ('delivery', '产物保存与入库'),
     ('review', '人工验收'), ('publish', '发布'),
 )
 ALIASES = {'rea': 'analysis', 'reconstruct': 'adapt', 'packaging': 'delivery',

@@ -95,13 +95,14 @@ def convert(inp, observation, run, budget, chat):
             from worker import Blocked
             raise Blocked('Web ' + mode + '：' + (result.stderr or result.stdout)[-1800:])
 
+    from auto_repair import guarded
     if modular_url:
-        capture_modules(modular_url,inp['url'],run,budget)
+        guarded(lambda: capture_modules(modular_url,inp['url'],run,budget), run, budget)
     else:
-        command('capture', 480)
+        guarded(lambda: command('capture', 480), run, budget)
     acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
     viewport, _ = prepare_viewport(run / 'converted', acquisition['engine'])
-    command('viewport' if viewport else 'verify', 420)
+    guarded(lambda: command('viewport' if viewport else 'verify', 420), run, budget, run / 'converted')
     acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
     target = run / 'converted'
     runtime = json.loads((target / 'evidence/runtime.json').read_text('utf-8'))
@@ -138,6 +139,7 @@ def convert(inp, observation, run, budget, chat):
     (target / 'RESTORATION_REPORT.txt').write_text(
         notes + '\n依赖：' + acquisition['engine'] + ' 浏览器运行引擎及本地资源。\n验证：隔离浏览器禁用外网启动；玩法、胜负、进度和存档尚未完整验证。\n原始文件与哈希在执行目录 web-original 和 evidence/acquisition.json；AI 分析与真实运行证据分开。\n', 'utf-8')
     return {'path': 'A', 'recovery_kind': 'discovered-web-' + acquisition['engine'],
+            'auto_repair': json.loads((run/'auto-repair/report.json').read_text('utf-8')) if (run/'auto-repair/report.json').exists() else None,
             'runtime_verified': True, 'runtime_smoke': runtime, 'dependencies': dependencies,
             'runtime_viewport': viewport,
             'requires_manual_playtest': True, 'rea_attempted': False, 'ai_analysis': advisory,

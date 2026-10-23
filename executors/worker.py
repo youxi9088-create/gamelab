@@ -297,6 +297,21 @@ def execute(client, job):
             # Durable local ledger survives reporting failure; do not repeat paid inference.
             with (run/'usage-unreported.jsonl').open('a',encoding='utf-8') as log:log.write(json.dumps(row)+'\n')
     usage_token=USAGE_SINK.set(usage_sink)
+    from auto_repair import EVENT as REPAIR_EVENT, CHAT as REPAIR_CHAT, diagnose
+    def repair_event(status,message):
+        client.post(prefix+'events',{**lease,'node':'repair','node_status':status,'message':message})
+    def repair_chat(messages,budget):
+        previous=phase[0];phase[0]='repair'
+        try:return chat(messages,budget)
+        finally:phase[0]=previous
+    repair_event_token=REPAIR_EVENT.set(repair_event)
+    repair_chat_token=REPAIR_CHAT.set(repair_chat)
+    budget=None
+    def diagnose_failure(exc):
+        if not getattr(exc,'auto_repair_attempted',False) and budget is not None:
+            diagnose(exc,run,budget)
+        path=run/'auto-repair/report.json'
+        return {'run_directory':str(run),'auto_repair':json.loads(path.read_text('utf-8')) if path.exists() else None}
     def measured(node, fn):
         def invoke(*args, **kwargs):
             previous=phase[0];phase[0]=node
@@ -305,10 +320,15 @@ def execute(client, job):
             client.post(prefix+'events',{**lease,'node':node,'node_status':'running','message':'开始'+label})
             try:
                 result=fn(*args,**kwargs)
-            except Exception:
-                phase[0]=previous
-                client.post(prefix+'events',{**lease,'node':node,'node_status':'failed','message':label+'未完成，具体原因见本轮任务结果'})
-                raise
+            except Exception as exc:
+                recovered=False
+                if node in ('acquire','analysis') and not isinstance(exc,(NeedsInput,RevisionYield)):
+                    recovered,result=diagnose(exc,run,budget,retry=lambda:fn(*args,**kwargs))
+                    exc.auto_repair_attempted=True
+                if not recovered:
+                    phase[0]=previous
+                    client.post(prefix+'events',{**lease,'node':node,'node_status':'failed','message':label+'未完成，具体原因见本轮任务结果'})
+                    raise
             report=result[-1] if isinstance(result,tuple) and isinstance(result[-1],dict) else result if isinstance(result,dict) else {}
             incomplete=node=='test' and (report.get('blocker') or report.get('delivery_gaps'))
             client.post(prefix+'events',{**lease,'node':node,'node_status':'waiting_input' if incomplete else 'succeeded','message':label+('本段已结束，仍有未完成检查；详见本轮结果' if incomplete else '本次步骤完成；检查覆盖范围以报告为准')})
@@ -603,11 +623,13 @@ def execute(client, job):
         write_json(run/'waiting-input.json',{'question':str(exc)})
         return
     except Blocked as exc:
-        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'blocked', 'reason': str(exc), 'report': {'run_directory': str(run)}}
+        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'blocked', 'reason': str(exc), 'report': diagnose_failure(exc)}
     except Exception as exc:
-        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'failed', 'reason': f'{type(exc).__name__}: {str(exc)[:300]}', 'report': {'run_directory': str(run)}}
+        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'failed', 'reason': f'{type(exc).__name__}: {str(exc)[:300]}', 'report': diagnose_failure(exc)}
     finally:
         USAGE_SINK.reset(usage_token)
+        REPAIR_EVENT.reset(repair_event_token)
+        REPAIR_CHAT.reset(repair_chat_token)
         stop.set()
         thread.join(timeout=1)
     write_json(run / 'completion.json', {k: v for k, v in completion.items() if k != 'lease_token'})
