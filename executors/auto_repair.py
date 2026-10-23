@@ -67,6 +67,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 'capabilities 中的动作由平台执行，参数放在 arguments 对象；执行后必须由原节点复验，不能自行宣称成功。'
                 '路径须来自 source_inventory。读取结果含完整文件哈希、范围、搜索命中，下一次调用继续分析。'
                 'configure_runtime 携带 runtime_plan:{engine,sdk,source_sha256}，根据原入口证据选择 runtime_contracts 中的执行契约；'
+                'sdk 仅允许 JSON null（无需宿主适配）或字符串 "poki-offline"，不要使用字符串 none 或其他值。'
                 '平台独立校验契约并重新采集、离线运行，不按游戏名称选择。仅有识别结果不能算修复成功。'
                 '只有暂时网络/浏览器故障适合retry。patch_host仅修改列出的宿主文件，'
                 '保留原玩法、接口和资源，不删除验证或伪造成功/奖励/登录，不修改平台或原游戏代码。'
@@ -105,6 +106,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
             fingerprints.add(fingerprint)
             plan_path = None; old_plan = None
             if action == 'configure_runtime':
+                row['submitted_runtime_plan'] = answer.get('runtime_plan')
                 try:
                     plan_path, old_plan = context.configure(answer.get('runtime_plan'))
                     row['runtime_plan'] = json.loads(plan_path.read_text('utf-8'))

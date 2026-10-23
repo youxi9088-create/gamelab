@@ -81,6 +81,27 @@ class AutoRepairTests(unittest.TestCase):
         context=RepairContext(self.run);payload=context.load()
         with self.assertRaises(ValueError):context.inspect({'read_requests':[{'path':'../services.json'}]},payload)
 
+    def test_rejected_sdk_plan_is_visible_and_correctable_without_mutation(self):
+        original=self.run/'web-original';original.mkdir()
+        source='<script src="game.js"></script>'
+        (original/'source-entry.html').write_text(source,'utf-8')
+        plan={'engine':'browser','sdk':'none','source_sha256':hashlib.sha256(source.encode()).hexdigest()}
+        calls=[]
+        def chat(messages,budget):
+            payload=json.loads(messages[-1]['content'][0]['text']);calls.append(payload)
+            if len(calls)==2:
+                self.assertEqual(payload['previous_attempts'][0]['submitted_runtime_plan'],plan)
+                self.assertIn('JSON null',payload['tool_feedback'])
+                self.assertFalse((self.run/'runtime-plan.json').exists())
+            return {'action':'configure_runtime','runtime_plan':plan if len(calls)==1 else {**plan,'sdk':None}}
+        def verify():
+            if not (self.run/'runtime-plan.json').exists():raise ValueError('contract missing')
+            return 'verified'
+        token=CHAT.set(chat)
+        try:self.assertEqual(guarded(verify,self.run,Budget()),'verified')
+        finally:CHAT.reset(token)
+        self.assertEqual(len(calls),2)
+
     def test_runtime_plan_rejects_stale_or_unsupported_evidence(self):
         from repair_context import RepairContext
         original=self.run/'web-original';original.mkdir()

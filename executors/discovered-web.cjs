@@ -25,6 +25,23 @@ function safeURL(value){
  if(!['http:','https:'].includes(u.protocol)||u.username||u.password||/^(localhost|127\.|10\.|192\.168\.|169\.254\.|172\.(1[6-9]|2\d|3[01])\.|\[|0\.)/i.test(u.hostname))throw Error('Non-public resource URL');
  u.hash='';return u;
 }
+async function followResourceRedirects(fetch, value, evidence){
+ let url=safeURL(value).href;const visited=new Set();
+ for(let hop=0;hop<=5;hop++){
+  if(visited.has(url))throw Error('Resource redirect loop');visited.add(url);
+  const res=await fetch(url,hop===0),status=res.status();
+  if(![301,302,303,307,308].includes(status)){
+   if(hop)evidence.push({url,status,final:true});
+   return res;
+  }
+  const location=res.headers().location;
+  evidence.push({url,status,location:location||null});
+  await res.dispose();
+  if(!location)throw Error('Resource redirect missing Location');
+  if(hop===5)throw Error('Resource redirect limit exceeded');
+  url=safeURL(new URL(location,url).href).href;
+ }
+}
 function resourcePath(value,base){
  const u=safeURL(value),b=safeURL(base);let p;
  if(u.origin===b.origin&&u.pathname.startsWith(b.pathname))p=decodeURIComponent(u.pathname.slice(b.pathname.length))||'index.html';
@@ -95,7 +112,7 @@ async function state(page,engine){
 async function capture(input,run){
  const entry=safeURL(input.url),base=new URL('.',entry).href,original=path.join(run,'web-original'),out=path.join(run,'converted');
  fs.mkdirSync(original,{recursive:true});fs.mkdirSync(out,{recursive:true});
- const report={url:input.url,referer:input.referer,files:[],external:[],errors:[],preloadErrors:[],missing:[],patches:[]};
+ const report={url:input.url,referer:input.referer,files:[],external:[],errors:[],preloadErrors:[],missing:[],patches:[],redirects:[]};
  const browser=await chromium.launch(require('./browser-options.cjs')());let pending=[],failure,total=0;
  try{
   const context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block',acceptDownloads:false});
@@ -144,7 +161,12 @@ async function capture(input,run){
    const task=(async()=>{
     // Fetch and retain bytes before fulfilling the browser request. Large SWFs
     // and WASM modules must not depend on Chromium's inspector response cache.
-    const res=await route.fetch({headers:{...req.headers(),referer:input.referer||input.url},maxRedirects:0,timeout:60000});
+    const res=await followResourceRedirects(async(url,first)=>{
+     if(first)return route.fetch({headers:{...req.headers(),referer:input.referer||input.url},maxRedirects:0,timeout:60000});
+     if(req.method()!=='GET')throw Error('Resource redirect requires a GET request');
+     // Do not forward source-origin credentials to a redirected resource host.
+     return context.request.get(url,{headers:{referer:input.referer||input.url},maxRedirects:0,timeout:60000});
+    },u.href,report.redirects);
     if(!res.ok()){
      report.missing.push({url:u.href,status:res.status(),phase:preloading?'preload':'startup'});
      if(!preloading)failure='Resource HTTP '+res.status()+': '+u.href;
@@ -323,7 +345,7 @@ async function repairResources(run){
  }
  return added;
 }
-module.exports={safeURL,resourcePath,detect,ruffleEntry,adaptClient,capture,verify,repairResources,screenshot};
+module.exports={safeURL,resourcePath,detect,ruffleEntry,adaptClient,capture,verify,repairResources,screenshot,followResourceRedirects};
 if(require.main===module){const [mode,input,run]=process.argv.slice(2);(async()=>{
  const data=JSON.parse(fs.readFileSync(input,'utf8'));let lines,nextBatch,desired=[...(data.actions||[])];
  if(mode==='session'){

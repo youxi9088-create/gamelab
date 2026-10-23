@@ -70,7 +70,7 @@ class RepairContext:
         if plan['engine'] == 'browser' and '<script' not in source.lower():
             raise ValueError('通用浏览器探测需要实际脚本入口证据')
         if plan.get('sdk') not in (None, 'poki-offline'):
-            raise ValueError('未知宿主契约')
+            raise ValueError('runtime_plan.sdk 仅允许 JSON null（或省略）与 "poki-offline"；不需要 SDK 时使用 null，不能填字符串 none、空字符串或引擎名')
         if plan.get('sdk') == 'poki-offline' and 'poki-sdk.js' not in source:
             raise ValueError('原入口没有声明该宿主 SDK')
         value = {k: plan.get(k) for k in ('engine', 'sdk', 'source_sha256')}

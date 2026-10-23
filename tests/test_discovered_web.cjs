@@ -1,6 +1,29 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path');
 const {resourcePath,safeURL,detect,ruffleEntry,adaptClient,verify,repairResources,screenshot}=require('../executors/discovered-web.cjs');
 const {request}=require('../executors/node_modules/playwright');
+const {followResourceRedirects}=require('../executors/discovered-web.cjs');
+
+test('resource redirects preserve final bytes and record each hop',async()=>{
+ const trace=[],calls=[],disposed=[];
+ const response=(status,location,data)=>({status:()=>status,headers:()=>({location}),body:async()=>Buffer.from(data||''),dispose:async()=>disposed.push(status)});
+ const responses=[response(307,'/assets/next'),response(302,'https://cdn.example/a.webp'),response(200,null,'original bytes')];
+ const result=await followResourceRedirects(async(url,first)=>{calls.push({url,first});return responses.shift();},'https://fixture.example/assets/a.webp',trace);
+ assert.equal((await result.body()).toString(),'original bytes');
+ assert.deepEqual(calls.map(c=>c.url),['https://fixture.example/assets/a.webp','https://fixture.example/assets/next','https://cdn.example/a.webp']);
+ assert.deepEqual(calls.map(c=>c.first),[true,false,false]);assert.deepEqual(disposed,[307,302]);
+ assert.equal(trace[2].final,true);assert.equal(trace[2].status,200);
+});
+
+test('redirects reject private targets, absent locations, loops and excessive hops',async()=>{
+ for(const [location,pattern] of [['http://127.0.0.1/private',/Non-public/],['https://u:p@example.org/a',/Non-public/],[null,/missing Location/],['/a',/loop/]]){
+  let calls=0;
+  await assert.rejects(()=>followResourceRedirects(async()=>{calls++;return {status:()=>307,headers:()=>({location}),dispose:async()=>{}};},'https://fixture.example/a',[]),pattern);
+  assert.equal(calls,1);
+ }
+ let calls=0;
+ await assert.rejects(()=>followResourceRedirects(async()=>({status:()=>307,headers:()=>({location:'/hop'+(++calls)}),dispose:async()=>{}}),'https://fixture.example/a',[]),/limit exceeded/);
+ assert.equal(calls,6);
+});
 
 test('screenshot remembers the working capture mode for that page only',async()=>{
  const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-capture-fixture-')),calls=[];
