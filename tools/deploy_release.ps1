@@ -1,7 +1,8 @@
 param(
     [Parameter(Mandatory=$true)][string]$Package,
     [string]$Root = 'C:\GameLab',
-    [string]$Python = 'C:\Program Files\Python313\python.exe'
+    [string]$Python = 'C:\Program Files\Python313\python.exe',
+    [string]$DependencyDirectory = ''
 )
 $ErrorActionPreference='Stop'
 $Root=[IO.Path]::GetFullPath($Root)
@@ -14,9 +15,9 @@ $lock=[IO.File]::Open($lockPath,'OpenOrCreate','ReadWrite','None')
 $oldTarget=$null
 $previousRecord=$null
 $stopped=$false
+. (Join-Path $PSScriptRoot 'invoke-python.ps1')
 function CheckedPython([string]$Script,[string[]]$Arguments=@()) {
-    $Script | & $Python - @Arguments
-    if($LASTEXITCODE -ne 0){throw 'Python deployment step failed'}
+    Invoke-DeploymentPython $Python $Script $Arguments
 }
 function Stop-Platform {
     # Prevent Task Scheduler recovery from restarting the old release during backup.
@@ -71,6 +72,17 @@ backup_capacity(Path(sys.argv[2])/'shared',Path(sys.argv[2]))
 '@ @($target,$Root)
     $oldTarget=(Get-Item -LiteralPath $app).FullName
     if((Get-Item -LiteralPath $app).LinkType){$oldTarget=(Get-Item -LiteralPath $app).Target[0]}
+    $dependencyModules=Join-Path $runtime 'node_modules'
+    if($DependencyDirectory){
+        $DependencyDirectory=[IO.Path]::GetFullPath($DependencyDirectory)
+        $dependencyRoot=[IO.Path]::GetFullPath((Join-Path $runtime 'dependencies'))+'\'
+        if(-not $DependencyDirectory.StartsWith($dependencyRoot,[StringComparison]::OrdinalIgnoreCase)){throw 'Release dependencies must be prepared under runtime/dependencies'}
+        if((Get-FileHash (Join-Path $DependencyDirectory 'pnpm-lock.yaml')).Hash -ne (Get-FileHash (Join-Path $target 'executors\pnpm-lock.yaml')).Hash){throw 'Prepared dependency lock does not match release'}
+        $dependencyModules=Join-Path $DependencyDirectory 'node_modules'
+        if(-not(Test-Path -LiteralPath $dependencyModules -PathType Container)){throw 'Prepared dependencies are absent'}
+    } elseif((Get-FileHash (Join-Path $oldTarget 'executors\pnpm-lock.yaml')).Hash -ne (Get-FileHash (Join-Path $target 'executors\pnpm-lock.yaml')).Hash){
+        throw 'Dependency lock changed; prepare an isolated dependency directory before deployment'
+    }
     CheckedPython @'
 import sys,sqlite3,json
 from pathlib import Path
@@ -122,9 +134,8 @@ with sqlite3.connect(p,timeout=30) as db:
     $oldLogs=Join-Path $Root 'logs'
     if(Test-Path -LiteralPath $oldLogs){Copy-Item -LiteralPath $oldLogs -Destination (Join-Path $shared 'logs\legacy') -Recurse -Force}
     foreach($pair in $moves){Link-Directory (Join-Path $target $pair[0]) (Join-Path $shared $pair[1])}
-    foreach($name in @('node_modules','.tools')){if(Test-Path (Join-Path $runtime $name)){Link-Directory (Join-Path $target ('executors\'+$name)) (Join-Path $runtime $name)}}
-    # Same locked dependencies are required for this release; changed locks fail before switching.
-    if((Get-FileHash (Join-Path $oldTarget 'executors\pnpm-lock.yaml')).Hash -ne (Get-FileHash (Join-Path $target 'executors\pnpm-lock.yaml')).Hash){throw 'Dependency lock changed; install release dependencies before deployment'}
+    if(Test-Path -LiteralPath $dependencyModules){Link-Directory (Join-Path $target 'executors\node_modules') $dependencyModules}
+    if(Test-Path (Join-Path $runtime '.tools')){Link-Directory (Join-Path $target 'executors\.tools') (Join-Path $runtime '.tools')}
     $backupFile=Join-Path $Root ('backups\production-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'.zip')
     & $Python (Join-Path $target 'tools\production_data.py') backup --root $shared --file $backupFile
     if($LASTEXITCODE -ne 0){throw 'Production backup failed'}

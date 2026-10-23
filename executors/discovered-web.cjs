@@ -2,6 +2,7 @@
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),http=require('node:http');
 const {chromium,request}=require('playwright');
 const {storageEvidence}=require('./storage-evidence.cjs');
+const {entryReferences,references,rewriteModules,rewriteInlineModules}=require('./module-resources.cjs');
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const screenshotModes=new WeakMap();
 async function screenshot(page,file){
@@ -42,12 +43,12 @@ async function followResourceRedirects(fetch, value, evidence){
   url=safeURL(new URL(location,url).href).href;
  }
 }
-function resourcePath(value,base){
+function resourcePath(value,base,script=false){
  const u=safeURL(value),b=safeURL(base);let p;
  if(u.origin===b.origin&&u.pathname.startsWith(b.pathname))p=decodeURIComponent(u.pathname.slice(b.pathname.length))||'index.html';
  else p='_remote/'+hash(u.origin+u.pathname).slice(0,16)+'/'+decodeURIComponent(u.pathname.split('/').pop()||'resource');
  if(p.split('/').some(s=>!s||s==='.'||s==='..'||/[\\:\x00-\x1f<>"|?*]/.test(s)))throw Error('Unsafe captured resource path');
- return p;
+ return script&&!p.endsWith('.js')?p+'.js':p;
 }
 function detect(html,plan){
  if(/RufflePlayer/.test(html)&&/\.swf["']/.test(html))return 'ruffle';
@@ -159,13 +160,16 @@ async function capture(input,run){
    report.patches.push({kind:'poki-offline',reason:'Use original SDK rejection branch; advertisements and rewards unavailable',before:hash(html),after:hash(runtimeHTML)});
   }
   const seen=new Map();
+  const declared=await entryReferences(runtimeHTML,entry.href);
+  report.declaredCode=[...declared.urls];
   let preloading=false;
   await context.route('**/*',async route=>{
    const req=route.request();let u;try{u=safeURL(req.url());}catch{return route.abort();}
    if(u.href===entry.href&&req.isNavigationRequest())return route.fulfill({contentType:'text/html',body:runtimeHTML});
    if(u.href===new URL('local-host.js',base).href&&sdk.length)return route.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.join(out,'local-host.js'))});
    if(u.href===new URL('runtime-host.js',base).href&&poki)return route.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.join(out,'runtime-host.js'))});
-   if(u.origin!==entry.origin&&!['image','font','stylesheet','media'].includes(req.resourceType())){report.external.push(u.origin+u.pathname);return route.abort();}
+   const declaredScript=req.method()==='GET'&&req.resourceType()==='script'&&declared.urls.has(u.href);
+   if(u.origin!==entry.origin&&!declaredScript&&!['image','font','stylesheet','media'].includes(req.resourceType())){report.external.push(u.origin+u.pathname);return route.abort();}
    const task=(async()=>{
     // Fetch and retain bytes before fulfilling the browser request. Large SWFs
     // and WASM modules must not depend on Chromium's inspector response cache.
@@ -181,23 +185,35 @@ async function capture(input,run){
      await route.fulfill({response:res});await res.dispose();return;
     }
     if(Number(res.headers()['content-length']||0)>220*1024*1024)throw Error('Resource exceeds byte budget');
-    const file=resourcePath(u.href,base),data=await res.body(),sha256=hash(data);
+    const script=req.resourceType()==='script',sourceURL=res.url?.()||u.href;
+    const file=resourcePath(u.href,base,script),data=await res.body(),sha256=hash(data);
+    if(script){
+     for(const ref of await references(data.toString('utf8'),sourceURL,declared.mappings))declared.urls.add(ref.url);
+    }
     if(seen.has(file)){if(seen.get(file)!==sha256)throw Error('Resource query collision: '+file);}
     else{
      if(seen.size>=1800||total+data.length>220*1024*1024)throw Error('Web snapshot exceeds file/byte budget');
      seen.set(file,sha256);total+=data.length;
      const dest=path.join(original,file);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.writeFileSync(dest,data);
-     report.files.push({url:u.href,path:file,bytes:data.length,sha256});
+     report.files.push({url:u.href,path:file,bytes:data.length,sha256,script,sourceURL});
     }
     let body=data;
+    // Fulfilling a redirected response keeps the original browser URL. Restore
+    // the final response's module base explicitly while retaining original bytes.
+    if(script&&sourceURL!==u.href)body=Buffer.from(await rewriteModules(data.toString('utf8'),sourceURL,declared.mappings,url=>url));
     if(engine==='cocos2'&&file.endsWith('.js')){const adapted=adaptClient(data.toString('utf8'));if(adapted.changed){body=Buffer.from(adapted.text);report.patches.push({file,kind:'existing-client-offline-mode',before:sha256,after:hash(body),reason:'Use the original client offline branch; online sync and rankings unavailable'});}}
     await route.fulfill({response:res,body});await res.dispose();
    })().catch(async e=>{failure=e.message;await route.abort().catch(()=>{});});
    pending.push(task);await task;
   });
   const page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
+  page.on('console',m=>{if(m.type()==='error'&&/Failed to load module script|Failed to resolve module specifier/i.test(m.text()))report.errors.push(m.text().slice(0,1500));});
   await page.goto(entry.href,{referer:input.referer||input.url,waitUntil:'domcontentloaded',timeout:60000});
-  await ready(page,engine);
+  try{await ready(page,engine);}catch(e){
+   report.failure=e.message;report.observed=await state(page,engine).catch(()=>null);
+   await screenshot(page,path.join(run,'original-runtime.png')).catch(err=>{report.screenshotError=err.message;});
+   throw e;
+  }
   if(engine==='cocos2'){
    preloading=true;
    report.preloadErrors=await page.evaluate(async()=>{
@@ -218,8 +234,12 @@ async function capture(input,run){
    report.patches.push({kind:'local-content-policy',reason:'Packaged Flash player may load only local resources; external analytics and navigation are not required game resources'});
   }
   // Change only captured absolute references, relative to each containing file.
-  for(const file of ['index.html',...report.files.filter(f=>/\.(html|js|css|json)$/.test(f.path)).map(f=>f.path)]){
+  for(const file of ['index.html',...report.files.filter(f=>f.script||/\.(html|js|css|json)$/.test(f.path)).map(f=>f.path)]){
    const dest=path.join(out,file);let text=fs.readFileSync(dest,'utf8'),before=text;
+   const source=report.files.find(f=>f.path===file);
+   const local=url=>{const item=report.files.find(f=>f.url===url);if(!item)return null;let rel=path.posix.relative(path.posix.dirname(file),item.path);return rel.startsWith('.')?rel:'./'+rel;};
+   if(source?.script)text=await rewriteModules(text,source.sourceURL,declared.mappings,local);
+   if(file==='index.html')text=await rewriteInlineModules(text,entry.href,declared.mappings,local);
    if(engine==='cocos2'&&file.endsWith('.js'))text=adaptClient(text).text;
    for(const item of report.files){let rel=path.posix.relative(path.posix.dirname(file),item.path);if(!rel.startsWith('.'))rel='./'+rel;text=text.split(item.url).join(rel);}
    if(text!==before){fs.writeFileSync(dest,text);report.patches.push({file,before:hash(before),after:hash(text)});}
@@ -245,6 +265,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   const c=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block'});
   await c.route('**/*',r=>{const req=r.request(),u=new URL(req.url());if(u.origin===origin||['data:','blob:'].includes(u.protocol))return r.continue();const url=u.origin+u.pathname;report.external.push(url);report.blocked_external.push({url,type:req.resourceType(),method:req.method()});if(['script','stylesheet','image','font','media','document'].includes(req.resourceType()))report.required_external.push(url);return r.abort();});
   page=await c.newPage();page.on('pageerror',e=>report.errors.push((e.stack||e.message).slice(0,3000)));page.on('response',r=>{if(r.status()>=400)report.missing.push(r.url().replace(origin,''));});
+  page.on('console',m=>{if(m.type()==='error'&&/Failed to load module script|Failed to resolve module specifier/i.test(m.text()))report.errors.push(m.text().slice(0,1500));});
   page.on('console',m=>{const text=m.text();if(report.renderDiagnostics.length<40&&/renderer|webgl|webgpu|adapter|panic/i.test(text))report.renderDiagnostics.push(text.slice(0,500));});
   await page.goto(origin,{waitUntil:'domcontentloaded'});
   let missingProbe;
