@@ -1,16 +1,18 @@
 # 游戏复刻中心接入接口
 
+> 接口核对：2026-10-23。跨项目接入先读 [项目接入指南](PROJECT_INTEGRATION.md)。现有管理会话、执行器 Bearer 与下游供货是不同协议；项目级消费 API、能力预检及跨项目隔离尚未实现。
+
 ## 本机大型运行包入库
 
 管理员可运行 `python tools/import_local_review.py --candidate <候选ID> --preview http://localhost:8787/ --report <验收报告JSON路径>`。命令读取候选已登记的可信 `source_path`，以流式快照接收最多 500 文件、256 MiB 的运行包，过滤隐藏文件和依赖目录，拒绝符号链接。此本机命令不改变外部工具的 20 MiB 上传限制。
 
 结果为独立 Git 版本、可下载 ZIP 和待验收记录，路径标记为“本地运行包”，不声称恢复源码，不改变授权字段，也不自动批准或发布。Unity 等运行包使用独立回环端口试玩；中心预览页显示打开独立窗口的链接，原隔离 iframe 策略保持不变。启动该版本目录中的启动器即可运行对应快照。
 
-本地管理入口默认 `http://127.0.0.1:8765`，独立试玩入口默认 `http://127.0.0.1:8766`。当前仅绑定本机，不是公网多租户服务。请求体为 JSON 对象，单次 HTTP 请求不超过 30 MiB。时间保存为 UTC，看板按 Asia/Shanghai 统计。
+本地服务默认绑定 `http://127.0.0.1:8765`，独立试玩服务默认 `http://127.0.0.1:8766`；云端通过配置的 HTTPS 反向代理入口访问，外部项目不能使用服务器回环地址。当前项目内共享数据，尚无跨项目多租户隔离。请求体为 JSON 对象，单次 HTTP 请求不超过 30 MiB。时间保存为 UTC，看板按 Asia/Shanghai 统计。
 
 ## 门户管理员登录
 
-设置环境变量 `PORTAL_ADMIN_USERNAME` 和 `PORTAL_ADMIN_PASSWORD`（必须同时设置）启用管理员登录。未设置时沿用本机管理模式。此功能为单管理员账号，不开放注册或账号管理。登录页面通过 `POST /api/auth/login` 建立 12 小时 HttpOnly、SameSite=Strict 会话；连续 10 次失败后该来源地址暂停登录 15 分钟。`GET /api/auth/status` 返回是否启用及当前会话状态；`POST /api/auth/logout` 退出。启用后管理 API 和 `/api/session` 均要求已登录，原 CSRF 校验继续生效。工具 Bearer 接口维持独立认证。
+首次初始化可同时设置 `PORTAL_ADMIN_USERNAME` 和 `PORTAL_ADMIN_PASSWORD` 创建管理员；数据库已有账号后由账号管理维护，修改环境变量不会重置现有密码。支持 admin/operator/viewer，项目内共享数据，不开放注册。`POST /api/auth/login` 使用 `{username,password}` 建立 12 小时 HttpOnly、SameSite=Strict 会话，返回 csrf 和用户信息；配置 HTTPS 公网源时 Cookie 带 Secure。会话持久化，可因账号停用、修改或退出失效。相同来源地址和用户名组合连续 10 次失败后暂限 15 分钟。`GET /api/auth/status` 查询登录状态，`POST /api/auth/logout` 退出。登录请求遵守 Origin 校验，退出及管理写请求需 CSRF。工具 Bearer 接口维持独立认证。
 
 PowerShell 启动示例：
 
@@ -20,13 +22,13 @@ $env:PORTAL_ADMIN_PASSWORD = '请替换为长随机密码'
 .\start.ps1
 ```
 
-不要把真实密码提交到仓库。当前服务只绑定回环地址；登录功能不提供 HTTPS、远程监听、密码重置或多用户权限管理。
+不要把真实密码提交到仓库。管理员通过 `GET /api/accounts` 和 `POST /api/accounts/save` 管理账号、角色、启停及密码；操作员可提交转换和执行允许的任务／批次操作，只读账号不可写入。反向代理及部署配置见 [云端交付手册](CLOUD_DELIVERY.md)。没有账号且未设置初始化凭据的本机模式不能直接作为外部项目认证方案。
 
 ## 工具认证
 
 管理员在工具接入页面创建工具，能力为 `collect`、`rea`、`reconstruct` 的组合。返回的令牌仅显示一次；调用时发送 `Authorization: Bearer <token>`。数据库保存令牌哈希。工具不能调用管理接口，停用后无法认证。
 
-POST 支持 `Idempotency-Key` 请求头；也可在 JSON 中提供 `event_id`。作用域是工具与接口路径，同键同内容返回原结果，同键不同内容返回 409。不要对连续领取任务永久使用同一个幂等键。
+工具 POST 支持 `Idempotency-Key` 请求头；也可在 JSON 中提供 `event_id`。作用域是工具与接口路径，同键同内容返回原结果，同键不同内容返回 409。不要对连续领取任务永久使用同一个幂等键；该保证不能泛化到所有管理接口。
 
 ## 外部工具接口
 
@@ -63,7 +65,7 @@ REA 服务未配置、输入包未获取、临时执行失败应明确阻断或�
 
 ## 管理接口
 
-GET `/api/session` 建立本机管理 Cookie 并返回 csrf；所有管理 POST 附 `X-CSRF-Token`。这不是企业账号登录。GET `/api/state` 返回真实数据，GET `/api/demo` 返回独立演示数据，GET `/api/docs` 返回本文。
+启用账号后先登录，GET `/api/session` 返回当前会话 csrf；仅未启用账号的本机模式会由此建立本机会话。所有管理 POST 附 `X-CSRF-Token` 并通过 Origin 检查，后端按角色授权。GET `/api/state` 返回共享项目真实数据，GET `/api/demo` 返回独立演示数据，GET `/api/docs` 返回本文。工具令牌不能替代管理会话。
 
 | 路径（POST） | 操作 |
 |---|---|
@@ -79,7 +81,7 @@ GET `/api/session` 建立本机管理 Cookie 并返回 csrf；所有管理 POST 
 | `/api/sources`、`/api/sources/{id}/toggle` | name、url 创建来源；启停来源记录 |
 | `/api/settings` | 更新 concurrency、lease_seconds、max_attempts、rea_minutes、reconstruct_minutes、repair_rounds |
 
-GET `/api/versions/{id}/download` 用管理会话下载对应源码版本 ZIP。试玩 GET `/play/{artifact_id}/{entry}` 在独立端口提供只读静态文件，不提供管理接口，不需要 worker 在线。当前内部预览地址不是权限隔离的私密链接；需要对外部署时增加预览鉴权及正式发布路由。
+GET `/api/versions/{id}/download` 用管理会话下载对应版本 ZIP；包含源码还是运行包须读版本报告。GET `/api/versions/{id}/specification.md` 读取游戏规格说明书。试玩 GET `/play/{artifact_id}/{entry}` 在独立服务提供只读文件，不需要 worker 在线；云端经同站路由访问，`/play/` 与 `/runtime/` 校验门户会话，不作为匿名公开链接。
 
 POST `/api/jobs/{id}/reconstruct` 为管理员明确选择玩法重建，需 `reason`（至少10字）及候选已有 `observations`。只允许 queued/blocked/failed 的 REA 任务，拒绝运行中任务。记录 `rea_attempted:false`，不会把没有原包伪报为反编译失败；后续由独立 reconstruct 工具提交产物。
 
@@ -104,9 +106,9 @@ POST /api/jobs/{id}/work-log：管理端提交 message（10–4000 字符），�
 
 `POST /api/conversions` 兼容单链接 `{url}`，新增 `{name?, urls: string[]}`，最多 100 条。返回 `{batch, jobs, reused, submitted, unique}`。多链接提交立即排队，重复任务保持原归属；全部重复时 batch 为 null。非法链接或与失败历史冲突时整批回滚。
 
-`GET /api/state` 的每个 job 增加 `pipeline={current,nodes,note}`，仅作只读投影。
+`GET /api/state` 的每个 job 包含 `pipeline={current,nodes,note,presentation}`，仅作只读投影。顶层 presentation 提供 headline、location_label、problem、next_action、counts；节点 presentation 提供 title、work、label、group、result、next_action、previous、problem。客户端用结构化状态判断，文案用于展示；未知历史不补造成功。
 执行器 `POST /api/v1/jobs/{id}/events` 可附 `node` 和 `node_status`：
-节点为 identify/acquire/analysis/adapt/test/delivery/review/publish，状态为 running/succeeded/failed/waiting_input/skipped/cancelled。必须持有效租约；原 message/stage 事件兼容。时间线中的历史无证据节点保留等待或有记录，不伪造已完成。
+节点为 identify/acquire/analysis/adapt/test/repair/delivery/review/publish，事件状态为 running/succeeded/failed/waiting_input/skipped/cancelled。必须持有效租约；原 message/stage 事件兼容。投影视图还会派生草稿、阻断和记录缺失等状态，不能反向当作执行器事件枚举。时间线中的历史无证据节点保留等待或有记录，不伪造已完成。
 
 # AI 用量与价格
 

@@ -1,6 +1,6 @@
 # 游戏转换流程与实现边界
 
-更新：2026-10-21。当前部署见 [服务清单](SERVICES.md) 和 [运维手册](OPERATIONS.md)。
+更新：2026-10-23。跨项目统一约定见 [转换服务规范](CONVERSION_SERVICE_STANDARD.md)，精确支持范围见 [引擎适配手册](ENGINE_PLAYBOOKS.md)。当前部署见 [服务清单](SERVICES.md) 和 [运维手册](OPERATIONS.md)。
 
 ## 完整流程
 
@@ -39,6 +39,8 @@ flowchart TD
 | 路径 | 实现 | 实际边界 |
 |---|---|---|
 | Cocos 2 Web | `executors/web-profiles/`、`web_runtime.py` | 登记配置、脚本与资源校验，不是任意 Cocos 自动支持 |
+| 已发现的 Web 运行包 | `discovered_web.py`、`discovered-web.cjs` | Cocos 2、Ruffle／SWF、经证据选择的 Defold 及浏览器探测；保留运行包，仍需玩法验证 |
+| Remix Three | `modular_web.py`、`adapters/remix-local.js` | 显式 importmap 与宿主契约；不是任意 Three.js 工程适配 |
 | Cocos 3.5.1 原包 | `package_converter.py` → 独立 `/v1/jobs` 服务 | 明文/V1MMWX、define 包装，需主包/分包及匹配插件；built_unverified 不等于验收 |
 | 内嵌 HTML/lib | `web_embedded.py`、REA、`embedded_runtime.py` | 显式资源映射与已知宿主契约，未支持在线服务/动态资源明确报告 |
 | 静态源码 | 原始目录或受校验 ZIP、REA、source map、运行检查 | 保留已有代码和资源，不保证原作者工程、构建关系或全部可维护性恢复 |
@@ -52,7 +54,7 @@ flowchart TD
 - REA 必须由平台执行器实际调用，证据与范围留在本轮运行目录。
 - 远程资源按已取得索引/映射下载，校验 URL、数量、容量及 SHA-256，不猜未知分包、不用替代素材冒充。
 - 静态引用、原始脚本、指定状态的渲染对照与组件测试分别保存证据；不能代替未覆盖玩法的实际验收。
-- 自动续作共用状态与版本基线，连续三轮无验证进展产生具体阻断。单段调用额度用尽可检查点接续，最多连续三段；新要求/基线不能混用旧检查点。暂停、停止优先。
+- 自动续作共用状态与版本基线，连续无验证进展产生具体阻断。单段调用额度用尽可检查点接续；有效上限按对应路径的共享调度规则和配置执行，Web 路径的当前边界见服务要求。新要求/基线不能混用旧检查点，暂停、停止优先。
 - 交付说明可修改逻辑、可移植模块、依赖及验证边界，区分已验证可复用、需拆解适配、仅运行包。
 
 ## 用量与协议
