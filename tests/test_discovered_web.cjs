@@ -4,6 +4,17 @@ const {request}=require('../executors/node_modules/playwright');
 const {followResourceRedirects}=require('../executors/discovered-web.cjs');
 const {verifyInteraction}=require('../executors/dom-entry.cjs');
 
+test('portrait review changes the real viewport and accepts inputs in its lower region',async()=>{
+ const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-portrait-input-'));
+ try{
+  fs.mkdirSync(path.join(run,'converted'));fs.writeFileSync(path.join(run,'converted/index.html'),'<meta charset="utf-8"><p id="status">Ready</p><button style="position:fixed;left:20px;bottom:20px;width:200px;height:80px" onclick="statusNode.textContent=\'Action verified\'">Continue</button><script>const statusNode=document.querySelector("#status");</script>');
+  fs.writeFileSync(path.join(run,'web-acquisition.json'),JSON.stringify({engine:'browser-dom'}));
+  const result=await verify(run,[{type:'viewport',width:390,height:844},{type:'click',x:80,y:800}]);
+  assert.equal(result.passed,true);assert.deepEqual(result.steps.at(-1).viewport,{width:390,height:844});assert.match(result.steps.at(-1).text,/Action verified/);
+  await assert.rejects(()=>verify(run,[{type:'viewport',width:12345,height:1}]),/Unsupported input/);
+ }finally{fs.rmSync(run,{recursive:true,force:true});}
+});
+
 test('DOM entry requires an actual visible interaction and offline DOM gameplay remains observable',async()=>{
  const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-dom-fixture-'));
  const {chromium}=require('../executors/node_modules/playwright');

@@ -309,6 +309,7 @@ task_requests 是管理员通过平台提交的任务要求，按时间从旧到
 pending_delivery 是平台共享交付检查返回的剩余缺项。本轮必须逐项处理这些缺项，不重复仅总结已经通过的项目；需要更多证据时读取相关源码或执行针对性操作，能力不足时说明具体阻碍。
 每次返回 JSON：{actions:[...], summary, complete:false}，actions 是要追加的真实鼠标/键盘动作：
 {type:"click",x:0..1000,y:0..760,wait_ms:200..10000}、{type:"key",key:"ArrowLeft|ArrowRight|ArrowUp|ArrowDown|Space|Enter|w|a|s|d|r|p|Shift|Escape",hold_ms:0..10000}（hold_ms是真实持续按住，用于行走；默认点按）、{type:"drag",x,y,to_x,to_y,hold_ms:100..3000}、{type:"wait",wait_ms:...}、{type:"reload"}。
+另有真实视口操作 {type:"viewport",width:390,height:844}，仅支持1000×760、390×844和844×390三种。切换视口必须单独提交，先看新截图再操作；坐标边界取最新runtime.observed.viewport，不能继续套用旧尺寸。只改变隔离浏览器尺寸，不修改游戏或伪造适配通过；竖屏要求须在390×844中核对实际玩法和操作，不以菜单截图通过。
 先进入真正玩法，不把加载画面或菜单当完成。操作必须基于给定截图或 buttons 坐标。每次最多4个动作，本轮最多80个新动作，累计回放上限300个。click默认按住100毫秒后抬起，允许hold_ms:80..1000，供按帧读取输入的运行时观察真实点击。
 按标注顺序核对每个新动作后的截图，不能只看最后画面而忽略中间反馈。reload必须单独一批提交，不能与升级、建设等动作同批；先实际观察关键步骤完成及保存触发条件，再决定是否刷新，避免丢失尚未保存的教程进度。
 整个分析过程保持同一个隔离浏览器，模型分析期间游戏时间仍会继续。每轮截图是当前真实状态，不能假设动画被暂停。已有动作前缀在续作开始时只回放一次，不要重复添加。
@@ -411,8 +412,8 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
                 proposed = final.get('actions', [])
                 if not isinstance(proposed, list) or len(proposed) > 4 or len(actions) + len(proposed) > action_limit:
                     raise ValueError('Action budget exceeded')
-                if len(proposed) > 1 and any(a.get('type') == 'reload' for a in proposed if isinstance(a, dict)):
-                    raise ValueError('刷新必须单独提交；先观察上一步实际结果和保存条件，再决定是否刷新')
+                if len(proposed) > 1 and any(a.get('type') in ('reload','viewport') for a in proposed if isinstance(a, dict)):
+                    raise ValueError('刷新或切换视口必须单独提交；先观察实际结果再决定下一步操作')
                 if sum(len(v.encode()) for v in {**changes, **patch}.values()) > 2_000_000:
                     raise ValueError('Host patch exceeds size limit')
                 for name, text in patch.items():

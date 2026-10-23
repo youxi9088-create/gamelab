@@ -99,7 +99,7 @@ async function gameplayReady(page,engine){
 }
 async function state(page,engine){
  return page.evaluate(kind=>{
-  const result={engine:kind,canvasCount:document.querySelectorAll('canvas').length,fontStatus:document.fonts?.status,buttons:[],labels:[]};
+  const result={engine:kind,viewport:{width:innerWidth,height:innerHeight},canvasCount:document.querySelectorAll('canvas').length,fontStatus:document.fonts?.status,buttons:[],labels:[]};
   if(kind==='cocos2'){
    result.scene=cc.director.getScene()?.name;
    const rect=cc.game.canvas.getBoundingClientRect();
@@ -301,8 +301,9 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   for(const requested of batch){
    let a={...requested};
    const i=report.actions.length;
+   const bounds=page.viewportSize();
    const storageBeforeReload=a.type==='reload'?await storageEvidence(page):null;
-   if(a.type==='click'&&Number.isFinite(a.x)&&Number.isFinite(a.y)&&a.x>=0&&a.x<=1000&&a.y>=0&&a.y<=760){
+   if(a.type==='click'&&Number.isFinite(a.x)&&Number.isFinite(a.y)&&a.x>=0&&a.x<=bounds.width&&a.y>=0&&a.y<=bounds.height){
     a.hold_ms=Math.max(80,Math.min(1000,Number(a.hold_ms)||100));
     await page.mouse.click(a.x,a.y,{delay:a.hold_ms});
    }
@@ -310,7 +311,8 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
     const hold=Math.max(0,Math.min(10000,Number(a.hold_ms)||0));
     await page.keyboard.down(a.key);try{if(hold)await page.waitForTimeout(hold);}finally{await page.keyboard.up(a.key);}
    }
-   else if(a.type==='drag'&&[a.x,a.y,a.to_x,a.to_y].every(Number.isFinite)&&a.x>=0&&a.x<=1000&&a.to_x>=0&&a.to_x<=1000&&a.y>=0&&a.y<=760&&a.to_y>=0&&a.to_y<=760){await page.mouse.move(a.x,a.y);await page.mouse.down();await page.mouse.move(a.to_x,a.to_y,{steps:12});await page.waitForTimeout(Math.max(100,Math.min(3000,a.hold_ms||300)));await page.mouse.up();}
+   else if(a.type==='drag'&&[a.x,a.y,a.to_x,a.to_y].every(Number.isFinite)&&a.x>=0&&a.x<=bounds.width&&a.to_x>=0&&a.to_x<=bounds.width&&a.y>=0&&a.y<=bounds.height&&a.to_y>=0&&a.to_y<=bounds.height){await page.mouse.move(a.x,a.y);await page.mouse.down();await page.mouse.move(a.to_x,a.to_y,{steps:12});await page.waitForTimeout(Math.max(100,Math.min(3000,a.hold_ms||300)));await page.mouse.up();}
+   else if(a.type==='viewport'&&[[1000,760],[390,844],[844,390]].some(([w,h])=>a.width===w&&a.height===h)){await page.setViewportSize({width:a.width,height:a.height});}
    else if(a.type==='wait'){}
    else if(a.type==='reload'){await page.reload({waitUntil:'domcontentloaded'});await gameplayReady(page,acq.engine);}
    else throw Error('Unsupported input action');
