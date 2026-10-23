@@ -13,6 +13,22 @@ from controlplane.conversion_plan import build
 
 
 class DiscoveredWebTests(unittest.TestCase):
+    def test_retry_preserves_failed_copy_and_observations_without_version_changes(self):
+        from discovered_web import prepare_revision_copy
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)/'source';root.mkdir();(root/'index.html').write_text('original')
+            run=Path(temp)/'run';run.mkdir()
+            target=prepare_revision_copy(root,run);(target/'index.html').write_text('failed host')
+            (run/'web-review-1').mkdir();(run/'web-review-1/current.png').write_bytes(b'actual failed image')
+            (run/'web-browser.log').write_text('actual failure')
+            fresh=prepare_revision_copy(root,run)
+            archive=next((run/'revision-attempts').iterdir())
+            self.assertEqual((fresh/'index.html').read_text(),'original')
+            self.assertEqual((archive/'converted/index.html').read_text(),'failed host')
+            self.assertEqual((archive/'web-review-1/current.png').read_bytes(),b'actual failed image')
+            self.assertEqual((archive/'web-browser.log').read_text(),'actual failure')
+            self.assertEqual((root/'index.html').read_text(),'original')
+
     def test_viewport_only_revision_preserves_attributed_gameplay_without_replay(self):
         from tests.test_runtime_viewport import ViewportTests
         with tempfile.TemporaryDirectory() as temp:

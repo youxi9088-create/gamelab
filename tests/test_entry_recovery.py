@@ -70,7 +70,28 @@ class EntryRecoveryTests(unittest.TestCase):
         value, calls, report = self.run_case('https://unrelated.example/game', {})
         self.assertIsNone(value)
         self.assertEqual(calls, [])
-        self.assertFalse(report['attempts'][0]['verified'])
+        self.assertIn('tool_error',report['attempts'][0])
+
+    def test_missing_arguments_corrected_by_declared_id_without_losing_repair_budget(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);url='https://example.org/game?a=1&b=two%20words'
+            observation={'web_discovery':{'iframe_hints':[{'url':url}]}}
+            payloads=[];calls=[]
+            def chat(messages,budget):
+                payload=json.loads(messages[-1]['content'][0]['text']);payloads.append(payload)
+                if len(payloads)==1:return {'action':'probe_entry'}
+                self.assertEqual(payload['repair_attempts_remaining'],2)
+                self.assertIn('arguments',payload['tool_feedback'])
+                self.assertIn(url,payload['capabilities']['probe_entry'])
+                return {'action':'probe_entry','arguments':{'entry_id':'1'}}
+            def acquired(selected,*args):
+                calls.append(selected)
+                return {'web_discovery':{'entries':[{'url':selected,'canvas_count':1,'evidence':'rendered-canvas'}]}}
+            token=CHAT.set(chat)
+            try:value=recover(observation,root,Budget(),acquired)
+            finally:CHAT.reset(token)
+            self.assertEqual(calls,[url])
+            self.assertEqual(value['entry_recovery']['declared_url'],url)
 
     def test_dom_interaction_returns_to_original_entry_node(self):
         with tempfile.TemporaryDirectory() as temp:

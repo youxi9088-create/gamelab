@@ -8,6 +8,37 @@ import unittest
 
 @unittest.skipUnless(os.name == 'nt', 'Windows deployment helper')
 class DeploymentPythonTests(unittest.TestCase):
+    def test_runtime_read_includes_hidden_protected_files_and_does_not_follow_junctions(self):
+        helper=Path(__file__).resolve().parents[1]/'tools/grant-runtime-read.ps1'
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)/'runtime';hidden=root/'.pnpm';hidden.mkdir(parents=True)
+            package=hidden/'package.json';package.write_text('{}')
+            outside=Path(folder)/'outside';outside.mkdir();(outside/'private.txt').write_text('fixture')
+            script=Path(folder)/'fixture.ps1'
+            q=lambda s:"'"+str(s).replace("'","''")+"'"
+            script.write_text(f'''
+$ErrorActionPreference='Stop'
+Import-Module "$PSHOME/Modules/Microsoft.PowerShell.Security/Microsoft.PowerShell.Security.psd1" -ErrorAction Stop
+. {q(helper)}
+$p={q(package)}
+$a=Get-Acl -LiteralPath $p
+$a.SetAccessRuleProtection($true,$true)
+Set-Acl -LiteralPath $p -AclObject $a
+(Get-Item -LiteralPath {q(hidden)} -Force).Attributes += [IO.FileAttributes]::Hidden
+$outsideBefore=(Get-Acl -LiteralPath {q(outside/'private.txt')}).Sddl
+New-Item -ItemType Junction -Path {q(root/'alias')} -Target {q(outside)} | Out-Null
+try {{
+ $count=Grant-RuntimeRead {q(root)}
+ if($count -ne 3){{throw 'Hidden files not traversed or junction followed'}}
+ $sid=New-Object System.Security.Principal.SecurityIdentifier('S-1-5-19')
+ $rules=(Get-Acl -LiteralPath $p).GetAccessRules($true,$true,[System.Security.Principal.SecurityIdentifier])
+ if(-not($rules | Where-Object {{$_.IdentityReference -eq $sid -and $_.FileSystemRights -band [System.Security.AccessControl.FileSystemRights]::ReadData}})){{throw 'Missing service read permission'}}
+ if((Get-Acl -LiteralPath {q(outside/'private.txt')}).Sddl -ne $outsideBefore){{throw 'Changed external ACL'}}
+}} finally {{[IO.Directory]::Delete({q(root/'alias')})}}
+''',encoding='utf-8-sig')
+            result=subprocess.run(['powershell','-NoProfile','-ExecutionPolicy','Bypass','-File',str(script)],capture_output=True,timeout=30)
+            self.assertEqual(result.returncode,0,result.stderr.decode(errors='replace'))
+
     def test_exit_status_unicode_arguments_and_large_stderr(self):
         helper = Path(__file__).resolve().parents[1] / 'tools/invoke-python.ps1'
         with tempfile.TemporaryDirectory() as folder:

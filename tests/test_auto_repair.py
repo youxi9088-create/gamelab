@@ -81,6 +81,12 @@ class AutoRepairTests(unittest.TestCase):
         context=RepairContext(self.run);payload=context.load()
         with self.assertRaises(ValueError):context.inspect({'read_requests':[{'path':'../services.json'}]},payload)
 
+    def test_browser_process_failure_is_available_to_diagnosis(self):
+        from repair_context import RepairContext
+        (self.run/'web-browser.log').write_text('EPERM package.json in module loader')
+        payload=RepairContext(self.run).load()
+        self.assertTrue(any(row['path']=='web-browser.log' and 'EPERM' in row['text'] for row in payload['source_excerpts']))
+
     def test_rejected_sdk_plan_is_visible_and_correctable_without_mutation(self):
         original=self.run/'web-original';original.mkdir()
         source='<script src="game.js"></script>'

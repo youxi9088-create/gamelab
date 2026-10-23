@@ -226,6 +226,37 @@ def revise_viewport(inp, run, budget, chat, viewport, changes, progress=None):
     return changes, 'index.html', report
 
 
+def prepare_revision_copy(root, run):
+    """Start a fresh attempt without overwriting a failed working copy or evidence."""
+    import uuid
+    from repair_context import linked
+    run = Path(run).resolve(strict=True)
+    target = run / 'converted'
+    # A retry can encounter a partial copy. Keep it, along with the observations
+    # that explain its failure, before copying the immutable version again.
+    if target.exists() or linked(target):
+        if linked(target) or not target.is_dir():
+            raise ValueError('Invalid revision working directory')
+        archive_root = run / 'revision-attempts'
+        if linked(archive_root):
+            raise ValueError('Linked revision archive is not supported')
+        archive = archive_root / uuid.uuid4().hex
+        archive.mkdir(parents=True, exist_ok=False)
+        candidates = [target, *run.glob('web-review-*'), *[run/n for n in (
+            'web-browser.log', 'web-review-input.json', 'web-acquisition.json',
+            'viewport-input.json', 'viewport-review.log', 'viewport-review')]]
+        for path in candidates:
+            if not path.exists():
+                continue
+            if linked(path) or path.parent != run or not path.resolve().is_relative_to(run):
+                raise ValueError('Unsafe revision attempt evidence path')
+        for path in candidates:
+            if path.exists():
+                path.rename(archive / path.name)
+    shutil.copytree(root, target)
+    return target
+
+
 def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
     """Platform API model drives bounded real inputs and host-code repairs.
 
@@ -240,7 +271,7 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
         raise ValueError('Linked source package is not supported')
     if sum(p.is_file() for p in paths) > 2000 or sum(p.stat().st_size for p in paths if p.is_file()) > 256 * 1024 * 1024:
         raise ValueError('Source package exceeds snapshot limits')
-    shutil.copytree(root, target)
+    target = prepare_revision_copy(root, run)
     shutil.copy2(root / 'evidence/acquisition.json', run / 'web-acquisition.json')
     acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
     viewport, viewport_changes = prepare_viewport(target, acquisition['engine'])

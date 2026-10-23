@@ -80,6 +80,8 @@ backup_capacity(Path(sys.argv[2])/'shared',Path(sys.argv[2]))
         if((Get-FileHash (Join-Path $DependencyDirectory 'pnpm-lock.yaml')).Hash -ne (Get-FileHash (Join-Path $target 'executors\pnpm-lock.yaml')).Hash){throw 'Prepared dependency lock does not match release'}
         $dependencyModules=Join-Path $DependencyDirectory 'node_modules'
         if(-not(Test-Path -LiteralPath $dependencyModules -PathType Container)){throw 'Prepared dependencies are absent'}
+        . (Join-Path $target 'tools\grant-runtime-read.ps1')
+        Grant-RuntimeRead $DependencyDirectory | Out-Null
     } elseif((Get-FileHash (Join-Path $oldTarget 'executors\pnpm-lock.yaml')).Hash -ne (Get-FileHash (Join-Path $target 'executors\pnpm-lock.yaml')).Hash){
         throw 'Dependency lock changed; prepare an isolated dependency directory before deployment'
     }
