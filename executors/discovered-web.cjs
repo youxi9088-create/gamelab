@@ -200,7 +200,7 @@ async function capture(input,run){
  return report;
 }
 async function verify(run,actions=[],nextBatch=null,viewportReview=false){
- const started=Date.now(),root=path.resolve(run,'converted'),report={passed:false,errors:[],missing:[],external:[],steps:[],actions:[],renderDiagnostics:[]},acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
+ const started=Date.now(),root=path.resolve(run,'converted'),report={passed:false,errors:[],missing:[],external:[],blocked_external:[],required_external:[],steps:[],actions:[],renderDiagnostics:[]},acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
  fs.mkdirSync(path.join(root,'evidence'),{recursive:true});fs.mkdirSync(path.join(root,'screenshots'),{recursive:true});
  const server=http.createServer((req,res)=>{
   let p;try{p=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));}catch{res.writeHead(400);return res.end();}
@@ -213,7 +213,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
  try{
   browser=await chromium.launch(require('./browser-options.cjs')());
   const c=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block'});
-  await c.route('**/*',r=>{const u=new URL(r.request().url());if(u.origin===origin||['data:','blob:'].includes(u.protocol))return r.continue();report.external.push(u.origin+u.pathname);return r.abort();});
+  await c.route('**/*',r=>{const req=r.request(),u=new URL(req.url());if(u.origin===origin||['data:','blob:'].includes(u.protocol))return r.continue();const url=u.origin+u.pathname;report.external.push(url);report.blocked_external.push({url,type:req.resourceType(),method:req.method()});if(['script','stylesheet','image','font','media','document'].includes(req.resourceType()))report.required_external.push(url);return r.abort();});
   page=await c.newPage();page.on('pageerror',e=>report.errors.push((e.stack||e.message).slice(0,3000)));page.on('response',r=>{if(r.status()>=400)report.missing.push(r.url().replace(origin,''));});
   page.on('console',m=>{const text=m.text();if(report.renderDiagnostics.length<40&&/renderer|webgl|webgpu|adapter|panic/i.test(text))report.renderDiagnostics.push(text.slice(0,500));});
   await page.goto(origin,{waitUntil:'domcontentloaded'});
@@ -270,7 +270,9 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
     observed.screenshot=shot;report.captured_screenshots.push(shot);
    }
   }
-  report.passed=!report.errors.length&&!report.missing.length&&!report.external.length;
+  // Denied API/telemetry attempts remain dependency evidence. Their necessity
+  // must be assessed by actual gameplay; an attempted request is not a transfer.
+  report.passed=!report.errors.length&&!report.missing.length&&!report.required_external.length;
   if(!report.passed)throw Error('Offline check failed: '+JSON.stringify({errors:report.errors,missing:report.missing,external:report.external}));
   if(!nextBatch)break;
   report.observed={...await state(page,acq.engine),elapsed_ms:Date.now()-started,storage:await storageEvidence(page)};

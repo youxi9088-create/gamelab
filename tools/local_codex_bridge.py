@@ -97,7 +97,9 @@ class Handler(BaseHTTPRequestHandler):
         try:length=int(self.headers.get('Content-Length','0'))
         except ValueError:return self.send_json(400,{'error':{'code':'invalid_length'}})
         if not 0<length<=12_000_000:return self.send_json(413,{'error':{'code':'body_limit'}})
-        if not self.server.busy.acquire(blocking=False):return self.send_json(429,{'error':{'code':'local_codex_busy'}})
+        # A following request can arrive before the previous handler flushes its
+        # log and releases the lock. Briefly queue instead of reporting false 429.
+        if not self.server.busy.acquire(timeout=10):return self.send_json(429,{'error':{'code':'local_codex_busy'}})
         started=time.monotonic();status='failed'
         try:
             body=json.loads(self.rfile.read(length));value,usage=infer(self.server.binary,body['messages'])
