@@ -159,7 +159,8 @@ def inspect_source(source):
         if item.suffix.lower() in ('.zip', '.7z', '.rar', '.tar'):
             raise SupplyError('NESTED_ARCHIVE', 422)
         if (item.suffix.lower() in ('.ts', '.tsx', '.jsx', '.vue', '.wasm', '.pck', '.unityweb')
-                or re.search(r'(?:^|[.-])[0-9a-f]{8,}(?:[.-]|$)', item.name, re.I)
+                or (re.search(r'(?:^|[.-])[0-9a-f]{8,}(?:[.-]|$)', item.name, re.I)
+                    and not (item.suffix.lower()=='.json' and rel.startswith(('verification/','evidence/'))))
                 or item.name.lower() in ('package.json', 'godot.js')
                 or '.framework.js' in item.name or '.loader.js' in item.name):
             raise SupplyError('TOOLCHAIN_UNSUPPORTED', 422)

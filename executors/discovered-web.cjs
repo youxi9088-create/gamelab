@@ -219,7 +219,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
    const i=report.actions.length;
    const storageBeforeReload=a.type==='reload'?await storageEvidence(page):null;
    if(a.type==='click'&&Number.isFinite(a.x)&&Number.isFinite(a.y)&&a.x>=0&&a.x<=1000&&a.y>=0&&a.y<=760)await page.mouse.click(a.x,a.y);
-   else if(a.type==='key'&&['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','Enter','w','a','s','d','r','Escape'].includes(a.key))await page.keyboard.press(a.key);
+   else if(a.type==='key'&&['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','Enter','w','a','s','d','r','p','Shift','Escape'].includes(a.key))await page.keyboard.press(a.key);
    else if(a.type==='drag'&&[a.x,a.y,a.to_x,a.to_y].every(Number.isFinite)&&a.x>=0&&a.x<=1000&&a.to_x>=0&&a.to_x<=1000&&a.y>=0&&a.y<=760&&a.to_y>=0&&a.to_y<=760){await page.mouse.move(a.x,a.y);await page.mouse.down();await page.mouse.move(a.to_x,a.to_y,{steps:12});await page.waitForTimeout(Math.max(100,Math.min(3000,a.hold_ms||300)));await page.mouse.up();}
    else if(a.type==='wait'){}
    else if(a.type==='reload'){await page.reload({waitUntil:'domcontentloaded'});await gameplayReady(page,acq.engine);}

@@ -269,13 +269,13 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
 task_requests 是管理员通过平台提交的任务要求，按时间从旧到新排列；最新要求决定本轮范围。沿已有版本只处理剩余项，保留已验证结果，不重新采集或转换、不把上一轮报告扩展成新的通关目标。
 pending_delivery 是平台共享交付检查返回的剩余缺项。本轮必须逐项处理这些缺项，不重复仅总结已经通过的项目；需要更多证据时读取相关源码或执行针对性操作，能力不足时说明具体阻碍。
 每次返回 JSON：{actions:[...], summary, complete:false}，actions 是要追加的真实鼠标/键盘动作：
-{type:"click",x:0..1000,y:0..760,wait_ms:200..10000}、{type:"key",key:"ArrowLeft|ArrowRight|ArrowUp|ArrowDown|Space|Enter|w|a|s|d|r|Escape"}、{type:"drag",x,y,to_x,to_y,hold_ms:100..3000}、{type:"wait",wait_ms:...}、{type:"reload"}。
+{type:"click",x:0..1000,y:0..760,wait_ms:200..10000}、{type:"key",key:"ArrowLeft|ArrowRight|ArrowUp|ArrowDown|Space|Enter|w|a|s|d|r|p|Shift|Escape"}、{type:"drag",x,y,to_x,to_y,hold_ms:100..3000}、{type:"wait",wait_ms:...}、{type:"reload"}。
 先进入真正玩法，不把加载画面或菜单当完成。操作必须基于给定截图或 buttons 坐标。每次最多4个动作，本轮最多20个新动作，累计回放上限100个。
 整个分析过程保持同一个隔离浏览器，模型分析期间游戏时间仍会继续。每轮截图是当前真实状态，不能假设动画被暂停。已有动作前缀在续作开始时只回放一次，不要重复添加。
 必须观察操作产生实际反馈、阶段进度或结果、继续/重试，以及适用时的保存恢复。Cocos 可在动作加 expect_labels:["实际应显示的文字"] 做执行断言。
 运行报告 storage 是隔离页面 localStorage/sessionStorage 的只读键名、长度和哈希，刷新步骤同时提供 storage_before_reload。先核对相关记录是否产生、变化及刷新后保留；available/complete 为 false 时证据不完整，不能当作没有存档。哈希相同只证明该存储记录保留，不证明游戏读取成功或任务进度恢复；须结合刷新前后的同一可辨认玩法状态。历史缺少此字段表示未观测，不表示存档失效。IndexedDB、内存状态及原包存档触发时机仍需独立证据，不能改写存档通过检查。
 基础验证只要求一个代表性闭环：一场战斗或一个可观察的解谜/任务步骤产生结果，并能回到可操作界面或继续，加上适用的保存恢复。已有第一阶段结果时，不要求第二阶段再次通关；新解锁关卡和升级功能不得自动变成新的必过目标。不得因未穷举后续内容而否认已执行的代表性闭环，应把未覆盖内容写入边界。
-如果需要源码，返回 read_requests:[{path,offset,length}] 或 search_requests:[{path,text}]；禁止凭猜测补写原代码。
+如果需要源码，返回 read_requests:[{path,offset,length}] 或 search_requests:[{path,text}]，每类每次最多4项；禁止凭猜测补写原代码。读取和actions可同轮提出，动作会真实执行；返回的summary在执行之前仅是计划。
 修复只允许页面宿主代码，返回 changes:{新宿主文件或已完整阅读文件:全文} 或 edits:[{path,sha256,old,new}]。
 不得修改 assets/、vendor/、screenshots/、evidence/、verification/，不得注入胜负、数值、存档或游戏状态以通过验证。不得伪造网络登录或奖励成功。
 基于已执行的实际截图、日志及原包证据，完成代表性基础玩法检查后才返回 complete:true，带 foundation_checks（gameplay/resources/scene/objects/characters/animation/ui，每项status verified/pending/not_applicable、reason），dependency_updates:[{id,status,reason}]。
@@ -353,11 +353,15 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
             feedback = None
             if final.get('read_requests') or final.get('search_requests'):
                 try:
-                    parts = context.reads(final['read_requests']) if final.get('read_requests') else context.search(final['search_requests'])
+                    parts = context.reads(final['read_requests']) if final.get('read_requests') else []
+                    if final.get('search_requests'):parts += context.search(final['search_requests'])
                     context.retain(payload, parts)
                 except (ValueError, KeyError, TypeError) as exc:
                     feedback = str(exc)
-                continue
+                # Reads and input actions can be proposed together. Never silently
+                # discard the actual interaction while showing its proposed summary.
+                if not (final.get('actions') or final.get('changes') or final.get('edits')):
+                    continue
             try:
                 patch = context.apply(final.get('changes', {}), final.get('edits', []))
                 if set(patch) & protected:
@@ -407,6 +411,10 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
         raise Blocked('平台 Web 验证预算已耗尽；最后提出的操作或宿主修改尚未执行验证，证据保留在执行目录')
     completed = final.get('complete') is True and sum(a.get('type') in ('click', 'key', 'drag') for a in runtime.get('actions', [])) >= 2
     checks = final.get('foundation_checks', {})
+    # Accept unambiguous singleton-object arrays without inventing any checks.
+    if isinstance(checks,list) and all(isinstance(c,dict) and len(c)==1 for c in checks):
+        pairs=[next(iter(c.items())) for c in checks]
+        if len({key for key,_ in pairs})==len(pairs):checks=dict(pairs)
     if not isinstance(checks, dict): checks = {}
     if not completed:
         gameplay = checks.get('gameplay') if isinstance(checks.get('gameplay'), dict) else {}
