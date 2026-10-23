@@ -13,7 +13,8 @@ const assert=require('assert/strict');
   await page.locator('[data-batch-detail]').filter({hasText:'查看新批次'}).click();
   await page.locator('.modal [data-job]').first().click();
   await page.locator('.pipeline').waitFor();
-  assert.equal(await page.locator('.pipeline li').count(),8);
+  assert.equal(await page.locator('.pipeline li').count(),9);
+  assert.equal(await page.locator('.pipeline li').filter({hasText:'AI 诊断与修复'}).count(),1);
   assert.equal(await page.locator('.pipeline [data-status="succeeded"]').count(),0);
   await page.route('**/api/state',async route=>{
     const response=await route.fetch(); const state=await response.json();

@@ -1,3 +1,4 @@
+import {patchHTML} from './dom-sync.js';
 import {dashboardPulse,dashboardGames,dashboardDiagnostics,bindDashboard} from './dashboard.js';
 let discoveryStatus='pending', discoveryRun='', discoverySelected=new Set(), discoveryCategory='', discoverySource='', libraryEngine='';
 const gameCategories=c=>c.catalog_facets?.categories||[String(c.category||'').trim()||'未分类'];
@@ -51,10 +52,10 @@ function sourceDiscoveryRule(id) {
   };
 }
 function bindDiscovery() {
-  $('#discovery-category')?.addEventListener('change',e=>{discoveryCategory=e.target.value;discoverySelected.clear();render();});
-  $('#discovery-source')?.addEventListener('change',e=>{discoverySource=e.target.value;discoverySelected.clear();render();});
-  $('#discovery-status')?.addEventListener('change',e=>{discoveryStatus=e.target.value;discoveryCategory='';discoverySource='';discoverySelected.clear();render();});
-  $('#discovery-run')?.addEventListener('change',e=>{discoveryRun=e.target.value;discoveryCategory='';discoverySource='';discoverySelected.clear();render();});
+  listen($('#discovery-category'),'change',e=>{discoveryCategory=e.target.value;discoverySelected.clear();render();});
+  listen($('#discovery-source'),'change',e=>{discoverySource=e.target.value;discoverySelected.clear();render();});
+  listen($('#discovery-status'),'change',e=>{discoveryStatus=e.target.value;discoveryCategory='';discoverySource='';discoverySelected.clear();render();});
+  listen($('#discovery-run'),'change',e=>{discoveryRun=e.target.value;discoveryCategory='';discoverySource='';discoverySelected.clear();render();});
   document.querySelectorAll('[data-recommendation]').forEach(e=>e.onchange=()=>e.checked?discoverySelected.add(e.dataset.recommendation):discoverySelected.delete(e.dataset.recommendation));
   document.querySelectorAll('[data-discovery-decision]').forEach(e=>e.onclick=async()=>{
     const ids=[...discoverySelected].filter(id=>(state.recommendations||[]).some(r=>r.id===id&&r.status===discoveryStatus));
@@ -63,15 +64,16 @@ function bindDiscovery() {
     try{await api('/api/discovery/'+e.dataset.discoveryDecision,{ids});discoverySelected.clear();await load();}
     catch(error){toast(error.message);e.disabled=false;}
   });
-  document.querySelector('[data-discovery-scan]')?.addEventListener('click',async e=>{
+  listen(document.querySelector('[data-discovery-scan]'),'click',async e=>{
     e.currentTarget.disabled=true;
     try{await api('/api/discovery/scan',{});await load();toast('扫描已排队，后台每 30 秒领取一次');}
     catch(error){toast(error.message);render();}
   });
-  document.querySelector('[data-discovery-settings]')?.addEventListener('click',discoverySettings);
+  listen(document.querySelector('[data-discovery-settings]'),'click',discoverySettings);
   document.querySelectorAll('[data-source-rule]').forEach(e=>e.onclick=()=>sourceDiscoveryRule(e.dataset.sourceRule));
 }
 
+function listen(element,event,handler){if(element)element['on'+event]=handler;}
 const $ = (s) => document.querySelector(s),
   esc = (v) =>
     String(v ?? "").replace(
@@ -213,13 +215,16 @@ function renderLogin(error='') {
 function shell() {
   return `<header class="site-header"><button class="site-brand" data-nav="library" aria-label="小游戏库首页"><span class="pixel-mark" aria-hidden="true">✣</span> Game Lab<span class="brand-cn">游戏实验室</span></button><div class="topright"><input class="search" id="global-search" placeholder="搜索游戏、任务…" aria-label="搜索游戏、任务"><button class="smallbtn" data-action="mode">${demo ? "◉ 演示模式" : "○ 实时数据"}</button><span class="tiny muted" id="sync-status" role="status">${demo ? "演示数据" : "自动同步中"}</span><button class="textbtn" data-action="refresh">↻ 刷新</button>${authRequired?'<button class="textbtn" data-action="logout">退出登录</button>':''}</div></header><nav class="site-nav" aria-label="主导航">${['library','overview','discovery','candidates','jobs','reviews','tools','settings',...(state.current_user?.role==='admin'?['administration']:[])].map(id=>nav.find(n=>n[0]===id)).map(([id,icon,title])=>`<button class="navbtn ${(page==='batches'?'jobs':page)===id?'active':''}" data-nav="${id}" ${(page==='batches'?'jobs':page)===id?'aria-current="page"':''}>${title}</button>`).join('')}</nav><main class="main ${page==='library'?'is-library':''}"><div class="content">${demo ? '<div class="demo-banner"><span>◇ 演示工作空间 · 数据与游戏插画仅用于交互设计演示</span><span>不代表已采集或复刻</span></div>' : ""}<div id="page"></div></div></main>`;
 }
-function render() {
+let renderedShell = '', renderedPage = '';
+function render(background = false) {
   if(page==='administration'&&state.current_user?.role!=='admin')page='library';
   if (!nav.some((n) => n[0] === page)) page = "overview";
   document.title = `${nav.find(n => n[0] === (page === 'batches' ? 'jobs' : page))[2]} · Game Lab`;
-  $("#app").innerHTML = shell();
-  $(".main").dataset.page = page;
-  $("#page").innerHTML = {
+  const shellHTML = shell();
+  const replaceShell = !background || renderedShell !== shellHTML || !$('#page');
+  if (replaceShell) { $('#app').innerHTML = shellHTML; renderedShell = shellHTML; }
+  $('.main').dataset.page = page;
+  const pageHTML = {
     overview,
     candidates,
     library,
@@ -231,6 +236,10 @@ function render() {
     discovery: discoveryPage,
     administration: administrationPage,
   }[page]();
+  if (background && !replaceShell && renderedPage === pageHTML) return false;
+  if(background && !replaceShell)patchHTML($('#page'),pageHTML);
+  else $('#page').innerHTML = pageHTML;
+  renderedPage = pageHTML;
   const navigation = $(".site-nav"), active = navigation.querySelector('.active');
   if (active && navigation.scrollWidth > navigation.clientWidth) {
     navigation.scrollLeft = active.offsetLeft - navigation.clientWidth / 2 + active.offsetWidth / 2;
@@ -242,19 +251,38 @@ function render() {
 function administrationPage(){
   return head('账号与运维','项目内共享数据；管理员管理账号，操作员处理任务，只读用户查看游戏和记录。')+'<section class="panel" id="admin-users">正在读取账号…</section><section class="panel" id="admin-operations">正在读取运行状态…</section>';
 }
-async function loadAdministration(){
+let administrationRequest = 0, lastAdministrationSync = 0;
+async function loadAdministration(background = false){
+  const usersNode = $('#admin-users'), operationsNode = $('#admin-operations');
+  if (!usersNode || !operationsNode || (background && Date.now()-lastAdministrationSync<10000)) return;
+  const request = ++administrationRequest;
+  lastAdministrationSync = Date.now();
   try{
     const [accounts,ops]=await Promise.all([api('/api/accounts'),api('/api/operations')]);
-    if(page!=='administration')return;
+    if(page!=='administration' || request!==administrationRequest || $('#admin-users')!==usersNode) return;
     const roles={admin:'管理员',operator:'操作员',viewer:'只读用户'};
-    $('#admin-users').innerHTML=`<h2>项目账号</h2><p class="muted">管理员可配置服务、验收、供货并管理账号；操作员可提交转换、回复和重试任务；只读用户不能修改数据。修改角色、密码或停用账号会使其旧会话失效。</p>${accounts.users.map(u=>`<div class="kv"><span>${esc(u.username)} · ${roles[u.role]} · ${u.enabled?'启用':'停用'}</span><button class="smallbtn" data-edit-user="${esc(u.id)}">编辑 / 重置密码</button></div>`).join('')}<h3 id="account-heading">创建账号</h3><form id="account-form"><input name="id" type="hidden"><label>账号</label><input name="username" autocomplete="off" required minlength="3" maxlength="80"><label>角色</label><select name="role"><option value="viewer">只读用户</option><option value="operator">操作员</option><option value="admin">管理员</option></select><label>密码（12至256位；编辑时留空保持不变）</label><input name="password" type="password" autocomplete="new-password" minlength="12" maxlength="256"><label class="checkrow"><input name="enabled" type="checkbox" checked>启用账号</label><p id="account-error" role="status"></p><button class="primary">保存账号</button><button type="button" id="account-clear">取消编辑</button></form>`;
+    const accountsHTML = `${accounts.users.map(u=>`<div class="kv"><span>${esc(u.username)} · ${roles[u.role]} · ${u.enabled?'启用':'停用'}</span><button class="smallbtn" data-edit-user="${esc(u.id)}">编辑 / 重置密码</button></div>`).join('')}`;
+    if (!background || !$('#account-form')) {
+    $('#admin-users').innerHTML=`<h2>项目账号</h2><p class="muted">管理员可配置服务、验收、供货并管理账号；操作员可提交转换、回复和重试任务；只读用户不能修改数据。修改角色、密码或停用账号会使其旧会话失效。</p><div id="admin-account-list">${accounts.users.map(u=>`<div class="kv"><span>${esc(u.username)} · ${roles[u.role]} · ${u.enabled?'启用':'停用'}</span><button class="smallbtn" data-edit-user="${esc(u.id)}">编辑 / 重置密码</button></div>`).join('')}</div><h3 id="account-heading">创建账号</h3><form id="account-form"><input name="id" type="hidden"><label>账号</label><input name="username" autocomplete="off" required minlength="3" maxlength="80"><label>角色</label><select name="role"><option value="viewer">只读用户</option><option value="operator">操作员</option><option value="admin">管理员</option></select><label>密码（12至256位；编辑时留空保持不变）</label><input name="password" type="password" autocomplete="new-password" minlength="12" maxlength="256"><label class="checkrow"><input name="enabled" type="checkbox" checked>启用账号</label><p id="account-error" role="status"></p><button class="primary">保存账号</button><button type="button" id="account-clear">取消编辑</button></form>`;
+    }
+    const accountList=$('#admin-account-list');
+    if(accountList.renderedHTML!==accountsHTML){patchHTML(accountList,accountsHTML);accountList.renderedHTML=accountsHTML;}
     const form=$('#account-form');
     document.querySelectorAll('[data-edit-user]').forEach(button=>button.onclick=()=>{const u=accounts.users.find(x=>x.id===button.dataset.editUser);for(const k of ['id','username','role'])form.elements[k].value=u[k];form.elements.username.readOnly=true;form.elements.enabled.checked=u.enabled;form.elements.password.value='';$('#account-heading').textContent='编辑账号：'+u.username;});
     $('#account-clear').onclick=()=>loadAdministration();
     form.onsubmit=async e=>{e.preventDefault();const b=form.querySelector('button');b.disabled=true;try{const body=Object.fromEntries(new FormData(form));body.enabled=form.elements.enabled.checked;await api('/api/accounts/save',body);toast('账号已保存');await loadAdministration();}catch(err){$('#account-error').textContent=err.message;}finally{b.disabled=false;}};
-    $('#admin-operations').innerHTML=`<h2>云端运行与生产数据</h2><p>${esc(ops.note)}</p><div class="kv"><span>生产数据根目录</span><span>${esc(ops.shared_root)}</span></div><div class="kv"><span>程序版本</span><span>${esc(ops.release?.commit||'尚未通过标准发布流程登记')}</span></div><div class="kv"><span>磁盘剩余</span><span>${(ops.disk_free_bytes/1024**3).toFixed(1)} GiB</span></div><div class="kv"><span>最近备份</span><span>${esc(ops.backup?.completed_at||'尚无备份记录')}</span></div><div class="kv"><span>监测状态</span><span>${esc(ops.monitor?.summary||'尚无监测记录')}</span></div><div class="kv"><span>任务领取</span><span>${ops.draining?'已暂停领取新任务':'允许领取任务'}</span></div><button id="toggle-drain">${ops.draining?'恢复领取任务':'暂停领取新任务'}</button><h3>最近操作记录</h3>${ops.audit.map(a=>`<p class="tiny">${date(a.created_at)} · ${esc(a.actor_name)} · ${esc(a.path)} · ${esc(a.result)}</p>`).join('')||'<p>尚无操作记录</p>'}`;
-    $('#toggle-drain').onclick=async()=>{await api('/api/operations/drain',{enabled:!ops.draining});loadAdministration();};
-  }catch(err){if($('#admin-users'))$('#admin-users').textContent=err.message;}
+    const operationsHTML=`<h2>云端运行与生产数据</h2><p>${esc(ops.note)}</p><div class="kv"><span>生产数据根目录</span><span>${esc(ops.shared_root)}</span></div><div class="kv"><span>程序版本</span><span>${esc(ops.release?.commit||'尚未通过标准发布流程登记')}</span></div><div class="kv"><span>磁盘剩余</span><span>${(ops.disk_free_bytes/1024**3).toFixed(1)} GiB</span></div><div class="kv"><span>最近备份</span><span>${esc(ops.backup?.completed_at||'尚无备份记录')}</span></div><div class="kv"><span>监测状态</span><span>${esc(ops.monitor?.summary||'尚无监测记录')}</span></div><div class="kv"><span>任务领取</span><span>${ops.draining?'已暂停领取新任务':'允许领取任务'}</span></div><button id="toggle-drain">${ops.draining?'恢复领取任务':'暂停领取新任务'}</button><h3>最近操作记录</h3>${ops.audit.map(a=>`<p class="tiny">${date(a.created_at)} · ${esc(a.actor_name)} · ${esc(a.path)} · ${esc(a.result)}</p>`).join('')||'<p>尚无操作记录</p>'}`;
+    if (operationsNode.renderedHTML !== operationsHTML) {
+      patchHTML(operationsNode,operationsHTML);
+      operationsNode.renderedHTML = operationsHTML;
+    }
+    $('#toggle-drain').onclick=async e=>{const button=e.currentTarget;button.disabled=true;button.dataset.busy='true';try{await api('/api/operations/drain',{enabled:!ops.draining});delete button.dataset.busy;lastAdministrationSync=0;await loadAdministration(true);}catch(err){toast(err.message);}finally{button.disabled=false;delete button.dataset.busy;}};
+  }catch(err){
+    if(request===administrationRequest && $('#admin-users')===usersNode) {
+      if (!background) usersNode.textContent=err.message;
+      else throw err;
+    }
+  }
 }
 function head(title, desc, buttons = "") {
   return `<div class="pagehead"><div><h1>${title}</h1><p>${desc}</p></div><div class="actions">${buttons}</div></div>`;
@@ -545,19 +573,21 @@ function settings() {
   return head("来源与规则", "管理采集来源、处理预算与版本交付规则。") +
     `<div class="setting-grid"><div class="settings-column"><section class="panel"><div class="panelhead"><h2>处理预算</h2></div><p class="settings-help">设置同时处理的任务数，以及每轮分析与修复的上限。</p><form id="settings-form"><div class="formgrid">${fields.map(([name, label, min, max, value]) => `<div><label for="setting-${name}">${label}</label><input id="setting-${name}" name="${name}" type="number" min="${min}" ${max == null ? '' : `max="${max}"`} value="${value}" required></div>`).join('')}</div><div class="modalfooter"><button class="primary">保存规则</button></div></form></section><section class="panel"><div class="panelhead"><h2>统一源码仓库</h2></div><p class="settings-help">所有游戏统一保存，平台代码与游戏代码分离。</p><div class="code">game-library/<br>  games/{game-id}/<br>    src/ · public/ · game.json · README.md<br>  shared/<br>  tooling/</div><div class="kv"><span>仓库状态</span><span>${esc(state.repository?.status || '由服务端配置')}</span></div><div class="kv"><span>迁移方式</span><span>保留提交历史，同步到公司 Git</span></div></section></div><div class="settings-column"><section class="panel"><div class="panelhead"><h2>采集来源</h2><button class="textbtn" data-action="new-source">＋ 添加来源</button></div>${(state.sources || []).map(s => `<div class="healthrow"><div><h3>${esc(s.name)}</h3><a class="tiny" href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer">${esc(s.url)}</a></div><button class="smallbtn" data-source-rule="${esc(s.id)}">扫描规则</button><button class="smallbtn" data-source="${esc(s.id)}" aria-label="${s.enabled ? '停用' : '启用'}来源 ${esc(s.name)}" aria-pressed="${s.enabled}">${s.enabled ? '已启用' : '已停用'}</button></div>`).join('') || '<p class="muted">尚未配置来源</p>'}</section><section class="panel"><div class="panelhead"><h2>发布要求</h2></div><ul class="requirements">${['工程可构建，核心功能通过测试', '人工确认玩法、画面和资源使用条件', '版本绑定源码提交与运行产物', '预览版本和发布版本独立管理'].map(t => `<li>${t}</li>`).join('')}</ul></section></div></div>`;
 }
-let modalReturnFocus = null, liveDialog = null;
+let modalReturnFocus = null, liveDialog = null, backgroundDialog = false;
 function modal(title, body, wide = false) {
   liveDialog = null;
   if (!$(".modal-backdrop")) modalReturnFocus = document.activeElement;
   document.body.classList.add("modal-open");
-  $("#overlay").innerHTML =
+  const dialogHTML =
     `<div class="modal-backdrop"><section class="modal ${wide ? "wide" : ""}" tabindex="-1" role="dialog" aria-modal="true" aria-label="${esc(title)}"><div class="modalheader"><h2>${esc(title)}</h2><button class="close" aria-label="关闭">×</button></div>${body}<div class="error" id="modal-error"></div></section></div>`;
+  if(backgroundDialog)patchHTML($("#overlay"),dialogHTML);
+  else $("#overlay").innerHTML=dialogHTML;
   $(".close").onclick = closeModal;
   $(".modal-backdrop").onclick = (e) => {
     if (e.target === $(".modal-backdrop")) closeModal();
   };
   bind();
-  ($(".modal input:not([type=checkbox])") || $(".modal .close") || $(".modal")).focus();
+  if(!backgroundDialog)($(".modal input:not([type=checkbox])") || $(".modal .close") || $(".modal")).focus();
 }
 function closeModal() {
   liveDialog = null;
@@ -725,8 +755,8 @@ function jobDetail(id) {
   showSection(taskSection);
   document.querySelectorAll('[data-task-section]').forEach(b=>b.onclick=()=>showSection(b.dataset.taskSection));
   liveDialog = () => jobDetail(id);
-  $('#restore-web-form')?.addEventListener('submit',e=>{e.preventDefault();const button=e.currentTarget.querySelector('button');button.disabled=true;mutate(`/api/jobs/${id}/restore-web`,{profile_id:$('#web-profile').value},()=>{j.status='queued';}).finally(()=>{button.disabled=false;});});
-  $('#task-message-form')?.addEventListener('submit',e=>{e.preventDefault();const button=e.currentTarget.querySelector('button');button.disabled=true;mutate(`/api/jobs/${id}/message`,{message:$('#task-message').value},()=>{j.status='queued';}).finally(()=>{button.disabled=false;});});
+  listen($('#restore-web-form'),'submit',e=>{e.preventDefault();const button=e.currentTarget.querySelector('button');button.disabled=true;mutate(`/api/jobs/${id}/restore-web`,{profile_id:$('#web-profile').value},()=>{j.status='queued';}).finally(()=>{button.disabled=false;});});
+  listen($('#task-message-form'),'submit',e=>{e.preventDefault();const button=e.currentTarget.querySelector('button');button.disabled=true;mutate(`/api/jobs/${id}/message`,{message:$('#task-message').value},()=>{j.status='queued';}).finally(()=>{button.disabled=false;});});
   $('#reload-task').onclick=async()=>{if(!demo)state={...state,...await api('/api/state')};jobDetail(id);};
   document.querySelectorAll('[data-task-play]').forEach(b=>b.onclick=()=>play(b.dataset.taskPlay));
   document.querySelectorAll('[data-task-review]').forEach(b=>b.onclick=()=>review(b.dataset.taskReview));
@@ -916,9 +946,9 @@ function bind() {
   });
   document.querySelectorAll('.table-wrap').forEach(el => { el.tabIndex = 0; el.setAttribute('role', 'region'); el.setAttribute('aria-label', '记录列表，可横向滚动查看'); });
   document.querySelectorAll('[data-service-config]').forEach(b => b.onclick = () => serviceDialog(b.dataset.serviceConfig));
-  document.querySelector('[data-supply-config]')?.addEventListener('click',supplyConfigDialog);
-  document.querySelector('[data-supply-report]')?.addEventListener('click',supplyReportDialog);
-  document.querySelector('[data-supply-check]')?.addEventListener('click',async e=>{
+  listen(document.querySelector('[data-supply-config]'),'click',supplyConfigDialog);
+  listen(document.querySelector('[data-supply-report]'),'click',supplyReportDialog);
+  listen(document.querySelector('[data-supply-check]'),'click',async e=>{
     const b=e.currentTarget;b.disabled=true;b.dataset.busy='true';b.textContent='检查中…';
     try {await api('/api/supply-service/check',{});await load();supplyReportDialog();}
     catch(err){toast(err.message);b.disabled=false;delete b.dataset.busy;b.textContent='检查接入与游戏';}
@@ -928,7 +958,7 @@ function bind() {
     try { state.services = await api(`/api/services/${b.dataset.serviceTest}/test`, {}); render(); }
     catch (e) { toast(e.message); b.disabled = false; delete b.dataset.busy; b.textContent = '检测连接'; }
   });
-  document.querySelector('[data-motion-toggle]')?.addEventListener('click', e => {
+  listen(document.querySelector('[data-motion-toggle]'),'click', e => {
     const hero = document.querySelector('.playground-hero');
     const paused = hero.dataset.motion !== 'paused';
     hero.dataset.motion = paused ? 'paused' : 'running';
@@ -937,7 +967,7 @@ function bind() {
     e.currentTarget.setAttribute('aria-label', paused ? '播放背景动画' : '暂停背景动画');
     e.currentTarget.setAttribute('aria-pressed', String(paused));
   });
-  document.querySelector("[data-browse]")?.addEventListener("click", () => { document.querySelector("#filter-query")?.focus({preventScroll:true}); document.querySelector("#discover")?.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"}); });
+  listen(document.querySelector("[data-browse]"),"click", () => { document.querySelector("#filter-query")?.focus({preventScroll:true}); document.querySelector("#discover")?.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"}); });
   document
     .querySelectorAll("[data-vgallery]")
     .forEach(
@@ -1102,7 +1132,7 @@ function bind() {
     render();
     document.querySelector('#discover')?.scrollIntoView({block:'start'});
   });
-  document.querySelector('[data-library-reset]')?.addEventListener('click',()=>{
+  listen(document.querySelector('[data-library-reset]'),'click',()=>{
     query='';filter='';libraryEngine='';render();
     document.querySelector('#discover')?.scrollIntoView({block:'start'});
   });
@@ -1220,12 +1250,16 @@ function preserveUI(root, update) {
   const details = [...root.querySelectorAll('details')].map(e => e.open);
   const scroll = [...root.querySelectorAll('.modal,.modal-backdrop')].map(e => e.scrollTop);
   const x=window.scrollX,y=window.scrollY;
-  update();
+  if (update() === false) return;
   for (const e of root.querySelectorAll('input,textarea,select')) {
     const saved=values.get(key(e));
     if (!saved || e.disabled || e.readOnly) continue;
-    e.value=saved.value; e.checked=saved.checked;
-    if (key(e)===activeKey) { e.focus({preventScroll:true}); if (saved.start!=null) e.setSelectionRange(saved.start,saved.end); }
+    if(e.value!==saved.value)e.value=saved.value;
+    if(e.checked!==saved.checked)e.checked=saved.checked;
+    if (key(e)===activeKey) {
+      if(document.activeElement!==e)e.focus({preventScroll:true});
+      if(saved.start!=null && (e.selectionStart!==saved.start || e.selectionEnd!==saved.end))e.setSelectionRange(saved.start,saved.end);
+    }
   }
   root.querySelectorAll('details').forEach((e,i)=>{if(i<details.length)e.open=details[i];});
   root.querySelectorAll('.modal,.modal-backdrop').forEach((e,i)=>{e.scrollTop=scroll[i]||0;});
@@ -1244,9 +1278,14 @@ async function syncState() {
     if (epoch!==mutationEpoch || demo) return;
     if (JSON.stringify(next)!==JSON.stringify(state)) {
       state=next;
-      preserveUI($('#app'),render);
-      if (liveDialog) preserveUI($('#overlay'),liveDialog);
+      preserveUI($('#app'),()=>render(true));
+      // Keep the active game's browsing context alive while background data changes.
+      if (liveDialog && !$('#overlay').querySelector('iframe')) {
+        backgroundDialog=true;
+        try{preserveUI($('#overlay'),liveDialog);}finally{backgroundDialog=false;}
+      }
     }
+    if(page==='administration') await loadAdministration(true);
     const status=$('#sync-status'); if(status)status.textContent='自动同步中';
   } catch (_) {
     const status=$('#sync-status'); if(status)status.textContent='连接中断，正在重试';
