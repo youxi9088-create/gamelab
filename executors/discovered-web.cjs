@@ -54,6 +54,7 @@ function detect(html,plan){
  if(/_CCSettings/.test(html)&&/cocos2d-js/.test(html))return 'cocos2';
  if(plan?.engine==='defold'&&plan.source_sha256===hash(html.replace(/\r\n/g,'\n'))&&html.includes('EngineLoader.load(')&&html.includes('dmloader.js'))return 'defold';
  if(plan?.engine==='browser'&&plan.source_sha256===hash(html.replace(/\r\n/g,'\n'))&&/<script\b/i.test(html))return 'browser';
+ if(plan?.engine==='browser-dom'&&plan.source_sha256===hash(html.replace(/\r\n/g,'\n'))&&/<script\b/i.test(html))return 'browser-dom';
  throw Error('入口已取得，运行契约尚未配置；请分析已保留入口与依赖代码，再选择适配方案');
 }
 function ruffleEntry(html,url){
@@ -72,6 +73,12 @@ function adaptClient(text){
  return {text:text.replace(pattern,'$1.prototype.isServerEnable=function(){return false}'),changed:true};
 }
 async function ready(page,engine){
+ if(engine==='browser-dom'){
+  await page.waitForFunction(()=>document.body.innerText.trim().length>0&&[...document.querySelectorAll('button,[role="button"]')].some(n=>{
+   const r=n.getBoundingClientRect();return r.width>0&&r.height>0&&getComputedStyle(n).visibility!=='hidden'&&!n.disabled;
+  }),null,{timeout:90000});
+  await page.waitForTimeout(1000);return;
+ }
  if(engine==='defold'){
   await page.waitForFunction(()=>!!window.Module?.calledRun&&!!window.Module?.canvas?.width,null,{timeout:90000});
   await page.waitForTimeout(3000);return;
@@ -100,11 +107,12 @@ async function state(page,engine){
     if(b&&b.interactable){const xy=n.convertToWorldSpaceAR(cc.v2(0,0));result.buttons.push({path:name,handlers:b.clickEvents.map(e=>e.handler),x:rect.left+xy.x/cc.winSize.width*rect.width,y:rect.top+(1-xy.y/cc.winSize.height)*rect.height});}
     n.children.forEach(c=>walk(c,name));}
    walk(cc.director.getScene(),'');result.labels=result.labels.slice(0,120);result.buttons=result.buttons.slice(0,80);
-  }else if(kind==='three'||kind==='defold'||kind==='browser'){
+  }else if(kind==='three'||kind==='defold'||kind==='browser'||kind==='browser-dom'){
    result.loaded=result.canvasCount>0;result.text=document.body.innerText.slice(0,5000);
    if(kind==='defold'){result.loaded=!!window.Module?.calledRun;result.runtime={calledRun:!!window.Module?.calledRun,host:window.__offlineHost||null};}
    result.labels=[...document.querySelectorAll('h1,h2,p,button,[role="button"]')].filter(n=>n.getClientRects().length).slice(0,80).map(n=>({path:n.id||n.tagName,text:n.innerText.slice(0,200)}));
    result.buttons=[...document.querySelectorAll('button,[role="button"]')].filter(n=>n.getClientRects().length).slice(0,40).map(n=>{const r=n.getBoundingClientRect();return {path:n.id||n.tagName,label:n.innerText,x:r.x+r.width/2,y:r.y+r.height/2};});
+   if(kind==='browser-dom')result.loaded=!!result.text.trim()&&result.buttons.length>0;
   }else{result.loaded=window.gameLoaded===true;result.playerState=window.player?.readyState;}
   return result;
  },engine);

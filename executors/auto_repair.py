@@ -51,7 +51,8 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
             payload = {**sources, 'error': safe(last), 'error_type': type(last).__name__, 'attempt': attempt+1,
                        'allowed_actions': ['stop', 'inspect'] + (['retry'] + list(capabilities) if can_fix else []) + (['patch_host'] if can_fix and code else [])
                            + (['configure_runtime'] if can_fix and (run/'web-original/source-entry.html').exists() and not target else []),
-                       'runtime_contracts': {'defold': {'evidence': '入口声明 dmloader.js 与 EngineLoader.load(...)',
+                       'runtime_contracts': {'browser-dom': {'evidence':'discovered-web-input.json 绑定本轮通过实际按钮交互与界面变化检查的 DOM 入口；不要求画布，但必须继续离线运行与玩法验证','sdk':'仅 null 或明确声明的 poki-offline'},
+                           'defold': {'evidence': '入口声明 dmloader.js 与 EngineLoader.load(...)',
                            'sdk': '可选 poki-offline：初始化拒绝进入原入口的失败分支；广告无奖励；保留原 WASM 与归档'},
                            'browser': {'evidence':'公开 HTML/JavaScript 浏览器运行入口；无需猜测引擎名称',
                            'scope':'采集实际请求和原资源，离线执行并观察画布；画布出现仅是技术探测，仍须截图与真实玩法验证，不承诺所有引擎和动态资源闭合',

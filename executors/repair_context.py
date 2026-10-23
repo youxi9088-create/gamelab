@@ -17,7 +17,7 @@ class RepairContext:
     def load(self):
         code = {}; total = 0
         candidates = [self.run / name for name in (
-            'acquisition/observation.json', 'acquisition/source.html', 'conversion-plan.json',
+            'acquisition/observation.json', 'acquisition/source.html', 'conversion-plan.json', 'discovered-web-input.json',
             'web-acquisition.json', 'web-capture.log', 'web-verify.log',
             'converted/evidence/runtime.json', 'web-original/source-entry.html')]
         for dirname in ('acquisition', 'web-original', 'repair-sources', 'converted', 'entry-probes'):
@@ -40,7 +40,7 @@ class RepairContext:
         return {'source_inventory': [{'path': n, 'characters': len(t),
                     'sha256': hashlib.sha256(t.encode()).hexdigest(), 'editable': False} for n,t in code.items()],
                 'source_excerpts': [self.context.read(n, 0, 20000) for n in (
-                    'acquisition/observation.json', 'acquisition/source.html',
+                    'discovered-web-input.json', 'acquisition/observation.json', 'acquisition/source.html',
                     'web-original/source-entry.html', 'web-acquisition.json', 'converted/evidence/runtime.json') if n in code]}
 
     def inspect(self, answer, payload):
@@ -50,8 +50,13 @@ class RepairContext:
         return parts
 
     def images(self):
-        for name in ('converted/screenshots/failed.png', 'converted/screenshots/current.png', 'original-runtime.png', 'acquisition/source.png'):
-            p = self.run / name
+        names=['converted/screenshots/failed.png','converted/screenshots/current.png','original-runtime.png']
+        probes=self.run/'entry-probes'
+        if probes.is_dir() and not linked(probes):
+            names += [p.relative_to(self.run).as_posix() for p in sorted(probes.rglob('*.png'),key=lambda p:p.stat().st_mtime,reverse=True)[:8]]
+        names.append('acquisition/source.png')
+        for name in names:
+            p=self.run/name
             if p.is_file() and not linked(p) and p.stat().st_size < 2_000_000:
                 return [{'type': 'text', 'text': '本次失败步骤的实际截图：'+name},
                         {'type': 'image_url', 'image_url': {'url': 'data:image/png;base64,'+base64.b64encode(p.read_bytes()).decode()}}]
@@ -59,7 +64,7 @@ class RepairContext:
 
     def configure(self, plan):
         """A plan selects a platform runtime contract; it cannot certify success."""
-        if not isinstance(plan, dict) or plan.get('engine') not in ('defold', 'browser'):
+        if not isinstance(plan, dict) or plan.get('engine') not in ('defold', 'browser', 'browser-dom'):
             raise ValueError('运行契约尚无执行能力；保留分析证据，不能伪造适配成功')
         p = self.run / 'web-original/source-entry.html'
         source = p.read_text('utf-8')
@@ -67,8 +72,18 @@ class RepairContext:
             raise ValueError('入口证据已改变，必须重新分析')
         if plan['engine'] == 'defold' and ('EngineLoader.load(' not in source or 'dmloader.js' not in source):
             raise ValueError('入口不符合所选择的 Defold 加载契约')
-        if plan['engine'] == 'browser' and '<script' not in source.lower():
+        if plan['engine'] in ('browser','browser-dom') and '<script' not in source.lower():
             raise ValueError('通用浏览器探测需要实际脚本入口证据')
+        if plan['engine']=='browser-dom':
+            request=json.loads((self.run/'discovered-web-input.json').read_text('utf-8'))
+            evidence=request.get('entry_evidence') or {}
+            proof=(self.run/evidence.get('interaction_evidence','')).resolve()
+            if (evidence.get('evidence')!='interactive-dom' or not proof.is_relative_to(self.run/'entry-probes')
+                    or not proof.is_file() or linked(proof)):
+                raise ValueError('DOM 运行契约缺少本轮实际交互证据')
+            observed=json.loads(proof.read_text('utf-8'))
+            if observed.get('passed') is not True or observed.get('url')!=request.get('url'):
+                raise ValueError('DOM 运行契约与已验证入口不匹配')
         if plan.get('sdk') not in (None, 'poki-offline'):
             raise ValueError('runtime_plan.sdk 仅允许 JSON null（或省略）与 "poki-offline"；不需要 SDK 时使用 null，不能填字符串 none、空字符串或引擎名')
         if plan.get('sdk') == 'poki-offline' and 'poki-sdk.js' not in source:

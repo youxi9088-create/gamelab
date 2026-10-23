@@ -110,3 +110,17 @@ class AutoRepairTests(unittest.TestCase):
         with self.assertRaises(ValueError):context.configure({'engine':'defold','source_sha256':'old'})
         with self.assertRaises(ValueError):context.configure({'engine':'arbitrary-engine'})
         self.assertFalse((self.run/'runtime-plan.json').exists())
+
+    def test_dom_contract_requires_same_entry_interaction_evidence(self):
+        from repair_context import RepairContext
+        source='<script src="game.js"></script>';original=self.run/'web-original';original.mkdir()
+        (original/'source-entry.html').write_text(source,'utf-8')
+        proof=self.run/'entry-probes/dom-2/interaction.json';proof.parent.mkdir(parents=True)
+        proof.write_text(json.dumps({'passed':True,'url':'https://example.org/game'}))
+        request={'url':'https://example.org/game','entry_evidence':{'evidence':'interactive-dom','interaction_evidence':'entry-probes/dom-2/interaction.json'}}
+        (self.run/'discovered-web-input.json').write_text(json.dumps(request))
+        context=RepairContext(self.run);plan={'engine':'browser-dom','source_sha256':hashlib.sha256(source.encode()).hexdigest()}
+        path,_=context.configure(plan);self.assertEqual(json.loads(path.read_text())['engine'],'browser-dom')
+        proof.write_text(json.dumps({'passed':True,'url':'https://different.example/game'}))
+        with self.assertRaisesRegex(ValueError,'不匹配'):context.configure(plan)
+        self.assertEqual(json.loads(path.read_text())['engine'],'browser-dom')

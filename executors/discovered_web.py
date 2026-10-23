@@ -91,11 +91,12 @@ class ReviewBrowser:
 
 def entry(observation):
     entries = observation.get('web_discovery', {}).get('entries', [])
-    valid = [e for e in entries if isinstance(e, dict) and e.get('canvas_count', 0) > 0
-             and e.get('evidence') in ('rendered-canvas', 'popup-rendered-canvas', 'declared-iframe-rendered-canvas')]
+    valid = [e for e in entries if isinstance(e, dict) and (
+             (e.get('canvas_count', 0) > 0 and e.get('evidence') in ('rendered-canvas', 'popup-rendered-canvas', 'declared-iframe-rendered-canvas'))
+             or (e.get('evidence')=='interactive-dom' and e.get('interaction_verified') is True and e.get('interaction_evidence')))]
     unique = {e['url']: e for e in valid if str(e.get('url', '')).startswith(('http://', 'https://'))}
     if len(unique) != 1:
-        raise ValueError('需要唯一且已观察到画布的游戏入口；多个入口不能自动猜测')
+        raise ValueError('需要唯一且已观察到画布或通过实际 DOM 交互验证的游戏入口；多个入口不能自动猜测')
     return next(iter(unique.values()))
 
 
@@ -103,7 +104,7 @@ def convert(inp, observation, run, budget, chat):
     from modular_web import candidate as modular_candidate, capture as capture_modules
     modular_url=modular_candidate(observation)
     selected = {'url':modular_url,'referer':inp['url']} if modular_url else entry(observation)
-    request = {'url': selected['url'], 'referer': selected.get('referer') or inp['url']}
+    request = {'url': selected['url'], 'referer': selected.get('referer') or inp['url'], 'entry_evidence':selected}
     input_file = run / 'discovered-web-input.json'
     input_file.write_text(json.dumps(request), 'utf-8')
 
@@ -153,8 +154,8 @@ def convert(inp, observation, run, budget, chat):
             ('web-backend', '后端依赖', 'backend', 'unknown', '启动无外部请求；存档及结算尚未验证', '验证保存恢复和阶段结果'),
             ('web-host', '宿主接口', 'platform', 'verified', '本地引擎启动通过；广告不伪造奖励', ''),
         ]]}
-    limited = acquisition['engine'] in ('ruffle','defold','browser')
-    notes = ('通用浏览器运行包：保留实际捕获的原始代码与资源；宿主可修改，核心逻辑的可编辑性和可移植模块须依据实际文件进一步验证，不宣称恢复原作者工程。' if acquisition['engine']=='browser' else '保留原 Defold HTML5/WASM 引擎与游戏归档；页面及宿主接口可修改。核心逻辑仍为运行包，未恢复 Lua 工程，跨游戏模块提取需另行拆解验证。' if acquisition['engine']=='defold' else '保留原 Three.js 游戏逻辑和模块；URL 本地化，Remix 宿主替换为独立本地适配。可修改业务代码；跨游戏模块复用仍需拆解。在线账户、排行和购买不提供。' if acquisition['engine']=='three' else 'SWF 核心逻辑仍为运行包；HTML 播放宿主可修改，未恢复 ActionScript 工程。' if limited else
+    limited = acquisition['engine'] in ('ruffle','defold','browser','browser-dom')
+    notes = ('通用浏览器运行包：保留实际捕获的原始代码与资源；宿主可修改，核心逻辑的可编辑性和可移植模块须依据实际文件进一步验证，不宣称恢复原作者工程。' if acquisition['engine'] in ('browser','browser-dom') else '保留原 Defold HTML5/WASM 引擎与游戏归档；页面及宿主接口可修改。核心逻辑仍为运行包，未恢复 Lua 工程，跨游戏模块提取需另行拆解验证。' if acquisition['engine']=='defold' else '保留原 Three.js 游戏逻辑和模块；URL 本地化，Remix 宿主替换为独立本地适配。可修改业务代码；跨游戏模块复用仍需拆解。在线账户、排行和购买不提供。' if acquisition['engine']=='three' else 'SWF 核心逻辑仍为运行包；HTML 播放宿主可修改，未恢复 ActionScript 工程。' if limited else
              '保留原 Cocos 发布 JavaScript 与资源，可修改发布代码；模块提取和跨游戏移植需拆解适配。')
     (target / 'RESTORATION_REPORT.txt').write_text(
         notes + '\n依赖：' + acquisition['engine'] + ' 浏览器运行引擎及本地资源。\n验证：隔离浏览器禁用外网启动；玩法、胜负、进度和存档尚未完整验证。\n原始文件与哈希在执行目录 web-original 和 evidence/acquisition.json；AI 分析与真实运行证据分开。\n', 'utf-8')

@@ -3,6 +3,8 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
+from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'executors'))
 from auto_repair import CHAT
@@ -69,3 +71,34 @@ class EntryRecoveryTests(unittest.TestCase):
         self.assertIsNone(value)
         self.assertEqual(calls, [])
         self.assertFalse(report['attempts'][0]['verified'])
+
+    def test_dom_interaction_returns_to_original_entry_node(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);url='https://example.org/game'
+            observation={'web_discovery':{'iframe_hints':[{'url':url}]}}
+            answers=iter([{'action':'probe_entry','arguments':{'url':url}},
+                          {'action':'verify_dom_entry','arguments':{'url':url,'label':'Begin the Tale'}}])
+            def acquired(*args):return {'web_discovery':{'entries':[], 'launch_controls':[{'label':'Begin the Tale','visible':True}]}}
+            def execute(command,**kwargs):
+                self.assertEqual(command[-2],'Begin the Tale')
+                directory=Path(command[-1])
+                (directory/'interaction.json').write_text(json.dumps({'passed':True,'url':url,'label':'Begin the Tale'}))
+                return SimpleNamespace(returncode=0)
+            token=CHAT.set(lambda *args:next(answers))
+            try:
+                with patch('entry_recovery.subprocess.run',side_effect=execute):value=recover(observation,root,Budget(),acquired)
+            finally:CHAT.reset(token)
+            entry=value['web_discovery']['entries'][0]
+            self.assertEqual(entry['evidence'],'interactive-dom')
+            self.assertTrue(entry['interaction_verified'])
+
+    def test_unobserved_dom_control_cannot_execute(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);url='https://example.org/game'
+            answers=iter([{'action':'verify_dom_entry','arguments':{'url':url,'label':'Invented button'}},{'action':'stop'}])
+            token=CHAT.set(lambda *args:next(answers))
+            try:
+                with patch('entry_recovery.subprocess.run') as execute:
+                    with self.assertRaises(Blocked):recover({'web_discovery':{'iframe_hints':[{'url':url}]}},root,Budget(),lambda *args:{})
+                    execute.assert_not_called()
+            finally:CHAT.reset(token)

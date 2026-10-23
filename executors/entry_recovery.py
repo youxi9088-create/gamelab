@@ -1,6 +1,8 @@
 """AI-selected declared entry probes return to the original routing check."""
 import copy
 import ipaddress
+import json
+import subprocess
 from pathlib import Path
 from urllib.parse import urlsplit
 from auto_repair import diagnose
@@ -27,6 +29,7 @@ def recover(observation, run, budget, acquire):
     allowed = {row.get('url') for key in ('iframe_hints', 'launch_links')
                for row in discovery.get(key, []) if isinstance(row, dict)}
     probes = []
+    observed = {}
     def probe(arguments):
         url = arguments.get('url')
         if not isinstance(url, str) or url not in allowed:
@@ -47,13 +50,32 @@ def recover(observation, run, budget, acquire):
         directory.mkdir(parents=True, exist_ok=False)
         probes.append(url)
         result = acquire(url, directory, budget)
+        observed[url] = result
         entries = result.get('web_discovery', {}).get('entries', [])
         current.setdefault('web_discovery', {})['entries'] = entries
         current['entry_recovery'] = {'declared_url': url, 'evidence': result.get('evidence', {})}
-        return {'url': url, 'entries': entries, 'evidence_directory': str(directory.relative_to(run))}
+        return {'url': url, 'entries': entries, 'controls':result.get('web_discovery',{}).get('launch_controls',[]),
+                'evidence_directory': str(directory.relative_to(run))}
+    def probe_dom(arguments):
+        from controlplane.runtime import node_binary
+        url, label = arguments.get('url'), arguments.get('label')
+        prior = observed.get(url)
+        if not prior or label not in [c.get('label') for c in prior.get('web_discovery',{}).get('launch_controls',[]) if c.get('visible')]:
+            raise ValueError('DOM 验证必须选择本轮已探测入口中实际可见的按钮文本')
+        directory = Path(run)/'entry-probes'/f'dom-{len(probes)+1}'
+        directory.mkdir(parents=True,exist_ok=False);probes.append(url)
+        result = subprocess.run([node_binary(),str(Path(__file__).with_name('dom-entry.cjs')),url,label,str(directory)],
+                                capture_output=True,encoding='utf-8',errors='replace',timeout=budget.remaining(100))
+        proof=json.loads((directory/'interaction.json').read_text('utf-8'))
+        if result.returncode or not proof.get('passed'):
+            raise ValueError(proof.get('failure') or 'DOM 入口实际交互未通过')
+        current.setdefault('web_discovery',{})['entries']=[{'url':proof['url'],'referer':url,
+            'evidence':'interactive-dom','interaction_verified':True,'interaction_evidence':str(directory.relative_to(run)/'interaction.json')}]
+        return proof
     recovered, result = diagnose(original, run, budget, retry=verify, capabilities={
         'probe_entry': {'description': '探测当前页面 iframe_hints 或 launch_links 明确声明的入口；arguments:{url}。浏览器实际观察结果返回原路由检查，不代表玩法验收。',
-                        'execute': probe}})
+                        'execute': probe},
+        'verify_dom_entry': {'description':'对本轮 probe_entry 已观察到的 DOM 游戏执行真实按钮交互；arguments:{url,label}，label 必须是已返回 controls 的可见按钮原文。验证画面与界面变化后返回原入口节点，不代表完整玩法验收。','execute':probe_dom}})
     if recovered:
         return result
     original.auto_repair_attempted = True

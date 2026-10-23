@@ -2,6 +2,27 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const {resourcePath,safeURL,detect,ruffleEntry,adaptClient,verify,repairResources,screenshot}=require('../executors/discovered-web.cjs');
 const {request}=require('../executors/node_modules/playwright');
 const {followResourceRedirects}=require('../executors/discovered-web.cjs');
+const {verifyInteraction}=require('../executors/dom-entry.cjs');
+
+test('DOM entry requires an actual visible interaction and offline DOM gameplay remains observable',async()=>{
+ const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-dom-fixture-'));
+ const {chromium}=require('../executors/node_modules/playwright');
+ const browser=await chromium.launch(require('../executors/browser-options.cjs')());
+ const html=`<meta charset="utf-8"><style>body{background:#182538;color:white;font:24px sans-serif;padding:20px}button{font:24px sans-serif;padding:20px}</style><h1>Authored card game fixture</h1><p id="status">Choose a route</p><button id="go">Begin the Tale</button><script>document.getElementById('go').onclick=()=>{document.getElementById('status').textContent='Battle · Energy 3 · Enemy HP 12';document.getElementById('go').textContent='Strike';}</script>`;
+ try{
+  const page=await browser.newPage({viewport:{width:390,height:844}});await page.setContent(html);
+  const result=await verifyInteraction(page,'Begin the Tale',run);
+  assert.equal(result.passed,true);assert.match(result.after.text,/Enemy HP 12/);assert.equal(await page.locator('canvas').count(),0);
+  await assert.rejects(()=>verifyInteraction(page,'Strike',run),/did not produce/);
+  await page.setContent('<form><button>Begin the Tale</button></form>');
+  await assert.rejects(()=>verifyInteraction(page,'Begin the Tale',run),/outside game/);
+  fs.mkdirSync(path.join(run,'converted'));fs.writeFileSync(path.join(run,'converted/index.html'),html);
+  fs.writeFileSync(path.join(run,'web-acquisition.json'),JSON.stringify({engine:'browser-dom'}));
+  const offline=await verify(run,[{type:'click',x:130,y:190,expect_labels:['Battle']}]);
+  assert.equal(offline.passed,true);assert.equal(offline.steps[1].canvasCount,0);assert.equal(offline.steps[1].loaded,true);
+  if(process.env.DOM_QA_IMAGE)fs.copyFileSync(path.join(run,'converted/screenshots/step-0.png'),process.env.DOM_QA_IMAGE);
+ }finally{await browser.close();fs.rmSync(run,{recursive:true,force:true});}
+});
 
 test('resource redirects preserve final bytes and record each hop',async()=>{
  const trace=[],calls=[],disposed=[];
