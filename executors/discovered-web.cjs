@@ -250,7 +250,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   for(const a of batch){
    const i=report.actions.length;
    const storageBeforeReload=a.type==='reload'?await storageEvidence(page):null;
-   if(a.type==='click'&&Number.isFinite(a.x)&&Number.isFinite(a.y)&&a.x>=0&&a.x<=1000&&a.y>=0&&a.y<=760)await page.mouse.click(a.x,a.y);
+   if(a.type==='click'&&Number.isFinite(a.x)&&Number.isFinite(a.y)&&a.x>=0&&a.x<=1000&&a.y>=0&&a.y<=760)await page.mouse.click(a.x,a.y,{delay:Math.max(80,Math.min(1000,Number(a.hold_ms)||100))});
    else if(a.type==='key'&&['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','Enter','w','a','s','d','r','p','Shift','Escape'].includes(a.key)){
     const hold=Math.max(0,Math.min(10000,Number(a.hold_ms)||0));
     await page.keyboard.down(a.key);try{if(hold)await page.waitForTimeout(hold);}finally{await page.keyboard.up(a.key);}
