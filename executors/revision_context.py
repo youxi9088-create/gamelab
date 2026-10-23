@@ -59,6 +59,22 @@ class SourceContext:
             length=min(16000,remaining);part=self.read(name,0,length);remaining-=len(part['text']);excerpts.append(part)
         return {'source_inventory':[{'path':n,'characters':len(self.code[n]),'sha256':digest(self.code[n]),'editable':editable(n)} for n in names], 'source_excerpts':excerpts}
 
+    def restore_navigation(self,payload,saved):
+        """Re-read matching evidence; never trust cached text or edit permissions."""
+        if not isinstance(saved,dict):return
+        for part in saved.get('source_excerpts',[])[:64]:
+            if not isinstance(part,dict):continue
+            name=part.get('path')
+            if name not in self.code or part.get('sha256')!=digest(self.code[name]):continue
+            try:self.retain(payload,[self.read(name,part['offset'],part['end']-part['offset'])])
+            except (ValueError,KeyError,TypeError):continue
+        for part in saved.get('source_search_results',[])[:32]:
+            if not isinstance(part,dict):continue
+            name=part.get('path')
+            if name not in self.code or part.get('sha256')!=digest(self.code[name]):continue
+            try:self.retain(payload,self.search([{'path':name,'text':part['query']}]))
+            except (ValueError,KeyError,TypeError):continue
+
     def reads(self,requests):
         if not isinstance(requests,list) or not 1<=len(requests)<=4:raise ValueError('Provide 1-4 read requests')
         if sum(r.get('length',16000) for r in requests)>100000:raise ValueError('Read batch exceeds context budget')

@@ -17,7 +17,7 @@ def previous_execution(job):
             history=[]
             for model in sorted(run.glob('web-review-*/model.json'),key=lambda p:int(p.parent.name.split('-')[-1])):
                 value=json.loads(model.read_text('utf-8'))
-                history.append({k:value[k] for k in ('summary','actions') if k in value})
+                history.append({k:value[k] for k in ('summary','actions','read_requests','search_requests') if k in value})
             return {'runtime':runtime,'actions':runtime.get('actions',[]),'web_source':str(run/'converted'),
                     'model_history':history[-16:],'source':'Prior platform execution; source must match the current baseline before replay'}
         reports=sorted(run.glob('revision-*/runtime-report.json'),key=lambda p:int(p.parent.name.split('-')[-1]))

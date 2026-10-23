@@ -244,6 +244,14 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
                'source_excerpts': [context.read(n) for n in ('index.html', 'local-host.js') if n in code]}
     changes, actions, rounds = dict(viewport_changes), [], []
     previous = inp['base_version'].get('report', {})
+    saved_proof=previous.get('verification_evidence')
+    if isinstance(saved_proof,str) and saved_proof.startswith('verification/'):
+        from controlplane.repository import safe_relative
+        try:
+            safe_relative(saved_proof)
+            saved=json.loads((root/saved_proof).read_text('utf-8'))
+            context.restore_navigation(payload,saved.get('source_navigation',{}))
+        except (OSError,ValueError,TypeError):pass
     prior_actions = previous.get('acceptance_actions', [])
     if viewport_changes:
         prior_actions = []  # Old pixel coordinates do not apply to a new frame.
@@ -260,6 +268,14 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
         if same:
             prior_actions = failed_execution.get('actions', [])
             restored_history = failed_execution.get('model_history', [])
+            # Older proofs have no navigation checkpoint. Re-evaluate prior
+            # platform read/search requests only after the baseline hash check.
+            for old in restored_history[-16:]:
+                try:
+                    parts=context.reads(old['read_requests']) if old.get('read_requests') else []
+                    if old.get('search_requests'):parts+=context.search(old['search_requests'])
+                    context.retain(payload,parts)
+                except (ValueError,KeyError,TypeError):pass
     if isinstance(prior_actions, list) and len(prior_actions) <= 100:
         actions = list(prior_actions)
     action_limit = min(100, len(actions) + 20)
@@ -421,6 +437,7 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
         checks['gameplay'] = {'status': 'pending', 'reason': gameplay.get('reason') or '核心流程未完成验证'}
     checks = {key: {**value, 'evidence': [proof]} for key, value in checks.items() if isinstance(value, dict)}
     changes[proof] = json.dumps({'rounds': rounds, 'final_runtime': runtime, 'model_assessment': final,
+        'source_navigation':{k:payload.get(k,[]) for k in ('source_excerpts','source_search_results')},
         'scope': '平台配置的 AI 依据真实浏览器输入与截图评估；人工验收独立'}, ensure_ascii=False)
     report = {**previous, 'foundation_checks': checks, 'iteration': iteration.name, 'runtime_verified': True,
         'runtime_viewport': viewport,

@@ -8,6 +8,16 @@ from revision_context import SourceContext,digest,RevisionYield
 from continuation import revise
 
 class RevisionContextTests(unittest.TestCase):
+    def test_navigation_checkpoint_rechecks_hashes_and_does_not_trust_saved_text(self):
+        code={'index.html':'const score=0;'};c=SourceContext(code,'index.html');saved={}
+        c.retain(saved,[c.read('index.html')]+c.search([{'path':'index.html','text':'saveState'}]))
+        saved['source_excerpts'][0]['text']='forged state'
+        fresh=SourceContext(code,'index.html');payload={};fresh.restore_navigation(payload,saved)
+        self.assertEqual(payload['source_excerpts'][0]['text'],code['index.html'])
+        self.assertEqual(payload['source_search_results'][0]['total_matches'],0)
+        changed=SourceContext({'index.html':'different'},'index.html');payload={};changed.restore_navigation(payload,saved)
+        self.assertEqual(payload,{})
+
     def test_zero_match_search_remains_visible_to_model(self):
         c=SourceContext({'index.html':'const score=0;'},'index.html');payload={}
         result=c.search([{'path':'index.html','text':'saveState'}]);c.retain(payload,result)

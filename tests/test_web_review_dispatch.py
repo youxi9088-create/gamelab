@@ -23,15 +23,23 @@ class WebReviewDispatchTests(unittest.TestCase):
             run=Path(folder)/'run';run.mkdir()
             responses=iter([
                 {'read_requests':[{'path':'index.html','offset':0,'length':100}],
+                 'search_requests':[{'path':'index.html','text':'saveState'}],
                  'actions':[{'type':'click','x':10,'y':10},{'type':'key','key':'Enter'}], 'complete':False},
                 {'complete':True,'foundation_checks':[{'gameplay':{'status':'verified','reason':'isolated evidence'}}]}
             ])
             inp={'source_path':str(root),'base_version':{'id':'fixture-version','report':{}},'title':'fixture'}
             with patch.object(web,'ReviewBrowser',Browser):
-                _,_,report=web.revise(inp,run,Budget(),lambda *args:next(responses),None,None)
+                changes,_,report=web.revise(inp,run,Budget(),lambda *args:next(responses),None,None)
             self.assertEqual(len(report['acceptance_actions']),2)
             self.assertNotIn('blocker',report)
             self.assertEqual(report['foundation_checks']['gameplay']['status'],'verified')
+            proof=root/report['verification_evidence'];proof.parent.mkdir();proof.write_text(changes[report['verification_evidence']],'utf-8')
+            resumed=Path(folder)/'resumed';resumed.mkdir();inp['base_version']['report']=report
+            def check_checkpoint(messages,*args):
+                payload=json.loads(messages[-1]['content'][0]['text'])
+                self.assertEqual(payload['source_search_results'][0]['total_matches'],0)
+                return {'complete':True,'foundation_checks':{'gameplay':{'status':'verified','reason':'fixture'}}}
+            with patch.object(web,'ReviewBrowser',Browser):web.revise(inp,resumed,Budget(),check_checkpoint,None,None)
 
     def test_evidence_ids_are_not_hashed_runtime_filenames(self):
         from controlplane.supply import inspect_source,SupplyError

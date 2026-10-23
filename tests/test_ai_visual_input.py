@@ -8,6 +8,15 @@ from controlplane.ai_provider import _complete, responses_input, read_responses_
 
 
 class VisualInputTests(unittest.TestCase):
+    def test_terminal_failure_has_safe_specific_reason(self):
+        from controlplane.ai_provider import AITerminalFailure
+        envelope={'status':'incomplete','incomplete_details':{'reason':'max_output_tokens'},'error':{'message':'private-secret'}}
+        data=('data: '+json.dumps({'type':'response.incomplete','response':envelope})+'\n\n').encode()
+        with self.assertRaisesRegex(AITerminalFailure,'max_output_tokens') as error:
+            read_responses_stream(io.BytesIO(data),{},float('inf'))
+        self.assertNotIn('private-secret',str(error.exception))
+        self.assertNotIn('private-secret',str(AITerminalFailure('failed',{'error':{'code':'private-secret'}})))
+
     def test_stream_requires_completed_event_and_retains_real_usage(self):
         terminal={'status':'completed','output':[{'content':[{'type':'output_text','text':'{"ok":true}'}]}],
                   'usage':{'input_tokens':42,'output_tokens':7}}

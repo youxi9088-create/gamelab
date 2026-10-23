@@ -112,6 +112,18 @@ class AIStreamInterrupted(ValueError):
     """Transport ended before a terminal response; partial text is not usable."""
 
 
+class AITerminalFailure(ValueError):
+    def __init__(self,status,envelope):
+        # Only fixed protocol codes are exposed, never provider messages/body.
+        error=envelope.get('error') or {}
+        incomplete=envelope.get('incomplete_details') or {}
+        code=error.get('code') if isinstance(error,dict) else None
+        reason=incomplete.get('reason') if isinstance(incomplete,dict) else None
+        allowed={'server_error','internal_error','rate_limit_exceeded','insufficient_quota','max_output_tokens','content_filter'}
+        self.detail='响应未完成：'+(status if status in ('failed','incomplete','cancelled','error') else 'unknown')+' / '+(code if code in allowed else reason if reason in allowed else 'unknown')
+        super().__init__(self.detail)
+
+
 def read_responses_stream(response, envelope, deadline):
     """Only a terminal completed response can certify streamed JSON output.
 
@@ -134,7 +146,7 @@ def read_responses_stream(response, envelope, deadline):
             envelope.clear();envelope.update(event['response'])
         if event.get('type')=='response.completed':return envelope
         if event.get('type') in ('response.failed','response.incomplete','error'):
-            raise ValueError('AI stream did not complete')
+            raise AITerminalFailure(event['type'].removeprefix('response.'),envelope or event)
     raise AIStreamInterrupted('AI stream ended without completion')
 
 
@@ -189,7 +201,7 @@ def _complete(messages, config, timeout=300):
                 if wire_api=='responses' and 'text/event-stream' in str(response.headers.get('Content-Type','')).lower():
                     read_responses_stream(response,envelope,started+max(1,min(timeout,300)))
                 else:envelope=json.load(response)
-                if envelope.get('status') in ('failed','incomplete','cancelled'):raise ValueError('AI response did not complete')
+                if envelope.get('status') in ('failed','incomplete','cancelled'):raise AITerminalFailure(envelope['status'],envelope)
                 if wire_api=='responses':
                     chunks=[]
                     for item in envelope.get('output',[]):
@@ -211,6 +223,7 @@ def _complete(messages, config, timeout=300):
                 detail=('超时，任务等待上限 '+str(round(max(1,min(timeout,300))))+' 秒' if isinstance(exc,TimeoutError)
                         else 'HTTP '+str(exc.code) if isinstance(exc,urllib.error.HTTPError)
                         else '流式响应提前结束' if isinstance(exc,AIStreamInterrupted)
+                        else exc.detail if isinstance(exc,AITerminalFailure)
                         else '响应不是有效 JSON' if isinstance(exc,json.JSONDecodeError)
                         else type(exc).__name__)
                 raise RuntimeError('AI API 调用失败：'+detail+'；请检查连接和模型配置') from None
