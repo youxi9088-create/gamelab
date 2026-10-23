@@ -81,12 +81,13 @@ class ReviewBrowser:
             except queue.Empty:
                 self.close()
                 raise TimeoutError('Platform browser observation timed out') from None
-            if line is None or json.loads(line).get('event') == 'snapshot':
-                runtime = json.loads((self.run / 'converted/evidence/runtime.json').read_text('utf-8'))
-                if line is None and self.process.wait(timeout=8) != 0:
-                    runtime['passed'] = False
-                    runtime.setdefault('failure', 'Platform browser process exited without a completed observation')
-                return runtime
+            if line is None:
+                status = self.process.wait(timeout=8)
+                # The copied baseline runtime.json is not an observation from
+                # this process. Route failure to the shared diagnosis instead.
+                raise RuntimeError(f'Platform browser exited before observation (exit {status}); see web-browser.log')
+            if json.loads(line).get('event') == 'snapshot':
+                return json.loads((self.run / 'converted/evidence/runtime.json').read_text('utf-8'))
 
 
 def entry(observation):

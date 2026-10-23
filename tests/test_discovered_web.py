@@ -13,6 +13,18 @@ from controlplane.conversion_plan import build
 
 
 class DiscoveredWebTests(unittest.TestCase):
+    def test_exited_browser_cannot_return_stale_baseline_observation(self):
+        import io,queue
+        from discovered_web import ReviewBrowser
+        with tempfile.TemporaryDirectory() as temp:
+            run=Path(temp);(run/'converted/evidence').mkdir(parents=True)
+            (run/'converted/evidence/runtime.json').write_text('{"passed":true,"observed":{"text":"old success"}}')
+            browser=ReviewBrowser(run,SimpleNamespace(remaining=lambda seconds:seconds))
+            browser.process=SimpleNamespace(poll=lambda:None,wait=lambda timeout:1,stdin=io.StringIO())
+            browser.events=queue.Queue();browser.events.put(None)
+            with self.assertRaisesRegex(RuntimeError,'web-browser.log'):
+                browser.observe([])
+
     def test_retry_preserves_failed_copy_and_observations_without_version_changes(self):
         from discovered_web import prepare_revision_copy
         with tempfile.TemporaryDirectory() as temp:
