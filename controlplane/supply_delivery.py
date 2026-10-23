@@ -88,6 +88,21 @@ def delivery_source(source, candidate, version, metadata, facts=None):
             selected = source/'runtime'
             changes.append({'kind':'unwrap_runtime','from':'runtime/','reason':'根页面仅链接旧本机服务；采用已有静态运行目录'})
         shutil.copytree(selected, target)
+        entry_file=target/'index.html'
+        entry_text=entry_file.read_text('utf-8')
+        def optional_icon(match):
+            tag=match.group(0)
+            rel=re.search(r'\brel\s*=\s*["\']([^"\']+)',tag,re.I)
+            href=re.search(r'\bhref\s*=\s*["\']([^"\']+)',tag,re.I)
+            if rel and 'icon' in rel[1].lower().split() and href:
+                from urllib.parse import urlsplit,unquote
+                url=urlsplit(href[1]);path=(target/unquote(url.path)).resolve()
+                if not url.scheme and not url.netloc and path.is_relative_to(target.resolve()) and not path.exists():
+                    changes.append({'kind':'omit_missing_optional_icon','path':href[1]})
+                    return ''
+            return tag
+        corrected_entry=re.sub(r'<link\b[^>]*>',optional_icon,entry_text,flags=re.I)
+        if corrected_entry!=entry_text:entry_file.write_text(corrected_entry,'utf-8')
         for p, relative in source_files(target):
             if p.suffix.lower() in ('.cmd','.bat','.ps1','.sh'):
                 # These are desktop launch helpers, never browser executable code.
@@ -124,6 +139,10 @@ def delivery_source(source, candidate, version, metadata, facts=None):
         write('verification-summary.json', {k:report[k] for k in (
             'foundation_checks','dependencies','verification_evidence','inherited_gameplay_evidence',
             'runtime_viewport','source_reuse','limitations','summary','delivery_gaps') if k in report})
+        from .resource_audit import audit
+        from .supply_resources import validated_aliases
+        static=audit(target,validated_aliases(target))
+        write('static-resource-check.json',{k:static[k] for k in ('status','missing','external','backend_endpoints','dynamic_files','scope')})
         acceptance = ['# 人工验收指引', '对应版本：'+version['id'],
             '平台版本状态：'+version.get('status','unknown'),
             '本指引整理已有资料，没有重新执行游戏或代替人工验收。',

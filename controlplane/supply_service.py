@@ -70,6 +70,7 @@ class SupplyService:
                               if not c.get('observations', {}).get('catalog_hidden')}
                 versions = sorted(self.service.store.all(db, 'versions'), key=lambda v: v.get('created_at', ''), reverse=True)
                 supplies = {r['id']:r for r in self.service.store.all(db,'supply')}
+                deliveries = {r['id']:r for r in self.service.store.all(db,'supply_deliveries')}
                 profiles = {r['id']:r for r in self.service.store.all(db,'game_profiles')}
             rows, seen = [], set()
             for v in versions:
@@ -82,7 +83,7 @@ class SupplyService:
                     from .supply_delivery import resolve_source, delivery_source
                     source = resolve_source(self.service.repo, v)
                     from .supply_prepare import prepared
-                    metadata=supplies.get(v['id'],{}).get('metadata',v.get('report',{}).get('supply',{})) or {}
+                    metadata=supplies.get(v['id'],deliveries.get(v['id'],{})).get('metadata',v.get('report',{}).get('supply',{})) or {}
                     with delivery_source(source,candidates[cid],v,metadata,profiles.get(v['id'],{}).get('profile')) as (delivery,_):
                         with prepared(delivery) as target:files,size=inspect_source(target)
                     row.update(structure='pass', files=len(files), bytes=size)
@@ -92,8 +93,9 @@ class SupplyService:
                     row.update(structure='blocked',reason='RESOURCE_PREPARATION_FAILED')
                 except OSError:
                     row.update(structure='blocked', reason='SOURCE_UNREADABLE')
-                license = (supplies.get(v['id'],{}).get('metadata',v.get('report',{}).get('supply',{})) or {}).get('license_declaration') or {}
+                license = (supplies.get(v['id'],deliveries.get(v['id'],{})).get('metadata',v.get('report',{}).get('supply',{})) or {}).get('license_declaration') or {}
                 row['distribution_declared'] = license.get('distributable') == 'yes' and bool(license.get('owner'))
+                row['manual_acceptance_guide']=bool(deliveries.get(v['id'],{}).get('manual_acceptance_guide'))
                 rows.append(row)
             identity = 'not_configured'
             error = ''

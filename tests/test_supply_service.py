@@ -73,7 +73,7 @@ class SupplyServiceTest(unittest.TestCase):
             version=self.s.get(db,'versions',job['version_id'])
             self.s.store.put(db,'supply_deliveries',dict(id=version['id'],version_id=version['id'],candidate_id=version['candidate_id'],
                 version_status=version['status'],template_structure='pass',archive_path=str(archive),archive_bytes=archive.stat().st_size,
-                sha256=hashlib.sha256(archive.read_bytes()).hexdigest(),files=1,downstream_size_limits_pass=True))
+                sha256=hashlib.sha256(archive.read_bytes()).hexdigest(),files=1,downstream_size_limits_pass=True,runtime_recheck_required=True))
         server=build_server(self.s,0)
         threading.Thread(target=server.serve_forever,daemon=True).start()
         try:

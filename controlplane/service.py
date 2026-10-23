@@ -94,7 +94,7 @@ class Service(Conversations,Discovery):
             from .supply import public as supply_public, configuration as supply_configuration
             state['supply']=[supply_public(r) for r in self.store.all(db,'supply')]
             state['supply_deliveries']=[{k:r[k] for k in ('id','candidate_id','version_id','version_status','prepared_at',
-                'template_structure','archive_bytes','files','downstream_size_limits_pass','sha256','manual_acceptance_guide') if k in r}
+                'template_structure','archive_bytes','files','downstream_size_limits_pass','sha256','manual_acceptance_guide','runtime_recheck_required') if k in r}
                 for r in self.store.all(db,'supply_deliveries')]
             templates={r['template']['template_id'] for r in state['supply'] if isinstance(r.get('template'),dict) and r['template'].get('template_id')}
             state['downstream_summary']={'templates':len(templates),'published':len({r['template']['template_id'] for r in state['supply'] if r.get('state')=='published' and isinstance(r.get('template'),dict) and r['template'].get('template_id')}),'scope':'仅下游实际返回模板 ID 的记录；提交成功不计入模板生成'}

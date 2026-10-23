@@ -67,6 +67,23 @@ class SupplyDeliveryTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             with delivery_source(self.source,self.candidate,self.version,self.metadata):pass
 
+    def test_missing_optional_icon_is_removed_only_in_delivery(self):
+        text='<link rel="icon" href="absent.ico"><button>fixture</button>'
+        (self.source/'index.html').write_text(text,'utf-8')
+        with delivery_source(self.source,self.candidate,self.version,self.metadata) as (target,info):
+            self.assertNotIn('absent.ico',(target/'index.html').read_text())
+            self.assertEqual(info['changes'][0]['kind'],'omit_missing_optional_icon')
+        self.assertEqual((self.source/'index.html').read_text(),text)
+
+    def test_module_ids_api_routes_and_settings_paths_are_not_missing_assets(self):
+        from controlplane.resource_audit import audit
+        src=self.source/'src';(src/'assets').mkdir(parents=True)
+        (src/'assets/plugin.js').write_text('// fixture','utf-8')
+        (src/'settings.js').write_text('app.import("cc"); fetch("/api/login"); const jsList=["assets/plugin.js"]; fetch("missing.json");','utf-8')
+        report=audit(self.source)
+        self.assertEqual(report['missing'],[{'file':'src/settings.js','reference':'missing.json'}])
+        self.assertEqual(report['backend_endpoints'],[{'file':'src/settings.js','reference':'/api/login'}])
+
     def test_registration_does_not_approve_or_submit(self):
         import sqlite3
         data=self.root/'data';data.mkdir();artifacts=data/'artifacts';artifacts.mkdir()
