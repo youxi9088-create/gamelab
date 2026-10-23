@@ -31,6 +31,18 @@ def inventory(root):
     return rows
 
 
+def backup_capacity(root,destination_directory):
+    """Conservative uncompressed bound, checked before a deployment stops service."""
+    root=Path(root).resolve();destination_directory=Path(destination_directory).resolve()
+    source_bytes=sum(row['bytes'] for row in inventory(root))
+    # ZIP can be larger than incompressible input; leave room for SQLite and logs.
+    required=source_bytes+max(512*1024**2,source_bytes//20)
+    free=shutil.disk_usage(destination_directory).free
+    if free<required:
+        raise ValueError(f'备份空间不足：可用 {free} 字节，需要至少 {required} 字节；服务尚未停止')
+    return {'source_bytes':source_bytes,'required_bytes':required,'free_bytes':free}
+
+
 def backup(root,destination):
     root=Path(root).resolve();destination=Path(destination).resolve()
     if destination.is_relative_to(root):raise ValueError('备份目录必须位于生产数据目录之外')

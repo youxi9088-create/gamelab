@@ -8,7 +8,7 @@ from pathlib import Path
 from controlplane.accounts import Accounts,authorize
 from controlplane.service import Service,ApiError
 from controlplane.store import ACTOR
-from tools.production_data import backup,restore,verify
+from tools.production_data import backup,restore,verify,backup_capacity
 
 
 class CloudProductionTests(unittest.TestCase):
@@ -89,6 +89,17 @@ class CloudProductionTests(unittest.TestCase):
 
     def test_backup_refuses_active_or_undrained(self):
         with self.assertRaises(ValueError):backup(self.root,Path(self.temp.name)/'backup.zip')
+
+    def test_backup_capacity_refuses_insufficient_space_without_mutation(self):
+        from types import SimpleNamespace
+        before=(self.root/'data/platform.sqlite3').read_bytes()
+        with patch('tools.production_data.shutil.disk_usage',return_value=SimpleNamespace(free=1)):
+            with self.assertRaisesRegex(ValueError,'空间不足'):
+                backup_capacity(self.root,self.root.parent)
+        self.assertEqual((self.root/'data/platform.sqlite3').read_bytes(),before)
+        with patch('tools.production_data.shutil.disk_usage',return_value=SimpleNamespace(free=10**12)):
+            result=backup_capacity(self.root,self.root.parent)
+        self.assertGreater(result['required_bytes'],result['source_bytes'])
 
 
 if __name__=='__main__':unittest.main()

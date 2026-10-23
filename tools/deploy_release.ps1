@@ -61,6 +61,14 @@ with zipfile.ZipFile(package) as z:
  print(str(target))
 '@ @($Package,$Root)
     $target=([string]$prepared).Trim()
+    # Fail before draining or stopping the current service, not midway through ZIP output.
+    CheckedPython @'
+import sys
+from pathlib import Path
+sys.path.insert(0,str(Path(sys.argv[1])/'tools'))
+from production_data import backup_capacity
+backup_capacity(Path(sys.argv[2])/'shared',Path(sys.argv[2]))
+'@ @($target,$Root)
     $oldTarget=(Get-Item -LiteralPath $app).FullName
     if((Get-Item -LiteralPath $app).LinkType){$oldTarget=(Get-Item -LiteralPath $app).Target[0]}
     CheckedPython @'
