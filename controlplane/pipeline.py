@@ -67,9 +67,14 @@ def timeline(job, events, versions):
             nodes['publish'].update(status='succeeded', ended_at=latest.get('published_at'))
             current = 'publish'
     status = job.get('status')
-    if current is None and status in ('blocked','failed','waiting_input'):
-        current=ALIASES.get(job.get('stage'),job.get('stage'))
-    if status in ('blocked', 'failed') and (job.get('dependency_pending') or
+    if status in ('blocked','failed','waiting_input') and (
+            current is None or nodes.get(current,{}).get('status') not in ('running','failed','waiting_input')):
+        unresolved = [e for e in ordered if (e.get('round') or 1)==job.get('round',1)
+                      and e.get('node_status') in ('failed','waiting_input')
+                      and e.get('node') in nodes and nodes[e['node']]['status'] in ('failed','waiting_input')]
+        current=unresolved[-1]['node'] if unresolved else ALIASES.get(job.get('stage'),job.get('stage'))
+    if status in ('blocked', 'failed') and not any(
+            n['status']=='failed' for n in nodes.values()) and (job.get('dependency_pending') or
             (latest and latest.get('status') == 'draft')):
         current = 'test' if latest and latest.get('report', {}).get('runtime_verified') else 'adapt'
     if current in nodes and status in ('running', 'waiting_input', 'blocked', 'failed', 'cancelled', 'stopped'):
@@ -99,7 +104,11 @@ def timeline(job, events, versions):
                 node['duration_seconds'] = max(0, int((datetime.fromisoformat(end) - datetime.fromisoformat(start)).total_seconds()))
             except ValueError:
                 pass
-    return dict(current=current, nodes=list(nodes.values()),
+    if status in ('completed','cancelled','stopped','superseded'):
+        current = None
+    from .pipeline_presentation import describe_pipeline
+    presentation = describe_pipeline(job, list(nodes.values()), current)
+    return dict(current=current, nodes=list(nodes.values()), presentation=presentation,
                 note='节点状态对应当前轮次，展开可查看历史轮次记录；保存草稿不代表验证通过，未记录结果不推定成功。')
 
 

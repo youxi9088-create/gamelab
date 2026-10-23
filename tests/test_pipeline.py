@@ -45,7 +45,7 @@ class TimelineTests(unittest.TestCase):
         p=timeline(dict(id='j',stage='packaging',status='review',version_id='v'),[],
                    [dict(id='v',job_id='j',status='review',created_at='2026-10-20T00:00:00+00:00')])
         self.assertEqual(p['nodes'][4]['status'],'unrecorded')
-        self.assertEqual(p['nodes'][5]['status'],'succeeded')
+        self.assertEqual(next(n for n in p['nodes'] if n['key']=='delivery')['status'],'succeeded')
         self.assertEqual(p['current'],'review')
 
     def test_repeated_steps_preserve_history_and_latest_duration(self):

@@ -316,8 +316,9 @@ def execute(client, job):
         def invoke(*args, **kwargs):
             previous=phase[0];phase[0]=node
             from controlplane.pipeline import STAGES
+            from controlplane.pipeline_presentation import STAGE_WORK
             label=dict(STAGES)[node]
-            client.post(prefix+'events',{**lease,'node':node,'node_status':'running','message':'开始'+label})
+            client.post(prefix+'events',{**lease,'node':node,'node_status':'running','message':'正在'+STAGE_WORK[node][0]+'：'+STAGE_WORK[node][1]})
             try:
                 result=fn(*args,**kwargs)
             except Exception as exc:
@@ -331,7 +332,7 @@ def execute(client, job):
                     raise
             report=result[-1] if isinstance(result,tuple) and isinstance(result[-1],dict) else result if isinstance(result,dict) else {}
             incomplete=node=='test' and (report.get('blocker') or report.get('delivery_gaps'))
-            client.post(prefix+'events',{**lease,'node':node,'node_status':'waiting_input' if incomplete else 'succeeded','message':label+('本段已结束，仍有未完成检查；详见本轮结果' if incomplete else '本次步骤完成；检查覆盖范围以报告为准')})
+            client.post(prefix+'events',{**lease,'node':node,'node_status':'waiting_input' if incomplete else 'succeeded','message':STAGE_WORK[node][0]+('：本段操作已结束，等待汇总检查结论；最终完成情况见本轮交付记录。' if incomplete else '：本次步骤已完成，具体处理结果和覆盖范围已保存在本轮记录中。')})
             phase[0]=previous
             return result
         return invoke

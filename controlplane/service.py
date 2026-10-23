@@ -133,7 +133,7 @@ class Service(Conversations,Discovery):
             state['settings']=self.get(db,'settings','main')
             state['settings']['concurrency']=1
             batches={b['id']:b for b in state['batches']}
-            queue=sorted((j for j in reversed(state['jobs']) if j['status']=='queued' and batches.get(j['batch_id'],{}).get('status')=='running'),key=lambda j:j.get('queued_at',j.get('created_at','')))
+            queue=sorted((j for j in reversed(state['jobs']) if j['status']=='queued' and batches.get(j.get('batch_id'),{}).get('status')=='running'),key=lambda j:j.get('queued_at',j.get('created_at','')))
             for position,job in enumerate(queue,1):
                 job['queue_position']=position
                 job['progress_label']=f'排队第 {position} 位 · 等待空闲执行器'

@@ -97,3 +97,20 @@ body .feature-copy .actions{position:static;margin-top:8px}
  #app :is(.library-categories,.library-engines) button{min-height:44px}
  #app :is(.filters,.dashboard-filters,.discovery-toolbar) :is(input:not([type=checkbox]),select,button),#app #global-search{min-height:44px;height:44px}
 }
+#overlay .pipeline-overview{margin:16px 0;padding:16px;border:1px solid #49536d;border-radius:12px;background:#1b2130}
+#overlay .pipeline-counts{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+#overlay .pipeline-counts span{padding:5px 9px;border-radius:6px;background:#292b36;font-size:12px}
+#overlay .pipeline li{padding:0 0 20px 20px}
+#overlay .pipeline-stage-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+#overlay .pipeline-status{font-size:12px;font-weight:600;padding:5px 9px;border-radius:6px;background:#30313b;color:#e3e4eb}
+#overlay .pipeline [data-group="complete"]>.pipeline-stage-header .pipeline-status,#overlay .pipeline-counts [data-group="complete"]{background:#173e32;color:#adf0cd}
+#overlay .pipeline [data-group="active"]>.pipeline-stage-header .pipeline-status,#overlay .pipeline-counts [data-group="active"]{background:#293c64;color:#d0dfff}
+#overlay .pipeline [data-group="issue"]>.pipeline-stage-header .pipeline-status,#overlay .pipeline-counts [data-group="issue"]{background:#572b30;color:#ffd0cd}
+#overlay .pipeline li[data-group="issue"]::before{background:#ef9c96;box-shadow:0 0 0 4px #ef9c9620}
+#overlay .pipeline [data-group="waiting"]>.pipeline-stage-header .pipeline-status,#overlay .pipeline [data-group="incomplete"]>.pipeline-stage-header .pipeline-status{background:#4a3c23;color:#f4d69a}
+#overlay .pipeline [data-group="history"]>.pipeline-stage-header .pipeline-status{background:#2c3042;color:#cbd2ed}
+#overlay .pipeline .pipeline-work{color:#b4bbc9;font-size:14px}
+#overlay .pipeline .pipeline-result,#overlay .pipeline .pipeline-next{font-size:14px;line-height:1.7}
+#overlay .pipeline .pipeline-problem{border-left:3px solid #e59a91;padding:8px 12px;background:#38252a;white-space:pre-wrap;max-height:180px;overflow:auto;font-size:14px}
+#overlay .pipeline-evidence{margin-top:12px;border-top:1px solid #343644;padding-top:10px}
+#overlay .pipeline-evidence>summary{font-size:12px;color:#b7c4ed}
