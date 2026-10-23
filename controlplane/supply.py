@@ -181,7 +181,10 @@ def inspect_source(source):
         if total > 500_000_000 or len(files) > 2000:
             raise SupplyError('ARCHIVE_UNSAFE', 422)
     from .resource_audit import audit
-    references=audit(source)
+    from .supply_resources import validated_aliases
+    try:aliases=validated_aliases(source)
+    except (ValueError,KeyError,OSError):raise SupplyError('RESOURCE_PREPARATION_FAILED',422) from None
+    references=audit(source,aliases=aliases)
     if references['missing']:raise SupplyError('MISSING_LOCAL_RESOURCE',422)
     if references['external']:raise SupplyError('EXTERNAL_DEPENDENCY',422)
     return files, total
@@ -279,11 +282,16 @@ class SupplyWorker:
                     raise SupplyError('INVALID_ARCHIVE_URL', 400)
                 if not 1 <= len(candidate['title']) <= 40:
                     raise SupplyError('GAME_NAME_INVALID', 422)
-                source = (self.service.repo.root/version['source_directory']).resolve()
-                if not source.is_relative_to(self.service.repo.root):
-                    raise SupplyError('ARCHIVE_UNSAFE', 422)
+                from .supply_delivery import resolve_source, delivery_source
+                source = resolve_source(self.service.repo, version)
+                with store.tx() as db:
+                    profile_record = store.get(db, 'game_profiles', version['id']) or {}
                 archive = self.service.data_dir/'supply'/f"{row['submission_id']}.zip"
-                digest = build_archive(source, archive)
+                with delivery_source(source, candidate, version, meta, profile_record.get('profile')) as (delivery, supplement):
+                    digest = build_archive(delivery, archive)
+                if supplement.get('runtime_recheck_required'):
+                    meta={**meta,'known_limitations':list(dict.fromkeys([*(meta.get('known_limitations') or []),
+                        '供货副本已整理入口、启动文件或资源映射，原玩法证据对应原版本；下游须核对整理后运行效果。']))}
                 if row.get('archive_sha256') and row['archive_sha256'] != digest:
                     raise SupplyError('IMMUTABLE_VERSION_CHANGED', 409)
                 # Persist digest before outbound I/O so unknown submit outcomes remain idempotent.

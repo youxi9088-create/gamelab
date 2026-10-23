@@ -1,5 +1,15 @@
 # 验收通过后自动供货
 
+## 全库交付准备（2026-10-23）
+
+`tools/prepare_supply_deliveries.py` 使用显式 `--data`、`--library`、新的 `--output` 目录、`--owner` 和 `--authorization` 准备最新可见版本。`--apply` 先备份数据库，再登记独立 `supply_deliveries` 和已有验收版本的供货资料；不批准草稿、不重新验收、不联网推送。生产输出放在数据目录 `supply-deliveries/` 下，账号登录后可在验收页下载。
+
+历史导入没有源码库目录时读取版本关联的 artifact；游戏文件不会因为缺少 source_directory 而被当作丢失。副本内 `supply-delivery/` 包括规格说明书、授权、人工验收指引、原始操作、验证摘要及哈希清单，原版本不变。已有中文档案按相同版本绑定补充。
+
+用户已要求先准备二进制运行包供下游评估。这类 ZIP 保留引擎和资源，标为运行评估交付，不等同当前 template-supply-client 的兼容模板。静态结构和数量／体积检查独立显示；自动提交仍遵守原模板检查，未确认的包可通过受认证下载交付评估，不能以自动检查通过为名绕过协议。
+
+`GET /api/supply-deliveries/{version-id}/download` 要求门户会话，限定已登记目录并验证包哈希。`GET /api/state` 的 `supply_deliveries` 不暴露服务器路径、私密配置和授权原文。
+
 人工确认玩法、画面并通过验收后，在同一数据库事务内生成 `supply` 任务。独立后台线程自动检查、打包、提交、跟踪下游状态。下游失败不会回滚本地功能验收，旧的已验收版本不自动补发。
 
 ## 部署配置

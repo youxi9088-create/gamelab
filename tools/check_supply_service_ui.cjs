@@ -25,6 +25,15 @@ const assert=require('assert/strict');
   await page.screenshot({path:'qa-output/supply-service-mobile.png',fullPage:true});
   await page.getByRole('button',{name:'查看供货任务 ↗',exact:true}).click();
   await page.getByRole('heading',{name:'下游模板供货',exact:true}).waitFor();
+  await page.getByRole('heading',{name:'已准备的供货包',exact:true}).waitFor();
+  const download=page.locator('a[href^="/api/supply-deliveries/"]');
+  await download.locator('xpath=ancestor::details').locator('summary').click();
+  const response=await page.request.get(new URL(await download.getAttribute('href'),page.url()).href);
+  assert.equal(response.status(),200);assert.equal((await response.body()).subarray(0,2).toString(),'PK');
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+  await page.screenshot({path:'qa-output/supply-delivery-mobile.png',fullPage:true});
+  await page.setViewportSize({width:1360,height:960});
+  await page.screenshot({path:'qa-output/supply-delivery-desktop.png',fullPage:true});
   assert.deepEqual(errors,[]);
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1)});

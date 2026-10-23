@@ -69,6 +69,8 @@ class SupplyService:
                 candidates = {c['id']: c for c in self.service.store.all(db, 'candidates')
                               if not c.get('observations', {}).get('catalog_hidden')}
                 versions = sorted(self.service.store.all(db, 'versions'), key=lambda v: v.get('created_at', ''), reverse=True)
+                supplies = {r['id']:r for r in self.service.store.all(db,'supply')}
+                profiles = {r['id']:r for r in self.service.store.all(db,'game_profiles')}
             rows, seen = [], set()
             for v in versions:
                 cid = v['candidate_id']
@@ -77,12 +79,12 @@ class SupplyService:
                 seen.add(cid)
                 row = {'title': candidates[cid]['title'], 'version_id': v['id'], 'version_status': v['status']}
                 try:
-                    root = self.service.repo.root.resolve()
-                    source = (root / v.get('source_directory', '')).resolve()
-                    if not v.get('source_directory') or not source.is_relative_to(root):
-                        raise SupplyError('SOURCE_DIRECTORY_MISSING')
+                    from .supply_delivery import resolve_source, delivery_source
+                    source = resolve_source(self.service.repo, v)
                     from .supply_prepare import prepared
-                    with prepared(source) as target:files,size=inspect_source(target)
+                    metadata=supplies.get(v['id'],{}).get('metadata',v.get('report',{}).get('supply',{})) or {}
+                    with delivery_source(source,candidates[cid],v,metadata,profiles.get(v['id'],{}).get('profile')) as (delivery,_):
+                        with prepared(delivery) as target:files,size=inspect_source(target)
                     row.update(structure='pass', files=len(files), bytes=size)
                 except SupplyError as exc:
                     row.update(structure='blocked', reason=exc.code)
@@ -90,7 +92,7 @@ class SupplyService:
                     row.update(structure='blocked',reason='RESOURCE_PREPARATION_FAILED')
                 except OSError:
                     row.update(structure='blocked', reason='SOURCE_UNREADABLE')
-                license = (v.get('report', {}).get('supply') or {}).get('license_declaration') or {}
+                license = (supplies.get(v['id'],{}).get('metadata',v.get('report',{}).get('supply',{})) or {}).get('license_declaration') or {}
                 row['distribution_declared'] = license.get('distributable') == 'yes' and bool(license.get('owner'))
                 rows.append(row)
             identity = 'not_configured'

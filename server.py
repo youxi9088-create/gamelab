@@ -123,6 +123,16 @@ class Handler(BaseHTTPRequestHandler):
                     return self.send(200,status(self.server.service))
                 if path=='/api/demo':return self.file(ROOT/'web/demo.json',ROOT/'web')
                 if path=='/api/docs':return self.file(ROOT/'docs/API.md',ROOT/'docs')
+                if path.startswith('/api/supply-deliveries/') and path.endswith('/download'):
+                    key=path.split('/')[3]
+                    with self.server.service.store.tx() as db:
+                        delivery=self.server.service.get(db,'supply_deliveries',key)
+                    root=(self.server.service.data_dir/'supply-deliveries').resolve()
+                    archive=Path(delivery.get('archive_path','')).resolve()
+                    require(archive.is_relative_to(root) and archive.is_file(),'供货包不存在',404)
+                    payload=archive.read_bytes()
+                    require(__import__('hashlib').sha256(payload).hexdigest()==delivery.get('sha256'),'供货包校验失败',409)
+                    return self.send(200,payload,'application/zip',{'Content-Disposition':f'attachment; filename="delivery-{key}.zip"'})
                 if path.startswith('/api/versions/') and path.endswith('/specification.md'):
                     key=path.split('/')[3]
                     with self.server.service.store.tx() as db:

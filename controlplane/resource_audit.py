@@ -12,7 +12,7 @@ class References(HTMLParser):
         if tag in ('script','img','audio','video','source','iframe','embed'):self.refs.append(a.get('src',''))
         if tag=='link' and a.get('rel') in ('stylesheet','preload','modulepreload','icon'):self.refs.append(a.get('href',''))
 
-def audit(root):
+def audit(root,aliases=None):
     root=Path(root).resolve();refs=[];missing=[];external=[];files=[];dynamic=[]
     for p in sorted(root.rglob('*')):
         if not p.is_file() or any(x in ('evidence','screenshots','platform-delivery','.git','node_modules') for x in p.relative_to(root).parts):continue
@@ -35,6 +35,9 @@ def audit(root):
             # Script fetch paths are document-relative; CSS references are stylesheet-relative.
             base=p.parent if p.suffix in ('.css','.html') else root
             target=(root/unquote(u.path).lstrip('/') if u.path.startswith('/') else base/unquote(u.path)).resolve()
+            if aliases and target.is_relative_to(root):
+                mapped=aliases.get(target.relative_to(root).as_posix())
+                if mapped:target=(root/mapped).resolve()
             refs.append(row)
             if not target.is_relative_to(root) or not target.is_file():missing.append(row)
     return {'schema_version':1,'status':'blocked' if missing or external else 'static_pass','files':files,'references':refs,'missing':missing,'external':external,
