@@ -17,9 +17,10 @@ class RepairContext:
     def load(self):
         code = {}; total = 0
         candidates = [self.run / name for name in (
+            'acquisition/observation.json', 'acquisition/source.html', 'conversion-plan.json',
             'web-acquisition.json', 'web-capture.log', 'web-verify.log',
             'converted/evidence/runtime.json', 'web-original/source-entry.html')]
-        for dirname in ('web-original', 'repair-sources', 'converted'):
+        for dirname in ('acquisition', 'web-original', 'repair-sources', 'converted', 'entry-probes'):
             root = self.run / dirname
             if root.is_dir() and not linked(root):
                 candidates += sorted(root.rglob('*'))[:2200]
@@ -39,6 +40,7 @@ class RepairContext:
         return {'source_inventory': [{'path': n, 'characters': len(t),
                     'sha256': hashlib.sha256(t.encode()).hexdigest(), 'editable': False} for n,t in code.items()],
                 'source_excerpts': [self.context.read(n, 0, 20000) for n in (
+                    'acquisition/observation.json', 'acquisition/source.html',
                     'web-original/source-entry.html', 'web-acquisition.json', 'converted/evidence/runtime.json') if n in code]}
 
     def inspect(self, answer, payload):
@@ -48,7 +50,7 @@ class RepairContext:
         return parts
 
     def images(self):
-        for name in ('converted/screenshots/failed.png', 'converted/screenshots/current.png', 'original-runtime.png'):
+        for name in ('converted/screenshots/failed.png', 'converted/screenshots/current.png', 'original-runtime.png', 'acquisition/source.png'):
             p = self.run / name
             if p.is_file() and not linked(p) and p.stat().st_size < 2_000_000:
                 return [{'type': 'text', 'text': '本次失败步骤的实际截图：'+name},

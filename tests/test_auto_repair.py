@@ -32,7 +32,7 @@ class AutoRepairTests(unittest.TestCase):
             if p.read_text()!='fixed':raise ValueError('host failure')
             return 'actual verification result'
         self.assertEqual(self.call({'action':'patch_host','diagnosis':'宿主错误','changes':{'local-host.js':'fixed'}},verify),'actual verification result')
-        report=json.loads((self.run/'auto-repair/report.json').read_text())
+        report=json.loads((self.run/'auto-repair/report.json').read_text('utf-8'))
         self.assertTrue(report['attempts'][0]['verified'])
         self.assertEqual(self.events[-1],'succeeded')
     def test_failed_patch_is_rolled_back_and_stops(self):

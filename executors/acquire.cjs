@@ -102,7 +102,7 @@ async function main(){
     const metadata=await page.locator('meta[name="description"],meta[property="og:description"]').evaluateAll(nodes=>nodes.map(n=>n.content));
     const inline=await page.locator('script:not([src])').allTextContents();
     fs.writeFileSync(path.join(dir,'inline.js'),inline.join('\n').slice(0,500000));
-    const iframe_hints=await page.locator('iframe').evaluateAll(nodes=>nodes.map(n=>({url:n.src||n.getAttribute('data-url')||n.getAttribute('data-src')||'',evidence:n.src?'iframe-src':n.hasAttribute('data-url')?'iframe-data-url':n.hasAttribute('data-src')?'iframe-data-src':'iframe',width:n.getBoundingClientRect().width,height:n.getBoundingClientRect().height})).filter(n=>n.url||n.width>200&&n.height>150).slice(0,10));
+    const iframe_hints=await page.locator('iframe').evaluateAll(nodes=>nodes.map(n=>({url:(()=>{const raw=n.getAttribute('src')||n.getAttribute('data-url')||n.getAttribute('data-src');try{return raw?new URL(raw,document.baseURI).href:''}catch{return ''}})(),evidence:n.src?'iframe-src':n.hasAttribute('data-url')?'iframe-data-url':n.hasAttribute('data-src')?'iframe-data-src':'iframe',width:n.getBoundingClientRect().width,height:n.getBoundingClientRect().height})).filter(n=>n.url||n.width>200&&n.height>150).slice(0,10));
     const iframe_probes=[];
     for(const lead of iframe_hints.filter(item=>['iframe-data-url','iframe-data-src'].includes(item.evidence)&&/^https?:\/\//i.test(item.url)).slice(0,2)){
       const probe=await context.newPage();let status=null;

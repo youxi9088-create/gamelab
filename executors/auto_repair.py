@@ -18,13 +18,14 @@ def safe(value):
     return text[-6000:]
 
 
-def diagnose(error, run, budget, retry=None, target=None, limit=2):
+def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=None):
     """Only caller-supplied verification can execute; model cannot run commands."""
     run = Path(run); root = run / 'auto-repair'; root.mkdir(exist_ok=True)
     evidence = root / uuid.uuid4().hex; evidence.mkdir()
     rounds = []; original = error; last = error
     context = RepairContext(run); sources = context.load()
     mutations = 0; fingerprints = set(); feedback = None
+    capabilities = capabilities or {}
     def event(status, message):
         try: EVENT.get()(status, message)
         except Exception: pass  # Lost lease/network cannot replace the original failure.
@@ -48,13 +49,14 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2):
                         code[name] = p.read_text('utf-8')
             can_fix = retry and mutations < limit
             payload = {**sources, 'error': safe(last), 'error_type': type(last).__name__, 'attempt': attempt+1,
-                       'allowed_actions': ['stop', 'inspect'] + (['retry'] if can_fix else []) + (['patch_host'] if can_fix and code else [])
+                       'allowed_actions': ['stop', 'inspect'] + (['retry'] + list(capabilities) if can_fix else []) + (['patch_host'] if can_fix and code else [])
                            + (['configure_runtime'] if can_fix and (run/'web-original/source-entry.html').exists() and not target else []),
                        'runtime_contracts': {'defold': {'evidence': '入口声明 dmloader.js 与 EngineLoader.load(...)',
                            'sdk': '可选 poki-offline：初始化拒绝进入原入口的失败分支；广告无奖励；保留原 WASM 与归档'},
                            'browser': {'evidence':'公开 HTML/JavaScript 浏览器运行入口；无需猜测引擎名称',
                            'scope':'采集实际请求和原资源，离线执行并观察画布；画布出现仅是技术探测，仍须截图与真实玩法验证，不承诺所有引擎和动态资源闭合',
                            'sdk':'可选 poki-offline，仅用于入口明确声明此 SDK 且支持初始化失败分支的情况'}},
+                       'capabilities': {name: item['description'] for name,item in capabilities.items()},
                        'host_files': code, 'previous_attempts': rounds, 'tool_feedback': feedback,
                        'repair_attempts_remaining': max(0,limit-mutations), 'calls_remaining': budget.calls}
             answer = chat([{'role': 'system', 'content':
@@ -62,6 +64,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2):
                 '{diagnosis,hypothesis,evidence:[文件路径及具体证据],action,reason,next_action,changes:{文件名:完整文本}}。'
                 '先分析证据，明确可能原因和如何实际证伪。不要把未知问题一律当作不能处理，也不要无证据猜测或反复重试。'
                 '仅可选择allowed_actions。inspect 可提出 read_requests:[{path,offset,length}] 或 search_requests:[{path,text}]，各最多4项；'
+                'capabilities 中的动作由平台执行，参数放在 arguments 对象；执行后必须由原节点复验，不能自行宣称成功。'
                 '路径须来自 source_inventory。读取结果含完整文件哈希、范围、搜索命中，下一次调用继续分析。'
                 'configure_runtime 携带 runtime_plan:{engine,sdk,source_sha256}，根据原入口证据选择 runtime_contracts 中的执行契约；'
                 '平台独立校验契约并重新采集、离线运行，不按游戏名称选择。仅有识别结果不能算修复成功。'
@@ -77,7 +80,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2):
                    'action': action, 'reason': safe(answer.get('reason','')), 'next_action': safe(answer.get('next_action',''))}
             rounds.append(row)
             (evidence / f'{len(rounds)}.json').write_text(json.dumps(row, ensure_ascii=False, indent=2), 'utf-8')
-            event('running', '诊断：'+row['diagnosis']+'；处理：'+{'stop':'保留阻断','inspect':'读取证据继续分析','configure_runtime':'验证运行契约并重新捕获','retry':'重新验证','patch_host':'修复宿主后重新验证'}.get(action,'无效方案'))
+            event('running', '诊断：'+row['diagnosis']+'；处理：'+{'stop':'保留阻断','inspect':'读取证据继续分析','configure_runtime':'验证运行契约并重新捕获','retry':'重新验证','patch_host':'修复宿主后重新验证'}.get(action, capabilities.get(action, {}).get('description', '无效方案')))
             if action not in payload['allowed_actions'] or action == 'stop': break
             if action == 'inspect':
                 try:
@@ -96,7 +99,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2):
                     feedback = '修改与当前内容相同，未执行；请分析其他原因'; continue
             else: changes = {}
             fingerprint = hashlib.sha256(json.dumps({'action':action,'changes':changes,'plan':answer.get('runtime_plan'),
-                'error':safe(last)},sort_keys=True).encode()).hexdigest()
+                'arguments':answer.get('arguments'), 'error':safe(last)},sort_keys=True).encode()).hexdigest()
             if fingerprint in fingerprints:
                 row['stop_reason'] = '同一错误与同一方案重复，停止重复执行'; break
             fingerprints.add(fingerprint)
@@ -112,6 +115,8 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2):
             (evidence / f'{attempt+1}-patch.json').write_text(json.dumps(changes, ensure_ascii=False), 'utf-8')
             for name, value in changes.items(): (target/name).write_bytes(value.encode('utf-8'))
             try:
+                if action in capabilities:
+                    row['tool_result'] = capabilities[action]['execute'](answer.get('arguments') or {})
                 result = retry()
             except Exception as failure:
                 # Each unsuccessful attempt is rolled back; previous artifacts remain immutable.
@@ -144,6 +149,8 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2):
 def guarded(fn, run, budget, target=None):
     try: return fn()
     except Exception as error:
+        if getattr(error, 'auto_repair_attempted', False):
+            raise
         recovered, result = diagnose(error, run, budget, retry=fn, target=target)
         if recovered: return result
         error.auto_repair_attempted = True

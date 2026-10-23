@@ -33,14 +33,17 @@ class WorkerTests(unittest.TestCase):
 
     def test_no_source_blocks_without_false_rea_claim(self):
         client = Client()
-        worker.execute(client, {'id':'unit-no-source', 'lease_token':'test', 'stage':'rea', 'input':{}})
+        with patch('worker.chat', return_value={'action':'stop','diagnosis':'隔离夹具缺少来源'}):
+            worker.execute(client, {'id':'unit-no-source', 'lease_token':'test', 'stage':'rea', 'input':{}})
         result = client.calls[-1][1]
         self.assertEqual(result['outcome'], 'blocked')
         self.assertNotIn('artifact_id', result)
 
     def test_missing_observations_asks_for_input(self):
         client = Client()
-        worker.execute(client, {'id':'unit-no-observations', 'lease_token':'test', 'stage':'reconstruct', 'input':{}})
+        with patch('worker.chat', return_value={'action':'stop','diagnosis':'隔离夹具缺少观测'}) as diagnosis:
+            worker.execute(client, {'id':'unit-no-observations', 'lease_token':'test', 'stage':'reconstruct', 'input':{}})
+        diagnosis.assert_called_once()
         self.assertTrue(client.calls[-1][0].endswith('/ask'))
 
     def test_ai_key_missing_blocks(self):

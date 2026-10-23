@@ -323,7 +323,7 @@ def execute(client, job):
                 result=fn(*args,**kwargs)
             except Exception as exc:
                 recovered=False
-                if node in ('acquire','analysis') and not isinstance(exc,(NeedsInput,RevisionYield)):
+                if not isinstance(exc,RevisionYield) and not getattr(exc,'auto_repair_attempted',False):
                     recovered,result=diagnose(exc,run,budget,retry=lambda:fn(*args,**kwargs))
                     exc.auto_repair_attempted=True
                 if not recovered:
@@ -516,6 +516,12 @@ def execute(client, job):
                             'reason':'REA 分析、资源下载及本地启动检查已完成；保存原版可编辑草稿，完整玩法待验收'})
                         return
                     from modular_web import candidate as modular_candidate
+                    if not acquired.get('web_discovery',{}).get('entries') and not modular_candidate(acquired):
+                        from entry_recovery import recover as recover_entry
+                        from acquisition import acquire as probe_acquire
+                        acquired=recover_entry(acquired,run,budget,probe_acquire)
+                        client.post(prefix+'acquired',{**lease,'title':acquired['title'],'observations':acquired})
+                        save_plan(acquired,converter)
                     if acquired.get('web_discovery',{}).get('entries') or modular_candidate(acquired):
                         from discovered_web import convert
                         report=measured('adapt',convert)(inp,acquired,run,budget,chat)
@@ -620,6 +626,8 @@ def execute(client, job):
     except RevisionYield as exc:
         completion={**lease,'event_id':str(uuid.uuid4()),'outcome':'checkpoint','checkpoint':exc.checkpoint,'reason':str(exc),'report':{'run_directory':str(run)}}
     except NeedsInput as exc:
+        diagnosis=diagnose_failure(exc)
+        write_json(run/'waiting-input-diagnosis.json',diagnosis)
         client.post(prefix+'ask',{**lease,'question':str(exc)})
         write_json(run/'waiting-input.json',{'question':str(exc)})
         return

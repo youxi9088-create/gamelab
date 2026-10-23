@@ -32,7 +32,7 @@ class SourceRoutingTests(unittest.TestCase):
         lead=web_block_reason({'web_discovery':{'launch_links':[{'url':'https://example.org/play','label':'开始游戏'}]}})
         self.assertIn('可能的启动链接',lead)
         control=web_block_reason({'web_discovery':{'launch_controls':[{'label':'开始游戏'}]}})
-        self.assertIn('只记录线索、不自动点击',control)
+        self.assertIn('已保留线索但没有自动点击',control)
         self.assertIn('已识别',web_block_reason({'web_discovery':{'entries':[{'url':'https://example.org/play'}]}}))
 
     def test_wrong_adapter_is_rejected(self):

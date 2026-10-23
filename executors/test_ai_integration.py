@@ -18,6 +18,7 @@ class MockModelIntegration(unittest.TestCase):
             {'observed_rules':['click ball to score','10 points wins','restart resets'], 'acceptance_tests':['restart button visible'], 'unknowns':[]},
             {'files':{'index.html':'<html><body><script>throw new Error("intentional mock-model broken build")</script></body></html>'},'entry':'index.html',
              'foundation_checks':{k:{'status':'verified','evidence':['index.html']} for k in REQUIRED}},
+            {'action':'stop','diagnosis':'生成代码报错，交回原重建节点的源码修复循环'},
             {'files':good,'entry':'index.html'}
         ]
         calls=[]
@@ -33,19 +34,21 @@ class MockModelIntegration(unittest.TestCase):
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
         try:
             config={'backend':'api','base_url':f'http://127.0.0.1:{server.server_port}/v1','api_key':'mock-only-test-key','model':'MOCK-NOT-A-LIVE-MODEL'}
-            with patch.dict(os.environ,{'REPLICA_AI_MAX_CALLS':'3','REPLICA_AI_VISION':'1'}), patch.object(worker,'ai_config',return_value=config):
+            with patch.dict(os.environ,{'REPLICA_AI_MAX_CALLS':'4','REPLICA_AI_VISION':'1'}), patch.object(worker,'ai_config',return_value=config):
                 client=Client()
                 worker.execute(client,{'id':'mock-model-integration','lease_token':'test-only','stage':'reconstruct','settings':{'reconstruct_minutes':2,'repair_rounds':1},'input':{'observations':{'controls':'click ball','win':'10 points','restart':'button'}}})
             complete=client.calls[-1][1]
             self.assertEqual(complete['outcome'],'ready_review',complete)
             self.assertEqual(complete['report']['repair_rounds_used'],1)
-            self.assertEqual(len(calls),3)
+            self.assertEqual(len(calls),4)
             self.assertTrue(complete['report']['runtime_smoke']['passed'])
             self.assertFalse(complete['report']['runtime_smoke']['gameplay_verified'])
             artifact=next(body for name,body in client.calls if name=='artifacts')
             self.assertIn('screenshots/runtime-0.png',artifact['files'])
-            self.assertIsInstance(calls[2]['messages'][1]['content'],list)
-            self.assertEqual(calls[2]['messages'][1]['content'][1]['type'],'image_url')
+            diagnosis=json.loads(calls[2]['messages'][1]['content'][0]['text'])
+            self.assertIn('runtime errors',diagnosis['error'])
+            self.assertIsInstance(calls[3]['messages'][1]['content'],list)
+            self.assertEqual(calls[3]['messages'][1]['content'][1]['type'],'image_url')
         finally:
             server.shutdown();server.server_close();thread.join()
 
