@@ -12,6 +12,10 @@ import uuid
 from contextvars import ContextVar
 USAGE_SINK=ContextVar('ai_usage_sink',default=None)
 
+
+class AIProviderError(RuntimeError):
+    """Only locally constructed, credential-free messages may use this type."""
+
 def emit_usage(provider,model,started,status,usage=None):
     sink=USAGE_SINK.get()
     if sink:
@@ -155,8 +159,8 @@ def complete(messages, config, timeout=300):
     try:
         value,provider=_complete(messages,config,timeout)
         health=dict(ok=True,detail=('本机 Codex' if provider=='codex' else 'AI API')+' 实际调用成功',time=time.time(),signature=config_signature(config))
-    except Exception:
-        health=dict(ok=False,detail='AI 实际调用失败，请检查登录、网络或模型配置',time=time.time(),signature=config_signature(config))
+    except Exception as exc:
+        health=dict(ok=False,detail=str(exc) if isinstance(exc, AIProviderError) else 'AI 实际调用失败，请检查登录、网络或模型配置',time=time.time(),signature=config_signature(config))
         raise
     finally:
         configured=os.environ.get('REPLICA_SERVICE_CONFIG')
@@ -227,9 +231,10 @@ def _complete(messages, config, timeout=300):
                         else exc.detail if isinstance(exc,AITerminalFailure)
                         else '响应不是有效 JSON' if isinstance(exc,json.JSONDecodeError)
                         else type(exc).__name__)
-                raise RuntimeError('AI API 调用失败：'+detail+'；请检查连接和模型配置') from None
+                hint = '；请检查本地 Codex 桥接进程、SSH 隧道及登录状态' if config.get('connection') == 'local_codex' else '；请检查连接和模型配置'
+                raise AIProviderError('AI API 调用失败：'+detail+hint) from None
     elif mode == 'api':
-        raise RuntimeError('AI API 尚未配置完整')
+        raise AIProviderError('AI API 尚未配置完整')
     codex_started=time.monotonic()
     measured_usage={}
     try:

@@ -68,6 +68,58 @@ class ServicesTest(unittest.TestCase):
         with patch('controlplane.service_registry.time.time', return_value=r.checks['wechat']['time'] + 301):
             self.assertEqual(r.public()[0]['status'], '待检测')
 
+    def test_connections_preserve_separate_secrets_and_actual_protocol(self):
+        r = self.registry
+        r.save('ai', dict(connection='compatible', base_url=self.url, model='gpt-6-sol',
+                          api_key='compatible-secret', actor_authorization='private-actor'))
+        r.save('ai', dict(connection='local_codex', base_url=self.url, api_key='bridge-secret'))
+        self.server.payload = {'choices': [{'message': {'content': '{"ok":true}'}}]}
+        self.assertEqual(r.test('ai')[1]['status'], '在线')
+        self.assertEqual(self.server.path, '/chat/completions')
+        self.assertEqual(self.server.headers_seen['authorization'], 'Bearer bridge-secret')
+        self.assertNotIn('x-openai-actor-authorization', self.server.headers_seen)
+        r.save('ai', dict(connection='openai', api_key='official-secret'))
+        self.assertEqual(r.config('ai')['base_url'], 'https://api.openai.com/v1')
+        r.save('ai', dict(connection='compatible', api_key='', actor_authorization=''))
+        self.server.payload = {'output': [{'content': [{'type': 'output_text', 'text': '{"ok":true}'}]}]}
+        self.assertEqual(r.test('ai')[1]['status'], '在线')
+        self.assertEqual(self.server.path, '/responses')
+        self.assertEqual(self.server.headers_seen['authorization'], 'Bearer compatible-secret')
+        self.assertEqual(self.server.headers_seen['x-openai-actor-authorization'], 'private-actor')
+        self.assertEqual(self.server.received['model'], 'gpt-6-sol')
+        public = json.dumps(r.public())
+        for secret in ['compatible-secret', 'bridge-secret', 'official-secret', 'private-actor']:
+            self.assertNotIn(secret, public)
+
+    def test_connection_switch_never_reuses_another_profile_key(self):
+        r = self.registry
+        r.save('ai', dict(connection='compatible', base_url=self.url, api_key='compatible-secret'))
+        before = r.path.read_bytes()
+        with self.assertRaises(ApiError): r.save('ai', dict(connection='openai', api_key=''))
+        with self.assertRaises(ApiError): r.save('ai', dict(connection='compatible', base_url='https://different.example/v1'))
+        self.assertEqual(r.path.read_bytes(), before)
+        r.save('ai', dict(backend='codex'))
+        r.save('ai', dict(connection='compatible', api_key=''))
+        self.assertEqual(r.config('ai')['api_key'], 'compatible-secret')
+
+    def test_bridge_requires_loopback_and_official_endpoint_is_fixed(self):
+        with self.assertRaises(ApiError):
+            self.registry.save('ai', dict(connection='local_codex', base_url='https://remote.example', api_key='secret'))
+        self.registry.save('ai', dict(connection='openai', base_url='https://remote.example',
+                                     api_key='secret', actor_authorization='not-for-official'))
+        self.assertEqual(self.registry.config('ai')['base_url'], 'https://api.openai.com/v1')
+        self.assertEqual(self.registry.config('ai')['http_headers'], {})
+
+    def test_probe_exposes_only_safe_provider_errors(self):
+        from controlplane.ai_provider import AIProviderError
+        self.registry.save('ai', dict(connection='compatible', base_url=self.url, api_key='secret'))
+        for error, expected in [(AIProviderError('AI API 调用失败：HTTP 401'), 'HTTP 401'),
+                                (ValueError('private-token'), 'AI 调用失败')]:
+            with patch('controlplane.ai_provider.complete', side_effect=error):
+                result = self.registry.test('ai')[1]
+            self.assertIn(expected, result['detail'])
+            self.assertNotIn('private-token', json.dumps(result))
+
     def test_builtin_converter_exposes_runtime_readiness_checks(self):
         from unittest.mock import Mock
         self.registry.executor = Mock()

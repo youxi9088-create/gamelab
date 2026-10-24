@@ -522,7 +522,7 @@ function reviews() {
 const serviceNames = {wechat: "小游戏转 Web 浏览器游戏服务", ai: "AI 服务"};
 function toolPage() {
   return head("工具服务", "统一管理游戏转换、AI 与下游模板供货服务。") +
-    `<div class="notice">转换与 AI 连接检测有效期为 5 分钟；供货检查显示最近一次检查快照。${demo ? "此处始终显示真实服务状态。" : ""}</div><div class="toolgrid service-grid">${(state.services || []).map(s => `<section class="panel service-card"><div class="panelhead"><div class="tool-avatar">${s.id === 'ai' ? '✦' : '⌘'}</div><span class="badge ${s.status === '在线' ? 'green' : s.status === '异常' ? 'red' : 'gray'}">${esc(s.status)}</span></div><h2>${serviceNames[s.id]}</h2><p class="muted service-description">${s.id === 'ai' ? '为游戏分析、代码生成与修复提供模型调用。' : '接收游戏链接，自动采集、重建、运行验证并入库待验收。'}</p><div class="kv"><span>服务地址</span><span class="service-address">${esc(s.base_url || (s.id === 'ai' ? '本机 Codex（自动备用）' : '平台内置执行器'))}</span></div>${s.id === 'ai' ? `<div class="kv"><span>模型</span><span>${esc(s.model || '使用本机 Codex 默认模型')}</span></div>` : '<p class="tiny muted">执行器随平台启动；失败保留记录，可重试。基于页面材料重建的版本不表示原版已完整移植。</p>'}<div class="kv"><span>最近检测</span><span>${s.checked_at ? date(s.checked_at * 1000) : '尚未检测'}</span></div><p class="tiny muted" role="status">${esc(s.detail)}</p><div class="modalfooter"><button class="smallbtn" data-service-config="${s.id}">配置服务</button><button class="primary" data-service-test="${s.id}" ${s.status === '未配置' ? 'disabled' : ''}>检测连接</button></div></section>`).join('')}${supplyServiceCard()}</div>`;
+    `<div class="notice">转换与 AI 连接检测有效期为 5 分钟；供货检查显示最近一次检查快照。${demo ? "此处始终显示真实服务状态。" : ""}</div><div class="toolgrid service-grid">${(state.services || []).map(s => `<section class="panel service-card"><div class="panelhead"><div class="tool-avatar">${s.id === 'ai' ? '✦' : '⌘'}</div><span class="badge ${s.status === '在线' ? 'green' : s.status === '异常' ? 'red' : 'gray'}">${esc(s.status)}</span></div><h2>${serviceNames[s.id]}</h2><p class="muted service-description">${s.id === 'ai' ? '为游戏分析、代码生成与修复提供模型调用。' : '接收游戏链接，自动采集、重建、运行验证并入库待验收。'}</p><div class="kv"><span>服务地址</span><span class="service-address">${esc(s.base_url || (s.id === 'ai' ? '本机 Codex（自动备用）' : '平台内置执行器'))}</span></div>${s.id === 'ai' ? `<div class="kv"><span>接入方式</span><span>${esc(s.connection_label || s.backend)}</span></div><div class="kv"><span>模型</span><span>${esc(s.model || '使用本机 Codex 默认模型')}</span></div>` : '<p class="tiny muted">执行器随平台启动；失败保留记录，可重试。基于页面材料重建的版本不表示原版已完整移植。</p>'}<div class="kv"><span>最近检测</span><span>${s.checked_at ? date(s.checked_at * 1000) : '尚未检测'}</span></div><p class="tiny muted" role="status">${esc(s.detail)}</p><div class="modalfooter"><button class="smallbtn" data-service-config="${s.id}">配置服务</button><button class="primary" data-service-test="${s.id}" ${s.status === '未配置' ? 'disabled' : ''}>检测连接</button></div></section>`).join('')}${supplyServiceCard()}</div>`;
 }
 const supplyFields = {SUPPLY_PLATFORM_BASE:"下游接口地址",SUPPLY_APP_ID:"供应方 ID（非微信 AppID）",SUPPLY_APP_SECRET:"供应方授权码",SUPPLY_ARCHIVE_DIR:"服务器分发目录",SUPPLY_ARCHIVE_BASE_URL:"HTTPS 下载前缀",SUPPLY_EXPECTED_FINGERPRINT:"下游管理页授权码指纹（12 位）"};
 function supplyServiceCard() {
@@ -545,6 +545,7 @@ function supplyReportDialog() {
 }
 function serviceDialog(id) {
   const s = state.services.find(s => s.id === id);
+  if (id === 'ai') return aiServiceDialog(s);
   modal(serviceNames[id], `<form id="service-form"><label>运行方式</label><select name="backend" id="service-backend">${id === 'ai' ? '<option value="codex">本机 Codex</option><option value="auto">API 优先，Codex 备用</option><option value="api">仅 API</option>' : '<option value="wxapkg_v1">ZIP / v1/jobs</option><option value="builtin">平台内置执行器</option><option value="auto">外部转换服务</option>'}</select><div id="remote-service-fields"><label>服务地址</label><input name="base_url" type="url" value="${esc(s.base_url)}" placeholder="https://example.com/v1">${id === 'ai' ? `<label>模型名称</label><input name="model" value="${esc(s.model)}"><label>接口协议</label><select name="wire_api"><option value="chat_completions">Chat Completions</option><option value="responses">Responses API</option></select><label>附加授权头（可选）</label><input name="actor_authorization" type="password" autocomplete="new-password" placeholder="${s.has_actor_authorization ? '留空保留已保存值' : '未配置'}">` : ''}<label>API Key / 令牌</label><input name="api_key" type="password" autocomplete="new-password" placeholder="${s.has_key ? '留空保留已保存密钥' : '未配置'}"></div><p class="tiny muted">Codex 使用本机已有登录状态。密钥仅保存在服务端。外部转换服务需实现 POST /convert 并返回 files、entry。</p><div class="modalfooter"><button type="submit" class="primary">保存配置</button></div></form>`);
   $('#service-backend').value = s.backend === 'builtin' ? 'builtin' : id === 'ai' && !s.base_url ? 'codex' : s.backend || 'auto';
   const wireApi = $('#service-form [name="wire_api"]');
@@ -564,6 +565,44 @@ function serviceDialog(id) {
     try {
       state.services = await api(`/api/services/${id}/save`, Object.fromEntries(new FormData(e.currentTarget)));
       closeModal(); render(); toast('配置已保存，请检测连接');
+    } catch (err) { $('#modal-error').textContent = err.message; button.disabled = false; }
+  };
+}
+function aiServiceDialog(s) {
+  const labels = {local_codex:'本地 Codex（连接你的电脑）',openai:'OpenAI 官方 API',compatible:'OpenAI 兼容 API'};
+  const drafts = Object.fromEntries(Object.entries(s.profiles || {}).map(([key, value]) => [key, {...value}]));
+  let selected = Object.hasOwn(labels, s.connection) ? s.connection : 'local_codex';
+  modal('AI 服务', `<form id="ai-service-form"><p class="notice">当前连接：${esc(s.connection_label || '旧配置')}。三套配置分别保存，保存后启用所选连接。</p><label>接入方式</label><select name="connection">${Object.entries(labels).map(([key,label])=>`<option value="${key}">${label}</option>`).join('')}</select><label>服务基础地址</label><input name="base_url" type="url" required><label>模型名称</label><input name="model" required><label>接口协议</label><select name="wire_api"><option value="responses">Responses API</option><option value="chat_completions">Chat Completions</option></select><div id="ai-actor-field"><label>附加授权头（可选）</label><input name="actor_authorization" type="password" autocomplete="new-password"></div><label id="ai-key-label">API Key</label><input name="api_key" type="password" autocomplete="new-password"><p class="tiny muted" id="ai-connection-help"></p><div class="modalfooter"><button type="submit" class="primary">保存并启用</button></div></form>`);
+  const form = $('#ai-service-form');
+  const field = name => form.elements.namedItem(name);
+  const renderFields = () => {
+    const saved = drafts[selected] || {};
+    field('connection').value = selected;
+    for (const name of ['base_url','model','wire_api','api_key','actor_authorization']) field(name).value = saved[name] || (name === 'wire_api' ? 'responses' : '');
+    field('api_key').placeholder = saved.has_key ? '留空保留此连接已保存的密钥' : '填写此连接的密钥';
+    field('actor_authorization').placeholder = saved.has_actor_authorization ? '留空保留此连接已保存值' : '未配置';
+    field('base_url').readOnly = selected === 'openai';
+    field('model').readOnly = selected === 'local_codex';
+    field('wire_api').disabled = selected !== 'compatible';
+    $('#ai-actor-field').hidden = selected !== 'compatible';
+    $('#ai-key-label').textContent = selected === 'local_codex' ? '本地桥接令牌' : 'API Key';
+    $('#ai-connection-help').textContent = selected === 'local_codex'
+      ? '连接你电脑上的 Codex：需启动本地桥接并保持 SSH 隧道在线。地址为平台服务器的回环端口，令牌由桥接生成。电脑必须开机联网；Codex 登录凭据不上传。'
+      : selected === 'openai' ? '直连 OpenAI 官方服务，请使用官方 API Key。模型名称须在该账号下可用；Responses 请求关闭响应存储。'
+      : '使用兼容 OpenAI 协议的第三方服务。基础地址通常以 /v1 结尾，不要填写 /responses。Responses 请求关闭响应存储；模型可用性以服务检测为准。';
+  };
+  field('connection').onchange = () => {
+    drafts[selected] = {...drafts[selected], ...Object.fromEntries(new FormData(form))};
+    selected = field('connection').value;
+    renderFields();
+  };
+  renderFields();
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const button = form.querySelector('button[type="submit"]'); button.disabled = true;
+    try {
+      state.services = await api('/api/services/ai/save', Object.fromEntries(new FormData(form)));
+      closeModal(); render(); toast('AI 连接已启用，请检测连接');
     } catch (err) { $('#modal-error').textContent = err.message; button.disabled = false; }
   };
 }

@@ -8,6 +8,7 @@ import urllib.error
 from pathlib import Path
 from urllib.parse import urlsplit
 from .service import ApiError, require
+from .ai_connections import DEFAULTS, LABELS, connection_id, profiles, public_config, credential_scope
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -61,18 +62,44 @@ class ServiceRegistry:
                 status = ('在线' if check.get('ok') else '异常') if configured and fresh else ('待检测' if configured else '未配置')
                 actor_headers=c.get('http_headers',{})
                 result.append(dict(id=kind, backend=backend, base_url=c.get('base_url', ''), model=c.get('model', ''), wire_api=c.get('wire_api','chat_completions'), has_actor_authorization=bool(isinstance(actor_headers,dict) and actor_headers.get('x-openai-actor-authorization')), has_key=bool(c.get('api_key')), status=status, detail=check.get('detail', '') if fresh else ('检测结果已过期，请重新检测' if check else '等待实际调用检测'), checked_at=check.get('time')))
+                if kind == 'ai':
+                    saved = profiles(self.configs(), c)
+                    result[-1].update(connection=connection_id(c), connection_label=LABELS[connection_id(c)],
+                        profiles={name: public_config(saved.get(name, defaults)) for name, defaults in DEFAULTS.items()})
             return result
 
     def save(self, kind, body):
         with self.lock:
             old = self.config(kind)
             require(isinstance(body, dict), '配置必须是对象')
+            body = dict(body)
+            saved_profiles = profiles(self.configs(), old) if kind == 'ai' else {}
+            connection = body.get('connection') if kind == 'ai' else None
+            if connection is not None:
+                require(connection in DEFAULTS, '请选择本地 Codex、OpenAI 官方 API 或 OpenAI 兼容 API')
+                submitted = dict(body)
+                old = saved_profiles.get(connection, {})
+                body = {**DEFAULTS[connection], **old, **body, 'backend': 'api'}
+                if connection == 'openai':
+                    body.update(base_url=DEFAULTS['openai']['base_url'], wire_api='responses')
+                    body['actor_authorization'] = ''
+                if connection == 'local_codex':
+                    body.update(model='local-codex', wire_api='chat_completions')
+                    bridge_url = urlsplit(str(body.get('base_url', '')))
+                    require(bridge_url.hostname in ('127.0.0.1', 'localhost', '::1'), '本地 Codex 通过回环地址及 SSH 隧道连接')
+                # Never carry a saved secret over to a different endpoint.
+                if credential_scope(str(body.get('base_url', ''))) != credential_scope(old.get('base_url', '')):
+                    old = {}
+                    require(bool(submitted.get('api_key')), '请填写该连接地址的密钥或桥接令牌')
+                    body['api_key'] = submitted['api_key']
+                    body['actor_authorization'] = submitted.get('actor_authorization', '')
             base = str(body.get('base_url', '')).strip().rstrip('/')
             backend=body.get('backend','api' if kind=='ai' else 'auto')
             require(backend in ('auto','api','codex','builtin','wxapkg_v1'),'无效服务模式')
             require(kind=='wechat' or backend!='wxapkg_v1','原包转换模式仅适用于转换服务')
             if kind=='ai' and backend=='codex' or kind=='wechat' and backend=='builtin':
                 data=self.configs();data[kind]={'backend':backend}
+                if kind == 'ai': data['ai_profiles'] = saved_profiles
                 self.path.parent.mkdir(parents=True,exist_ok=True)
                 tmp=self.path.with_suffix('.tmp');tmp.write_text(json.dumps(data,ensure_ascii=False),'utf-8');os.replace(tmp,self.path)
                 self.checks.pop(kind,None)
@@ -91,7 +118,13 @@ class ServiceRegistry:
                 actor = str(body.get('actor_authorization', '')).strip() or old.get('http_headers', {}).get('x-openai-actor-authorization', '')
                 require(not any(x in actor for x in ('\r', '\n')) and len(actor) <= 4096, '附加授权头格式无效')
                 c['http_headers'] = {'x-openai-actor-authorization': actor} if actor else {}
+                if connection:
+                    c['connection'] = connection
+                    if connection in ('openai', 'local_codex'): c['http_headers'] = {}
             data = self.configs()
+            if kind == 'ai':
+                saved_profiles[connection_id(c)] = c
+                data['ai_profiles'] = saved_profiles
             data[kind] = c
             self.path.parent.mkdir(parents=True, exist_ok=True)
             tmp = self.path.with_suffix('.tmp')
@@ -106,13 +139,17 @@ class ServiceRegistry:
         if kind=='wechat' and self.executor and not c.get('base_url'):
             return self.public()
         if kind=='ai':
-            from .ai_provider import complete
+            from .ai_provider import complete, AIProviderError
             try:
                 value,provider=complete([{'role':'user','content':'Return a JSON object with ok set to true.'}],c,180)
                 ok=value.get('ok') is True
                 detail=('本机 Codex' if provider=='codex' else 'AI API')+' 实际调用'+('成功' if ok else '响应无效')
+            except AIProviderError as exc:
+                ok=False;detail=str(exc)
             except Exception:
-                ok=False;detail='AI 调用失败或超时，请检查本机 Codex 登录、额度及网络，或配置 API'
+                ok=False;detail=('本地 Codex 桥接调用失败，请检查本地进程、SSH 隧道和登录状态' if c.get('connection') == 'local_codex'
+                    else '服务器 Codex 调用失败，请检查服务器运行账号的 CLI、登录和网络' if c.get('backend') == 'codex'
+                    else 'AI 调用失败，请检查所选连接的网络、协议和响应格式')
             with self.lock:
                 if c==self.config(kind):self.checks[kind]=dict(ok=ok,detail=detail,time=time.time())
             return self.public()

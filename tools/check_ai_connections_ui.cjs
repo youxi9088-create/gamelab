@@ -1,0 +1,40 @@
+const {chromium} = require('../executors/node_modules/playwright');
+const fs = require('fs');
+(async () => {
+  const browser = await chromium.launch({channel:'msedge', headless:true});
+  try {
+    const page = await browser.newPage({viewport:{width:1280,height:960}});
+    const errors=[]; page.on('pageerror',e=>errors.push(e.message));
+    await page.goto(process.argv[2]+'/#tools');
+    const open = async () => page.locator('[data-service-config="ai"]').click();
+    await open();
+    const form=page.locator('#ai-service-form');
+    const connection=form.locator('[name="connection"]');
+    if(await connection.locator('option').count() !== 3) throw Error('Expected three connections');
+    await form.locator('[name="model"]').fill('draft-model');
+    await connection.selectOption('openai');
+    if(await form.locator('[name="base_url"]').inputValue() !== 'https://api.openai.com/v1') throw Error('Official URL');
+    if(await form.locator('[name="api_key"]').inputValue()) throw Error('Secret crossed profiles');
+    await connection.selectOption('compatible');
+    if(await form.locator('[name="model"]').inputValue() !== 'draft-model') throw Error('Draft lost');
+    await connection.selectOption('local_codex');
+    await form.locator('[name="api_key"]').fill('fixture-bridge');
+    const save=page.waitForResponse(r=>r.url().endsWith('/api/services/ai/save'));
+    await form.getByRole('button',{name:'保存并启用'}).click();
+    if((await save).status()!==200) throw Error('Bridge save failed');
+    await page.waitForFunction(()=>!document.querySelector('#ai-service-form'));
+    await open();
+    await connection.selectOption('compatible');
+    if(await form.locator('[name="model"]').inputValue()!=='gpt-6-sol') throw Error('Saved model lost');
+    if(!(await form.locator('[name="api_key"]').getAttribute('placeholder')).includes('保留')) throw Error('Stored key not indicated');
+    fs.mkdirSync('qa-output',{recursive:true});
+    await page.screenshot({path:'qa-output/ai-connections-desktop.png',fullPage:true});
+    await page.setViewportSize({width:390,height:844});
+    await page.screenshot({path:'qa-output/ai-connections-mobile.png',fullPage:true});
+    const restore=page.waitForResponse(r=>r.url().endsWith('/api/services/ai/save'));
+    await form.getByRole('button',{name:'保存并启用'}).click();
+    if((await restore).status()!==200) throw Error('Restore failed');
+    if(errors.length) throw Error(errors.join('\n'));
+    console.log('Three AI connections UI passed');
+  } finally {await browser.close();}
+})().catch(e=>{console.error(e);process.exit(1)});
