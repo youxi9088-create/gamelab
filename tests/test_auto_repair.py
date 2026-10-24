@@ -139,6 +139,21 @@ class AutoRepairTests(unittest.TestCase):
         self.assertEqual(len(verified),1)
         self.assertEqual(len(calls),2)
 
+    def test_diagnostic_oserror_preserves_codes_without_secret_message(self):
+        def chat(messages,budget):
+            error=OSError(22,'private token should never be logged')
+            error.winerror=145
+            raise error
+        token=CHAT.set(chat)
+        try:self.assertEqual(diagnose(ValueError('blocked'),self.run,Budget()),(False,None))
+        finally:CHAT.reset(token)
+        raw=(self.run/'auto-repair/report.json').read_text('utf-8')
+        self.assertNotIn('private token',raw)
+        detail=json.loads(raw)['attempts'][-1]['diagnostic_details']
+        self.assertEqual((detail['errno'],detail['winerror']),(22,145))
+        self.assertEqual(detail['frames'][-1]['function'],'chat')
+        self.assertTrue(all('/' not in f['file'] and '\\' not in f['file'] for f in detail['frames']))
+
     def test_dom_contract_requires_same_entry_interaction_evidence(self):
         from repair_context import RepairContext
         source='<script src="game.js"></script>';original=self.run/'web-original';original.mkdir()

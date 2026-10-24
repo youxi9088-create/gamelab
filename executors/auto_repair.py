@@ -3,6 +3,7 @@ from contextvars import ContextVar
 import hashlib
 import json
 import re
+import traceback
 import uuid
 from pathlib import Path
 from repair_context import RepairContext
@@ -149,7 +150,11 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 return True, result
         event('failed', '自动诊断未解除阻断；已保存原因、尝试记录与下一步')
     except Exception as failure:
-        rounds.append({'diagnostic_error': safe(getattr(failure, 'safe_detail', type(failure).__name__))})
+        rounds.append({'diagnostic_error': safe(getattr(failure, 'safe_detail', type(failure).__name__)),
+                       'diagnostic_details': {'type': type(failure).__name__,
+                           'errno': getattr(failure, 'errno', None), 'winerror': getattr(failure, 'winerror', None),
+                           'frames': [{'file': Path(frame.filename).name, 'line': frame.lineno,
+                                       'function': frame.name} for frame in traceback.extract_tb(failure.__traceback__)[-12:]]}})
         event('failed', '自动诊断中断或达到边界，保留原错误和已有产物')
     finally:
         report={'original_error': safe(original), 'attempts': rounds, 'evidence_directory':evidence.name}
