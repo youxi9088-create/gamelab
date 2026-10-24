@@ -69,12 +69,15 @@ def recover(observation, run, budget, acquire):
         current['entry_recovery'] = {'declared_url': url, 'evidence': result.get('evidence', {})}
         return {'url': url, 'entries': entries, 'controls':result.get('web_discovery',{}).get('launch_controls',[]),
                 'evidence_directory': str(directory.relative_to(run))}
-    def probe_dom(arguments):
-        from controlplane.runtime import node_binary
+    def validate_dom(arguments):
         url, label = selected(arguments), arguments.get('label')
         prior = observed.get(url)
         if not prior or label not in [c.get('label') for c in prior.get('web_discovery',{}).get('launch_controls',[]) if c.get('visible')]:
             raise ValueError('DOM 验证必须选择本轮已探测入口中实际可见的按钮文本')
+        return url, label
+    def probe_dom(arguments):
+        from controlplane.runtime import node_binary
+        url, label = validate_dom(arguments)
         directory = Path(run)/'entry-probes'/f'dom-{len(probes)+1}'
         directory.mkdir(parents=True,exist_ok=False);probes.append(url)
         result = subprocess.run([node_binary(),str(Path(__file__).with_name('dom-entry.cjs')),url,label,str(directory)],
@@ -89,7 +92,7 @@ def recover(observation, run, budget, acquire):
         'probe_entry': {'description': '探测页面明确声明的入口；返回 action:"probe_entry",arguments:{entry_id:"清单编号"}（也支持完整 url）。必须提交 arguments。浏览器实际观察结果返回原路由检查，不代表玩法验收。声明入口清单：'+json.dumps(choices,ensure_ascii=False),
                         'validate': selected,
                         'execute': probe},
-        'verify_dom_entry': {'description':'对本轮 probe_entry 已观察到的 DOM 游戏执行真实按钮交互；arguments:{url,label}，label 必须是已返回 controls 的可见按钮原文。验证画面与界面变化后返回原入口节点，不代表完整玩法验收。','execute':probe_dom}})
+        'verify_dom_entry': {'description':'对本轮 probe_entry 已观察到的 DOM 游戏执行真实按钮交互；arguments:{entry_id:"清单编号",label:"可见按钮原文"}，也支持清单完整 url。label 必须是已返回 controls 的可见按钮原文。验证画面与界面变化后返回原入口节点，不代表完整玩法验收。','validate':validate_dom,'execute':probe_dom}})
     if recovered:
         return result
     original.auto_repair_attempted = True

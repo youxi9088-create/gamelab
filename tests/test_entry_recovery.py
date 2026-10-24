@@ -123,3 +123,28 @@ class EntryRecoveryTests(unittest.TestCase):
                     with self.assertRaises(Blocked):recover({'web_discovery':{'iframe_hints':[{'url':url}]}},root,Budget(),lambda *args:{})
                     execute.assert_not_called()
             finally:CHAT.reset(token)
+
+    def test_dom_parameter_correction_preserves_last_actual_attempt(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);url='https://example.org/game?session=declared'
+            observation={'web_discovery':{'iframe_hints':[{'url':url}]}}
+            payloads=[]
+            def chat(messages,budget):
+                payload=json.loads(messages[-1]['content'][0]['text']);payloads.append(payload)
+                if len(payloads)==1:return {'action':'probe_entry','arguments':{'entry_id':'1'}}
+                if len(payloads)==2:return {'action':'verify_dom_entry','arguments':{'url':'https://example.org/game','label':'Continue offline'}}
+                self.assertEqual(payload['repair_attempts_remaining'],1)
+                self.assertIn('entry_id',payload['tool_feedback'])
+                return {'action':'verify_dom_entry','arguments':{'entry_id':'1','label':'Continue offline'}}
+            def acquired(*args):return {'web_discovery':{'entries':[], 'launch_controls':[{'label':'Continue offline','visible':True}]}}
+            def execute(command,**kwargs):
+                self.assertEqual(command[-3],url)
+                (Path(command[-1])/'interaction.json').write_text(json.dumps({'passed':True,'url':url}))
+                return SimpleNamespace(returncode=0)
+            token=CHAT.set(chat)
+            try:
+                with patch('entry_recovery.subprocess.run',side_effect=execute) as process:
+                    value=recover(observation,root,Budget(),acquired)
+                    self.assertEqual(process.call_count,1)
+            finally:CHAT.reset(token)
+            self.assertTrue(value['web_discovery']['entries'][0]['interaction_verified'])
