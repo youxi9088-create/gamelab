@@ -117,6 +117,28 @@ class AutoRepairTests(unittest.TestCase):
         with self.assertRaises(ValueError):context.configure({'engine':'arbitrary-engine'})
         self.assertFalse((self.run/'runtime-plan.json').exists())
 
+    def test_missing_runtime_plan_is_corrected_before_verification(self):
+        original=self.run/'web-original';original.mkdir()
+        source='<script src="game.js"></script>'
+        (original/'source-entry.html').write_text(source,'utf-8')
+        calls=[]; verified=[]
+        def chat(messages,budget):
+            payload=json.loads(messages[-1]['content'][0]['text']);calls.append(payload)
+            if len(calls)==1:return {'action':'configure_runtime'}
+            self.assertIn('参数缺失',payload['tool_feedback'])
+            self.assertEqual(payload['repair_attempts_remaining'],2)
+            self.assertFalse((self.run/'runtime-plan.json').exists())
+            return {'action':'configure_runtime','runtime_plan':{'engine':'browser','sdk':None,
+                'source_sha256':hashlib.sha256(source.encode()).hexdigest()}}
+        def verify():
+            verified.append(json.loads((self.run/'runtime-plan.json').read_text()))
+            return 'observed'
+        token=CHAT.set(chat)
+        try:self.assertEqual(diagnose(ValueError('missing contract'),self.run,Budget(),retry=verify),(True,'observed'))
+        finally:CHAT.reset(token)
+        self.assertEqual(len(verified),1)
+        self.assertEqual(len(calls),2)
+
     def test_dom_contract_requires_same_entry_interaction_evidence(self):
         from repair_context import RepairContext
         source='<script src="game.js"></script>';original=self.run/'web-original';original.mkdir()

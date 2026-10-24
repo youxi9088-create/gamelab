@@ -64,7 +64,11 @@ class RepairContext:
 
     def configure(self, plan):
         """A plan selects a platform runtime contract; it cannot certify success."""
-        if not isinstance(plan, dict) or plan.get('engine') not in ('defold', 'browser', 'browser-dom'):
+        if not isinstance(plan, dict):
+            raise ValueError('configure_runtime 缺少顶层 runtime_plan 对象；请提交 {engine,sdk,source_sha256}。这是动作参数缺失，不是平台缺少执行能力')
+        if not plan.get('engine') or not plan.get('source_sha256'):
+            raise ValueError('runtime_plan 必须包含 engine 和 source_sha256；engine 从 runtime_contracts 选择，source_sha256 使用入口 source_inventory 的完整哈希')
+        if plan.get('engine') not in ('defold', 'browser', 'browser-dom'):
             raise ValueError('运行契约尚无执行能力；保留分析证据，不能伪造适配成功')
         p = self.run / 'web-original/source-entry.html'
         source = p.read_text('utf-8')
