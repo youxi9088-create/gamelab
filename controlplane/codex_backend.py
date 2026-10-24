@@ -2,10 +2,43 @@
 import base64
 import json
 import os
+import logging
+import shutil
+import time
+from contextlib import contextmanager
 from pathlib import Path
 import subprocess
 import tempfile
 from .ai_provider import codex_usage, AIProviderError
+
+
+@contextmanager
+def inference_directory():
+    """Cleanup cannot replace an inference result or its original exception."""
+    parent=Path(tempfile.gettempdir()).resolve()
+    directory=Path(tempfile.mkdtemp(prefix='gamelab-codex-',dir=parent)).resolve()
+    try:
+        yield directory
+    finally:
+        if directory.parent != parent or not directory.name.startswith('gamelab-codex-'):
+            raise RuntimeError('Unexpected inference temporary directory')
+        # Remove our private provider configuration before optional CLI caches.
+        secret=directory/'codex-home/config.toml'
+        for attempt in range(3):
+            try:
+                secret.unlink(missing_ok=True)
+                # CLI plugin caches may exceed the legacy Windows path limit.
+                target=('\\\\?\\'+str(directory)) if os.name=='nt' else str(directory)
+                shutil.rmtree(target)
+                break
+            except FileNotFoundError:
+                if not directory.exists():break
+            except OSError as error:
+                if attempt==2:
+                    logging.getLogger(__name__).warning(
+                        'Inference temporary cleanup pending: errno=%s winerror=%s',
+                        error.errno,getattr(error,'winerror',None))
+            if attempt<2:time.sleep(.1*(attempt+1))
 
 
 def prepare(messages, directory):
@@ -36,7 +69,7 @@ def prepare(messages, directory):
 
 
 def infer(binary, messages, config=None, timeout=270, usage_out=None):
-    with tempfile.TemporaryDirectory(prefix='gamelab-codex-') as temp:
+    with inference_directory() as temp:
         directory=Path(temp);texts,images=prepare(messages,directory)
         schema=directory/'schema.json';output=directory/'answer.json'
         schema.write_text(json.dumps({'type':'object','properties':{'result_json':{'type':'string'}},'required':['result_json'],'additionalProperties':False}),'utf-8')

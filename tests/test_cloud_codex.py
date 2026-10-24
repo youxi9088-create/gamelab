@@ -1,4 +1,5 @@
 import json
+import shutil
 from pathlib import Path
 import tomllib
 import unittest
@@ -7,6 +8,33 @@ from controlplane.ai_provider import _complete, USAGE_SINK
 
 
 class CloudCodexTests(unittest.TestCase):
+    def test_cleanup_failure_preserves_result_and_removes_private_config(self):
+        from controlplane.codex_backend import inference_directory
+        error=OSError(41,'sensitive path');error.winerror=145
+        folder=None
+        try:
+            with patch('controlplane.codex_backend.shutil.rmtree',side_effect=error), patch('controlplane.codex_backend.time.sleep'), self.assertLogs('controlplane.codex_backend') as logs:
+                with inference_directory() as folder:
+                    (folder/'codex-home').mkdir()
+                    (folder/'codex-home/config.toml').write_text('fixture-secret')
+                    result={'action':'probe_entry'}
+            self.assertEqual(result,{'action':'probe_entry'})
+            self.assertFalse((folder/'codex-home/config.toml').exists())
+            self.assertIn('winerror=145',' '.join(logs.output))
+            self.assertNotIn('sensitive path',' '.join(logs.output))
+        finally:
+            if folder and folder.exists():shutil.rmtree(folder)
+
+    def test_cleanup_failure_does_not_mask_original_inference_error(self):
+        from controlplane.codex_backend import inference_directory
+        folder=None
+        try:
+            with patch('controlplane.codex_backend.shutil.rmtree',side_effect=OSError(41,'locked')), patch('controlplane.codex_backend.time.sleep'), self.assertLogs('controlplane.codex_backend'):
+                with self.assertRaisesRegex(ValueError,'invalid response'):
+                    with inference_directory() as folder:raise ValueError('invalid response')
+        finally:
+            if folder and folder.exists():shutil.rmtree(folder)
+
     def test_cloud_cli_uses_private_config_images_and_actual_usage(self):
         config = dict(backend='codex_api', connection='cloud_codex', base_url='https://provider.example/v1',
                       model='gpt-6-sol', api_key='fixture-secret', http_headers={'x-openai-actor-authorization':'fixture-actor'})
