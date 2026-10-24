@@ -13,6 +13,30 @@ from controlplane.conversion_plan import build
 
 
 class DiscoveredWebTests(unittest.TestCase):
+    def test_non_cocos_assertion_rejected_before_input_and_model_can_correct(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)/'source';(root/'evidence').mkdir(parents=True)
+            (root/'index.html').write_text('<canvas></canvas>')
+            (root/'evidence/acquisition.json').write_text('{"files":[],"engine":"browser"}')
+            run=Path(temp)/'run';run.mkdir();calls=[];executed=[]
+            inp={'source_path':str(root),'base_version':{'id':'fixture','report':{}}}
+            def observe(actions,*args):
+                self.assertFalse(any('expect_labels' in a for a in actions))
+                executed[:]=actions
+                return {'passed':True,'actions':list(actions)}
+            def chat(messages,*args):
+                payload=json.loads(messages[1]['content'][0]['text']);calls.append(payload)
+                if len(calls)==1:return {'actions':[{'type':'click','x':1,'y':1,'expect_labels':['LEVEL 2']}]}
+                if len(calls)==2:
+                    self.assertIn('动作尚未执行',payload['previous_model_feedback'])
+                    self.assertEqual(executed,[])
+                    return {'actions':[{'type':'click','x':1,'y':1}]}
+                return {'complete':False,'blocker':{'reason':'fixture scope'},'summary':'observed'}
+            with patch('discovered_web.ReviewBrowser.observe',side_effect=observe):
+                _,_,report=revise(inp,run,SimpleNamespace(calls=3,remaining=lambda s:s),chat,None,None)
+            self.assertEqual(executed,[{'type':'click','x':1,'y':1}])
+            self.assertEqual(report['foundation_checks']['gameplay']['status'],'pending')
+
     def test_exited_browser_cannot_return_stale_baseline_observation(self):
         import io,queue
         from discovered_web import ReviewBrowser

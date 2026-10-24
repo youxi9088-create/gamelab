@@ -345,7 +345,7 @@ pending_delivery 是平台共享交付检查返回的剩余缺项。本轮必须
 先进入真正玩法，不把加载画面或菜单当完成。操作必须基于给定截图或 buttons 坐标。每次最多4个动作，本轮最多80个新动作，累计回放上限300个。click默认按住100毫秒后抬起，允许hold_ms:80..1000，供按帧读取输入的运行时观察真实点击。
 按标注顺序核对每个新动作后的截图，不能只看最后画面而忽略中间反馈。reload必须单独一批提交，不能与升级、建设等动作同批；先实际观察关键步骤完成及保存触发条件，再决定是否刷新，避免丢失尚未保存的教程进度。
 整个分析过程保持同一个隔离浏览器，模型分析期间游戏时间仍会继续。每轮截图是当前真实状态，不能假设动画被暂停。已有动作前缀在续作开始时只回放一次，不要重复添加。
-必须观察操作产生实际反馈、阶段进度或结果、继续/重试，以及适用时的保存恢复。Cocos 可在动作加 expect_labels:["实际应显示的文字"] 做执行断言。
+必须观察操作产生实际反馈、阶段进度或结果、继续/重试，以及适用时的保存恢复。仅 cocos2 引擎可在动作加 expect_labels:["实际应显示的文字"] 做执行断言；其他引擎不支持此断言，文字应依据真实截图及返回的 text 观察，不能把画布文字当 Cocos labels。
 运行报告 storage 是隔离页面 localStorage/sessionStorage、IndexedDB 和适用 WASM /data 虚拟文件系统的只读摘要，刷新步骤同时提供 storage_before_reload。IndexedDB 二进制不再展开数组，content_sha256 为文件内容哈希，可与 wasmFS 同路径比较；sha256 包含记录元数据，时间戳变化不能当成进度变化。先核对具体文件名、大小、内容哈希是否产生、变化及刷新后保留。available/complete 为 false 时看 omitted/skipped 的具体范围，不能笼统称没有存档，也不能把旧轮次的采样缺项当成本轮事实。哈希相同只证明记录保留，不证明游戏读取或进度恢复；须结合刷新前后的可辨认玩法状态。不要反复重做同一建设再刷新；重复失败后应分析保存触发条件、内存文件和持久记录差异，提出新的可证伪检查。原包可能在教程结束或明确阶段点才保存，查证该条件属于保存验证，不要求无关后续通关。不能写入、导入存档或注入进度以通过检查。
 基础验证只要求一个代表性闭环：一场战斗或一个可观察的解谜/任务步骤产生结果，并能回到可操作界面或继续，加上适用的保存恢复。已有第一阶段结果时，不要求第二阶段再次通关；新解锁关卡和升级功能不得自动变成新的必过目标。不得因未穷举后续内容而否认已执行的代表性闭环，应把未覆盖内容写入边界。
 如果需要源码，返回 read_requests:[{path,offset,length}] 或 search_requests:[{path,text}]，每类每次最多4项；禁止凭猜测补写原代码。读取和actions可同轮提出，动作会真实执行；返回的summary在执行之前仅是计划。
@@ -444,6 +444,8 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
                 proposed = final.get('actions', [])
                 if not isinstance(proposed, list) or len(proposed) > 4 or len(actions) + len(proposed) > action_limit:
                     raise ValueError('Action budget exceeded')
+                if acquisition.get('engine') != 'cocos2' and any(isinstance(a, dict) and 'expect_labels' in a for a in proposed):
+                    raise ValueError('expect_labels 仅支持 cocos2 引擎；当前引擎没有 Cocos 标签接口。动作尚未执行，请重新提交不含此字段的动作，再根据实际截图或 text 评估结果；不能视为断言已通过')
                 if len(proposed) > 1 and any(a.get('type') in ('reload','viewport') for a in proposed if isinstance(a, dict)):
                     raise ValueError('刷新或切换视口必须单独提交；先观察实际结果再决定下一步操作')
                 if sum(len(v.encode()) for v in {**changes, **patch}.values()) > 2_000_000:
