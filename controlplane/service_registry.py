@@ -142,7 +142,7 @@ class ServiceRegistry:
         if kind=='ai':
             from .ai_provider import complete, AIProviderError
             try:
-                value,provider=complete([{'role':'user','content':'Return a JSON object with ok set to true.'}],c,180)
+                value,provider=complete([{'role':'user','content':'Return a JSON object with ok set to true.'}],c,60)
                 ok=value.get('ok') is True
                 detail=('本机 Codex' if provider=='codex' else 'AI API')+' 实际调用'+('成功' if ok else '响应无效')
             except AIProviderError as exc:

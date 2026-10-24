@@ -170,12 +170,13 @@ function toast(s) {
   $("#toast").classList.add("show");
   setTimeout(() => $("#toast").classList.remove("show"), 3200);
 }
-async function api(path, body) {
+async function api(path, body, options = {}) {
   if (body !== undefined) mutationEpoch++;
   const r = await fetch(path, {
     method: body === undefined ? "GET" : "POST",
     headers: { "Content-Type": "application/json", "X-CSRF-Token": csrf },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+    ...options,
   });
   const d = await r.json();
   if (!r.ok) throw Error(d.error || d.message || "请求失败");
@@ -1004,9 +1005,26 @@ function bind() {
     catch(err){toast(err.message);b.disabled=false;delete b.dataset.busy;b.textContent='检查接入与游戏';}
   });
   document.querySelectorAll('[data-service-test]').forEach(b => b.onclick = async () => {
-    b.disabled = true; b.dataset.busy = 'true'; b.textContent = '检测中…';
-    try { state.services = await api(`/api/services/${b.dataset.serviceTest}/test`, {}); render(); }
-    catch (e) { toast(e.message); b.disabled = false; delete b.dataset.busy; b.textContent = '检测连接'; }
+    const service = b.dataset.serviceTest;
+    b.disabled = true; b.dataset.busy = 'true';
+    const started = Date.now();
+    const update = () => { b.textContent = `检测中 ${Math.floor((Date.now()-started)/1000)} 秒…`; };
+    update();
+    const timer = setInterval(update, 1000);
+    try {
+      const services = await api(`/api/services/${service}/test`, {}, {signal: AbortSignal.timeout(service === 'ai' ? 75000 : 30000)});
+      mutationEpoch++;
+      state.services = services;
+      toast((services.find(s => s.id === service)?.detail) || '检测完成');
+    } catch (e) {
+      toast(e.name === 'TimeoutError' ? '检测超过等待上限，请检查连接后重试' : e.message);
+    } finally {
+      clearInterval(timer);
+      delete b.dataset.busy;
+      b.disabled = false;
+      b.textContent = '检测连接';
+      render();
+    }
   });
   listen(document.querySelector('[data-motion-toggle]'),'click', e => {
     const hero = document.querySelector('.playground-hero');
