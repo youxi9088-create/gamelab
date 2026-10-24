@@ -100,6 +100,7 @@ def recover(observation, run, budget, acquire):
     recovered, result = diagnose(original, run, budget, retry=verify, capabilities={
         'probe_entry': {'description': '探测页面明确声明的入口；返回 action:"probe_entry",arguments:{entry_id:"清单编号"}（也支持完整 url）。必须提交 arguments。浏览器实际观察结果返回原路由检查，不代表玩法验收。声明入口清单：'+json.dumps(choices,ensure_ascii=False),
                         'validate': selected,
+                        'diagnostic_only': True,
                         'execute': probe},
         'verify_dom_entry': {'description':'对本轮 probe_entry 已观察到的 DOM 游戏执行真实按钮交互；arguments:{entry_id:"清单编号",label:"可见按钮原文"}，也支持清单完整 url。label 必须是已返回 controls 的可见按钮原文。验证画面与界面变化后返回原入口节点，不代表完整玩法验收。','validate':validate_dom,'execute':probe_dom}})
     if recovered:

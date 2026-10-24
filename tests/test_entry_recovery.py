@@ -142,7 +142,7 @@ class EntryRecoveryTests(unittest.TestCase):
                     execute.assert_not_called()
             finally:CHAT.reset(token)
 
-    def test_dom_parameter_correction_preserves_last_actual_attempt(self):
+    def test_dom_parameter_correction_and_probe_preserve_actual_attempts(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);url='https://example.org/game?session=declared'
             observation={'web_discovery':{'iframe_hints':[{'url':url}]}}
@@ -151,7 +151,7 @@ class EntryRecoveryTests(unittest.TestCase):
                 payload=json.loads(messages[-1]['content'][0]['text']);payloads.append(payload)
                 if len(payloads)==1:return {'action':'probe_entry','arguments':{'entry_id':'1'}}
                 if len(payloads)==2:return {'action':'verify_dom_entry','arguments':{'url':'https://example.org/game','label':'Continue offline'}}
-                self.assertEqual(payload['repair_attempts_remaining'],1)
+                self.assertEqual(payload['repair_attempts_remaining'],2)
                 self.assertIn('entry_id',payload['tool_feedback'])
                 return {'action':'verify_dom_entry','arguments':{'entry_id':'1','label':'Continue offline'}}
             def acquired(*args):return {'web_discovery':{'entries':[], 'launch_controls':[{'label':'Continue offline','visible':True}]}}

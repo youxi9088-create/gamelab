@@ -49,8 +49,10 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                     if name not in protected and p.is_file() and not p.is_symlink() and p.stat().st_size <= 32000:
                         code[name] = p.read_text('utf-8')
             can_fix = retry and mutations < limit
+            available_capabilities = {name:item for name,item in capabilities.items()
+                                      if retry and (can_fix or item.get('diagnostic_only') is True)}
             payload = {**sources, 'error': safe(last), 'error_type': type(last).__name__, 'attempt': attempt+1,
-                       'allowed_actions': ['stop', 'inspect'] + (['retry'] + list(capabilities) if can_fix else []) + (['patch_host'] if can_fix and code else [])
+                       'allowed_actions': ['stop', 'inspect'] + (['retry'] if can_fix else []) + list(available_capabilities) + (['patch_host'] if can_fix and code else [])
                            + (['configure_runtime'] if can_fix and (run/'web-original/source-entry.html').exists() and not target else []),
                        'runtime_contracts': {'browser-dom': {'evidence':'discovered-web-input.json 绑定本轮通过实际按钮交互与界面变化检查的 DOM 入口；不要求画布，但必须继续离线运行与玩法验证','sdk':'仅 null 或明确声明的 poki-offline'},
                            'defold': {'evidence': '入口声明 dmloader.js 与 EngineLoader.load(...)',
@@ -124,7 +126,8 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                     row['runtime_plan'] = json.loads(plan_path.read_text('utf-8'))
                 except (ValueError,OSError) as exc:
                     feedback = str(exc); row['tool_error'] = feedback; continue
-            mutations += 1
+            if not capabilities.get(action, {}).get('diagnostic_only'):
+                mutations += 1
             row['patch_hashes'] = {k: hashlib.sha256(v.encode()).hexdigest() for k,v in changes.items()}
             (evidence / f'{attempt+1}-patch.json').write_text(json.dumps(changes, ensure_ascii=False), 'utf-8')
             for name, value in changes.items(): (target/name).write_bytes(value.encode('utf-8'))

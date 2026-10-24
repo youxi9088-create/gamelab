@@ -154,6 +154,25 @@ class AutoRepairTests(unittest.TestCase):
         self.assertEqual(detail['frames'][-1]['function'],'chat')
         self.assertTrue(all('/' not in f['file'] and '\\' not in f['file'] for f in detail['frames']))
 
+    def test_declared_entry_probes_do_not_spend_mutation_attempts(self):
+        probes=[]
+        def chat(messages,budget):
+            payload=json.loads(messages[-1]['content'][0]['text'])
+            self.assertEqual(payload['repair_attempts_remaining'],1)
+            self.assertIn('probe_entry',payload['allowed_actions'])
+            return {'action':'probe_entry','arguments':{'entry_id':str(len(probes)+1)}}
+        def verify():
+            if len(probes)<3:raise ValueError('nested wrapper still needs probing')
+            return 'observed entry'
+        token=CHAT.set(chat)
+        try:
+            result=diagnose(ValueError('missing entry'),self.run,Budget(),retry=verify,limit=1,
+                capabilities={'probe_entry':{'description':'probe declared entry','diagnostic_only':True,
+                    'execute':lambda args:probes.append(args['entry_id'])}})
+        finally:CHAT.reset(token)
+        self.assertEqual(result,(True,'observed entry'))
+        self.assertEqual(probes,['1','2','3'])
+
     def test_dom_contract_requires_same_entry_interaction_evidence(self):
         from repair_context import RepairContext
         source='<script src="game.js"></script>';original=self.run/'web-original';original.mkdir()
