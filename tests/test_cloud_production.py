@@ -12,6 +12,17 @@ from tools.production_data import backup,restore,verify,backup_capacity
 
 
 class CloudProductionTests(unittest.TestCase):
+    def test_backup_inventory_excludes_only_account_runtime_scratch(self):
+        from tools.production_data import inventory
+        for name in ('config/codex-accounts/fixture/tmp/arg0-windows/.lock',
+                     'config/codex-accounts/fixture/auth.json',
+                     'config/codex-accounts/fixture/config.toml','games/tmp/keep.bin'):
+            p=self.root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('fixture')
+        names={row['path'] for row in inventory(self.root)}
+        self.assertNotIn('config/codex-accounts/fixture/tmp/arg0-windows/.lock',names)
+        self.assertTrue({'config/codex-accounts/fixture/auth.json',
+                         'config/codex-accounts/fixture/config.toml','games/tmp/keep.bin'}<=names)
+
     def test_http_accounts_and_page(self):
         from server import build_server
         from controlplane.runtime import node_binary

@@ -25,6 +25,9 @@ def write(path,value):
 def inventory(root):
     root=Path(root).resolve();rows=[]
     for p in sorted(root.rglob('*')):
+        parts=p.relative_to(root).parts
+        # Per-account CLI scratch locks are recreated; auth and config remain durable.
+        if len(parts)>=4 and parts[:2]==('config','codex-accounts') and parts[3]=='tmp':continue
         if not p.is_file() or p.name.endswith(('-wal','-shm','.tmp')):continue
         if not p.resolve().is_relative_to(root):raise ValueError('生产目录含外部文件引用：'+str(p))
         rows.append({'path':p.relative_to(root).as_posix(),'bytes':p.stat().st_size})
