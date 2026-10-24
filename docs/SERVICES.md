@@ -16,7 +16,7 @@
 
 ## 配置
 
-AI 三种连接的填写示例、本地桥接启动及排错步骤见 [AI 服务配置指南](AI_CONFIGURATION.md)。工具页分别保存本地 Codex、官方 API 和兼容 API 的参数，旧服务器 Codex/自动备用仅作历史配置兼容。
+AI 连接的填写示例、本地桥接启动及排错步骤见 [AI 服务配置指南](AI_CONFIGURATION.md)。工具页分别保存本地 Codex、云服务器 Codex CLI、官方 API 和兼容 API 的参数，旧服务器 Codex/自动备用仅作历史配置兼容。
 
 - 转换/AI：工具页保存 `data/services.json`；独立 worker 使用 `REPLICA_SERVICE_CONFIG`。读取接口脱敏，密钥不入 Git。
 - AI API 支持 Chat Completions 与 OpenAI Responses API；工具页配置接口协议、模型、API Key 和可选 actor 授权头。Responses 调用关闭服务端存储，并记录供应方返回的输入/输出用量。Codex CLI 模型目录 JSON 是 Codex 客户端配置，平台服务直接按所选模型 slug 调用 API，不读取该目录文件。

@@ -569,10 +569,10 @@ function serviceDialog(id) {
   };
 }
 function aiServiceDialog(s) {
-  const labels = {local_codex:'本地 Codex（连接你的电脑）',openai:'OpenAI 官方 API',compatible:'OpenAI 兼容 API'};
+  const labels = {local_codex:'本地 Codex（当前电脑）',cloud_codex:'云服务器 Codex CLI',openai:'OpenAI 官方 API',compatible:'OpenAI 兼容 API'};
   const drafts = Object.fromEntries(Object.entries(s.profiles || {}).map(([key, value]) => [key, {...value}]));
   let selected = Object.hasOwn(labels, s.connection) ? s.connection : 'local_codex';
-  modal('AI 服务', `<form id="ai-service-form"><p class="notice">当前连接：${esc(s.connection_label || '旧配置')}。三套配置分别保存，保存后启用所选连接。</p><label>接入方式</label><select name="connection">${Object.entries(labels).map(([key,label])=>`<option value="${key}">${label}</option>`).join('')}</select><label>服务基础地址</label><input name="base_url" type="url" required><label>模型名称</label><input name="model" required><label>接口协议</label><select name="wire_api"><option value="responses">Responses API</option><option value="chat_completions">Chat Completions</option></select><div id="ai-actor-field"><label>附加授权头（可选）</label><input name="actor_authorization" type="password" autocomplete="new-password"></div><label id="ai-key-label">API Key</label><input name="api_key" type="password" autocomplete="new-password"><p class="tiny muted" id="ai-connection-help"></p><div class="modalfooter"><button type="submit" class="primary">保存并启用</button></div></form>`);
+  modal('AI 服务', `<form id="ai-service-form"><p class="notice">当前连接：${esc(s.connection_label || '旧配置')}。各连接配置分别保存，保存后启用所选连接。</p><label>接入方式</label><select name="connection">${Object.entries(labels).map(([key,label])=>`<option value="${key}">${label}</option>`).join('')}</select><label>服务基础地址</label><input name="base_url" type="url" required><label>模型名称</label><input name="model" required><label>接口协议</label><select name="wire_api"><option value="responses">Responses API</option><option value="chat_completions">Chat Completions</option></select><div id="ai-actor-field"><label>附加授权头（可选）</label><input name="actor_authorization" type="password" autocomplete="new-password"></div><label id="ai-key-label">API Key</label><input name="api_key" type="password" autocomplete="new-password"><p class="tiny muted" id="ai-connection-help"></p><div class="modalfooter"><button type="submit" class="primary">保存并启用</button></div></form>`);
   const form = $('#ai-service-form');
   const field = name => form.elements.namedItem(name);
   const renderFields = () => {
@@ -584,10 +584,11 @@ function aiServiceDialog(s) {
     field('base_url').readOnly = selected === 'openai';
     field('model').readOnly = selected === 'local_codex';
     field('wire_api').disabled = selected !== 'compatible';
-    $('#ai-actor-field').hidden = selected !== 'compatible';
+    $('#ai-actor-field').hidden = !['compatible','cloud_codex'].includes(selected);
     $('#ai-key-label').textContent = selected === 'local_codex' ? '本地桥接令牌' : 'API Key';
     $('#ai-connection-help').textContent = selected === 'local_codex'
       ? '连接你电脑上的 Codex：需启动本地桥接并保持 SSH 隧道在线。地址为平台服务器的回环端口，令牌由桥接生成。电脑必须开机联网；Codex 登录凭据不上传。'
+      : selected === 'cloud_codex' ? '由云服务器服务账号启动 Codex CLI，使用此处配置的模型和 API 凭据。无需你电脑在线，也不依赖服务器管理员的交互登录。'
       : selected === 'openai' ? '直连 OpenAI 官方服务，请使用官方 API Key。模型名称须在该账号下可用；Responses 请求关闭响应存储。'
       : '使用兼容 OpenAI 协议的第三方服务。基础地址通常以 /v1 结尾，不要填写 /responses。Responses 请求关闭响应存储；模型可用性以服务检测为准。';
   };

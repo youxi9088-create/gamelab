@@ -2,19 +2,30 @@
 
 更新：2026-10-24。
 
-平台在「工具服务 → AI 服务 → 配置服务」中提供三种连接。选择连接、填写参数，点击「保存并启用」，再点击「检测连接」。三套参数分别保存；切换后留空的密钥只复用同一套配置的已保存值。更改服务地址时必须重新填写密钥，避免把凭据发给其他服务。
+平台在「工具服务 → AI 服务 → 配置服务」中明确区分本地 Codex、云服务器 Codex CLI 和 API 直连；API 直连又提供官方与兼容服务两个选项。选择连接、填写参数，点击「保存并启用」，再点击「检测连接」。各套参数分别保存；切换后留空的密钥只复用同一套配置的已保存值。更改服务地址时必须重新填写密钥，避免把凭据发给其他服务。
 
 ## 1. 选择连接
 
 | 接入方式 | 模型在哪里调用 | 需要准备 |
 |---|---|---|
 | 本地 Codex | 你的电脑通过已有 Codex 登录调用模型 | 本地 Codex CLI、桥接进程、到云服务器的 SSH 隧道、桥接令牌 |
+| 云服务器 Codex CLI | 云服务器服务账号启动 CLI，由 CLI 调用所配置的 API | 服务器可执行的 Codex CLI、模型、API 地址、密钥及附加授权头 |
 | OpenAI 官方 API | 云服务器直接请求 `https://api.openai.com/v1` | OpenAI 官方 API Key、账号可用的模型 |
 | OpenAI 兼容 API | 云服务器请求你指定的服务 | 该服务的地址、模型、API Key 和必要的附加授权头 |
 
 当前指定模型为 `gpt-6-sol`。兼容服务中的模型名称和官方账号的模型权限可能不同；只有实际检测成功，才能确认该连接可以使用该名称。ChatGPT/Codex 登录不自动提供官方 API Key。
 
-每次保存启用一种连接。新配置不会自动回退到其他服务，避免调用来源和费用归属不明确。旧的服务器 Codex/自动备用配置在迁移前仍可读取；页面明确标注为旧配置。
+每次保存启用一种连接。新配置不会自动回退到其他服务，避免调用来源和费用归属不明确。旧的服务器 Codex/自动备用配置在迁移前仍可读取；页面明确标注为旧配置。新的云服务器 Codex CLI 与旧的依赖服务器登录的 Codex 配置不同，使用表单指定的 API 凭据。
+
+## 云服务器 Codex CLI：使用提供的 provider 配置
+
+选择「云服务器 Codex CLI」，基础地址填 `https://ai.botclaw.top/v1`，模型填 `gpt-6-sol`，协议为 Responses；填入提供的 API Key 和 actor 授权头。它实际启动云服务器上的 Codex 进程，不通过本地电脑代理，也不是 Python 直接请求 API。
+
+平台为每次调用创建私密临时 `CODEX_HOME/config.toml`，配置 `model_provider="OpenAI"`、所选 `model` 和 `review_model`、`disable_response_storage=true`、`network_access="enabled"`、`windows_wsl_setup_acknowledged=true`，以及 provider 的地址、`base_url + /models` 模型目录、Responses、`requires_openai_auth=false`、Bearer 密钥和 actor 头。features 中写入 `api_key_model_discovery=true` 和 `goals=true`。CLI 对这些设置的支持以安装版本为准，不能据此声称平台新增了 Goals 功能或独立审查阶段。
+
+密钥通过私密临时配置文件提供，不放在进程命令行，不改服务器管理员或你电脑现有的 Codex 配置。调用结束清理临时目录。平台仍以只读沙箱及受限推理协议运行 CLI；游戏文件修改和浏览器操作由云端执行器验证后执行。
+
+部署时把 Codex 可执行文件安装到 `C:\GameLab\runtime\codex\codex.exe`，给予平台服务账号读取/执行权限；也可用 `REPLICA_CODEX_BINARY` 显式指定路径。服务运行身份通常为 LOCAL SERVICE，不能用管理员终端可运行代替服务账号验证。诊断依次检查：CLI 文件、服务账号权限、模型及凭据、供应方网络。
 
 ## 2. OpenAI 兼容 API：本次参数
 
@@ -31,7 +42,7 @@
 
 平台将 API Key 作为 Bearer 认证发送，并将附加授权头发送为 `x-openai-actor-authorization`。Responses 请求使用 `store:false`。这表示请求关闭响应存储，不保证第三方服务的日志或保留政策与 OpenAI 相同。
 
-你提供的 Codex TOML 中各字段与平台的关系如下：
+下面是 API 直连模式与 Codex TOML 的对应关系；云服务器 CLI 模式的 TOML 写入方式见上一节：
 
 | Codex 字段 | 平台处理 |
 |---|---|
@@ -55,7 +66,7 @@
 
 ## 4. 本地 Codex：连接你的电脑
 
-这里的「本地」是你的开发电脑，不是云服务器。模型推理通过本地 CLI 完成，云端继续负责游戏文件、浏览器操作、任务、版本与验收。
+这里的「本地」就是当前使用 Codex 的这台电脑，不是云服务器。桥接使用这台电脑安装的 Codex CLI 和已有登录，通过独立推理请求工作，不接管或复用当前聊天会话。云端继续负责游戏文件、浏览器操作、任务、版本与验收。
 
 ### 准备与启动
 

@@ -2,11 +2,12 @@
 from urllib.parse import urlsplit
 
 DEFAULTS = {
+    'cloud_codex': dict(backend='codex_api', base_url='https://ai.botclaw.top/v1', model='gpt-6-sol', wire_api='responses'),
     'local_codex': dict(backend='api', base_url='http://127.0.0.1:8877/v1', model='local-codex', wire_api='chat_completions'),
     'openai': dict(backend='api', base_url='https://api.openai.com/v1', model='gpt-6-sol', wire_api='responses'),
     'compatible': dict(backend='api', base_url='https://ai.botclaw.top/v1', model='gpt-6-sol', wire_api='responses'),
 }
-LABELS = {'local_codex': '本地 Codex（桥接）', 'openai': 'OpenAI 官方 API', 'compatible': 'OpenAI 兼容 API',
+LABELS = {'cloud_codex': '云服务器 Codex CLI', 'local_codex': '本地 Codex（当前电脑）', 'openai': 'OpenAI 官方 API', 'compatible': 'OpenAI 兼容 API',
           'server_codex': '服务器 Codex（旧配置）', 'legacy_auto': 'API 优先、服务器 Codex 备用（旧配置）'}
 
 

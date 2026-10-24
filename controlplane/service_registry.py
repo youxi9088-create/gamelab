@@ -76,10 +76,11 @@ class ServiceRegistry:
             saved_profiles = profiles(self.configs(), old) if kind == 'ai' else {}
             connection = body.get('connection') if kind == 'ai' else None
             if connection is not None:
-                require(connection in DEFAULTS, '请选择本地 Codex、OpenAI 官方 API 或 OpenAI 兼容 API')
+                require(connection in DEFAULTS, '请选择有效的 AI 连接方式')
                 submitted = dict(body)
                 old = saved_profiles.get(connection, {})
-                body = {**DEFAULTS[connection], **old, **body, 'backend': 'api'}
+                body = {**DEFAULTS[connection], **old, **body, 'backend': DEFAULTS[connection]['backend']}
+                if connection == 'cloud_codex': body['wire_api'] = 'responses'
                 if connection == 'openai':
                     body.update(base_url=DEFAULTS['openai']['base_url'], wire_api='responses')
                     body['actor_authorization'] = ''
@@ -95,7 +96,7 @@ class ServiceRegistry:
                     body['actor_authorization'] = submitted.get('actor_authorization', '')
             base = str(body.get('base_url', '')).strip().rstrip('/')
             backend=body.get('backend','api' if kind=='ai' else 'auto')
-            require(backend in ('auto','api','codex','builtin','wxapkg_v1'),'无效服务模式')
+            require(backend in ('auto','api','codex','codex_api','builtin','wxapkg_v1'),'无效服务模式')
             require(kind=='wechat' or backend!='wxapkg_v1','原包转换模式仅适用于转换服务')
             if kind=='ai' and backend=='codex' or kind=='wechat' and backend=='builtin':
                 data=self.configs();data[kind]={'backend':backend}

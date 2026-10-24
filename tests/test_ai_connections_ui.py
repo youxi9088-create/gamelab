@@ -2,6 +2,8 @@ import subprocess
 import tempfile
 import threading
 import unittest
+from unittest.mock import patch
+from controlplane.ai_provider import AIProviderError
 from pathlib import Path
 from controlplane.service import Service
 from controlplane.runtime import node_binary
@@ -17,8 +19,9 @@ class AIConnectionsUITest(unittest.TestCase):
             server.registry.save('ai', dict(connection='compatible', api_key='fixture-compatible', actor_authorization='fixture-actor'))
             threading.Thread(target=server.serve_forever, daemon=True).start()
             try:
-                result = subprocess.run([str(node_binary()), 'tools/check_ai_connections_ui.cjs',
-                    f'http://127.0.0.1:{server.server_port}'], capture_output=True, text=True, timeout=75)
+                with patch('controlplane.ai_provider.complete', side_effect=[({'ok':True},'api'), AIProviderError('AI API 调用失败：HTTP 502'), ({'ok':True},'codex')]):
+                    result = subprocess.run([str(node_binary()), 'tools/check_ai_connections_ui.cjs',
+                        f'http://127.0.0.1:{server.server_port}'], capture_output=True, text=True, timeout=75)
                 self.assertEqual(result.returncode, 0, result.stderr)
                 config = server.registry.config('ai')
                 self.assertEqual(config['connection'], 'compatible')

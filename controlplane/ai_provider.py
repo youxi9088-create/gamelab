@@ -38,7 +38,13 @@ from urllib.parse import urlsplit
 
 
 def codex_binary():
-    return os.environ.get('REPLICA_CODEX_BINARY') or shutil.which('codex')
+    configured = os.environ.get('REPLICA_CODEX_BINARY')
+    if configured: return configured
+    shared = os.environ.get('GAMELAB_SHARED_ROOT')
+    if shared:
+        installed = Path(shared).parent / 'runtime' / 'codex' / 'codex.exe'
+        if installed.is_file(): return str(installed)
+    return shutil.which('codex')
 
 
 def codex_usage(stdout):
@@ -179,6 +185,18 @@ def _complete(messages, config, timeout=300):
     started=time.monotonic()
     mode = config.get('backend', 'auto')
     ready = all(config.get(k) for k in ('base_url', 'api_key', 'model'))
+    if mode == 'codex_api':
+        from .codex_backend import infer
+        if not ready: raise AIProviderError('云服务器 Codex CLI 的 API 配置尚未完整')
+        binary = codex_binary()
+        if not binary: raise AIProviderError('云服务器未安装 Codex CLI，或服务运行账号无法找到 CLI')
+        usage = {}
+        try:
+            result, usage = infer(binary, messages, config=config, timeout=timeout, usage_out=usage)
+        except Exception:
+            emit_usage('codex',config['model'],started,'failed',usage);raise
+        emit_usage('codex',config['model'],started,'succeeded',usage)
+        return result, 'codex'
     if mode != 'codex' and ready:
         url=urlsplit(config['base_url'])
         if url.username or url.password or not (url.scheme=='https' or url.scheme=='http' and url.hostname in ('localhost','127.0.0.1','::1')):
