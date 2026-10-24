@@ -24,7 +24,7 @@ test('DOM entry requires an actual visible interaction and offline DOM gameplay 
   const page=await browser.newPage({viewport:{width:390,height:844}});await page.setContent(html);
   const result=await verifyInteraction(page,'Begin the Tale',run);
   assert.equal(result.passed,true);assert.match(result.after.text,/Enemy HP 12/);assert.equal(await page.locator('canvas').count(),0);
-  await assert.rejects(()=>verifyInteraction(page,'Strike',run),/did not produce/);
+  await assert.rejects(()=>verifyInteraction(page,'Strike',run,{waitMs:0}),/did not produce/);
   await page.setContent('<form><button>Begin the Tale</button></form>');
   await assert.rejects(()=>verifyInteraction(page,'Begin the Tale',run),/outside game/);
   fs.mkdirSync(path.join(run,'converted'));fs.writeFileSync(path.join(run,'converted/index.html'),html);
@@ -32,6 +32,27 @@ test('DOM entry requires an actual visible interaction and offline DOM gameplay 
   const offline=await verify(run,[{type:'click',x:130,y:190,expect_labels:['Battle']}]);
   assert.equal(offline.passed,true);assert.equal(offline.steps[1].canvasCount,0);assert.equal(offline.steps[1].loaded,true);
   if(process.env.DOM_QA_IMAGE)fs.copyFileSync(path.join(run,'converted/screenshots/step-0.png'),process.env.DOM_QA_IMAGE);
+ }finally{await browser.close();fs.rmSync(run,{recursive:true,force:true});}
+});
+
+test('DOM entry waits for delayed controls and preserves loading or canvas failures',async()=>{
+ const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-dom-delay-'));
+ const {chromium}=require('../executors/node_modules/playwright');
+ const browser=await chromium.launch(require('../executors/browser-options.cjs')());
+ try{
+  const page=await browser.newPage({viewport:{width:390,height:844}});
+  await page.setContent(`<p>Ready</p><button onclick="document.querySelector('p').textContent='Decompressing files...';this.disabled=true;setTimeout(()=>{document.querySelector('p').textContent='Choose a route';this.textContent='North';this.disabled=false},1600)">Start</button>`);
+  const result=await verifyInteraction(page,'Start',run,{waitMs:4000});
+  assert.match(result.after.text,/Choose a route/);assert.ok(result.elapsed_ms>=1500);
+  assert.ok(result.observations.some(o=>o.text.includes('Decompressing')));
+  await page.setContent(`<p>Ready</p><button onclick="document.querySelector('p').textContent='Decompressing files...';this.textContent='Cancel'">Start</button>`);
+  await assert.rejects(()=>verifyInteraction(page,'Start',run,{waitMs:500}),/did not produce/);
+  let evidence=JSON.parse(fs.readFileSync(path.join(run,'transition.json')));
+  assert.match(evidence.after.text,/Decompressing/);assert.equal(evidence.before.controls[0],'Start');
+  await page.setContent(`<button onclick="document.body.innerHTML='<canvas width=390 height=844></canvas>'">Start</button>`);
+  await assert.rejects(()=>verifyInteraction(page,'Start',run,{waitMs:0}),/did not produce/);
+  evidence=JSON.parse(fs.readFileSync(path.join(run,'transition.json')));
+  assert.equal(evidence.after.canvases[0].width,390);assert.equal(evidence.after.canvases[0].visible,true);
  }finally{await browser.close();fs.rmSync(run,{recursive:true,force:true});}
 });
 
