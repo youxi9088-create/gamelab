@@ -27,7 +27,7 @@ def recover(observation, run, budget, acquire):
         original = error
     discovery = observation.get('web_discovery', {})
     choices = []
-    for key in ('iframe_hints', 'launch_links'):
+    for key in ('iframe_hints', 'launch_links', 'loader_hints'):
         for row in discovery.get(key, []):
             if isinstance(row, dict) and isinstance(row.get('url'), str) and row['url'] not in [c['url'] for c in choices]:
                 choices.append({'entry_id': str(len(choices)+1), 'url': row['url'], 'source': key})
@@ -64,10 +64,19 @@ def recover(observation, run, budget, acquire):
         probes.append(url)
         result = acquire(url, directory, budget)
         observed[url] = result
+        # A probed public wrapper may itself declare the actual game loader.
+        # Expand only from collector evidence, never a model-invented URL.
+        for key in ('iframe_hints', 'launch_links', 'loader_hints'):
+            for row in result.get('web_discovery', {}).get(key, []):
+                child = row.get('url') if isinstance(row, dict) else None
+                if not isinstance(child, str) or child in allowed or len(choices) >= 100:
+                    continue
+                item = {'entry_id':str(len(choices)+1), 'url':child, 'source':key}
+                choices.append(item); allowed.add(child); by_id[item['entry_id']] = child
         entries = result.get('web_discovery', {}).get('entries', [])
         current.setdefault('web_discovery', {})['entries'] = entries
         current['entry_recovery'] = {'declared_url': url, 'evidence': result.get('evidence', {})}
-        return {'url': url, 'entries': entries, 'controls':result.get('web_discovery',{}).get('launch_controls',[]),
+        return {'url': url, 'entries': entries, 'declared_entries':choices, 'controls':result.get('web_discovery',{}).get('launch_controls',[]),
                 'evidence_directory': str(directory.relative_to(run))}
     def validate_dom(arguments):
         url, label = selected(arguments), arguments.get('label')

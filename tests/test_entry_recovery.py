@@ -18,6 +18,24 @@ class Budget:
 
 
 class EntryRecoveryTests(unittest.TestCase):
+    def test_probed_wrapper_declared_loader_can_be_selected_by_new_id(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp); (root/'acquisition').mkdir()
+            observation={'web_discovery':{'iframe_hints':[{'url':'https://example.org/wrapper'}]}}
+            (root/'acquisition/observation.json').write_text(json.dumps(observation))
+            calls=[]
+            answers=iter([{'action':'probe_entry','arguments':{'entry_id':'1'}},
+                          {'action':'probe_entry','arguments':{'entry_id':'2'}}])
+            def acquire(url,directory,budget):
+                calls.append(url)
+                if len(calls)==1:return {'web_discovery':{'loader_hints':[{'url':'https://cdn.example/game?v=31'}]}}
+                return {'web_discovery':{'entries':[{'url':url,'canvas_count':1,'evidence':'rendered-canvas'}]}}
+            token=CHAT.set(lambda messages,budget:next(answers))
+            try:result=recover(observation,root,Budget(),acquire)
+            finally:CHAT.reset(token)
+            self.assertEqual(calls,['https://example.org/wrapper','https://cdn.example/game?v=31'])
+            self.assertEqual(result['web_discovery']['entries'][0]['url'],calls[-1])
+
     def run_case(self, url, result):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

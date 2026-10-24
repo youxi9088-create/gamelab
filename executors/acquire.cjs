@@ -1,6 +1,7 @@
 // Read public game evidence in an isolated browser. No user browser cookies.
 const {chromium}=require('playwright');
 const fs=require('fs'), path=require('path'), crypto=require('crypto');
+const {declaredEntries}=require('./declared-entry.cjs');
 async function main(){
   const [url,dir]=process.argv.slice(2);
   const parsed=new URL(url); if(!['http:','https:'].includes(parsed.protocol)||parsed.username||parsed.password)throw Error('Invalid source URL');
@@ -101,6 +102,7 @@ async function main(){
     await page.screenshot({path:path.join(dir,'source.png')});
     const metadata=await page.locator('meta[name="description"],meta[property="og:description"]').evaluateAll(nodes=>nodes.map(n=>n.content));
     const inline=await page.locator('script:not([src])').allTextContents();
+    const loader_hints=declaredEntries(inline,page.url());
     fs.writeFileSync(path.join(dir,'inline.js'),inline.join('\n').slice(0,500000));
     const iframe_hints=await page.locator('iframe').evaluateAll(nodes=>nodes.map(n=>({url:(()=>{const raw=n.getAttribute('src')||n.getAttribute('data-url')||n.getAttribute('data-src');try{return raw?new URL(raw,document.baseURI).href:''}catch{return ''}})(),evidence:n.src?'iframe-src':n.hasAttribute('data-url')?'iframe-data-url':n.hasAttribute('data-src')?'iframe-data-src':'iframe',width:n.getBoundingClientRect().width,height:n.getBoundingClientRect().height})).filter(n=>n.url||n.width>200&&n.height>150).slice(0,10));
     const iframe_probes=[];
@@ -118,7 +120,7 @@ async function main(){
     const launch_controls=await page.locator('button,[role="button"],input[type="button"],input[type="submit"]').evaluateAll(nodes=>nodes.map(n=>({label:(n.innerText||n.getAttribute('aria-label')||n.value||n.title||'').trim().replace(/\s+/g,' ').slice(0,160),visible:!!(n.getClientRects().length&&getComputedStyle(n).visibility!=='hidden')})).filter(n=>n.visible&&n.label).slice(0,40));
     const entries=[...frames.filter(f=>f.canvas_count>0&&/^https?:/.test(f.url)).map(f=>({url:f.url,referer:f.referer,evidence:'rendered-canvas',canvas_count:f.canvas_count})),...popups.filter(p=>p.canvas_count>0&&/^https?:/.test(p.url)).map(p=>({url:p.url,referer:url,evidence:'popup-rendered-canvas',canvas_count:p.canvas_count})),...iframe_probes.filter(p=>p.canvas_count>0&&/^https?:/.test(p.final_url)).map(p=>({url:p.final_url,referer:url,evidence:'declared-iframe-rendered-canvas',canvas_count:p.canvas_count}))];
     const result={url,final_url:page.url(),title:await page.title(),metadata,frames,scripts,page_errors:errors,
-      web_discovery:{entries,iframe_hints,iframe_probes,launch_links,launch_controls,launch_action,popups,documents,failed_requests:failed,ad_skip,scope:'Only pages that actually render a canvas are confirmed entries; declared iframe URLs, links, controls and popups remain leads until probed'},
+      web_discovery:{entries,iframe_hints,iframe_probes,loader_hints,launch_links,launch_controls,launch_action,popups,documents,failed_requests:failed,ad_skip,scope:'Only pages that actually render a canvas are confirmed entries; declared loader URLs, iframe URLs, links, controls and popups remain leads until probed'},
       appids:(()=>{const match=html.match(/game_code["']?\s*:\s*["'](wx[0-9a-f]{16})/);return match?[match[1]]:[...new Set(html.match(/wx[0-9a-f]{16}/g)||[])].slice(0,1)})(),
       limitation:'Read-only page observation; no claim that original gameplay has been played.'};
     fs.writeFileSync(path.join(dir,'observation.json'),JSON.stringify(result,null,2));
