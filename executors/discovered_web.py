@@ -276,8 +276,10 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
     shutil.copy2(root / 'evidence/acquisition.json', run / 'web-acquisition.json')
     acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
     viewport, viewport_changes = prepare_viewport(target, acquisition['engine'])
+    from host_adapters import refresh
+    host_changes = refresh(target, acquisition)
     previous_report = inp['base_version'].get('report', {})
-    if viewport_changes and previous_report.get('runtime_verified') and all(
+    if viewport_changes and not host_changes and previous_report.get('runtime_verified') and all(
             previous_report.get('foundation_checks', {}).get(key, {}).get('status') == 'verified'
             for key in ('gameplay', 'resources', 'scene', 'objects', 'characters', 'animation', 'ui')):
         return revise_viewport(inp, run, budget, chat, viewport, viewport_changes, progress)
@@ -297,7 +299,9 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
                 'editable': editable(n) and n not in protected} for n, t in code.items()
                 if Path(n).suffix.lower() != '.json' or '/' not in n],
                'source_excerpts': [context.read(n) for n in ('index.html', 'local-host.js') if n in code]}
-    changes, actions, rounds = dict(viewport_changes), [], []
+    changes, actions, rounds = {**viewport_changes, **host_changes}, [], []
+    if host_changes:
+        payload['executor_host_adaptation'] = json.loads((target / 'evidence/host-adaptation.json').read_text('utf-8'))
     previous = inp['base_version'].get('report', {})
     saved_proof=previous.get('verification_evidence')
     if isinstance(saved_proof,str) and saved_proof.startswith('verification/'):

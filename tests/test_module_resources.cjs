@@ -23,6 +23,8 @@ test('capture follows only declared cross-origin code and retains original modul
   assert.deepEqual(fetched,[entry,'https://cdn.example/engine','https://cdn.example/core.js']);
   assert.ok(result.external.includes('https://api.example/private'));
   assert.equal(fs.readFileSync(path.join(run,'web-original',resourcePath('https://cdn.example/engine',entry,true)),'utf8'),sources.get('https://cdn.example/engine'));
+  // Only source acquisition is mocked; offline verification serves saved bytes.
+  chromium.launch=launch;
   const offline=await verify(run);assert.equal(offline.passed,true);assert.match(offline.steps[0].text,/Captured fixture/);
  }finally{chromium.launch=launch;fs.rmSync(run,{recursive:true,force:true});}
 });

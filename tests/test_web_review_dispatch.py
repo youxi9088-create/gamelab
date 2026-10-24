@@ -40,7 +40,7 @@ class WebReviewDispatchTests(unittest.TestCase):
                 {'actions':[{'type':'click','x':10,'y':10}]},
                 {'complete':False,'blocker':{'code':'FIXTURE_STOP','reason':'fixture','next_action':'fixture'}}])
             def chat(messages,*args):
-                if len(seen)==2:self.assertIn('刷新必须单独提交',json.loads(messages[-1]['content'][0]['text'])['previous_model_feedback'])
+                if len(seen)==2:self.assertIn('刷新或切换视口必须单独提交',json.loads(messages[-1]['content'][0]['text'])['previous_model_feedback'])
                 return next(replies)
             inp={'source_path':str(root),'base_version':{'id':'fixture','report':{}},'title':'fixture'}
             with patch.object(web,'ReviewBrowser',Browser):web.revise(inp,run,Budget(),chat,None,None)

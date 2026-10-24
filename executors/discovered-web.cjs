@@ -258,19 +258,35 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   if(!p.startsWith(root+path.sep)||!fs.existsSync(p)||!fs.statSync(p).isFile()){res.writeHead(404);return res.end();}
   const mime={'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.wasm':'application/wasm','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.swf':'application/x-shockwave-flash'};
   res.setHeader('Content-Type',mime[path.extname(p)]||'application/octet-stream');res.end(fs.readFileSync(p));
- });await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin=`http://127.0.0.1:${server.address().port}`;
+ });await new Promise(r=>server.listen(0,'127.0.0.1',r));const transport=`http://127.0.0.1:${server.address().port}`,origin='https://replica-runtime.invalid';
+ report.runtime_origin=origin;report.navigation=[];
  let browser,page;
  try{
   browser=await chromium.launch(require('./browser-options.cjs')());
   const c=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block'});
-  await c.route('**/*',r=>{const req=r.request(),u=new URL(req.url());if(u.origin===origin||['data:','blob:'].includes(u.protocol))return r.continue();const url=u.origin+u.pathname;report.external.push(url);report.blocked_external.push({url,type:req.resourceType(),method:req.method()});if(['script','stylesheet','image','font','media','document'].includes(req.resourceType()))report.required_external.push(url);return r.abort();});
+  // A virtual HTTPS origin exposes hostname-dependent behaviour without ever
+  // contacting that host. Only GET/HEAD resources use the private file server;
+  // game POSTs cannot reach a local backend or escape through redirects.
+  await c.route('**/*',async r=>{const req=r.request(),u=new URL(req.url());
+   if(u.origin===origin&&['GET','HEAD'].includes(req.method())){
+    const response=await r.fetch({url:transport+u.pathname+u.search,maxRedirects:0});
+    try{return await r.fulfill({response});}finally{await response.dispose();}
+   }
+   if(['data:','blob:'].includes(u.protocol))return r.continue();
+   const url=u.origin+u.pathname;report.external.push(url);report.blocked_external.push({url,type:req.resourceType(),method:req.method()});if(['script','stylesheet','image','font','media','document'].includes(req.resourceType()))report.required_external.push(url);return r.abort();
+  });
   page=await c.newPage();page.on('pageerror',e=>report.errors.push((e.stack||e.message).slice(0,3000)));page.on('response',r=>{if(r.status()>=400)report.missing.push(r.url().replace(origin,''));});
+  page.on('framenavigated',frame=>{if(frame!==page.mainFrame())return;const u=new URL(frame.url());report.navigation.push({url:u.origin+u.pathname,elapsed_ms:Date.now()-started});if(u.origin!==origin||u.pathname!=='/')report.errors.push('Unexpected main-frame navigation: '+u.origin+u.pathname);});
+  c.on('page',popup=>{if(popup!==page){report.errors.push('Unexpected popup during runtime verification');popup.close().catch(()=>{});}});
   page.on('console',m=>{if(m.type()==='error'&&/Failed to load module script|Failed to resolve module specifier/i.test(m.text()))report.errors.push(m.text().slice(0,1500));});
   page.on('console',m=>{const text=m.text();if(report.renderDiagnostics.length<40&&/renderer|webgl|webgpu|adapter|panic/i.test(text))report.renderDiagnostics.push(text.slice(0,500));});
   await page.goto(origin,{waitUntil:'domcontentloaded'});
   let missingProbe;
   try{await Promise.race([gameplayReady(page,acq.engine),new Promise((resolve,reject)=>{missingProbe=setInterval(()=>{if(report.errors.length)reject(Error('Runtime script error: '+report.errors[0]));else if(report.missing.length)reject(Error('Missing local runtime resources'));},500);})]);}
   finally{clearInterval(missingProbe);}
+  // Observe automatic redirects before any replayed or newly requested input.
+  await page.waitForTimeout(2000);
+  if(report.errors.length||report.required_external.length)throw Error('Offline check failed: runtime navigation or resource dependency');
   report.steps.push({...await state(page,acq.engine),storage:await storageEvidence(page)});await screenshot(page,path.join(root,'screenshots/startup.png'));
   if(viewportReview){
    const config=JSON.parse(fs.readFileSync(path.join(root,'runtime-viewport.json'),'utf8'));
@@ -340,7 +356,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   batch=await nextBatch(report);
   }
  }catch(e){report.passed=false;report.failure=e.message;if(page){report.lastObserved=await state(page,acq.engine).catch(()=>null);await screenshot(page,path.join(root,'screenshots/failed.png')).catch(()=>{});}throw e;}
- finally{fs.writeFileSync(path.join(root,'evidence/runtime.json'),JSON.stringify(report,null,2));if(browser)await browser.close();await new Promise(r=>server.close(r));}
+ finally{fs.writeFileSync(path.join(root,'evidence/runtime.json'),JSON.stringify(report,null,2));if(!report.passed&&report.failure&&nextBatch?.onFailure)nextBatch.onFailure();if(browser)await browser.close();await new Promise(r=>server.close(r));}
  return report;
 }
 async function repairResources(run){
@@ -383,6 +399,7 @@ if(require.main===module){const [mode,input,run]=process.argv.slice(2);(async()=
  if(mode==='session'){
   lines=require('node:readline').createInterface({input:process.stdin});const iterator=lines[Symbol.asyncIterator]();
   nextBatch=async()=>{console.log(JSON.stringify({event:'snapshot'}));const line=await iterator.next();const batch=line.done?null:JSON.parse(line.value).actions;if(Array.isArray(batch))desired.push(...batch);return batch;};
+  nextBatch.onFailure=()=>console.log(JSON.stringify({event:'snapshot'}));
  }
  try{
   let r;
