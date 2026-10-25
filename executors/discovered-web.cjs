@@ -260,10 +260,10 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   res.setHeader('Content-Type',mime[path.extname(p)]||'application/octet-stream');res.end(fs.readFileSync(p));
  });await new Promise(r=>server.listen(0,'127.0.0.1',r));const transport=`http://127.0.0.1:${server.address().port}`,origin='https://replica-runtime.invalid';
  report.runtime_origin=origin;report.navigation=[];
- let browser,page;
+ let browser,page,context;
  try{
   browser=await chromium.launch(require('./browser-options.cjs')());
-  const c=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block'});
+  const c=context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block'});
   // A virtual HTTPS origin exposes hostname-dependent behaviour without ever
   // contacting that host. Only GET/HEAD resources use the private file server;
   // game POSTs cannot reach a local backend or escape through redirects.
@@ -356,7 +356,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   batch=await nextBatch(report);
   }
  }catch(e){report.passed=false;report.failure=e.message;if(page){report.lastObserved=await state(page,acq.engine).catch(()=>null);await screenshot(page,path.join(root,'screenshots/failed.png')).catch(()=>{});}throw e;}
- finally{fs.writeFileSync(path.join(root,'evidence/runtime.json'),JSON.stringify(report,null,2));if(!report.passed&&report.failure&&nextBatch?.onFailure)nextBatch.onFailure();if(browser)await browser.close();await new Promise(r=>server.close(r));}
+ finally{fs.writeFileSync(path.join(root,'evidence/runtime.json'),JSON.stringify(report,null,2));if(!report.passed&&report.failure&&nextBatch?.onFailure)nextBatch.onFailure();if(context)await context.unrouteAll({behavior:'wait'});if(browser)await browser.close();await new Promise(r=>server.close(r));}
  return report;
 }
 async function repairResources(run){
