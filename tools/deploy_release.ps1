@@ -164,6 +164,20 @@ with sqlite3.connect(p,timeout=30) as db:
     if(-not $healthy){throw 'New release health check failed'}
     $workers=@(Get-CimInstance Win32_Process | Where-Object {$_.Name -eq 'python.exe' -and $_.CommandLine -like '*GameLab*executors*worker.py*'})
     if($workers.Count -ne 1 -or $workers[0].CommandLine -notlike ('*'+$target+'\executors\worker.py*')){throw 'Worker does not belong to the selected release'}
+    # Stopping the old platform process tree can also end the public proxy.
+    # Restore and verify HTTPS before recording a successful deployment.
+    $proxyTask=Get-ScheduledTask -TaskName GameLabReverseProxy
+    if($proxyTask.State -ne 'Running'){Start-ScheduledTask -TaskName GameLabReverseProxy}
+    $publicHealthy=$false
+    $proxyBinary=[IO.Path]::GetFullPath((Join-Path $Root 'proxy\caddy.exe'))
+    for($i=0;$i -lt 20;$i++){
+        Start-Sleep -Seconds 1
+        $listener=Get-NetTCPConnection -LocalPort 443 -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1
+        if(-not $listener){continue}
+        $proxy=Get-CimInstance Win32_Process -Filter "ProcessId=$($listener.OwningProcess)"
+        if($proxy -and $proxy.ExecutablePath -eq $proxyBinary){$publicHealthy=$true;break}
+    }
+    if(-not $publicHealthy){throw 'Public reverse proxy health check failed'}
     CheckedPython @'
 import sys,json,sqlite3,datetime
 from pathlib import Path
