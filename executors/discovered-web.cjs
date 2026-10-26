@@ -377,8 +377,15 @@ async function repairResources(run){
    const response=await followResourceRedirects(value=>client.get(value,{maxRedirects:0,timeout:30000}),url.href,acq.redirects);
    if(!response.ok())throw Error('Original missing resource HTTP '+response.status()+': '+url.href);
    if(Number(response.headers()['content-length']||0)>20*1024*1024)throw Error('Resource exceeds repair byte limit');
-   const data=await response.body();bytes+=data.length;
-   if(bytes>30*1024*1024||(acq.bytes||0)+bytes>220*1024*1024||acq.files.length+added.length>=1800)throw Error('Resource repair exceeds snapshot limits');
+   const data=await response.body();
+   if(data.length>20*1024*1024)throw Error('Resource exceeds repair byte limit');
+   if((acq.bytes||0)+bytes+data.length>220*1024*1024||acq.files.length+added.length>=1800)throw Error('Resource repair exceeds snapshot limits');
+   if(bytes+data.length>30*1024*1024){
+    await response.dispose();
+    if(!added.length)throw Error('Resource exceeds repair batch limit');
+    break;
+   }
+   bytes+=data.length;
    fs.mkdirSync(path.dirname(dest),{recursive:true});fs.writeFileSync(dest,data);
    const original=path.join(run,'web-original',relative);fs.mkdirSync(path.dirname(original),{recursive:true});fs.writeFileSync(original,data);
    added.push({url:url.href,path:relative,bytes:data.length,sha256:hash(data)});await response.dispose();

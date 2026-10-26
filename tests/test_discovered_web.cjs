@@ -107,6 +107,29 @@ test('missing resources use only the observed original directory and never repla
   await assert.rejects(()=>repairResources(run),/original directory/);assert.equal(fetched.length,1);
  }finally{request.newContext=original;fs.rmSync(run,{recursive:true,force:true});}
 });
+test('resource repair keeps large observed sets in bounded batches without losing the snapshot',async()=>{
+ const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-resource-batch-')),original=request.newContext;
+ const payload=Buffer.alloc(16*1024*1024,7),disposed=[];
+ request.newContext=async()=>({get:async url=>({ok:()=>true,status:()=>200,headers:()=>({}),body:async()=>payload,dispose:async()=>disposed.push(url)}),dispose:async()=>{}});
+ try{
+  fs.mkdirSync(path.join(run,'converted/evidence'),{recursive:true});
+  fs.writeFileSync(path.join(run,'web-acquisition.json'),JSON.stringify({url:'https://fixture.example/game/index.html',files:[],bytes:0}));
+  fs.writeFileSync(path.join(run,'converted/evidence/runtime.json'),JSON.stringify({missing:['/assets/a.png','/assets/b.png'],failure:'observed 404'}));
+  const first=await repairResources(run);
+  assert.deepEqual(first.map(x=>x.path),['assets/a.png']);
+  assert.equal(disposed.length,2);
+  assert.equal(fs.existsSync(path.join(run,'converted/assets/b.png')),false);
+  const firstReport=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
+  assert.equal(firstReport.bytes,payload.length);
+  assert.equal(firstReport.resource_refreshes.length,1);
+  fs.writeFileSync(path.join(run,'converted/evidence/runtime.json'),JSON.stringify({missing:['/assets/b.png'],failure:'observed 404'}));
+  const second=await repairResources(run);
+  assert.deepEqual(second.map(x=>x.path),['assets/b.png']);
+  const finalReport=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
+  assert.equal(finalReport.bytes,2*payload.length);
+  assert.equal(finalReport.resource_refreshes.length,2);
+ }finally{request.newContext=original;fs.rmSync(run,{recursive:true,force:true});}
+});
 test('offline client adaptation requires the exact contract and preserves unrelated code',()=>{
  const code='_cncfg:[function t(){}];t.prototype.isServerEnable=function(){return!c.default.isLanEn&&this.isEnable(r.default._swchtp.SERVER)};onSynGameSuccess(null,o);';
  const adapted=adaptClient(code);assert.equal(adapted.changed,true);assert.match(adapted.text,/isServerEnable=function\(\)\{return false\}/);
