@@ -42,6 +42,8 @@ def digest_file(path):
 def read_manifest(path):
     with zipfile.ZipFile(path) as archive:
         manifest=json.loads(archive.read('BACKUP_MANIFEST.json'))
+        # Early full-backup archives predate the explicit schema field.
+        manifest.setdefault('schema',1)
         if manifest.get('schema') not in (1,2):raise ValueError('未知备份格式')
         rows=manifest['files'];names=[row['path'] for row in rows]
         if len(names)!=len(set(names)):raise ValueError('备份清单重复')
