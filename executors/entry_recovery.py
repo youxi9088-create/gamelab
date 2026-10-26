@@ -94,8 +94,13 @@ def recover(observation, run, budget, acquire):
         proof=json.loads((directory/'interaction.json').read_text('utf-8'))
         if result.returncode or not proof.get('passed'):
             raise ValueError(proof.get('failure') or 'DOM 入口实际交互未通过')
-        current.setdefault('web_discovery',{})['entries']=[{'url':proof['url'],'referer':url,
-            'evidence':'interactive-dom','interaction_verified':True,'interaction_evidence':str(directory.relative_to(run)/'interaction.json')}]
+        if proof.get('kind') == 'canvas-entry':
+            canvas_entries = proof.get('entries') or []
+            entry({'web_discovery': {'entries': canvas_entries}})
+            current.setdefault('web_discovery', {})['entries'] = canvas_entries
+        else:
+            current.setdefault('web_discovery',{})['entries']=[{'url':proof['url'],'referer':proof.get('referer') or url,
+                'evidence':'interactive-dom','interaction_verified':True,'interaction_evidence':str(directory.relative_to(run)/'interaction.json')}]
         return proof
     recovered, result = diagnose(original, run, budget, retry=verify, capabilities={
         'probe_entry': {'description': '探测页面明确声明的入口；返回 action:"probe_entry",arguments:{entry_id:"清单编号"}（也支持完整 url）。必须提交 arguments。浏览器实际观察结果返回原路由检查，不代表玩法验收。声明入口清单：'+json.dumps(choices,ensure_ascii=False),
@@ -105,5 +110,12 @@ def recover(observation, run, budget, acquire):
         'verify_dom_entry': {'description':'对本轮 probe_entry 已观察到的 DOM 游戏执行真实按钮交互；arguments:{entry_id:"清单编号",label:"可见按钮原文"}，也支持清单完整 url。label 必须是已返回 controls 的可见按钮原文。验证画面与界面变化后返回原入口节点，不代表完整玩法验收。','validate':validate_dom,'execute':probe_dom}})
     if recovered:
         return result
+    from auto_repair import safe
+    report_path = Path(run) / 'auto-repair/report.json'
+    if report_path.is_file():
+        attempts = json.loads(report_path.read_text('utf-8')).get('attempts', [])
+        failures = [a['verification_error'] for a in attempts if a.get('verification_error')]
+        if failures:
+            original = Blocked('入口恢复未通过：' + safe(failures[-1]) + '；已保留本轮探测与交互证据，尚未进入离线玩法验证。')
     original.auto_repair_attempted = True
     raise original

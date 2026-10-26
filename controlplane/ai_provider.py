@@ -10,6 +10,7 @@ import urllib.request
 import urllib.error
 import uuid
 from contextvars import ContextVar
+from .ai_connections import invocation_label
 USAGE_SINK=ContextVar('ai_usage_sink',default=None)
 
 
@@ -164,7 +165,7 @@ def read_responses_stream(response, envelope, deadline):
 def complete(messages, config, timeout=300):
     try:
         value,provider=_complete(messages,config,timeout)
-        health=dict(ok=True,detail=('本机 Codex' if provider=='codex' else 'AI API')+' 实际调用成功',time=time.time(),signature=config_signature(config))
+        health=dict(ok=True,detail=invocation_label(config,provider)+' 实际调用成功',time=time.time(),signature=config_signature(config))
     except Exception as exc:
         health=dict(ok=False,detail=str(exc) if isinstance(exc, AIProviderError) else 'AI 实际调用失败，请检查登录、网络或模型配置',time=time.time(),signature=config_signature(config))
         raise

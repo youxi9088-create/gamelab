@@ -18,6 +18,42 @@ class Budget:
 
 
 class EntryRecoveryTests(unittest.TestCase):
+    def test_failure_reports_latest_verified_error_instead_of_initial_iframe_hint(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);url='https://example.org/wrapper'
+            answers=iter([{'action':'probe_entry','arguments':{'entry_id':'1'}},
+                          {'action':'verify_dom_entry','arguments':{'entry_id':'1','label':'Continue offline'}},
+                          {'action':'stop'}])
+            def acquired(*args):return {'web_discovery':{'launch_controls':[{'label':'Continue offline','visible':True}]}}
+            def execute(command,**kwargs):
+                (Path(command[-1])/'interaction.json').write_text(json.dumps({'passed':False,'failure':'Actual nested interaction failed'}))
+                return SimpleNamespace(returncode=1)
+            token=CHAT.set(lambda *args:next(answers))
+            try:
+                with patch('entry_recovery.subprocess.run',side_effect=execute):
+                    with self.assertRaisesRegex(Blocked,'Actual nested interaction failed'):
+                        recover({'web_discovery':{'iframe_hints':[{'url':url}]}},root,Budget(),acquired)
+            finally:CHAT.reset(token)
+
+    def test_offline_canvas_handoff_preserves_child_entry_and_parent_referer(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);url='https://example.org/wrapper';child='https://cdn.example/game?v=3'
+            answers=iter([{'action':'probe_entry','arguments':{'entry_id':'1'}},
+                          {'action':'verify_dom_entry','arguments':{'entry_id':'1','label':'Continue offline'}}])
+            def acquired(*args):return {'web_discovery':{'launch_controls':[{'label':'Continue offline','visible':True}]}}
+            def execute(command,**kwargs):
+                (Path(command[-1])/'interaction.json').write_text(json.dumps({'passed':True,'kind':'canvas-entry','url':url,
+                    'entries':[{'url':child,'referer':url,'evidence':'rendered-canvas','canvas_count':1}]}))
+                return SimpleNamespace(returncode=0)
+            token=CHAT.set(lambda *args:next(answers))
+            try:
+                with patch('entry_recovery.subprocess.run',side_effect=execute):
+                    value=recover({'web_discovery':{'iframe_hints':[{'url':url}]}},root,Budget(),acquired)
+            finally:CHAT.reset(token)
+            actual=value['web_discovery']['entries'][0]
+            self.assertEqual((actual['url'],actual['referer']),(child,url))
+            self.assertNotIn('interaction_verified',actual)
+
     def test_probed_wrapper_declared_loader_can_be_selected_by_new_id(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp); (root/'acquisition').mkdir()
