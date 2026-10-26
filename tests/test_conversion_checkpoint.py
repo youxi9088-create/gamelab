@@ -138,5 +138,48 @@ class CheckpointTests(unittest.TestCase):
         command.assert_not_called()
         self.assertEqual(diagnose.call_args.kwargs['stage'], 'test')
 
+    def test_invalid_checkpoint_event_meets_platform_contract_and_falls_back(self):
+        # Regression: an invalid checkpoint notice once omitted node_status, the platform
+        # rejected it with HTTP 400 and the whole job failed before any work or AI repair.
+        from controlplane.pipeline import STAGES, STATUSES
+        self.job['report']['auto_repair'] = {'stage': 'acquire'}  # legacy run never reached test
+        calls = []
+        class StrictClient:
+            def post(self, path, body):
+                if path.endswith('/events') and ('node' in body or 'node_status' in body):
+                    if body.get('node') not in dict(STAGES) or body.get('node_status') not in STATUSES:
+                        raise worker.PlatformApiError(path, 400, '无效流水线节点或状态')
+                calls.append((path, body))
+                return {}
+        with patch.object(worker, 'ROOT', self.root), \
+                patch('acquisition.acquire', side_effect=worker.Blocked('fixture stop after fallback')) as acquire:
+            worker.execute(StrictClient(), self.job)
+        acquire.assert_called_once()
+        notice = [b for p, b in calls if p.endswith('/events') and b.get('node') == 'identify']
+        self.assertEqual(notice[0]['node_status'], 'retrying')
+        completion = [b for p, b in calls if p.endswith('/complete')][-1]
+        self.assertEqual(completion['outcome'], 'blocked')
+        self.assertIn('fixture stop after fallback', completion['reason'])
+
+    def test_platform_rejection_keeps_endpoint_and_reason_without_lease(self):
+        import http.server, threading
+        class Handler(http.server.BaseHTTPRequestHandler):
+            def do_POST(self):
+                self.rfile.read(int(self.headers['Content-Length']))
+                body = json.dumps({'error': '无效流水线节点或状态'}).encode()
+                self.send_response(400);self.send_header('Content-Length', str(len(body)));self.end_headers();self.wfile.write(body)
+            def log_message(self, *args):pass
+        server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), Handler)
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        try:
+            with self.assertRaises(worker.PlatformApiError) as caught:
+                worker.Client(f'http://127.0.0.1:{server.server_port}', 'secret-token').post('jobs/job-x/events', {'lease_token': 'secret-lease'})
+        finally:
+            server.shutdown();server.server_close()
+        error = caught.exception
+        self.assertEqual((error.status, error.endpoint), (400, 'jobs/<job>/events'))
+        self.assertIn('无效流水线节点或状态', str(error))
+        self.assertNotIn('secret', str(error))
+
 
 if __name__ == '__main__':unittest.main()

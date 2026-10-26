@@ -25,7 +25,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
     evidence = root / uuid.uuid4().hex; evidence.mkdir()
     rounds = []; original = error; last = error
     context = RepairContext(run); sources = context.load()
-    mutations = 0; fingerprints = set(); feedback = None; stop_corrections = 0
+    mutations = 0; fingerprints = set(); feedback = None; stop_corrections = 0; action_corrections = 0
     if stage is None:
         from execution_trace import TRACE
         trace = TRACE.get()
@@ -46,6 +46,33 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
     def event(status, message):
         try: EVENT.get()(status, message)
         except Exception: pass  # Lost lease/network cannot replace the original failure.
+    # Rule layer first: known failures get a fixed handling without spending AI calls.
+    from controlplane.failure_rules import classify
+    matched = classify(error, run, stage); prelude = None
+    if matched:
+        report = {'original_error': safe(original), 'stage': stage, 'classification': matched, 'attempts': [], 'evidence_directory': evidence.name}
+        try:
+            if matched['handling'] == 'block':
+                error.classification = matched
+                event('failed', '规则识别：'+matched['reason']+'；下一步：'+matched['next_action'])
+                return False, None
+            if matched['handling'] == 'retry' and retry:
+                event('running', '规则识别为暂时故障，自动重新验证一次（不调用 AI）')
+                try:
+                    result = retry()
+                except Exception as failure:
+                    report['rule_retry'] = {'verified': False, 'error': safe(failure)}
+                    last = failure  # fall through to AI with the newest evidence
+                    prelude = {'classification': matched, 'rule_retry': report['rule_retry']}
+                else:
+                    report['rule_retry'] = {'verified': True}
+                    event('succeeded', '重新验证通过，返回原任务流程')
+                    return True, result
+        finally:
+            (evidence/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8')
+            if matched['handling'] == 'block' or report.get('rule_retry', {}).get('verified'):
+                previous=json.loads((root/'report.json').read_text('utf-8')).get('episodes',[]) if (root/'report.json').exists() else []
+                (root/'report.json').write_text(json.dumps({**report,'episodes':previous+[report]},ensure_ascii=False,indent=2),'utf-8')
     chat = CHAT.get()
     event('running', '发生阻断，平台 AI 正在分析错误与已有产物')
     try:
@@ -104,7 +131,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 '本地 Codex 与 API 具有相同的上述工具；不要要求外部终端或依赖开发会话。修复是否成功由实际验证决定。'},
                 {'role': 'user', 'content': [{'type':'text','text':json.dumps(payload, ensure_ascii=False)}]+context.images()}], budget)
             if not isinstance(answer, dict): raise ValueError('诊断返回格式无效')
-            action = answer.get('action', 'stop')
+            action = answer.get('action')
             row = {'attempt': attempt+1, 'error': safe(last), 'diagnosis': safe(answer.get('diagnosis','')),
                    'hypothesis': safe(answer.get('hypothesis','')), 'evidence': answer.get('evidence',[])[:12],
                    'action': action, 'reason': safe(answer.get('reason','')), 'next_action': safe(answer.get('next_action',''))}
@@ -119,7 +146,14 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                     row['stop_rejected'] = True
                     continue
                 row['stop_reason'] = 'AI 未完成本轮可用检查；保留未检查项，不能认定历史原因已验证。'
-            if action not in payload['allowed_actions'] or action == 'stop': break
+            if action not in payload['allowed_actions']:
+                # A missing/unknown action is a protocol slip, not a decision to stop.
+                if action_corrections < 2:
+                    action_corrections += 1
+                    feedback = f'动作 {action!r} 不在 allowed_actions {payload["allowed_actions"]} 中；请从中选择，并按 capabilities 说明提供参数。'
+                    row['tool_error'] = feedback; continue
+                row['stop_reason'] = '连续返回不允许的动作，停止'; break
+            if action == 'stop': break
             if action in capabilities:
                 arguments = answer.get('arguments')
                 row['submitted_arguments'] = arguments
@@ -198,7 +232,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                                        'function': frame.name} for frame in traceback.extract_tb(failure.__traceback__)[-12:]]}})
         event('failed', '自动诊断中断或达到边界，保留原错误和已有产物')
     finally:
-        report={'original_error': safe(original), 'stage':stage, 'attempts': rounds, 'evidence_directory':evidence.name}
+        report={'original_error': safe(original), 'stage':stage, 'attempts': rounds, 'evidence_directory':evidence.name, **({'rule_prelude':prelude} if prelude else {})}
         (evidence/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8')
         previous=json.loads((root/'report.json').read_text('utf-8')).get('episodes',[]) if (root/'report.json').exists() else []
         (root/'report.json').write_text(json.dumps({**report,'episodes':previous+[report]},ensure_ascii=False,indent=2),'utf-8')

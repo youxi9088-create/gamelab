@@ -35,8 +35,9 @@ class WorkerTests(unittest.TestCase):
                 self.assertEqual(retried[1], original[1])
                 self.assertEqual(messages, original)
 
-    def test_malformed_json_stops_at_two_calls_or_budget_limit(self):
-        for calls, expected in [(3, 2), (1, 1)]:
+    def test_malformed_json_stops_after_two_corrections_or_budget_limit(self):
+        # One original answer plus at most two format corrections, all charged to the budget.
+        for calls, expected in [(5, 3), (3, 3), (1, 1)]:
             budget = SimpleNamespace(calls=calls, remaining=lambda seconds: seconds)
             with self.subTest(calls=calls), patch('worker.ai_config', return_value={}), \
                     patch('worker.complete', side_effect=json.JSONDecodeError('invalid', 'x', 0)) as complete:

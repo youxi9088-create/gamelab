@@ -171,10 +171,45 @@ def analyze(source, run, budget=None):
     return evidence
 
 
+TRANSIENT_AI_MARKERS=('URLError','超时','流式响应提前结束','IncompleteRead','RemoteDisconnected','ConnectionResetError',
+    'HTTP 408','HTTP 429','HTTP 500','HTTP 502','HTTP 503','HTTP 504','HTTP 520','HTTP 522','HTTP 524')
+AI_TRANSIENT_RETRIES=2   # extra attempts after a temporary provider/network failure
+AI_FORMAT_CORRECTIONS=2  # extra attempts after an answer that is not one JSON object
+AI_BACKOFF_SECONDS=(3,9)
+
+
+def correction_messages(messages):
+    correction = ('上一次回答未能解析为合法 JSON。请基于相同证据重新回答，严格遵守原有字段和允许的动作，'
+                  '仅返回一个合法 JSON 对象，正确转义字符串；不要添加 Markdown 或 JSON 外的说明。')
+    request_messages = [dict(message) for message in messages]
+    system = next((message for message in request_messages
+                   if message.get('role') == 'system' and isinstance(message.get('content'), str)), None)
+    if system is not None:
+        system['content'] += '\n' + correction
+    else:
+        user = next((message for message in reversed(request_messages)
+                     if message.get('role') == 'user'), None)
+        if user is not None and isinstance(user.get('content'), str):
+            user['content'] += '\n' + correction
+        elif user is not None and isinstance(user.get('content'), list):
+            user['content'] = [*user['content'], {'type': 'text', 'text': correction}]
+        elif len(request_messages) < 32:
+            request_messages.append({'role': 'user', 'content': correction})
+    return request_messages
+
+
 def chat(messages, budget=None):
+    """One logical AI answer with bounded recovery.
+
+    Temporary provider failures back off and retry; malformed answers get a format
+    correction. Every attempt is a metered call charged to the task budget, and
+    authentication/configuration errors still stop immediately.
+    """
     config = ai_config()
     request_messages = messages
-    for attempt in range(2):
+    transient_left, corrections_left, waits = AI_TRANSIENT_RETRIES, AI_FORMAT_CORRECTIONS, 0
+    chat.attempts = []
+    while True:
         if budget:
             if budget.calls <= 0:
                 raise Blocked('AI call count budget exhausted')
@@ -186,29 +221,20 @@ def chat(messages, budget=None):
         except Exception as exc:
             detail=str(exc)[:160] if isinstance(exc,RuntimeError) else type(exc).__name__
             transient=isinstance(exc,RuntimeError) and detail.startswith('AI API 调用失败：') and any(
-                marker in detail for marker in ('URLError','超时','流式响应提前结束','IncompleteRead','RemoteDisconnected','ConnectionResetError','HTTP 408','HTTP 429','HTTP 500','HTTP 502','HTTP 503','HTTP 504','HTTP 520','HTTP 522','HTTP 524'))
+                marker in detail for marker in TRANSIENT_AI_MARKERS)
             malformed = isinstance(exc, json.JSONDecodeError) or (
                 isinstance(exc, RuntimeError) and detail.startswith('AI API 调用失败：响应不是有效 JSON'))
-            if (transient or malformed) and attempt==0 and (budget is None or budget.calls>0):
-                # Each attempt is a separate metered provider call and consumes
-                # the task's call budget. Invalid actions/authentication still stop.
-                if malformed:
-                    correction = ('上一次回答未能解析为合法 JSON。请基于相同证据重新回答，严格遵守原有字段和允许的动作，'
-                                  '仅返回一个合法 JSON 对象，正确转义字符串；不要添加 Markdown 或 JSON 外的说明。')
-                    request_messages = [dict(message) for message in messages]
-                    system = next((message for message in request_messages
-                                   if message.get('role') == 'system' and isinstance(message.get('content'), str)), None)
-                    if system is not None:
-                        system['content'] += '\n' + correction
-                    else:
-                        user = next((message for message in reversed(request_messages)
-                                     if message.get('role') == 'user'), None)
-                        if user is not None and isinstance(user.get('content'), str):
-                            user['content'] += '\n' + correction
-                        elif user is not None and isinstance(user.get('content'), list):
-                            user['content'] = [*user['content'], {'type': 'text', 'text': correction}]
-                        elif len(request_messages) < 32:
-                            request_messages.append({'role': 'user', 'content': correction})
+            chat.attempts.append({'error':detail,'transient':transient,'malformed':malformed})
+            can_spend = budget is None or budget.calls > 0
+            if malformed and corrections_left and can_spend:
+                corrections_left -= 1
+                request_messages = correction_messages(messages)
+                continue
+            if transient and transient_left and can_spend:
+                transient_left -= 1
+                pause = AI_BACKOFF_SECONDS[min(waits, len(AI_BACKOFF_SECONDS)-1)]; waits += 1
+                if budget:pause = min(pause, max(0, budget.remaining(600) - 30))
+                if pause:time.sleep(pause)
                 continue
             error=Blocked('AI 调用未完成：' + detail)
             error.safe_detail=detail
@@ -271,14 +297,28 @@ def attach_screenshots(files, directory):
     return validate_files(files)
 
 
+class PlatformApiError(RuntimeError):
+    """Platform rejected an executor call; keeps endpoint and server reason, never the lease."""
+    def __init__(self, path, status, detail):
+        endpoint=re.sub(r'^jobs/[^/]+/','jobs/<job>/',path)
+        self.endpoint, self.status, self.detail = endpoint, status, detail
+        super().__init__(f'平台接口 {endpoint} 拒绝请求：HTTP {status}' + (f'；{detail}' if detail else ''))
+
+
 class Client:
     def __init__(self, base, token):
         self.base, self.token = base.rstrip('/'), token
 
     def post(self, path, body):
         req = urllib.request.Request(self.base + '/api/v1/' + path, data=json.dumps(body).encode(), headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + self.token})
-        with urllib.request.urlopen(req, timeout=30) as response:
-            return json.load(response)
+        try:
+            with urllib.request.urlopen(req, timeout=30) as response:
+                return json.load(response)
+        except urllib.error.HTTPError as exc:
+            # Lease expiry/revocation keep their status for callers that stop on 401/403/409.
+            try:detail=str(json.loads(exc.read(4096) or b'{}').get('error',''))[:300]
+            except (ValueError,OSError,AttributeError):detail=''
+            raise PlatformApiError(path, exc.code, detail) from exc
 
     def source_bundle(self, url, destination):
         if not url.startswith('/api/v1/source-bundles/') or not url.endswith('/download') or '..' in url:
@@ -299,6 +339,19 @@ class Client:
             destination.mkdir()
             archive.extractall(destination)
         return destination
+
+
+def classified(exc, reason, report):
+    """Attach a rule-layer blocker so the job shows a stable code and next step."""
+    from controlplane.failure_rules import classify
+    rule=getattr(exc,'classification',None)
+    if rule is None:
+        rule=classify(exc)
+        if rule and rule['handling']!='block':rule=None
+    if rule:
+        report={**report,'classification':rule,'blocker':{k:rule[k] for k in ('code','reason','next_action')}}
+        reason=f"{rule['reason']}；下一步：{rule['next_action']}。原始错误：{reason[:600]}"
+    return {'reason':reason,'report':report}
 
 
 def execute(client, job):
@@ -376,7 +429,7 @@ def execute(client, job):
         from conversion_checkpoint import restore as restore_checkpoint
         resumed, invalid_checkpoint = restore_checkpoint(job, run, ROOT / 'runs')
         if invalid_checkpoint:
-            client.post(prefix+'events',{**lease,'node':'identify',
+            client.post(prefix+'events',{**lease,'node':'identify','node_status':'retrying',
                 'message':'检查点不可复用，回退到入口与采集检查：'+invalid_checkpoint})
         from controlplane.conversion_plan import build as build_plan
         def save_plan(observation=None,converter=None):
@@ -687,9 +740,9 @@ def execute(client, job):
         write_json(run/'waiting-input.json',{'question':str(exc)})
         return
     except Blocked as exc:
-        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'blocked', 'reason': str(exc), 'report': diagnose_failure(exc)}
+        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'blocked', **classified(exc, str(exc), diagnose_failure(exc))}
     except Exception as exc:
-        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'failed', 'reason': f'{type(exc).__name__}: {str(exc)[:300]}', 'report': diagnose_failure(exc)}
+        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'failed', **classified(exc, f'{type(exc).__name__}: {str(exc)[:300]}', diagnose_failure(exc))}
     finally:
         TRACE.reset(trace_token)
         USAGE_SINK.reset(usage_token)
@@ -715,8 +768,8 @@ def execute_isolated(client, job):
             except subprocess.TimeoutExpired:
                 try:
                     client.post(f"jobs/{job['id']}/heartbeat",{'lease_token':job['lease_token']})
-                except urllib.error.HTTPError as exc:
-                    if exc.code in (401,403,409):
+                except PlatformApiError as exc:
+                    if exc.status in (401,403,409):
                         return
                 except (urllib.error.URLError,OSError):
                     pass
@@ -767,7 +820,7 @@ def main():
             job = client.post('jobs/claim', {'capabilities': ['rea', 'reconstruct'], 'worker_id': args.worker_id,'automatic_only':args.automatic}).get('job')
             if job:
                 execute_isolated(client, job)
-        except (urllib.error.URLError, OSError):
+        except (PlatformApiError, urllib.error.URLError, OSError):
             if args.once:raise
         if args.once:
             return

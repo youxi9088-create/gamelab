@@ -250,7 +250,7 @@ async function capture(input,run){
  return report;
 }
 async function verify(run,actions=[],nextBatch=null,viewportReview=false,environment='deployment'){
- const started=Date.now(),root=path.resolve(run,'converted'),report={passed:false,errors:[],missing:[],external:[],blocked_external:[],required_external:[],steps:[],actions:[],renderDiagnostics:[]},acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
+ const started=Date.now(),root=path.resolve(run,'converted'),report={passed:false,errors:[],missing:[],external:[],blocked_external:[],required_external:[],steps:[],actions:[],renderDiagnostics:[],siteLockLogs:[]},acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
  fs.mkdirSync(path.join(root,'evidence'),{recursive:true});fs.mkdirSync(path.join(root,'screenshots'),{recursive:true});
  const server=http.createServer((req,res)=>{
   let p;try{p=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));}catch{res.writeHead(400);return res.end();}
@@ -282,6 +282,8 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false,environ
   c.on('page',popup=>{if(popup!==page){report.errors.push('Unexpected popup during runtime verification');popup.close().catch(()=>{});}});
   page.on('console',m=>{if(m.type()==='error'&&/Failed to load module script|Failed to resolve module specifier/i.test(m.text()))report.errors.push(m.text().slice(0,1500));});
   page.on('console',m=>{const text=m.text();if(report.renderDiagnostics.length<40&&/renderer|webgl|webgpu|adapter|panic/i.test(text))report.renderDiagnostics.push(text.slice(0,500));});
+  // Evidence only: publisher site-lock messages let the rule layer stop early instead of guessing.
+  page.on('console',m=>{const text=m.text();if(report.siteLockLogs.length<5&&/sitelock/i.test(text))report.siteLockLogs.push(text.slice(0,300));});
   await page.goto(origin,{waitUntil:'domcontentloaded'});
   let missingProbe;
   try{await Promise.race([gameplayReady(page,acq.engine),new Promise((resolve,reject)=>{missingProbe=setInterval(()=>{if(report.errors.length)reject(Error('Runtime script error: '+report.errors[0]));else if(report.missing.length)reject(Error('Missing local runtime resources'));},500);})]);}

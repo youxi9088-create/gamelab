@@ -78,6 +78,8 @@ class Service(Conversations,Discovery):
             state['game_conversion_stats']=game_totals(state['candidates'],state['jobs'],state['events'],usage)
             state['usage']={p:aggregate(usage,p) for p in ('day','week','month')}
             state['operation_stats']={p:operations(state['events'],state['jobs'],p) for p in ('day','week','month')}
+            from .failure_rules import summarize
+            state['failure_stats']=summarize(state['jobs'])
             state['ai_pricing']=(self.store.get(db,'settings','ai_pricing') or {}).get('rates',{})
             from .conversations import message_presentation
             for message in state['messages']:
@@ -682,6 +684,11 @@ class Service(Conversations,Discovery):
                             self.continue_job(db,job,'继续完成当前草稿的交付缺项，先检查和验证现有实现，仅修复实际失败项；不得伪造验证结论或降低验收标准。\n'+'\n'.join(gaps)[:6500],automatic_followup=True)
                 else:
                     job.update(status=outcome,completed_at=now())
+                    blocker=report.get('blocker')
+                    if outcome in ('blocked','failed') and isinstance(blocker,dict) and all(isinstance(blocker.get(k),str) and blocker[k] for k in ('code','reason','next_action')):
+                        job['blocker']={k:blocker[k][:2000] for k in ('code','reason','next_action')}
+                        self.message(db,job,'assistant',job['blocker']['reason']+'；下一步：'+job['blocker']['next_action'],kind='blocker')
+                    else:job.pop('blocker',None)
                     candidate=self.get(db,'candidates',job['candidate_id']);candidate['status']=outcome;s.put(db,'candidates',candidate)
                 job.pop('lease_token',None);job.pop('lease_expires_at',None);s.put(db,'jobs',job)
                 result_label={'draft':'草稿已保存，验证未完成','ready_review':'转换完成，等待人工验收','recovered':'产物已提交','checkpoint':'接续检查点已保存','fallback':'转入复刻路径','blocked':'本轮阻断','failed':'本轮失败'}[outcome]
