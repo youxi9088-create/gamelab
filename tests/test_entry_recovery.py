@@ -18,6 +18,38 @@ class Budget:
 
 
 class EntryRecoveryTests(unittest.TestCase):
+    def test_old_runtime_diagnosis_cannot_skip_current_entry_probe(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);url='https://example.org/game';payloads=[];calls=[]
+            def chat(messages,budget):
+                payload=json.loads(messages[-1]['content'][0]['text']);payloads.append(payload)
+                self.assertEqual(payload['current_stage'],'identify')
+                if len(payloads)==1:return {'action':'stop','diagnosis':'Previous offline timeout'}
+                self.assertIn('停止结论',payload['tool_feedback'])
+                self.assertEqual(payload['pending_current_checks'][0]['entry_id'],'1')
+                return {'action':'probe_entry','arguments':{'entry_id':'1'}}
+            def acquire(url,*args):
+                calls.append(url)
+                return {'web_discovery':{'entries':[{'url':url,'canvas_count':1,'evidence':'rendered-canvas'}]}}
+            token=CHAT.set(chat)
+            try:result=recover({'web_discovery':{'iframe_hints':[{'url':url}]}},root,Budget(),acquire)
+            finally:CHAT.reset(token)
+            self.assertEqual(calls,[url]);self.assertTrue(result['web_discovery']['entries'])
+            report=json.loads((root/'auto-repair/report.json').read_text('utf-8'))
+            self.assertTrue(report['attempts'][0]['stop_rejected'])
+            self.assertEqual(report['stage'],'identify')
+
+    def test_repeated_unchecked_stop_is_bounded_and_reported_as_diagnostic_gap(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);calls=[]
+            def chat(*args):calls.append(1);return {'action':'stop'}
+            token=CHAT.set(chat)
+            try:
+                with self.assertRaisesRegex(Blocked,'入口诊断未完成'):
+                    recover({'web_discovery':{'iframe_hints':[{'url':'https://example.org/game'}]}},root,Budget(),lambda *args:self.fail('No implicit probe'))
+            finally:CHAT.reset(token)
+            self.assertEqual(len(calls),3)
+
     def test_failure_reports_latest_verified_error_instead_of_initial_iframe_hint(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);url='https://example.org/wrapper'

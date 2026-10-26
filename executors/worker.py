@@ -359,6 +359,7 @@ def execute(client, job):
             plan['recorded']=True
             write_json(run/'conversion-plan.json',plan)
             client.post(prefix+'plan',{**lease,'plan':plan})
+            return plan
         save_plan=measured('analysis',save_plan)
         save_plan()
         settings = job.get('settings', {})

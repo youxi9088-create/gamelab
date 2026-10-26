@@ -50,7 +50,7 @@ def timeline(job, events, versions):
                 node['started_at'] = e.get('created_at')
             node.pop('ended_at', None)
             current = key
-        elif e.get('node_status') in ('succeeded', 'failed', 'skipped', 'cancelled','reused'):
+        elif e.get('node_status') in ('succeeded', 'failed', 'skipped', 'cancelled','reused','waiting_input'):
             node['ended_at'] = e.get('created_at')
             if current == key:
                 current = None

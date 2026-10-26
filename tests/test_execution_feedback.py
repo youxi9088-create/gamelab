@@ -8,6 +8,27 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'executors'))
 import execution_feedback
 
 class ExecutionFeedbackTests(unittest.TestCase):
+    def test_earlier_successful_entry_actions_survive_a_regressed_round(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t);old=root/'round10';latest=root/'round11'
+            for run in (old,latest):
+                (run/'auto-repair').mkdir(parents=True)
+                (run/'job-binding.json').write_text(json.dumps({'job_id':'j'}))
+            (old/'auto-repair/report.json').write_text(json.dumps({'episodes':[
+                {'stage':'identify','attempts':[{'action':'verify_dom_entry','submitted_arguments':{'entry_id':'2','label':'Continue offline'},
+                    'tool_result':{'url':'https://example.org/game','passed':True,'label':'Continue offline'},'verified':True}]},
+                {'stage':'test','attempts':[{'action':'retry','verified':False,'verification_error':'timeout'}]}]}))
+            (latest/'auto-repair/report.json').write_text(json.dumps({'stage':'identify','attempts':[{'action':'stop'}]}))
+            (latest/'previous-execution.json').write_text(json.dumps({'run':old.name}))
+            with patch.object(execution_feedback,'ROOT',root):
+                value=execution_feedback.previous_failure({'id':'j','report':{'run_directory':str(latest)}})
+                proof=value['historical_evidence'][0]['attempts'][0]
+                self.assertTrue(proof['observed_result']['passed'])
+                self.assertEqual(proof['submitted_arguments']['label'],'Continue offline')
+                self.assertEqual(proof['stage'],'identify')
+                (old/'job-binding.json').write_text(json.dumps({'job_id':'other'}))
+                self.assertEqual(execution_feedback.previous_failure({'id':'j','report':{'run_directory':str(latest)}})['historical_evidence'],[])
+
     def test_failed_conversion_without_version_survives_retry(self):
         with tempfile.TemporaryDirectory() as t:
             root=Path(t);run=root/'failed';run.mkdir()

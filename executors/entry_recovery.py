@@ -49,6 +49,17 @@ def recover(observation, run, budget, acquire):
         return url
     probes = []
     observed = {}
+    interactions = set()
+    def pending_checks():
+        pending = [{'action':'probe_entry', 'entry_id':c['entry_id'], 'scope':'本轮声明的入口尚未探测'}
+                   for c in choices if c['url'] not in probes]
+        for url, result in observed.items():
+            for control in result.get('web_discovery',{}).get('launch_controls',[]):
+                label = control.get('label')
+                if control.get('visible') and label and (url,label) not in interactions:
+                    pending.append({'action':'verify_dom_entry','entry_id':next(c['entry_id'] for c in choices if c['url']==url),
+                                    'label':label,'scope':'已观察到按钮，尚未验证交互；按入口用途选择，勿操作登录、支付等控件'})
+        return pending[:12]
     def probe(arguments):
         url = selected(arguments)
         parsed = urlsplit(url)
@@ -91,6 +102,7 @@ def recover(observation, run, budget, acquire):
     def probe_dom(arguments):
         from controlplane.runtime import node_binary
         url, label = validate_dom(arguments)
+        interactions.add((url,label))
         directory = Path(run)/'entry-probes'/f'dom-{len(probes)+1}'
         directory.mkdir(parents=True,exist_ok=False);probes.append(url)
         result = subprocess.run([node_binary(),str(Path(__file__).with_name('dom-entry.cjs')),url,label,str(directory)],
@@ -106,7 +118,7 @@ def recover(observation, run, budget, acquire):
             current.setdefault('web_discovery',{})['entries']=[{'url':proof['url'],'referer':proof.get('referer') or url,
                 'evidence':'interactive-dom','interaction_verified':True,'interaction_evidence':str(directory.relative_to(run)/'interaction.json')}]
         return proof
-    recovered, result = diagnose(original, run, budget, retry=verify, capabilities={
+    recovered, result = diagnose(original, run, budget, retry=verify, stage='identify', pending_checks=pending_checks, capabilities={
         'probe_entry': {'description': '探测页面明确声明的入口；返回 action:"probe_entry",arguments:{entry_id:"清单编号"}（也支持完整 url）。必须提交 arguments。浏览器实际观察结果返回原路由检查，不代表玩法验收。声明入口清单：'+json.dumps(choices,ensure_ascii=False),
                         'validate': selected,
                         'diagnostic_only': True,
@@ -121,5 +133,7 @@ def recover(observation, run, budget, acquire):
         failures = [a['verification_error'] for a in attempts if a.get('verification_error')]
         if failures:
             original = Blocked('入口恢复未通过：' + safe(failures[-1]) + '；已保留本轮探测与交互证据，尚未进入离线玩法验证。')
+        elif any(a.get('unresolved_checks') for a in attempts):
+            original = Blocked('入口诊断未完成：AI 尚未执行本轮可用的入口探测或交互检查；历史运行失败不能作为本轮入口的阻断原因。')
     original.auto_repair_attempted = True
     raise original

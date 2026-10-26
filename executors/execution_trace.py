@@ -34,7 +34,10 @@ class ExecutionTrace:
                 self.event('failed', safe(exc))
                 raise
             else:
-                self.event('succeeded', STAGE_WORK[node][0]+'：本次操作完成，验证范围见记录。')
+                if node == 'analysis' and isinstance(result,dict) and result.get('route') == 'blocked':
+                    self.event('waiting_input', '尚未形成可执行转换方案：'+str(result.get('next_action') or result.get('label') or '需要继续确认入口与材料'))
+                else:
+                    self.event('succeeded', STAGE_WORK[node][0]+'：本次操作完成，验证范围见记录。')
                 return result
             finally:
                 self.stack.pop()

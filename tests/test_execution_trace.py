@@ -7,6 +7,13 @@ from controlplane.pipeline import timeline
 
 
 class TraceTests(unittest.TestCase):
+    def test_recording_a_blocked_plan_is_not_successful_analysis(self):
+        plan={'route':'blocked','next_action':'Need an observed entry'}
+        self.assertEqual(self.trace.run('analysis',lambda:plan),plan)
+        node=next(n for n in self.pipe()['nodes'] if n['key']=='analysis')
+        self.assertEqual(node['status'],'waiting_input')
+        self.assertEqual(node['executions'][0]['status'],'waiting_input')
+
     def setUp(self):
         self.events=[]
         def emit(**event):
