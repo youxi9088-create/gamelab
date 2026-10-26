@@ -43,7 +43,10 @@ class CheckpointTests(unittest.TestCase):
         checkpoints.save(self.prior, self.inp, self.observation)
         self.write('converted/evidence/runtime.json', {'passed': False, 'failure': 'fixture timeout'})
 
-    def tearDown(self):self.temp.cleanup()
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(checkpoints.extended(self.root), ignore_errors=True)  # long snapshot paths
+        self.temp.cleanup()
 
     def test_restores_immutable_capture_and_carries_failed_runtime_as_history(self):
         self.save()
@@ -137,6 +140,21 @@ class CheckpointTests(unittest.TestCase):
                 discovered_web.convert(self.inp, value['observation'], self.current, worker.Budget(60), None, resume=True)
         command.assert_not_called()
         self.assertEqual(diagnose.call_args.kwargs['stage'], 'test')
+
+    def test_long_asset_names_survive_snapshot_and_resume(self):
+        # Regression: checkpoint staging nests the run two levels deeper and a long
+        # asset name exceeded the Windows path limit (FileNotFoundError in adapt).
+        prefix = len(str((self.prior / 'converted/assets/x').resolve()))
+        name = 'chatgpt-image-' + 'n' * max(8, 240 - prefix) + '.png'
+        asset = 'converted/assets/' + name
+        self.write(asset, 'image-bytes')
+        self.assertLess(len(str((self.prior / asset).resolve())), 260)
+        self.save()
+        self.assertTrue(any(name in row['path'] for row in json.loads(
+            checkpoints.extended(self.prior / 'checkpoints/web-capture/checkpoint.json').read_text('utf-8'))['files']))
+        result, reason = checkpoints.restore(self.job, self.current, self.runs)
+        self.assertIsNone(reason)
+        self.assertEqual((self.current / asset).read_text(), 'image-bytes')
 
     def test_invalid_checkpoint_event_meets_platform_contract_and_falls_back(self):
         # Regression: an invalid checkpoint notice once omitted node_status, the platform

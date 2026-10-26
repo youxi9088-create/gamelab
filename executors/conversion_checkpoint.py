@@ -1,6 +1,7 @@
 """Job-bound immutable capture snapshots; resuming never implies runtime success."""
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import tempfile
@@ -9,6 +10,15 @@ from repair_context import linked
 
 TREES = ('converted', 'web-original')
 FILES = ('web-acquisition.json', 'discovered-web-input.json', 'conversion-plan.json', 'original-runtime.png')
+
+
+def extended(path):
+    """Windows extended-length form: snapshots nest the run tree two levels deeper
+    (checkpoints/<tmp>/snapshot/...), which can exceed MAX_PATH for long asset names."""
+    path = Path(path)
+    if os.name != 'nt':return path
+    text = str(path if path.is_absolute() else path.resolve())
+    return Path(text if text.startswith('\\\\?\\') else '\\\\?\\' + text)
 
 
 def digest(path):
@@ -59,7 +69,7 @@ def copy_snapshot(source, target, rows):
 
 
 def save(run, inp, observation, kind='web-capture'):
-    run = Path(run)
+    run = extended(run)
     if not (run / 'job-binding.json').is_file():return None
     if kind not in ('web-capture','web-runtime'):raise ValueError('无效检查点阶段')
     destination = run / 'checkpoints' / kind
@@ -110,7 +120,7 @@ def restore(job, run, runs_root):
     prior = (job.get('report') or {}).get('run_directory')
     if not prior or job.get('continuation') or job.get('stage') != 'rea' or not job.get('automatic'):
         return None, None
-    root = Path(runs_root).resolve();source = Path(prior);copied = False
+    run = extended(run);root = extended(runs_root).resolve();source = extended(prior);copied = False
     try:
         if linked(source) or source.resolve().parent != root:raise ValueError('检查点不在当前执行器运行目录')
         source = source.resolve()
