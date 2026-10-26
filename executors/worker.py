@@ -373,6 +373,11 @@ def execute(client, job):
         prior_failure=previous_failure(job)
         if prior_failure:
             write_json(run/'previous-execution.json',prior_failure)
+        from conversion_checkpoint import restore as restore_checkpoint
+        resumed, invalid_checkpoint = restore_checkpoint(job, run, ROOT / 'runs')
+        if invalid_checkpoint:
+            client.post(prefix+'events',{**lease,'node':'identify',
+                'message':'检查点不可复用，回退到入口与采集检查：'+invalid_checkpoint})
         from controlplane.conversion_plan import build as build_plan
         def save_plan(observation=None,converter=None):
             plan=build_plan(inp,observation,converter,job.get('continuation',False),job['stage'])
@@ -381,7 +386,12 @@ def execute(client, job):
             client.post(prefix+'plan',{**lease,'plan':plan})
             return plan
         save_plan=measured('analysis',save_plan)
-        save_plan()
+        if resumed and (run/'conversion-plan.json').is_file():
+            client.post(prefix+'plan',{**lease,'plan':json.loads((run/'conversion-plan.json').read_text('utf-8'))})
+            client.post(prefix+'events',{**lease,'node':'analysis','node_status':'reused',
+                'message':'复用运行 '+resumed['from_run']+' 的转换方案；本轮从运行验证断点继续，尚未通过玩法验收。'})
+        else:
+            save_plan()
         settings = job.get('settings', {})
         budget = Budget(max(1, int(settings.get('rea_minutes' if job['stage']=='rea' else 'reconstruct_minutes', 45 if job['stage']=='rea' else 180))) * 60, max(2, min(32, int(os.environ.get('REPLICA_AI_MAX_CALLS', '24')))))
         if not inp.get('source_path') and inp.get('source_bundle_url'):
@@ -459,6 +469,21 @@ def execute(client, job):
             return
         if job['stage'] == 'rea':
             if job.get('automatic'):
+                if resumed:
+                    for node in ('identify','acquire'):
+                        client.post(prefix+'events',{**lease,'node':node,'node_status':'reused',
+                            'message':'复用运行 '+resumed['from_run']+' 的已验证入口及已采集文件，输入和文件摘要已核对；本轮未重新采集。'})
+                    if resumed.get('prior_runtime_failed'):
+                        client.post(prefix+'events',{**lease,'node':'test','node_status':'waiting_input',
+                            'message':'从上轮运行验证失败断点继续诊断，等待修复后复验；本轮尚未重复执行验证。'})
+                    from discovered_web import convert
+                    report=measured('adapt',convert)(inp,resumed['observation'],run,budget,chat,resume=True)
+                    client.post('candidates/'+job['candidate_id']+'/dependencies',
+                        {**lease,'job_id':job['id'],'revision':(inp.get('dependencies') or {}).get('revision',1),'dependencies':report['dependencies']})
+                    artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
+                    client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
+                        'reason':'从已校验采集检查点继续；本轮运行验证完成，玩法范围见交付报告'})
+                    return
                 from controlplane.web_profiles import supports
                 if inp.get('observations',{}).get('web_runtime') and supports(inp['url'],inp['observations']['web_runtime']):
                     from web_runtime import convert

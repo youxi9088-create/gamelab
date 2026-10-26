@@ -101,13 +101,15 @@ def entry(observation):
     return next(iter(unique.values()))
 
 
-def convert(inp, observation, run, budget, chat):
+def convert(inp, observation, run, budget, chat, resume=False):
     from modular_web import candidate as modular_candidate, capture as capture_modules
-    modular_url=modular_candidate(observation)
-    selected = {'url':modular_url,'referer':inp['url']} if modular_url else entry(observation)
-    request = {'url': selected['url'], 'referer': selected.get('referer') or inp['url'], 'entry_evidence':selected}
     input_file = run / 'discovered-web-input.json'
-    input_file.write_text(json.dumps(request), 'utf-8')
+    modular_url = None
+    if not resume:
+        modular_url=modular_candidate(observation)
+        selected = {'url':modular_url,'referer':inp['url']} if modular_url else entry(observation)
+        request = {'url': selected['url'], 'referer': selected.get('referer') or inp['url'], 'entry_evidence':selected}
+        input_file.write_text(json.dumps(request), 'utf-8')
 
     def command(mode, seconds):
         result = subprocess.run([node_binary(), str(ROOT / 'discovered-web.cjs'), mode, str(input_file), str(run)],
@@ -118,13 +120,30 @@ def convert(inp, observation, run, budget, chat):
             raise Blocked('Web ' + mode + '：' + (result.stderr or result.stdout)[-1800:])
 
     from auto_repair import guarded
-    if modular_url:
+    if resume:
+        pass  # The worker verified and copied a job-bound capture snapshot.
+    elif modular_url:
         guarded(lambda: capture_modules(modular_url,inp['url'],run,budget), run, budget, node='acquire')
     else:
         guarded(lambda: command('capture', 480), run, budget, node='acquire')
     acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
     viewport, _ = prepare_viewport(run / 'converted', acquisition['engine'])
-    guarded(lambda: command('viewport' if viewport else 'verify', 420), run, budget, run / 'converted', node='test')
+    from conversion_checkpoint import save as save_checkpoint
+    save_checkpoint(run, inp, observation)
+    resume_info = json.loads((run/'checkpoint-resume.json').read_text('utf-8')) if resume else {}
+    if resume and resume_info.get('prior_runtime_failed'):
+        from auto_repair import diagnose
+        from execution_trace import run_stage
+        from worker import Blocked
+        previous = json.loads((run/'previous-execution.json').read_text('utf-8')) if (run/'previous-execution.json').exists() else {}
+        failure = Blocked(previous.get('original_error') or '上轮运行验证未通过，从保留的采集产物继续诊断')
+        recovered, _ = diagnose(failure, run, budget, target=run/'converted', stage='test',
+            retry=lambda: run_stage('test', lambda: command('viewport' if viewport else 'verify', 420)))
+        if not recovered:
+            failure.auto_repair_attempted = True
+            raise failure
+    else:
+        guarded(lambda: command('viewport' if viewport else 'verify', 420), run, budget, run / 'converted', node='test')
     acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
     target = run / 'converted'
     runtime = json.loads((target / 'evidence/runtime.json').read_text('utf-8'))
