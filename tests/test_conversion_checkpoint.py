@@ -73,6 +73,16 @@ class CheckpointTests(unittest.TestCase):
         self.assertTrue(reason)
         self.assertFalse((self.current / 'converted').exists())
 
+    def test_verified_working_copy_is_not_replaced_by_pre_repair_capture(self):
+        self.save()
+        self.write('converted/game.js', 'adaptedGame()')
+        self.write('converted/evidence/runtime.json', {'passed': True})
+        checkpoints.save(self.prior, self.inp, self.observation, kind='web-runtime')
+        result, reason = checkpoints.restore(self.job, self.current, self.runs)
+        self.assertIsNone(reason)
+        self.assertEqual((self.current/'converted/game.js').read_text(), 'adaptedGame()')
+        self.assertFalse(result.get('prior_runtime_failed'))
+
     def test_legacy_capture_requires_test_evidence_and_original_hashes(self):
         self.write('converted/evidence/runtime.json', {'passed': False})
         before = {p.relative_to(self.prior).as_posix(): p.read_bytes() for p in self.prior.rglob('*') if p.is_file()}

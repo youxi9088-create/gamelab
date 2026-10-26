@@ -58,10 +58,11 @@ def copy_snapshot(source, target, rows):
         if digest(dst) != row['sha256']:raise ValueError('检查点复制校验失败')
 
 
-def save(run, inp, observation):
+def save(run, inp, observation, kind='web-capture'):
     run = Path(run)
     if not (run / 'job-binding.json').is_file():return None
-    destination = run / 'checkpoints/web-capture'
+    if kind not in ('web-capture','web-runtime'):raise ValueError('无效检查点阶段')
+    destination = run / 'checkpoints' / kind
     if destination.exists():return read(destination / 'checkpoint.json')
     rows = [{'path': p.relative_to(run).as_posix(), 'sha256': digest(p)} for p in members(run)]
     metadata = {'schema': 1, 'job_id': read(run / 'job-binding.json')['job_id'],
@@ -116,7 +117,8 @@ def restore(job, run, runs_root):
         if any(linked(source/name) for name in ('acquisition', *TREES)):
             raise ValueError('历史产物目录是链接')
         if read(source / 'job-binding.json').get('job_id') != job['id']:raise ValueError('检查点属于其他任务')
-        checkpoint = source / 'checkpoints/web-capture'
+        checkpoint = source / 'checkpoints/web-runtime'
+        if not checkpoint.exists():checkpoint = source / 'checkpoints/web-capture'
         if checkpoint.exists():
             if linked(source / 'checkpoints') or linked(checkpoint):raise ValueError('检查点目录是链接')
             metadata = read(checkpoint / 'checkpoint.json');copy_from = checkpoint
