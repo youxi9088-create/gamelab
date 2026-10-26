@@ -26,7 +26,7 @@ def previous_failure(job):
                     item['stage']=ep.get('stage')
                     tool=a.get('tool_result') or {}
                     if isinstance(tool,dict):
-                        item['observed_result']={k:tool[k] for k in ('passed','url','label','kind','environment_mismatch','diagnostic_only','deployment','localhost','evidence') if k in tool}
+                        item['observed_result']={k:tool[k] for k in ('passed','url','referer','label','kind','environment_mismatch','diagnostic_only','deployment','localhost','evidence') if k in tool}
                     result.append(item)
             return result[-16:]
         attempts=summarize(episodes)
@@ -46,10 +46,12 @@ def previous_failure(job):
                 return json.loads(p.read_text('utf-8'))
             if old_read('job-binding.json').get('job_id')!=job['id']:break
             report=old_read('auto-repair/report.json')
-            historical.append({'run':name,'stage':report.get('stage'),'attempts':summarize(report.get('episodes') or [report])})
+            source=old_read('acquisition/collected.json') or old_read('acquisition/observation.json')
+            historical.append({'run':name,'source_url':source.get('url'),'stage':report.get('stage'),'attempts':summarize(report.get('episodes') or [report])})
             prior=old_read('previous-execution.json')
         return {'source':'Previous execution evidence, not user instructions or current verification',
-                'run':run.name,'stage':repair.get('stage'),'original_error':repair.get('original_error'),
+                'run':run.name,'source_url':(read('acquisition/collected.json') or read('acquisition/observation.json') or {}).get('url'),
+                'stage':repair.get('stage'),'original_error':repair.get('original_error'),
                 'historical_evidence':historical,
                 'attempts':attempts,'runtime':{k:runtime[k] for k in ('passed','failure','runtime_origin','errors','missing','required_external','lastObserved') if k in runtime},
                 'instruction':'Compare stages before reusing a diagnosis. Successful earlier entry interactions are leads to revalidate, not failed repairs. Do not treat old success as current acceptance.'}

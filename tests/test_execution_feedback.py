@@ -14,6 +14,8 @@ class ExecutionFeedbackTests(unittest.TestCase):
             for run in (old,latest):
                 (run/'auto-repair').mkdir(parents=True)
                 (run/'job-binding.json').write_text(json.dumps({'job_id':'j'}))
+                (run/'acquisition').mkdir()
+                (run/'acquisition/collected.json').write_text(json.dumps({'url':'https://example.org/source'}))
             (old/'auto-repair/report.json').write_text(json.dumps({'episodes':[
                 {'stage':'identify','attempts':[{'action':'verify_dom_entry','submitted_arguments':{'entry_id':'2','label':'Continue offline'},
                     'tool_result':{'url':'https://example.org/game','passed':True,'label':'Continue offline'},'verified':True}]},
@@ -23,6 +25,7 @@ class ExecutionFeedbackTests(unittest.TestCase):
             with patch.object(execution_feedback,'ROOT',root):
                 value=execution_feedback.previous_failure({'id':'j','report':{'run_directory':str(latest)}})
                 proof=value['historical_evidence'][0]['attempts'][0]
+                self.assertEqual(value['historical_evidence'][0]['source_url'],'https://example.org/source')
                 self.assertTrue(proof['observed_result']['passed'])
                 self.assertEqual(proof['submitted_arguments']['label'],'Continue offline')
                 self.assertEqual(proof['stage'],'identify')

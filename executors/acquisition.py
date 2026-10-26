@@ -21,7 +21,7 @@ def retained_web_source(url,observations,directory,runs_root):
             'retained_capture':{'source_sha256':evidence['html_sha256'],'reason':'本轮网络采集失败，复用同一来源已验证快照；不代表原站最新版本'}}
 
 
-def acquire(url, run, budget, observations=None):
+def acquire(url, run, budget, observations=None, referer=None):
     from worker import Blocked, NeedsInput
     from controlplane.runtime import node_binary
     directory = run / 'acquisition'
@@ -42,7 +42,9 @@ def acquire(url, run, budget, observations=None):
                        'appid': appid, 'identity_source': 'candidate-observations'}
     else:
         # The installed REA launcher and acquisition browser share the same Node runtime.
-        result = subprocess.run(command+[str(Path(__file__).with_name('acquire.cjs')),url,str(directory)],
+        arguments=[str(Path(__file__).with_name('acquire.cjs')),url,str(directory)]
+        if referer:arguments.append(referer)
+        result = subprocess.run(command+arguments,
             capture_output=True,timeout=budget.remaining(90),shell=False)
         if result.returncode:
             detail=result.stderr.decode('utf-8',errors='replace')[-2000:]

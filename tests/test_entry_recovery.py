@@ -18,6 +18,65 @@ class Budget:
 
 
 class EntryRecoveryTests(unittest.TestCase):
+    def test_historical_dom_keeps_referrer_and_requires_interaction_despite_canvas(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);source='https://example.org/game';child='https://cdn.example/game';parent='https://example.org/wrapper'
+            (root/'previous-execution.json').write_text(json.dumps({'source_url':source,'attempts':[
+                {'action':'verify_dom_entry','verified':True,'observed_result':{'passed':True,'url':child,'referer':parent,'kind':'nested-dom'}}]}))
+            payloads=[]
+            def chat(messages,budget):
+                payload=json.loads(messages[-1]['content'][0]['text']);payloads.append(payload)
+                if len(payloads)==1:return {'action':'probe_entry','arguments':{'entry_id':'1'}}
+                self.assertFalse(payload['previous_attempts'][0]['verified'])
+                return {'action':'verify_dom_entry','arguments':{'entry_id':'1','label':'Skip'}}
+            def acquire(url,*args,**kwargs):
+                self.assertEqual(kwargs['referer'],parent)
+                return {'web_discovery':{'entries':[{'url':child,'canvas_count':1,'evidence':'rendered-canvas'}],
+                    'launch_controls':[{'label':'Skip','visible':True}]}}
+            def execute(command,**kwargs):
+                self.assertEqual(command[5],parent)
+                (Path(command[4])/'interaction.json').write_text(json.dumps({'passed':True,'url':child,'referer':parent}))
+                return SimpleNamespace(returncode=0)
+            token=CHAT.set(chat)
+            try:
+                with patch('entry_recovery.subprocess.run',side_effect=execute):
+                    result=recover({'url':source,'web_discovery':{}},root,Budget(),acquire)
+            finally:CHAT.reset(token)
+            self.assertEqual(len(payloads),2)
+            self.assertEqual(result['web_discovery']['entries'][0]['evidence'],'interactive-dom')
+
+    def test_navigation_links_do_not_become_required_game_probes(self):
+        from entry_recovery import declared_leads
+        links=[{'url':'https://example.org'+path,'label':label} for path,label in
+               [('/','Home'),('/new','New Games'),('/updated','Recently Updated Games'),('/start','Play Now')]]
+        self.assertEqual([r['url'] for _,r in declared_leads({'launch_links':links})],['https://example.org/start'])
+
+    def test_same_source_historical_entry_must_be_probed_again(self):
+        from entry_recovery import historical_leads
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);url='https://example.org/game';child='https://cdn.example/game/v1/index.html'
+            prior={'source_url':url,'attempts':[{'action':'verify_dom_entry','verified':True,
+                'observed_result':{'passed':True,'url':child,'referer':url,'kind':'canvas-entry'}}]}
+            (root/'previous-execution.json').write_text(json.dumps(prior))
+            self.assertEqual(historical_leads(root,{'url':url}),[{'url':child,'referer':url,'requires_dom':False}])
+            self.assertEqual(historical_leads(root,{'url':'https://example.org/another-game'}),[])
+            calls=[]
+            def chat(messages,budget):
+                payload=json.loads(messages[-1]['content'][0]['text'])
+                self.assertIn('previous_verified_entry_requires_fresh_probe',payload['capabilities']['probe_entry'])
+                return {'action':'probe_entry','arguments':{'entry_id':'1'}}
+            def acquire(selected,*args,**kwargs):
+                self.assertEqual(kwargs['referer'],url)
+                calls.append(selected)
+                return {'web_discovery':{'entries':[{'url':selected,'canvas_count':1,'evidence':'rendered-canvas'}]}}
+            token=CHAT.set(chat)
+            try:result=recover({'url':url,'web_discovery':{}},root,Budget(),acquire)
+            finally:CHAT.reset(token)
+            self.assertEqual(calls,[child]);self.assertEqual(result['web_discovery']['entries'][0]['url'],child)
+            prior['attempts'][0]['verified']=False
+            (root/'previous-execution.json').write_text(json.dumps(prior))
+            self.assertEqual(historical_leads(root,{'url':url}),[])
+
     def test_old_runtime_diagnosis_cannot_skip_current_entry_probe(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);url='https://example.org/game';payloads=[];calls=[]
@@ -94,7 +153,7 @@ class EntryRecoveryTests(unittest.TestCase):
             calls=[]
             answers=iter([{'action':'probe_entry','arguments':{'entry_id':'1'}},
                           {'action':'probe_entry','arguments':{'entry_id':'2'}}])
-            def acquire(url,directory,budget):
+            def acquire(url,directory,budget,**kwargs):
                 calls.append(url)
                 if len(calls)==1:return {'web_discovery':{'loader_hints':[{'url':'https://cdn.example/game?v=31'}]}}
                 return {'web_discovery':{'entries':[{'url':url,'canvas_count':1,'evidence':'rendered-canvas'}]}}

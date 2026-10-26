@@ -23,7 +23,7 @@ class WorkerEntryRecoveryTests(unittest.TestCase):
             root=Path(temp)
             config=root/'services.json'; config.write_text('{}')
             client=Client(); visits=[]
-            def acquire(url,run,budget,observations=None):
+            def acquire(url,run,budget,observations=None,referer=None):
                 visits.append(url)
                 observation={'title':'Isolated game','source_kind':'web','web_discovery':{
                     'iframe_hints':[{'url':'https://example.org/game','evidence':'iframe-src'}],

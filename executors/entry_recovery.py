@@ -2,10 +2,42 @@
 import copy
 import ipaddress
 import json
+import re
 import subprocess
 from pathlib import Path
 from urllib.parse import urlsplit
 from auto_repair import diagnose
+
+
+def declared_leads(discovery):
+    """Navigation links are observations, not runnable-game entry candidates."""
+    for key in ('iframe_hints','loader_hints','launch_links'):
+        for row in discovery.get(key,[]):
+            if not isinstance(row,dict) or not isinstance(row.get('url'),str):continue
+            if key=='launch_links' and not re.fullmatch(
+                    r'(?:play(?:\s+(?:now|game))?|start(?:\s+game)?|launch(?:\s+game)?|open\s+game|开始(?:游戏)?|启动(?:游戏)?|进入游戏|试玩)',
+                    str(row.get('label','')).strip(),re.I):continue
+            yield key,row
+
+
+def historical_leads(run, observation):
+    """Worker-produced, job-bound history is only a lead for fresh verification."""
+    path=Path(run)/'previous-execution.json'
+    if not path.is_file() or path.is_symlink() or path.stat().st_size>2_000_000:return []
+    try:prior=json.loads(path.read_text('utf-8'))
+    except (OSError,ValueError):return []
+    source=observation.get('url')
+    if not source:return []
+    leads=[]
+    for record in [prior]+prior.get('historical_evidence',[])[:3]:
+        if record.get('source_url')!=source:continue
+        for attempt in record.get('attempts',[]):
+            result=attempt.get('observed_result') or {}
+            url=result.get('url')
+            if (attempt.get('action')=='verify_dom_entry' and attempt.get('verified') is True
+                    and result.get('passed') is True and isinstance(url,str) and url not in [r['url'] for r in leads]):
+                leads.append({'url':url,'referer':result.get('referer'),'requires_dom':result.get('kind')!='canvas-entry'})
+    return leads[:4]
 
 
 def recover(observation, run, budget, acquire):
@@ -31,10 +63,12 @@ def recover(observation, run, budget, acquire):
         original = error
     discovery = observation.get('web_discovery', {})
     choices = []
-    for key in ('iframe_hints', 'launch_links', 'loader_hints'):
-        for row in discovery.get(key, []):
-            if isinstance(row, dict) and isinstance(row.get('url'), str) and row['url'] not in [c['url'] for c in choices]:
-                choices.append({'entry_id': str(len(choices)+1), 'url': row['url'], 'source': key})
+    for key,row in declared_leads(discovery):
+        if row['url'] not in [c['url'] for c in choices]:
+            choices.append({'entry_id': str(len(choices)+1), 'url': row['url'], 'referer':observation.get('url'), 'source': key})
+    for lead in historical_leads(run,observation):
+        if lead['url'] not in [c['url'] for c in choices]:
+            choices.append({'entry_id':str(len(choices)+1),**lead,'source':'previous_verified_entry_requires_fresh_probe'})
     allowed = {row['url'] for row in choices}
     by_id = {row['entry_id']: row['url'] for row in choices}
     def selected(arguments):
@@ -45,7 +79,7 @@ def recover(observation, run, budget, acquire):
                 raise ValueError('入口编号无效或与 URL 不一致；从本轮声明入口清单选择 entry_id')
             url = found
         if not isinstance(url, str) or url not in allowed:
-            raise ValueError('只能探测本任务采集页面明确声明的入口；arguments 必须包含清单中的 entry_id 或完整 url')
+            raise ValueError('只能探测本轮清单登记的声明入口或同来源历史入口；arguments 必须包含清单中的 entry_id 或完整 url')
         return url
     probes = []
     observed = {}
@@ -77,18 +111,19 @@ def recover(observation, run, budget, acquire):
         directory = Path(run) / 'entry-probes' / str(len(probes)+1)
         directory.mkdir(parents=True, exist_ok=False)
         probes.append(url)
-        result = acquire(url, directory, budget)
+        referer=next(c.get('referer') for c in choices if c['url']==url)
+        result = acquire(url, directory, budget, **({'referer':referer} if referer else {}))
         observed[url] = result
         # A probed public wrapper may itself declare the actual game loader.
         # Expand only from collector evidence, never a model-invented URL.
-        for key in ('iframe_hints', 'launch_links', 'loader_hints'):
-            for row in result.get('web_discovery', {}).get(key, []):
-                child = row.get('url') if isinstance(row, dict) else None
-                if not isinstance(child, str) or child in allowed or len(choices) >= 100:
-                    continue
-                item = {'entry_id':str(len(choices)+1), 'url':child, 'source':key}
-                choices.append(item); allowed.add(child); by_id[item['entry_id']] = child
+        for key,row in declared_leads(result.get('web_discovery',{})):
+            child=row['url']
+            if child in allowed or len(choices)>=100:continue
+            item = {'entry_id':str(len(choices)+1), 'url':child, 'referer':result.get('url') or url, 'source':key}
+            choices.append(item); allowed.add(child); by_id[item['entry_id']] = child
         entries = result.get('web_discovery', {}).get('entries', [])
+        # A background canvas cannot replace a previously DOM-validated game.
+        if next(c.get('requires_dom') for c in choices if c['url']==url):entries=[]
         current.setdefault('web_discovery', {})['entries'] = entries
         current['entry_recovery'] = {'declared_url': url, 'evidence': result.get('evidence', {})}
         return {'url': url, 'entries': entries, 'declared_entries':choices, 'controls':result.get('web_discovery',{}).get('launch_controls',[]),
@@ -105,7 +140,10 @@ def recover(observation, run, budget, acquire):
         interactions.add((url,label))
         directory = Path(run)/'entry-probes'/f'dom-{len(probes)+1}'
         directory.mkdir(parents=True,exist_ok=False);probes.append(url)
-        result = subprocess.run([node_binary(),str(Path(__file__).with_name('dom-entry.cjs')),url,label,str(directory)],
+        referer=next(c.get('referer') for c in choices if c['url']==url)
+        command=[node_binary(),str(Path(__file__).with_name('dom-entry.cjs')),url,label,str(directory)]
+        if referer:command.append(referer)
+        result = subprocess.run(command,
                                 capture_output=True,encoding='utf-8',errors='replace',timeout=budget.remaining(100))
         proof=json.loads((directory/'interaction.json').read_text('utf-8'))
         if result.returncode or not proof.get('passed'):
@@ -119,7 +157,7 @@ def recover(observation, run, budget, acquire):
                 'evidence':'interactive-dom','interaction_verified':True,'interaction_evidence':str(directory.relative_to(run)/'interaction.json')}]
         return proof
     recovered, result = diagnose(original, run, budget, retry=verify, stage='identify', pending_checks=pending_checks, capabilities={
-        'probe_entry': {'description': '探测页面明确声明的入口；返回 action:"probe_entry",arguments:{entry_id:"清单编号"}（也支持完整 url）。必须提交 arguments。浏览器实际观察结果返回原路由检查，不代表玩法验收。声明入口清单：'+json.dumps(choices,ensure_ascii=False),
+        'probe_entry': {'description': '探测已登记的页面声明入口或同来源历史验证入口；返回 action:"probe_entry",arguments:{entry_id:"清单编号"}（也支持完整 url）。必须提交 arguments。历史入口必须在本轮重新观察与验证，不代表最新资源版本或玩法通过。入口清单：'+json.dumps(choices,ensure_ascii=False),
                         'validate': selected,
                         'diagnostic_only': True,
                         'execute': probe},

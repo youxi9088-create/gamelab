@@ -87,15 +87,16 @@ async function verifyInteraction(page,label,dir,{waitMs=20000}={}){
  if(!transition)throw Error('DOM interaction did not produce a verifiable interface transition; see transition.json for loading and canvas observations');
  return {passed:true,...evidence,scope:'Observed DOM transition only; offline gameplay acceptance remains required'};
 }
-async function probe(url,label,dir){
+async function probe(url,label,dir,referer){
  safeURL(url);fs.mkdirSync(dir,{recursive:true});
+  if(referer)safeURL(referer);
  const browser=await chromium.launch(require('./browser-options.cjs')());
- const report={passed:false,url,label,errors:[]};
+ const report={passed:false,url,label,referer,errors:[]};
  try{
   const context=await browser.newContext({viewport:{width:390,height:844},serviceWorkers:'block',acceptDownloads:false});
   await context.route('**/*',route=>{try{if(!/^(data|blob):/.test(route.request().url()))safeURL(route.request().url());return route.continue();}catch{return route.abort();}});
   const page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
-  const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000});
+  const response=await page.goto(url,{referer,waitUntil:'domcontentloaded',timeout:45000});
   if(!response?.ok())throw Error('DOM entry HTTP '+response?.status());
   await page.getByRole('button',{name:label,exact:true}).waitFor({state:'visible',timeout:15000});
   Object.assign(report,await verifyInteraction(page,label,dir));
