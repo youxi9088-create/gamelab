@@ -24,6 +24,11 @@ class LinkBatchTests(AutomaticTests):
         path=f"/api/v1/jobs/{j['id']}/events"
         body={'lease_token':j['lease_token'],'node':'acquire','node_status':'running','message':'获取缓存'}
         self.service.mutate(path,body,tool)
+        self.service.mutate(path,dict(body,execution_id='exec1',node_attempt=1),tool)
+        self.service.mutate(path,dict(body,node_status='failed',execution_id='exec1',node_attempt=1),tool)
+        self.service.mutate(path,dict(body,node_status='repairing'),tool)
+        self.service.mutate(path,dict(body,node='repair',parent_node='acquire'),tool)
+        self.service.mutate(path,dict(body,execution_id='exec2',node_attempt=2),tool)
         with self.assertRaises(ApiError):
             self.service.mutate(path,dict(body,node='made-up'),tool)
         with self.assertRaises(ApiError):
@@ -31,9 +36,23 @@ class LinkBatchTests(AutomaticTests):
         state=self.service.state()
         self.assertEqual(state['jobs'][0]['pipeline']['current'],'acquire')
         self.assertNotIn('lease_token',state['jobs'][0])
+        node=state['jobs'][0]['pipeline']['nodes'][1]
+        self.assertEqual(node['failure_count'],1)
+        self.assertEqual(node['retry_count'],1)
 
 
 class TimelineTests(unittest.TestCase):
+    def test_legacy_machine_proof_exposes_executed_entry_and_failed_verify(self):
+        job=dict(id='j',round=10,stage='rea',status='blocked',reason='Web verify：timeout',report={'auto_repair':{
+            'original_error':'Web verify：timeout','episodes':[{'attempts':[{'attempt':1,'verified':True,'action':'verify_dom_entry',
+                'tool_result':{'passed':True,'url':'https://example.org/game'}}]}]}})
+        pipe=timeline(job,[],[]);nodes={n['key']:n for n in pipe['nodes']}
+        self.assertEqual(nodes['identify']['status'],'succeeded')
+        self.assertEqual(nodes['test']['status'],'blocked')
+        self.assertEqual(pipe['current'],'test')
+        self.assertEqual(nodes['test']['execution_count'],0)  # Do not invent attempt counts.
+        job['status']='running'
+        self.assertNotEqual(timeline(job,[],[])['nodes'][0]['status'],'succeeded')
     def test_legacy_logs_do_not_fake_completion(self):
         j=dict(id='j',stage='rea',status='blocked',reason='缺少缓存')
         p=timeline(j,[dict(id='e',job_id='j',stage='rea',message='开始分析',created_at='2026-10-20T00:00:00+00:00')],[])

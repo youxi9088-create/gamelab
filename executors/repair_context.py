@@ -18,7 +18,7 @@ class RepairContext:
         code = {}; total = 0
         candidates = [self.run / name for name in (
             'acquisition/observation.json', 'acquisition/source.html', 'conversion-plan.json', 'discovered-web-input.json',
-            'web-acquisition.json', 'web-capture.log', 'web-verify.log', 'web-browser.log',
+            'web-acquisition.json', 'web-capture.log', 'web-verify.log', 'web-browser.log', 'previous-execution.json', 'runtime-environment.json',
             'converted/evidence/runtime.json', 'web-original/source-entry.html')]
         for dirname in ('acquisition', 'web-original', 'repair-sources', 'converted', 'entry-probes'):
             root = self.run / dirname
@@ -40,7 +40,7 @@ class RepairContext:
         return {'source_inventory': [{'path': n, 'characters': len(t),
                     'sha256': hashlib.sha256(t.encode()).hexdigest(), 'editable': False} for n,t in code.items()],
                 'source_excerpts': [self.context.read(n, 0, 20000) for n in (
-                    'discovered-web-input.json', 'acquisition/observation.json', 'acquisition/source.html',
+                    'previous-execution.json', 'runtime-environment.json', 'discovered-web-input.json', 'acquisition/observation.json', 'acquisition/source.html',
                     'web-original/source-entry.html', 'web-acquisition.json', 'web-browser.log', 'converted/evidence/runtime.json') if n in code]}
 
     def inspect(self, answer, payload):

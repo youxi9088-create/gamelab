@@ -249,7 +249,7 @@ async function capture(input,run){
  }finally{await Promise.allSettled(pending);await browser.close();fs.writeFileSync(path.join(run,'web-acquisition.json'),JSON.stringify(report,null,2));}
  return report;
 }
-async function verify(run,actions=[],nextBatch=null,viewportReview=false){
+async function verify(run,actions=[],nextBatch=null,viewportReview=false,environment='deployment'){
  const started=Date.now(),root=path.resolve(run,'converted'),report={passed:false,errors:[],missing:[],external:[],blocked_external:[],required_external:[],steps:[],actions:[],renderDiagnostics:[]},acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
  fs.mkdirSync(path.join(root,'evidence'),{recursive:true});fs.mkdirSync(path.join(root,'screenshots'),{recursive:true});
  const server=http.createServer((req,res)=>{
@@ -258,7 +258,9 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   if(!p.startsWith(root+path.sep)||!fs.existsSync(p)||!fs.statSync(p).isFile()){res.writeHead(404);return res.end();}
   const mime={'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.wasm':'application/wasm','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.swf':'application/x-shockwave-flash'};
   res.setHeader('Content-Type',mime[path.extname(p)]||'application/octet-stream');res.end(fs.readFileSync(p));
- });await new Promise(r=>server.listen(0,'127.0.0.1',r));const transport=`http://127.0.0.1:${server.address().port}`,origin='https://replica-runtime.invalid';
+ });await new Promise(r=>server.listen(0,'127.0.0.1',r));const transport=`http://127.0.0.1:${server.address().port}`;
+ const origin=environment==='localhost'?`http://localhost:${server.address().port}`:'https://replica-runtime.invalid';
+ report.environment=environment;report.diagnostic_only=environment==='localhost';
  report.runtime_origin=origin;report.navigation=[];
  let browser,page,context;
  try{
@@ -412,10 +414,10 @@ if(require.main===module){const [mode,input,run]=process.argv.slice(2);(async()=
   let r;
   if(mode==='capture')r=await capture(data,run);
   else for(let attempt=0;attempt<4;attempt++){
-   try{r=await verify(run,desired,nextBatch,mode==='viewport');break;}
+   try{r=await verify(run,desired,nextBatch,mode==='viewport',mode==='diagnose-localhost'?'localhost':'deployment');break;}
    catch(e){
     const runtime=JSON.parse(fs.readFileSync(path.join(run,'converted/evidence/runtime.json'))),acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
-    if(attempt>=3||!runtime.missing?.length||!acq.url)throw e;
+    if(mode==='diagnose-localhost'||attempt>=3||!runtime.missing?.length||!acq.url)throw e;
     fs.writeFileSync(path.join(run,'converted/evidence','resource-check-'+Date.now()+'.json'),JSON.stringify(runtime,null,2));
     await repairResources(run);
    }

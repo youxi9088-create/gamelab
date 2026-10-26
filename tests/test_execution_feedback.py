@@ -8,6 +8,19 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'executors'))
 import execution_feedback
 
 class ExecutionFeedbackTests(unittest.TestCase):
+    def test_failed_conversion_without_version_survives_retry(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t);run=root/'failed';run.mkdir()
+            (run/'job-binding.json').write_text(json.dumps({'job_id':'j'}))
+            (run/'auto-repair').mkdir()
+            (run/'auto-repair/report.json').write_text(json.dumps({'original_error':'timeout','attempts':[{'action':'retry','verification_error':'timeout','verified':False}]}))
+            (run/'converted/evidence').mkdir(parents=True)
+            (run/'converted/evidence/runtime.json').write_text(json.dumps({'passed':False,'runtime_origin':'https://replica-runtime.invalid'}))
+            with patch.object(execution_feedback,'ROOT',root):
+                result=execution_feedback.previous_failure({'id':'j','report':{'run_directory':str(run)}})
+                self.assertFalse(result['runtime']['passed'])
+                self.assertEqual(result['attempts'][0]['verification_error'],'timeout')
+                self.assertIsNone(execution_feedback.previous_failure({'id':'other','report':{'run_directory':str(run)}}))
     def test_web_progress_uses_last_successful_job_bound_observation(self):
         with tempfile.TemporaryDirectory() as t:
             root=Path(t);run=root/'run';run.mkdir()

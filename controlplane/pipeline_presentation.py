@@ -13,6 +13,10 @@ STAGE_WORK = {
 }
 
 LABELS = {
+    'retrying': ('active', '● 异常后重试中'),
+    'repairing': ('active', '● 执行异常 · 正在诊断修复'),
+    'reused': ('history', '已复用已有结果'),
+    'waiting_child': ('active', '● 已开始 · 等待子步骤'),
     'succeeded': ('complete', '✓ 已完成'), 'running': ('active', '● 进行中'),
     'failed': ('issue', '！执行失败'), 'blocked': ('issue', '！遇到阻断'),
     'waiting_input': ('waiting', '待处理'), 'draft_saved': ('incomplete', '草稿已保存 · 未完成'),
@@ -58,6 +62,10 @@ def describe_node(node, job, current):
     result = {
         'succeeded': '该阶段已有明确的完成记录；具体检查范围见详细记录。',
         'running': '正在执行，尚未取得本次完成结果。',
+        'retrying': '此前执行失败，正在重新执行并验证；失败记录仍保留。',
+        'repairing': '本步骤发生异常，正在分析与修复；尚不代表重试成功。',
+        'reused': '本轮明确复用已有结果，来源和复用范围见记录；没有重新执行。',
+        'waiting_child': '本步骤已开始，正在执行其中的子步骤或处理子步骤异常，尚未结束。',
         'failed': '本次执行失败，尚未完成这个阶段。',
         'blocked': '遇到阻断，当前任务无法继续。',
         'waiting_input': '这个阶段尚未完成，需要后续处理。',
@@ -68,12 +76,17 @@ def describe_node(node, job, current):
         'cancelled': '本次执行已停止，未将停止当作完成。',
         'skipped': '本轮明确跳过此阶段，跳过原因见详细记录。',
     }.get(status, '阶段结果尚未确认。')
+    if node.get('execution_count'):
+        result += f" 本轮实际执行 {node['execution_count']} 次，失败 {node['failure_count']} 次，异常后重试 {node['retry_count']} 次。"
+        if status=='succeeded' and node.get('retry_count'):
+            label='✓ 重试后通过'
     next_action = {
         'complete': '可查看完成依据。', 'active': '等待执行结果，页面会自动更新。',
         'issue': '查看问题原因，在“沟通与操作”中补充要求或重试。',
         'waiting': '查看任务提示，完成需要的处理。',
         'incomplete': '继续处理剩余检查，复用已保存的版本。',
         'unknown': '查看详细记录；缺少记录本身不表示需要从头重跑。',
+        'history': '查看复用来源和范围；本轮后续验证仍需独立执行。',
         'pending': '等待前置步骤完成。', 'optional': '继续查看其他阶段。',
         'stopped': '需要继续时，在“沟通与操作”中提交要求。',
     }[group]
@@ -105,6 +118,13 @@ def describe_node(node, job, current):
     problem = node.get('reason') or next((r['message'] for r in reversed(current_records) if r.get('status')=='failed'),None)
     if not problem and key=='test':
         problem = '；'.join(job.get('auto_followup',{}).get('gaps',[])) or None
+    if current==key and job.get('status') in ('blocked','failed'):
+        attempts=(job.get('report',{}).get('auto_repair') or {}).get('attempts',[])
+        latest=next((a for a in reversed(attempts) if a.get('diagnosis')),None)
+        if latest:
+            raw=(job.get('reason') or '').splitlines()[0]
+            problem=raw+'\nAI 最后诊断（需结合证据）：'+latest['diagnosis']
+            if latest.get('next_action'):next_action=latest['next_action']
     return dict(title=title, work=work, group=group, label=label, result=result,
                 next_action=next_action, previous=previous_text,
                 problem=problem if group in ('issue','waiting') else None)

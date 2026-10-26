@@ -730,13 +730,18 @@ function pipelineRecords(records) {
   const groups=[];
   for(const r of records) {
     const last=groups.at(-1), previous=last?.[0];
-    if(previous&&previous.message===r.message&&previous.round===r.round&&previous.attempt===r.attempt&&previous.status===r.status)last.push(r);
+    if(previous&&previous.execution_id===r.execution_id&&previous.message===r.message&&previous.round===r.round&&previous.attempt===r.attempt&&previous.status===r.status)last.push(r);
     else groups.push([r]);
   }
   return groups.map(group=>{
-    const r=group[0], text=r.summary||r.message;
+    const r=group[0], text=r.evidence_source?r.message:(r.summary||r.message);
     return `<div class="pipeline-record"><p class="tiny"><time>${date(r.time)}</time> ${r.round?'第 '+r.round+' 轮 · ':''}${esc(text)}</p>${text!==r.message?`<details><summary class="tiny muted">详细记录（原始内容）</summary><p class="tiny">${esc(r.message)}</p></details>`:''}${group.length>1?`<details><summary class="tiny muted">相同记录共 ${group.length} 次 · 查看时间</summary>${group.slice(1).map(item=>`<p class="tiny">${date(item.time)}</p>`).join('')}</details>`:''}</div>`;
   }).join('');
+}
+function pipelineExecutions(node) {
+  if(!node.executions?.length)return '';
+  const labels={running:'执行中',resumed:'继续执行',interrupted:'任务已结束 · 缺少本次结束记录',failed:'失败',succeeded:'通过',cancelled:'已停止',waiting_input:'待处理'};
+  return `<div class="pipeline-executions"><h4>本轮每次执行</h4>${node.executions.map(e=>`<p class="tiny"><b>第 ${esc(e.number)} 次 · ${esc(labels[e.status]||e.status)}</b> · ${date(e.started_at)}${e.ended_at?' → '+date(e.ended_at):' · 未记录结束'}${e.message?`<br>${esc(e.message)}`:''}</p>`).join('')}</div>`;
 }
 function pipelinePanel(job) {
   const pipe=job.pipeline;
@@ -745,7 +750,7 @@ function pipelinePanel(job) {
   const summary=pipe.presentation, countLabels={complete:'本轮已完成',active:'进行中',issue:'有问题',waiting:'等待处理',incomplete:'未完成',pending:'尚未开始',unknown:'结论缺失',history:'历史结果',optional:'按需 / 跳过',stopped:'已停止'};
   return `<section class="pipeline"><h3>转换阶段与完成情况</h3>${summary?`<div class="pipeline-overview"><strong>${esc(summary.headline)}</strong>${summary.current_title?`<p>当前节点：${esc(summary.current_title)} <button class="smallbtn" data-stage-focus="${esc(pipe.current)}">定位这个阶段 ↓</button></p>`:''}${summary.problem?`<p class="pipeline-problem"><b>当前问题：</b>${esc(summary.problem)}</p>`:''}<p>下一步：${esc(summary.next_action)}</p><div class="pipeline-counts">${Object.entries(countLabels).filter(([k])=>summary.counts[k]).map(([k,label])=>`<span data-group="${k}">${label} ${summary.counts[k]} 项</span>`).join('')}</div><p class="tiny muted">完成项只统计本轮有明确结论的阶段，历史完成与按需步骤单独显示。</p></div>`:''}<p class="tiny muted">${esc(pipe.note)}</p><ol>${pipe.nodes.map((n,index)=>{
     const view=n.presentation, records=n.records||[], currentRecords=records.filter(r=>(r.round||1)===(job.round||1)), history=records.filter(r=>(r.round||1)!==(job.round||1));
-    return `<li data-node="${esc(n.key)}" data-status="${esc(n.status)}" data-group="${esc(view?.group||'unknown')}" ${pipe.current===n.key?'aria-current="step"':''}><div class="pipeline-stage-header"><strong>${index+1}. ${esc(view?.title||n.label)}</strong><span class="pipeline-status">${esc(view?.label||labels[n.status]||n.status)}</span></div>${view?`<p class="pipeline-work">${esc(view.work)}</p><p class="pipeline-result"><b>当前结果：</b>${esc(view.result)}</p>${view.problem?`<p class="pipeline-problem"><b>问题：</b>${esc(view.problem)}</p>`:''}<p class="pipeline-next"><b>下一步：</b>${esc(view.next_action)}</p>${view.previous?`<p class="tiny muted">历史结论：${esc(view.previous)}</p>`:''}`:''}<details class="pipeline-evidence"><summary>查看过程与依据 · 本轮 ${currentRecords.length} 条 / 历史 ${history.length} 条</summary>${n.started_at?`<p class="tiny">开始 ${date(n.started_at)}</p>`:''}${n.ended_at?`<p class="tiny">结束 ${date(n.ended_at)}</p>`:''}${n.duration_seconds!=null?`<p class="tiny">耗时 ${n.duration_seconds} 秒</p>`:''}${!view&&n.reason&&n.reason!==job.question&&!records.some(r=>r.message?.trim()===n.reason.trim())?`<p>${esc(n.reason)}</p>`:''}${n.version_id?`<p class="tiny">关联版本 ${esc(n.version_id)}</p>`:''}${pipelineRecords(currentRecords)}${!currentRecords.length?'<p class="tiny muted">本轮没有独立的步骤日志；如有版本结果，以阶段说明为准。</p>':''}${history.length?`<details><summary>此前轮次记录</summary>${pipelineRecords(history)}</details>`:''}</details></li>`;
+    return `<li data-node="${esc(n.key)}" data-status="${esc(n.status)}" data-group="${esc(view?.group||'unknown')}" ${pipe.current===n.key?'aria-current="step"':''}><div class="pipeline-stage-header"><strong>${index+1}. ${esc(view?.title||n.label)}</strong><span class="pipeline-status">${esc(view?.label||labels[n.status]||n.status)}</span></div>${view?`<p class="pipeline-work">${esc(view.work)}</p><p class="pipeline-result"><b>当前结果：</b>${esc(view.result)}</p>${view.problem?`<p class="pipeline-problem"><b>问题：</b>${esc(view.problem)}</p>`:''}<p class="pipeline-next"><b>下一步：</b>${esc(view.next_action)}</p>${view.previous?`<p class="tiny muted">历史结论：${esc(view.previous)}</p>`:''}`:''}<details class="pipeline-evidence"><summary>查看过程与依据 · 本轮 ${currentRecords.length} 条 / 历史 ${history.length} 条</summary>${n.started_at?`<p class="tiny">开始 ${date(n.started_at)}</p>`:''}${n.ended_at?`<p class="tiny">结束 ${date(n.ended_at)}</p>`:''}${n.duration_seconds!=null?`<p class="tiny">耗时 ${n.duration_seconds} 秒</p>`:''}${!view&&n.reason&&n.reason!==job.question&&!records.some(r=>r.message?.trim()===n.reason.trim())?`<p>${esc(n.reason)}</p>`:''}${n.version_id?`<p class="tiny">关联版本 ${esc(n.version_id)}</p>`:''}${pipelineExecutions(n)}${pipelineRecords(currentRecords)}${!currentRecords.length?'<p class="tiny muted">本轮没有独立的步骤日志；如有版本结果，以阶段说明为准。</p>':''}${history.length?`<details><summary>此前轮次记录</summary>${pipelineRecords(history)}</details>`:''}</details></li>`;
   }).join('')}</ol></section>`;
 }
 function gameSpecPanel(candidate,job) {

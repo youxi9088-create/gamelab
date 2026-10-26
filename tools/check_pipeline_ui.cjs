@@ -21,6 +21,8 @@ const assert=require('assert/strict');
     const j=state.jobs[0];
     j.status='failed';j.round=2;j.reason='隔离检查：资源尚未完整';
     j.pipeline={current:'adapt',note:'隔离展示检查',nodes:[{key:'adapt',label:'Web 适配',status:'failed',reason:j.reason,
+      executions:[{id:'run-1',number:1,status:'failed',started_at:'2026-10-20T09:00:00+08:00',ended_at:'2026-10-20T09:01:00+08:00',message:'第一次检查异常'},
+        {id:'run-2',number:2,status:'failed',started_at:'2026-10-20T09:02:00+08:00',ended_at:'2026-10-20T09:03:00+08:00',message:'重试后仍有缺项'}],
       records:[{event_id:'fixture-node',message:j.reason,time:'2026-10-20T09:00:00+08:00',round:2}]}]};
     state.events=[
       {id:'fixture-node',job_id:j.id,message:j.reason,created_at:'2026-10-20T09:00:00+08:00',round:2},
@@ -48,6 +50,9 @@ const assert=require('assert/strict');
   assert.equal(await page.locator('.task-conversation').getByText('隔离执行汇报',{exact:true}).count(),0);
   assert.equal(await page.locator('.task-progress-reports').getByText('隔离执行汇报',{exact:true}).count(),1);
   assert.equal(await page.locator('.task-legacy-messages').getByText('隔离旧消息',{exact:true}).count(),1);
+  await page.locator('.pipeline-evidence > summary').click();
+  assert.equal(await page.locator('.pipeline-executions').getByText(/第 1 次 · 失败/).count(),1);
+  assert.equal(await page.locator('.pipeline-executions').getByText(/第 2 次 · 失败/).count(),1);
   await page.screenshot({path:'qa-output/pipeline-desktop.png'});
   await page.setViewportSize({width:390,height:844});
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));

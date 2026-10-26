@@ -298,8 +298,13 @@ def execute(client, job):
             with (run/'usage-unreported.jsonl').open('a',encoding='utf-8') as log:log.write(json.dumps(row)+'\n')
     usage_token=USAGE_SINK.set(usage_sink)
     from auto_repair import EVENT as REPAIR_EVENT, CHAT as REPAIR_CHAT, diagnose
+    from execution_trace import TRACE, ExecutionTrace
+    trace=ExecutionTrace(lambda **event: client.post(prefix+'events',{**lease,**event}))
+    trace_token=TRACE.set(trace)
     def repair_event(status,message):
-        client.post(prefix+'events',{**lease,'node':'repair','node_status':status,'message':message})
+        parent=trace.stack[-1]['node'] if trace.stack else trace.last_failed_node or phase[0]
+        client.post(prefix+'events',{**lease,'node':'repair','node_status':status,'message':message,
+            **({'parent_node':parent} if parent in ('identify','acquire','analysis','adapt','test','delivery') else {})})
     def repair_chat(messages,budget):
         previous=phase[0];phase[0]='repair'
         try:return chat(messages,budget)
@@ -315,26 +320,18 @@ def execute(client, job):
     def measured(node, fn):
         def invoke(*args, **kwargs):
             previous=phase[0];phase[0]=node
-            from controlplane.pipeline import STAGES
-            from controlplane.pipeline_presentation import STAGE_WORK
-            label=dict(STAGES)[node]
-            client.post(prefix+'events',{**lease,'node':node,'node_status':'running','message':'正在'+STAGE_WORK[node][0]+'：'+STAGE_WORK[node][1]})
+            def recover(exc,retry):
+                if isinstance(exc,RevisionYield):
+                    raise exc
+                return diagnose(exc,run,budget,retry=retry)
             try:
-                result=fn(*args,**kwargs)
-            except Exception as exc:
-                recovered=False
-                if not isinstance(exc,RevisionYield) and not getattr(exc,'auto_repair_attempted',False):
-                    recovered,result=diagnose(exc,run,budget,retry=lambda:fn(*args,**kwargs))
-                    exc.auto_repair_attempted=True
-                if not recovered:
-                    phase[0]=previous
-                    client.post(prefix+'events',{**lease,'node':node,'node_status':'failed','message':label+'未完成，具体原因见本轮任务结果'})
-                    raise
-            report=result[-1] if isinstance(result,tuple) and isinstance(result[-1],dict) else result if isinstance(result,dict) else {}
-            incomplete=node=='test' and (report.get('blocker') or report.get('delivery_gaps'))
-            client.post(prefix+'events',{**lease,'node':node,'node_status':'waiting_input' if incomplete else 'succeeded','message':STAGE_WORK[node][0]+('：本段操作已结束，等待汇总检查结论；最终完成情况见本轮交付记录。' if incomplete else '：本次步骤已完成，具体处理结果和覆盖范围已保存在本轮记录中。')})
-            phase[0]=previous
-            return result
+                result=trace.run(node,lambda:fn(*args,**kwargs),recover)
+                report=result[-1] if isinstance(result,tuple) and isinstance(result[-1],dict) else result if isinstance(result,dict) else {}
+                if node=='test' and (report.get('blocker') or report.get('delivery_gaps')):
+                    client.post(prefix+'events',{**lease,'node':node,'node_status':'waiting_input','message':'操作结束，检查仍有未完成项；见本轮报告。'})
+                return result
+            finally:
+                phase[0]=previous
         return invoke
     def contracted_smoke(*args,**kwargs):
         return globals()['smoke'](*args,**kwargs,spec=job.get('input',{}).get('game_spec'))
@@ -344,7 +341,7 @@ def execute(client, job):
     def heartbeat():
         while not stop.wait(20):
             try:
-                client.post(prefix + 'heartbeat', {**lease, 'progress': 25, 'message': '执行器正在处理；产物尚未验收'})
+                client.post(prefix + 'heartbeat', {**lease, 'message': '执行器正在处理；产物尚未验收'})
             except Exception:
                 # Completion remains guarded by the server's lease validation.
                 pass
@@ -352,12 +349,17 @@ def execute(client, job):
     thread.start()
     try:
         inp = job.get('input', {})
+        from execution_feedback import previous_failure
+        prior_failure=previous_failure(job)
+        if prior_failure:
+            write_json(run/'previous-execution.json',prior_failure)
         from controlplane.conversion_plan import build as build_plan
         def save_plan(observation=None,converter=None):
             plan=build_plan(inp,observation,converter,job.get('continuation',False),job['stage'])
             plan['recorded']=True
             write_json(run/'conversion-plan.json',plan)
             client.post(prefix+'plan',{**lease,'plan':plan})
+        save_plan=measured('analysis',save_plan)
         save_plan()
         settings = job.get('settings', {})
         budget = Budget(max(1, int(settings.get('rea_minutes' if job['stage']=='rea' else 'reconstruct_minutes', 45 if job['stage']=='rea' else 180))) * 60, max(2, min(32, int(os.environ.get('REPLICA_AI_MAX_CALLS', '24')))))
@@ -384,6 +386,9 @@ def execute(client, job):
                 raw=checkpoint_path.read_bytes()
                 if hashlib.sha256(raw).hexdigest()!=checkpoint['sha256']:raise Blocked('续作检查点校验失败')
                 inp['_revision_checkpoint']=json.loads(raw)
+            for reused_node in ('identify','acquire'):
+                client.post(prefix+'events',{**lease,'node':reused_node,'node_status':'reused',
+                    'message':'沿用已有版本的入口与文件：'+str(inp.get('base_version',{}).get('id') or job.get('base_version_id') or '本轮绑定的源文件')+'；仍需本轮验证。'})
             base_report=inp.get('base_version',{}).get('report',{})
             if base_report.get('path')=='B' and not base_report.get('original_resource_catalog'):
                 from acquisition import acquire
@@ -426,9 +431,9 @@ def execute(client, job):
                     destination=run/'converted'/f'screenshots/revision-{i}.png'
                     destination.parent.mkdir(parents=True,exist_ok=True)
                     destination.write_bytes(p.read_bytes())
-                artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':entry,'report':report})['artifact_id']
+                artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':entry,'report':report})['artifact_id']
             else:
-                artifact=client.post('artifacts',{**lease,'job_id':job['id'],'changes':changes,'entry':entry,'report':report,'screenshots':{f'screenshots/revision-{i}.png':base64.b64encode(p.read_bytes()).decode() for i,p in enumerate(screenshots)}})['artifact_id']
+                artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'changes':changes,'entry':entry,'report':report,'screenshots':{f'screenshots/revision-{i}.png':base64.b64encode(p.read_bytes()).decode() for i,p in enumerate(screenshots)}})['artifact_id']
             client.post(prefix+'complete',{**lease,'outcome':'draft' if gaps else 'ready_review','artifact_id':artifact,'report':report,'reason':report['summary']})
             return
         if job['stage'] == 'rea':
@@ -439,7 +444,7 @@ def execute(client, job):
                     report=measured('adapt',convert)(inp,run,budget,analyze)
                     client.post('candidates/'+job['candidate_id']+'/dependencies',
                         {**lease,'job_id':job['id'],'revision':(inp.get('dependencies') or {}).get('revision',0),'dependencies':report['dependencies']})
-                    artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
+                    artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
                     client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
                         'reason':'原 Web 资源采集、精确适配、REA 与离线玩法检查完成，入库待验收'})
                     return
@@ -477,7 +482,7 @@ def execute(client, job):
                         'converter':conversion,'resource_completion':resource_completion,'requires_manual_playtest':True,'foundation_checks':{},
                         'limitations':['仅通过运行检查；原版玩法、联网依赖和跨游戏复用仍需验证']}
                     # Only the locally supervised worker may request this bounded snapshot.
-                    artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
+                    artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
                     client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
                         'reason':'原包服务转换产物已通过浏览器运行检查；玩法未验证，按基础检查保存草稿'})
                     return
@@ -499,7 +504,7 @@ def execute(client, job):
                     from controlplane.delivery_requirements import delivery_gaps
                     gaps=delivery_gaps(report,files)
                     if gaps:raise Blocked('基础还原未完成；'+'；'.join(gaps))
-                    artifact=client.post('artifacts',{**lease,'job_id':job['id'],'files':attach_screenshots(files,run),'entry':entry,'report':report})['artifact_id']
+                    artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'files':attach_screenshots(files,run),'entry':entry,'report':report})['artifact_id']
                     client.post(prefix+'complete',{**lease,'event_id':str(uuid.uuid4()),'outcome':'recovered','reason':'外部转换产物已通过本机浏览器检查，入库待验收','artifact_id':artifact,'report':report})
                     return
                 from controlplane.source_routing import source_kind,web_block_reason
@@ -511,7 +516,7 @@ def execute(client, job):
                         report=measured('adapt',convert)({**acquired,'game_spec':inp.get('game_spec')},run,budget,analyze)
                         client.post('candidates/'+job['candidate_id']+'/dependencies',
                             {**lease,'job_id':job['id'],'revision':inp['dependencies'].get('revision',0) if inp.get('dependencies') else 1,'dependencies':report['dependencies']})
-                        artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
+                        artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
                         client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
                             'reason':'REA 分析、资源下载及本地启动检查已完成；保存原版可编辑草稿，完整玩法待验收'})
                         return
@@ -523,12 +528,16 @@ def execute(client, job):
                         client.post(prefix+'acquired',{**lease,'title':acquired['title'],'observations':acquired})
                         save_plan(acquired,converter)
                     if acquired.get('web_discovery',{}).get('entries') or modular_candidate(acquired):
-                        from discovered_web import convert
+                        from discovered_web import convert, entry
+                        if not modular_candidate(acquired):
+                            measured('identify',entry)(acquired)
+                        else:
+                            measured('identify',modular_candidate)(acquired)
                         report=measured('adapt',convert)(inp,acquired,run,budget,chat)
                         current_dependencies=dependencies or {}
                         client.post('candidates/'+job['candidate_id']+'/dependencies',
                             {**lease,'job_id':job['id'],'revision':current_dependencies.get('revision',1),'dependencies':report['dependencies']})
-                        artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
+                        artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
                         client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
                             'reason':'原 Web 游戏资源采集、本地适配和离线启动完成，玩法验证范围见本轮交付报告'})
                         return
@@ -563,7 +572,7 @@ def execute(client, job):
                         runtime = smoke(files, entry, run, 'orbit-catch' if Path(inp['source_path']).resolve() == (ROOT / 'fixtures/orbit-catch').resolve() else None, budget=budget)
                         report.update(runtime_smoke=runtime, runtime_verified=True, recovery_kind=recovery['kind'], recovery_coverage=recovery)
                         files = attach_screenshots(files, run)
-                        artifact = client.post('artifacts', {**lease, 'job_id': job['id'], 'files': files, 'entry': entry, 'report': report})['artifact_id']
+                        artifact = measured('delivery',client.post)('artifacts', {**lease, 'job_id': job['id'], 'files': files, 'entry': entry, 'report': report})['artifact_id']
                         outcome, reason = 'recovered', '源码整理可运行；REA 静态证据已保留，等待完整玩法验收'
                     except RuntimeFailure:
                         report.update(runtime_smoke=json.loads((run / 'runtime-report.json').read_text(encoding='utf-8')), recovery_coverage=recovery)
@@ -616,7 +625,7 @@ def execute(client, job):
             from controlplane.delivery_requirements import delivery_gaps
             gaps=delivery_gaps(report,files)
             if gaps:raise Blocked('基础还原未完成；'+'；'.join(gaps))
-            artifact = client.post('artifacts', {**lease, 'job_id': job['id'], 'files': files, 'entry': entry, 'report': report})['artifact_id']
+            artifact = measured('delivery',client.post)('artifacts', {**lease, 'job_id': job['id'], 'files': files, 'entry': entry, 'report': report})['artifact_id']
             outcome, reason = 'ready_review', 'AI 已生成代码，等待实际试玩验收'
         else:
             raise Blocked('Unsupported stage')
@@ -636,6 +645,7 @@ def execute(client, job):
     except Exception as exc:
         completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'failed', 'reason': f'{type(exc).__name__}: {str(exc)[:300]}', 'report': diagnose_failure(exc)}
     finally:
+        TRACE.reset(trace_token)
         USAGE_SINK.reset(usage_token)
         REPAIR_EVENT.reset(repair_event_token)
         REPAIR_CHAT.reset(repair_chat_token)

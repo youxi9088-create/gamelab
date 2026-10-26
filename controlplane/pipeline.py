@@ -13,7 +13,8 @@ STAGES = (
 )
 ALIASES = {'rea': 'analysis', 'reconstruct': 'adapt', 'packaging': 'delivery',
            'dependency-analysis': 'adapt'}
-STATUSES = {'running', 'succeeded', 'failed', 'waiting_input', 'skipped', 'cancelled'}
+STATUSES = {'running', 'succeeded', 'failed', 'waiting_input', 'skipped', 'cancelled',
+            'repairing', 'retrying', 'resumed', 'reused'}
 
 
 def timeline(job, events, versions):
@@ -33,6 +34,7 @@ def timeline(job, events, versions):
         record = dict(time=e.get('created_at'), message=e.get('message', ''),
                       status=e.get('node_status', 'recorded'), event_id=e['id'],
                       round=e.get('round'), attempt=e.get('attempt'))
+        record.update({k:e[k] for k in ('execution_id','node_attempt','parent_node') if k in e})
         node['records'].append(record)
         if e.get('round', 1) != job.get('round', 1):
             continue
@@ -41,11 +43,14 @@ def timeline(job, events, versions):
             node['status'] = e['node_status']
         elif node['status'] == 'pending':
             node['status'] = 'recorded'
-        if e.get('node_status') == 'running':
-            node['started_at'] = e.get('created_at')
+        if e.get('node_status') in ('running','resumed','retrying','repairing'):
+            if e['node_status'] == 'resumed':
+                node['status']='running'
+            if e['node_status'] == 'running':
+                node['started_at'] = e.get('created_at')
             node.pop('ended_at', None)
             current = key
-        elif e.get('node_status') in ('succeeded', 'failed', 'skipped', 'cancelled'):
+        elif e.get('node_status') in ('succeeded', 'failed', 'skipped', 'cancelled','reused'):
             node['ended_at'] = e.get('created_at')
             if current == key:
                 current = None
@@ -67,6 +72,34 @@ def timeline(job, events, versions):
             nodes['publish'].update(status='succeeded', ended_at=latest.get('published_at'))
             current = 'publish'
     status = job.get('status')
+    # Older workers nested entry/capture/verification inside repair/adapt.
+    # Project only explicit machine-verified results; never infer from AI prose.
+    repair_report=(job.get('report') or {}).get('auto_repair') or {}
+    if not job.get('telemetry_version') and status in ('blocked','failed'):
+        def evidence_node(key, state, message, source):
+            if nodes[key]['status'] in ('pending','recorded'):
+                nodes[key]['status']=state
+                nodes[key]['records'].append(dict(time=None,message=message,status=state,
+                    event_id='evidence:'+source,round=job.get('round',1),attempt=None,evidence_source=source))
+        for i,episode in enumerate(repair_report.get('episodes',[])):
+            for a in episode.get('attempts',[]):
+                if a.get('verified') is not True:continue
+                proof=a.get('tool_result') or {}
+                ref=f'auto-repair/episodes/{i}/attempt/{a.get("attempt",0)}'
+                if a.get('action')=='verify_dom_entry' and proof.get('passed') is True and proof.get('url'):
+                    evidence_node('identify','succeeded','本轮结构化交互证据确认入口通过；这不代表离线运行或玩法通过。',ref)
+                if a.get('action')=='configure_runtime' and (a.get('runtime_plan') or {}).get('source_sha256'):
+                    evidence_node('analysis','succeeded','本轮运行契约已校验，并重新捕获通过；范围仅限此转换方案。',ref)
+        if str(job.get('reason','')).startswith('Web verify：') and str(repair_report.get('original_error','')).startswith('Web verify：'):
+            evidence_node('test','failed','本轮离线验证已实际执行并失败；原执行器未单独上报节点，依据验证错误记录展示。','auto-repair/original_error')
+            current='test'
+    # A repair episode belongs to the failing stage. It is not a new attempt
+    # until an actual execution starts; repeated diagnosis messages never count.
+    repairs=[e for e in ordered if e.get('round',1)==job.get('round',1) and e.get('node')=='repair']
+    if repairs and repairs[-1].get('node_status')=='running' and status=='running':
+        parent=repairs[-1].get('parent_node')
+        if parent in nodes:
+            nodes[parent]['status']='repairing'
     if status in ('blocked','failed','waiting_input') and (
             current is None or nodes.get(current,{}).get('status') not in ('running','failed','waiting_input')):
         unresolved = [e for e in ordered if (e.get('round') or 1)==job.get('round',1)
@@ -78,7 +111,8 @@ def timeline(job, events, versions):
             (latest and latest.get('status') == 'draft')):
         current = 'test' if latest and latest.get('report', {}).get('runtime_verified') else 'adapt'
     if current in nodes and status in ('running', 'waiting_input', 'blocked', 'failed', 'cancelled', 'stopped'):
-        nodes[current]['status'] = {'blocked': 'blocked', 'stopped': 'cancelled'}.get(status, status)
+        if status!='running' or nodes[current]['status'] not in ('repairing','retrying'):
+            nodes[current]['status'] = {'blocked': 'blocked', 'stopped': 'cancelled'}.get(status, status)
         nodes[current]['reason'] = job.get('question') or job.get('reason', '')
     # A new continuation is queued; do not present the old version as its result.
     if status == 'queued':
@@ -88,7 +122,41 @@ def timeline(job, events, versions):
         if latest and latest['id'] == job.get('base_version_id'):
             nodes['review']['status'] = 'recorded'
             nodes['publish']['status'] = 'recorded' if latest.get('published_at') else 'pending'
+    if status=='running':
+        parent_map={e['node']:e['parent_node'] for e in ordered if e.get('round',1)==job.get('round',1) and e.get('parent_node')}
+        child=current;seen=set()
+        while child in parent_map and child not in seen:
+            seen.add(child);parent=parent_map[child]
+            if parent in nodes and nodes[parent]['status']=='running':
+                nodes[parent]['status']='waiting_child'
+            child=parent
     for node in nodes.values():
+        current_records=[r for r in node['records'] if (r.get('round') or 1)==job.get('round',1)]
+        executions={}
+        for r in current_records:
+            eid=r.get('execution_id')
+            if not eid:
+                continue
+            item=executions.setdefault(eid,dict(id=eid,number=r.get('node_attempt'),status='recorded'))
+            if r['status']=='running':
+                item['started_at']=r['time']
+            if r['status'] in ('succeeded','failed','cancelled','waiting_input'):
+                item['ended_at']=r['time']
+                item['message']=r['message']
+            item['status']=r['status']
+        for item in executions.values():
+            if status not in ('running','queued') and item['status'] in ('running','resumed'):
+                item['status']='interrupted'
+        node['executions']=list(executions.values())
+        failures=[x for x in node['executions'] if x['status']=='failed']
+        # Counts are bounded to structured actual executions, not prose.
+        node['execution_count']=len(executions)
+        node['failure_count']=len(failures)
+        node['retry_count']=sum(1 for i,x in enumerate(node['executions']) if i and node['executions'][i-1]['status']=='failed')
+        if status=='running' and node['status']=='running' and failures:
+            node['status']='retrying'
+        if status!='running' and node['status'] in ('retrying','repairing'):
+            node['status']='blocked' if status in ('failed','blocked') else 'recorded'
         # A round or parent step ending cannot leave a child step executing forever.
         # Absence of an end event is NOT proof that verification passed.
         if node['status'] == 'running' and (status != 'running' or node['key'] != current):
@@ -96,7 +164,9 @@ def timeline(job, events, versions):
             node['reason'] = '该步骤已不在执行；历史记录未提供独立结束结果。'
         if node['status'] == 'pending' and node['records']:
             node['status'] = 'recorded'
-        if node['status']=='pending' and status in ('completed','review','failed','blocked','cancelled','stopped'):
+        if node['status']=='pending' and not job.get('telemetry_version') and status!='queued':
+            node['status']='unrecorded'
+        if node['status']=='pending' and not job.get('telemetry_version') and status in ('completed','review','failed','blocked','cancelled','stopped'):
             node['status']='unrecorded'
         start, end = node.get('started_at'), node.get('ended_at')
         if start and end:
@@ -109,7 +179,7 @@ def timeline(job, events, versions):
     from .pipeline_presentation import describe_pipeline
     presentation = describe_pipeline(job, list(nodes.values()), current)
     return dict(current=current, nodes=list(nodes.values()), presentation=presentation,
-                note='节点状态对应当前轮次，展开可查看历史轮次记录；保存草稿不代表验证通过，未记录结果不推定成功。')
+                note='节点状态对应当前轮次，展开可查看执行与历史证据；同一阻断可能影响多个节点，不代表多个独立故障。保存草稿不代表验证通过，缺少记录不推定成功或未执行。')
 
 
 def progress_summary(job, versions):

@@ -21,6 +21,10 @@ def recover(observation, run, budget, acquire):
             entry(current)  # Reuse the converter's actual entry validation.
             return current
         raise Blocked(web_block_reason(current))
+    from execution_trace import run_stage
+    check = verify
+    def verify():
+        return run_stage('identify', check)
     try:
         return verify()
     except Blocked as error:

@@ -119,12 +119,12 @@ def convert(inp, observation, run, budget, chat):
 
     from auto_repair import guarded
     if modular_url:
-        guarded(lambda: capture_modules(modular_url,inp['url'],run,budget), run, budget)
+        guarded(lambda: capture_modules(modular_url,inp['url'],run,budget), run, budget, node='acquire')
     else:
-        guarded(lambda: command('capture', 480), run, budget)
+        guarded(lambda: command('capture', 480), run, budget, node='acquire')
     acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
     viewport, _ = prepare_viewport(run / 'converted', acquisition['engine'])
-    guarded(lambda: command('viewport' if viewport else 'verify', 420), run, budget, run / 'converted')
+    guarded(lambda: command('viewport' if viewport else 'verify', 420), run, budget, run / 'converted', node='test')
     acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
     target = run / 'converted'
     runtime = json.loads((target / 'evidence/runtime.json').read_text('utf-8'))

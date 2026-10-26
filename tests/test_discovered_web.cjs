@@ -250,6 +250,18 @@ test('Cocos scene existence does not certify a loading screen',async()=>{
   const report=await verify(run);assert.equal(report.steps[0].labels[0].text,'READY');
  }finally{fs.rmSync(run,{recursive:true,force:true});}
 });
+test('localhost environment probe is diagnostic and keeps origin-sensitive behaviour',async()=>{
+ const run=fs.mkdtempSync(path.join(os.tmpdir(),'environment-fixture-'));
+ try{
+  fs.mkdirSync(path.join(run,'converted'));fs.writeFileSync(path.join(run,'web-acquisition.json'),JSON.stringify({engine:'browser-dom'}));
+  fs.writeFileSync(path.join(run,'converted/index.html'),'<button>Local fixture</button><script>if(location.hostname!=="localhost")throw Error("Unsupported fixture host");</script>');
+  await assert.rejects(()=>verify(run),/Unsupported fixture host/);
+  const report=await verify(run,[],null,false,'localhost');
+  assert.equal(report.passed,true);assert.equal(report.diagnostic_only,true);
+  assert.equal(new URL(report.runtime_origin).hostname,'localhost');
+ }finally{fs.rmSync(run,{recursive:true,force:true});}
+});
+
 test('offline browser validates authored local fixture and rejects external dependency',async()=>{
  const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-web-fixture-'));
  try{

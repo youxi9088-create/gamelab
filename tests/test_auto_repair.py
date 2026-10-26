@@ -15,6 +15,15 @@ class Budget:
 
 
 class AutoRepairTests(unittest.TestCase):
+    def test_diagnostic_probe_does_not_rerun_unchanged_failed_step(self):
+        calls=[]
+        answers=iter([{'action':'probe','arguments':{}},{'action':'stop'}])
+        token=CHAT.set(lambda messages,budget:next(answers))
+        try:
+            self.assertEqual(diagnose(ValueError('timeout'),self.run,Budget(),retry=lambda:calls.append(1),
+                capabilities={'probe':{'description':'read-only probe','diagnostic_only':True,'reverify':False,'execute':lambda args:{'local_only':True}}}),(False,None))
+        finally:CHAT.reset(token)
+        self.assertEqual(calls,[])
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.run=Path(self.temp.name)
         self.target=self.run/'converted';self.target.mkdir()
