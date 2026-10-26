@@ -173,22 +173,42 @@ def analyze(source, run, budget=None):
 
 def chat(messages, budget=None):
     config = ai_config()
+    request_messages = messages
     for attempt in range(2):
         if budget:
             if budget.calls <= 0:
                 raise Blocked('AI call count budget exhausted')
             budget.calls -= 1
         try:
-            value, provider = complete(messages, config, budget.remaining(600) if budget else 600)
+            value, provider = complete(request_messages, config, budget.remaining(600) if budget else 600)
             chat.last_provider = provider
             return value
         except Exception as exc:
             detail=str(exc)[:160] if isinstance(exc,RuntimeError) else type(exc).__name__
             transient=isinstance(exc,RuntimeError) and detail.startswith('AI API 调用失败：') and any(
                 marker in detail for marker in ('URLError','超时','流式响应提前结束','IncompleteRead','RemoteDisconnected','ConnectionResetError','HTTP 408','HTTP 429','HTTP 500','HTTP 502','HTTP 503','HTTP 504','HTTP 520','HTTP 522','HTTP 524'))
-            if transient and attempt==0 and (budget is None or budget.calls>0):
+            malformed = isinstance(exc, json.JSONDecodeError) or (
+                isinstance(exc, RuntimeError) and detail.startswith('AI API 调用失败：响应不是有效 JSON'))
+            if (transient or malformed) and attempt==0 and (budget is None or budget.calls>0):
                 # Each attempt is a separate metered provider call and consumes
-                # the task's call budget. Authentication/schema errors stop.
+                # the task's call budget. Invalid actions/authentication still stop.
+                if malformed:
+                    correction = ('上一次回答未能解析为合法 JSON。请基于相同证据重新回答，严格遵守原有字段和允许的动作，'
+                                  '仅返回一个合法 JSON 对象，正确转义字符串；不要添加 Markdown 或 JSON 外的说明。')
+                    request_messages = [dict(message) for message in messages]
+                    system = next((message for message in request_messages
+                                   if message.get('role') == 'system' and isinstance(message.get('content'), str)), None)
+                    if system is not None:
+                        system['content'] += '\n' + correction
+                    else:
+                        user = next((message for message in reversed(request_messages)
+                                     if message.get('role') == 'user'), None)
+                        if user is not None and isinstance(user.get('content'), str):
+                            user['content'] += '\n' + correction
+                        elif user is not None and isinstance(user.get('content'), list):
+                            user['content'] = [*user['content'], {'type': 'text', 'text': correction}]
+                        elif len(request_messages) < 32:
+                            request_messages.append({'role': 'user', 'content': correction})
                 continue
             error=Blocked('AI 调用未完成：' + detail)
             error.safe_detail=detail

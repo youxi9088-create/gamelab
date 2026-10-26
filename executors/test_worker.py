@@ -3,6 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+from types import SimpleNamespace
 import worker
 
 
@@ -15,6 +16,54 @@ class Client:
 
 
 class WorkerTests(unittest.TestCase):
+    def test_malformed_json_retries_only_provider_preserving_evidence(self):
+        messages = [{'role': 'system', 'content': 'Use allowed tools only'},
+                    {'role': 'user', 'content': [{'type': 'text', 'text': 'evidence'}]}]
+        original = json.loads(json.dumps(messages))
+        budget = SimpleNamespace(calls=3, remaining=lambda seconds: seconds)
+        failures = [json.JSONDecodeError('invalid', 'x', 0),
+                    RuntimeError('AI API 调用失败：响应不是有效 JSON；请检查连接和模型配置')]
+        for failure in failures:
+            budget.calls = 3
+            with self.subTest(failure=type(failure).__name__), patch('worker.ai_config', return_value={}), \
+                    patch('worker.complete', side_effect=[failure, ({'action': 'stop'}, 'test')]) as complete:
+                self.assertEqual(worker.chat(messages, budget), {'action': 'stop'})
+                self.assertEqual(complete.call_count, 2)
+                self.assertEqual(budget.calls, 1)
+                retried = complete.call_args.args[0]
+                self.assertIn('合法 JSON', retried[0]['content'])
+                self.assertEqual(retried[1], original[1])
+                self.assertEqual(messages, original)
+
+    def test_malformed_json_stops_at_two_calls_or_budget_limit(self):
+        for calls, expected in [(3, 2), (1, 1)]:
+            budget = SimpleNamespace(calls=calls, remaining=lambda seconds: seconds)
+            with self.subTest(calls=calls), patch('worker.ai_config', return_value={}), \
+                    patch('worker.complete', side_effect=json.JSONDecodeError('invalid', 'x', 0)) as complete:
+                with self.assertRaises(worker.Blocked):
+                    worker.chat([], budget)
+                self.assertEqual(complete.call_count, expected)
+                self.assertEqual(budget.calls, calls - expected)
+
+    def test_format_correction_preserves_full_multimodal_message_list(self):
+        messages = [{'role': 'user', 'content': [{'type': 'text', 'text': 'evidence'}]} for _ in range(32)]
+        original = json.loads(json.dumps(messages))
+        with patch('worker.ai_config', return_value={}), patch('worker.complete', side_effect=[
+                json.JSONDecodeError('invalid', 'x', 0), ({'action': 'stop'}, 'test')]) as complete:
+            worker.chat(messages)
+        retried = complete.call_args.args[0]
+        self.assertEqual(len(retried), 32)
+        self.assertIn('合法 JSON', retried[-1]['content'][-1]['text'])
+        self.assertEqual(messages, original)
+
+    def test_authentication_and_schema_errors_are_not_retried(self):
+        for failure in [RuntimeError('AI API 调用失败：HTTP 401'), ValueError('invalid action')]:
+            with self.subTest(failure=str(failure)), patch('worker.ai_config', return_value={}), \
+                    patch('worker.complete', side_effect=failure) as complete:
+                with self.assertRaises(worker.Blocked):
+                    worker.chat([])
+                self.assertEqual(complete.call_count, 1)
+
     def test_paths_block_escape(self):
         for name in ['../index.html', '/index.html', 'C:/index.html', 'sub\\index.html', '.env', 'sub/.git/config']:
             with self.assertRaises(ValueError):

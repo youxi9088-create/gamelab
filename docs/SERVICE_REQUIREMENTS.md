@@ -620,6 +620,8 @@
 
 ## 验证要求
 
+- 模型返回非法 JSON 时，共享执行器最多进行一次格式纠错调用，与网络重试共用两次总上限；每次消耗调用预算并记录提供方用量。纠错保留原证据与动作约束，不重新执行游戏节点、不将诊断失败改为成功；认证或非法动作错误不触发该纠错。
+
 - 状态与接口：`tests/test_conversations.py`、`test_batch_controls.py`、`test_game_rename.py`、`test_local_intake.py`。
 - 验收真实按钮：`tests/test_acceptance_ui.py`，验证通过后移入已验收区。
 - 截图元数据：`tests/test_presentation.py`；图片视觉检查以截图内容为准。
