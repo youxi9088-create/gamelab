@@ -27,6 +27,13 @@ function Stop-Platform {
         $listener=Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue
         if($listener){
             $process=Get-CimInstance Win32_Process -Filter "ProcessId=$($listener[0].OwningProcess)"
+            # Scheduled-task shutdown may finish between the port snapshot and
+            # process lookup. A vanished listener needs no further termination.
+            if(-not $process){
+                $remaining=Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue
+                if(-not $remaining){continue}
+                throw 'Listener changed during platform shutdown; refusing to stop an unknown process'
+            }
             if($process.CommandLine -notlike '*GameLab*server.py*'){throw 'Unexpected listener; refusing to stop'}
             & taskkill /PID $process.ProcessId /T /F | Out-Null
             if($LASTEXITCODE -ne 0 -and (Get-Process -Id $process.ProcessId -ErrorAction SilentlyContinue)){throw 'Could not stop platform process tree'}
@@ -97,8 +104,8 @@ with sqlite3.connect(p,timeout=30) as db:
  value={'id':'maintenance','draining':True}
  db.execute("INSERT INTO records VALUES ('settings','maintenance',?) ON CONFLICT(kind,id) DO UPDATE SET data=excluded.data",(json.dumps(value),))
 '@ @($app)
-    Stop-Platform
     $stopped=$true
+    Stop-Platform
     # Move only explicitly named directories within this deployment root.
     $moves=@(@('data','data'),@('game-library','game-library'),@('executors\runs','runs'))
     foreach($pair in $moves){
@@ -194,14 +201,17 @@ print('release',record['commit'])
     $stopped=$false
 } catch {
     if($stopped){
-        Stop-Platform
-        if($oldTarget -and (Test-Path -LiteralPath $oldTarget)){
-            if((Test-Path -LiteralPath $app) -and (Get-Item -LiteralPath $app).LinkType){[IO.Directory]::Delete($app)}
-            if(-not(Test-Path -LiteralPath $app)){Link-Directory $app $oldTarget}
-            if($previousRecord){[IO.File]::WriteAllText((Join-Path $shared 'release.json'),$previousRecord)}
+        try {
+            Stop-Platform
+            if($oldTarget -and (Test-Path -LiteralPath $oldTarget)){
+                if((Test-Path -LiteralPath $app) -and (Get-Item -LiteralPath $app).LinkType){[IO.Directory]::Delete($app)}
+                if(-not(Test-Path -LiteralPath $app)){Link-Directory $app $oldTarget}
+                if($previousRecord){[IO.File]::WriteAllText((Join-Path $shared 'release.json'),$previousRecord)}
+            }
+        } finally {
+            Enable-ScheduledTask -TaskName GameLabPlatform | Out-Null
+            Start-ScheduledTask -TaskName GameLabPlatform
         }
-        Enable-ScheduledTask -TaskName GameLabPlatform | Out-Null
-        Start-ScheduledTask -TaskName GameLabPlatform
     }
     throw
 } finally {$lock.Dispose()}
