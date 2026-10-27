@@ -135,6 +135,21 @@ function withPreview(version) {
   return null;
 }
 
+/**
+ * 服务状态。云端只读门面不托管 AI 与执行器，如实标注由本地平台提供，
+ * 避免前端拿到空数组后误判为"平台异常"。
+ */
+export function services() {
+  const detail = '该服务由本地平台提供，云端站点只读，不做模型调用或转换任务。';
+  return [
+    { id: 'ai', base_url: '', model: '', backend: 'local', has_key: false,
+      status: '未由云端托管', detail, checked_at: null, connection_label: '本地平台' },
+    { id: 'wechat', base_url: '', model: '', backend: 'builtin', has_key: false,
+      status: '未由云端托管', detail: '转换执行器运行于本地平台；云端仅提供已通过审核产物的试玩。',
+      checked_at: null, checks: {} },
+  ];
+}
+
 export async function state(env, session, publicUser) {
   const collections = {};
   for (const kind of STATE_KINDS) collections[kind] = await allRecords(env, kind);

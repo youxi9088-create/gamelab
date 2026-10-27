@@ -1,7 +1,7 @@
 import { createHash, timingSafeEqual } from 'node:crypto';
 import { authenticate, status as authStatus, login, logout, publicUser } from './auth.mjs';
 import { play, parsePath } from './playback.mjs';
-import { state as portalState } from './portal.mjs';
+import { state as portalState, services as portalServices } from './portal.mjs';
 
 const MAX_UPLOAD = 64 * 1024 * 1024;
 const json = (status, body, extra = {}) => Response.json(body, { status, headers: {
@@ -80,6 +80,9 @@ export default {
         if (url.pathname === '/api/auth/logout') return await logout(request, env, session);
         if (url.pathname === '/api/state' && request.method === 'GET') {
           return json(200, await portalState(env, session, publicUser));
+        }
+        if (url.pathname === '/api/services' && request.method === 'GET') {
+          return json(200, portalServices());
         }
         return json(501, { error: '该管理或转换接口尚未迁移，旧站保持运行；不能替代完整平台', implemented: false });
       }
