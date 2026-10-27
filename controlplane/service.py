@@ -6,6 +6,7 @@ from datetime import datetime, timedelta, timezone
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 from .store import Store, now, later, ident
 from .repository import Repository
+from .store_d1 import build_store
 
 class ApiError(Exception):
     def __init__(self,status,message):
@@ -34,7 +35,8 @@ from .discovery import Discovery
 class Service(Conversations,Discovery):
     def __init__(self,data_dir,repo_dir,play_url):
         self.data_dir=data_dir
-        self.store=Store(data_dir/'platform.sqlite3')
+        # D1_STORE=1 时状态落 D1（容器内磁盘易失）；否则保持本地 SQLite。
+        self.store=build_store(data_dir/'platform.sqlite3')
         self.repo=Repository(repo_dir,data_dir/'artifacts')
         self.play_url=play_url
         with self.store.tx() as db:

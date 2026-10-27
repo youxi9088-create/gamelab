@@ -66,6 +66,9 @@ class D1Transaction:
         self._pending_records = {}   # (kind, id) -> data json str
         self._pending_statements = []  # (sql, params)
         self._savepoints = []        # (name, statements_len, records_snapshot)
+        # 同一事务内 all(kind) 的 D1 结果只取一次：业务代码常在循环里反复 all()，
+        # SQLite 下是微秒，D1 下每次都是一次跨洋 HTTP 往返。
+        self._all_cache = {}
         self._closed = False
 
     # ---- SAVEPOINT：D1 无嵌套事务，用缓冲快照还原 ----
@@ -100,8 +103,10 @@ class D1Transaction:
 
     def _records_where(self, kind, key=None):
         if key is None:
-            rows = self.store._select(
-                'SELECT rowid, id, data FROM records WHERE kind = ? ORDER BY rowid DESC', [kind])
+            if kind not in self._all_cache:
+                self._all_cache[kind] = self.store._select(
+                    'SELECT rowid, id, data FROM records WHERE kind = ? ORDER BY rowid DESC', [kind])
+            rows = self._all_cache[kind]
             out = []
             seen = set()
             for rowid, rid, data in rows:
@@ -302,11 +307,11 @@ class D1Store:
                 value.setdefault('created_by', actor['id'])
             value['updated_by'] = actor['id']
         if isinstance(db, D1Transaction):
-            db._pending_records[(kind, value['id'])] = json.dumps(value, ensure_ascii=False)
+            db._pending_records[(kind, value['id'])] = json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(',', ':'))
         else:
             # 误传 sqlite 连接时退回原语义，避免静默丢写
             db.execute('INSERT INTO records VALUES (?,?,?) ON CONFLICT(kind,id) DO UPDATE SET data=excluded.data',
-                       (kind, value['id'], json.dumps(value, ensure_ascii=False)))
+                       (kind, value['id'], json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(',', ':'))))
         return value
 
     def event(self, db, message, job_id=None, stage='', **extra):
