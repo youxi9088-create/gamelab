@@ -14,4 +14,5 @@ CREATE TABLE IF NOT EXISTS artifact_files (
   PRIMARY KEY(artifact_id,path)
 );
 CREATE TABLE IF NOT EXISTS auth_failures (key TEXT PRIMARY KEY,attempts INTEGER NOT NULL,expires INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS idempotency (scope TEXT NOT NULL,key TEXT NOT NULL,body_hash TEXT NOT NULL,response TEXT NOT NULL,PRIMARY KEY(scope,key));
 CREATE INDEX IF NOT EXISTS records_username ON records(kind,json_extract(data,'$.username'));
