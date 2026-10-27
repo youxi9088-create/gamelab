@@ -8,6 +8,25 @@ const json = (status, body, extra = {}) => Response.json(body, { status, headers
   'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff', ...extra,
 }});
 function fail(status, message) { throw Object.assign(new Error(message), { status }); }
+
+// 门户状态是只读的，只在数据同步时变化。每次请求都现算一遍意味着：
+// 15 次 D1 查询 + 解析 + 序列化约 730 KB（实测 stringify 就要 6–8 ms），
+// 而 Workers Free 每请求只有 10 ms CPU——现算必然偶发 1102。
+// 改为：同步时预生成核心 JSON 存进 R2，请求时直接把字节流拼上 current_user 返回。
+// 这样 CPU 几乎为 0，且不受 D1 单日读取配额影响。
+const STATE_OBJECT = 'portal/state-core.json';
+
+export async function portalStateResponse(env, session) {
+  const cached = await env.FILES.get(STATE_OBJECT);
+  if (!cached) return json(200, await portalState(env, session, publicUser));
+  const core = (await cached.text()).replace(/\}\s*$/, '');
+  // 预生成内容不含 current_user（它随会话变化），这里只补这一项，不做全量解析。
+  const body = `${core},"current_user":${JSON.stringify(publicUser(session.user))}}`;
+  return new Response(body, { status: 200, headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff',
+  } });
+}
 const hex = data => createHash('sha256').update(data).digest('hex');
 function validToken(request, env) {
   // This secret authorizes only copying already registered immutable files, never
@@ -79,10 +98,16 @@ export default {
         if (url.pathname === '/api/session' && request.method === 'GET') return json(200, { csrf: session.csrf });
         if (url.pathname === '/api/auth/logout') return await logout(request, env, session);
         if (url.pathname === '/api/state' && request.method === 'GET') {
-          return json(200, await portalState(env, session, publicUser));
+          return await portalStateResponse(env, session);
         }
         if (url.pathname === '/api/services' && request.method === 'GET') {
           return json(200, portalServices());
+        }
+        // 采集要访问来源站点并调用 AI，云端不执行；只展示本地平台已产生的建议。
+        // 给明确原因，避免前端把 501 误报成"无法连接平台"。
+        if (url.pathname.startsWith('/api/discovery/')) {
+          return json(501, { error: '采集扫描由本地平台执行；云端站点只读展示已产生的采集建议。',
+            implemented: false, read_only: true });
         }
         return json(501, { error: '该管理或转换接口尚未迁移，旧站保持运行；不能替代完整平台', implemented: false });
       }

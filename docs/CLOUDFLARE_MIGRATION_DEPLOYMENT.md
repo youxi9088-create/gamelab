@@ -26,7 +26,7 @@
   │
   ▼
 Workers（gamelab-migration）        cloudflare/worker.mjs
-  ├── Static Assets（site/）        登录页与前端
+  ├── Static Assets（../web）       真实平台前端（41 个文件）
   ├── D1（gamelab-migration）       records / artifact_files / credentials / auth_failures
   ├── R2（gamelab-migration-private）  artifacts/<artifact_id>/<path>
   └── Secret: MIGRATION_UPLOAD_TOKEN
@@ -35,7 +35,12 @@ Workers（gamelab-migration）        cloudflare/worker.mjs
 - `worker.mjs`：路由与鉴权入口，负责登录、私有播放、上传、状态。
 - `auth.mjs`：PBKDF2 密码校验、会话 Cookie、失败限流。
 - `playback.mjs`：从 R2 读取已登记文件并按清单校验后回放。
+- `portal.mjs`：**云端只读门户**，把 D1 记录组装成前端 `web/` 期望的 state；并发取数、
+  裁剪 `report`、补引擎标签、算用量与游戏明细看板（见 §7.5 / §7.6）。
 - `schema.sql`：D1 表结构（`records` 为主表，KV 形式：`kind / id / data`）。
+
+当前形态为**变体 B**：平台与转换任务留本地，云端只做对外只读门面 + 已通过审核产物试玩。
+`/api/state` 里标注 `migration.read_only = true`，供货配置、AI 服务、转换接口均如实标注由本地提供，不伪造状态。
 
 ---
 
@@ -45,7 +50,7 @@ Workers（gamelab-migration）        cloudflare/worker.mjs
 | --- | --- |
 | Cloudflare 账户 | Youxi9088，ID `eb36b4758b88c5b65dff5bebb0181c31` |
 | Worker | `gamelab-migration` → `https://gamelab-migration.youxi9088.workers.dev` |
-| 当前版本 | `5ccfbfac-764b-444e-a2d2-434349b652a7` |
+| 当前版本 | `8793e3fa-836b-446c-b198-17f088561973` |
 | D1 数据库 | `gamelab-migration`，ID `1610b3f0-7a28-4270-b30b-fab183f92dbd`，区域 **WNAM** |
 | R2 桶 | `gamelab-migration-private` |
 | Worker Secret | `MIGRATION_UPLOAD_TOKEN` |
@@ -147,6 +152,31 @@ cd cloudflare
 CLOUDFLARE_API_TOKEN="$CLOUDFLARE_API_TOKEN" npx --yes wrangler@4 deploy --config wrangler.toml
 ```
 
+### 5.5 部署后自检（三道，从快到慢）
+
+```bash
+# 1) 结构自检：本地 sqlite 驱动 portal.mjs，检查字段裁剪、脱敏、响应体积（27 项）
+node cloudflare/tests/portal-state.test.mjs
+
+# 2) 口径对账：同一份库，Python 原实现 vs JS 移植，逐字段比对（应 0 差异）
+python tools/verify_dashboard_parity.py
+
+# 3) 真实 D1：portal.mjs 原样跑，D1 绑定换成直连 REST（8 项，需环境代理）
+NODE_USE_ENV_PROXY=1 node cloudflare/tests/portal-state-remote.mjs
+
+# 4) 缓存路径：真实 D1 登录 → 从 R2 取预生成状态 → 拼上 current_user（8 项）
+NODE_USE_ENV_PROXY=1 node cloudflare/tests/state-cache.test.mjs
+```
+
+第 3 道是唯一能验证 **D1 侧 `json_remove` / `json_extract` 行为** 的检查，改裁剪 SQL 后必须跑。
+第 4 道验证的是线上真正走的缓存路径（见 §7.8）。
+
+每次往 D1 同步数据后必须刷新云端快照，否则门户一直展示旧快照：
+
+```bash
+python tools/refresh_portal_state.py     # 生成 + 上传 R2 portal/state-core.json
+```
+
 ---
 
 ## 6. 认证方案（重要）
@@ -189,14 +219,70 @@ CLOUDFLARE_API_TOKEN="$CLOUDFLARE_API_TOKEN" npx --yes wrangler@4 deploy --confi
 
 沙箱代理只对 `api.cloudflare.com` 和 `<account>.r2.cloudflarestorage.com` 放行，对 `workers.dev` 的 CONNECT 返回 502，直连也超时。**验收必须由使用者在自己浏览器完成。**
 
-另外本机 `workerd` / Miniflare 启动即 `0xc0000005` 崩溃（Windows 沙箱限制，非代码问题），`wsl.exe` 被策略拦截。替代方案：`cloudflare/tests/node-logic.test.mjs` 用 `node:sqlite` + 内存 R2 mock 驱动**真实 worker 代码**做等价验证（7 项检查全过）。
+另外本机 `workerd` / Miniflare 启动即 `0xc0000005` 崩溃（Windows 沙箱限制，非代码问题），`wrangler dev --remote` 也起不来，`wsl.exe` 被策略拦截。
+
+**绕过办法（已验证）**：Node 22 的 undici 支持环境变量代理，加 `NODE_USE_ENV_PROXY=1` 后 `fetch` 就能走沙箱代理打到 `api.cloudflare.com`。于是不需要本地跑 workerd——直接在 Node 里执行**真实部署代码** `portal.mjs`，只把 D1 绑定替换成 D1 REST 调用，即可用云端真实数据完成端到端验证（`cloudflare/tests/portal-state-remote.mjs`）。
+
+> 曾尝试用本地 Python 中继转发 D1 查询，但沙箱会把后台进程与后续命令隔离（ECONNREFUSED），已废弃该方案。
 
 ### 7.4 本机验证中发现并修复的两个生产级 bug
 
 1. **路由未 `await`**：`return upload(...)` / `login(...)` / `play(...)` 同步抛错时逃出顶层 `try/catch`，本该返回 401/422 的请求变成 500。已全部改为 `return await ...`。
 2. **校验和 base64 解码错误**：`hashMatches` 用 `Buffer.from(checksum)`（默认 UTF-8）比对 R2 返回的 base64 sha256，永远不相等，会误报「校验和损坏」409。已改为 `Buffer.from(checksum, 'base64')`。
 
-### 7.5 环境依赖
+### 7.5 看板口径必须与原实现对齐（否则前端静默空白）
+
+`cloudflare/portal.mjs` 里的 `gameTotals` / `operationalOverview` 是 `controlplane/usage.py::game_totals`
+与 `controlplane/dashboard_operations.py::overview` 的 JS 移植。前端 `web/dashboard.js` 只要
+`state.dashboard_operations` 缺失就渲染「正在获取游戏明细…」，不会报错——所以口径漂移很难肉眼发现。
+
+移植时踩到并已修的三处：
+
+| 问题 | 表现 | 修法 |
+| --- | --- | --- |
+| 事件排序方向不一致 | 同 `created_at` 的事件配对错乱，耗时与 `unpaired_events` 全部偏大 | 对账脚本必须与 `store.py:51` 一致用 `rowid DESC` |
+| `report` 裁剪丢了 `engine` | 5 个游戏退化成「待分析」，按引擎分析失真 | 加入 `REPORT_FIELDS`（最长 8 字节） |
+| `report` 裁剪丢了 `blocker` | 阻断原因只剩状态码 `blocked`，丢失 `PUBLISHER_SITE_LOCK` 等真实码 | 加入 `REPORT_FIELDS`（最长 323 字节） |
+
+`REPORT_FIELDS` 同时生成 SQL 投影与 `rebuildReport` 的还原逻辑，**只维护一处**，避免两边漂移。
+任何改动后用 `tools/verify_dashboard_parity.py` 复核，当前 0 差异。
+
+### 7.6 D1 查询要并发（串行会放大跨区延迟）
+
+`/api/state` 需要 15 次 D1 查询。库在 WNAM、请求从边缘发起，串行实测 **29 s**；改 `Promise.all`
+并发后 **3.1 s**（还是经由本机代理，Worker 内更快）。另把 `events` 全量取回后 `slice(0,150)`，
+省掉一次重复查询——`rowid DESC` 下结果与 `LIMIT` 一致。
+
+### 7.8 /api/state 改为预生成 + R2 直出（不是优化，是能不能跑）
+
+现算一次 `/api/state` 需要 15 次 D1 查询 + 解析 + 序列化。实测 `JSON.stringify` 的成本与体积
+线性相关：**1 MB ≈ 8.5 ms**，而 Workers Free 每请求只有 10 ms CPU——现算必然偶发 1102。
+
+门户状态是只读的，只在数据同步时变化，所以改为：
+
+| 步骤 | 谁做 | 成本 |
+| --- | --- | --- |
+| 生成 `portal/state-core.json`（不含 `current_user`） | `tools/refresh_portal_state.py` | 离线，无 CPU 限制 |
+| 上传到 R2 `gamelab-migration-private` | 同上（boto3） | — |
+| 请求时取出字节流，尾部拼上 `current_user` 返回 | `worker.mjs:portalStateResponse` | 不解析、不重新序列化 |
+
+`current_user` 随会话变化，不能进缓存，所以预生成的 JSON 故意去掉结尾 `}`，请求时补上这一项再封口。
+R2 对象缺失时自动回落到现算，不会因缓存没生成而打不开。
+
+配套瘦身（前端实际读取的字段才留，逐个 grep `web/` 确认）：
+`rounds` 140 KB → 41 KB（只留 7 个字段）、`recommendations` 396 KB → 242 KB（只留 17 个字段，
+`selection_score` 只留 `value`）。
+
+### 7.9 D1 免费版单日写入配额会打断登录
+
+D1 Free 限制 **单日写入 10 万行**，超了之后所有写请求返回 `7500`（读不受影响）。
+登录要写 `portal_sessions`，配额用尽时登录直接 503，且不会提示真实原因。
+
+- 影响：新登录失败；已登录会话在 12 小时内仍有效。
+- 处理：等 00:00 UTC（北京时间 08:00）重置，或升级 Workers Paid（$5/月，同时解除 10 ms CPU 限制）。
+- 排查：`wrangler tail` 看 `[auth] 未预期错误:` 那段堆栈，`auth.mjs` 已把未预期异常打到日志。
+
+### 7.10 环境依赖
 
 `boto3` 不在默认解释器里，R2 上传需用已装 boto3 的 venv：
 `C:/Users/Administrator/.workbuddy/binaries/python/envs/default/Scripts/python.exe`
@@ -228,11 +314,17 @@ CLOUDFLARE_API_TOKEN="$CLOUDFLARE_API_TOKEN" npx --yes wrangler@4 deploy --confi
 2. 打开一个私有产物并试玩
 3. **刷新页面，确认存档/进度仍在**（这是最关键的验收项）
 4. 退出后确认未登录访问被拒（不能匿名公开）
+5. 打开「用量与执行明细」→「单个游戏转换用量」，确认表格有行、引擎筛选有值、
+   执行耗时与 Token 有数（此前该面板因缺 `dashboard_operations` 一直停在「正在获取游戏明细…」）
 
 ---
 
 ## 10. 待决事项
 
 - **D1 区域为 WNAM（美西）**，国内访问有延迟。数据涨起来后再改成本高，**现在改最便宜**。
+- **是否升级 Workers Paid（$5/月）**：同时解除 10 ms CPU 与单日 10 万行写入两个限制，
+  也能把 PBKDF2 迭代从 5,000 提回安全水平（见 §6）。当前免费版的两个限制都已实际触发过。
+- **采集服务归属**：云端只读展示建议，扫描仍需本地平台（`server.py` 的 `DiscoveryScheduler`）执行，
+  结果经 `tools/refresh_portal_state.py` 同步到云端。是否要让云端定时拉取，待定。
 - 既有 R2 桶 `gmaedate` 是否需要一并纳入或清理。
 - 原服务器停服与源数据删除：需在**验收通过且使用者确认切换后**才执行，当前未动。

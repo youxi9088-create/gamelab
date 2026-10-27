@@ -29,6 +29,7 @@ function json(statusCode, body, headers = {}) {
 
 function errorResponse(error) {
   const known = error instanceof HttpError;
+  if (!known) console.error('[auth] 未预期错误:', error && error.stack ? error.stack : error);
   return json(known ? error.status : 503, { error: known ? error.message : '认证服务暂不可用，请稍后重试' });
 }
 
