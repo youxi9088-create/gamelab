@@ -6,6 +6,7 @@ from datetime import datetime, timedelta, timezone
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 from .store import Store, now, later, ident
 from .repository import Repository
+from .repository_r2 import build_repository
 from .store_d1 import build_store
 
 class ApiError(Exception):
@@ -37,7 +38,9 @@ class Service(Conversations,Discovery):
         self.data_dir=data_dir
         # D1_STORE=1 时状态落 D1（容器内磁盘易失）；否则保持本地 SQLite。
         self.store=build_store(data_dir/'platform.sqlite3')
-        self.repo=Repository(repo_dir,data_dir/'artifacts')
+        # R2_ARTIFACTS=1 时产物同步到 R2 并登记 D1，供云端公网试玩；否则纯本地。
+        self.repo=build_repository(repo_dir,data_dir/'artifacts',
+                                   d1_store=self.store if hasattr(self.store,'_batch') else None)
         self.play_url=play_url
         with self.store.tx() as db:
             if not self.store.get(db,'settings','main'):
