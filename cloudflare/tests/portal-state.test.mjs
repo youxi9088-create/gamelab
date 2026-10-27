@@ -64,6 +64,27 @@ check('report 只留必要键', (() => {
   return trimmed.report && 'game_spec' in trimmed.report && !('auto_repair' in trimmed.report);
 })());
 
+// 看板字段：前端 dashboard/overview 直接消费，缺一个就会显示空或报错
+check('usage 三个周期齐全且非空',
+  ['day', 'week', 'month'].every(p => Array.isArray(payload.usage?.[p]) && payload.usage[p].length > 0),
+  JSON.stringify(Object.fromEntries(['day', 'week', 'month'].map(p => [p, payload.usage?.[p]?.length]))));
+check('operation_stats 三个周期齐全',
+  ['day', 'week', 'month'].every(p => Array.isArray(payload.operation_stats?.[p])),
+  JSON.stringify(Object.fromEntries(['day', 'week', 'month'].map(p => [p, payload.operation_stats?.[p]?.length]))));
+check('usage 分桶带时区日期', /^\d{4}-\d{2}(-\d{2})?$/.test(String(payload.usage?.day?.[0]?.period || '')),
+  String(payload.usage?.day?.[0]?.period));
+check('usage 统计有调用数与耗时',
+  (payload.usage?.day?.[0]?.calls || 0) > 0 && typeof payload.usage.day[0].duration_seconds === 'number',
+  `calls=${payload.usage?.day?.[0]?.calls}`);
+check('downstream_summary 存在',
+  typeof payload.downstream_summary?.templates === 'number',
+  JSON.stringify(payload.downstream_summary));
+check('settings 已提供', payload.settings && Object.keys(payload.settings).length > 0,
+  Object.keys(payload.settings || {}).join(','));
+check('供货配置如实标注由本地提供',
+  payload.supply_service?.local_only === true && payload.supply_config?.local_only === true);
+check('响应体不含全部事件（仅最近若干）', payload.events.length < 300, `${payload.events.length} 条`);
+
 const counts = Object.fromEntries(Object.entries(payload)
   .filter(([, v]) => Array.isArray(v)).map(([k, v]) => [k, v.length]));
 console.log('\n集合规模:', JSON.stringify(counts));

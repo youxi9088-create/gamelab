@@ -139,6 +139,80 @@ function withPreview(version) {
  * 服务状态。云端只读门面不托管 AI 与执行器，如实标注由本地平台提供，
  * 避免前端拿到空数组后误判为"平台异常"。
  */
+// ---- 看板指标：移植 controlplane/usage.py 的 aggregate / operations ----
+// 时区与本地平台一致（+08:00），否则按天/周/月分桶会错位。
+const TZ_OFFSET_MS = 8 * 3600 * 1000;
+const isoDate = d => `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
+
+function bucketOf(iso, period) {
+  const t = Date.parse(iso);
+  if (!Number.isFinite(t)) return null;
+  const d = new Date(t + TZ_OFFSET_MS);
+  if (period === 'month') return isoDate(d).slice(0, 7);
+  if (period !== 'week') return isoDate(d);
+  const dt = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+  const monday = dt - ((new Date(dt).getUTCDay() + 6) % 7) * 86400000;
+  return isoDate(new Date(monday));
+}
+
+function aggregateUsage(rows, period) {
+  const out = new Map();
+  for (const row of rows) {
+    const bucket = bucketOf(row.created_at, period);
+    if (!bucket) continue;
+    const key = `${bucket}|${row.candidate_id || ''}|${row.stage || ''}`;
+    let r = out.get(key);
+    if (!r) {
+      r = { period: bucket, candidate_id: row.candidate_id || '', stage: row.stage || '',
+        calls: 0, input_tokens: 0, output_tokens: 0, cached_input_tokens: 0, cache_write_tokens: 0,
+        cache_known_calls: 0, cache_unknown_calls: 0, unknown_usage_calls: 0, unknown_cost_calls: 0,
+        duration_seconds: 0, costs: {} };
+      out.set(key, r);
+    }
+    r.calls += 1;
+    r.duration_seconds += row.duration_seconds || 0;
+    r.input_tokens += row.input_tokens || 0;
+    r.output_tokens += row.output_tokens || 0;
+    r.cached_input_tokens += row.cached_input_tokens || row.cache_read_input_tokens || 0;
+    r.cache_write_tokens += row.cache_write_tokens || row.cache_creation_input_tokens || 0;
+    if (row.input_tokens == null || row.output_tokens == null) r.unknown_usage_calls += 1;
+    if (row.estimated_cost == null) r.unknown_cost_calls += 1;
+    else r.costs[row.currency || 'USD'] = (r.costs[row.currency || 'USD'] || 0) + row.estimated_cost;
+  }
+  return [...out.values()].sort((a, b) => String(b.period).localeCompare(String(a.period))
+    || String(a.candidate_id).localeCompare(String(b.candidate_id))
+    || String(a.stage).localeCompare(String(b.stage)));
+}
+
+function operationStats(events, jobs, period) {
+  const owners = new Map(jobs.map(j => [j.id, j.candidate_id]));
+  const starts = new Map();
+  const rows = new Map();
+  const sorted = [...events].sort((a, b) => String(a.created_at || '').localeCompare(String(b.created_at || '')));
+  for (const e of sorted) {
+    if (!e.node || !owners.has(e.job_id)) continue;
+    const key = `${e.job_id}|${e.round}|${e.attempt}|${e.node}`;
+    if (e.node_status === 'running') { starts.set(key, e); continue; }
+    if (!['succeeded', 'failed', 'cancelled'].includes(e.node_status) || !starts.has(key)) continue;
+    const start = starts.get(key);
+    starts.delete(key);
+    const bucket = bucketOf(e.created_at, period);
+    if (!bucket) continue;
+    const group = `${bucket}|${owners.get(e.job_id) || ''}|${e.node}`;
+    let r = rows.get(group);
+    if (!r) {
+      r = { period: bucket, candidate_id: owners.get(e.job_id) || '', stage: e.node,
+        executions: 0, failed: 0, duration_seconds: 0 };
+      rows.set(group, r);
+    }
+    r.executions += 1;
+    if (e.node_status !== 'succeeded') r.failed += 1;
+    const span = (Date.parse(e.created_at) - Date.parse(start.created_at)) / 1000;
+    r.duration_seconds += Number.isFinite(span) ? Math.max(0, span) : 0;
+  }
+  return [...rows.values()].sort((a, b) => String(b.period).localeCompare(String(a.period)));
+}
+
 export function services() {
   const detail = '该服务由本地平台提供，云端站点只读，不做模型调用或转换任务。';
   return [
@@ -174,17 +248,47 @@ export async function state(env, session, publicUser) {
     if (profiles.has(version.id)) version.game_profile = profiles.get(version.id);
   }
 
-  const pricing = await env.DB.prepare("SELECT data FROM records WHERE kind = 'settings' AND id = 'ai_pricing'").first();
-  let rates = {};
-  if (pricing) {
-    try {
-      rates = JSON.parse(pricing.data).rates || {};
-    } catch {}
+  // 看板指标：只用于统计，不进响应体（避免把 2531 条事件塞回浏览器）。
+  const usageRows = await allRecords(env, 'ai_usage');
+  const allEvents = await allRecords(env, 'events');
+  const supply = await allRecords(env, 'supply');
+
+  const periods = ['day', 'week', 'month'];
+  const usage = {};
+  const operations = {};
+  for (const period of periods) {
+    usage[period] = aggregateUsage(usageRows, period);
+    operations[period] = operationStats(allEvents, collections.jobs, period);
   }
+
+  const templates = new Set();
+  const published = new Set();
+  for (const row of supply) {
+    const id = row.template && row.template.template_id;
+    if (!id) continue;
+    templates.add(id);
+    if (row.state === 'published') published.add(id);
+  }
+
+  const settings = {};
+  for (const row of await allRecords(env, 'settings')) settings[row.id] = row;
+  const pricing = settings.ai_pricing && settings.ai_pricing.rates ? settings.ai_pricing.rates : {};
 
   return {
     ...collections,
-    ai_pricing: rates,
+    ai_pricing: pricing,
+    settings,
+    usage,
+    operation_stats: operations,
+    downstream_summary: {
+      templates: templates.size, published: published.size,
+      scope: '仅下游实际返回模板 ID 的记录；提交成功不计入模板生成',
+    },
+    // 供货服务的密钥与归档目录只存在本地配置文件（data/supply-config.json），
+    // 不在 D1 里，云端如实标注由本地平台提供，不伪造配置状态。
+    supply_config: { local_only: true, detail: '供货服务配置由本地平台管理，云端只读。' },
+    supply_service: { local_only: true, values: {}, has_secret: false, check: {},
+      detail: '供货服务由本地平台提供，云端不发起供货请求。' },
     current_user: publicUser(session.user),
     migration: {
       phase: 'public-read-portal', read_only: true, task_submission: false,
