@@ -14,6 +14,7 @@ binding = "FILES"
 bucket_name = "gamelab-migration-private"
 
 [assets]
-directory = "site"
+# 真实平台前端（仓库 web/），不是 cloudflare/site/ 那个两文件的原型登录页。
+directory = "../web"
 binding = "ASSETS"
 run_worker_first = true

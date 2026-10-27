@@ -1,14 +1,9 @@
 import { createHash, timingSafeEqual } from 'node:crypto';
 import { authenticate, status as authStatus, login, logout, publicUser } from './auth.mjs';
 import { play, parsePath } from './playback.mjs';
+import { state as portalState } from './portal.mjs';
 
 const MAX_UPLOAD = 64 * 1024 * 1024;
-const PAGE_SIZE = 100;
-const STATE_FIELDS = {
-  candidates: ['id', 'title', 'url', 'status', 'rights', 'category', 'created_at'],
-  jobs: ['id', 'candidate_id', 'status', 'stage', 'round', 'version_id', 'base_version_id', 'progress', 'reason', 'blocker', 'created_at', 'completed_at'],
-  versions: ['id', 'candidate_id', 'job_id', 'title', 'status', 'artifact_id', 'entry', 'created_at', 'approved_at', 'preview_url'],
-};
 const json = (status, body, extra = {}) => Response.json(body, { status, headers: {
   'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff', ...extra,
 }});
@@ -69,44 +64,6 @@ async function upload(request, env) {
   }
   return json(200, { ok: true, sha256: file.sha256, bytes: file.bytes });
 }
-function preview(version) {
-  const raw = version.preview_url;
-  if (typeof raw === 'string') {
-    try {
-      const url = new URL(raw, 'https://gamelab.invalid');
-      if (/^\/(play|runtime)\//.test(url.pathname)) {
-        parsePath(url.pathname);
-        return url.pathname;
-      }
-    } catch {}
-  }
-  if (version.artifact_id && version.entry) return `/runtime/${encodeURIComponent(version.artifact_id)}/${version.entry.split('/').map(encodeURIComponent).join('/')}`;
-  return null;
-}
-async function state(request, env, session) {
-  const url = new URL(request.url);
-  const offset = Number(url.searchParams.get('offset') || 0);
-  if (!Number.isSafeInteger(offset) || offset < 0) fail(400, '分页参数无效');
-  const collections = {};
-  const counts = {};
-  for (const [kind, fields] of Object.entries(STATE_FIELDS)) {
-    const { results } = await env.DB.prepare('SELECT data FROM records WHERE kind = ? ORDER BY rowid DESC LIMIT ? OFFSET ?')
-      .bind(kind, PAGE_SIZE, offset).all();
-    collections[kind] = results.map(row => {
-      const value = JSON.parse(row.data);
-      const safe = Object.fromEntries(fields.filter(key => key in value).map(key => [key, value[key]]));
-      if (kind === 'versions') safe.preview_url = preview(value);
-      return safe;
-    });
-    counts[kind] = (await env.DB.prepare('SELECT COUNT(*) AS count FROM records WHERE kind = ?').bind(kind).first()).count;
-  }
-  return json(200, { ...collections, current_user: publicUser(session.user), counts,
-    pagination: { offset, limit: PAGE_SIZE },
-    migration: { phase: 'private-playback-prototype', read_only: true, task_submission: false,
-      executor_claim: false, acceptance_mutations: false, upload: 'registered-artifact-copy-only',
-      production_verified: false },
-  });
-}
 export default {
   async fetch(request, env) {
     try {
@@ -121,7 +78,9 @@ export default {
         if (!session) return json(401, { error: '请先登录门户' });
         if (url.pathname === '/api/session' && request.method === 'GET') return json(200, { csrf: session.csrf });
         if (url.pathname === '/api/auth/logout') return await logout(request, env, session);
-        if (url.pathname === '/api/state' && request.method === 'GET') return await state(request, env, session);
+        if (url.pathname === '/api/state' && request.method === 'GET') {
+          return json(200, await portalState(env, session, publicUser));
+        }
         return json(501, { error: '该管理或转换接口尚未迁移，旧站保持运行；不能替代完整平台', implemented: false });
       }
       if (!['GET', 'HEAD'].includes(request.method)) return json(405, { error: '不支持的请求方法' });
