@@ -24,6 +24,23 @@ def _is_network_flake(text):
     return any(token in (text or '') for token in _NET_FLAKES)
 
 
+# 云端串流（云游戏）页面：画面在远端服务器渲染，浏览器只接收视频流，页面里
+# 根本没有可落地的 HTML5/资源，再怎么适配也产不出本地运行包。4k99 上有相当
+# 一部分入口是这类，之前会一路跑到"运行契约未配置"才受阻，白占队列。
+_CLOUD_HOSTS = ('suileyoo.com',)
+_CLOUD_TITLE_MARKS = ('云游戏', '随乐游')
+
+
+def cloud_streaming(observation):
+    """True when the entry is a cloud-streamed game rather than a web game."""
+    observation = observation if isinstance(observation, dict) else {}
+    title = observation.get('title') or ''
+    if any(mark in title for mark in _CLOUD_TITLE_MARKS):
+        return True
+    frames = observation.get('frames') or []
+    return any(host in ((frame or {}).get('url') or '') for frame in frames for host in _CLOUD_HOSTS)
+
+
 def _run_acquire(command, url, directory, child_env, timeout):
     """Run the browser acquisition, retrying only fast network failures."""
     result = None
@@ -105,6 +122,10 @@ def acquire(url, run, budget, observations=None, web_only=False):
         else:observation = json.loads((directory/'observation.json').read_text('utf-8'))
     from controlplane.source_routing import source_kind
     observation['source_kind']=source_kind(url,observation)
+    if cloud_streaming(observation):
+        raise Blocked('该入口是云端串流游戏：画面在远端服务器渲染，浏览器只播放视频流，'
+                      '页面里没有可落地的网页内容，无法转换为本地可玩运行包。'
+                      '已停止本任务，不再占用转换队列。')
     if observation['source_kind']=='web' and (directory/'source.html').is_file():
         from web_embedded import extract
         embedded=extract((directory/'source.html').read_text('utf-8'),directory/'web-source')

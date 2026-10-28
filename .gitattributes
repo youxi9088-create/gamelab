@@ -1,2 +1,5 @@
 # Preserve exact bytes of game snapshots so cross-platform SHA-256 checks agree.
 bundled-games/** -text
+
+# Preserve upstream filter-list bytes and checksums.
+executors/adblock-lists/*.txt -text -whitespace

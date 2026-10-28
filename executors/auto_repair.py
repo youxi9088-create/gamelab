@@ -24,9 +24,21 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
     run = Path(run); root = run / 'auto-repair'; root.mkdir(exist_ok=True)
     evidence = root / uuid.uuid4().hex; evidence.mkdir()
     rounds = []; original = error; last = error
+    if (run/'web-original').is_dir() and not (run/'source-analysis/report.json').exists():
+        from source_tools import run_source_tools
+        try:
+            acq=json.loads((run/'web-acquisition.json').read_text('utf-8')) if (run/'web-acquisition.json').exists() else {}
+            run_source_tools(run,budget,acq.get('engine'))
+        except Exception:pass  # Optional analysis never replaces the original failure.
     context = RepairContext(run); sources = context.load()
     mutations = 0; fingerprints = set(); feedback = None
-    capabilities = capabilities or {}
+    capabilities = dict(capabilities or {})
+    if target and Path(target).resolve()==(run/'converted').resolve() and (run/'web-acquisition.json').is_file() and (run/'converted/evidence/runtime.json').is_file():
+        from runtime_recovery import StaticRecovery
+        recovery = StaticRecovery(run,budget)
+        capabilities.setdefault('localize_runtime_resources',recovery.capability())
+        from resource_review import OptionalResourceReview
+        capabilities.setdefault('review_optional_resource',OptionalResourceReview(run,budget).capability())
     def event(status, message):
         try: EVENT.get()(status, message)
         except Exception: pass  # Lost lease/network cannot replace the original failure.
@@ -75,6 +87,12 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 '平台独立校验契约并重新采集、离线运行，不按游戏名称选择。仅有识别结果不能算修复成功。'
                 'crash_sites 已给出崩溃属性名与捕获文件里该列的源码上下文，直接据此定位缺失成员，不要用盲读反复试。'
                 '宿主层缺失的成员（SDK/平台接口）用patch_host在本地宿主里补成真实空实现或事件注册，使其可被安全调用；'
+                'adblock 记录 Ghostery 拦截的广告/统计请求与命中规则；这些不属于待下载游戏资源。如果拦截后 SDK 或游戏报错，应分析真实接口依赖，不能伪造广告成功、奖励或删掉验证。'
+                'runtime_issues 和 resource_requests 给出本轮失败分类。外部静态资源先依据用途选择 localize_runtime_resources；不要把所有外连都猜作跳转，也不要仅屏蔽请求或篡改验证报告。'
+                'source-analysis 是工具生成的只读分析副本，原代码哈希和工具限制见 report.json；可检索定位引用，但不可用分析输出直接替换运行包。'
+                '原站 unavailable 的非脚本资源可根据源码引用和失败截图选择 review_optional_resource，必须证明不影响当前引导/玩法，不能按后缀一律豁免。'
+                '站点锁、非官方版本限制必须说明授权缺口，不伪造域名、登录或官方 SDK 成功。不要下载业务 API 响应冒充离线资源。'
+                'inspect 必须提供实际读取或搜索请求，不能仅重复诊断文字。'
                 '只有暂时网络/浏览器故障适合retry。patch_host仅修改列出的宿主文件，'
                 '保留原玩法、接口和资源，不删除验证或伪造成功/奖励/登录，不修改平台或原游戏代码。'
                 '缺权限、材料、认证或无可执行契约时stop并指出已查证证据与缺少的具体能力。'
@@ -145,14 +163,17 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                     row['tool_result'] = capabilities[action]['execute'](answer.get('arguments') or {})
                 result = retry()
             except Exception as failure:
-                # Each unsuccessful attempt is rolled back; previous artifacts remain immutable.
+                # Failed host edits roll back. Hash-verified resource captures may remain
+                # as unverified inputs for the next attempt; historical artifacts stay immutable.
+                if capabilities.get(action, {}).get('rollback') and not capabilities[action].get('retain_verified_downloads'):
+                    capabilities[action]['rollback']()
                 for name in changes: (target/name).write_bytes(code[name].encode('utf-8'))
                 if plan_path:
                     if old_plan is None: plan_path.unlink(missing_ok=True)
                     else: plan_path.write_bytes(old_plan)
                 row['verified'] = False; last = failure
                 row['verification_error'] = safe(failure)
-                sources = context.load(); feedback = '实际复验未通过，修改已回退；请根据新日志重新分析'
+                sources = context.load(); feedback = ('实际复验未通过；已校验哈希的静态资源映射保留为待验证材料，请根据新请求继续处理，不能宣称成功' if capabilities.get(action,{}).get('retain_verified_downloads') else '实际复验未通过，修改已回退；请根据新日志重新分析')
                 if action == 'retry' and safe(failure) == safe(row['error']):
                     row['stop_reason'] = '同一错误再次出现，停止重复修复'
                     break

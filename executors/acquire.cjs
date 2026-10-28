@@ -3,6 +3,7 @@ const {chromium}=require('playwright');
 const fs=require('fs'), path=require('path'), crypto=require('crypto');
 const {declaredEntries}=require('./declared-entry.cjs');
 const {sessionOptions}=require('./browser-session.cjs');
+const {createAdblock}=require('./adblock.cjs');
 
 // 广告与统计域是采集超时的主要来源：4k99 详情页首字节就要 6–9 秒，挂上
 // 百度/doubleclick/mediav/recaptcha 之后 90 秒预算根本不够。它们也与游戏
@@ -38,18 +39,19 @@ async function main(){
       popups:[],documents:[],failed_requests:[],ad_skip:{found:false,clicked:false},blocked_ad_hosts:[],
       scope:'Only pages that actually render a canvas are confirmed entries; declared loader URLs, iframe URLs, links, controls and popups remain leads until probed'},
     appids:[],limitation:'Read-only page observation; no claim that original gameplay has been played.'};
-  const browser=await chromium.launch(require('./browser-options.cjs')());
+  const adblock=createAdblock(observation,url);
+  const browser=await require('./extension-browser.cjs').launchBrowser(observation);
   try{
     const context=await browser.newContext({serviceWorkers:'block',acceptDownloads:false,viewport:{width:1000,height:760},...sessionOptions(url)});
     // Public pages cannot use this collector to probe local control-plane endpoints.
     const local=/^(localhost|127\.0\.0\.1|\[::1\])$/i.test(parsed.hostname);
     const blockedAds=new Set();
-    await context.route('**/*',route=>{
+    await context.route('**/*',async route=>{
       const u=new URL(route.request().url());
       if(!['http:','https:','data:','blob:'].includes(u.protocol))return route.abort();
       if(!local && /^(localhost|127\.|10\.|192\.168\.|169\.254\.|172\.(1[6-9]|2\d|3[01])\.|\[)/i.test(u.hostname))return route.abort();
       if(local && u.origin!==parsed.origin && /^(localhost|127\.|\[::1\])/i.test(u.hostname))return route.abort();
-      if(AD_HOST.test(u.hostname)){blockedAds.add(u.hostname);return route.abort()}
+      if(await context.extensionBlock?.(route.request(),{source:url})||adblock.block(route.request())){blockedAds.add(u.hostname);return route.abort('blockedbyclient')}
       return route.continue();
     });
     const page=await context.newPage(), scripts=[], pending=[], popupTasks=[], errors=[], failed=[], documents=[], popups=[];

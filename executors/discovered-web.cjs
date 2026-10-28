@@ -2,6 +2,9 @@
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),http=require('node:http');
 const {chromium,request}=require('playwright');
 const {storageEvidence}=require('./storage-evidence.cjs');
+const {runtimeIssues,offlineFailure}=require('./runtime-issues.cjs');
+const {createAdblock}=require('./adblock.cjs');
+const {cocosReadiness}=require('./cocos-readiness.cjs');
 const {entryReferences,references,rewriteModules,rewriteInlineModules}=require('./module-resources.cjs');
 const {sessionOptions}=require('./browser-session.cjs');
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
@@ -15,8 +18,6 @@ const proxyServer=(process.env.HTTPS_PROXY||process.env.https_proxy||process.env
 // outbound proxy, which cannot reach 127.0.0.1, so files that are already on
 // disk come back as errors and stall the repair loop.
 const proxyOptions=()=>proxyServer?{proxy:{server:proxyServer,bypass:'127.0.0.1,localhost,[::1]'}}:{};
-// 装饰性资源：缺失只影响观感，不阻断运行；脚本/引擎/配置仍严格阻断。
-const DECORATIVE=/\.(gif|jpe?g|png|webp|avif|svg|ico|bmp|woff2?|ttf|otf|eot|mp3|ogg|wav|m4a)(\?|$)/i;
 const screenshotModes=new WeakMap();
 async function screenshot(page,file){
  // Capture the compositor's actual viewport. Game-created FontFace loads may
@@ -104,11 +105,35 @@ async function ready(page,engine){
  await page.waitForFunction(kind=>kind==='cocos2'?!!window.cc?.director.getScene():window.gameLoaded===true,engine,{timeout:90000});
  await page.waitForTimeout(engine==='ruffle'?10000:2000);
 }
+// 两类运行时报错性质不同，不能一刀切：
+//  · 执行中意外的 ReferenceError/TypeError（典型是广告或统计模块引用了未声明的
+//    变量）——游戏主循环照常推进，原站线上也报同样的错，属于上游自带的缺陷；
+//  · 游戏自己检测到依赖不可用后主动抛出的错误（"Required SDK unavailable" 这类）
+//    ——是游戏明确声明"我跑不了"，必须照实判失败，不能因为页面还能显示就放过。
+const FATAL_RUNTIME_HINT=/Required SDK|SDK unavailable|required dependency|missing required/i;
+function nonFatalRuntimeError(text){
+ return /ReferenceError|TypeError/.test(text||'')&&!FATAL_RUNTIME_HINT.test(text||'');
+}
+// 运行期随时会有新的 pageerror 进来（广告/统计模块常被反复触发），所以不能只
+// 在第一次判定时归置一次就完事：后面每个判定点看到的 errors 都是新的。这里做
+// 成可重复调用的，并在每个判定点前调一次。同文本只保留一条，避免告警被刷爆。
+function settleNonFatalRuntime(report){
+ if(!report.errors.length||!report.errors.every(nonFatalRuntimeError))return report;
+ const known=new Set(report.runtime_warnings||[]);
+ const merged=(report.runtime_warnings||[]).concat(report.errors.filter(item=>!known.has(item)));
+ report.runtime_warnings=merged;report.errors=[];
+ return report;
+}
 async function gameplayReady(page,engine){
  await ready(page,engine);
- if(engine==='cocos2')await page.waitForFunction(()=>{
-  let loading=false,labels=0;function visit(n){if(!n.activeInHierarchy||n.opacity===0)return;const l=n.getComponent(cc.Label);if(l?.string){labels++;if(/加载中|loading\s*(?:\.{2,}|\d|$)/i.test(l.string.trim()))loading=true;}n.children.forEach(visit);}visit(cc.director.getScene());return !loading&&labels>0;
- },null,{timeout:90000});
+ if(engine==='cocos2'){
+  try{await page.waitForFunction('('+cocosReadiness.toString()+')().ready',null,{timeout:90000});}
+  catch(error){
+   const observation=await page.evaluate(cocosReadiness).catch(()=>null);
+   const failure=Error('Cocos 界面就绪超时：'+(observation?.loading?'仍显示加载提示': '未观察到有效文字或屏幕内可交互按钮')+'；详见 readiness 证据');
+   failure.readiness={...observation,timeout_ms:90000};throw failure;
+  }
+ }
 }
 async function state(page,engine){
  return page.evaluate(kind=>{
@@ -134,8 +159,10 @@ async function state(page,engine){
 async function capture(input,run){
  const entry=safeURL(input.url),base=new URL('.',entry).href,original=path.join(run,'web-original'),out=path.join(run,'converted');
  fs.mkdirSync(original,{recursive:true});fs.mkdirSync(out,{recursive:true});
- const report={url:input.url,referer:input.referer,files:[],external:[],errors:[],preloadErrors:[],missing:[],patches:[],redirects:[]};
- const browser=await chromium.launch(require('./browser-options.cjs')());let pending=[],failure,total=0;
+ let prior={};try{prior=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json'),'utf8'));}catch{}
+ const report={url:input.url,referer:input.referer,files:[],external:[],errors:[],preloadErrors:[],missing:[],patches:[],redirects:[],cache_hits:0};
+ let page;
+ const browser=await require('./extension-browser.cjs').launchBrowser(report);let pending=[],failure,total=0;
  try{
   const context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block',acceptDownloads:false,...proxyOptions(),...sessionOptions(input.url)});
   await context.addInitScript(()=>{let value;Object.defineProperty(window,'_CCSettings',{configurable:true,get:()=>value,set:v=>{value=v;if(v)window.__capturedCCSettings=JSON.parse(JSON.stringify(v));}});});
@@ -144,6 +171,8 @@ async function capture(input,run){
   const html=await response.text();if(Buffer.byteLength(html)>2e6)throw Error('Entry too large');
   fs.writeFileSync(path.join(original,'source-entry.html'),html);
   const planFile=path.join(run,'runtime-plan.json'),plan=fs.existsSync(planFile)?JSON.parse(fs.readFileSync(planFile)):null;
+  report.capture_key=hash(JSON.stringify({url:input.url,referer:input.referer,html,plan}));
+  const reusable=prior.capture_key===report.capture_key?new Map((prior.files||[]).map(f=>[f.url,f])):new Map();
   let engine;
   try{engine=detect(html,plan);}catch(e){
    // Retain declared loader text for the provider-independent investigation tools.
@@ -175,26 +204,31 @@ async function capture(input,run){
   const seen=new Map();
   const declared=await entryReferences(runtimeHTML,entry.href);
   report.declaredCode=[...declared.urls];
+  const adblock=createAdblock(report,entry.href);
   let preloading=false;
   await context.route('**/*',async route=>{
    const req=route.request();let u;try{u=safeURL(req.url());}catch{return route.abort();}
    if(u.href===entry.href&&req.isNavigationRequest())return route.fulfill({contentType:'text/html',body:runtimeHTML});
    if(u.href===new URL('local-host.js',base).href&&sdk.length)return route.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.join(out,'local-host.js'))});
    if(u.href===new URL('runtime-host.js',base).href&&poki)return route.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.join(out,'runtime-host.js'))});
+   if(await context.extensionBlock?.(req,{source:input.url})||adblock.block(req))return route.abort('blockedbyclient');
    const declaredScript=req.method()==='GET'&&req.resourceType()==='script'&&declared.urls.has(u.href);
    if(u.origin!==entry.origin&&!declaredScript&&!['image','font','stylesheet','media'].includes(req.resourceType())){report.external.push(u.origin+u.pathname);return route.abort();}
    const task=(async()=>{
     // Fetch and retain bytes before fulfilling the browser request. Large SWFs
     // and WASM modules must not depend on Chromium's inspector response cache.
-    const res=await followResourceRedirects(async(url,first)=>{
+    const cached=req.method()==='GET'&&['script','stylesheet','image','font','media'].includes(req.resourceType())?require('./capture-cache.cjs').cachedResponse(original,reusable.get(u.href)):null;
+    if(cached)report.cache_hits++;
+    const res=cached||await followResourceRedirects(async(url,first)=>{
      if(first)return route.fetch({headers:{...req.headers(),referer:input.referer||input.url},maxRedirects:0,timeout:60000});
      if(req.method()!=='GET')throw Error('Resource redirect requires a GET request');
      // Do not forward source-origin credentials to a redirected resource host.
      return context.request.get(url,{headers:{referer:input.referer||input.url},maxRedirects:0,timeout:60000});
     },u.href,report.redirects);
     if(!res.ok()){
-     report.missing.push({url:u.href,status:res.status(),phase:preloading?'preload':'startup'});
-     if(!preloading)failure='Resource HTTP '+res.status()+': '+u.href;
+     report.missing.push(require('./capture-cache.cjs').classifyMissing(req,res.status(),preloading?'preload':'startup'));
+     // Keep the real HTTP failure visible to the game. Capture is not acceptance:
+     // save the partial package so offline verification can assess missing resources.
      await route.fulfill({response:res});await res.dispose();return;
     }
     if(Number(res.headers()['content-length']||0)>220*1024*1024)throw Error('Resource exceeds byte budget');
@@ -208,18 +242,18 @@ async function capture(input,run){
      if(seen.size>=1800||total+data.length>220*1024*1024)throw Error('Web snapshot exceeds file/byte budget');
      seen.set(file,sha256);total+=data.length;
      const dest=path.join(original,file);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.writeFileSync(dest,data);
-     report.files.push({url:u.href,path:file,bytes:data.length,sha256,script,sourceURL});
+     report.files.push({url:u.href,path:file,bytes:data.length,sha256,script,sourceURL,contentType:res.headers()['content-type']||'application/octet-stream'});
     }
     let body=data;
     // Fulfilling a redirected response keeps the original browser URL. Restore
     // the final response's module base explicitly while retaining original bytes.
     if(script&&sourceURL!==u.href)body=Buffer.from(await rewriteModules(data.toString('utf8'),sourceURL,declared.mappings,url=>url));
     if(engine==='cocos2'&&file.endsWith('.js')){const adapted=adaptClient(data.toString('utf8'));if(adapted.changed){body=Buffer.from(adapted.text);report.patches.push({file,kind:'existing-client-offline-mode',before:sha256,after:hash(body),reason:'Use the original client offline branch; online sync and rankings unavailable'});}}
-    await route.fulfill({response:res,body});await res.dispose();
+    await route.fulfill(cached?{status:200,contentType:cached.headers()['content-type'],body}:{response:res,body});await res.dispose();
    })().catch(async e=>{failure=e.message;await route.abort().catch(()=>{});});
    pending.push(task);await task;
   });
-  const page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
+  page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
   page.on('console',m=>{if(m.type()==='error'&&/Failed to load module script|Failed to resolve module specifier/i.test(m.text()))report.errors.push(m.text().slice(0,1500));});
   await page.goto(entry.href,{referer:input.referer||input.url,waitUntil:'domcontentloaded',timeout:60000});
   try{await ready(page,engine);}catch(e){
@@ -259,13 +293,20 @@ async function capture(input,run){
   }
   report.bytes=total;report.external=[...new Set(report.external)];
   report.complete=true;
+ }catch(error){
+  report.failure=error.message;
+  if(page){report.observed=await state(page,report.engine).catch(()=>null);await screenshot(page,path.join(run,'original-runtime.png')).catch(()=>{});}
+  throw error;
  }finally{await Promise.allSettled(pending);await browser.close();fs.writeFileSync(path.join(run,'web-acquisition.json'),JSON.stringify(report,null,2));}
  return report;
 }
 async function verify(run,actions=[],nextBatch=null,viewportReview=false){
- const started=Date.now(),root=path.resolve(run,'converted'),report={passed:false,errors:[],missing:[],external:[],blocked_external:[],required_external:[],steps:[],actions:[],renderDiagnostics:[]},acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
- // 原站同样拿不到、上轮已如实容忍的装饰资源不再重复上报，防止补齐循环空转。
- const tolerated=new Set((acq.missing_decorative||[]).map(x=>(typeof x==='string'?x:x.path).replace(/^\/+/,'')));
+ const started=Date.now(),root=path.resolve(run,'converted'),report={passed:false,errors:[],missing:[],external:[],blocked_external:[],required_external:[],steps:[],actions:[],renderDiagnostics:[],resource_requests:[]},acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
+ const adblock=createAdblock(report,acq.url||'https://replica-runtime.invalid/');
+ // Only explicit evidence-reviewed decisions from this capture may omit a missing resource.
+ const reviewed=(acq.optional_resources||[]).filter(x=>x.capture_key===acq.capture_key&&x.reason&&x.screenshot_sha256);
+ report.optional_resources=reviewed;
+ const tolerated=new Set(reviewed.map(x=>x.path.replace(/^\/+/, '')));
  fs.mkdirSync(path.join(root,'evidence'),{recursive:true});fs.mkdirSync(path.join(root,'screenshots'),{recursive:true});
  const server=http.createServer((req,res)=>{
   let p;try{p=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));}catch{res.writeHead(400);return res.end();}
@@ -281,7 +322,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   scope:'Observed non-loopback runtime only; not a guarantee for unobserved timers or deployment configurations'});
  let browser,page,context;
  try{
-  browser=await chromium.launch(require('./browser-options.cjs')());
+  browser=await require('./extension-browser.cjs').launchBrowser(report);
   const c=context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block',...proxyOptions()});
   // A virtual HTTPS origin exposes hostname-dependent behaviour without ever
   // contacting that host. Only GET/HEAD resources use the private file server;
@@ -292,6 +333,11 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
     report.navigation_attempts.push({url:u.origin+u.pathname,phase,allowed,elapsed_ms:Date.now()-started});
     if(!allowed){report.errors.push('Unexpected main-frame navigation attempt: '+u.origin+u.pathname);report.blocked_external.push({url:u.origin+u.pathname,type:req.resourceType(),method:req.method()});return r.abort();}
    }
+   // Match packaged resources against their recorded source URLs as well.
+   const localPath=decodeURIComponent(u.pathname).replace(/^\/+/, '');
+   const original=u.origin===origin?(acq.files||[]).find(f=>f.path===localPath)?.url:null;
+   const filterDetails={url:original||req.url(),source:acq.url,mainFrame:req.isNavigationRequest()&&req.frame()===page?.mainFrame()};
+   if(await c.extensionBlock?.(req,filterDetails)||adblock.block(req,filterDetails))return r.abort('blockedbyclient');
    if(u.origin===origin&&['GET','HEAD'].includes(req.method())){
     // 一个按需分包会带来几百个并发请求；其中一部分会被游戏自己取消，
     // Playwright 此时已把 route 处理掉，再 fulfill 就抛 'Route is already handled'。
@@ -304,15 +350,16 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
     return;
    }
    if(['data:','blob:'].includes(u.protocol))return r.continue();
-   const url=u.origin+u.pathname;report.external.push(url);report.blocked_external.push({url,type:req.resourceType(),method:req.method()});if(['script','stylesheet','image','font','media','document'].includes(req.resourceType()))report.required_external.push(url);return r.abort();
+   const url=u.origin+u.pathname;
+   // Exact request URLs stay in local execution evidence; public error text omits queries.
+   if(!report.resource_requests.some(item=>item.url===req.url()&&item.method===req.method()&&item.type===req.resourceType())&&report.resource_requests.length<200)
+    report.resource_requests.push({id:'resource-'+(report.resource_requests.length+1),url:req.url(),type:req.resourceType(),method:req.method(),phase});
+   report.external.push(url);report.blocked_external.push({url,type:req.resourceType(),method:req.method()});if(['script','stylesheet','image','font','media','document'].includes(req.resourceType()))report.required_external.push(url);return r.abort();
   });
   page=await c.newPage();page.on('pageerror',e=>report.errors.push((e.stack||e.message).slice(0,3000)));   page.on('response',r=>{
    if(r.status()<400)return;
    const local=r.url().replace(origin,'');
-   // 全部 404 都进 missing：主菜单 UI 图片这类"看似装饰"的资源缺了游戏就进不了
-   // 玩法（4k99 贪吃蛇卡标题画面实例）。是否容忍由 repairResources 决定——
-   // 原站也拿不到的装饰资源会在那里被记录进 acq.missing_decorative，下一轮
-   // verify 据此排除，避免"容忍->文件仍缺->再 404"的空转。
+   // All 404s remain missing unless a scoped, evidence-backed review has allowed that exact path.
    const rel=decodeURIComponent(local.split('?')[0]).replace(/^\/+/,'');
    if(tolerated.has(rel))return;
    report.missing.push(local);
@@ -327,15 +374,25 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   // 优先判定，一崩溃就立刻失败，那些还没收集完的 404 就永远进不了缺失清单，
   // repairResources 也就无从补齐——任务只能反复 blocked 在同一处。
   // 因此先按缺失处理：补齐后重跑，若仍报脚本错误再如实失败。
-  try{await Promise.race([gameplayReady(page,acq.engine),new Promise((resolve,reject)=>{missingProbe=setInterval(()=>{if(report.missing.length)reject(Error('Missing local runtime resources'));else if(report.errors.length)reject(Error('Runtime script error: '+report.errors[0]));},500);})]);}
+  let playable=false,playError;
+  try{await Promise.race([gameplayReady(page,acq.engine),new Promise((resolve,reject)=>{missingProbe=setInterval(()=>{if(report.missing.length)reject(Error('Missing local runtime resources'));},500);})]);playable=true;}
+  catch(e){playError=e;}
   finally{clearInterval(missingProbe);}
+  // 脚本错误不再抢在"能不能玩"之前判死。上游包常自带非致命报错（典型是广告
+  // 模块引用了未声明的变量，原站线上同样报 ReferenceError 但照样进主菜单），
+  // 一崩就 reject 会让这类任务反复 blocked。改由 gameplayReady 裁定：确实
+  // 进得了主菜单的，报错降为告警；玩不了的，再如实判失败。
+  if(playable)settleNonFatalRuntime(report);
+  if(report.errors.length)throw Error('Runtime script error: '+report.errors[0]);
+  if(playError)throw playError;
   // Splash 出现只是引擎就绪；主菜单/玩法所需的二级资源（Cocos 的 Config、
   // 预制体、语言包等）要等引擎继续初始化才会请求。等待太浅时这些 404
   // 不会进入 missing，repairResources 就永远没机会补齐它们，任务会在
   // reconstruct 阶段被 AI 以“进入不了主菜单”阻断（4k99 贪吃蛇实例）。
   await page.waitForTimeout(20000);
   navigationCheckpoint();
-  if(report.errors.length||report.required_external.length)throw Error('Offline check failed: runtime navigation or resource dependency');
+  settleNonFatalRuntime(report);
+  if(report.errors.length||report.required_external.length)throw Error(offlineFailure(report));
   report.steps.push({...await state(page,acq.engine),storage:await storageEvidence(page)});await screenshot(page,path.join(root,'screenshots/startup.png'));
   if(viewportReview){
    const config=JSON.parse(fs.readFileSync(path.join(root,'runtime-viewport.json'),'utf8'));
@@ -384,7 +441,8 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
    else throw Error('Unsupported input action');
    await page.waitForTimeout(Math.max(a.type==='reload'?5000:200,Math.min(10000,a.wait_ms||1500)));
    navigationCheckpoint();
-   if(report.errors.length||report.required_external.length)throw Error('Offline check failed: runtime navigation or resource dependency');
+   settleNonFatalRuntime(report);
+   if(report.errors.length||report.required_external.length)throw Error(offlineFailure(report));
    report.actions.push(a);
    const observed={...await state(page,acq.engine),elapsed_ms:Date.now()-started,storage:await storageEvidence(page)};
    if(storageBeforeReload)observed.storage_before_reload=storageBeforeReload;
@@ -397,6 +455,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   }
   // Denied API/telemetry attempts remain dependency evidence. Their necessity
   // must be assessed by actual gameplay; an attempted request is not a transfer.
+  settleNonFatalRuntime(report);
   report.passed=!report.errors.length&&!report.missing.length&&!report.required_external.length;
   if(!report.passed)throw Error('Offline check failed: '+JSON.stringify({errors:report.errors,missing:report.missing,external:report.external}));
   if(!nextBatch)break;
@@ -407,7 +466,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   replaying=false;
   batch=await nextBatch(report);
   }
- }catch(e){report.passed=false;report.failure=e.message;if(page){report.lastObserved=await state(page,acq.engine).catch(()=>null);await screenshot(page,path.join(root,'screenshots/failed.png')).catch(()=>{});}throw e;}
+ }catch(e){report.passed=false;report.failure=e.message;if(e.readiness)report.readiness=e.readiness;report.issues=runtimeIssues(report);if(page){report.lastObserved=await state(page,acq.engine).catch(()=>null);await screenshot(page,path.join(root,'screenshots/failed.png')).catch(()=>{});}throw e;}
  finally{fs.writeFileSync(path.join(root,'evidence/runtime.json'),JSON.stringify(report,null,2));if(!report.passed&&report.failure&&nextBatch?.onFailure)nextBatch.onFailure();if(context)await context.unrouteAll({behavior:'wait'});if(browser)await browser.close();await new Promise(r=>server.close(r));}
  return report;
 }
@@ -435,19 +494,10 @@ async function repairResources(run){
    if(fs.existsSync(dest)){(acq.repaired_present=acq.repaired_present||[]).push(relative);continue;}
    acq.redirects=acq.redirects||[];
    const response=await followResourceRedirects(value=>client.get(value,{maxRedirects:0,timeout:30000}),url.href,acq.redirects);
-   // 原站引用了一个拿不到的装饰资源（如 c.17yoo.cn 的 logo/landscape.gif）不该让
-   // 整个转换停下：图片/字体/音频缺失影响观感，不决定游戏能否运行。
-   // 脚本与引擎文件仍然严格阻断，并且把跳过如实记进 missing_decorative。
+   // Keep unavailable resources for evidence-based review; never infer optionality from extension.
    if(!response.ok()){
     const entry={url:url.href,path:relative,http_status:response.status()};
-    if(!DECORATIVE.test(url.href)){
-     // 取不回来的脚本也不该炸掉整批补齐：那会让同批其它能补上的文件一起放弃，
-     // 一个包就这样被单个无关文件判死。如实记录后继续，是否真的必需由离线运行
-     // 本身决定——缺了它照样会在 runtime.json 的 missing 里出现，不会蒙混过关。
-     (acq.unavailable=acq.unavailable||[]).push(entry);
-     await response.dispose();continue;
-    }
-    (acq.missing_decorative=acq.missing_decorative||[]).push(entry);
+    (acq.unavailable=acq.unavailable||[]).push(entry);
     await response.dispose();continue;
    }
    if(Number(response.headers()['content-length']||0)>20*1024*1024)throw Error('Resource exceeds repair byte limit');
@@ -459,9 +509,8 @@ async function repairResources(run){
   }
  }finally{
   await client.dispose();
-  // 容忍的原站缺失（missing_decorative）也必须落盘：否则下一轮 verify 的
-  // 排除集为空，同样的 404 再次上报，重试循环在零进展中耗尽。
-  if(added.length||acq.missing_decorative||acq.unavailable||acq.repaired_present){
+  // Save original-source failures even when no resources could be downloaded.
+  if(added.length||acq.unavailable||acq.repaired_present){
    acq.files.push(...added);acq.bytes=(acq.bytes||0)+added.reduce((n,f)=>n+f.bytes,0);
    acq.resource_refreshes=[...prior,{files:added,observed_missing:missing,reason:runtime.failure}];
    fs.writeFileSync(file,JSON.stringify(acq,null,2));fs.writeFileSync(path.join(root,'evidence/acquisition.json'),JSON.stringify(acq,null,2));
@@ -469,7 +518,7 @@ async function repairResources(run){
  }
  return added;
 }
-module.exports={safeURL,resourcePath,detect,ruffleEntry,adaptClient,capture,verify,repairResources,screenshot,followResourceRedirects};
+module.exports={safeURL,resourcePath,detect,ruffleEntry,adaptClient,capture,verify,repairResources,screenshot,followResourceRedirects,gameplayReady};
 if(require.main===module){const [mode,input,run]=process.argv.slice(2);(async()=>{
  const data=JSON.parse(fs.readFileSync(input,'utf8'));let lines,nextBatch,desired=[...(data.actions||[])];
  if(mode==='session'){
@@ -489,7 +538,8 @@ if(require.main===module){const [mode,input,run]=process.argv.slice(2);(async()=
     const runtime=JSON.parse(fs.readFileSync(path.join(run,'converted/evidence/runtime.json'))),acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
     if(attempt>=19||!runtime.missing?.length||!acq.url)throw e;
     fs.writeFileSync(path.join(run,'converted/evidence','resource-check-'+Date.now()+'.json'),JSON.stringify(runtime,null,2));
-    await repairResources(run);
+    const added=await repairResources(run);
+    if(!added.length)throw e; // No download progress: hand evidence to AI, don't repeat 20 identical passes.
    }
   }
   console.log(JSON.stringify({engine:r.engine,passed:r.passed,complete:r.complete}));

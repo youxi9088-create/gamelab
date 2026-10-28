@@ -56,7 +56,7 @@ class RepairContext:
             'acquisition/observation.json', 'acquisition/source.html', 'conversion-plan.json', 'discovered-web-input.json',
             'web-acquisition.json', 'web-capture.log', 'web-verify.log', 'web-browser.log',
             'converted/evidence/runtime.json', 'web-original/source-entry.html')]
-        for dirname in ('acquisition', 'web-original', 'repair-sources', 'converted', 'entry-probes'):
+        for dirname in ('source-analysis', 'acquisition', 'web-original', 'repair-sources', 'converted', 'entry-probes'):
             root = self.run / dirname
             if root.is_dir() and not linked(root):
                 candidates += sorted(root.rglob('*'))[:2200]
@@ -74,20 +74,22 @@ class RepairContext:
             code[name] = p.read_text('utf-8', errors='replace'); total += size
         self.context = SourceContext(code, 'web-original/source-entry.html')
         runtime_file = self.run / 'converted/evidence/runtime.json'
-        symptoms = []
+        symptoms = []; runtime = {}
         if runtime_file.is_file():
             try:
-                symptoms = crash_sites(self.run, json.loads(
-                    runtime_file.read_text('utf-8')).get('errors') or [])
+                runtime=json.loads(runtime_file.read_text('utf-8'))
+                symptoms = crash_sites(self.run, runtime.get('errors') or [])
             except (OSError, ValueError):
                 symptoms = []
-        return {'crash_sites': symptoms, 'source_inventory': [{'path': n, 'characters': len(t),
+        return {'browser_extension':runtime.get('browser_extension',{}), 'adblock':runtime.get('adblock',{}), 'runtime_issues':runtime.get('issues',[]), 'resource_requests':runtime.get('resource_requests',[]), 'crash_sites': symptoms, 'source_inventory': [{'path': n, 'characters': len(t),
                     'sha256': hashlib.sha256(t.encode()).hexdigest(), 'editable': False} for n,t in code.items()],
                 'source_excerpts': [self.context.read(n, 0, 20000) for n in (
-                    'discovered-web-input.json', 'acquisition/observation.json', 'acquisition/source.html',
+                    'source-analysis/report.json', 'discovered-web-input.json', 'acquisition/observation.json', 'acquisition/source.html',
                     'web-original/source-entry.html', 'web-acquisition.json', 'web-browser.log', 'converted/evidence/runtime.json') if n in code]}
 
     def inspect(self, answer, payload):
+        if not answer.get('read_requests') and not answer.get('search_requests'):
+            raise ValueError('inspect 未提交 read_requests 或 search_requests；请选择实际证据读取，或执行可用修复动作')
         parts = self.context.reads(answer['read_requests']) if answer.get('read_requests') else []
         if answer.get('search_requests'): parts += self.context.search(answer['search_requests'])
         self.context.retain(payload, parts)

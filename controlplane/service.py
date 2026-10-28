@@ -91,6 +91,7 @@ class Service(Conversations,Discovery):
                     if row.get('created_by'):row['created_by_name']=actor_names.get(row['created_by'],row['created_by'])
             state['features']={'link_batches':True,'pipeline_timeline':True}
             state['features']['discovery']=True
+            state['features']['job_controls']=True
             state['features']['supply']=True
             from .web_profiles import public_profiles
             state['web_profiles']=public_profiles()
@@ -145,12 +146,15 @@ class Service(Conversations,Discovery):
                     job['progress_label'] = pause['explanation']
                     job['pipeline']['presentation'].update(headline=pause['label'], location_label='游戏类型检测 · 已暂停',
                         problem=pause['explanation'], next_action=pause['next_action'])
+                if job.get('manual_paused'):
+                    job['display_status']='paused'
+                    job['progress_label']='已手动暂停 · 已有材料保留，启动后重新领取当前阶段'
             for tool in state['tools']:
                 tool['online']=bool(tool.get('last_seen') and tool['last_seen']>later(-90))
             state['settings']=self.get(db,'settings','main')
             state['settings']['concurrency']=1
             batches={b['id']:b for b in state['batches']}
-            queue=sorted((j for j in reversed(state['jobs']) if j['status']=='queued' and batches.get(j.get('batch_id'),{}).get('status')=='running'),key=lambda j:j.get('queued_at') or j.get('created_at',''))
+            queue=sorted((j for j in reversed(state['jobs']) if j['status']=='queued' and not j.get('manual_paused') and batches.get(j.get('batch_id'),{}).get('status')=='running'),key=lambda j:j.get('queued_at') or j.get('created_at',''))
             for position,job in enumerate(queue,1):
                 job['queue_position']=position
                 job['progress_label']=f'排队第 {position} 位 · 等待空闲执行器'
@@ -451,6 +455,7 @@ class Service(Conversations,Discovery):
                 require(jobs,'此批次没有排队或执行中的任务',409)
                 for job in jobs:
                     job.update(status='stopped',stopped_at=now())
+                    job.pop('manual_paused',None);job.pop('paused_at',None)
                     job.pop('lease_token',None);job.pop('lease_expires_at',None)
                     s.put(db,'jobs',job);s.event(db,'批次已停止，执行租约撤销；已有成果保留',job['id'],job['stage'])
                 batch['status']='stopped'
@@ -463,6 +468,9 @@ class Service(Conversations,Discovery):
                 s.event(db,f'批次重试 {len(jobs)} 个异常任务，其他任务保持不变',batch_id=key)
             else: raise ApiError(404,'未知批次操作')
             s.put(db,'batches',batch);return {'batch':batch}
+        if kind=='jobs' and key=='bulk' and not tool:
+            from .job_controls import control_jobs
+            return control_jobs(self,db,b)
         if kind=='jobs' and key=='claim':
             require(tool,'领取任务需要工具凭证',401)
             if (s.get(db,'settings','maintenance') or {}).get('draining'):return {'job':None}
@@ -481,7 +489,7 @@ class Service(Conversations,Discovery):
             # 直接放进 sorted 会与字符串混排抛 TypeError，整个认领就 500 了。
             for job in sorted(reversed(jobs),key=lambda j:j.get('queued_at') or j.get('created_at','')):
                 batch=self.get(db,'batches',job['batch_id'])
-                if job['status']!='queued' or job['stage'] not in caps or batch['status']!='running':continue
+                if job.get('manual_paused') or job['status']!='queued' or job['stage'] not in caps or batch['status']!='running':continue
                 if b.get('automatic_only') and not job.get('automatic'):continue
                 if job['attempt']>=settings['max_attempts']:
                     job.update(status='blocked',reason='达到最大执行次数');s.put(db,'jobs',job);continue

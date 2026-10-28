@@ -493,10 +493,28 @@ function hasDraft(j){return Boolean(j.has_draft||(state.versions||[]).some(v=>v.
 // route 字段只记录结果轴且到 review 才写入，排队任务全为 null，不能用来区分产线。
 function routeLabel(j){return j.route_label||(j.display_status==="dependency_pending"?"原版优先":j.route==="A"?"A · 代码整理":j.route==="B"?"B · AI 复刻":j.route==="local"?"本地运行包":"待 REA 分流");}
 function routeTone(j){return j.route_tone||(j.route==="A"?"green":"");}
-function jobTable(list) {
+function jobTable(list, selectable=false) {
   return list.length
-    ? `<div class="table-wrap"><table class="table"><thead><tr><th>游戏 / 任务</th><th>当前阶段</th><th>处理路径</th><th>任务状态</th><th>进度</th><th>操作</th></tr></thead><tbody>${list.map((j) => `<tr><td><b>${esc(cBy(j.candidate_id).title)}</b><br><small>${esc(j.id)}</small></td><td>${esc(j.pipeline?.presentation?.location_label || j.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || (j.display_status==="dependency_pending"?"依赖分析与适配":{ rea: "REA 分析", reconstruct: "AI 复刻", packaging: "运行包整理" }[j.stage] || j.stage || "等待分析"))}</td><td><span class="badge ${routeTone(j)}" title="${esc(j.route_detail||"")}">${esc(routeLabel(j))}</span>${j.route_basis==="inferred"?'<p class="tiny muted">按来源与阶段推断</p>':''}</td><td>${badge(j.display_status||j.status)}${hasDraft(j)?'<p class="tiny muted">已有可试玩草稿</p>':''}${j.display_status==='needs_work'&&j.status==='failed'?'<p class="tiny muted">上次续作失败，可重试</p>':''}</td><td><small>${esc(j.progress_label||"等待阶段记录")}</small></td><td><button class="textbtn" data-job="${esc(j.id)}">继续沟通 / 记录</button>${["failed", "blocked"].includes(j.status) ? `<button class="smallbtn" data-retry="${esc(j.id)}">重试</button>` : ""}${j.status==="running" ? `<button class="smallbtn" disabled title="任务执行中，请先停止批次或等本轮结束">删除</button>` : `<button class="smallbtn" data-remove="${esc(j.id)}">删除</button>`}</td></tr>`).join("")}</tbody></table></div>`
+    ? `<div class="table-wrap"><table class="table jobs-table"><thead><tr>${selectable&&!readOnly?'<th class="job-select-cell"><input type="checkbox" id="jobs-select-page" aria-label="选择本页任务"></th>':''}<th class="job-name-cell">游戏 / 任务</th><th>当前阶段</th><th>处理路径</th><th>任务状态</th><th>进度</th><th>操作</th></tr></thead><tbody>${list.map((j) => `<tr>${selectable&&!readOnly?`<td class="job-select-cell"><input type="checkbox" data-job-select="${esc(j.id)}" aria-label="选择 ${esc(cBy(j.candidate_id).title)}" ${jobSelected.has(j.id)?'checked':''}></td>`:''}<td class="job-name-cell"><b>${esc(cBy(j.candidate_id).title)}</b>${selectable?`<small class="muted"> · ${esc(jobPlatform(j).label)}</small>`:''}<br><small>${esc(j.id)}</small></td><td>${esc(j.pipeline?.presentation?.location_label || j.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || (j.display_status==="dependency_pending"?"依赖分析与适配":{ rea: "REA 分析", reconstruct: "AI 复刻", packaging: "运行包整理" }[j.stage] || j.stage || "等待分析"))}</td><td><span class="badge ${routeTone(j)}" title="${esc(j.route_detail||"")}">${esc(routeLabel(j))}</span>${j.route_basis==="inferred"?'<p class="tiny muted">按来源与阶段推断</p>':''}</td><td>${badge(j.display_status||j.status)}${hasDraft(j)?'<p class="tiny muted">已有可试玩草稿</p>':''}${j.display_status==='needs_work'&&j.status==='failed'?'<p class="tiny muted">上次续作失败，可重试</p>':''}</td><td><small>${esc(j.progress_label||"等待阶段记录")}</small></td><td><button class="textbtn" data-job="${esc(j.id)}">继续沟通 / 记录</button>${["failed", "blocked"].includes(j.status) ? `<button class="smallbtn" data-retry="${esc(j.id)}">重试</button>` : ""}${j.status==="running" ? `<button class="smallbtn" disabled title="任务执行中，请先停止批次或等本轮结束">删除</button>` : `<button class="smallbtn" data-remove="${esc(j.id)}">删除</button>`}</td></tr>`).join("")}</tbody></table></div>`
     : empty("没有符合条件的任务", "调整上方筛选或搜索词，或清除筛选查看全部任务。");
+}
+let jobPlatforms=new Set(), jobSelected=new Set(), jobControlBusy=false;
+function jobPlatform(j){
+  const c=cBy(j.candidate_id), r=(state.recommendations||[]).find(r=>r.job_id===j.id);
+  if(r)return {id:r.source_id||r.source,label:r.source||r.source_id};
+  try {const host=new URL(c.url).hostname.replace(/^www\./,'');if(host)return {id:host,label:host};}catch{}
+  return {id:'unknown',label:c.source||'未知平台'};
+}
+const canPauseJob=j=>['queued','running'].includes(j.status)&&!j.manual_paused;
+const canStartJob=j=>j.manual_paused||['stopped','failed','blocked','waiting_input'].includes(j.status)||j.status==='queued'&&['paused','stopped'].includes((state.batches||[]).find(b=>b.id===j.batch_id)?.status);
+async function controlJobs(action,ids){
+  if(readOnly)return toast(READ_ONLY_HINT);
+  if(!state.features?.job_controls)return toast('任务控制接口等待本地服务更新完成，请稍后刷新');
+  if(jobControlBusy||!ids.length)return;
+  jobControlBusy=true;render();
+  try {const result=await api('/api/jobs/bulk',{action,ids});jobSelected.clear();await load();toast(`${action==='pause'?'已暂停':'已启动'} ${result.changed.length} 个任务，跳过 ${result.skipped.length} 个`);}
+  catch(error){toast(error.message);}
+  finally{jobControlBusy=false;render();}
 }
 let showCompletedTasks=false;
 let jobQuery="", jobStatusFilter="", jobRouteFilter="", jobsPage=1;
@@ -507,6 +525,7 @@ function jobsBase(){
 }
 function jobsFiltered(){
   let list=jobsBase();
+  if(jobPlatforms.size)list=list.filter(j=>jobPlatforms.has(jobPlatform(j).id));
   if(jobStatusFilter==="__paused")list=list.filter(j=>!!j.policy_pause);
   else if(jobStatusFilter)list=list.filter(j=>(j.display_status||j.status)===jobStatusFilter);
   if(jobRouteFilter)list=list.filter(j=>routeLabel(j)===jobRouteFilter);
@@ -519,7 +538,12 @@ function jobsToolbar(total,pages){
   if(jobsBase().some(j=>j.policy_pause))statuses.push("__paused");
   const routes=[...new Set(jobsBase().map(routeLabel))].sort();
   const option=(value,label,current)=>`<option value="${esc(value)}"${current===value?" selected":""}>${esc(label)}</option>`;
-  return `<div class="filters"><input id="jobs-query" aria-label="搜索任务" placeholder="搜索游戏名称或任务 ID…" value="${esc(jobQuery)}"><select id="jobs-status" aria-label="按状态筛选"><option value="">全部状态</option>${statuses.map(s=>option(s,s==="__paused"?"按 Web 范围暂停":(statusMap[s]||s),jobStatusFilter)).join("")}</select><select id="jobs-route" aria-label="按处理路径筛选"><option value="">全部处理路径</option>${routes.map(r=>option(r,r,jobRouteFilter)).join("")}</select><span class="tiny muted">共 ${total} 条 · 每页 ${JOBS_PER_PAGE} 条</span>${(jobQuery||jobStatusFilter||jobRouteFilter)?'<button class="textbtn" id="jobs-reset">清除筛选</button>':''}</div>`;
+  return `<div class="filters"><input id="jobs-query" aria-label="搜索任务" placeholder="搜索游戏名称或任务 ID…" value="${esc(jobQuery)}"><select id="jobs-status" aria-label="按状态筛选"><option value="">全部状态</option>${statuses.map(s=>option(s,s==="__paused"?"按 Web 范围暂停":(statusMap[s]||s),jobStatusFilter)).join("")}</select><select id="jobs-route" aria-label="按处理路径筛选"><option value="">全部处理路径</option>${routes.map(r=>option(r,r,jobRouteFilter)).join("")}</select><span class="tiny muted">共 ${total} 条 · 每页 ${JOBS_PER_PAGE} 条</span>${(jobQuery||jobStatusFilter||jobRouteFilter||jobPlatforms.size)?'<button class="textbtn" id="jobs-reset">清除筛选</button>':''}</div>`;
+}
+function jobsBulkToolbar(list){
+  const platforms=[...new Map(jobsBase().map(j=>{const p=jobPlatform(j);return [p.id,p];})).values()].sort((a,b)=>a.label.localeCompare(b.label));
+  const selected=list.filter(j=>jobSelected.has(j.id));
+  return `${!readOnly&&!state.features?.job_controls?'<p class="notice">任务控制接口等待本地服务更新完成；平台筛选可先使用，更新后刷新即可启用暂停与启动。</p>':''}<fieldset class="jobs-platforms"><legend>采集平台（可多选，不选表示全部）</legend>${platforms.map(p=>`<label class="checkrow"><input type="checkbox" data-job-platform="${esc(p.id)}" ${jobPlatforms.has(p.id)?'checked':''}>${esc(p.label)}</label>`).join('')}</fieldset>${readOnly?'':`<div class="actions jobs-bulk"><button id="jobs-select-filtered">选中筛选结果（${list.length}）</button><button id="jobs-clear-selected">取消选择</button><span>已选 ${selected.length} 项</span><button data-jobs-control="pause" ${!state.features?.job_controls||jobControlBusy||!selected.some(canPauseJob)?'disabled':''}>批量暂停</button><button class="primary" data-jobs-control="start" ${!state.features?.job_controls||jobControlBusy||!selected.some(canStartJob)?'disabled':''}>批量启动</button></div><p class="tiny muted">操作跨分页生效；切换筛选会清空选择。启动会重新排队，仍遵守原有 Web 范围与验证规则。</p>`}`;
 }
 function jobsPagination(total){
   const pages=Math.max(1,Math.ceil(total/JOBS_PER_PAGE));
@@ -531,7 +555,7 @@ function jobs() {
   const list=jobsFiltered(), pages=Math.max(1,Math.ceil(list.length/JOBS_PER_PAGE));
   if(jobsPage>pages)jobsPage=pages;
   const slice=list.slice((jobsPage-1)*JOBS_PER_PAGE,jobsPage*JOBS_PER_PAGE);
-  return `<div class="notice">${active.length} 个未完成任务 · ${all.filter(j=>j.status==='waiting_input'&&!j.policy_pause).length} 个待回复 · ${all.filter(j=>j.policy_pause).length} 个按 Web 范围暂停 · ${all.filter(j=>j.status==='review').length} 个待验收。退回意见会直接进入下一轮修改。</div><div class="actions" style="margin-bottom:16px"><button id="toggle-completed">${showCompletedTasks?'隐藏已完成':'显示已完成'}</button></div><div class="panel">${jobsToolbar(list.length,pages)}${jobTable(slice)}${jobsPagination(list.length)}</div>`;
+  return `<div class="notice">${active.length} 个未完成任务 · ${all.filter(j=>j.status==='waiting_input'&&!j.policy_pause).length} 个待回复 · ${all.filter(j=>j.policy_pause).length} 个按 Web 范围暂停 · ${all.filter(j=>j.status==='review').length} 个待验收。退回意见会直接进入下一轮修改。</div><div class="actions" style="margin-bottom:16px">${!readOnly?`<button id="jobs-pause-all" ${!state.features?.job_controls||jobControlBusy||!all.some(canPauseJob)?'disabled':''}>一键暂停全部（${all.filter(canPauseJob).length}）</button>`:''}<button id="toggle-completed">${showCompletedTasks?'隐藏已完成':'显示已完成'}</button></div><div class="panel">${jobsToolbar(list.length,pages)}${jobsBulkToolbar(list)}${jobTable(slice,true)}${jobsPagination(list.length)}</div>`;
 }
 function reviewImage(record, label, full = false) {
   const src=screenshotItems(record)[0];
@@ -1192,11 +1216,19 @@ function bind() {
           }
         })),
   );
-  if($("#toggle-completed"))$("#toggle-completed").onclick=()=>{showCompletedTasks=!showCompletedTasks;jobsPage=1;render();};
-  if($("#jobs-query"))$("#jobs-query").oninput=e=>{jobQuery=e.target.value;jobsPage=1;const pos=e.target.selectionStart;render();const el=$("#jobs-query");if(el){el.focus();el.setSelectionRange(pos,pos);}};
-  if($("#jobs-status"))$("#jobs-status").onchange=e=>{jobStatusFilter=e.target.value;jobsPage=1;render();};
-  if($("#jobs-route"))$("#jobs-route").onchange=e=>{jobRouteFilter=e.target.value;jobsPage=1;render();};
-  if($("#jobs-reset"))$("#jobs-reset").onclick=()=>{jobQuery="";jobStatusFilter="";jobRouteFilter="";jobsPage=1;render();};
+  if($("#toggle-completed"))$("#toggle-completed").onclick=()=>{showCompletedTasks=!showCompletedTasks;jobSelected.clear();jobsPage=1;render();};
+  if($("#jobs-query"))$("#jobs-query").oninput=e=>{jobQuery=e.target.value;jobSelected.clear();jobsPage=1;const pos=e.target.selectionStart;render();const el=$("#jobs-query");if(el){el.focus();el.setSelectionRange(pos,pos);}};
+  if($("#jobs-status"))$("#jobs-status").onchange=e=>{jobStatusFilter=e.target.value;jobSelected.clear();jobsPage=1;render();};
+  if($("#jobs-route"))$("#jobs-route").onchange=e=>{jobRouteFilter=e.target.value;jobSelected.clear();jobsPage=1;render();};
+  if($("#jobs-reset"))$("#jobs-reset").onclick=()=>{jobQuery="";jobStatusFilter="";jobRouteFilter="";jobPlatforms.clear();jobSelected.clear();jobsPage=1;render();};
+  document.querySelectorAll('[data-job-platform]').forEach(e=>e.onchange=()=>{e.checked?jobPlatforms.add(e.dataset.jobPlatform):jobPlatforms.delete(e.dataset.jobPlatform);jobSelected.clear();jobsPage=1;render();});
+  document.querySelectorAll('[data-job-select]').forEach(e=>e.onchange=()=>{e.checked?jobSelected.add(e.dataset.jobSelect):jobSelected.delete(e.dataset.jobSelect);render();});
+  const pageJobs=jobsFiltered().slice((jobsPage-1)*JOBS_PER_PAGE,jobsPage*JOBS_PER_PAGE);
+  if($('#jobs-select-page')){const e=$('#jobs-select-page');e.checked=pageJobs.length>0&&pageJobs.every(j=>jobSelected.has(j.id));e.indeterminate=!e.checked&&pageJobs.some(j=>jobSelected.has(j.id));e.onchange=()=>{pageJobs.forEach(j=>e.checked?jobSelected.add(j.id):jobSelected.delete(j.id));render();};}
+  listen($('#jobs-select-filtered'),'click',()=>{jobsFiltered().forEach(j=>jobSelected.add(j.id));render();});
+  listen($('#jobs-clear-selected'),'click',()=>{jobSelected.clear();render();});
+  listen($('#jobs-pause-all'),'click',()=>controlJobs('pause',currentJobs().filter(canPauseJob).map(j=>j.id)));
+  document.querySelectorAll('[data-jobs-control]').forEach(e=>e.onclick=()=>controlJobs(e.dataset.jobsControl,jobsFiltered().filter(j=>jobSelected.has(j.id)).map(j=>j.id)));
   if($("#jobs-prev"))$("#jobs-prev").onclick=()=>{jobsPage=Math.max(1,jobsPage-1);render();};
   if($("#jobs-next"))$("#jobs-next").onclick=()=>{jobsPage=jobsPage+1;render();};
   document.querySelectorAll("[data-remove]").forEach(b=>{

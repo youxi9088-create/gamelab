@@ -9,6 +9,31 @@ import discovered_web as web
 
 
 class WebReviewDispatchTests(unittest.TestCase):
+    def test_tutorial_endpoint_requires_executed_input_and_retains_scope(self):
+        class Budget:calls=3
+        class Browser:
+            def __init__(self,*args):pass
+            def close(self):pass
+            def observe(self,actions,restart=False):return {'passed':True,'actions':list(actions),'steps':[]}
+        for stage,count,expected in [('tutorial',1,'verified'),('tutorial',0,'pending'),('gameplay',1,'pending'),('menu',1,'pending')]:
+            with self.subTest(stage=stage,count=count),tempfile.TemporaryDirectory() as folder:
+                root=Path(folder)/'source';(root/'evidence').mkdir(parents=True)
+                (root/'index.html').write_text('<html>isolated tutorial fixture</html>','utf-8')
+                (root/'evidence/acquisition.json').write_text('{"engine":"three","files":[]}', 'utf-8')
+                run=Path(folder)/'run';run.mkdir()
+                replies=[]
+                if count:replies.append({'actions':[{'type':'click','x':10,'y':10}]})
+                replies.append({'complete':True,'verification_stage':stage,'foundation_checks':{'gameplay':{'status':'verified','reason':'引导操作反馈已观察；第一关未验证'}}})
+                responses=iter(replies)
+                def chat(messages,*args):
+                    self.assertIn('无需一定进入第一关',messages[0]['content'])
+                    return next(responses)
+                inp={'source_path':str(root),'base_version':{'id':'fixture','report':{}},'title':'fixture'}
+                with patch.object(web,'ReviewBrowser',Browser):
+                    _,_,report=web.revise(inp,run,Budget(),chat,None,None)
+                self.assertEqual(report['foundation_checks']['gameplay']['status'],expected)
+                self.assertEqual(report['verification_stage'],stage if expected=='verified' else 'pending')
+
     def test_images_include_intermediate_fresh_steps_only(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);(root/'screenshots').mkdir()
