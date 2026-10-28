@@ -81,6 +81,7 @@ def run(args, state):
     credentials = d1.credentials()
     backend = r2_upload.S3Backend(target[0], target[2])
     if pending:
+        print('Checking cloud artifact inventory', flush=True)
         remote = d1.post_query(*credentials, {'sql': 'SELECT object_key,sha256,bytes FROM artifact_files', 'params': []})
         remote_files = {r['object_key']: r for r in remote['result'][0]['results']}
         objects = {}
@@ -100,7 +101,9 @@ def run(args, state):
                 if head['ContentLength'] != entry['bytes'] or head.get('Metadata', {}).get('sha256') != entry['sha256']:
                     raise ValueError('R2 upload verification failed')
         with ThreadPoolExecutor(max_workers=8) as pool:
-            list(pool.map(upload, pending))
+            for count, _ in enumerate(pool.map(upload, pending), 1):
+                if count % 500 == 0 or count == len(pending):
+                    print(f'Artifacts checked: {count}/{len(pending)}', flush=True)
         sql = 'INSERT INTO artifact_files(artifact_id,path,object_key,sha256,bytes) VALUES (?,?,?,?,?) ON CONFLICT(artifact_id,path) DO UPDATE SET object_key=excluded.object_key,sha256=excluded.sha256,bytes=excluded.bytes'
         rows = [(sql, tuple(str(f[k]) for k in ('artifact_id', 'path', 'object_key', 'sha256', 'bytes'))) for f in pending
                 if not (remote_files.get(f['object_key'], {}).get('sha256') == f['sha256'])]
@@ -108,6 +111,7 @@ def run(args, state):
     sql = 'INSERT INTO records(kind,id,data) VALUES (?,?,?) ON CONFLICT(kind,id) DO UPDATE SET data=excluded.data'
     d1.flush_batches(*credentials, d1.build_batches([(sql, row) for row in changed]), 'records')
     # Publish the pre-generated portal only after objects and their records exist.
+    print('Refreshing cloud portal snapshot', flush=True)
     subprocess.run([sys.executable, str(cloud / 'tools/refresh_portal_state.py')], cwd=cloud, check=True, timeout=600)
     atomic_json(checkpoint, {'target': target, 'records': hashes, 'files': file_hashes})
     return summary
@@ -133,8 +137,10 @@ def main():
             print('Another sync is running', flush=True)
             return 2
         try:
+            if args.apply:
+                atomic_json(state / 'status.json', {'ok': None, 'running': True, 'at': datetime.now(timezone.utc).isoformat()})
             result = run(args, state)
-            atomic_json(state / 'status.json', {'ok': True, 'at': datetime.now(timezone.utc).isoformat(), **result})
+            atomic_json(state / ('status.json' if args.apply else 'preflight.json'), {'ok': True, 'at': datetime.now(timezone.utc).isoformat(), **result})
             return 0
         except Exception as error:
             # Do not persist raw exception bodies that may include source records or credentials.
