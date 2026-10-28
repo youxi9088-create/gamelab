@@ -117,15 +117,15 @@ test('redirects reject private targets, absent locations, loops and excessive ho
  assert.equal(calls,6);
 });
 
-test('screenshot remembers the working capture mode for that page only',async()=>{
+test('screenshot uses compositor pixels even when window capture succeeds blank',async()=>{
  const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-capture-fixture-')),calls=[];
  const page={context:()=>({newCDPSession:async()=>({send:async(method,options)=>{
-  calls.push(options.fromSurface);if(!options.fromSurface)throw Error('unsupported view capture');
-  return {data:Buffer.from('fixture pixels').toString('base64')};
+  calls.push(options.fromSurface);
+  return {data:Buffer.from(options.fromSurface?'fixture pixels':'blank window').toString('base64')};
  },detach:async()=>{}})})};
  try{
   await screenshot(page,path.join(run,'first.png'));await screenshot(page,path.join(run,'second.png'));
-  assert.deepEqual(calls,[false,true,true]);
+  assert.deepEqual(calls,[true,true]);
   assert.equal(fs.readFileSync(path.join(run,'second.png'),'utf8'),'fixture pixels');
  }finally{fs.rmSync(run,{recursive:true,force:true});}
 });
@@ -141,7 +141,9 @@ test('missing resources use only the observed original directory and never repla
   const added=await repairResources(run);assert.equal(added.length,1);assert.deepEqual(fetched,['https://fixture.example/game/assets/a.png']);
   assert.equal(fs.readFileSync(path.join(run,'converted/assets/a.png'),'utf8'),'fixture-original-bytes');
   assert.equal(JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json'))).resource_refreshes[0].files[0].sha256,added[0].sha256);
-  await assert.rejects(()=>repairResources(run),/cannot replace/);
+  assert.deepEqual(await repairResources(run),[]);
+  assert.equal(fetched.length,1,'reuse existing resources without another download');
+  assert.equal(fs.readFileSync(path.join(run,'converted/assets/a.png'),'utf8'),'fixture-original-bytes');
   fs.writeFileSync(path.join(run,'converted/evidence/runtime.json'),JSON.stringify({missing:['/../private.json']}));
   await assert.rejects(()=>repairResources(run),/original directory/);assert.equal(fetched.length,1);
  }finally{request.newContext=original;fs.rmSync(run,{recursive:true,force:true});}

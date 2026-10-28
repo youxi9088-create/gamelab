@@ -514,9 +514,12 @@ class Service(Conversations,Discovery):
             limit=self._concurrency(settings)
             if len(running)>=limit:return {'job':None}
             caps=set(b.get('capabilities',[])) & set(tool['capabilities'])
+            requested_job=b.get('job_id')
+            require(requested_job is None or isinstance(requested_job,str),'无效定向任务')
             # queued_at 可能是 null（旧数据）；dict.get 只对"键缺失"兜底，不对 None 兜底，
             # 直接放进 sorted 会与字符串混排抛 TypeError，整个认领就 500 了。
             for job in sorted(reversed(jobs),key=lambda j:j.get('queued_at') or j.get('created_at','')):
+                if requested_job is not None and job['id']!=requested_job:continue
                 batch=self.get(db,'batches',job['batch_id'])
                 if job.get('manual_paused') or job['status']!='queued' or job['stage'] not in caps or batch['status']!='running':continue
                 if b.get('automatic_only') and not job.get('automatic'):continue

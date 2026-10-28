@@ -2,7 +2,12 @@
 const fs=require('node:fs'),path=require('node:path');
 const {chromium}=require('playwright');
 const CONFIG=path.resolve(__dirname,'../data/browser-extensions/netblock.json');
-async function launchBrowser(report,{configFile=process.env.GAMELAB_EXTENSION_CONFIG||CONFIG}={}){
+async function launchBrowser(report,{configFile=process.env.GAMELAB_EXTENSION_CONFIG||CONFIG,engine}={}){
+ if(engine==='ruffle' && process.env.RUFFLE_BROWSER_EXECUTABLE){
+  // Explicit operator-selected browser, never discovery or a personal profile.
+  report.browser_runtime={engine,browser:'explicit-chrome',environment_variable:'RUFFLE_BROWSER_EXECUTABLE',extensions_loaded:false};
+  return chromium.launch(require('./browser-options.cjs')(engine));
+ }
  const config=fs.existsSync(configFile)?JSON.parse(fs.readFileSync(configFile,'utf8')):null;
  if(!config?.enabled||process.env.GAMELAB_NETBLOCK==='0')return chromium.launch(require('./browser-options.cjs')());
  const extension=path.resolve(path.dirname(configFile),config.path);
@@ -14,7 +19,8 @@ async function launchBrowser(report,{configFile=process.env.GAMELAB_EXTENSION_CO
   async newContext(options){
    if(context)throw Error('Extension browser supports one isolated context');
    const {storageState,...rest}=options;
-   context=await chromium.launchPersistentContext('',{...rest,headless:true,channel:'chromium',args:[`--disable-extensions-except=${extension}`,`--load-extension=${extension}`]});
+   context=await chromium.launchPersistentContext('',{...rest,headless:true,channel:'chromium',args:['--enable-unsafe-swiftshader',`--disable-extensions-except=${extension}`,`--load-extension=${extension}`]});
+   evidence.rendering='Chromium with software WebGL fallback enabled';
    try{
     const worker=context.serviceWorkers().find(w=>w.url().startsWith('chrome-extension://'))||await context.waitForEvent('serviceworker',{predicate:w=>w.url().startsWith('chrome-extension://'),timeout:15000});
     // Await rule synchronization, not just the worker's creation event.
@@ -60,7 +66,14 @@ async function launchBrowser(report,{configFile=process.env.GAMELAB_EXTENSION_CO
     // Keep these separately: ERR_BLOCKED_BY_CLIENT alone cannot identify which filter blocked it.
     context.on('requestfailed',req=>{
      if(req.failure()?.errorText!=='net::ERR_BLOCKED_BY_CLIENT'||evidence.client_blocked_requests.length>=200)return;
-     try{const u=new URL(req.url());evidence.client_blocked_requests.push({url:u.origin+u.pathname,type:req.resourceType()});}catch{}
+     try{const u=new URL(req.url());evidence.client_blocked_requests.push({url:u.origin+u.pathname,type:req.resourceType(),at:Date.now()});}catch{}
+    });
+    context.on('requestfinished',async req=>{
+     try{const u=new URL(req.url());if(!/\.(swf|wasm)$/i.test(u.pathname))return;
+      const at=Date.now(),response=await req.response();if(!response?.ok())return;
+      evidence.runtime_resource_loaded ||= {};
+      evidence.runtime_resource_loaded[u.origin+u.pathname]=at;
+     }catch{}
     });
     return context;
    }catch(error){await context.close();throw error;}

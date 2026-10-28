@@ -2,6 +2,7 @@
 import csv
 import io
 import json
+import re
 from pathlib import Path
 
 from .source_routing import observations_of
@@ -23,6 +24,11 @@ def normalize(value):
         if not isinstance(item, str) or len(item) > 6000:
             raise ValueError('游戏档案字段无效：'+key)
         result[key] = item.strip()
+    # Models sometimes append an explanation to the explicit enum. Accept only
+    # an unambiguous enum followed by a complete parenthetical annotation.
+    annotated = re.fullmatch(r'(2D|3D|2\.5D|混合)\s*(?:（[^（）]*）|\([^()]*\))', result['dimension'])
+    if annotated:
+        result['dimension'] = annotated.group(1)
     if result['dimension'] not in ('', '2D', '3D', '2.5D', '混合'):
         raise ValueError('画面维度须为 2D、3D、2.5D 或混合')
     return result

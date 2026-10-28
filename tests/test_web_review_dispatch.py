@@ -9,6 +9,14 @@ import discovered_web as web
 
 
 class WebReviewDispatchTests(unittest.TestCase):
+    def test_control_batch_allows_wait_but_requires_observation_before_input(self):
+        for control in ['reload','viewport']:
+            web.validate_control_batch([{'type':control},{'type':'wait','wait_ms':5000}])
+            with self.assertRaises(ValueError):
+                web.validate_control_batch([{'type':control},{'type':'click','x':10,'y':10}])
+            with self.assertRaises(ValueError):
+                web.validate_control_batch([{'type':'click'},{'type':control}])
+
     def test_tutorial_endpoint_requires_executed_input_and_retains_scope(self):
         class Budget:calls=3
         class Browser:
@@ -65,7 +73,7 @@ class WebReviewDispatchTests(unittest.TestCase):
                 {'actions':[{'type':'click','x':10,'y':10}]},
                 {'complete':False,'blocker':{'code':'FIXTURE_STOP','reason':'fixture','next_action':'fixture'}}])
             def chat(messages,*args):
-                if len(seen)==2:self.assertIn('刷新或切换视口必须单独提交',json.loads(messages[-1]['content'][0]['text'])['previous_model_feedback'])
+                if len(seen)==2:self.assertIn('刷新或切换视口之后只可追加等待',json.loads(messages[-1]['content'][0]['text'])['previous_model_feedback'])
                 return next(replies)
             inp={'source_path':str(root),'base_version':{'id':'fixture','report':{}},'title':'fixture'}
             with patch.object(web,'ReviewBrowser',Browser):web.revise(inp,run,Budget(),chat,None,None)

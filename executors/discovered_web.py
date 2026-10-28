@@ -7,11 +7,22 @@ import subprocess
 import queue
 import threading
 import re
+import os
+import sys
 from pathlib import Path
 from controlplane.runtime import node_binary
 from controlplane.runtime_viewport import prepare as prepare_viewport
 
 ROOT = Path(__file__).resolve().parent
+
+
+def validate_control_batch(actions):
+    controls=[a for a in actions if isinstance(a,dict) and a.get('type') in ('reload','viewport')]
+    if not controls or len(actions)==1:
+        return
+    if actions[0] is controls[0] and len(controls)==1 and all(isinstance(a,dict) and a.get('type')=='wait' for a in actions[1:]):
+        return
+    raise ValueError('刷新或切换视口之后只可追加等待；先观察新画面再提交点击等操作')
 
 
 def review_images(target, runtime, prior_image, current_images):
@@ -64,7 +75,8 @@ class ReviewBrowser:
             request.write_text(json.dumps({'actions': actions}), 'utf-8')
             self.log = (self.run / 'web-browser.log').open('a', encoding='utf-8')
             self.process = subprocess.Popen([node_binary(), str(ROOT / 'discovered-web.cjs'), 'session', str(request), str(self.run)],
-                stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=self.log, encoding='utf-8')
+                stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=self.log, encoding='utf-8',
+                env={**os.environ, 'GAMELAB_PYTHON': sys.executable})
             self.events = queue.Queue()
             output, events = self.process.stdout, self.events
             def reader():
@@ -138,7 +150,8 @@ def convert(inp, observation, run, budget, chat, resume=False):
 
     def command(mode, seconds):
         result = subprocess.run([node_binary(), str(ROOT / 'discovered-web.cjs'), mode, str(input_file), str(run)],
-                                capture_output=True, timeout=budget.remaining(seconds), encoding='utf-8', errors='replace')
+                                capture_output=True, timeout=budget.remaining(seconds), encoding='utf-8', errors='replace',
+                                env={**os.environ, 'GAMELAB_PYTHON': sys.executable})
         (run / ('web-' + mode + '.log')).write_text(result.stdout + result.stderr, 'utf-8')
         if result.returncode:
             from worker import Blocked
@@ -233,7 +246,8 @@ def revise_viewport(inp, run, budget, chat, viewport, changes, progress=None):
     request.write_text('{"actions":[]}', 'utf-8')
     if progress: progress('复用原产物与玩法证据；平台检查桌面、手机及横置窗口的竖屏布局')
     result = subprocess.run([node_binary(), str(ROOT / 'discovered-web.cjs'), 'viewport', str(request), str(run)],
-                            capture_output=True, timeout=budget.remaining(420), encoding='utf-8', errors='replace')
+                            capture_output=True, timeout=budget.remaining(420), encoding='utf-8', errors='replace',
+                            env={**os.environ, 'GAMELAB_PYTHON': sys.executable})
     (run / 'viewport-review.log').write_text(result.stdout + result.stderr, 'utf-8')
     if result.returncode:
         raise ValueError('Viewport observation failed: ' + (result.stderr or result.stdout)[-1400:])
@@ -446,6 +460,9 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
     # Use the configured platform provider through chat; usage is bound to this lease.
     from review_progress import ReviewProgress
     progress_monitor = ReviewProgress()
+    navigation_signatures=[]
+    rejected_errors=[]
+    instruction+=' 刷新/视口操作独立批次允许在其后追加 wait 等待加载，但同批不得点击、按键、拖动或再切换视口；等待后的实际截图才是下一步操作依据。'
     round_limit = min(24, budget.calls)
     try:
         for step in range(round_limit):
@@ -460,6 +477,7 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
             protected.update(f['path'] for f in current_acquisition.get('files', []))
             context.code['evidence/acquisition.json'] = json.dumps(current_acquisition, ensure_ascii=False)
             payload['resource_refreshes'] = current_acquisition.get('resource_refreshes', [])
+            payload['resource_tools'] = current_acquisition.get('resource_tools', {})
             (iteration / 'runtime.json').write_text(json.dumps(runtime, ensure_ascii=False), 'utf-8')
             pending = False
             screenshots = sorted((target / 'screenshots').glob('*.png'), key=lambda p: p.stat().st_mtime)
@@ -503,12 +521,12 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
                 progress('本次证据分析：'+str(final['summary'])[:1600])
             feedback = None
             if final.get('read_requests') or final.get('search_requests'):
-                try:
-                    parts = context.reads(final['read_requests']) if final.get('read_requests') else []
-                    if final.get('search_requests'):parts += context.search(final['search_requests'])
-                    context.retain(payload, parts)
-                except (ValueError, KeyError, TypeError) as exc:
-                    feedback = str(exc)
+                feedback = context.navigate(payload,final)
+                signature=json.dumps({k:final[k] for k in ('read_requests','search_requests') if k in final},sort_keys=True)
+                navigation_signatures.append(signature)
+                if len(navigation_signatures)>=3 and len(set(navigation_signatures[-3:]))==1 and not (final.get('actions') or final.get('changes') or final.get('edits')):
+                    final={'complete':False,'summary':'连续重复相同资料请求，已保留有效读取结果，停止无进展分析。','blocker':{'code':'WEB_SOURCE_NAVIGATION_STALLED','reason':'相同读取请求连续三次且没有操作或修改','next_action':'使用已保留证据处理具体错误，不从头重读'}}
+                    break
                 # Reads and input actions can be proposed together. Never silently
                 # discard the actual interaction while showing its proposed summary.
                 if not (final.get('actions') or final.get('changes') or final.get('edits')):
@@ -524,8 +542,7 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
                     raise ValueError('Action budget exceeded')
                 if acquisition.get('engine') != 'cocos2' and any(isinstance(a, dict) and 'expect_labels' in a for a in proposed):
                     raise ValueError('expect_labels 仅支持 cocos2 引擎；当前引擎没有 Cocos 标签接口。动作尚未执行，请重新提交不含此字段的动作，再根据实际截图或 text 评估结果；不能视为断言已通过')
-                if len(proposed) > 1 and any(a.get('type') in ('reload','viewport') for a in proposed if isinstance(a, dict)):
-                    raise ValueError('刷新或切换视口必须单独提交；先观察实际结果再决定下一步操作')
+                validate_control_batch(proposed)
                 if sum(len(v.encode()) for v in {**changes, **patch}.values()) > 2_000_000:
                     raise ValueError('Host patch exceeds size limit')
                 for name, text in patch.items():
@@ -534,6 +551,7 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
                     destination.write_bytes(text.encode('utf-8'))
                 changes.update(patch)
                 context.update(patch)
+                rejected_errors.clear()
                 if patch:
                     context.retain(payload, [context.read(n) for n in patch])
                     pending = True
@@ -551,6 +569,11 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
                 feedback = '请提供基于截图的下一步实际动作，或如实说明具体阻碍。'
             except (ValueError, KeyError, TypeError) as exc:
                 feedback = str(exc)
+                rejected_errors.append(feedback)
+                if len(rejected_errors)>=3 and len(set(rejected_errors[-3:]))==1:
+                    final={'complete':False,'summary':'相同操作校验错误连续三次，已停止无效调用并保留本轮产物与证据。',
+                           'blocker':{'code':'WEB_ACTION_VALIDATION_STALLED','reason':feedback,'next_action':'先修正被拒绝的操作格式，再沿已有版本继续，不重复制作。'}}
+                    break
         if not pending and runtime.get('passed'):
             runtime = observe_verified(browser, run, budget, actions)
             sync_runtime_resources(target,changes,context)

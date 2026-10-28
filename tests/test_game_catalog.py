@@ -6,6 +6,13 @@ from controlplane.game_catalog import document, export, index, FIELDS, normalize
 
 
 class CatalogTests(unittest.TestCase):
+    def test_dimension_annotation_does_not_discard_delivery(self):
+        self.assertEqual(normalize({'dimension':'2D（使用 Cocos 3.x 引擎，主逻辑为 2D 战斗系统）'})['dimension'], '2D')
+        self.assertEqual(normalize({'dimension':'3D (unverified)'})['dimension'], '3D')
+        for value in ['2D/3D', 'unknown dimension', '2D（unfinished', '2D or 3D']:
+            with self.assertRaises(ValueError):
+                normalize({'dimension':value})
+
     def test_profile_registration_preserves_version_and_revision_history(self):
         from controlplane.service import Service
         from tools.register_game_profile import register

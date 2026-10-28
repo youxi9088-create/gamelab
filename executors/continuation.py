@@ -95,15 +95,15 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
         request_kinds=[k for k in ('search_requests','read_requests') if result.get(k)]
         if request_kinds:
             feedback=None
-            for request_kind in request_kinds:
-                request=result[request_kind];signature=json.dumps({request_kind:request},sort_keys=True)
-                try:
-                    parts=context.search(request) if request_kind=='search_requests' else context.reads(request)
-                    context.retain(payload,parts)
-                    if signature in requests_seen:feedback='Identical request already executed; results retained. Implement or verify the pending work using them.'
-                    requests_seen.add(signature)
-                    navigation.append({'kind':request_kind,'request':request,'matches':sum(len(p.get('matches',[p])) for p in parts)})
-                except (ValueError,KeyError,TypeError) as exc:feedback=str(exc)
+            signature=json.dumps({k:result[k] for k in request_kinds},sort_keys=True)
+            feedback=context.navigate(payload,result)
+            if signature in requests_seen:
+                feedback=(feedback or '')+' Identical request already executed; use retained evidence or identify a concrete blocker.'
+            requests_seen.add(signature)
+            navigation.append({'kind':'source_navigation','request':{k:result[k] for k in request_kinds}})
+            if len(navigation)>=3 and all(n.get('request')==navigation[-1]['request'] for n in navigation[-3:]):
+                save_checkpoint(attempt+1)
+                raise ValueError('SOURCE_NAVIGATION_STALLED: repeated identical source requests; retained edits and evidence')
             continue
         try:patch=context.apply(result.get('changes',{}),result.get('edits',[]))
         except (ValueError,KeyError,TypeError) as exc:

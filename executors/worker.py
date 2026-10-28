@@ -453,6 +453,8 @@ def execute(client, job):
             for reused_node in ('identify','acquire'):
                 client.post(prefix+'events',{**lease,'node':reused_node,'node_status':'reused',
                     'message':'沿用已有版本的入口与文件：'+str(inp.get('base_version',{}).get('id') or job.get('base_version_id') or '本轮绑定的源文件')+'；仍需本轮验证。'})
+            from revision_route import prepare as prepare_revision_route
+            web_revision=prepare_revision_route(inp)
             base_report=inp.get('base_version',{}).get('report',{})
             if base_report.get('path')=='B' and not base_report.get('original_resource_catalog'):
                 from acquisition import acquire
@@ -460,11 +462,11 @@ def execute(client, job):
                 acquired=acquire(inp['url'],run,budget,observations=inp.get('observations'))
                 from resource_policy import original_resources
                 raise Blocked('已自动检查并提取缓存资源；当前旧版是替代画面版本，原资源接入需重新适配。不能要求用户手工重复导出缓存，也不会继续交付替代素材版。')
-            if str(base_report.get('recovery_kind','')).startswith('discovered-web-'):
+            if web_revision:
                 from discovered_web import revise
             else:
                 from continuation import revise
-            revision_node='test' if str(base_report.get('recovery_kind','')).startswith('discovered-web-') else 'adapt'
+            revision_node='test' if web_revision else 'adapt'
             changes,entry,report=measured(revision_node,revise)(inp,run,budget,chat,smoke,NeedsInput,
                 progress=lambda message:client.post(prefix+'events',{**lease,'message':message,'stage':revision_node}))
             if fidelity:

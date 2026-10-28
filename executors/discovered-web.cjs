@@ -18,18 +18,19 @@ const proxyServer=(process.env.HTTPS_PROXY||process.env.https_proxy||process.env
 // outbound proxy, which cannot reach 127.0.0.1, so files that are already on
 // disk come back as errors and stall the repair loop.
 const proxyOptions=()=>proxyServer?{proxy:{server:proxyServer,bypass:'127.0.0.1,localhost,[::1]'}}:{};
-const screenshotModes=new WeakMap();
 async function screenshot(page,file){
  // Capture the compositor's actual viewport. Game-created FontFace loads may
  // never settle; waiting on document.fonts.ready must not hide visible pixels.
  const session=await page.context().newCDPSession(page);let timer,last;
  try{
-  const preferred=screenshotModes.get(page)??false;
-  for(const fromSurface of [preferred,!preferred]){
+  // The window surface can succeed with a blank native background in headless
+  // Chromium. Capture the compositor surface containing the actual WebGL game.
+  // A blank window is not a valid fallback observation of game state.
+  for(const fromSurface of [true]){
    try{
     const result=await Promise.race([session.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false,fromSurface}),
      new Promise((resolve,reject)=>{timer=setTimeout(()=>reject(Error('Viewport screenshot timed out')),30000);})]);
-    fs.writeFileSync(file,Buffer.from(result.data,'base64'));screenshotModes.set(page,fromSurface);return;
+    fs.writeFileSync(file,Buffer.from(result.data,'base64'));return;
    }catch(e){last=e;}finally{clearTimeout(timer);}
   }
   throw last;
@@ -144,7 +145,12 @@ async function gameplayReady(page,engine){
 }
 async function state(page,engine){
  return page.evaluate(kind=>{
-  const result={engine:kind,viewport:{width:innerWidth,height:innerHeight},canvasCount:document.querySelectorAll('canvas').length,fontStatus:document.fonts?.status,buttons:[],labels:[]};
+  // Ruffle renders into a canvas inside the <ruffle-player> shadow root, so a
+  // flat document query always reports zero and looks like a blank page.
+  const countCanvas=(root,depth)=>{let n=root.querySelectorAll('canvas').length;
+   if(depth>0)for(const el of root.querySelectorAll('*')){if(el.shadowRoot)n+=countCanvas(el.shadowRoot,depth-1);}
+   return n;};
+  const result={engine:kind,viewport:{width:innerWidth,height:innerHeight},canvasCount:countCanvas(document,3),fontStatus:document.fonts?.status,buttons:[],labels:[]};
   if(kind==='cocos2'){
    result.scene=cc.director.getScene()?.name;
    const rect=cc.game.canvas.getBoundingClientRect();
@@ -169,9 +175,9 @@ async function capture(input,run){
  let prior={};try{prior=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json'),'utf8'));}catch{}
  const report={url:input.url,referer:input.referer,files:[],external:[],errors:[],preloadErrors:[],missing:[],patches:[],redirects:[],cache_hits:0};
  let page;
- const browser=await require('./extension-browser.cjs').launchBrowser(report);let pending=[],failure,total=0;
+ let browser=await require('./extension-browser.cjs').launchBrowser(report);let pending=[],failure,total=0;
  try{
-  const context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block',acceptDownloads:false,...proxyOptions(),...sessionOptions(input.url)});
+  let context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block',acceptDownloads:false,...proxyOptions(),...sessionOptions(input.url)});
   await context.addInitScript(()=>{let value;Object.defineProperty(window,'_CCSettings',{configurable:true,get:()=>value,set:v=>{value=v;if(v)window.__capturedCCSettings=JSON.parse(JSON.stringify(v));}});});
   const response=await context.request.get(entry.href,{headers:{Referer:input.referer||input.url},timeout:30000,maxRedirects:0});
   if(!response.ok())throw Error('运行入口 HTTP '+response.status());
@@ -196,6 +202,11 @@ async function capture(input,run){
    throw e;
   }
   report.engine=engine;report.runtimePlan=plan;
+  if(engine==='ruffle'&&process.env.RUFFLE_BROWSER_EXECUTABLE){
+   await browser.close();delete report.browser_extension;
+   browser=await require('./extension-browser.cjs').launchBrowser(report,{engine});
+   context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block',acceptDownloads:false,...proxyOptions(),...sessionOptions(input.url)});
+  }
   let runtimeHTML=html;
   const sdk=[...html.matchAll(/<script\b[^>]*src=["']([^"']+)["']/gi)].map(m=>new URL(m[1],entry).href).filter(u=>u==='https://c.17yoo.cn/sdknew/main.js');
   if(engine==='ruffle'){const r=ruffleEntry(html,entry);runtimeHTML=r.html;report.movie=r.movie;report.patches.push({kind:'ruffle-local-host',reason:'Preserve SWF and engine; replace portal loading UI with a standalone player'});}
@@ -330,7 +341,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false,environ
   scope:'Observed non-loopback runtime only; not a guarantee for unobserved timers or deployment configurations'});
  let browser,page,context;
  try{
-  browser=await require('./extension-browser.cjs').launchBrowser(report);
+  browser=await require('./extension-browser.cjs').launchBrowser(report,{engine:acq.engine});
   const c=context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block',...proxyOptions()});
   // A virtual HTTPS origin exposes hostname-dependent behaviour without ever
   // contacting that host. Only GET/HEAD resources use the private file server;
@@ -464,6 +475,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false,environ
   // Denied API/telemetry attempts remain dependency evidence. Their necessity
   // must be assessed by actual gameplay; an attempted request is not a transfer.
   settleNonFatalRuntime(report);
+  report.errors.push(...require('./runtime-resource-blocks.cjs').blockedPackagedResources(report,root,origin));
   report.passed=!report.errors.length&&!report.missing.length&&!report.required_external.length;
   if(!report.passed)throw Error('Offline check failed: '+JSON.stringify({errors:report.errors,missing:report.missing,external:report.external}));
   if(!nextBatch)break;
@@ -485,13 +497,18 @@ async function repairResources(run){
  // 一次运行就会成批 404：3D贪吃蛇的 Game 分包有 300+ import 与 native 文件。
  // 100 的旧上限会让补齐永远收敛不了，任务只能 blocked。
  if(!missing.length||missing.length>600)throw Error('Missing-resource repair exceeds batch limit');
+ const hgd=require('./html-game-downloader.cjs').plan(run,acq,missing);
+ acq.resource_tools={...(acq.resource_tools||{}),html_game_downloader:{tool:'HtmlGameDownloader',status:hgd.status,reason:hgd.reason,error:hgd.error,commit:hgd.commit,matched:hgd.references?.length||0}};
  const prior=acq.resource_refreshes||[],added=[];let bytes=0;
  if(prior.reduce((n,r)=>n+r.files.length,0)+missing.length>2000)throw Error('Resource repair exceeds task limit');
  const client=await request.newContext({...proxyOptions(),...sessionOptions(acq.url),extraHTTPHeaders:{Referer:acq.referer||acq.url}});
  try{
   for(const local of missing){
    if(typeof local!=='string'||!local.startsWith('/')||local.startsWith('//'))throw Error('Invalid observed resource path');
-   const url=safeURL(new URL(local.slice(1),base).href),relative=resourcePath(url.href,base);
+   // Use HGD's actual source reference (including version query) only when the
+   // observed missing path has one unambiguous match. Never guess across hosts.
+   const matches=(hgd.references||[]).filter(r=>'/'+r.path===decodeURIComponent(local.split('?')[0]));
+   const url=safeURL(matches.length===1&&!local.includes('?')?matches[0].url:new URL(local.slice(1),base).href),relative=resourcePath(url.href,base);
    if(url.origin!==new URL(base).origin||relative!==decodeURIComponent(local.split('?')[0].slice(1))||relative.startsWith('_remote/'))throw Error('Resource repair must remain in the observed original directory');
    const dest=path.resolve(root,relative);
    if(!dest.startsWith(path.resolve(root)+path.sep))throw Error('Resource repair cannot write outside the package');

@@ -32,6 +32,12 @@ class RevisionContextTests(unittest.TestCase):
             self.assertTrue(report['runtime_verified'])
             self.assertEqual(changes['index.html'],'<button>Fixed</button>')
 
+    def test_partial_navigation_keeps_valid_evidence(self):
+        context=SourceContext({'index.html':'working evidence'},'index.html');payload={}
+        error=context.navigate(payload,{'read_requests':[{'path':'index.html'},{'path':'missing.swf'}]})
+        self.assertIn('missing.swf',error)
+        self.assertEqual(payload['source_excerpts'][0]['text'],'working evidence')
+
     def test_navigation_checkpoint_rechecks_hashes_and_does_not_trust_saved_text(self):
         code={'index.html':'const score=0;'};c=SourceContext(code,'index.html');saved={}
         c.retain(saved,[c.read('index.html')]+c.search([{'path':'index.html','text':'saveState'}]))

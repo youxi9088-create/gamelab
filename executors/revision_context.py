@@ -96,6 +96,22 @@ class SourceContext:
                 'scope':'完整文本字面量搜索；零命中不代表排除别名或动态构造的调用'})
         return results
 
+    def navigate(self,payload,result):
+        """Keep successful reads even when another requested path is invalid."""
+        errors=[];signatures=[]
+        for kind in ('read_requests','search_requests'):
+            requests=result.get(kind,[])
+            if not isinstance(requests,list) or len(requests)>4:
+                errors.append(kind+': provide at most four requests');continue
+            for request in requests:
+                signatures.append(repr((kind,request)))
+                try:
+                    parts=self.reads([request]) if kind=='read_requests' else self.search([request])
+                    self.retain(payload,parts)
+                except (ValueError,KeyError,TypeError) as exc:
+                    errors.append(str(request.get('path',''))+': '+str(exc))
+        return '; '.join(errors) or None
+
     def covered(self,name,start,end):
         cursor=start
         for a,b in sorted(self.seen.get(name,[])):
