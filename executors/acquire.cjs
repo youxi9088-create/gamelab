@@ -30,8 +30,9 @@ function scoreFrame(url,width,height,viewport){
   return Math.round(score);
 }
 async function main(){
-  const [url,dir]=process.argv.slice(2);
+  const [url,dir,referer]=process.argv.slice(2);
   const parsed=new URL(url); if(!['http:','https:'].includes(parsed.protocol)||parsed.username||parsed.password)throw Error('Invalid source URL');
+  if(referer)require('./discovered-web.cjs').safeURL(referer);
   fs.mkdirSync(dir,{recursive:true});
   const observation={url,final_url:url,title:'',metadata:[],frames:[],scripts:[],page_errors:[],
     web_discovery:{entries:[],iframe_hints:[],iframe_probes:[],loader_hints:[],launch_links:[],
@@ -70,7 +71,7 @@ async function main(){
       if(!r.ok()||r.request().resourceType()!=='script'||scripts.length>=15)return;
       const task=(async()=>{try{const body=await r.body();if(body.length>1000000||bytes+body.length>2000000||scripts.length>=15)return;bytes+=body.length;const name=`script-${scripts.length}.js`;scripts.push({url:r.url(),file:name,sha256:crypto.createHash('sha256').update(body).digest('hex')});fs.writeFileSync(path.join(dir,name),body);}catch{}})();pending.push(task);
     });
-    const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:within(45000)});
+    const response=await page.goto(url,{referer,waitUntil:'domcontentloaded',timeout:within(45000)});
     if(!response||!response.ok())throw Error('Source returned HTTP '+response?.status());
     // Client-rendered hosts may reveal an explicit ad-skip control after a countdown.
     // Only activate a visible, non-link control whose own label explicitly says to skip/close an ad.

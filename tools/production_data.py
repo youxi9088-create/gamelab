@@ -9,6 +9,7 @@ import sqlite3
 import tempfile
 import urllib.request
 import zipfile
+import re
 from contextlib import closing
 from datetime import datetime, timezone
 
@@ -34,16 +35,76 @@ def inventory(root):
     return rows
 
 
+def digest_file(path):
+    with Path(path).open('rb') as stream:return hashlib.file_digest(stream,'sha256').hexdigest()
+
+
+def read_manifest(path):
+    with zipfile.ZipFile(path) as archive:
+        manifest=json.loads(archive.read('BACKUP_MANIFEST.json'))
+        # Early full-backup archives predate the explicit schema field.
+        manifest.setdefault('schema',1)
+        if manifest.get('schema') not in (1,2):raise ValueError('未知备份格式')
+        rows=manifest['files'];names=[row['path'] for row in rows]
+        if len(names)!=len(set(names)):raise ValueError('备份清单重复')
+        for row in rows:
+            name=row['path'];p=Path(name)
+            if not name or p.is_absolute() or '..' in p.parts or ':' in name or '\\' in name:raise ValueError('无效备份路径')
+            if not re.fullmatch('[a-f0-9]{64}',row['sha256']) or not isinstance(row['bytes'],int) or row['bytes']<0:raise ValueError('无效备份摘要')
+        stored=manifest.get('changed',names) if manifest['schema']==2 else names
+        if len(stored)!=len(set(stored)) or not set(stored)<=set(names):raise ValueError('无效增量清单')
+        if len(archive.namelist())!=len(stored)+1 or set(archive.namelist())!=set(stored+['BACKUP_MANIFEST.json']):raise ValueError('备份清单不一致')
+        return manifest
+
+
+def baseline_path(archive_path,manifest):
+    name=manifest['base']['name']
+    if not isinstance(name,str) or not name or Path(name).name!=name or ':' in name or '\\' in name or name in ('.','..'):raise ValueError('无效基线路径')
+    path=Path(archive_path).resolve().parent/name
+    if path.resolve().parent!=Path(archive_path).resolve().parent:raise ValueError('基线超出备份目录')
+    return path
+
+
+def verified_baseline(path,expected=None):
+    path=Path(path).resolve();digest=digest_file(path)
+    if expected is not None and digest!=expected:raise ValueError('完整基线摘要不匹配')
+    manifest=read_manifest(path)
+    if manifest['schema']!=1:raise ValueError('增量必须直接引用完整基线，不能形成链')
+    receipt=path.with_suffix(path.suffix+'.verified.json')
+    try:cached=json.loads(receipt.read_text('utf-8'))
+    except (OSError,ValueError):cached={}
+    if cached.get('sha256')!=digest:
+        verify(path)
+        write(receipt,{'sha256':digest,'verified_at':now()})
+    return manifest,digest
+
+
+def latest_baseline(root):
+    status_path=Path(root)/'backup-status.json'
+    if not status_path.exists():return None
+    state=json.loads(status_path.read_text('utf-8'))
+    if not state.get('verified'):raise ValueError('最近备份未校验；拒绝自动退回全量备份')
+    latest=Path(state['path']).resolve();manifest=read_manifest(latest)
+    base=baseline_path(latest,manifest) if manifest['schema']==2 else latest
+    baseline,digest=verified_baseline(base,manifest['base']['sha256'] if manifest['schema']==2 else None)
+    return base,baseline,digest
+
+
 def backup_capacity(root,destination_directory):
     """Conservative uncompressed bound, checked before a deployment stops service."""
     root=Path(root).resolve();destination_directory=Path(destination_directory).resolve()
-    source_bytes=sum(row['bytes'] for row in inventory(root))
+    rows=inventory(root);baseline=latest_baseline(root)
+    old={row['path']:row for row in baseline[1]['files']} if baseline else {}
+    source_bytes=sum(row['bytes'] for row in rows if row['path']=='data/platform.sqlite3'
+                     or row['path'] not in old or row['bytes']!=old[row['path']]['bytes']
+                     or digest_file(root/row['path'])!=old[row['path']]['sha256'])
     # ZIP can be larger than incompressible input; leave room for SQLite and logs.
     required=source_bytes+max(512*1024**2,source_bytes//20)
     free=shutil.disk_usage(destination_directory).free
     if free<required:
         raise ValueError(f'备份空间不足：可用 {free} 字节，需要至少 {required} 字节；服务尚未停止')
-    return {'source_bytes':source_bytes,'required_bytes':required,'free_bytes':free}
+    return {'source_bytes':source_bytes,'required_bytes':required,'free_bytes':free,
+            'mode':'incremental' if baseline else 'full'}
 
 
 def backup(root,destination):
@@ -58,31 +119,51 @@ def backup(root,destination):
         if not maintenance.get('draining'):raise ValueError('备份前必须暂停领取新任务')
     destination.parent.mkdir(parents=True,exist_ok=True)
     if destination.exists():raise ValueError('备份文件已存在')
+    baseline=latest_baseline(root)
+    if baseline and baseline[0].parent!=destination.parent:raise ValueError('增量与完整基线必须在同一备份目录')
+    old={row['path']:row for row in baseline[1]['files']} if baseline else {}
     partial=destination.with_suffix('.partial')
     with tempfile.TemporaryDirectory() as temp:
         snapshot=Path(temp)/'platform.sqlite3'
         with closing(sqlite3.connect(database)) as src,closing(sqlite3.connect(snapshot)) as dst:src.backup(dst)
-        manifest=[]
+        manifest=[];changed=[]
         with zipfile.ZipFile(partial,'w',zipfile.ZIP_DEFLATED,compresslevel=1,allowZip64=True) as archive:
             for row in inventory(root):
                 name=row['path'];source=snapshot if name=='data/platform.sqlite3' else root/name
+                observed=digest_file(source)
+                if name in old and old[name]['sha256']==observed and old[name]['bytes']==source.stat().st_size:
+                    manifest.append(dict(old[name]));continue
                 digest=hashlib.sha256();size=0
                 with source.open('rb') as src,archive.open(name,'w',force_zip64=True) as dst:
                     while chunk:=src.read(1024*1024):dst.write(chunk);digest.update(chunk);size+=len(chunk)
-                manifest.append({'path':name,'bytes':size,'sha256':digest.hexdigest()})
-            archive.writestr('BACKUP_MANIFEST.json',json.dumps({'schema':1,'created_at':now(),'files':manifest},ensure_ascii=False))
+                if digest.hexdigest()!=observed:raise ValueError('备份期间文件变化：'+name)
+                manifest.append({'path':name,'bytes':size,'sha256':digest.hexdigest()});changed.append(name)
+            metadata={'schema':2 if baseline else 1,'created_at':now(),'files':manifest}
+            if baseline:
+                metadata.update(base={'name':baseline[0].name,'sha256':baseline[2]},changed=changed,
+                                deleted=sorted(set(old)-{row['path'] for row in manifest}))
+            archive.writestr('BACKUP_MANIFEST.json',json.dumps(metadata,ensure_ascii=False))
     partial.replace(destination)
-    result={'completed_at':now(),'path':str(destination),'files':len(manifest),'bytes':destination.stat().st_size,'verified':False}
+    result={'completed_at':now(),'path':str(destination),'files':len(manifest),'bytes':destination.stat().st_size,'verified':False,
+            'mode':'incremental' if baseline else 'full','changed_files':len(changed),
+            'base_path':str(baseline[0]) if baseline else None}
     verify(destination);result['verified']=True;write(root/'backup-status.json',result)
     return result
 
 
 def verify(archive_path):
+    manifest=read_manifest(archive_path)
+    changed=set(manifest.get('changed',[]))
+    if manifest['schema']==2:
+        base=baseline_path(archive_path,manifest)
+        original,_=verified_baseline(base,manifest['base']['sha256'])
+        old={row['path']:row for row in original['files']};current={row['path']:row for row in manifest['files']}
+        if set(manifest.get('deleted',[]))!=set(old)-set(current):raise ValueError('删除清单不匹配')
+        for name,row in current.items():
+            if name not in changed and old.get(name)!=row:raise ValueError('增量缺少变化文件：'+name)
     with zipfile.ZipFile(archive_path) as z:
-        manifest=json.loads(z.read('BACKUP_MANIFEST.json'))
-        expected=[r['path'] for r in manifest['files']]
-        if len(expected)!=len(set(expected)) or set(z.namelist())!=set(expected+['BACKUP_MANIFEST.json']):raise ValueError('备份清单不一致')
         for row in manifest['files']:
+            if manifest['schema']==2 and row['path'] not in changed:continue
             name=row['path'];p=Path(name)
             if p.is_absolute() or '..' in p.parts or ':' in name or '\\' in name:raise ValueError('无效备份路径')
             digest=hashlib.sha256();size=0
@@ -96,10 +177,15 @@ def restore(archive_path,target):
     target=Path(target).resolve()
     if target.exists() and any(target.iterdir()):raise ValueError('只允许恢复到空目录')
     manifest=verify(archive_path);target.mkdir(parents=True,exist_ok=True)
-    with zipfile.ZipFile(archive_path) as z:
+    from contextlib import ExitStack
+    with ExitStack() as stack:
+        z=stack.enter_context(zipfile.ZipFile(archive_path))
+        base=stack.enter_context(zipfile.ZipFile(baseline_path(archive_path,manifest))) if manifest['schema']==2 else z
+        changed=set(manifest.get('changed',[]))
         for row in manifest['files']:
             out=target/row['path'];out.parent.mkdir(parents=True,exist_ok=True)
-            with z.open(row['path']) as src,out.open('wb') as dst:shutil.copyfileobj(src,dst)
+            source=z if manifest['schema']==1 or row['path'] in changed else base
+            with source.open(row['path']) as src,out.open('wb') as dst:shutil.copyfileobj(src,dst)
     return {'restored_files':len(manifest['files']),'target':str(target),'note':'恢复后保持维护暂停，请核对路径、配置和凭据后恢复领取任务'}
 
 

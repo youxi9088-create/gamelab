@@ -4,6 +4,45 @@ const {request}=require('../executors/node_modules/playwright');
 const {followResourceRedirects}=require('../executors/discovered-web.cjs');
 const {verifyInteraction}=require('../executors/dom-entry.cjs');
 
+test('offline continuation hands a visible nested canvas to capture instead of claiming DOM gameplay',async()=>{
+ const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-nested-entry-'));
+ const {chromium}=require('../executors/node_modules/playwright');
+ const browser=await chromium.launch(require('../executors/browser-options.cjs')());
+ try{
+  const page=await browser.newPage({viewport:{width:390,height:844}});
+  await page.route('https://entry.example/**',r=>r.fulfill({contentType:'text/html',body:`<button onclick="document.body.innerHTML='<iframe style=width:360px;height:750px src=https://game.example/run?v=3></iframe>'">Continue offline</button>`}));
+  await page.route('https://game.example/**',r=>r.fulfill({contentType:'text/html',body:`<canvas width=340 height=700></canvas><script>const c=document.querySelector('canvas'),x=c.getContext('2d');function draw(t){x.fillStyle='#142b48';x.fillRect(0,0,340,700);x.fillStyle='#79e0aa';x.font='24px sans-serif';x.fillText(t,20,300)}draw('Click to continue');c.onclick=()=>draw('Gameplay reached');</script>`}));
+  await page.goto('https://entry.example/wrapper');
+  const proof=await verifyInteraction(page,'Continue offline',run,{waitMs:4000});
+  assert.equal(proof.kind,'canvas-entry');assert.equal(proof.entries.length,1);
+  assert.equal(proof.entries[0].url,'https://game.example/run?v=3');
+  assert.equal(proof.entries[0].referer,'https://entry.example/wrapper');
+  assert.equal(proof.entries[0].evidence,'rendered-canvas');assert.equal(proof.after.text,'');
+  await page.frame({url:'https://game.example/run?v=3'}).locator('canvas').click();
+  if(process.env.NESTED_QA_IMAGE)await screenshot(page,process.env.NESTED_QA_IMAGE);
+ }finally{await browser.close();fs.rmSync(run,{recursive:true,force:true});}
+});
+
+test('nested DOM revealed by offline overlay uses child URL; hidden and unchanged frames cannot pass',async()=>{
+ const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-nested-dom-'));
+ const {chromium}=require('../executors/node_modules/playwright');
+ const browser=await chromium.launch(require('../executors/browser-options.cjs')());
+ try{
+  const page=await browser.newPage({viewport:{width:390,height:844}});
+  await page.route('https://game.example/**',r=>r.fulfill({contentType:'text/html',body:'<h1>Choose a fighter</h1><button>Start battle</button>'}));
+  await page.route('https://entry.example/**',r=>r.fulfill({contentType:'text/html',body:`<iframe style="width:360px;height:700px" src="https://game.example/dom?version=3"></iframe><div style="position:fixed;inset:0;background:#123"><button onclick="this.parentNode.remove()">Continue offline</button></div>`}));
+  await page.goto('https://entry.example/wrapper');
+  await page.frameLocator('iframe').getByRole('button',{name:'Start battle'}).waitFor();
+  const proof=await verifyInteraction(page,'Continue offline',run,{waitMs:2000});
+  assert.equal(proof.kind,'nested-dom');assert.equal(proof.url,'https://game.example/dom?version=3');
+  assert.equal(proof.wrapper_url,'https://entry.example/wrapper');assert.equal(proof.referer,proof.wrapper_url);
+  await page.evaluate(()=>{const b=document.createElement('button');b.textContent='No change';document.body.append(b)});
+  await assert.rejects(()=>verifyInteraction(page,'No change',run,{waitMs:0}),/did not produce/);
+  await page.evaluate(()=>{document.querySelector('iframe').style.display='none';document.querySelector('button').onclick=()=>{document.body.append(document.createTextNode('Loading...'))}});
+  await assert.rejects(()=>verifyInteraction(page,'No change',run,{waitMs:0}),/did not produce/);
+ }finally{await browser.close();fs.rmSync(run,{recursive:true,force:true});}
+});
+
 test('portrait review changes the real viewport and accepts inputs in its lower region',async()=>{
  const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-portrait-input-'));
  try{
@@ -107,6 +146,29 @@ test('missing resources use only the observed original directory and never repla
   await assert.rejects(()=>repairResources(run),/original directory/);assert.equal(fetched.length,1);
  }finally{request.newContext=original;fs.rmSync(run,{recursive:true,force:true});}
 });
+test('resource repair keeps large observed sets in bounded batches without losing the snapshot',async()=>{
+ const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-resource-batch-')),original=request.newContext;
+ const payload=Buffer.alloc(16*1024*1024,7),disposed=[];
+ request.newContext=async()=>({get:async url=>({ok:()=>true,status:()=>200,headers:()=>({}),body:async()=>payload,dispose:async()=>disposed.push(url)}),dispose:async()=>{}});
+ try{
+  fs.mkdirSync(path.join(run,'converted/evidence'),{recursive:true});
+  fs.writeFileSync(path.join(run,'web-acquisition.json'),JSON.stringify({url:'https://fixture.example/game/index.html',files:[],bytes:0}));
+  fs.writeFileSync(path.join(run,'converted/evidence/runtime.json'),JSON.stringify({missing:['/assets/a.png','/assets/b.png'],failure:'observed 404'}));
+  const first=await repairResources(run);
+  assert.deepEqual(first.map(x=>x.path),['assets/a.png']);
+  assert.equal(disposed.length,2);
+  assert.equal(fs.existsSync(path.join(run,'converted/assets/b.png')),false);
+  const firstReport=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
+  assert.equal(firstReport.bytes,payload.length);
+  assert.equal(firstReport.resource_refreshes.length,1);
+  fs.writeFileSync(path.join(run,'converted/evidence/runtime.json'),JSON.stringify({missing:['/assets/b.png'],failure:'observed 404'}));
+  const second=await repairResources(run);
+  assert.deepEqual(second.map(x=>x.path),['assets/b.png']);
+  const finalReport=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
+  assert.equal(finalReport.bytes,2*payload.length);
+  assert.equal(finalReport.resource_refreshes.length,2);
+ }finally{request.newContext=original;fs.rmSync(run,{recursive:true,force:true});}
+});
 test('offline client adaptation requires the exact contract and preserves unrelated code',()=>{
  const code='_cncfg:[function t(){}];t.prototype.isServerEnable=function(){return!c.default.isLanEn&&this.isEnable(r.default._swchtp.SERVER)};onSynGameSuccess(null,o);';
  const adapted=adaptClient(code);assert.equal(adapted.changed,true);assert.match(adapted.text,/isServerEnable=function\(\)\{return false\}/);
@@ -188,6 +250,18 @@ test('Cocos scene existence does not certify a loading screen',async()=>{
   const report=await verify(run);assert.equal(report.steps[0].labels[0].text,'READY');
  }finally{fs.rmSync(run,{recursive:true,force:true});}
 });
+test('localhost environment probe is diagnostic and keeps origin-sensitive behaviour',async()=>{
+ const run=fs.mkdtempSync(path.join(os.tmpdir(),'environment-fixture-'));
+ try{
+  fs.mkdirSync(path.join(run,'converted'));fs.writeFileSync(path.join(run,'web-acquisition.json'),JSON.stringify({engine:'browser-dom'}));
+  fs.writeFileSync(path.join(run,'converted/index.html'),'<button>Local fixture</button><script>if(location.hostname!=="localhost")throw Error("Unsupported fixture host");</script>');
+  await assert.rejects(()=>verify(run),/Unsupported fixture host/);
+  const report=await verify(run,[],null,false,'localhost');
+  assert.equal(report.passed,true);assert.equal(report.diagnostic_only,true);
+  assert.equal(new URL(report.runtime_origin).hostname,'localhost');
+ }finally{fs.rmSync(run,{recursive:true,force:true});}
+});
+
 test('offline browser validates authored local fixture and rejects external dependency',async()=>{
  const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-web-fixture-'));
  try{

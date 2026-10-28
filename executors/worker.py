@@ -195,22 +195,42 @@ def analyze(source, run, budget=None):
 
 def chat(messages, budget=None):
     config = ai_config()
+    request_messages = messages
     for attempt in range(2):
         if budget:
             if budget.calls <= 0:
                 raise Blocked('AI call count budget exhausted')
             budget.calls -= 1
         try:
-            value, provider = complete(messages, config, budget.remaining(600) if budget else 600)
+            value, provider = complete(request_messages, config, budget.remaining(600) if budget else 600)
             chat.last_provider = provider
             return value
         except Exception as exc:
             detail=str(exc)[:160] if isinstance(exc,RuntimeError) else type(exc).__name__
             transient=isinstance(exc,RuntimeError) and detail.startswith('AI API 调用失败：') and any(
                 marker in detail for marker in ('URLError','超时','流式响应提前结束','IncompleteRead','RemoteDisconnected','ConnectionResetError','HTTP 408','HTTP 429','HTTP 500','HTTP 502','HTTP 503','HTTP 504','HTTP 520','HTTP 522','HTTP 524'))
-            if transient and attempt==0 and (budget is None or budget.calls>0):
+            malformed = isinstance(exc, json.JSONDecodeError) or (
+                isinstance(exc, RuntimeError) and detail.startswith('AI API 调用失败：响应不是有效 JSON'))
+            if (transient or malformed) and attempt==0 and (budget is None or budget.calls>0):
                 # Each attempt is a separate metered provider call and consumes
-                # the task's call budget. Authentication/schema errors stop.
+                # the task's call budget. Invalid actions/authentication still stop.
+                if malformed:
+                    correction = ('上一次回答未能解析为合法 JSON。请基于相同证据重新回答，严格遵守原有字段和允许的动作，'
+                                  '仅返回一个合法 JSON 对象，正确转义字符串；不要添加 Markdown 或 JSON 外的说明。')
+                    request_messages = [dict(message) for message in messages]
+                    system = next((message for message in request_messages
+                                   if message.get('role') == 'system' and isinstance(message.get('content'), str)), None)
+                    if system is not None:
+                        system['content'] += '\n' + correction
+                    else:
+                        user = next((message for message in reversed(request_messages)
+                                     if message.get('role') == 'user'), None)
+                        if user is not None and isinstance(user.get('content'), str):
+                            user['content'] += '\n' + correction
+                        elif user is not None and isinstance(user.get('content'), list):
+                            user['content'] = [*user['content'], {'type': 'text', 'text': correction}]
+                        elif len(request_messages) < 32:
+                            request_messages.append({'role': 'user', 'content': correction})
                 continue
             error=Blocked('AI 调用未完成：' + detail)
             error.safe_detail=detail
@@ -320,8 +340,13 @@ def execute(client, job):
             with (run/'usage-unreported.jsonl').open('a',encoding='utf-8') as log:log.write(json.dumps(row)+'\n')
     usage_token=USAGE_SINK.set(usage_sink)
     from auto_repair import EVENT as REPAIR_EVENT, CHAT as REPAIR_CHAT, diagnose
+    from execution_trace import TRACE, ExecutionTrace
+    trace=ExecutionTrace(lambda **event: client.post(prefix+'events',{**lease,**event}))
+    trace_token=TRACE.set(trace)
     def repair_event(status,message):
-        client.post(prefix+'events',{**lease,'node':'repair','node_status':status,'message':message})
+        parent=trace.stack[-1]['node'] if trace.stack else trace.last_failed_node or phase[0]
+        client.post(prefix+'events',{**lease,'node':'repair','node_status':status,'message':message,
+            **({'parent_node':parent} if parent in ('identify','acquire','analysis','adapt','test','delivery') else {})})
     def repair_chat(messages,budget):
         previous=phase[0];phase[0]='repair'
         try:return chat(messages,budget)
@@ -337,30 +362,18 @@ def execute(client, job):
     def measured(node, fn):
         def invoke(*args, **kwargs):
             previous=phase[0];phase[0]=node
-            from controlplane.pipeline import STAGES
-            from controlplane.pipeline_presentation import STAGE_WORK
-            label=dict(STAGES)[node]
-            client.post(prefix+'events',{**lease,'node':node,'node_status':'running','message':'正在'+STAGE_WORK[node][0]+'：'+STAGE_WORK[node][1]})
+            def recover(exc,retry):
+                if isinstance(exc,RevisionYield):
+                    raise exc
+                return diagnose(exc,run,budget,retry=retry)
             try:
-                result=fn(*args,**kwargs)
-            except Exception as exc:
-                recovered=False
-                if not isinstance(exc,RevisionYield) and not getattr(exc,'auto_repair_attempted',False):
-                    recovered,result=diagnose(exc,run,budget,retry=lambda:fn(*args,**kwargs))
-                    exc.auto_repair_attempted=True
-                if not recovered:
-                    phase[0]=previous
-                    # 失败原因必须随事件上报。早先只发一句"见本轮任务结果"，
-                    # 而任务结果常常是泛化文案（采集连页面都没打开，也被说成"未确认入口"），
-                    # 导致 22 次 acquire 失败无一可定位。这里带真实异常摘要。
-                    client.post(prefix+'events',{**lease,'node':node,'node_status':'failed',
-                        'message':label+'未完成：'+failure_detail(exc)})
-                    raise
-            report=result[-1] if isinstance(result,tuple) and isinstance(result[-1],dict) else result if isinstance(result,dict) else {}
-            incomplete=node=='test' and (report.get('blocker') or report.get('delivery_gaps'))
-            client.post(prefix+'events',{**lease,'node':node,'node_status':'waiting_input' if incomplete else 'succeeded','message':STAGE_WORK[node][0]+('：本段操作已结束，等待汇总检查结论；最终完成情况见本轮交付记录。' if incomplete else '：本次步骤已完成，具体处理结果和覆盖范围已保存在本轮记录中。')})
-            phase[0]=previous
-            return result
+                result=trace.run(node,lambda:fn(*args,**kwargs),recover)
+                report=result[-1] if isinstance(result,tuple) and isinstance(result[-1],dict) else result if isinstance(result,dict) else {}
+                if node=='test' and (report.get('blocker') or report.get('delivery_gaps')):
+                    client.post(prefix+'events',{**lease,'node':node,'node_status':'waiting_input','message':'操作结束，检查仍有未完成项；见本轮报告。'})
+                return result
+            finally:
+                phase[0]=previous
         return invoke
     def contracted_smoke(*args,**kwargs):
         return globals()['smoke'](*args,**kwargs,spec=job.get('input',{}).get('game_spec'))
@@ -370,7 +383,7 @@ def execute(client, job):
     def heartbeat():
         while not stop.wait(20):
             try:
-                client.post(prefix + 'heartbeat', {**lease, 'progress': 25, 'message': '执行器正在处理；产物尚未验收'})
+                client.post(prefix + 'heartbeat', {**lease, 'message': '执行器正在处理；产物尚未验收'})
             except Exception:
                 # Completion remains guarded by the server's lease validation.
                 pass
@@ -378,13 +391,29 @@ def execute(client, job):
     thread.start()
     try:
         inp = job.get('input', {})
+        from execution_feedback import previous_failure
+        prior_failure=previous_failure(job)
+        if prior_failure:
+            write_json(run/'previous-execution.json',prior_failure)
+        from conversion_checkpoint import restore as restore_checkpoint
+        resumed, invalid_checkpoint = restore_checkpoint(job, run, ROOT / 'runs')
+        if invalid_checkpoint:
+            client.post(prefix+'events',{**lease,'node':'identify',
+                'message':'检查点不可复用，回退到入口与采集检查：'+invalid_checkpoint})
         from controlplane.conversion_plan import build as build_plan
         def save_plan(observation=None,converter=None):
             plan=build_plan(inp,observation,converter,job.get('continuation',False),job['stage'])
             plan['recorded']=True
             write_json(run/'conversion-plan.json',plan)
             client.post(prefix+'plan',{**lease,'plan':plan})
-        save_plan()
+            return plan
+        save_plan=measured('analysis',save_plan)
+        if resumed and (run/'conversion-plan.json').is_file():
+            client.post(prefix+'plan',{**lease,'plan':json.loads((run/'conversion-plan.json').read_text('utf-8'))})
+            client.post(prefix+'events',{**lease,'node':'analysis','node_status':'reused',
+                'message':'复用运行 '+resumed['from_run']+' 的转换方案；本轮从运行验证断点继续，尚未通过玩法验收。'})
+        else:
+            save_plan()
         settings = job.get('settings', {})
         if job.get('web_only') and job['stage'] != 'rea' and not job.get('continuation'):
             raise PolicyPause('本批仅允许 Web 转换，已暂停非 Web 重建分支；请在原任务核对来源。')
@@ -412,6 +441,9 @@ def execute(client, job):
                 raw=checkpoint_path.read_bytes()
                 if hashlib.sha256(raw).hexdigest()!=checkpoint['sha256']:raise Blocked('续作检查点校验失败')
                 inp['_revision_checkpoint']=json.loads(raw)
+            for reused_node in ('identify','acquire'):
+                client.post(prefix+'events',{**lease,'node':reused_node,'node_status':'reused',
+                    'message':'沿用已有版本的入口与文件：'+str(inp.get('base_version',{}).get('id') or job.get('base_version_id') or '本轮绑定的源文件')+'；仍需本轮验证。'})
             base_report=inp.get('base_version',{}).get('report',{})
             if base_report.get('path')=='B' and not base_report.get('original_resource_catalog'):
                 from acquisition import acquire
@@ -454,20 +486,35 @@ def execute(client, job):
                     destination=run/'converted'/f'screenshots/revision-{i}.png'
                     destination.parent.mkdir(parents=True,exist_ok=True)
                     destination.write_bytes(p.read_bytes())
-                artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':entry,'report':report})['artifact_id']
+                artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':entry,'report':report})['artifact_id']
             else:
-                artifact=client.post('artifacts',{**lease,'job_id':job['id'],'changes':changes,'entry':entry,'report':report,'screenshots':{f'screenshots/revision-{i}.png':base64.b64encode(p.read_bytes()).decode() for i,p in enumerate(screenshots)}})['artifact_id']
+                artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'changes':changes,'entry':entry,'report':report,'screenshots':{f'screenshots/revision-{i}.png':base64.b64encode(p.read_bytes()).decode() for i,p in enumerate(screenshots)}})['artifact_id']
             client.post(prefix+'complete',{**lease,'outcome':'draft' if gaps else 'ready_review','artifact_id':artifact,'report':report,'reason':report['summary']})
             return
         if job['stage'] == 'rea':
             if job.get('automatic'):
+                if resumed:
+                    for node in ('identify','acquire'):
+                        client.post(prefix+'events',{**lease,'node':node,'node_status':'reused',
+                            'message':'复用运行 '+resumed['from_run']+' 的已验证入口及已采集文件，输入和文件摘要已核对；本轮未重新采集。'})
+                    if resumed.get('prior_runtime_failed'):
+                        client.post(prefix+'events',{**lease,'node':'test','node_status':'waiting_input',
+                            'message':'从上轮运行验证失败断点继续诊断，等待修复后复验；本轮尚未重复执行验证。'})
+                    from discovered_web import convert
+                    report=measured('adapt',convert)(inp,resumed['observation'],run,budget,chat,resume=True)
+                    client.post('candidates/'+job['candidate_id']+'/dependencies',
+                        {**lease,'job_id':job['id'],'revision':(inp.get('dependencies') or {}).get('revision',1),'dependencies':report['dependencies']})
+                    artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
+                    client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
+                        'reason':'从已校验采集检查点继续；本轮运行验证完成，玩法范围见交付报告'})
+                    return
                 from controlplane.web_profiles import supports
                 if not job.get('web_only') and inp.get('observations',{}).get('web_runtime') and supports(inp['url'],inp['observations']['web_runtime']):
                     from web_runtime import convert
                     report=measured('adapt',convert)(inp,run,budget,analyze)
                     client.post('candidates/'+job['candidate_id']+'/dependencies',
                         {**lease,'job_id':job['id'],'revision':(inp.get('dependencies') or {}).get('revision',0),'dependencies':report['dependencies']})
-                    artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
+                    artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
                     client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
                         'reason':'原 Web 资源采集、精确适配、REA 与离线玩法检查完成，入库待验收'})
                     return
@@ -505,7 +552,7 @@ def execute(client, job):
                         'converter':conversion,'resource_completion':resource_completion,'requires_manual_playtest':True,'foundation_checks':{},
                         'limitations':['仅通过运行检查；原版玩法、联网依赖和跨游戏复用仍需验证']}
                     # Only the locally supervised worker may request this bounded snapshot.
-                    artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
+                    artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
                     client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
                         'reason':'原包服务转换产物已通过浏览器运行检查；玩法未验证，按基础检查保存草稿'})
                     return
@@ -527,7 +574,7 @@ def execute(client, job):
                     from controlplane.delivery_requirements import delivery_gaps
                     gaps=delivery_gaps(report,files)
                     if gaps:raise Blocked('基础还原未完成；'+'；'.join(gaps))
-                    artifact=client.post('artifacts',{**lease,'job_id':job['id'],'files':attach_screenshots(files,run),'entry':entry,'report':report})['artifact_id']
+                    artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'files':attach_screenshots(files,run),'entry':entry,'report':report})['artifact_id']
                     client.post(prefix+'complete',{**lease,'event_id':str(uuid.uuid4()),'outcome':'recovered','reason':'外部转换产物已通过本机浏览器检查，入库待验收','artifact_id':artifact,'report':report})
                     return
                 from controlplane.source_routing import source_kind,web_block_reason
@@ -539,7 +586,7 @@ def execute(client, job):
                         report=measured('adapt',convert)({**acquired,'game_spec':inp.get('game_spec')},run,budget,analyze)
                         client.post('candidates/'+job['candidate_id']+'/dependencies',
                             {**lease,'job_id':job['id'],'revision':inp['dependencies'].get('revision',0) if inp.get('dependencies') else 1,'dependencies':report['dependencies']})
-                        artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
+                        artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
                         client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
                             'reason':'REA 分析、资源下载及本地启动检查已完成；保存原版可编辑草稿，完整玩法待验收'})
                         return
@@ -551,12 +598,16 @@ def execute(client, job):
                         client.post(prefix+'acquired',{**lease,'title':acquired['title'],'observations':acquired})
                         save_plan(acquired,converter)
                     if acquired.get('web_discovery',{}).get('entries') or modular_candidate(acquired):
-                        from discovered_web import convert
+                        from discovered_web import convert, entry
+                        if not modular_candidate(acquired):
+                            measured('identify',entry)(acquired)
+                        else:
+                            measured('identify',modular_candidate)(acquired)
                         report=measured('adapt',convert)(inp,acquired,run,budget,chat)
                         current_dependencies=dependencies or {}
                         client.post('candidates/'+job['candidate_id']+'/dependencies',
                             {**lease,'job_id':job['id'],'revision':current_dependencies.get('revision',1),'dependencies':report['dependencies']})
-                        artifact=client.post('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
+                        artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':'index.html','report':report})['artifact_id']
                         client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
                             'reason':'原 Web 游戏资源采集、本地适配和离线启动完成，玩法验证范围见本轮交付报告'})
                         return
@@ -591,7 +642,7 @@ def execute(client, job):
                         runtime = smoke(files, entry, run, 'orbit-catch' if Path(inp['source_path']).resolve() == (ROOT / 'fixtures/orbit-catch').resolve() else None, budget=budget)
                         report.update(runtime_smoke=runtime, runtime_verified=True, recovery_kind=recovery['kind'], recovery_coverage=recovery)
                         files = attach_screenshots(files, run)
-                        artifact = client.post('artifacts', {**lease, 'job_id': job['id'], 'files': files, 'entry': entry, 'report': report})['artifact_id']
+                        artifact = measured('delivery',client.post)('artifacts', {**lease, 'job_id': job['id'], 'files': files, 'entry': entry, 'report': report})['artifact_id']
                         outcome, reason = 'recovered', '源码整理可运行；REA 静态证据已保留，等待完整玩法验收'
                     except RuntimeFailure:
                         report.update(runtime_smoke=json.loads((run / 'runtime-report.json').read_text(encoding='utf-8')), recovery_coverage=recovery)
@@ -644,7 +695,7 @@ def execute(client, job):
             from controlplane.delivery_requirements import delivery_gaps
             gaps=delivery_gaps(report,files)
             if gaps:raise Blocked('基础还原未完成；'+'；'.join(gaps))
-            artifact = client.post('artifacts', {**lease, 'job_id': job['id'], 'files': files, 'entry': entry, 'report': report})['artifact_id']
+            artifact = measured('delivery',client.post)('artifacts', {**lease, 'job_id': job['id'], 'files': files, 'entry': entry, 'report': report})['artifact_id']
             outcome, reason = 'ready_review', 'AI 已生成代码，等待实际试玩验收'
         else:
             raise Blocked('Unsupported stage')
@@ -664,6 +715,7 @@ def execute(client, job):
     except Exception as exc:
         completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'failed', 'reason': f'{type(exc).__name__}: {str(exc)[:300]}', 'report': diagnose_failure(exc)}
     finally:
+        TRACE.reset(trace_token)
         USAGE_SINK.reset(usage_token)
         REPAIR_EVENT.reset(repair_event_token)
         REPAIR_CHAT.reset(repair_chat_token)

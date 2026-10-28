@@ -126,13 +126,15 @@ def entry(observation):
     return next(iter(unique.values()))
 
 
-def convert(inp, observation, run, budget, chat):
+def convert(inp, observation, run, budget, chat, resume=False):
     from modular_web import candidate as modular_candidate, capture as capture_modules
-    modular_url=modular_candidate(observation)
-    selected = {'url':modular_url,'referer':inp['url']} if modular_url else entry(observation)
-    request = {'url': selected['url'], 'referer': selected.get('referer') or inp['url'], 'entry_evidence':selected}
     input_file = run / 'discovered-web-input.json'
-    input_file.write_text(json.dumps(request), 'utf-8')
+    modular_url = None
+    if not resume:
+        modular_url=modular_candidate(observation)
+        selected = {'url':modular_url,'referer':inp['url']} if modular_url else entry(observation)
+        request = {'url': selected['url'], 'referer': selected.get('referer') or inp['url'], 'entry_evidence':selected}
+        input_file.write_text(json.dumps(request), 'utf-8')
 
     def command(mode, seconds):
         result = subprocess.run([node_binary(), str(ROOT / 'discovered-web.cjs'), mode, str(input_file), str(run)],
@@ -143,13 +145,30 @@ def convert(inp, observation, run, budget, chat):
             raise Blocked('Web ' + mode + '：' + (result.stderr or result.stdout)[-1800:])
 
     from auto_repair import guarded
-    if modular_url:
-        guarded(lambda: capture_modules(modular_url,inp['url'],run,budget), run, budget)
+    if resume:
+        pass  # The worker verified and copied a job-bound capture snapshot.
+    elif modular_url:
+        guarded(lambda: capture_modules(modular_url,inp['url'],run,budget), run, budget, node='acquire')
     else:
-        guarded(lambda: command('capture', 480), run, budget)
+        guarded(lambda: command('capture', 480), run, budget, node='acquire')
     acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
     viewport, _ = prepare_viewport(run / 'converted', acquisition['engine'])
-    guarded(lambda: command('viewport' if viewport else 'verify', 420), run, budget, run / 'converted')
+    from conversion_checkpoint import save as save_checkpoint
+    save_checkpoint(run, inp, observation)
+    resume_info = json.loads((run/'checkpoint-resume.json').read_text('utf-8')) if resume else {}
+    if resume and resume_info.get('prior_runtime_failed'):
+        from auto_repair import diagnose
+        from execution_trace import run_stage
+        from worker import Blocked
+        previous = json.loads((run/'previous-execution.json').read_text('utf-8')) if (run/'previous-execution.json').exists() else {}
+        failure = Blocked(previous.get('original_error') or '上轮运行验证未通过，从保留的采集产物继续诊断')
+        recovered, _ = diagnose(failure, run, budget, target=run/'converted', stage='test',
+            retry=lambda: run_stage('test', lambda: command('viewport' if viewport else 'verify', 420)))
+        if not recovered:
+            failure.auto_repair_attempted = True
+            raise failure
+    else:
+        guarded(lambda: command('viewport' if viewport else 'verify', 420), run, budget, run / 'converted', node='test')
     acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
     target = run / 'converted'
     runtime = json.loads((target / 'evidence/runtime.json').read_text('utf-8'))
@@ -187,13 +206,19 @@ def convert(inp, observation, run, budget, chat):
     limited = acquisition['engine'] in ('ruffle','defold','browser','browser-dom')
     notes = ('通用浏览器运行包：保留实际捕获的原始代码与资源；宿主可修改，核心逻辑的可编辑性和可移植模块须依据实际文件进一步验证，不宣称恢复原作者工程。' if acquisition['engine'] in ('browser','browser-dom') else '保留原 Defold HTML5/WASM 引擎与游戏归档；页面及宿主接口可修改。核心逻辑仍为运行包，未恢复 Lua 工程，跨游戏模块提取需另行拆解验证。' if acquisition['engine']=='defold' else '保留原 Three.js 游戏逻辑和模块；URL 本地化，Remix 宿主替换为独立本地适配。可修改业务代码；跨游戏模块复用仍需拆解。在线账户、排行和购买不提供。' if acquisition['engine']=='three' else 'SWF 核心逻辑仍为运行包；HTML 播放宿主可修改，未恢复 ActionScript 工程。' if limited else
              '保留原 Cocos 发布 JavaScript 与资源，可修改发布代码；模块提取和跨游戏移植需拆解适配。')
+    adaptation_file=target/'evidence/runtime-source-patches.json'
+    adaptations=json.loads(adaptation_file.read_text('utf-8')) if adaptation_file.exists() else []
+    if adaptations:
+        notes+=' 工作副本已进行运行兼容适配，修改目的与原始/前后哈希见 evidence/runtime-source-patches.json；不称为未修改原版，原始采集文件保留。'
     (target / 'RESTORATION_REPORT.txt').write_text(
         notes + '\n依赖：' + acquisition['engine'] + ' 浏览器运行引擎及本地资源。\n验证：隔离浏览器禁用外网启动；玩法、胜负、进度和存档尚未完整验证。\n原始文件与哈希在执行目录 web-original 和 evidence/acquisition.json；AI 分析与真实运行证据分开。\n', 'utf-8')
+    save_checkpoint(run, inp, observation, kind='web-runtime')
     return {'path': 'A', 'recovery_kind': 'discovered-web-' + acquisition['engine'],
             'source_analysis':source_analysis,
             'auto_repair': json.loads((run/'auto-repair/report.json').read_text('utf-8')) if (run/'auto-repair/report.json').exists() else None,
             'runtime_verified': True, 'runtime_smoke': runtime, 'dependencies': dependencies,
             'adblock': runtime.get('adblock',{}),
+            'source_adaptations': adaptations,
             'runtime_viewport': viewport,
             'requires_manual_playtest': True, 'rea_attempted': False, 'ai_analysis': advisory,
             'source_reuse': {'level': 'runtime-only' if limited else 'requires-adaptation', 'notes': notes},

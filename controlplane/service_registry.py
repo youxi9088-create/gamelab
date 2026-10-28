@@ -8,7 +8,7 @@ import urllib.error
 from pathlib import Path
 from urllib.parse import urlsplit
 from .service import ApiError, require
-from .ai_connections import DEFAULTS, LABELS, connection_id, profiles, public_config, credential_scope
+from .ai_connections import DEFAULTS, LABELS, connection_id, profiles, public_config, credential_scope, invocation_label
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -165,7 +165,7 @@ class ServiceRegistry:
             try:
                 value,provider=complete([{'role':'user','content':'Return a JSON object with ok set to true.'}],c,60)
                 ok=value.get('ok') is True
-                detail=('本机 Codex' if provider=='codex' else 'AI API')+' 实际调用'+('成功' if ok else '响应无效')
+                detail=invocation_label(c,provider)+' 实际调用'+('成功' if ok else '响应无效')
             except AIProviderError as exc:
                 ok=False;detail=str(exc)
             except Exception:

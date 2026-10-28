@@ -300,7 +300,7 @@ async function capture(input,run){
  }finally{await Promise.allSettled(pending);await browser.close();fs.writeFileSync(path.join(run,'web-acquisition.json'),JSON.stringify(report,null,2));}
  return report;
 }
-async function verify(run,actions=[],nextBatch=null,viewportReview=false){
+async function verify(run,actions=[],nextBatch=null,viewportReview=false,environment='deployment'){
  const started=Date.now(),root=path.resolve(run,'converted'),report={passed:false,errors:[],missing:[],external:[],blocked_external:[],required_external:[],steps:[],actions:[],renderDiagnostics:[],resource_requests:[]},acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
  const adblock=createAdblock(report,acq.url||'https://replica-runtime.invalid/');
  // Only explicit evidence-reviewed decisions from this capture may omit a missing resource.
@@ -314,7 +314,8 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   if(!p.startsWith(root+path.sep)||!fs.existsSync(p)||!fs.statSync(p).isFile()){res.writeHead(404);return res.end();}
   const mime={'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.wasm':'application/wasm','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.swf':'application/x-shockwave-flash'};
   res.setHeader('Content-Type',mime[path.extname(p)]||'application/octet-stream');res.end(fs.readFileSync(p));
- });await new Promise(r=>server.listen(0,'127.0.0.1',r));const transport=`http://127.0.0.1:${server.address().port}`,origin='https://replica-runtime.invalid';
+ });await new Promise(r=>server.listen(0,'127.0.0.1',r));const transport=`http://127.0.0.1:${server.address().port}`,origin=environment==='localhost'?`http://localhost:${server.address().port}`:'https://replica-runtime.invalid';
+ report.environment=environment;report.diagnostic_only=environment==='localhost';
  report.runtime_origin=origin;report.navigation=[];report.navigation_attempts=[];report.navigation_checkpoints=[];
  let phase='startup';
  const navigationCheckpoint=()=>report.navigation_checkpoints.push({phase,elapsed_ms:Date.now()-started,
@@ -501,8 +502,15 @@ async function repairResources(run){
     await response.dispose();continue;
    }
    if(Number(response.headers()['content-length']||0)>20*1024*1024)throw Error('Resource exceeds repair byte limit');
-   const data=await response.body();bytes+=data.length;
-   if(bytes>30*1024*1024||(acq.bytes||0)+bytes>220*1024*1024||acq.files.length+added.length>=1800)throw Error('Resource repair exceeds snapshot limits');
+   const data=await response.body();
+   if(data.length>20*1024*1024)throw Error('Resource exceeds repair byte limit');
+   if((acq.bytes||0)+bytes+data.length>220*1024*1024||acq.files.length+added.length>=1800)throw Error('Resource repair exceeds snapshot limits');
+   if(bytes+data.length>30*1024*1024){
+    await response.dispose();
+    if(!added.length)throw Error('Resource exceeds repair batch limit');
+    break;
+   }
+   bytes+=data.length;
    fs.mkdirSync(path.dirname(dest),{recursive:true});fs.writeFileSync(dest,data);
    const original=path.join(run,'web-original',relative);fs.mkdirSync(path.dirname(original),{recursive:true});fs.writeFileSync(original,data);
    added.push({url:url.href,path:relative,bytes:data.length,sha256:hash(data)});await response.dispose();
@@ -533,10 +541,10 @@ if(require.main===module){const [mode,input,run]=process.argv.slice(2);(async()=
   // 交给 auto_repair 再重试一轮（多花一次诊断，也可能被判 stop）。放宽到 20 轮，
   // 让补齐在同一条链路里走完。
   else for(let attempt=0;attempt<20;attempt++){
-   try{r=await verify(run,desired,nextBatch,mode==='viewport');break;}
+   try{r=await verify(run,desired,nextBatch,mode==='viewport',mode==='diagnose-localhost'?'localhost':'deployment');break;}
    catch(e){
     const runtime=JSON.parse(fs.readFileSync(path.join(run,'converted/evidence/runtime.json'))),acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
-    if(attempt>=19||!runtime.missing?.length||!acq.url)throw e;
+    if(mode==='diagnose-localhost'||attempt>=19||!runtime.missing?.length||!acq.url)throw e;
     fs.writeFileSync(path.join(run,'converted/evidence','resource-check-'+Date.now()+'.json'),JSON.stringify(runtime,null,2));
     const added=await repairResources(run);
     if(!added.length)throw e; // No download progress: hand evidence to AI, don't repeat 20 identical passes.

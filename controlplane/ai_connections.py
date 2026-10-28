@@ -41,3 +41,12 @@ def public_config(config):
 def credential_scope(url):
     p = urlsplit(url)
     return (p.scheme, p.hostname, p.port, p.path.rstrip('/'))
+
+
+def invocation_label(config, provider):
+    """Name the actual route consistently in probes and persisted health."""
+    if provider == 'codex':
+        return '云服务器 Codex CLI' if connection_id(config) == 'cloud_codex' else '平台服务器 Codex CLI'
+    if connection_id(config) == 'local_codex':
+        return '本地 Codex（当前电脑）'
+    return 'AI API'

@@ -629,6 +629,16 @@ class Service(Conversations,Discovery):
                         from .pipeline import STAGES, STATUSES
                         require(b.get('node') in dict(STAGES) and b.get('node_status') in STATUSES,'无效流水线节点或状态')
                         extra=dict(node=b['node'],node_status=b['node_status'],round=job.get('round',1),attempt=job.get('attempt',1))
+                        if b.get('execution_id') is not None:
+                            require(isinstance(b['execution_id'],str) and 0<len(b['execution_id'])<=64,'无效执行标识')
+                            extra['execution_id']=b['execution_id']
+                            job['telemetry_version']=2
+                        if b.get('node_attempt') is not None:
+                            require(type(b['node_attempt']) is int and 1<=b['node_attempt']<=10000,'无效节点执行次数')
+                            extra['node_attempt']=b['node_attempt']
+                        if b.get('parent_node') is not None:
+                            require(b['parent_node'] in dict(STAGES),'无效父节点')
+                            extra['parent_node']=b['parent_node']
                     s.event(db,str(b.get('message',''))[:5000],key,str(b.get('stage',job['stage']))[:60],**extra)
                 s.put(db,'jobs',job);return {'ok':True,'lease_expires_at':job['lease_expires_at']}
             if action=='complete':

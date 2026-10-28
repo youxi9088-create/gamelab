@@ -27,6 +27,13 @@ function Stop-Platform {
         $listener=Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue
         if($listener){
             $process=Get-CimInstance Win32_Process -Filter "ProcessId=$($listener[0].OwningProcess)"
+            # Scheduled-task shutdown may finish between the port snapshot and
+            # process lookup. A vanished listener needs no further termination.
+            if(-not $process){
+                $remaining=Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue
+                if(-not $remaining){continue}
+                throw 'Listener changed during platform shutdown; refusing to stop an unknown process'
+            }
             if($process.CommandLine -notlike '*GameLab*server.py*'){throw 'Unexpected listener; refusing to stop'}
             & taskkill /PID $process.ProcessId /T /F | Out-Null
             if($LASTEXITCODE -ne 0 -and (Get-Process -Id $process.ProcessId -ErrorAction SilentlyContinue)){throw 'Could not stop platform process tree'}
@@ -97,8 +104,8 @@ with sqlite3.connect(p,timeout=30) as db:
  value={'id':'maintenance','draining':True}
  db.execute("INSERT INTO records VALUES ('settings','maintenance',?) ON CONFLICT(kind,id) DO UPDATE SET data=excluded.data",(json.dumps(value),))
 '@ @($app)
-    Stop-Platform
     $stopped=$true
+    Stop-Platform
     # Move only explicitly named directories within this deployment root.
     $moves=@(@('data','data'),@('game-library','game-library'),@('executors\runs','runs'))
     foreach($pair in $moves){
@@ -164,6 +171,20 @@ with sqlite3.connect(p,timeout=30) as db:
     if(-not $healthy){throw 'New release health check failed'}
     $workers=@(Get-CimInstance Win32_Process | Where-Object {$_.Name -eq 'python.exe' -and $_.CommandLine -like '*GameLab*executors*worker.py*'})
     if($workers.Count -ne 1 -or $workers[0].CommandLine -notlike ('*'+$target+'\executors\worker.py*')){throw 'Worker does not belong to the selected release'}
+    # Stopping the old platform process tree can also end the public proxy.
+    # Restore and verify HTTPS before recording a successful deployment.
+    $proxyTask=Get-ScheduledTask -TaskName GameLabReverseProxy
+    if($proxyTask.State -ne 'Running'){Start-ScheduledTask -TaskName GameLabReverseProxy}
+    $publicHealthy=$false
+    $proxyBinary=[IO.Path]::GetFullPath((Join-Path $Root 'proxy\caddy.exe'))
+    for($i=0;$i -lt 20;$i++){
+        Start-Sleep -Seconds 1
+        $listener=Get-NetTCPConnection -LocalPort 443 -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1
+        if(-not $listener){continue}
+        $proxy=Get-CimInstance Win32_Process -Filter "ProcessId=$($listener.OwningProcess)"
+        if($proxy -and $proxy.ExecutablePath -eq $proxyBinary){$publicHealthy=$true;break}
+    }
+    if(-not $publicHealthy){throw 'Public reverse proxy health check failed'}
     CheckedPython @'
 import sys,json,sqlite3,datetime
 from pathlib import Path
@@ -180,14 +201,17 @@ print('release',record['commit'])
     $stopped=$false
 } catch {
     if($stopped){
-        Stop-Platform
-        if($oldTarget -and (Test-Path -LiteralPath $oldTarget)){
-            if((Test-Path -LiteralPath $app) -and (Get-Item -LiteralPath $app).LinkType){[IO.Directory]::Delete($app)}
-            if(-not(Test-Path -LiteralPath $app)){Link-Directory $app $oldTarget}
-            if($previousRecord){[IO.File]::WriteAllText((Join-Path $shared 'release.json'),$previousRecord)}
+        try {
+            Stop-Platform
+            if($oldTarget -and (Test-Path -LiteralPath $oldTarget)){
+                if((Test-Path -LiteralPath $app) -and (Get-Item -LiteralPath $app).LinkType){[IO.Directory]::Delete($app)}
+                if(-not(Test-Path -LiteralPath $app)){Link-Directory $app $oldTarget}
+                if($previousRecord){[IO.File]::WriteAllText((Join-Path $shared 'release.json'),$previousRecord)}
+            }
+        } finally {
+            Enable-ScheduledTask -TaskName GameLabPlatform | Out-Null
+            Start-ScheduledTask -TaskName GameLabPlatform
         }
-        Enable-ScheduledTask -TaskName GameLabPlatform | Out-Null
-        Start-ScheduledTask -TaskName GameLabPlatform
     }
     throw
 } finally {$lock.Dispose()}

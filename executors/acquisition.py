@@ -41,13 +41,13 @@ def cloud_streaming(observation):
     return any(host in ((frame or {}).get('url') or '') for frame in frames for host in _CLOUD_HOSTS)
 
 
-def _run_acquire(command, url, directory, child_env, timeout):
+def _run_acquire(command, url, directory, child_env, timeout, referer=None):
     """Run the browser acquisition, retrying only fast network failures."""
     result = None
     detail = ''
     for attempt in range(_NET_RETRIES + 1):
         started = time.monotonic()
-        result = subprocess.run(command + [url, str(directory)],
+        result = subprocess.run(command + [url, str(directory)] + ([referer] if referer else []),
                                 capture_output=True, timeout=timeout, shell=False, env=child_env)
         if not result.returncode:
             return result, ''
@@ -73,7 +73,7 @@ def retained_web_source(url,observations,directory,runs_root):
             'retained_capture':{'source_sha256':evidence['html_sha256'],'reason':'本轮网络采集失败，复用同一来源已验证快照；不代表原站最新版本'}}
 
 
-def acquire(url, run, budget, observations=None, web_only=False):
+def acquire(url, run, budget, observations=None, web_only=False, referer=None):
     from worker import Blocked, NeedsInput, PolicyPause
     from controlplane.runtime import node_binary
     directory = run / 'acquisition'
@@ -103,7 +103,7 @@ def acquire(url, run, budget, observations=None, web_only=False):
         child_env = {**os.environ, 'GAMELAB_ACQUIRE_TIMEOUT_MS': str(int(acquire_timeout * 1000))}
         try:
             result, detail = _run_acquire(command+[str(Path(__file__).with_name('acquire.cjs'))],
-                                          url, directory, child_env, acquire_timeout)
+                                          url, directory, child_env, acquire_timeout, referer)
         except subprocess.TimeoutExpired:
             detail=(directory/'observation.json')
             if web_only:
