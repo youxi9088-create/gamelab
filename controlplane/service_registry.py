@@ -51,6 +51,8 @@ class ServiceRegistry:
                 from .ai_provider import codex_binary
                 backend=c.get('backend','auto')
                 configured = bool(c.get('base_url') and (kind != 'ai' or c.get('model') and c.get('api_key'))) or kind=='ai' and backend!='api' and bool(codex_binary())
+                if kind == 'ai' and backend == 'codex_account':
+                    configured = bool(codex_binary() and c.get('account_email') and c.get('model'))
                 check = self.checks.get(kind, {})
                 if kind=='ai':
                     from .ai_provider import config_signature
@@ -65,6 +67,7 @@ class ServiceRegistry:
                 if kind == 'ai':
                     saved = profiles(self.configs(), c)
                     result[-1].update(connection=connection_id(c), connection_label=LABELS[connection_id(c)],
+                        account_email=c.get('account_email', ''),
                         profiles={name: public_config(saved.get(name, defaults)) for name, defaults in DEFAULTS.items()})
             return result
 
@@ -77,6 +80,24 @@ class ServiceRegistry:
             connection = body.get('connection') if kind == 'ai' else None
             if connection is not None:
                 require(connection in DEFAULTS, '请选择有效的 AI 连接方式')
+                if connection == 'codex_account':
+                    from .codex_account import normalize_email, require_account
+                    from .ai_provider import AIProviderError
+                    try:
+                        email = normalize_email(body.get('account_email', ''))
+                        require_account(email)
+                    except (ValueError, AIProviderError) as exc:
+                        raise ApiError(400, str(exc)) from None
+                    model = str(body.get('model', 'gpt-6-sol')).strip()
+                    require(bool(model) and len(model) <= 200 and not any(x in model for x in ('\r', '\n')), '请填写有效模型名称')
+                    c = dict(connection=connection, backend='codex_account', account_email=email, model=model, wire_api='responses')
+                    saved_profiles.pop('local_codex', None)
+                    saved_profiles[connection] = c
+                    data = self.configs(); data.update(ai=c, ai_profiles=saved_profiles)
+                    self.path.parent.mkdir(parents=True, exist_ok=True)
+                    tmp=self.path.with_suffix('.tmp'); tmp.write_text(json.dumps(data,ensure_ascii=False),'utf-8'); os.replace(tmp,self.path)
+                    self.checks.pop(kind,None)
+                    return self.public()
                 submitted = dict(body)
                 old = saved_profiles.get(connection, {})
                 body = {**DEFAULTS[connection], **old, **body, 'backend': DEFAULTS[connection]['backend']}
@@ -142,7 +163,7 @@ class ServiceRegistry:
         if kind=='ai':
             from .ai_provider import complete, AIProviderError
             try:
-                value,provider=complete([{'role':'user','content':'Return a JSON object with ok set to true.'}],c,180)
+                value,provider=complete([{'role':'user','content':'Return a JSON object with ok set to true.'}],c,60)
                 ok=value.get('ok') is True
                 detail=('本机 Codex' if provider=='codex' else 'AI API')+' 实际调用'+('成功' if ok else '响应无效')
             except AIProviderError as exc:

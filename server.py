@@ -243,14 +243,19 @@ class Handler(BaseHTTPRequestHandler):
                 from controlplane.store import ACTOR
                 ACTOR.reset(actor_token)
 
-    def file(self,path,root,extra=None):
+    def file(self,path,root,extra=None,runtime=False):
         resolved=path.resolve();root=root.resolve()
         require(resolved.is_relative_to(root) and resolved.is_file(),'文件不存在',404)
         require(not any(x.startswith('.') for x in resolved.relative_to(root).parts),'文件不可访问',403)
         ct=mimetypes.guess_type(resolved.name)[0] or 'application/octet-stream'
         if resolved.suffix=='.js':ct='text/javascript'
         if ct.startswith('text/'):ct+='; charset=utf-8'
-        self.send(200,resolved.read_bytes(),ct,extra)
+        content=resolved.read_bytes()
+        if runtime and resolved.name=='boot.js':
+            from controlplane.runtime_compatibility import mounted_boot
+            content,compatibility=mounted_boot(content)
+            if compatibility:extra={**(extra or {}),**compatibility}
+        self.send(200,content,ct,extra)
 
     def play(self,path):
         if path=='/health':return self.send(200,{'ok':True,'service':'playback'})
@@ -265,7 +270,23 @@ class Handler(BaseHTTPRequestHandler):
         csp="sandbox allow-scripts; default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' http://127.0.0.1:* http://localhost:*"
         if parts[0]=='runtime':
             csp="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'"
-        return self.file(root/'/'.join(parts[2:]),root,{'Content-Security-Policy':csp})
+        rel='/'.join(parts[2:])
+        # 打包产物（Cocos / Babel 转译结果）的模块加载器常按无扩展名路径请求 JS，
+        # 磁盘上的文件却带 .js。不回退会让浏览器报 "Missing module"，整局起不来。
+        # 与云端 playback.mjs 的回退保持一致。
+        if not Path(rel).suffix:
+            try:
+                presented=(root/rel).resolve()
+                hit=presented.is_file()
+            except OSError:
+                hit=False; presented=None
+            if not hit:
+                try:
+                    alt=(root/(rel+'.js')).resolve()
+                    if alt.is_file() and alt.is_relative_to(root.resolve()): rel=rel+'.js'
+                except OSError:
+                    pass
+        return self.file(root/rel,root,{'Content-Security-Policy':csp},runtime=True)
 
 def build_server(service,port,playback=False):
     server=ThreadingHTTPServer(('127.0.0.1',port),Handler)

@@ -1,0 +1,10 @@
+{
+  "prefixes": ["本批仅转换 Web：", "本批仅允许 Web 转换", "Web 类型检测"],
+  "rules": [
+    {"match": ["非 Web", "该链接为微信小游戏"], "status": "paused_non_web", "label": "已暂停 · 非 Web 游戏", "explanation": "这款游戏不属于本批网页游戏转换范围，已按你的要求暂停，不会继续转换。", "next_action": "无需回复 AI。可保留暂停；如有该游戏的网页版，请补充可玩的网页入口后再继续。"},
+    {"match": ["无法访问页面", "检测超时", "未能读取页面内容"], "status": "paused_web_access", "label": "已暂停 · 页面访问失败", "explanation": "暂时无法打开游戏页面，尚不能判断是否为 Web 游戏；没有判为非 Web。", "next_action": "检查原链接是否能打开，恢复访问或补充有效入口后再继续。"},
+    {"match": ["跳回入口页"], "status": "paused_web_wall", "label": "已暂停 · 被站点跳回入口页", "explanation": "链接能打开，但站点把请求弹回了首页或登录页，没有进入游戏页面，因此拿不到可运行入口。", "next_action": "确认该站点是否要求登录；若需要登录，请改用可直接试玩的公开入口，或保持暂停。"},
+    {"match": ["同意门或发行方站点锁"], "status": "paused_web_gate", "label": "已暂停 · 站点门未放行", "explanation": "已定位到游戏 iframe，但页面停在广告同意门或发行方站点锁，没有渲染出可运行画面。", "next_action": "发行方站点锁不做规避：需发行方授权或将部署域名加入白名单，或改换无门槛入口。"},
+    {"match": [], "status": "paused_web_unknown", "label": "已暂停 · 游戏类型待确认", "explanation": "目前只取得页面线索，尚未确认可运行的网页游戏入口，已暂停转换。", "next_action": "补充可直接试玩的网页入口后再继续；暂时没有入口可保持暂停。"}
+  ]
+}

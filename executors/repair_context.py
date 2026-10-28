@@ -2,12 +2,48 @@
 import base64
 import hashlib
 import json
+import re
 from pathlib import Path
 from revision_context import SourceContext
 
 
 def linked(path):
     return path.is_symlink() or (hasattr(path, 'is_junction') and path.is_junction())
+
+
+# A "Cannot read properties of undefined" crash usually means the local host is
+# missing one SDK member. Locating it by hand is one glance at the reported
+# column; asking the model to find it with blind reads burned eight inspect
+# rounds on one title. Resolve the frame to the captured file and hand over the
+# exact source window instead.
+_CRASH = re.compile(r"Cannot read propert(?:y|ies) of (undefined|null) \(reading '([^']+)'\)")
+_FRAME = re.compile(r'https?://[^/\s]+(/[^\s:]+):(\d+):(\d+)')
+
+
+def crash_sites(run, errors, window=260):
+    root = Path(run) / 'converted'
+    sites = []
+    for text in errors:
+        if not isinstance(text, str):
+            continue
+        match = _CRASH.search(text)
+        if not match:
+            continue
+        frame = _FRAME.search(text)
+        site = {'member': match.group(2), 'receiver': match.group(1)}
+        if frame:
+            target = root / frame.group(1).lstrip('/')
+            site['file'] = frame.group(1)
+            try:
+                column = int(frame.group(3))
+                source = target.read_text('utf-8', errors='replace')
+                start = max(0, column - window)
+                site['source_window'] = source[start:column + window // 2]
+                site['column'] = column
+            except (OSError, ValueError):
+                pass
+        sites.append(site)
+    return sites[:8]
 
 
 class RepairContext:
@@ -37,7 +73,15 @@ class RepairContext:
                 continue
             code[name] = p.read_text('utf-8', errors='replace'); total += size
         self.context = SourceContext(code, 'web-original/source-entry.html')
-        return {'source_inventory': [{'path': n, 'characters': len(t),
+        runtime_file = self.run / 'converted/evidence/runtime.json'
+        symptoms = []
+        if runtime_file.is_file():
+            try:
+                symptoms = crash_sites(self.run, json.loads(
+                    runtime_file.read_text('utf-8')).get('errors') or [])
+            except (OSError, ValueError):
+                symptoms = []
+        return {'crash_sites': symptoms, 'source_inventory': [{'path': n, 'characters': len(t),
                     'sha256': hashlib.sha256(t.encode()).hexdigest(), 'editable': False} for n,t in code.items()],
                 'source_excerpts': [self.context.read(n, 0, 20000) for n in (
                     'discovered-web-input.json', 'acquisition/observation.json', 'acquisition/source.html',

@@ -10,28 +10,36 @@ const fs = require('fs');
     await open();
     const form=page.locator('#ai-service-form');
     const connection=form.locator('[name="connection"]');
-    if(await connection.locator('option').count() !== 4) throw Error('Expected four connections');
+    if(await connection.locator('option').count() !== 5) throw Error('Expected five connections');
     await form.locator('[name="model"]').fill('draft-model');
     await connection.selectOption('openai');
     if(await form.locator('[name="base_url"]').inputValue() !== 'https://api.openai.com/v1') throw Error('Official URL');
     if(await form.locator('[name="api_key"]').inputValue()) throw Error('Secret crossed profiles');
     await connection.selectOption('compatible');
     if(await form.locator('[name="model"]').inputValue() !== 'draft-model') throw Error('Draft lost');
-    await connection.selectOption('local_codex');
-    await form.locator('[name="api_key"]').fill('fixture-bridge');
+    await connection.selectOption('codex_account');
+    await form.locator('[name="account_email"]').fill('fixture@example.com');
+    if(await connection.locator('option[value="local_codex"]').count()!==1) throw Error('Missing dedicated local bridge');
     const save=page.waitForResponse(r=>r.url().endsWith('/api/services/ai/save'));
     await form.getByRole('button',{name:'保存并启用'}).click();
-    if((await save).status()!==200) throw Error('Bridge save failed');
+    if((await save).status()!==200) throw Error('Account save failed');
     await page.waitForFunction(()=>!document.querySelector('#ai-service-form'));
+    let probeCount=0;
     const probe = async expected => {
+      probeCount++;
       const response=page.waitForResponse(r=>r.url().endsWith('/api/services/ai/test'));
       await page.locator('[data-service-test="ai"]').click();
+      if(probeCount===1){
+        await page.waitForFunction(()=>{const b=document.querySelector('[data-service-test="ai"]');return b && b.textContent.includes('检测中 2 秒')});
+        if(!(await page.locator('[data-service-test="ai"]').isDisabled())) throw Error('Probe button became active before completion');
+      }
       if((await response).status()!==200) throw Error('Probe endpoint failed');
-      await page.waitForFunction(()=>{
+      await page.waitForFunction(expected=>{
         const b=document.querySelector('[data-service-test="ai"]');
-        return b && !b.disabled && b.textContent==='检测连接';
-      });
-      if(!(await page.locator('[data-service-test="ai"]').locator('xpath=ancestor::section').innerText()).includes(expected)) throw Error('Probe result missing: '+expected);
+        return b && !b.disabled && b.textContent==='检测连接' && b.closest('section').innerText.includes(expected);
+      },expected);
+      const card=await page.locator('[data-service-test="ai"]').locator('xpath=ancestor::section').innerText();
+      if(!card.includes(expected)) throw Error('Probe result missing: '+expected+'; card='+card);
     };
     await probe('在线');
     await probe('HTTP 502');

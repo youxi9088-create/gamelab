@@ -21,10 +21,12 @@ def retained_web_source(url,observations,directory,runs_root):
             'retained_capture':{'source_sha256':evidence['html_sha256'],'reason':'本轮网络采集失败，复用同一来源已验证快照；不代表原站最新版本'}}
 
 
-def acquire(url, run, budget, observations=None):
-    from worker import Blocked, NeedsInput
+def acquire(url, run, budget, observations=None, web_only=False):
+    from worker import Blocked, NeedsInput, PolicyPause
     from controlplane.runtime import node_binary
     directory = run / 'acquisition'
+    if web_only and url.startswith('#小程序://'):
+        raise PolicyPause('本批仅转换 Web：该链接为微信小游戏，已暂停；请在原任务确认是否调整范围。')
     node = node_binary()
     if not node:
         raise Blocked('采集缺少 Node 运行时，请配置 NODE_BINARY')
@@ -42,13 +44,29 @@ def acquire(url, run, budget, observations=None):
                        'appid': appid, 'identity_source': 'candidate-observations'}
     else:
         # The installed REA launcher and acquisition browser share the same Node runtime.
-        result = subprocess.run(command+[str(Path(__file__).with_name('acquire.cjs')),url,str(directory)],
-            capture_output=True,timeout=budget.remaining(90),shell=False)
+        # 90 秒对中文游戏站根本不够：4k99 详情页首字节就要 6–9 秒，页面还挂
+        # 一堆广告脚本。放宽到 240 秒，并把同一份预算交给 acquire.cjs 内部
+        # 自己分配——它会在 deadline 前收尾并写出已收集到的观测。
+        acquire_timeout = budget.remaining(240)
+        child_env = {**os.environ, 'GAMELAB_ACQUIRE_TIMEOUT_MS': str(int(acquire_timeout * 1000))}
+        try:
+            result = subprocess.run(command+[str(Path(__file__).with_name('acquire.cjs')),url,str(directory)],
+                capture_output=True,timeout=acquire_timeout,shell=False,env=child_env)
+        except subprocess.TimeoutExpired:
+            detail=(directory/'observation.json')
+            if web_only:
+                raise PolicyPause('Web 类型检测超时（采集预算 {} 秒），未确认游戏类型，已暂停；现场保留，请核对入口后继续。'.format(int(acquire_timeout))) from None
+            raise
         if result.returncode:
             detail=result.stderr.decode('utf-8',errors='replace')[-2000:]
             (run/'acquisition-error.txt').write_text(detail,'utf-8')
-            observation=retained_web_source(url,observations,directory,Path(__file__).parent/'runs')
-            if observation is None:raise Blocked('无法采集游戏链接：'+detail[-700:])
+            observation=retained_web_source(url,observations,directory,Path(os.environ.get('REPLICA_RUNS_ROOT',Path(__file__).parent/'runs')).resolve())
+            if observation is None:
+                if web_only:raise PolicyPause('Web 类型检测无法访问页面，已暂停；'+detail[-700:])
+                raise Blocked('无法采集游戏链接：'+detail[-700:])
+            # 复用旧快照时也必须留下失败标记，否则下游会把"采集失败"
+            # 当成本轮观测结果，继续说成"没有入口"。
+            observation['acquisition_error']=' '.join(detail.split())[-300:] or '采集进程非零退出'
         else:observation = json.loads((directory/'observation.json').read_text('utf-8'))
     from controlplane.source_routing import source_kind
     observation['source_kind']=source_kind(url,observation)
@@ -56,6 +74,14 @@ def acquire(url, run, budget, observations=None):
         from web_embedded import extract
         embedded=extract((directory/'source.html').read_text('utf-8'),directory/'web-source')
         if embedded:observation['web_source']=embedded
+    if web_only:
+        from controlplane.web_only import assess
+        html = (directory/'source.html').read_text('utf-8') if (directory/'source.html').is_file() else ''
+        gate = assess(url, html, observation)
+        observation['web_only_check'] = gate
+        (directory/'web-only-check.json').write_text(json.dumps(gate, ensure_ascii=False, indent=2), 'utf-8')
+        if not gate['allowed']:
+            raise PolicyPause('本批仅转换 Web：'+gate['reason']+'。检测记录保留在本轮 acquisition/web-only-check.json。')
     analysis = directory/'analysis'
     analysis.mkdir(exist_ok=True)
     # Retain full downloaded evidence separately; bound static analysis and AI context.
@@ -72,7 +98,7 @@ def acquire(url, run, budget, observations=None):
     if os.environ.get('APPDATA'):
         roots.extend((Path(os.environ['APPDATA'])/'Tencent/xwechat/radium/users').glob('*/applet/packages'))
     cache=[];local_roots=[]
-    for appid in observation.get('appids',[])[:3]:
+    for appid in ([] if web_only else observation.get('appids',[])[:3]):
         if not re.fullmatch(r'wx[0-9a-fA-F]{16}',appid):continue
         for root in roots:
             if not root.is_dir():continue

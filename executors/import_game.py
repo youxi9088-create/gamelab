@@ -45,7 +45,7 @@ def main():
         post('jobs/'+queued['id']+'/reconstruct',{'reason':manifest['routing_reason']})
     job=client.post('jobs/claim',{'capabilities':['rea'] if route=='A' else ['reconstruct'],'worker_id':'explicit-game-import'})['job']
     assert job and job['candidate_id']==candidate['id']
-    run=worker.ROOT/'runs'/job['id']
+    run=worker.RUNS/job['id']
     run.mkdir(parents=True,exist_ok=True)
     if route=='A':
         worker.execute(client,job)

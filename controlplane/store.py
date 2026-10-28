@@ -2,6 +2,7 @@
 import contextlib
 import json
 import sqlite3
+import time
 import uuid
 from contextvars import ContextVar
 from datetime import datetime, timezone, timedelta
@@ -29,17 +30,36 @@ class Store:
 
     @contextlib.contextmanager
     def tx(self):
-        db = sqlite3.connect(self.path, timeout=30)
-        db.execute('PRAGMA journal_mode=WAL')
-        db.execute('BEGIN IMMEDIATE')
-        try:
-            yield db
-            db.commit()
-        except Exception:
-            db.rollback()
-            raise
-        finally:
-            db.close()
+        # Every request opens its own connection here. Under WAL the last
+        # connection to close deletes the -wal/-shm pair, so a connection that
+        # opened just before that is left with a stale shared-memory mapping and
+        # fails its next write with "attempt to write a readonly database" even
+        # though the file is writable. Heartbeats and playback both go through
+        # this path, so the race used to surface as unexplained HTTP 500s.
+        # Reopening on exactly that error is enough to clear it.
+        delay = 0.05
+        for attempt in range(6):
+            db = sqlite3.connect(self.path, timeout=30)
+            try:
+                db.execute('PRAGMA busy_timeout=30000')
+                db.execute('PRAGMA journal_mode=WAL')
+                db.execute('BEGIN IMMEDIATE')
+            except sqlite3.OperationalError as exc:
+                db.close()
+                if 'readonly' not in str(exc) or attempt == 5:
+                    raise
+                time.sleep(delay)
+                delay = min(delay * 2, 1.0)
+                continue
+            try:
+                yield db
+                db.commit()
+            except Exception:
+                db.rollback()
+                raise
+            finally:
+                db.close()
+            return
 
     @staticmethod
     def get(db, kind, key):

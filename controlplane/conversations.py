@@ -32,9 +32,17 @@ def message_presentation(message, jobs, events, rounds):
 class Conversations:
     def reconcile_history(self, db):
         s = self.store
+        # Read large version payloads once, not once per queued candidate.
+        from collections import defaultdict
+        jobs_by_candidate = defaultdict(list)
+        versions_by_candidate = defaultdict(list)
+        for job in s.all(db, 'jobs'):
+            jobs_by_candidate[job['candidate_id']].append(job)
+        for version in s.all(db, 'versions'):
+            versions_by_candidate[version['candidate_id']].append(version)
         for c in s.all(db, 'candidates'):
-            jobs = [j for j in s.all(db, 'jobs') if j['candidate_id'] == c['id']]
-            versions = [v for v in s.all(db, 'versions') if v['candidate_id'] == c['id']]
+            jobs = jobs_by_candidate[c['id']]
+            versions = versions_by_candidate[c['id']]
             latest = jobs[0] if jobs else None
             if latest and latest['status'] in ('failed','blocked','waiting_input') and c.get('status') in ('failed','blocked','waiting_input','queued','running'):
                 c['status']=latest['status'];s.put(db,'candidates',c)

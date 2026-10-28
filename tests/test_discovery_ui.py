@@ -9,6 +9,8 @@ from test_discovery import DiscoveryTests
 class DiscoveryUITest(unittest.TestCase):
     def test_selection_schedule_and_layout(self):
         f=DiscoveryTests();f.setUp();self.addCleanup(f.doCleanups)
+        from controlplane.game_technology import classify
+        f.result['games'][0]['technology'] = classify(metadata={'gamePlatform':'HTML5'})
         f.result['games'].append(dict(f.result['games'][0],url='https://example.org/game/b',title='Game B',category='Racing'))
         f.scheduler.tick(f.instant)
         server=build_server(f.s,0)

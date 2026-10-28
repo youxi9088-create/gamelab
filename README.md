@@ -15,6 +15,7 @@ Web 转换与管理平台：游戏发现、资源采集与 REA 分析、现有�
 | 系统组成、数据流、任务调度、部署与边界 | [平台架构说明书](docs/ARCHITECTURE.md) |
 | 全流程、支持路径、自动推进与限制 | [转换流程](docs/AUTO-CONVERSION.md) |
 | 服务职责、端口、配置与健康检查 | [服务清单](docs/SERVICES.md) |
+| 独立抓取/转换后台、账号与拆分运行 | [独立任务后台](docs/TASK_BACKEND.md) |
 | 安装、隔离检查、备份与迁移 | [运维手册](docs/OPERATIONS.md) |
 | 本轮整理与验证结果 | [交付检查](docs/RELEASE_CHECK.md) |
 | 已确认需求与维护约定 | [服务要求](docs/SERVICE_REQUIREMENTS.md) · [AGENTS](AGENTS.md) |

@@ -1,7 +1,8 @@
 """Compact real executed observations, kept separate from pre-test model narratives."""
 import json
+import os
 from pathlib import Path
-ROOT=Path(__file__).resolve().parent/'runs'
+ROOT=Path(os.environ.get('REPLICA_RUNS_ROOT',Path(__file__).resolve().parent/'runs')).resolve()
 
 def history(source,job_id):
     if not job_id:return []

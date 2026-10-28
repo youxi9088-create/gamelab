@@ -46,6 +46,7 @@ def fetch(url):
 class Page(HTMLParser):
     def __init__(self, html):
         super().__init__(convert_charrefs=True)
+        self.html = html
         self.links=[]; self.meta={}; self.structured=[]; self.title=''
         self.anchor=None; self.in_title=False; self.script=None
         self.feed(html)
@@ -110,7 +111,8 @@ class Page(HTMLParser):
             rules.extend([(r'\bFPS\b|shooter|shooting','射击'),(r'garbage truck|garbage collector','模拟经营')])
             genre=next((label for pattern,label in rules if re.search(pattern,description,re.I)),'')
             if genre:basis='按来源说明关键词推断，需人工确认'
-        return dict(title=str(game.get('name') or self.meta.get('og:title') or self.title).strip()[:120],
+        from .game_technology import classify
+        return dict(technology=classify(self.html, game), title=str(game.get('name') or self.meta.get('og:title') or self.title).strip()[:120],
                     category=genre[:80] or '未识别',
                     category_basis=basis,gameplay=description)
 

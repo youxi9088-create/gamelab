@@ -36,6 +36,20 @@ test('host bridge runs at non-loopback origin and ordinary input and reload stil
   const r=await verify(run,[{type:'click',x:30,y:90},{type:'reload'}]);
   assert.equal(r.passed,true);assert.match(r.steps[0].text,/replica-runtime.invalid/);
   assert.equal(r.navigation.length,2);assert.deepEqual(r.required_external,[]);
+  assert.deepEqual(r.navigation_checkpoints.map(c=>c.phase),['startup','interaction','reload']);
+  assert.ok(r.navigation_checkpoints.every(c=>c.status==='passed'));
   assert.ok(r.steps[1].storage.areas.localStorage.entries.some(e=>e.key==='count'));
+ }finally{fs.rmSync(run,{recursive:true,force:true});}
+});
+
+for(const trigger of ['startup','interaction','reload'])test('navigation checkpoint rejects '+trigger+' redirect',async()=>{
+ const script=trigger==='startup'?'setTimeout(jump,3000)':trigger==='reload'?'if(sessionStorage.visited) setTimeout(jump,2500);sessionStorage.visited=1':'document.querySelector("button").onclick=jump';
+ const run=fixture('<button style="width:200px;height:100px">Play</button><script>function jump(){location.href="/unexpected.html"}'+script+'</script>');
+ fs.writeFileSync(path.join(run,'converted/unexpected.html'),'<h1>Not the game</h1>');
+ try{
+  await assert.rejects(()=>verify(run,trigger==='interaction'?[{type:'click',x:50,y:50}]:trigger==='reload'?[{type:'reload'}]:[]));
+  const r=JSON.parse(fs.readFileSync(path.join(run,'converted/evidence/runtime.json')));
+  assert.equal(r.passed,false);
+  assert.ok(r.navigation_attempts.some(n=>!n.allowed&&n.phase===trigger&&n.url.endsWith('/unexpected.html')));
  }finally{fs.rmSync(run,{recursive:true,force:true});}
 });

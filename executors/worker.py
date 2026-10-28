@@ -31,6 +31,7 @@ from controlplane.runtime import node_binary
 from revision_context import RevisionYield
 
 ROOT = Path(__file__).resolve().parent
+RUNS = Path(os.environ.get('REPLICA_RUNS_ROOT', ROOT/'runs')).resolve()
 ALLOWED = {'.html', '.js', '.mjs', '.css', '.json', '.svg', '.md', '.txt', '.ts', '.tsx', '.jsx', '.map'}
 BINARY = {'.png', '.jpg', '.jpeg', '.webp', '.gif', '.mp3', '.wav', '.ogg', '.m4a', '.woff', '.woff2', '.wasm'}
 IGNORED = {'node_modules', '.git', '.env', '__pycache__'}
@@ -43,6 +44,27 @@ class Blocked(Exception):
 
 class NeedsInput(Exception):
     pass
+
+
+class PolicyPause(NeedsInput):
+    # A user scope restriction is not a technical fault for AI to repair around.
+    auto_repair_attempted = True
+
+
+def failure_detail(exc, limit=400):
+    """把异常压成一句能定位的原因。
+
+    Blocked / NeedsInput / PolicyPause 的文案本来就是给用户看的，原样保留；
+    其余异常（subprocess 超时、Playwright 报错等）补上类型名，方便判断是环境
+    问题还是逻辑问题。消息为空时退回类型名——不能又变成"无原因"。
+    """
+    text = ' '.join(str(exc).split())
+    name = type(exc).__name__
+    if not text:
+        return name
+    if name in ('Blocked', 'NeedsInput', 'PolicyPause'):
+        return text[:limit]
+    return f'{name}：{text}'[:limit]
 
 
 class RuntimeFailure(Blocked):
@@ -282,7 +304,7 @@ class Client:
 
 
 def execute(client, job):
-    run = ROOT / 'runs' / (str(uuid.uuid4()))
+    run = RUNS / (str(uuid.uuid4()))
     run.mkdir(parents=True)
     write_json(run/'job-binding.json',{'job_id':job['id'],'lease_sha256':hashlib.sha256(job['lease_token'].encode()).hexdigest()})
     lease = {'lease_token': job['lease_token']}
@@ -328,7 +350,11 @@ def execute(client, job):
                     exc.auto_repair_attempted=True
                 if not recovered:
                     phase[0]=previous
-                    client.post(prefix+'events',{**lease,'node':node,'node_status':'failed','message':label+'未完成，具体原因见本轮任务结果'})
+                    # 失败原因必须随事件上报。早先只发一句"见本轮任务结果"，
+                    # 而任务结果常常是泛化文案（采集连页面都没打开，也被说成"未确认入口"），
+                    # 导致 22 次 acquire 失败无一可定位。这里带真实异常摘要。
+                    client.post(prefix+'events',{**lease,'node':node,'node_status':'failed',
+                        'message':label+'未完成：'+failure_detail(exc)})
                     raise
             report=result[-1] if isinstance(result,tuple) and isinstance(result[-1],dict) else result if isinstance(result,dict) else {}
             incomplete=node=='test' and (report.get('blocker') or report.get('delivery_gaps'))
@@ -360,6 +386,8 @@ def execute(client, job):
             client.post(prefix+'plan',{**lease,'plan':plan})
         save_plan()
         settings = job.get('settings', {})
+        if job.get('web_only') and job['stage'] != 'rea' and not job.get('continuation'):
+            raise PolicyPause('本批仅允许 Web 转换，已暂停非 Web 重建分支；请在原任务核对来源。')
         budget = Budget(max(1, int(settings.get('rea_minutes' if job['stage']=='rea' else 'reconstruct_minutes', 45 if job['stage']=='rea' else 180))) * 60, max(2, min(32, int(os.environ.get('REPLICA_AI_MAX_CALLS', '24')))))
         if not inp.get('source_path') and inp.get('source_bundle_url'):
             inp = {**inp, 'source_path': str(client.source_bundle(inp['source_bundle_url'], run / 'source'))}
@@ -380,7 +408,7 @@ def execute(client, job):
                 # Resume precisely the saved working text; apply a newly discovered
                 # normalization on a later baseline, not over saved edits/offsets.
                 inp['_newline_repairs']={}
-                checkpoint_path=ROOT/'runs'/checkpoint['run']/'revision-checkpoint.json'
+                checkpoint_path=RUNS/checkpoint['run']/'revision-checkpoint.json'
                 raw=checkpoint_path.read_bytes()
                 if hashlib.sha256(raw).hexdigest()!=checkpoint['sha256']:raise Blocked('续作检查点校验失败')
                 inp['_revision_checkpoint']=json.loads(raw)
@@ -434,7 +462,7 @@ def execute(client, job):
         if job['stage'] == 'rea':
             if job.get('automatic'):
                 from controlplane.web_profiles import supports
-                if inp.get('observations',{}).get('web_runtime') and supports(inp['url'],inp['observations']['web_runtime']):
+                if not job.get('web_only') and inp.get('observations',{}).get('web_runtime') and supports(inp['url'],inp['observations']['web_runtime']):
                     from web_runtime import convert
                     report=measured('adapt',convert)(inp,run,budget,analyze)
                     client.post('candidates/'+job['candidate_id']+'/dependencies',
@@ -445,7 +473,7 @@ def execute(client, job):
                     return
                 from acquisition import acquire
                 acquire=measured('acquire',acquire)
-                acquired=acquire(inp['url'],run,budget,observations=inp.get('observations'))
+                acquired=acquire(inp['url'],run,budget,observations=inp.get('observations'),web_only=job.get('web_only',False))
                 client.post(prefix+'acquired',{**lease,'title':acquired['title'],'observations':acquired})
                 from dependency_inventory import inventory
                 dependencies=inp.get('dependencies')
@@ -460,7 +488,7 @@ def execute(client, job):
                 config_path=Path(os.environ.get('REPLICA_SERVICE_CONFIG',ROOT.parent/'data/services.json'))
                 converter=json.loads(config_path.read_text('utf-8')).get('wechat',{}) if config_path.exists() else {}
                 save_plan(acquired,converter)
-                if converter.get('backend')=='wxapkg_v1' and acquired.get('resource_package_inventory'):
+                if not job.get('web_only') and converter.get('backend')=='wxapkg_v1' and acquired.get('resource_package_inventory'):
                     from package_converter import convert, runtime_files
                     roots=list({str(Path(p['path']).parents[2]) for p in acquired['resource_package_inventory']})
                     try:
@@ -481,7 +509,7 @@ def execute(client, job):
                     client.post(prefix+'complete',{**lease,'outcome':'recovered','artifact_id':artifact,'report':report,
                         'reason':'原包服务转换产物已通过浏览器运行检查；玩法未验证，按基础检查保存草稿'})
                     return
-                if converter.get('base_url') and converter.get('backend')!='wxapkg_v1':
+                if not job.get('web_only') and converter.get('base_url') and converter.get('backend')!='wxapkg_v1':
                     headers={'Content-Type':'application/json'}
                     if converter.get('api_key'):headers['Authorization']='Bearer '+converter['api_key']
                     request=urllib.request.Request(converter['base_url'].rstrip('/')+'/convert',data=json.dumps({'url':inp['url'],'job_id':job['id'],'resource_policy':'original-resources-first','resource_inventory':acquired.get('cache_manifest',[])}).encode(),headers=headers)
@@ -695,7 +723,7 @@ def main():
             subprocess.run(['taskkill','/PID',str(os.getpid()),'/T','/F'],capture_output=True,creationflags=subprocess.CREATE_NO_WINDOW)
         threading.Thread(target=watch_parent,daemon=True).start()
     if args.analyze:
-        run = ROOT / 'runs' / str(uuid.uuid4())
+        run = RUNS / str(uuid.uuid4())
         run.mkdir(parents=True)
         analyze(args.analyze, run)
         print(str(run / 'rea-evidence.json'))

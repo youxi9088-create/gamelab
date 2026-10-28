@@ -2,6 +2,7 @@ import hashlib
 import json
 import secrets
 import re
+from pathlib import Path
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 from .store import Store, now, later, ident
@@ -32,8 +33,10 @@ from .conversations import Conversations
 from .discovery import Discovery
 
 class Service(Conversations,Discovery):
-    def __init__(self,data_dir,repo_dir,play_url):
+    def __init__(self,data_dir,repo_dir,play_url,runs_dir=None):
         self.data_dir=data_dir
+        self.runs_dir=Path(runs_dir).resolve() if runs_dir else Path(__file__).resolve().parents[1]/'executors/runs'
+        self.runs_dir.mkdir(parents=True,exist_ok=True)
         self.store=Store(data_dir/'platform.sqlite3')
         self.repo=Repository(repo_dir,data_dir/'artifacts')
         self.play_url=play_url
@@ -127,16 +130,27 @@ class Service(Conversations,Discovery):
                 job['pipeline']=timeline(job,state['events'],state['versions'])
                 job['progress_label']=progress_summary(job,state['versions'])
                 version=next((v for v in state['versions'] if v['id']==job.get('version_id')),None)
+                # route 只记录结果轴且到 review 才写入，排队任务全为 None；产线另算
+                from .route_presentation import route as conversion_route
+                job.update(conversion_route(job,c,state['versions']))
                 job['has_draft']=bool(version and version['status']=='draft')
                 job['last_attempt_status']=job['status']
                 job['display_status']='needs_work' if job['status'] in ('blocked','failed') and not job.get('blocker') and job['has_draft'] and version.get('report',{}).get('runtime_verified') else job['status']
                 if job.get('dependency_pending') and job['status']=='blocked':job['display_status']='dependency_pending'
+                from .policy_presentation import web_pause
+                pause = web_pause(job)
+                if pause:
+                    job['policy_pause'] = pause
+                    job['display_status'] = pause['status']
+                    job['progress_label'] = pause['explanation']
+                    job['pipeline']['presentation'].update(headline=pause['label'], location_label='游戏类型检测 · 已暂停',
+                        problem=pause['explanation'], next_action=pause['next_action'])
             for tool in state['tools']:
                 tool['online']=bool(tool.get('last_seen') and tool['last_seen']>later(-90))
             state['settings']=self.get(db,'settings','main')
             state['settings']['concurrency']=1
             batches={b['id']:b for b in state['batches']}
-            queue=sorted((j for j in reversed(state['jobs']) if j['status']=='queued' and batches.get(j.get('batch_id'),{}).get('status')=='running'),key=lambda j:j.get('queued_at',j.get('created_at','')))
+            queue=sorted((j for j in reversed(state['jobs']) if j['status']=='queued' and batches.get(j.get('batch_id'),{}).get('status')=='running'),key=lambda j:j.get('queued_at') or j.get('created_at',''))
             for position,job in enumerate(queue,1):
                 job['queue_position']=position
                 job['progress_label']=f'排队第 {position} 位 · 等待空闲执行器'
@@ -463,7 +477,9 @@ class Service(Conversations,Discovery):
             # Global capacity, across tools and all conversion entry points.
             if len(running)>=1:return {'job':None}
             caps=set(b.get('capabilities',[])) & set(tool['capabilities'])
-            for job in sorted(reversed(jobs),key=lambda j:j.get('queued_at',j.get('created_at',''))):
+            # queued_at 可能是 null（旧数据）；dict.get 只对"键缺失"兜底，不对 None 兜底，
+            # 直接放进 sorted 会与字符串混排抛 TypeError，整个认领就 500 了。
+            for job in sorted(reversed(jobs),key=lambda j:j.get('queued_at') or j.get('created_at','')):
                 batch=self.get(db,'batches',job['batch_id'])
                 if job['status']!='queued' or job['stage'] not in caps or batch['status']!='running':continue
                 if b.get('automatic_only') and not job.get('automatic'):continue
@@ -595,7 +611,7 @@ class Service(Conversations,Discovery):
                     cp=b.get('checkpoint',{})
                     require(job.get('continuation') and job['stage']=='reconstruct','只有续作可保存接续检查点',409)
                     require(isinstance(cp,dict) and isinstance(cp.get('run'),str) and re.fullmatch(r'[0-9a-f-]{36}',cp['run']),'无效检查点')
-                    root=Path(__file__).resolve().parents[1]/'executors/runs'/cp['run']
+                    root=self.runs_dir/cp['run']
                     try:
                         binding=json.loads((root/'job-binding.json').read_text('utf-8'))
                         require(binding=={'job_id':key,'lease_sha256':hashlib.sha256(job['lease_token'].encode()).hexdigest()},'检查点不属于当前租约',409)
@@ -692,7 +708,7 @@ class Service(Conversations,Discovery):
                     require(registered and registered[0]==tool['id'],'仅本机内置执行器可提交运行目录',403)
                     name=b['local_run']
                     require(isinstance(name,str) and re.fullmatch(r'[0-9a-f-]{36}',name),'无效运行目录')
-                    root=Path(__file__).resolve().parents[1]/'executors/runs'
+                    root=self.runs_dir
                     run=root/name;source=run/'converted'
                     require(not run.is_symlink() and source.resolve().is_relative_to(run.resolve()) and run.resolve().is_relative_to(root.resolve()),'运行目录越界')
                     binding=json.loads((run/'job-binding.json').read_text('utf-8'))

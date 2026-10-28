@@ -3,7 +3,7 @@ import hashlib
 import re
 import threading
 from datetime import datetime, timedelta, timezone
-from .store import ident, now
+from .store import ACTOR, ident, now
 from .discovery_scan import DEFAULT_RULE, scan
 
 TZ=timezone(timedelta(hours=8))
@@ -79,18 +79,43 @@ class Discovery:
             require(all(i['status'] in ('pending',target) for i in items),'清单状态已变化，请刷新后操作',409)
             for item in items:
                 if item['status']==target:continue
-                item.update(status=target,decided_at=now(),decision_by='local-admin',decision_reason=str(b.get('reason',''))[:1000])
+                actor=(ACTOR.get() or {}).get('username','local-admin')
+                item.update(status=target,decided_at=now(),decision_by=actor,decision_reason=str(b.get('reason',''))[:1000])
                 s.put(db,'recommendations',item)
                 s.event(db,'采集建议：'+action,recommendation_id=item['id'])
             return {'updated':len(items),'status':target}
         if action=='dispatch':
             require(all(i['status']=='pending_capture' for i in items),'只能启动已通过且待抓取的条目',409)
+            require(type(b.get('web_only', False)) is bool, 'web_only 必须为布尔值')
+            from .source_policy import blocked, describe
+            gated, items = blocked(items)
+            # 已知门槛的来源不进转换队列：否则每条都要走完采集才再次证明进不去。
+            for item, policy in gated:
+                item.update(dispatch_error=policy['reason'], source_policy=policy['policy'],
+                            source_policy_label=policy.get('label') or policy['policy'])
+                s.put(db, 'recommendations', item)
+                s.event(db, '派单前拦截 · ' + (policy.get('label') or policy['policy']) + '：' + policy['reason'],
+                        recommendation_id=item['id'])
+            if gated and not items:
+                require(False, '以下来源存在已知门槛，未派单：' + describe(gated) + '。' + gated[0][1]['next_action'], 409)
             result=self._mutate(db,'/api/conversions',{'urls':[i['url'] for i in items],'name':b.get('name') or '采集清单 · 人工通过'},None)
             jobs=result['jobs']+result['reused']
+            if b.get('web_only'):
+                for job in result['jobs']:
+                    job['web_only'] = True
+                    s.put(db, 'jobs', job)
+                if result['batch']:
+                    result['batch']['web_only'] = True
+                    s.put(db, 'batches', result['batch'])
             for item in items:
                 candidate=next(c for c in s.all(db,'candidates') if c['canonical_url']==item['url'])
+                if item.get('technology'):
+                    candidate.setdefault('observations', {})['discovery_technology'] = item['technology']
+                    s.put(db, 'candidates', candidate)
                 job=next(j for j in jobs if j['candidate_id']==candidate['id'])
                 item.update(status='dispatched',job_id=job.get('job_id') or job['id'],dispatched_at=now())
+                if b.get('web_only'):
+                    item['conversion_policy'] = 'web_only'
                 s.put(db,'recommendations',item)
             return result
         require(False,'未知采集操作',404)
@@ -180,6 +205,13 @@ class DiscoveryScheduler:
                         reason=reason,platform_category_missing=missing,status='pending',run_id=run['id'],created_at=now(),last_seen=now())
                     from .selection import score
                     item['selection_score']=score(item)
+                    # 扫描时就标出已知门槛，派单事务回滚也不会丢，列表里也看得见。
+                    from .source_policy import host_policy
+                    gate=host_policy(url)
+                    if gate:
+                        item.update(source_policy=gate['policy'],
+                                    source_policy_label=gate.get('label') or gate['policy'],
+                                    source_policy_reason=gate['reason'])
                     s.put(db,'recommendations',item);run['recommendation_ids'].append(key);new+=1
                 run['sources'].append(dict(source_id=source['id'],name=source['name'],status=result['status'],new=new,duplicates=duplicates,errors=result.get('errors',[]),coverage=result.get('coverage','')))
                 run['heartbeat_at']=now();s.put(db,'discovery_runs',run)
@@ -188,8 +220,13 @@ class DiscoveryScheduler:
             cfg=config(s,db)
             if cfg.get('auto_select') and not self.stop.is_set():
                 used=sum(1 for r in s.all(db,'recommendations') if r.get('decision_by')=='selection-policy' and r.get('decision_day')==day)
-                choices=[r for r in s.all(db,'recommendations') if r['id'] in run['recommendation_ids'] and r['status']=='pending'
-                         and r['category'] in cfg.get('allowed_categories',[]) and r.get('selection_score',{}).get('value',0)>=cfg['score_threshold']]
+                from .source_policy import host_policy
+                def selectable(r):
+                    if host_policy(r.get('url','')):
+                        # 已知门槛的来源不占每日自动选品名额，也不进待抓取。
+                        return False
+                    return r['category'] in cfg.get('allowed_categories',[]) and r.get('selection_score',{}).get('value',0)>=cfg['score_threshold']
+                choices=[r for r in s.all(db,'recommendations') if r['id'] in run['recommendation_ids'] and r['status']=='pending' and selectable(r)]
                 for item in sorted(choices,key=lambda r:(-r['selection_score']['value'],r['id']))[:max(0,cfg['daily_limit']-used)]:
                     item.update(status='pending_capture',decided_at=now(),decision_by='selection-policy',decision_day=day,
                                 decision_reason='符合已配置品类和信息评分阈值；不代表已验证玩法')

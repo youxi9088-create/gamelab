@@ -27,9 +27,23 @@ def source_kind(url, observations=None):
     return 'unknown'
 
 
+def _unread(observations):
+    """采集是不是基本没产出。空壳 observations 说明页面根本没读到。"""
+    if not isinstance(observations, dict) or not observations:
+        return True
+    return not any(observations.get(key) for key in ('title', 'frames', 'scripts', 'web_discovery', 'metadata'))
+
+
 def web_block_reason(observations):
     if observations.get('web_source'):
         return '已提取原网页内嵌游戏 HTML 与配置，保存在本轮采集目录 web-source。仍需下载远程资源、适配网页宿主接口并验证完整玩法；当前未登记对应 Web 适配器，不能开始自动重建。'
+    # 采集失败与"读到了但没入口"必须分开说。合在一起会让每次超时/被拦截
+    # 都显示成"尚未识别入口"，排查方向直接跑偏。
+    failure=observations.get('acquisition_error')
+    if failure:
+        return '采集阶段未能完成（'+str(failure)[:300]+'）。这是读取失败，不是"没有入口"；请确认链接可访问、未被反爬拦截，并检查本轮采集超时设置。'
+    if _unread(observations):
+        return '采集未产出任何页面观测（页面未打开、超时或被拦截），暂停转换。这不是"没有入口"，请先确认链接可访问与本轮采集超时设置。'
     discovery=observations.get('web_discovery',{})
     entries=discovery.get('entries',[])
     if entries:

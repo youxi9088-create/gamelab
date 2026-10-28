@@ -3,7 +3,10 @@ param(
     [string]$CloudUser='Administrator',
     [Parameter(Mandatory=$true)][string]$IdentityFile,
     [int]$LocalPort=8877,
-    [int]$RemotePort=8877
+    [int]$RemotePort=8877,
+    [string]$AccountEmail,
+    [string]$AccountRoot,
+    [string]$Model='gpt-6-sol'
 )
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot
@@ -21,6 +24,11 @@ if(-not(Test-Path -LiteralPath $python)){$python=(Get-Command python -ErrorActio
 $existing=Get-NetTCPConnection -LocalPort $LocalPort -State Listen -ErrorAction SilentlyContinue
 if(-not $existing){
     $bridgeArgs='"{0}" --port {1} --token-file "{2}"' -f (Join-Path $PSScriptRoot 'local_codex_bridge.py'),$LocalPort,$token
+    if($AccountEmail){
+        if(-not $AccountRoot){throw 'AccountRoot is required for a dedicated account'}
+        if(($AccountEmail+$AccountRoot+$Model).Contains('"')){throw 'Invalid argument'}
+        $bridgeArgs+=' --account-email "{0}" --account-root "{1}" --model "{2}"' -f $AccountEmail,$AccountRoot,$Model
+    }
     $bridge=Start-Process -FilePath $python -ArgumentList $bridgeArgs -WorkingDirectory $root -WindowStyle Hidden -PassThru `
         -RedirectStandardOutput (Join-Path $state 'bridge-current.log') -RedirectStandardError (Join-Path $state 'bridge-current-error.log')
     $bridge.Id | Set-Content (Join-Path $state 'bridge-current.pid')

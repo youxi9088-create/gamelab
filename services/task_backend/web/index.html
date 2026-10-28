@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Game Lab · 任务后台</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main id="auth" class="auth-shell" hidden>
+    <section class="auth-card">
+      <div class="brand-mark">GL</div>
+      <p class="eyebrow">GAME LAB / TASK OPERATIONS</p>
+      <h1 id="auth-title">登录任务后台</h1>
+      <p id="auth-copy" class="muted">独立管理采集、转换队列与执行账号。</p>
+      <form id="auth-form">
+        <label>账号<input id="auth-username" autocomplete="username" required minlength="3" maxlength="80"></label>
+        <label>密码<input id="auth-password" type="password" autocomplete="current-password" required minlength="12" maxlength="256"></label>
+        <button class="button primary wide" type="submit" id="auth-submit">登录</button>
+      </form>
+      <p class="security-note">账号仅保存在此后台的独立数据库中，会话有效期 12 小时。</p>
+    </section>
+  </main>
+
+  <div id="shell" class="shell" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="#tasks"><span class="brand-mark">GL</span><span><strong>Game Lab</strong><small>独立任务后台</small></span></a>
+      <nav id="nav" aria-label="主导航">
+        <button data-view="tasks" class="nav-item active"><span>任务中心</span><span id="nav-task-count" class="nav-count">0</span></button>
+        <button data-view="discovery" class="nav-item"><span>采集建议</span><span id="nav-discovery-count" class="nav-count">0</span></button>
+        <button data-view="services" class="nav-item"><span>服务配置</span></button>
+        <button data-view="accounts" class="nav-item admin-only"><span>账号权限</span></button>
+      </nav>
+      <div class="sidebar-foot">
+        <span class="environment"><i></i>本地独立实例</span>
+        <button id="logout" class="text-button">退出登录</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><p class="eyebrow" id="view-eyebrow">OPERATIONS</p><h1 id="view-title">任务中心</h1></div>
+        <div class="user-chip"><span id="user-avatar">A</span><div><strong id="user-name">—</strong><small id="user-role">—</small></div></div>
+        <button id="logout-mobile" class="text-button mobile-logout">退出</button>
+      </header>
+
+      <section id="view-tasks" class="view">
+        <div id="metrics" class="metrics"></div>
+        <section class="panel submit-panel">
+          <div><h2>新建转换任务</h2><p>提交公开网页或微信小程序分享链接，任务进入统一队列。</p></div>
+          <form id="conversion-form" class="inline-form operator-only">
+            <input id="conversion-url" placeholder="https://example.com/game 或 #小程序://…" required aria-label="游戏地址">
+            <button class="button primary" type="submit">提交任务</button>
+          </form>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><div><h2>转换队列</h2><p id="queue-summary">读取任务状态中</p></div><input id="job-search" class="search" placeholder="搜索游戏或任务编号" aria-label="搜索任务"></div>
+          <div class="table-wrap"><table><thead><tr><th>游戏</th><th>状态</th><th>当前阶段</th><th>轮次</th><th>创建时间</th><th></th></tr></thead><tbody id="jobs-body"></tbody></table></div>
+          <div id="jobs-empty" class="empty" hidden>还没有任务。提交第一个链接后，执行器会按队列领取。</div>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><div><h2>批次控制</h2><p>暂停、恢复或停止只影响对应批次，历史版本保持不变。</p></div></div>
+          <div class="table-wrap"><table><thead><tr><th>批次</th><th>状态</th><th>创建时间</th><th class="operator-only">操作</th></tr></thead><tbody id="batches-body"></tbody></table></div>
+        </section>
+      </section>
+
+      <section id="view-discovery" class="view" hidden>
+        <section class="panel">
+          <div class="panel-head"><div><h2>来源采集</h2><p>定时调度与手动扫描均由此独立后台执行。</p></div><button id="scan-now" class="button primary admin-only">立即扫描</button></div>
+          <form id="discovery-settings" class="settings-grid admin-only">
+            <label class="toggle"><input id="discovery-enabled" type="checkbox">启用每日扫描</label>
+            <label>执行小时（北京时间）<input id="discovery-hour" type="number" min="0" max="23" required></label>
+            <label>每源游戏上限<input id="discovery-max-games" type="number" min="1" max="50" required></label>
+            <label>每源页面上限<input id="discovery-max-pages" type="number" min="1" max="10" required></label>
+            <button class="button" type="submit">保存调度</button>
+          </form>
+          <div id="latest-scan" class="notice"></div>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><div><h2>采集建议</h2><p>页面线索不等于运行验证；派单后仍须完成转换与检查。</p></div><select id="recommendation-filter" aria-label="筛选建议"><option value="pending">待选择</option><option value="pending_capture">待抓取</option><option value="dispatched">已派单</option><option value="rejected">已拒绝</option><option value="">全部</option></select></div>
+          <div id="recommendation-actions" class="bulk-actions operator-only"><span id="selection-count">未选择条目</span><button data-discovery-action="approve" class="button">通过</button><button data-discovery-action="reject" class="button">拒绝</button><button data-discovery-action="dispatch" class="button primary">派单转换</button></div>
+          <div class="table-wrap"><table><thead><tr><th class="operator-only"></th><th>游戏</th><th>来源</th><th>品类</th><th>技术线索</th><th>状态</th></tr></thead><tbody id="recommendations-body"></tbody></table></div>
+          <div id="recommendations-empty" class="empty" hidden>当前筛选下没有采集建议。</div>
+        </section>
+      </section>
+
+      <section id="view-services" class="view" hidden>
+        <div id="service-status" class="service-grid"></div>
+        <section class="panel admin-only">
+          <div class="panel-head"><div><h2>AI 推理连接</h2><p>密钥留空表示保留当前连接的密钥；更换地址须重新填写。</p></div></div>
+          <form id="ai-form" class="settings-grid">
+            <label>连接方式<select id="ai-connection"></select></label>
+            <label id="ai-email-row">账号邮箱<input id="ai-email" type="email"></label>
+            <label id="ai-url-row">服务地址<input id="ai-url" type="url"></label>
+            <label>模型<input id="ai-model" required></label>
+            <label id="ai-key-row">API Key / 桥接令牌<input id="ai-key" type="password" autocomplete="new-password"></label>
+            <label id="ai-actor-row">附加 actor 授权头<input id="ai-actor" type="password" autocomplete="new-password"></label>
+            <div class="form-actions"><button class="button primary" type="submit">保存连接</button><button id="test-ai" class="button" type="button">实际调用检测</button></div>
+          </form>
+        </section>
+        <section class="panel admin-only">
+          <div class="panel-head"><div><h2>原包转换服务</h2><p>内置模式由此后台管理；远程模式使用独立鉴权服务。</p></div></div>
+          <form id="wechat-form" class="settings-grid">
+            <label>运行模式<select id="wechat-backend"><option value="builtin">内置执行器</option><option value="wxapkg_v1">wxapkg_v1 服务</option></select></label>
+            <label id="wechat-url-row">服务地址<input id="wechat-url" type="url" placeholder="http://127.0.0.1:8770"></label>
+            <label id="wechat-key-row">访问令牌<input id="wechat-key" type="password" autocomplete="new-password"></label>
+            <div class="form-actions"><button class="button primary" type="submit">保存转换服务</button><button id="test-wechat" class="button" type="button">检测</button></div>
+          </form>
+        </section>
+        <section class="panel admin-only danger-zone"><div><h2>维护暂停</h2><p>暂停领取新任务和修改操作；正在执行的任务不会被强制终止。</p></div><button id="drain-toggle" class="button danger">进入维护暂停</button></section>
+      </section>
+
+      <section id="view-accounts" class="view" hidden>
+        <section class="panel">
+          <div class="panel-head"><div><h2>后台账号</h2><p>管理员管理全部配置；操作员处理任务；只读用户仅查看。</p></div><button id="new-account" class="button primary">新增账号</button></div>
+          <div class="table-wrap"><table><thead><tr><th>账号</th><th>角色</th><th>状态</th><th>创建时间</th><th></th></tr></thead><tbody id="accounts-body"></tbody></table></div>
+        </section>
+        <section id="account-editor-panel" class="panel narrow" hidden>
+          <div class="panel-head"><h2 id="account-editor-title">新增账号</h2><button id="close-account-editor" class="text-button">关闭</button></div>
+          <form id="account-form" class="settings-grid">
+            <input id="account-id" type="hidden">
+            <label>账号<input id="account-username" required minlength="3" maxlength="80"></label>
+            <label>角色<select id="account-role"><option value="admin">管理员</option><option value="operator">操作员</option><option value="viewer">只读用户</option></select></label>
+            <label class="toggle"><input id="account-enabled" type="checkbox" checked>启用账号</label>
+            <label>密码<input id="account-password" type="password" autocomplete="new-password" minlength="12" maxlength="256"><small>编辑时留空则不修改；修改后旧会话失效。</small></label>
+            <button class="button primary" type="submit">保存账号</button>
+          </form>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="job-dialog"><div class="dialog-head"><div><p class="eyebrow">TASK DETAIL</p><h2 id="job-dialog-title">任务详情</h2></div><button id="close-job" class="icon-button" aria-label="关闭">×</button></div><div id="job-detail"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

@@ -93,6 +93,7 @@ def authorize(user,path,mutation=False):
         return
     require(role=='operator','只读账号不能修改数据',403)
     parts=path.strip('/').split('/')
+    discovery_actions=path in ('/api/discovery/decision','/api/discovery/approve','/api/discovery/reject','/api/discovery/dispatch')
     allowed=path=='/api/conversions' or (len(parts)==4 and parts[1]=='jobs' and parts[3] in ('message','retry')) or (
-        len(parts)==4 and parts[1]=='batches' and parts[3] in ('start','pause','resume','stop','retry')) or path=='/api/discovery/decision'
+        len(parts)==4 and parts[1]=='batches' and parts[3] in ('start','pause','resume','stop','retry')) or discovery_actions
     require(allowed,'此操作需要管理员权限',403)

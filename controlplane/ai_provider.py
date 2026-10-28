@@ -103,6 +103,49 @@ def config_signature(config):
     return hashlib.sha256(json.dumps(config,sort_keys=True).encode()).hexdigest()
 
 
+def parse_model_json(content, message=None):
+    """Parse the model's JSON answer with the tolerances real providers need.
+
+    Kimi/兼容网关在 JSON 模式下仍会用 ```json 围栏包住输出、偶尔把正文放进
+    reasoning_content，或在 JSON 前后附加说明文字。严格 json.loads 会让
+    auto_repair 的诊断链路整条断掉（一个任务因此直接 blocked）。
+    """
+    def variants(text):
+        if not isinstance(text,str) or not text.strip():return []
+        stripped=text.strip()
+        found=[stripped]
+        if stripped.startswith('```'):
+            body=stripped.split('\n',1)[1] if '\n' in stripped else ''
+            if body.rstrip().endswith('```'):body=body.rstrip()[:-3]
+            found.append(body.strip())
+        start=stripped.find('{')
+        if start>=0:
+            depth=0;in_string=False;escape=False
+            for index in range(start,len(stripped)):
+                ch=stripped[index]
+                if in_string:
+                    if escape:escape=False
+                    elif ch=='\\':escape=True
+                    elif ch=='"':in_string=False
+                elif ch=='"':in_string=True
+                elif ch=='{':depth+=1
+                elif ch=='}':
+                    depth-=1
+                    if depth==0:
+                        found.append(stripped[start:index+1]);break
+        return found
+
+    sources=[content]
+    if message and isinstance(message,dict):
+        reasoning=message.get('reasoning_content') or message.get('reasoning')
+        if isinstance(reasoning,str):sources.append(reasoning)
+    for source in sources:
+        for candidate in variants(source):
+            try:return json.loads(candidate)
+            except (json.JSONDecodeError,ValueError):continue
+    raise json.JSONDecodeError('no parseable JSON object',content if isinstance(content,str) else '',0)
+
+
 def responses_input(messages):
     """Translate shared text/image messages to Responses' typed input schema."""
     result=[]
@@ -185,6 +228,17 @@ def _complete(messages, config, timeout=300):
     started=time.monotonic()
     mode = config.get('backend', 'auto')
     ready = all(config.get(k) for k in ('base_url', 'api_key', 'model'))
+    if mode == 'codex_account':
+        from .codex_backend import infer
+        binary = codex_binary()
+        if not binary: raise AIProviderError('云服务器未安装 Codex CLI')
+        usage = {}
+        try:
+            result, usage = infer(binary, messages, account=config, timeout=timeout, usage_out=usage)
+        except Exception:
+            emit_usage('codex', config.get('model'), started, 'failed', usage); raise
+        emit_usage('codex', config.get('model'), started, 'succeeded', usage)
+        return result, 'codex'
     if mode == 'codex_api':
         from .codex_backend import infer
         if not ready: raise AIProviderError('云服务器 Codex CLI 的 API 配置尚未完整')
@@ -219,38 +273,76 @@ def _complete(messages, config, timeout=300):
         request = urllib.request.Request(config['base_url'].rstrip('/') + endpoint,
             data=json.dumps(body).encode(), headers=headers)
         envelope={}
-        try:
-            with urllib.request.build_opener(NoRedirect).open(request, timeout=max(1,min(timeout, 300))) as response:
-                if wire_api=='responses' and 'text/event-stream' in str(response.headers.get('Content-Type','')).lower():
-                    read_responses_stream(response,envelope,started+max(1,min(timeout,300)))
-                else:envelope=json.load(response)
-                if envelope.get('status') in ('failed','incomplete','cancelled'):raise AITerminalFailure(envelope['status'],envelope)
-                if wire_api=='responses':
-                    chunks=[]
-                    for item in envelope.get('output',[]):
-                        if not isinstance(item,dict):continue
-                        for part in item.get('content',[]):
-                            if isinstance(part,dict) and part.get('type') in ('output_text','text') and isinstance(part.get('text'),str):chunks.append(part['text'])
-                    content=''.join(chunks)
-                else:
-                    content=envelope['choices'][0]['message']['content']
-                usage=response_usage(envelope,wire_api)
-                value = json.loads(content)
-            if not isinstance(value, dict): raise ValueError('Expected object')
-            emit_usage('api',config['model'],started,'succeeded',usage)
-            return value, 'api'
-        except Exception as exc:
-            usage=response_usage(envelope,wire_api) if isinstance(envelope,dict) else None
-            emit_usage('api',config['model'],started,'failed',usage)
-            if mode == 'api':
-                detail=('超时，任务等待上限 '+str(round(max(1,min(timeout,300))))+' 秒' if isinstance(exc,TimeoutError)
-                        else 'HTTP '+str(exc.code) if isinstance(exc,urllib.error.HTTPError)
-                        else '流式响应提前结束' if isinstance(exc,AIStreamInterrupted)
-                        else exc.detail if isinstance(exc,AITerminalFailure)
-                        else '响应不是有效 JSON' if isinstance(exc,json.JSONDecodeError)
-                        else type(exc).__name__)
-                hint = '；请检查本地 Codex 桥接进程、SSH 隧道及登录状态' if config.get('connection') == 'local_codex' else '；请检查连接和模型配置'
-                raise AIProviderError('AI API 调用失败：'+detail+hint) from None
+        # 瞬时故障（网关 5xx、连接重置、DNS 抖动）不应让整个任务承担：
+        # 一次 URLError 会让任务 blocked，等下轮重跑要多花整轮 AI 成本。
+        for retry in range(3):
+            try:
+                with urllib.request.build_opener(NoRedirect).open(request, timeout=max(1,min(timeout, 300))) as response:
+                    if wire_api=='responses' and 'text/event-stream' in str(response.headers.get('Content-Type','')).lower():
+                        read_responses_stream(response,envelope,started+max(1,min(timeout,300)))
+                    else:envelope=json.load(response)
+                    if envelope.get('status') in ('failed','incomplete','cancelled'):raise AITerminalFailure(envelope['status'],envelope)
+                    if wire_api=='responses':
+                        chunks=[]
+                        for item in envelope.get('output',[]):
+                            if not isinstance(item,dict):continue
+                            for part in item.get('content',[]):
+                                if isinstance(part,dict) and part.get('type') in ('output_text','text') and isinstance(part.get('text'),str):chunks.append(part['text'])
+                        content=''.join(chunks)
+                        message=None
+                    else:
+                        message=envelope['choices'][0]['message']
+                        content=message.get('content') or ''
+                    usage=response_usage(envelope,wire_api)
+                    value = parse_model_json(content,message)
+                if not isinstance(value, dict): raise ValueError('Expected object')
+                emit_usage('api',config['model'],started,'succeeded',usage)
+                return value, 'api'
+            except urllib.error.HTTPError as exc:
+                envelope={}
+                if exc.code in (401,403,400,422):  # 认证/请求体问题，重试无意义
+                    usage=None
+                    emit_usage('api',config['model'],started,'failed',usage)
+                    if mode == 'api':
+                        raise AIProviderError('AI API 调用失败：HTTP '+str(exc.code)+'；请检查连接和模型配置') from None
+                    raise
+                if retry<2:
+                    time.sleep(2*(retry+1));continue
+                usage=None
+                emit_usage('api',config['model'],started,'failed',usage)
+                if mode == 'api':
+                    raise AIProviderError('AI API 调用失败：HTTP '+str(exc.code)+'；请检查连接和模型配置') from None
+                raise
+            except (urllib.error.URLError,OSError) as exc:
+                # TimeoutError 是 OSError 的子类，但超时意味着这次等待预算已经用尽：
+                # 再退避重试只会让调用方更晚拿到结论，也会把"超时"误报成"连接失败"。
+                if isinstance(exc,TimeoutError):
+                    usage=None
+                    emit_usage('api',config['model'],started,'failed',usage)
+                    if mode=='api':
+                        hint='；请检查本地 Codex 桥接进程、SSH 隧道及登录状态' if config.get('connection')=='local_codex' else '；请检查连接和模型配置'
+                        raise AIProviderError('AI API 调用失败：超时，任务等待上限 '+str(round(max(1,min(timeout,300))))+' 秒'+hint) from None
+                    raise
+                envelope={}
+                if retry<2:
+                    time.sleep(2*(retry+1));continue
+                usage=None
+                emit_usage('api',config['model'],started,'failed',usage)
+                if mode == 'api':
+                    raise AIProviderError('AI API 调用失败：'+str(getattr(exc,'reason',exc))+'；请检查连接和模型配置') from None
+                raise
+            except Exception as exc:
+                usage=response_usage(envelope,wire_api) if isinstance(envelope,dict) and envelope else None
+                emit_usage('api',config['model'],started,'failed',usage)
+                if mode == 'api':
+                    detail=('超时，任务等待上限 '+str(round(max(1,min(timeout,300))))+' 秒' if isinstance(exc,TimeoutError)
+                            else '流式响应提前结束' if isinstance(exc,AIStreamInterrupted)
+                            else exc.detail if isinstance(exc,AITerminalFailure)
+                            else '响应不是有效 JSON' if isinstance(exc,json.JSONDecodeError)
+                            else type(exc).__name__)
+                    hint = '；请检查本地 Codex 桥接进程、SSH 隧道及登录状态' if config.get('connection') == 'local_codex' else '；请检查连接和模型配置'
+                    raise AIProviderError('AI API 调用失败：'+detail+hint) from None
+                raise
     elif mode == 'api':
         raise AIProviderError('AI API 尚未配置完整')
     codex_started=time.monotonic()

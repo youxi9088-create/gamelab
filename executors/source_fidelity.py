@@ -2,12 +2,14 @@
 import difflib
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
 from controlplane.runtime import node_binary
 
 ROOT=Path(__file__).resolve().parent
+RUNS=Path(os.environ.get('REPLICA_RUNS_ROOT',ROOT/'runs')).resolve()
 
 
 def audit(source, output):
@@ -17,7 +19,7 @@ def audit(source, output):
     manifest=json.loads(manifest_file.read_text('utf-8'))
     if manifest.get('kind')!='embedded-html':return None
     captured=Path(manifest['directory']).resolve()
-    if not captured.is_relative_to((ROOT/'runs').resolve()):raise ValueError('Original capture must be inside executor runs')
+    if not captured.is_relative_to(RUNS):raise ValueError('Original capture must be inside executor runs')
     records={r['file']:r for r in manifest['files']}
     for name in ('index.html','game-config.json','asset-map.json'):
         if not (captured/name).resolve().is_relative_to(captured):raise ValueError('Original capture file escapes directory')

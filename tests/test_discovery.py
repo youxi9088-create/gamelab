@@ -10,6 +10,8 @@ from controlplane.discovery_scan import Page, scan, public_url
 
 class DiscoveryTests(unittest.TestCase):
     def setUp(self):
+        ai_config = patch('controlplane.service_registry.ai_config', return_value={})
+        ai_config.start(); self.addCleanup(ai_config.stop)
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
         root=Path(self.tmp.name);self.s=Service(root/'data',root/'repo','http://127.0.0.1:8766')
         with self.s.store.tx() as db:
@@ -40,15 +42,69 @@ class DiscoveryTests(unittest.TestCase):
         self.assertEqual(state['discovery_runs'][0]['category_changes'],[])
 
     def test_approval_only_queues_capture_and_dispatch_needs_approval(self):
+        from controlplane.game_technology import classify
+        self.result['games'][0]['technology'] = classify(metadata={'gamePlatform':'HTML5'})
         self.scheduler.tick(self.instant)
         item=self.s.state()['recommendations'][0]
         with self.assertRaises(ApiError):self.s.mutate('/api/discovery/dispatch',{'ids':[item['id']]})
         self.s.mutate('/api/discovery/approve',{'ids':[item['id']]})
         self.assertEqual(self.s.state()['jobs'],[])
-        result=self.s.mutate('/api/discovery/dispatch',{'ids':[item['id']]})
+        result=self.s.mutate('/api/discovery/dispatch',{'ids':[item['id']],'web_only':True})
         self.assertEqual(len(result['jobs']),1)
+        self.assertTrue(result['jobs'][0]['web_only'])
+        self.assertTrue(result['batch']['web_only'])
+        candidate = next(c for c in self.s.state()['candidates'] if c['canonical_url'] == item['url'])
+        self.assertEqual(candidate['observations']['discovery_technology']['label'], 'Web · H5')
         with self.assertRaises(ApiError):self.s.mutate('/api/discovery/dispatch',{'ids':[item['id']]})
         self.assertEqual(len(self.s.state()['jobs']),1)
+
+    # 真实规则当前为空（见 test_source_policy 的说明），所以这里注入一条假规则
+    # 来验证"拦截机制"本身，而不是绑定某个具体域名。
+    GATE={'host':'blocked.test','policy':'login-wall','label':'已知门槛（测试）',
+          'reason':'测试用门槛原因','next_action':'测试用建议'}
+    def _gate(self,url):
+        from urllib.parse import urlparse
+        host=(urlparse(url or '').hostname or '').lower()
+        return {**self.GATE,'matched_host':host} if host.endswith('blocked.test') else None
+
+    def test_gated_source_is_refused_before_dispatch(self):
+        with self.s.store.tx() as db:
+            self.s.store.put(db,'recommendations',dict(id='rec-gated',url='https://blocked.test/g/1',
+                title='Gated',category='益智',status='pending_capture',selection_score={'value':0,'basis':[],'scope':''}))
+        with patch('controlplane.source_policy.host_policy',side_effect=self._gate):
+            with self.assertRaises(ApiError) as caught:
+                self.s.mutate('/api/discovery/dispatch',{'ids':['rec-gated']})
+        self.assertEqual(caught.exception.status,409)
+        self.assertIn('已知门槛',caught.exception.message)
+        self.assertIn('blocked.test',caught.exception.message)
+        self.assertEqual(self.s.state()['jobs'],[])
+
+    def test_scan_marks_gated_source_and_skips_auto_select(self):
+        self.result['games'][0]['url']='https://blocked.test/g/1'
+        with patch('controlplane.source_policy.host_policy',side_effect=self._gate):
+            self.scheduler.tick(self.instant)
+            item=self.s.state()['recommendations'][0]
+            self.assertEqual(item['source_policy'],'login-wall')
+            self.assertTrue(item['source_policy_label'])
+            self.assertTrue(item['source_policy_reason'])
+            # 已知门槛不占自动选品名额。
+            self.s.mutate('/api/discovery/settings',{'auto_select':True,'allowed_categories':['益智'],'score_threshold':0,'daily_limit':5})
+            self.scheduler.tick(self.instant)
+            self.assertNotEqual(next(r for r in self.s.state()['recommendations'] if r['id']==item['id'])['status'],'pending_capture')
+
+    def test_mixed_batch_dispatches_only_free_sources(self):
+        self.scheduler.tick(self.instant)
+        free=self.s.state()['recommendations'][0]
+        self.s.mutate('/api/discovery/approve',{'ids':[free['id']]})
+        with self.s.store.tx() as db:
+            gated=dict(self.s.store.get(db,'recommendations',free['id']))
+            gated.update(id='rec-gated',url='https://blocked.test/g/1',status='pending_capture')
+            self.s.store.put(db,'recommendations',gated)
+        with patch('controlplane.source_policy.host_policy',side_effect=self._gate):
+            result=self.s.mutate('/api/discovery/dispatch',{'ids':[free['id'],'rec-gated']})
+        self.assertEqual(len(result['jobs']),1)
+        state=self.s.state()
+        self.assertEqual(next(r for r in state['recommendations'] if r['id']==free['id'])['status'],'dispatched')
 
     def test_delivery_recording_statistics_follow_one_isolated_task(self):
         from controlplane.delivery_requirements import REQUIRED

@@ -10,6 +10,8 @@ const assert=require('assert/strict');
   assert.equal(await page.locator('[data-recommendation]').count(),2);
   assert.equal(await page.getByRole('table',{name:'采集建议列表'}).count(),1);
   assert.equal(await page.locator('.discovery-group').count(),2);
+  assert((await page.locator('[data-technology]').first().innerText()).includes('Web · H5'));
+  assert((await page.locator('[data-technology]').first().innerText()).includes('未运行验证'));
   await page.locator('#discovery-category').selectOption({label:'益智 · 1'});
   assert.equal(await page.locator('[data-recommendation]').count(),1);
   await page.locator('[data-recommendation]').check();

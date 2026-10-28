@@ -25,8 +25,19 @@ class SourceRoutingTests(unittest.TestCase):
         self.assertTrue(all(i['status']=='unknown' for i in result['items']))
         self.assertNotIn('微信',str(result))
 
+    def test_unread_page_is_not_reported_as_missing_entry(self):
+        # 空观测意味着页面根本没读到，不能再说成"没有入口"——这两种失败的
+        # 处理方式完全不同，混在一起会让每次超时都往入口方向排查。
+        unread=web_block_reason({})
+        self.assertIn('采集未产出',unread)
+        self.assertNotIn('尚未识别',unread)
+        self.assertNotIn('没有入口',unread.replace('不是"没有入口"',''))
+        flagged=web_block_reason({'title':'x','acquisition_error':'Timeout 90000ms exceeded'})
+        self.assertIn('采集阶段未能完成',flagged)
+        self.assertIn('Timeout',flagged)
+
     def test_missing_entry_and_missing_adapter_are_distinct(self):
-        missing=web_block_reason({})
+        missing=web_block_reason({'title':'x','web_discovery':{'entries':[]}})
         self.assertIn('尚未识别',missing)
         self.assertNotIn('微信',missing)
         lead=web_block_reason({'web_discovery':{'launch_links':[{'url':'https://example.org/play','label':'开始游戏'}]}})

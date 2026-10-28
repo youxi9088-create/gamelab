@@ -29,6 +29,10 @@ def recover(observation, run, budget, acquire):
     choices = []
     for key in ('iframe_hints', 'launch_links', 'loader_hints'):
         for row in discovery.get(key, []):
+            # 广告 iframe 不能进候选清单：4k99 详情页 8 个 iframe 里 6 个是广告，
+            # 让模型去挑等于把预算花在百度联盟上。
+            if row.get('ad'):
+                continue
             if isinstance(row, dict) and isinstance(row.get('url'), str) and row['url'] not in [c['url'] for c in choices]:
                 choices.append({'entry_id': str(len(choices)+1), 'url': row['url'], 'source': key})
     allowed = {row['url'] for row in choices}
@@ -70,6 +74,8 @@ def recover(observation, run, budget, acquire):
             for row in result.get('web_discovery', {}).get(key, []):
                 child = row.get('url') if isinstance(row, dict) else None
                 if not isinstance(child, str) or child in allowed or len(choices) >= 100:
+                    continue
+                if (row or {}).get('ad'):
                     continue
                 item = {'entry_id':str(len(choices)+1), 'url':child, 'source':key}
                 choices.append(item); allowed.add(child); by_id[item['entry_id']] = child

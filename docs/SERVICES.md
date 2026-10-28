@@ -5,6 +5,7 @@
 | 服务 | 入口 / 生命周期 | 实现与配置 |
 |---|---|---|
 | 管理控制平面 | `server.py`，8765 | SQLite、任务/批次/租约、版本、账本、本机会话 |
+| 独立任务后台 | `services/task_backend/app.py`，8780 | 独立数据库与账号；采集、转换队列、worker、AI/原包配置；见 [部署指南](TASK_BACKEND.md) |
 | 独立试玩 | `server.py`，8766 | 与管理不同源；不可变产物、独立游戏 Git 仓库 |
 | 小游戏转 Web 浏览器游戏服务 | Executor 随平台启动监督 worker | 配置键 `wechat` 保留兼容；内置执行器或外部模式 |
 | Cocos 原包 API | 默认 8770，按配置启动 | `services/wechat-web-service/`，异步 ZIP 转换，现有 3.5.1/define 适配 |

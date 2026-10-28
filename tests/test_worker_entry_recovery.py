@@ -17,13 +17,35 @@ class Client:
         return {'artifact_id':'isolated-artifact'}
 
 
+class FailureDetailTests(unittest.TestCase):
+    """失败原因必须随事件上报，否则前端只剩"见本轮任务结果"这句空话。"""
+
+    def test_blocked_message_kept_verbatim(self):
+        self.assertEqual(worker.failure_detail(worker.Blocked('无法采集游戏链接：Timeout')),
+                         '无法采集游戏链接：Timeout')
+
+    def test_unexpected_error_gets_type_name(self):
+        detail = worker.failure_detail(TypeError('boom'))
+        self.assertIn('TypeError', detail)
+        self.assertIn('boom', detail)
+
+    def test_empty_message_falls_back_to_type(self):
+        self.assertEqual(worker.failure_detail(ValueError()), 'ValueError')
+
+    def test_long_message_is_truncated(self):
+        self.assertLessEqual(len(worker.failure_detail(RuntimeError('x' * 5000))), 400)
+
+    def test_newlines_collapsed(self):
+        self.assertEqual(worker.failure_detail(worker.Blocked('a\n\nb   c')), 'a b c')
+
+
 class WorkerEntryRecoveryTests(unittest.TestCase):
     def test_ai_probe_resumes_conversion_and_publishes_only_converter_result(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp)
             config=root/'services.json'; config.write_text('{}')
             client=Client(); visits=[]
-            def acquire(url,run,budget,observations=None):
+            def acquire(url,run,budget,observations=None,web_only=False):
                 visits.append(url)
                 observation={'title':'Isolated game','source_kind':'web','web_discovery':{
                     'iframe_hints':[{'url':'https://example.org/game','evidence':'iframe-src'}],

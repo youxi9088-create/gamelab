@@ -73,9 +73,12 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 'configure_runtime 必须在返回 JSON 顶层携带 runtime_plan:{engine,sdk,source_sha256}（与 action 同级），根据原入口证据选择 runtime_contracts 中的执行契约；'
                 'sdk 仅允许 JSON null（无需宿主适配）或字符串 "poki-offline"，不要使用字符串 none 或其他值。'
                 '平台独立校验契约并重新采集、离线运行，不按游戏名称选择。仅有识别结果不能算修复成功。'
+                'crash_sites 已给出崩溃属性名与捕获文件里该列的源码上下文，直接据此定位缺失成员，不要用盲读反复试。'
+                '宿主层缺失的成员（SDK/平台接口）用patch_host在本地宿主里补成真实空实现或事件注册，使其可被安全调用；'
                 '只有暂时网络/浏览器故障适合retry。patch_host仅修改列出的宿主文件，'
                 '保留原玩法、接口和资源，不删除验证或伪造成功/奖励/登录，不修改平台或原游戏代码。'
                 '缺权限、材料、认证或无可执行契约时stop并指出已查证证据与缺少的具体能力。'
+                '只有真实服务端才能成立的存档、排行榜、登录、对战结算不得伪造返回值或假装成功，这类应stop并说明缺后端。'
                 '本地 Codex 与 API 具有相同的上述工具；不要要求外部终端或依赖开发会话。修复是否成功由实际验证决定。'},
                 {'role': 'user', 'content': [{'type':'text','text':json.dumps(payload, ensure_ascii=False)}]+context.images()}], budget)
             if not isinstance(answer, dict): raise ValueError('诊断返回格式无效')
@@ -100,6 +103,12 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
             if action == 'inspect':
                 try:
                     row['tool_results'] = context.inspect(answer, sources)
+                    # The captured tree keeps changing between rounds: every
+                    # offline verify pass backfills more runtime assets. Without
+                    # a reload the next prompt reuses the inventory taken at the
+                    # first failure, so the model keeps "diagnosing" missing
+                    # files that already exist and never reaches retry.
+                    sources = context.load()
                     feedback = None
                 except (ValueError,KeyError,TypeError) as exc:
                     feedback = str(exc); row['tool_error'] = feedback

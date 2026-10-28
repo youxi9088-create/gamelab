@@ -1,7 +1,8 @@
 """Carry failed browser observations into retry without treating them as user instructions."""
 import json
+import os
 from pathlib import Path
-ROOT=Path(__file__).resolve().parent/'runs'
+ROOT=Path(os.environ.get('REPLICA_RUNS_ROOT',Path(__file__).resolve().parent/'runs')).resolve()
 
 def previous_execution(job):
     path=(job.get('report') or {}).get('run_directory')

@@ -33,7 +33,8 @@ class Executor:
             token = registration['token']
             token_file.write_text(token, 'utf-8')
         env = {**os.environ, 'PLATFORM_TOOL_TOKEN':token, 'PYTHONIOENCODING':'utf-8',
-               'REPLICA_SERVICE_CONFIG':str(self.service.data_dir / 'services.json')}
+               'REPLICA_SERVICE_CONFIG':str(self.service.data_dir / 'services.json'),
+               'REPLICA_RUNS_ROOT':str(self.service.runs_dir)}
         def watch():
             while not self.stop.is_set():
                 try:

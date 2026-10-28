@@ -39,14 +39,16 @@ def overview(state, usage, clock=None):
                 retry_unknown+=u.get('input_tokens') is None or u.get('output_tokens') is None
         reason=j.get('reason') or j.get('question') or ''
         if j.get('status') in ('failed','blocked','waiting_input'):
-            code=(j.get('report',{}).get('blocker') or {}).get('code') or j['status']
+            code=(j.get('policy_pause') or {}).get('label') or (j.get('report',{}).get('blocker') or {}).get('code') or j['status']
             failures[code]=failures.get(code,0)+1
         since=None
         if j.get('status')=='running':since=j.get('started_at')
         elif j.get('status')=='review':since=next((v.get('created_at') for v in versions if v['id']==j.get('version_id')),None)
         engine=c.get('engine') or '未识别'
         row=dict(**t,title=c.get('title',cid),engine=engine,route=j.get('route') or '未记录',
+                 route_label=j.get('route_label') or '',route_detail=j.get('route_detail') or '',
                  job_id=j.get('id'),status=j.get('status') or c.get('status','candidate'),
+                 display_status=j.get('display_status') or j.get('status') or c.get('status','candidate'),
                  stage=j.get('pipeline',{}).get('current') or j.get('stage'),
                  status_age_seconds=age(since),reason=reason,round=j.get('round'),
                  accepted=bool(accepted),costs=costs,unknown_cost_calls=unknown_cost,

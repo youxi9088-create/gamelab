@@ -68,7 +68,7 @@ def prepare(messages, directory):
     return texts,images
 
 
-def infer(binary, messages, config=None, timeout=270, usage_out=None):
+def infer(binary, messages, config=None, timeout=270, usage_out=None, account=None):
     with inference_directory() as temp:
         directory=Path(temp);texts,images=prepare(messages,directory)
         schema=directory/'schema.json';output=directory/'answer.json'
@@ -87,6 +87,14 @@ def infer(binary, messages, config=None, timeout=270, usage_out=None):
                  '-c','model_reasoning_effort="medium"','--json','--color','never','-C',str(directory),
                  '--output-schema',str(schema),'-o',str(output)]
         environment = None
+        if account is not None:
+            from .codex_account import require_account
+            home = require_account(account['account_email'])
+            environment = {k: v for k, v in os.environ.items() if k not in
+                           ('OPENAI_API_KEY', 'OPENAI_BASE_URL', 'CODEX_ACCESS_TOKEN', 'CODEX_API_KEY')}
+            environment['CODEX_HOME'] = str(home)
+            command += ['-c', 'cli_auth_credentials_store="file"', '-c', 'forced_login_method="chatgpt"',
+                        '-m', account['model']]
         if config is not None:
             # A private per-call CODEX_HOME keeps tokens out of argv and avoids
             # depending on the interactive Administrator's Codex login/config.

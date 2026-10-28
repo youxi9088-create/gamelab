@@ -4,6 +4,18 @@ const {chromium,request}=require('playwright');
 const {storageEvidence}=require('./storage-evidence.cjs');
 const {entryReferences,references,rewriteModules,rewriteInlineModules}=require('./module-resources.cjs');
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+// Playwright 不会自动使用系统/环境变量代理。进程内的 APIRequestContext
+// （context.request 与 request.newContext）因此会直连，在只能经代理出网的机器上
+// 报 getaddrinfo ENOTFOUND，而同一台机器的浏览器导航却是通的。
+const proxyServer=(process.env.HTTPS_PROXY||process.env.https_proxy||process.env.HTTP_PROXY||process.env.http_proxy||'').trim();
+// Loopback must never be proxied: the offline run serves captured files from a
+// local ephemeral port and route.fetch() re-issues those requests through the
+// browser context. Without the bypass those fetches can be handed to the
+// outbound proxy, which cannot reach 127.0.0.1, so files that are already on
+// disk come back as errors and stall the repair loop.
+const proxyOptions=()=>proxyServer?{proxy:{server:proxyServer,bypass:'127.0.0.1,localhost,[::1]'}}:{};
+// 装饰性资源：缺失只影响观感，不阻断运行；脚本/引擎/配置仍严格阻断。
+const DECORATIVE=/\.(gif|jpe?g|png|webp|avif|svg|ico|bmp|woff2?|ttf|otf|eot|mp3|ogg|wav|m4a)(\?|$)/i;
 const screenshotModes=new WeakMap();
 async function screenshot(page,file){
  // Capture the compositor's actual viewport. Game-created FontFace loads may
@@ -124,7 +136,7 @@ async function capture(input,run){
  const report={url:input.url,referer:input.referer,files:[],external:[],errors:[],preloadErrors:[],missing:[],patches:[],redirects:[]};
  const browser=await chromium.launch(require('./browser-options.cjs')());let pending=[],failure,total=0;
  try{
-  const context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block',acceptDownloads:false});
+  const context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block',acceptDownloads:false,...proxyOptions()});
   await context.addInitScript(()=>{let value;Object.defineProperty(window,'_CCSettings',{configurable:true,get:()=>value,set:v=>{value=v;if(v)window.__capturedCCSettings=JSON.parse(JSON.stringify(v));}});});
   const response=await context.request.get(entry.href,{headers:{Referer:input.referer||input.url},timeout:30000,maxRedirects:0});
   if(!response.ok())throw Error('运行入口 HTTP '+response.status());
@@ -251,6 +263,8 @@ async function capture(input,run){
 }
 async function verify(run,actions=[],nextBatch=null,viewportReview=false){
  const started=Date.now(),root=path.resolve(run,'converted'),report={passed:false,errors:[],missing:[],external:[],blocked_external:[],required_external:[],steps:[],actions:[],renderDiagnostics:[]},acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
+ // 原站同样拿不到、上轮已如实容忍的装饰资源不再重复上报，防止补齐循环空转。
+ const tolerated=new Set((acq.missing_decorative||[]).map(x=>(typeof x==='string'?x:x.path).replace(/^\/+/,'')));
  fs.mkdirSync(path.join(root,'evidence'),{recursive:true});fs.mkdirSync(path.join(root,'screenshots'),{recursive:true});
  const server=http.createServer((req,res)=>{
   let p;try{p=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));}catch{res.writeHead(400);return res.end();}
@@ -259,33 +273,67 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   const mime={'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.wasm':'application/wasm','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.swf':'application/x-shockwave-flash'};
   res.setHeader('Content-Type',mime[path.extname(p)]||'application/octet-stream');res.end(fs.readFileSync(p));
  });await new Promise(r=>server.listen(0,'127.0.0.1',r));const transport=`http://127.0.0.1:${server.address().port}`,origin='https://replica-runtime.invalid';
- report.runtime_origin=origin;report.navigation=[];
+ report.runtime_origin=origin;report.navigation=[];report.navigation_attempts=[];report.navigation_checkpoints=[];
+ let phase='startup';
+ const navigationCheckpoint=()=>report.navigation_checkpoints.push({phase,elapsed_ms:Date.now()-started,
+  status:report.errors.length||report.navigation_attempts.some(n=>!n.allowed)||report.navigation.some(n=>!n.allowed)?'failed':'passed',
+  scope:'Observed non-loopback runtime only; not a guarantee for unobserved timers or deployment configurations'});
  let browser,page,context;
  try{
   browser=await chromium.launch(require('./browser-options.cjs')());
-  const c=context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block'});
+  const c=context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block',...proxyOptions()});
   // A virtual HTTPS origin exposes hostname-dependent behaviour without ever
   // contacting that host. Only GET/HEAD resources use the private file server;
   // game POSTs cannot reach a local backend or escape through redirects.
   await c.route('**/*',async r=>{const req=r.request(),u=new URL(req.url());
+   if(req.isNavigationRequest()&&req.frame()===page?.mainFrame()){
+    const allowed=u.origin===origin&&u.pathname==='/';
+    report.navigation_attempts.push({url:u.origin+u.pathname,phase,allowed,elapsed_ms:Date.now()-started});
+    if(!allowed){report.errors.push('Unexpected main-frame navigation attempt: '+u.origin+u.pathname);report.blocked_external.push({url:u.origin+u.pathname,type:req.resourceType(),method:req.method()});return r.abort();}
+   }
    if(u.origin===origin&&['GET','HEAD'].includes(req.method())){
-    const response=await r.fetch({url:transport+u.pathname+u.search,maxRedirects:0});
-    try{return await r.fulfill({response});}finally{await response.dispose();}
+    // 一个按需分包会带来几百个并发请求；其中一部分会被游戏自己取消，
+    // Playwright 此时已把 route 处理掉，再 fulfill 就抛 'Route is already handled'。
+    // 这类取消不是运行时缺陷，吞掉即可，否则整个验证会崩在一次竞态上。
+    let response;
+    try{response=await r.fetch({url:transport+u.pathname+u.search,maxRedirects:0});}
+    catch{return;}
+    try{await r.fulfill({response});}catch{}
+    finally{await response.dispose().catch(()=>{});}
+    return;
    }
    if(['data:','blob:'].includes(u.protocol))return r.continue();
    const url=u.origin+u.pathname;report.external.push(url);report.blocked_external.push({url,type:req.resourceType(),method:req.method()});if(['script','stylesheet','image','font','media','document'].includes(req.resourceType()))report.required_external.push(url);return r.abort();
   });
-  page=await c.newPage();page.on('pageerror',e=>report.errors.push((e.stack||e.message).slice(0,3000)));page.on('response',r=>{if(r.status()>=400)report.missing.push(r.url().replace(origin,''));});
-  page.on('framenavigated',frame=>{if(frame!==page.mainFrame())return;const u=new URL(frame.url());report.navigation.push({url:u.origin+u.pathname,elapsed_ms:Date.now()-started});if(u.origin!==origin||u.pathname!=='/')report.errors.push('Unexpected main-frame navigation: '+u.origin+u.pathname);});
+  page=await c.newPage();page.on('pageerror',e=>report.errors.push((e.stack||e.message).slice(0,3000)));   page.on('response',r=>{
+   if(r.status()<400)return;
+   const local=r.url().replace(origin,'');
+   // 全部 404 都进 missing：主菜单 UI 图片这类"看似装饰"的资源缺了游戏就进不了
+   // 玩法（4k99 贪吃蛇卡标题画面实例）。是否容忍由 repairResources 决定——
+   // 原站也拿不到的装饰资源会在那里被记录进 acq.missing_decorative，下一轮
+   // verify 据此排除，避免"容忍->文件仍缺->再 404"的空转。
+   const rel=decodeURIComponent(local.split('?')[0]).replace(/^\/+/,'');
+   if(tolerated.has(rel))return;
+   report.missing.push(local);
+  });
+  page.on('framenavigated',frame=>{if(frame!==page.mainFrame())return;const u=new URL(frame.url()),allowed=u.origin===origin&&u.pathname==='/';report.navigation.push({url:u.origin+u.pathname,phase,allowed,elapsed_ms:Date.now()-started});if(!allowed)report.errors.push('Unexpected main-frame navigation: '+u.origin+u.pathname);});
   c.on('page',popup=>{if(popup!==page){report.errors.push('Unexpected popup during runtime verification');popup.close().catch(()=>{});}});
   page.on('console',m=>{if(m.type()==='error'&&/Failed to load module script|Failed to resolve module specifier/i.test(m.text()))report.errors.push(m.text().slice(0,1500));});
   page.on('console',m=>{const text=m.text();if(report.renderDiagnostics.length<40&&/renderer|webgl|webgpu|adapter|panic/i.test(text))report.renderDiagnostics.push(text.slice(0,500));});
   await page.goto(origin,{waitUntil:'domcontentloaded'});
   let missingProbe;
-  try{await Promise.race([gameplayReady(page,acq.engine),new Promise((resolve,reject)=>{missingProbe=setInterval(()=>{if(report.errors.length)reject(Error('Runtime script error: '+report.errors[0]));else if(report.missing.length)reject(Error('Missing local runtime resources'));},500);})]);}
+  // 资源缺失常常先表现为引擎断言（Cocos 的 Assert 1205 之类）。早先脚本错误
+  // 优先判定，一崩溃就立刻失败，那些还没收集完的 404 就永远进不了缺失清单，
+  // repairResources 也就无从补齐——任务只能反复 blocked 在同一处。
+  // 因此先按缺失处理：补齐后重跑，若仍报脚本错误再如实失败。
+  try{await Promise.race([gameplayReady(page,acq.engine),new Promise((resolve,reject)=>{missingProbe=setInterval(()=>{if(report.missing.length)reject(Error('Missing local runtime resources'));else if(report.errors.length)reject(Error('Runtime script error: '+report.errors[0]));},500);})]);}
   finally{clearInterval(missingProbe);}
-  // Observe automatic redirects before any replayed or newly requested input.
-  await page.waitForTimeout(2000);
+  // Splash 出现只是引擎就绪；主菜单/玩法所需的二级资源（Cocos 的 Config、
+  // 预制体、语言包等）要等引擎继续初始化才会请求。等待太浅时这些 404
+  // 不会进入 missing，repairResources 就永远没机会补齐它们，任务会在
+  // reconstruct 阶段被 AI 以“进入不了主菜单”阻断（4k99 贪吃蛇实例）。
+  await page.waitForTimeout(20000);
+  navigationCheckpoint();
   if(report.errors.length||report.required_external.length)throw Error('Offline check failed: runtime navigation or resource dependency');
   report.steps.push({...await state(page,acq.engine),storage:await storageEvidence(page)});await screenshot(page,path.join(root,'screenshots/startup.png'));
   if(viewportReview){
@@ -316,6 +364,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
   if(!Array.isArray(batch)||report.actions.length+batch.length>(nextBatch?300:20))throw Error('Invalid actions');
   for(const requested of batch){
    let a={...requested};
+   phase=a.type==='reload'?'reload':'interaction';
    const i=report.actions.length;
    const bounds=page.viewportSize();
    const storageBeforeReload=a.type==='reload'?await storageEvidence(page):null;
@@ -332,7 +381,9 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
    else if(a.type==='wait'){}
    else if(a.type==='reload'){await page.reload({waitUntil:'domcontentloaded'});await gameplayReady(page,acq.engine);}
    else throw Error('Unsupported input action');
-   await page.waitForTimeout(Math.max(200,Math.min(10000,a.wait_ms||1500)));
+   await page.waitForTimeout(Math.max(a.type==='reload'?5000:200,Math.min(10000,a.wait_ms||1500)));
+   navigationCheckpoint();
+   if(report.errors.length||report.required_external.length)throw Error('Offline check failed: runtime navigation or resource dependency');
    report.actions.push(a);
    const observed={...await state(page,acq.engine),elapsed_ms:Date.now()-started,storage:await storageEvidence(page)};
    if(storageBeforeReload)observed.storage_before_reload=storageBeforeReload;
@@ -362,20 +413,42 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false){
 async function repairResources(run){
  const root=path.join(run,'converted'),file=path.join(run,'web-acquisition.json'),acq=JSON.parse(fs.readFileSync(file)),runtime=JSON.parse(fs.readFileSync(path.join(root,'evidence/runtime.json')));
  const base=new URL('.',safeURL(acq.url)).href,missing=[...new Set(runtime.missing||[])];
- if(!missing.length||missing.length>100)throw Error('Missing-resource repair exceeds batch limit');
+ // 按需加载的引擎分包（Cocos 的 assets/<bundle>、Unity 的 StreamingAssets 等）
+ // 一次运行就会成批 404：3D贪吃蛇的 Game 分包有 300+ import 与 native 文件。
+ // 100 的旧上限会让补齐永远收敛不了，任务只能 blocked。
+ if(!missing.length||missing.length>600)throw Error('Missing-resource repair exceeds batch limit');
  const prior=acq.resource_refreshes||[],added=[];let bytes=0;
- if(prior.reduce((n,r)=>n+r.files.length,0)+missing.length>250)throw Error('Resource repair exceeds task limit');
- const client=await request.newContext({extraHTTPHeaders:{Referer:acq.referer||acq.url}});
+ if(prior.reduce((n,r)=>n+r.files.length,0)+missing.length>2000)throw Error('Resource repair exceeds task limit');
+ const client=await request.newContext({...proxyOptions(),extraHTTPHeaders:{Referer:acq.referer||acq.url}});
  try{
   for(const local of missing){
    if(typeof local!=='string'||!local.startsWith('/')||local.startsWith('//'))throw Error('Invalid observed resource path');
    const url=safeURL(new URL(local.slice(1),base).href),relative=resourcePath(url.href,base);
    if(url.origin!==new URL(base).origin||relative!==decodeURIComponent(local.split('?')[0].slice(1))||relative.startsWith('_remote/'))throw Error('Resource repair must remain in the observed original directory');
    const dest=path.resolve(root,relative);
-   if(!dest.startsWith(path.resolve(root)+path.sep)||fs.existsSync(dest))throw Error('Resource repair cannot replace existing files');
+   if(!dest.startsWith(path.resolve(root)+path.sep))throw Error('Resource repair cannot write outside the package');
+   // A path already on disk is not a repair. Throwing here used to kill the
+   // whole attempt loop: one entry that the page kept re-reporting (a cancelled
+   // request, or a fetch that raced the previous write) aborted every remaining
+   // round, so a package that had already run cleanly still ended up blocked.
+   if(fs.existsSync(dest)){(acq.repaired_present=acq.repaired_present||[]).push(relative);continue;}
    acq.redirects=acq.redirects||[];
    const response=await followResourceRedirects(value=>client.get(value,{maxRedirects:0,timeout:30000}),url.href,acq.redirects);
-   if(!response.ok())throw Error('Original missing resource HTTP '+response.status()+': '+url.href);
+   // 原站引用了一个拿不到的装饰资源（如 c.17yoo.cn 的 logo/landscape.gif）不该让
+   // 整个转换停下：图片/字体/音频缺失影响观感，不决定游戏能否运行。
+   // 脚本与引擎文件仍然严格阻断，并且把跳过如实记进 missing_decorative。
+   if(!response.ok()){
+    const entry={url:url.href,path:relative,http_status:response.status()};
+    if(!DECORATIVE.test(url.href)){
+     // 取不回来的脚本也不该炸掉整批补齐：那会让同批其它能补上的文件一起放弃，
+     // 一个包就这样被单个无关文件判死。如实记录后继续，是否真的必需由离线运行
+     // 本身决定——缺了它照样会在 runtime.json 的 missing 里出现，不会蒙混过关。
+     (acq.unavailable=acq.unavailable||[]).push(entry);
+     await response.dispose();continue;
+    }
+    (acq.missing_decorative=acq.missing_decorative||[]).push(entry);
+    await response.dispose();continue;
+   }
    if(Number(response.headers()['content-length']||0)>20*1024*1024)throw Error('Resource exceeds repair byte limit');
    const data=await response.body();bytes+=data.length;
    if(bytes>30*1024*1024||(acq.bytes||0)+bytes>220*1024*1024||acq.files.length+added.length>=1800)throw Error('Resource repair exceeds snapshot limits');
@@ -385,7 +458,9 @@ async function repairResources(run){
   }
  }finally{
   await client.dispose();
-  if(added.length){
+  // 容忍的原站缺失（missing_decorative）也必须落盘：否则下一轮 verify 的
+  // 排除集为空，同样的 404 再次上报，重试循环在零进展中耗尽。
+  if(added.length||acq.missing_decorative||acq.unavailable||acq.repaired_present){
    acq.files.push(...added);acq.bytes=(acq.bytes||0)+added.reduce((n,f)=>n+f.bytes,0);
    acq.resource_refreshes=[...prior,{files:added,observed_missing:missing,reason:runtime.failure}];
    fs.writeFileSync(file,JSON.stringify(acq,null,2));fs.writeFileSync(path.join(root,'evidence/acquisition.json'),JSON.stringify(acq,null,2));
@@ -404,11 +479,14 @@ if(require.main===module){const [mode,input,run]=process.argv.slice(2);(async()=
  try{
   let r;
   if(mode==='capture')r=await capture(data,run);
-  else for(let attempt=0;attempt<4;attempt++){
+  // Cocos 按需分包一次只暴露几个新 404，8 轮经常在收敛前就用完预算，任务只能
+  // 交给 auto_repair 再重试一轮（多花一次诊断，也可能被判 stop）。放宽到 20 轮，
+  // 让补齐在同一条链路里走完。
+  else for(let attempt=0;attempt<20;attempt++){
    try{r=await verify(run,desired,nextBatch,mode==='viewport');break;}
    catch(e){
     const runtime=JSON.parse(fs.readFileSync(path.join(run,'converted/evidence/runtime.json'))),acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
-    if(attempt>=3||!runtime.missing?.length||!acq.url)throw e;
+    if(attempt>=19||!runtime.missing?.length||!acq.url)throw e;
     fs.writeFileSync(path.join(run,'converted/evidence','resource-check-'+Date.now()+'.json'),JSON.stringify(runtime,null,2));
     await repairResources(run);
    }

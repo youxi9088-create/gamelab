@@ -48,7 +48,7 @@ class Handler(BaseHTTPRequestHandler):
         if not self.server.busy.acquire(timeout=10):return self.send_json(429,{'error':{'code':'local_codex_busy'}})
         started=time.monotonic();status='failed'
         try:
-            body=json.loads(self.rfile.read(length));value,usage=infer(self.server.binary,body['messages'])
+            body=json.loads(self.rfile.read(length));value,usage=infer(self.server.binary,body['messages'],account=getattr(self.server,'account',None))
             status='succeeded'
             self.send_json(200,{'object':'chat.completion','model':'local-codex','choices':[{'index':0,'message':{'role':'assistant','content':json.dumps(value,ensure_ascii=False)},'finish_reason':'stop'}],'usage':usage})
         except (ValueError,KeyError,TypeError):self.send_json(502,{'error':{'code':'invalid_codex_output'}})
@@ -59,12 +59,21 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--port',type=int,default=8877);parser.add_argument('--token-file',required=True);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--port',type=int,default=8877);parser.add_argument('--token-file',required=True)
+    parser.add_argument('--account-email');parser.add_argument('--account-root');parser.add_argument('--model',default='gpt-6-sol');args=parser.parse_args()
+    account=None
+    if args.account_email:
+        if not args.account_root:raise ValueError('An isolated account root is required')
+        os.environ['GAMELAB_SHARED_ROOT']=str(Path(args.account_root).resolve())
+        from controlplane.codex_account import require_account
+        require_account(args.account_email)
+        account={'account_email':args.account_email,'model':args.model}
     token=Path(args.token_file).read_text('utf-8').strip()
     if len(token)<32:raise ValueError('A strong local bridge token is required')
     binary=shutil.which('codex')
     if not binary:raise RuntimeError('Codex CLI is required')
     server=ThreadingHTTPServer(('127.0.0.1',args.port),Handler);server.token=token;server.binary=binary;server.busy=threading.Lock()
+    server.account=account
     print(json.dumps({'listening':'127.0.0.1:'+str(args.port),'backend':'local-codex'}),flush=True)
     server.serve_forever()
 

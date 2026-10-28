@@ -1,6 +1,11 @@
 import {patchHTML} from './dom-sync.js';
+import {presentPolicyPauses} from './policy-pause.js';
 import {dashboardPulse,dashboardGames,dashboardDiagnostics,bindDashboard} from './dashboard.js';
 let discoveryStatus='pending', discoveryRun='', discoverySelected=new Set(), discoveryCategory='', discoverySource='', libraryEngine='';
+// 云端只读门面会通过 state.migration.read_only 声明自己不承载写操作。
+// 此时前端隐藏一切"发起/修改"入口，并在 mutate 层兜底拦截，避免点了才发现是 501。
+let readOnly=false;
+const READ_ONLY_HINT='这是云端只读站点，发起任务、采集与修改请在本地平台操作。';
 const gameCategories=c=>c.catalog_facets?.categories||[String(c.category||'').trim()||'未分类'];
 const gameEngines=c=>c.catalog_facets?.engines||['待识别'];
 function discoveryGroups(rows) {
@@ -16,24 +21,24 @@ function discoveryPage() {
   let lastGroup='';
   const groupHeading=r=>{const key=JSON.stringify([r.category,r.source_id||r.source]);if(lastGroup===key)return '';lastGroup=key;return `<tr class="discovery-group"><td colspan="6">${esc(r.category||'未分类')} / ${esc(r.source||'未知网站')} <span class="muted">· ${rows.filter(x=>(x.category||'未分类')===(r.category||'未分类')&&(x.source_id||x.source)===(r.source_id||r.source)).length} 款</span></td></tr>`;};
   const statuses={pending:'待选择',pending_capture:'待抓取',rejected:'不再处理',dispatched:'已派单'};
-  return head('采集建议','每天发现游戏与品类变化，由你决定哪些进入待抓取。',
-    '<button data-discovery-settings>每日规则</button><button class="primary" data-discovery-scan>立即扫描来源</button>')+
+  return head('采集建议', readOnly?'以下为本地平台采集结果的只读快照。':'每天发现游戏与品类变化，由你决定哪些进入待抓取。',
+    readOnly?'':'<button data-discovery-settings>每日规则</button><button class="primary" data-discovery-scan>立即扫描来源</button>')+
     `<p class="notice">每日计划：${cfg.enabled?'每天北京时间 '+String(cfg.hour).padStart(2,'0')+':00':'已暂停'}。平台后台需持续运行；错过当天时间会在启动后补扫一次。${cfg.auto_dispatch?'规则自动选择的游戏会直接派单转换；人工通过仍进入待抓取。':'审核通过不会立即复刻。'}</p>
     <section class="schedule-summary" aria-label="自动分析服务"><p><strong>每日采集分析</strong><br>${cfg.enabled?'已启用 · 北京时间 '+String(cfg.hour).padStart(2,'0')+':00':'已暂停'}</p><p><strong>最近执行</strong><br>${runs[0]?esc(runs[0].day)+' · '+esc(({completed:'完成',partial:'部分完成',running:'执行中',queued:'排队中',interrupted:'中断'})[runs[0].status]||runs[0].status):'尚无记录'}</p><p><strong>执行范围</strong><br>发现游戏、分析页面品类、生成建议；${cfg.auto_dispatch?'已开启规则派单':'转换仍需通过并派单'}</p></section>
     <div class="discovery-toolbar"><label>游戏品类<select id="discovery-category"><option value="">全部品类</option>${facetOptions('category',discoveryCategory)}</select></label><label>来源网站<select id="discovery-source"><option value="">全部网站</option>${facetOptions('source',discoverySource)}</select></label><label>清单状态<select id="discovery-status">${Object.entries(statuses).map(([k,v])=>`<option value="${k}" ${discoveryStatus===k?'selected':''}>${v}</option>`).join('')}</select></label>
     <label>生成批次<select id="discovery-run"><option value="">全部日期</option>${runs.map(r=>`<option value="${esc(r.id)}" ${discoveryRun===r.id?'selected':''}>${esc(r.day)} · ${date(r.created_at)} · ${esc(r.status)}</option>`).join('')}</select></label>
-    ${discoveryStatus==='pending'?'<button data-discovery-decision="approve">选中项通过 → 待抓取</button><button data-discovery-decision="reject">选中项不再处理</button>':''}
-    ${discoveryStatus==='pending_capture'?'<button class="primary" data-discovery-decision="dispatch">开始抓取选中游戏</button>':''}</div>
+    ${!readOnly&&discoveryStatus==='pending'?'<button data-discovery-decision="approve">选中项通过 → 待抓取</button><button data-discovery-decision="reject">选中项不再处理</button>':''}
+    ${!readOnly&&discoveryStatus==='pending_capture'?'<button class="primary" data-discovery-decision="dispatch">开始抓取选中游戏</button>':''}</div>
     ${run?`<details class="panel"><summary>扫描记录与品类变化 · ${esc(run.day)} · ${esc(({queued:'等待扫描',running:'扫描中',completed:'已完成',partial:'部分完成',interrupted:'已中断'})[run.status]||run.status)}</summary>
     <p class="tiny muted">平台品类基线：${esc((run.catalog_categories||[]).join('、')||'尚无')}。首次扫描只建立观察基线，不等于网站刚新增。</p>
     ${(run.category_changes||[]).map(c=>`<div class="step"><strong>${esc(c.category)}</strong> · ${esc(c.source)} · ${c.first_observation?'首次观察':'本次新观察'}<p>${esc(c.recommendation)}</p><a href="${esc(safeUrl(c.evidence_url))}" target="_blank" rel="noopener noreferrer">品类依据 ↗</a></div>`).join('')||'<p>尚未记录新品类；不代表已覆盖全站。</p>'}
     ${(run.sources||[]).map(s=>`<div class="step"><b>${esc(s.name)}</b> · ${esc(({success:'扫描完成',partial:'部分完成',failed:'失败',needs_adapter:'需要调整规则或适配'})[s.status]||s.status)} · 新建议 ${s.new} · 去重 ${s.duplicates}<p class="tiny muted">${esc(s.coverage)}</p>${s.errors.map(e=>`<p class="tiny">${esc(e.url||'')} ${esc(e.error)}</p>`).join('')}</div>`).join('')}</details>`:''}
     <p class="tiny muted">当前 ${rows.length} / ${available.length} 款 · 按品类 / 网站分组，切换筛选会清空勾选。玩法说明来自来源页面，未经实际试玩验证。</p>
-    ${rows.length?`<div class="table-wrap discovery-list"><table class="table discovery-table" aria-label="采集建议列表"><thead><tr><th scope="col">游戏 / 来源</th><th scope="col">品类</th><th scope="col">建议原因 / 玩法</th><th scope="col">发现时间</th><th scope="col">状态</th><th scope="col">操作</th></tr></thead><tbody>${rows.map(r=>`${groupHeading(r)}<tr><td><label class="checkrow"><input type="checkbox" data-recommendation="${esc(r.id)}" ${discoverySelected.has(r.id)?'checked':''} ${['rejected','dispatched'].includes(r.status)?'disabled':''}><strong>${esc(r.title)}</strong></label><small class="discovery-source">${esc(r.source)}</small></td>
-    <td>${esc(r.category)}${r.platform_category_missing?'<small class="discovery-gap">平台尚未覆盖</small>':''}</td>
+    ${rows.length?`<div class="table-wrap discovery-list"><table class="table discovery-table" aria-label="采集建议列表"><thead><tr><th scope="col">游戏 / 来源</th><th scope="col">品类 / 技术类型</th><th scope="col">建议原因 / 玩法</th><th scope="col">发现时间</th><th scope="col">状态</th><th scope="col">操作</th></tr></thead><tbody>${rows.map(r=>`${groupHeading(r)}<tr><td><label class="checkrow"><input type="checkbox" data-recommendation="${esc(r.id)}" ${discoverySelected.has(r.id)?'checked':''} ${['rejected','dispatched'].includes(r.status)?'disabled':''}><strong>${esc(r.title)}</strong></label><small class="discovery-source">${esc(r.source)}</small></td>
+    <td>${esc(r.category)}${r.platform_category_missing?'<small class="discovery-gap">平台尚未覆盖</small>':''}${r.source_policy_label?`<small class="discovery-gap" data-source-policy title="${esc(r.source_policy_reason||'')}">${esc(r.source_policy_label)} · 已知门槛</small>`:''}<small class="discovery-source" data-technology title="${esc((r.technology?.matches||[]).map(m=>m.evidence).join('；')||'暂无识别依据')}">${esc(r.technology?.label||'待识别')}<br>${r.technology?.status==='hint'?'页面线索 · 未运行验证':'技术类型待识别'}</small></td>
     <td class="discovery-description"><p>${esc(r.reason)}</p>${r.selection_score?`<small>信息评分 ${r.selection_score.value}/100 · 未试玩</small>`:''}<details><summary>玩法与来源依据</summary><p>${esc(r.gameplay||'来源未提供，需打开原站核对，未自动编造')}</p><p class="tiny muted">${esc(r.category_basis||"来源分类记录")} · ${esc(r.description_basis)} · 页面校验 ${esc(r.content_sha256)}</p></details></td>
-    <td class="tiny muted">${date(r.created_at)}</td><td><span class="badge">${statuses[r.status]}</span></td>
-    <td><div class="actions"><a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener noreferrer">原平台试玩 ↗</a>${r.job_id?`<button data-job="${esc(r.job_id)}">查看执行任务</button>`:''}</div></td></tr>`).join('')}</tbody></table></div>`:empty('当前没有对应清单','等待每日扫描，或点击“立即扫描来源”；失败与未适配站点会保留原因。')}`;
+    <td class="tiny muted">${date(r.created_at)}</td><td><span class="badge">${r.job_id?esc(statusMap[(state.jobs||[]).find(j=>j.id===r.job_id)?.display_status]||statuses[r.status]):statuses[r.status]}</span></td>
+    <td><div class="actions"><a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener noreferrer">原平台试玩 ↗</a>${r.job_id?`<button data-job="${esc(r.job_id)}">查看执行任务</button>`:''}</div></td></tr>`).join('')}</tbody></table></div>`:empty('当前没有对应清单', readOnly?'本地平台暂无采集结果。':'等待每日扫描，或点击“立即扫描来源”；失败与未适配站点会保留原因。')}`;
 }
 function discoverySettings() {
   const c=state.discovery_settings;
@@ -113,6 +118,9 @@ const statusMap = {
   needs_work: "待完善",
   dependency_pending: "依赖待处理",
   waiting_input: "待回复",
+  paused_non_web: "已暂停 · 非 Web 游戏",
+  paused_web_unknown: "已暂停 · 游戏类型待确认",
+  paused_web_access: "已暂停 · 页面访问失败",
   superseded: "已被替代",
   attention: "需要关注",
   discovered: "待选品",
@@ -170,12 +178,13 @@ function toast(s) {
   $("#toast").classList.add("show");
   setTimeout(() => $("#toast").classList.remove("show"), 3200);
 }
-async function api(path, body) {
+async function api(path, body, options = {}) {
   if (body !== undefined) mutationEpoch++;
   const r = await fetch(path, {
     method: body === undefined ? "GET" : "POST",
     headers: { "Content-Type": "application/json", "X-CSRF-Token": csrf },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+    ...options,
   });
   const d = await r.json();
   if (!r.ok) throw Error(d.error || d.message || "请求失败");
@@ -191,13 +200,15 @@ async function load() {
     if (demo) {
       state = await api("/api/demo");
     } else {
-      state = await api("/api/state");
+      state = presentPolicyPauses(await api("/api/state"));
     }
     state.services = await api("/api/services");
+    readOnly = !demo && !!(state.migration && state.migration.read_only);
     render();
   } catch (e) {
     if (authRequired && (e.message.includes('登录') || e.message.includes('会话'))) { renderLogin(); return; }
     state = {};
+    readOnly = false;
     render();
     toast("无法连接平台：" + e.message);
   }
@@ -213,7 +224,7 @@ function renderLogin(error='') {
   };
 }
 function shell() {
-  return `<header class="site-header"><button class="site-brand" data-nav="library" aria-label="小游戏库首页"><span class="pixel-mark" aria-hidden="true">✣</span> Game Lab<span class="brand-cn">游戏实验室</span></button><div class="topright"><input class="search" id="global-search" placeholder="搜索游戏、任务…" aria-label="搜索游戏、任务"><button class="smallbtn" data-action="mode">${demo ? "◉ 演示模式" : "○ 实时数据"}</button><span class="tiny muted" id="sync-status" role="status">${demo ? "演示数据" : "自动同步中"}</span><button class="textbtn" data-action="refresh">↻ 刷新</button>${authRequired?'<button class="textbtn" data-action="logout">退出登录</button>':''}</div></header><nav class="site-nav" aria-label="主导航">${['library','overview','discovery','candidates','jobs','reviews','tools','settings',...(state.current_user?.role==='admin'?['administration']:[])].map(id=>nav.find(n=>n[0]===id)).map(([id,icon,title])=>`<button class="navbtn ${(page==='batches'?'jobs':page)===id?'active':''}" data-nav="${id}" ${(page==='batches'?'jobs':page)===id?'aria-current="page"':''}>${title}</button>`).join('')}</nav><main class="main ${page==='library'?'is-library':''}"><div class="content">${demo ? '<div class="demo-banner"><span>◇ 演示工作空间 · 数据与游戏插画仅用于交互设计演示</span><span>不代表已采集或复刻</span></div>' : ""}<div id="page"></div></div></main>`;
+  return `<header class="site-header"><button class="site-brand" data-nav="library" aria-label="小游戏库首页"><span class="pixel-mark" aria-hidden="true">✣</span> Game Lab<span class="brand-cn">游戏实验室</span></button><div class="topright"><input class="search" id="global-search" placeholder="搜索游戏、任务…" aria-label="搜索游戏、任务"><button class="smallbtn" data-action="mode">${demo ? "◉ 演示模式" : "○ 实时数据"}</button><span class="tiny muted" id="sync-status" role="status">${demo ? "演示数据" : "自动同步中"}</span><button class="textbtn" data-action="refresh">↻ 刷新</button>${authRequired?'<button class="textbtn" data-action="logout">退出登录</button>':''}</div></header><nav class="site-nav" aria-label="主导航">${['library','overview','discovery','candidates','jobs','reviews','tools','settings',...(state.current_user?.role==='admin'?['administration']:[])].map(id=>nav.find(n=>n[0]===id)).map(([id,icon,title])=>`<button class="navbtn ${(page==='batches'?'jobs':page)===id?'active':''}" data-nav="${id}" ${(page==='batches'?'jobs':page)===id?'aria-current="page"':''}>${title}</button>`).join('')}</nav><main class="main ${page==='library'?'is-library':''}"><div class="content">${demo ? '<div class="demo-banner"><span>◇ 演示工作空间 · 数据与游戏插画仅用于交互设计演示</span><span>不代表已采集或复刻</span></div>' : readOnly ? '<div class="readonly-banner"><span>◇ 云端只读站点 · 可浏览、可试玩</span><span>发起任务、采集扫描与内容修改请在本地平台操作</span></div>' : ""}<div id="page"></div></div></main>`;
 }
 let renderedShell = '', renderedPage = '';
 function render(background = false) {
@@ -244,6 +255,7 @@ function render(background = false) {
   if (active && navigation.scrollWidth > navigation.clientWidth) {
     navigation.scrollLeft = active.offsetLeft - navigation.clientWidth / 2 + active.offsetWidth / 2;
   }
+  document.body.classList.toggle('read-only', readOnly);
   bind();
   if(page==='administration')loadAdministration();
 }
@@ -473,25 +485,29 @@ function batchDetail(id) {
   const b=(state.batches||[]).find(b=>b.id===id);if(!b)return;
   const jobs=batchJobs(b);
   const next={review:'已有可玩版本，请试玩后通过验收，或填写修改意见。',waiting_input:'AI 需要补充信息，回复后会继续处理。',blocked:'执行被阻断，请查看原因并补充要求或重试。',failed:'执行失败，请查看原因并重试。',stopped:'已停止，点击“继续未完成任务”可重新排队。',queued:'等待执行器领取。',running:'AI 正在处理，等待产出。',completed:'已完成验收，无须处理。',superseded:'此轮已被后续任务替代，无须重复处理。'};
-  modal(b.name+' · 批次详情',`<div class="kv"><span>批次状态</span>${badge(batchState(b))}</div><p>${esc(batchSummary(b))}</p><div class="notice">“需要关注”表示其中有游戏等待回复、验收或修复，并不一定是转换失败。请按下方每个游戏的提示处理。</div><div class="actions">${batchControls(b)}</div>${b.candidate_ids.map(cid=>{const c=cBy(cid),j=jobs.find(j=>j.candidate_id===cid),v=j&&(state.versions||[]).find(v=>v.id===j.version_id),current=currentJobs().find(x=>x.candidate_id===cid);return `<section class="panel" style="margin-top:16px"><div class="panelhead"><h3>${esc(c.title)}</h3>${badge(j?.display_status||j?.status||'draft')}</div><p class="tiny muted">当前节点：${esc(j?.pipeline?.presentation?.location_label || j?.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || "等待执行 / 详见任务记录")}</p><p>${esc(j?(j.display_status==='needs_work'?'已有草稿，整体待完善。'+(j.status==='failed'?'上次续作失败，可查看原因后重试。':'可继续补充修改要求。'):next[j.status]||'查看任务记录。'):'尚未启动；点击“开始转换这一批”派发任务。')}</p>${j?.reason?`<p class="tiny muted" style="white-space:pre-wrap">${esc(j.reason)}</p>`:''}<div class="actions">${j?`<button class="smallbtn" data-job="${esc(j.id)}">${j.status==='waiting_input'?'回复 AI':['failed','blocked'].includes(j.status)?'查看原因 / 补充要求':'任务记录与沟通'}</button>`:''}${v?.status==='review'?`<button class="primary" data-review="${esc(v.id)}">试玩并验收</button>`:''}${j&&['failed','blocked'].includes(j.status)?`<button class="smallbtn" data-retry="${esc(j.id)}">重试本任务</button>`:''}${j?.status==='superseded'&&current?`<button class="primary" data-job="${esc(current.id)}">查看后续任务</button>`:''}</div></section>`;}).join('')}`,true);
+  modal(b.name+' · 批次详情',`<div class="kv"><span>批次状态</span>${badge(batchState(b))}</div><p>${esc(batchSummary(b))}</p><div class="notice">“需要关注”表示其中有游戏等待回复、验收或修复，并不一定是转换失败。请按下方每个游戏的提示处理。</div><div class="actions">${batchControls(b)}</div>${b.candidate_ids.map(cid=>{const c=cBy(cid),j=jobs.find(j=>j.candidate_id===cid),v=j&&(state.versions||[]).find(v=>v.id===j.version_id),current=currentJobs().find(x=>x.candidate_id===cid);return `<section class="panel" style="margin-top:16px"><div class="panelhead"><h3>${esc(c.title)}</h3>${badge(j?.display_status||j?.status||'draft')}</div><p class="tiny muted">当前节点：${esc(j?.pipeline?.presentation?.location_label || j?.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || "等待执行 / 详见任务记录")}</p><p>${esc(j?(j.policy_pause?j.policy_pause.explanation:j.display_status==='needs_work'?'已有草稿，整体待完善。'+(j.status==='failed'?'上次续作失败，可查看原因后重试。':'可继续补充修改要求。'):next[j.status]||'查看任务记录。'):'尚未启动；点击“开始转换这一批”派发任务。')}</p>${j?.reason?`<p class="tiny muted" style="white-space:pre-wrap">${esc(j.reason)}</p>`:''}<div class="actions">${j?`<button class="smallbtn" data-job="${esc(j.id)}">${j.policy_pause?'查看暂停原因':j.status==='waiting_input'?'回复 AI':['failed','blocked'].includes(j.status)?'查看原因 / 补充要求':'任务记录与沟通'}</button>`:''}${v?.status==='review'?`<button class="primary" data-review="${esc(v.id)}">试玩并验收</button>`:''}${j&&['failed','blocked'].includes(j.status)?`<button class="smallbtn" data-retry="${esc(j.id)}">重试本任务</button>`:''}${j?.status==='superseded'&&current?`<button class="primary" data-job="${esc(current.id)}">查看后续任务</button>`:''}</div></section>`;}).join('')}`,true);
   liveDialog = () => batchDetail(id);
 }
 function hasDraft(j){return Boolean(j.has_draft||(state.versions||[]).some(v=>v.id===j.version_id&&v.status==='draft'));}
+// 处理路径：优先用服务端按证据算出的产线（网页采集 / AI 复刻 / REA 反编译 / 原版整理），
+// route 字段只记录结果轴且到 review 才写入，排队任务全为 null，不能用来区分产线。
+function routeLabel(j){return j.route_label||(j.display_status==="dependency_pending"?"原版优先":j.route==="A"?"A · 代码整理":j.route==="B"?"B · AI 复刻":j.route==="local"?"本地运行包":"待 REA 分流");}
+function routeTone(j){return j.route_tone||(j.route==="A"?"green":"");}
 function jobTable(list) {
   return list.length
-    ? `<div class="table-wrap"><table class="table"><thead><tr><th>游戏 / 任务</th><th>当前阶段</th><th>处理路径</th><th>任务状态</th><th>进度</th><th>操作</th></tr></thead><tbody>${list.map((j) => `<tr><td><b>${esc(cBy(j.candidate_id).title)}</b><br><small>${esc(j.id)}</small></td><td>${esc(j.pipeline?.presentation?.location_label || j.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || (j.display_status==="dependency_pending"?"依赖分析与适配":{ rea: "REA 分析", reconstruct: "AI 复刻", packaging: "运行包整理" }[j.stage] || j.stage || "等待分析"))}</td><td><span class="badge ${j.route === "A" ? "green" : ""}">${j.display_status==="dependency_pending" ? "原版优先" : j.route === "A" ? "A · 代码整理" : j.route === "B" ? "B · AI 复刻" : j.route === "local" ? "本地运行包" : "待 REA 分流"}</span></td><td>${badge(j.display_status||j.status)}${hasDraft(j)?'<p class="tiny muted">已有可试玩草稿</p>':''}${j.display_status==='needs_work'&&j.status==='failed'?'<p class="tiny muted">上次续作失败，可重试</p>':''}</td><td><small>${esc(j.progress_label||"等待阶段记录")}</small></td><td><button class="textbtn" data-job="${esc(j.id)}">继续沟通 / 记录</button>${["failed", "blocked"].includes(j.status) ? `<button class="smallbtn" data-retry="${esc(j.id)}">重试</button>` : ""}</td></tr>`).join("")}</tbody></table></div>`
+    ? `<div class="table-wrap"><table class="table"><thead><tr><th>游戏 / 任务</th><th>当前阶段</th><th>处理路径</th><th>任务状态</th><th>进度</th><th>操作</th></tr></thead><tbody>${list.map((j) => `<tr><td><b>${esc(cBy(j.candidate_id).title)}</b><br><small>${esc(j.id)}</small></td><td>${esc(j.pipeline?.presentation?.location_label || j.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || (j.display_status==="dependency_pending"?"依赖分析与适配":{ rea: "REA 分析", reconstruct: "AI 复刻", packaging: "运行包整理" }[j.stage] || j.stage || "等待分析"))}</td><td><span class="badge ${routeTone(j)}" title="${esc(j.route_detail||"")}">${esc(routeLabel(j))}</span>${j.route_basis==="inferred"?'<p class="tiny muted">按来源与阶段推断</p>':''}</td><td>${badge(j.display_status||j.status)}${hasDraft(j)?'<p class="tiny muted">已有可试玩草稿</p>':''}${j.display_status==='needs_work'&&j.status==='failed'?'<p class="tiny muted">上次续作失败，可重试</p>':''}</td><td><small>${esc(j.progress_label||"等待阶段记录")}</small></td><td><button class="textbtn" data-job="${esc(j.id)}">继续沟通 / 记录</button>${["failed", "blocked"].includes(j.status) ? `<button class="smallbtn" data-retry="${esc(j.id)}">重试</button>` : ""}</td></tr>`).join("")}</tbody></table></div>`
     : empty("暂无任务记录", "从批次管理启动任务，执行工具将领取并回传进度。");
 }
 let showCompletedTasks=false;
 function jobs() {
   const all=currentJobs(), active=all.filter(j=>j.status!=="completed"), list=showCompletedTasks?all:active;
-  return `<div class="notice">${active.length} 个未完成任务 · ${all.filter(j=>j.status==='waiting_input').length} 个待回复 · ${all.filter(j=>j.status==='review').length} 个待验收。退回意见会直接进入下一轮修改。</div><div class="actions" style="margin-bottom:16px"><button id="toggle-completed">${showCompletedTasks?'隐藏已完成':'显示已完成'}</button></div><div class="panel">${jobTable(list.filter(j=>!query||cBy(j.candidate_id).title.includes(query)||j.id.includes(query)))}</div>`;
+  return `<div class="notice">${active.length} 个未完成任务 · ${all.filter(j=>j.status==='waiting_input'&&!j.policy_pause).length} 个待回复 · ${all.filter(j=>j.policy_pause).length} 个按 Web 范围暂停 · ${all.filter(j=>j.status==='review').length} 个待验收。退回意见会直接进入下一轮修改。</div><div class="actions" style="margin-bottom:16px"><button id="toggle-completed">${showCompletedTasks?'隐藏已完成':'显示已完成'}</button></div><div class="panel">${jobTable(list.filter(j=>!query||cBy(j.candidate_id).title.includes(query)||j.id.includes(query)))}</div>`;
 }
-function reviewImage(record, label) {
+function reviewImage(record, label, full = false) {
   const src=screenshotItems(record)[0];
   const configuredZoom = Number(record.preview?.zoom || 1);
   const zoom = Number.isFinite(configuredZoom) ? Math.max(1,Math.min(8,configuredZoom)) : 1;
-  return src ? `<div class="review-shot"><img src="${esc(src)}" alt="${esc(label)}" style="transform:scale(${zoom});transform-origin:center"></div>` : `<div class="notice">${esc(label)}尚未采集。</div>`;
+  return src ? `<div class="review-shot${full ? ' review-shot-full' : ''}"><img src="${esc(src)}" alt="${esc(label)}" style="transform:scale(${full ? 1 : zoom});transform-origin:center"></div>` : `<div class="notice">${esc(label)}尚未采集。</div>`;
 }
 function supplyDeliveryList() {
   const deliveries=state.supply_deliveries||[];
@@ -522,7 +538,7 @@ function reviews() {
 const serviceNames = {wechat: "小游戏转 Web 浏览器游戏服务", ai: "AI 服务"};
 function toolPage() {
   return head("工具服务", "统一管理游戏转换、AI 与下游模板供货服务。") +
-    `<div class="notice">转换与 AI 连接检测有效期为 5 分钟；供货检查显示最近一次检查快照。${demo ? "此处始终显示真实服务状态。" : ""}</div><div class="toolgrid service-grid">${(state.services || []).map(s => `<section class="panel service-card"><div class="panelhead"><div class="tool-avatar">${s.id === 'ai' ? '✦' : '⌘'}</div><span class="badge ${s.status === '在线' ? 'green' : s.status === '异常' ? 'red' : 'gray'}">${esc(s.status)}</span></div><h2>${serviceNames[s.id]}</h2><p class="muted service-description">${s.id === 'ai' ? '为游戏分析、代码生成与修复提供模型调用。' : '接收游戏链接，自动采集、重建、运行验证并入库待验收。'}</p><div class="kv"><span>服务地址</span><span class="service-address">${esc(s.base_url || (s.id === 'ai' ? '本机 Codex（自动备用）' : '平台内置执行器'))}</span></div>${s.id === 'ai' ? `<div class="kv"><span>接入方式</span><span>${esc(s.connection_label || s.backend)}</span></div><div class="kv"><span>模型</span><span>${esc(s.model || '使用本机 Codex 默认模型')}</span></div>` : '<p class="tiny muted">执行器随平台启动；失败保留记录，可重试。基于页面材料重建的版本不表示原版已完整移植。</p>'}<div class="kv"><span>最近检测</span><span>${s.checked_at ? date(s.checked_at * 1000) : '尚未检测'}</span></div><p class="tiny muted" role="status">${esc(s.detail)}</p><div class="modalfooter"><button class="smallbtn" data-service-config="${s.id}">配置服务</button><button class="primary" data-service-test="${s.id}" ${s.status === '未配置' ? 'disabled' : ''}>检测连接</button></div></section>`).join('')}${supplyServiceCard()}</div>`;
+    `<div class="notice">转换与 AI 连接检测有效期为 5 分钟；供货检查显示最近一次检查快照。${demo ? "此处始终显示真实服务状态。" : ""}</div><div class="toolgrid service-grid">${(state.services || []).map(s => `<section class="panel service-card"><div class="panelhead"><div class="tool-avatar">${s.id === 'ai' ? '✦' : '⌘'}</div><span class="badge ${s.status === '在线' ? 'green' : s.status === '异常' ? 'red' : 'gray'}">${esc(s.status)}</span></div><h2>${serviceNames[s.id]}</h2><p class="muted service-description">${s.id === 'ai' ? '为游戏分析、代码生成与修复提供模型调用。' : '接收游戏链接，自动采集、重建、运行验证并入库待验收。'}</p><div class="kv"><span>服务地址</span><span class="service-address">${esc(s.base_url || (s.id === 'ai' ? '本机 Codex（自动备用）' : '平台内置执行器'))}</span></div>${s.id === 'ai' ? `<div class="kv"><span>接入方式</span><span>${esc((s.connection_label || s.backend) + (s.account_email ? ' · ' + s.account_email : ''))}</span></div><div class="kv"><span>模型</span><span>${esc(s.model || '使用本机 Codex 默认模型')}</span></div>` : '<p class="tiny muted">执行器随平台启动；失败保留记录，可重试。基于页面材料重建的版本不表示原版已完整移植。</p>'}<div class="kv"><span>最近检测</span><span>${s.checked_at ? date(s.checked_at * 1000) : '尚未检测'}</span></div><p class="tiny muted" role="status">${esc(s.detail)}</p><div class="modalfooter"><button class="smallbtn" data-service-config="${s.id}">配置服务</button><button class="primary" data-service-test="${s.id}" ${s.status === '未配置' ? 'disabled' : ''}>检测连接</button></div></section>`).join('')}${supplyServiceCard()}</div>`;
 }
 const supplyFields = {SUPPLY_PLATFORM_BASE:"下游接口地址",SUPPLY_APP_ID:"供应方 ID（非微信 AppID）",SUPPLY_APP_SECRET:"供应方授权码",SUPPLY_ARCHIVE_DIR:"服务器分发目录",SUPPLY_ARCHIVE_BASE_URL:"HTTPS 下载前缀",SUPPLY_EXPECTED_FINGERPRINT:"下游管理页授权码指纹（12 位）"};
 function supplyServiceCard() {
@@ -569,25 +585,29 @@ function serviceDialog(id) {
   };
 }
 function aiServiceDialog(s) {
-  const labels = {local_codex:'本地 Codex（当前电脑）',cloud_codex:'云服务器 Codex CLI',openai:'OpenAI 官方 API',compatible:'OpenAI 兼容 API'};
+  const labels = {local_codex:'本地 Codex（独立账号）',codex_account:'Codex 账号（云服务器）',cloud_codex:'云服务器 Codex CLI',openai:'OpenAI 官方 API',compatible:'OpenAI 兼容 API'};
   const drafts = Object.fromEntries(Object.entries(s.profiles || {}).map(([key, value]) => [key, {...value}]));
-  let selected = Object.hasOwn(labels, s.connection) ? s.connection : 'local_codex';
-  modal('AI 服务', `<form id="ai-service-form"><p class="notice">当前连接：${esc(s.connection_label || '旧配置')}。各连接配置分别保存，保存后启用所选连接。</p><label>接入方式</label><select name="connection">${Object.entries(labels).map(([key,label])=>`<option value="${key}">${label}</option>`).join('')}</select><label>服务基础地址</label><input name="base_url" type="url" required><label>模型名称</label><input name="model" required><label>接口协议</label><select name="wire_api"><option value="responses">Responses API</option><option value="chat_completions">Chat Completions</option></select><div id="ai-actor-field"><label>附加授权头（可选）</label><input name="actor_authorization" type="password" autocomplete="new-password"></div><label id="ai-key-label">API Key</label><input name="api_key" type="password" autocomplete="new-password"><p class="tiny muted" id="ai-connection-help"></p><div class="modalfooter"><button type="submit" class="primary">保存并启用</button></div></form>`);
+  let selected = Object.hasOwn(labels, s.connection) ? s.connection : 'codex_account';
+  modal('AI 服务', `<form id="ai-service-form"><p class="notice">当前连接：${esc(s.connection_label || '旧配置')}。各连接配置分别保存，保存后启用所选连接。</p><label>接入方式</label><select name="connection">${Object.entries(labels).map(([key,label])=>`<option value="${key}">${label}</option>`).join('')}</select><div id="ai-account-field"><label>Codex 账号邮箱</label><input name="account_email" type="email" autocomplete="username"></div><div id="ai-base-field"><label>服务基础地址</label><input name="base_url" type="url" required></div><label>模型名称</label><input name="model" required><label>接口协议</label><select name="wire_api"><option value="responses">Responses API</option><option value="chat_completions">Chat Completions</option></select><div id="ai-actor-field"><label>附加授权头（可选）</label><input name="actor_authorization" type="password" autocomplete="new-password"></div><label id="ai-key-label">API Key</label><input name="api_key" type="password" autocomplete="new-password"><p class="tiny muted" id="ai-connection-help"></p><div class="modalfooter"><button type="submit" class="primary">保存并启用</button></div></form>`);
   const form = $('#ai-service-form');
   const field = name => form.elements.namedItem(name);
   const renderFields = () => {
     const saved = drafts[selected] || {};
     field('connection').value = selected;
-    for (const name of ['base_url','model','wire_api','api_key','actor_authorization']) field(name).value = saved[name] || (name === 'wire_api' ? 'responses' : '');
+    for (const name of ['base_url','model','wire_api','api_key','actor_authorization','account_email']) field(name).value = saved[name] || (name === 'wire_api' ? 'responses' : '');
     field('api_key').placeholder = saved.has_key ? '留空保留此连接已保存的密钥' : '填写此连接的密钥';
     field('actor_authorization').placeholder = saved.has_actor_authorization ? '留空保留此连接已保存值' : '未配置';
     field('base_url').readOnly = selected === 'openai';
-    field('model').readOnly = selected === 'local_codex';
+    field('model').readOnly = false;
+    const account = selected === 'codex_account';
+    $('#ai-account-field').hidden = !account; field('account_email').required = account;
+    $('#ai-base-field').hidden = account; field('base_url').required = !account;
+    field('api_key').hidden = account; $('#ai-key-label').hidden = account;
     field('wire_api').disabled = selected !== 'compatible';
     $('#ai-actor-field').hidden = !['compatible','cloud_codex'].includes(selected);
-    $('#ai-key-label').textContent = selected === 'local_codex' ? '本地桥接令牌' : 'API Key';
-    $('#ai-connection-help').textContent = selected === 'local_codex'
-      ? '连接你电脑上的 Codex：需启动本地桥接并保持 SSH 隧道在线。地址为平台服务器的回环端口，令牌由桥接生成。电脑必须开机联网；Codex 登录凭据不上传。'
+    $('#ai-key-label').textContent = 'API Key';
+    $('#ai-connection-help').textContent = selected === 'local_codex' ? '连接本机独立登录账号的 Codex 桥接；由启动参数指定账号，凭据留在本机。电脑及 SSH 隧道须在线。' : account
+      ? '使用此账号在云服务器上的独立 Codex 登录。先完成官方浏览器授权，再保存并检测；邮箱不是凭据，无需填写 API Key。模型是否可用以实际检测为准。'
       : selected === 'cloud_codex' ? '由云服务器服务账号启动 Codex CLI，使用此处配置的模型和 API 凭据。无需你电脑在线，也不依赖服务器管理员的交互登录。'
       : selected === 'openai' ? '直连 OpenAI 官方服务，请使用官方 API Key。模型名称须在该账号下可用；Responses 请求关闭响应存储。'
       : '使用兼容 OpenAI 协议的第三方服务。基础地址通常以 /v1 结尾，不要填写 /responses。Responses 请求关闭响应存储；模型可用性以服务检测为准。';
@@ -642,6 +662,7 @@ function closeModal() {
   modalReturnFocus = null;
 }
 async function mutate(path, body, demoFn) {
+  if (readOnly) { toast(READ_ONLY_HINT); return; }
   try {
     if (demo) {
       demoFn?.();
@@ -786,15 +807,15 @@ function jobDetail(id) {
     ${reports.length?`<details class="task-progress-reports"><summary>AI 执行汇报 · ${reports.length} 条</summary><p class="tiny muted">处理结果与已知限制，属于执行记录。</p>${messageMarkup(reports)}</details>`:''}
     ${dependencyPanel(cBy(j.candidate_id))}
     ${gameSpecPanel(cBy(j.candidate_id),j)}
-    </section><section class="task-pane" data-task-pane="conversation"><section class="task-conversation"><h3>沟通记录</h3><p class="tiny muted">你的要求、AI 答复与需要你确认的问题。</p>${j.status==='waiting_input'&&j.question&&!conversation.some(m=>m.text?.trim()===j.question.trim())?`<div class="notice">需要你回复：${esc(j.question)}</div>`:''}${messageMarkup(conversation)||'<p class="muted">暂无已分类对话，可在下方提交修改要求。</p>'}</section>
+    </section><section class="task-pane" data-task-pane="conversation"><section class="task-conversation"><h3>沟通记录</h3><p class="tiny muted">你的要求、AI 答复与需要你确认的问题。</p>${j.status==='waiting_input'&&j.question&&!conversation.some(m=>m.text?.trim()===j.question.trim())?`<div class="notice">${j.policy_pause?'暂停说明：':'需要你回复：'}${esc(j.question)}</div>`:''}${messageMarkup(conversation)||'<p class="muted">暂无已分类对话，可在下方提交修改要求。</p>'}</section>
     ${legacy.length?`<details class="task-legacy-messages"><summary>历史未分类消息 · ${legacy.length} 条</summary><p class="tiny muted">旧记录未标注用途，保留原文供核对，不自动猜测为问题或执行进度。</p>${messageMarkup(legacy)}</details>`:''}
-    ${canReply?`<form id="task-message-form"><label for="task-message">${j.status==='waiting_input'?'回复 AI':'修改要求 / 补充信息'}</label><textarea id="task-message" maxlength="8000" required placeholder="例如：保留原角色资源，调整跳跃高度，并验证手机操作。"></textarea><div class="modalfooter"><button class="primary" type="submit">发送并继续处理</button></div></form>`:'<p class="muted">当前轮处理结束后可继续提交意见。状态会自动更新。</p>'}
+    ${canReply?`<form id="task-message-form"><label for="task-message">${j.policy_pause?'补充网页入口或说明':j.status==='waiting_input'?'回复 AI':'修改要求 / 补充信息'}</label><textarea id="task-message" maxlength="8000" required placeholder="例如：保留原角色资源，调整跳跃高度，并验证手机操作。"></textarea><div class="modalfooter"><button class="primary" type="submit">发送并继续处理</button></div></form>`:'<p class="muted">当前轮处理结束后可继续提交意见。状态会自动更新。</p>'}
     <button id="reload-task" class="smallbtn">重新读取状态</button>
     </section><section class="task-pane" data-task-pane="versions"><h3>版本记录</h3>${versions.map(v=>`<div class="kv"><span>${esc(v.id)} ${badge(v.status)}</span><span><button class="smallbtn" data-task-play="${esc(v.id)}">试玩</button>${v.status==='review'?`<button class="smallbtn" data-task-review="${esc(v.id)}">验收</button>`:''}</span></div>`).join('')||'<p>尚无版本</p>'}
     ${olderJobs.length||rounds.length||extraEvents.length?`<details class="task-history"><summary>历史任务与补充记录</summary>${olderJobs.length?jobTable(olderJobs):''}${rounds.length?`<h4>轮次结果</h4>${rounds.map(r=>`<p>第 ${r.round||1} 轮：${esc(statusMap[r.status]||r.status)}${r.reason&&!roundReasonShown(r)?' · '+esc(r.reason):''}</p>`).join('')}`:''}${extraEvents.length?`<h4>其他执行记录</h4>${extraEvents.map(e=>`<p>${date(e.created_at)}${e.round?' · 第 '+e.round+' 轮':''} · ${esc(e.message)}</p>`).join('')}`:''}</details>`:''}</section>`,true);
   document.querySelector('.modal').classList.add('task-detail');
-  if(taskSectionJob!==id){taskSectionJob=id;taskSection=j.status==='waiting_input'?'conversation':'summary';}
-  if(taskSectionStatus!==j.status&&j.status==='waiting_input')taskSection='conversation';
+  if(taskSectionJob!==id){taskSectionJob=id;taskSection=j.status==='waiting_input'&&!j.policy_pause?'conversation':'summary';}
+  if(taskSectionStatus!==j.status&&j.status==='waiting_input'&&!j.policy_pause)taskSection='conversation';
   taskSectionStatus=j.status;
   const showSection=key=>{
     taskSection=key;
@@ -806,7 +827,7 @@ function jobDetail(id) {
   liveDialog = () => jobDetail(id);
   listen($('#restore-web-form'),'submit',e=>{e.preventDefault();const button=e.currentTarget.querySelector('button');button.disabled=true;mutate(`/api/jobs/${id}/restore-web`,{profile_id:$('#web-profile').value},()=>{j.status='queued';}).finally(()=>{button.disabled=false;});});
   listen($('#task-message-form'),'submit',e=>{e.preventDefault();const button=e.currentTarget.querySelector('button');button.disabled=true;mutate(`/api/jobs/${id}/message`,{message:$('#task-message').value},()=>{j.status='queued';}).finally(()=>{button.disabled=false;});});
-  $('#reload-task').onclick=async()=>{if(!demo)state={...state,...await api('/api/state')};jobDetail(id);};
+  $('#reload-task').onclick=async()=>{if(!demo)state=presentPolicyPauses({...state,...await api('/api/state')});jobDetail(id);};
   document.querySelectorAll('[data-task-play]').forEach(b=>b.onclick=()=>play(b.dataset.taskPlay));
   document.querySelectorAll('[data-task-review]').forEach(b=>b.onclick=()=>review(b.dataset.taskReview));
 }
@@ -822,7 +843,7 @@ function play(id) {
       : u === "#" || !v.preview_url
         ? empty("运行包尚未部署", "请先完成构建并配置独立试玩地址。")
         : v.preview_mode === "external"
-          ? `<div class="notice">此游戏运行包使用独立本地窗口试玩。下载版本包后按包内说明启动，也可在下方打开已启动的运行服务。</div><p><a class="primary" href="${esc(u)}" target="_blank" rel="noopener noreferrer">打开 ${esc(cBy(v.candidate_id).title)} 试玩</a></p><p class="tiny muted">版本 ${esc(v.commit || v.id)} · 本地运行包，使用范围以验收记录为准</p>`
+          ? `<div class="notice">${readOnly?'此版本以独立运行目录打包，将在新窗口打开完整游戏。':'此游戏运行包使用独立本地窗口试玩。下载版本包后按包内说明启动，也可在下方打开已启动的运行服务。'}</div><p><a class="primary" href="${esc(u)}" target="_blank" rel="noopener noreferrer">打开 ${esc(cBy(v.candidate_id).title)} 试玩</a></p><p class="tiny muted">版本 ${esc(v.commit || v.id)} · ${readOnly?'云端只读运行包':'本地运行包'}，使用范围以验收记录为准</p>`
           : `<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" src="${esc(u)}" title="游戏试玩"></iframe><p class="tiny muted">隔离运行 · ${esc(v.commit || v.id)}</p>`,
     true,
   );
@@ -842,7 +863,7 @@ function review(id) {
     c = cBy(v.candidate_id);
   modal(
     c.title + (["approved","published"].includes(v.status) ? " · 验收结果" : " · 版本验收"),
-    `<div class="preview-pair" style="grid-template-columns:minmax(0,1fr)"><div><h3>产出版本 ${badge(v.status)}</h3>${reviewImage(v,"产出版本实机截图")}<p class="tiny muted">${demo ? "演示插画，非复刻成果" : screenshotItems(v).length ? "该版本运行截图" : "该版本尚未提供运行截图"}</p><button class="smallbtn" data-play="${esc(v.id)}">▷ 打开产出试玩</button></div></div><details id="game-specification" class="panel" style="margin-top:20px" ${specificationViews.get(id)?.open ? "open" : ""}><summary><strong>游戏规格说明书</strong> <span class="tiny muted">Markdown · 点击阅读</span></summary><article id="game-specification-content" style="margin-top:16px">${specificationViews.get(id)?.html || '<p class="muted">展开后加载说明书。</p>'}</article></details>${provenancePanel(c)}<form id="review-form"><label class="checkrow"><input type="checkbox" name="gameplay" required>核心玩法、计分或胜负、重开符合规格</label><label class="checkrow"><input type="checkbox" name="visual" required>画面可用且无阻断运行错误</label><p class="tiny muted">此处确认玩法与画面，完成学习项目的功能验收入库。资源使用信息另行记录，发布前核对。</p><label>验收意见 / 退回原因</label><textarea name="reason" placeholder="记录需要修复的问题…"></textarea><div class="modalfooter"><button type="button" id="reject-version">退回修复</button><button type="submit" class="primary">${v.status === "approved" ? "发布到小游戏库" : "通过验收"}</button></div></form>`,
+    `<div class="preview-pair" style="grid-template-columns:minmax(0,1fr)"><div><h3>产出版本 ${badge(v.status)}</h3>${reviewImage(v,"产出版本实机截图",true)}<p class="tiny muted">${demo ? "演示插画，非复刻成果" : screenshotItems(v).length ? "该版本运行截图" : "该版本尚未提供运行截图"}</p><button class="smallbtn" data-play="${esc(v.id)}">▷ 打开产出试玩</button></div></div><details id="game-specification" class="panel" style="margin-top:20px" ${specificationViews.get(id)?.open ? "open" : ""}><summary><strong>游戏规格说明书</strong> <span class="tiny muted">Markdown · 点击阅读</span></summary><article id="game-specification-content" style="margin-top:16px">${specificationViews.get(id)?.html || '<p class="muted">展开后加载说明书。</p>'}</article></details>${provenancePanel(c)}<form id="review-form"><label class="checkrow"><input type="checkbox" name="gameplay" required>核心玩法、计分或胜负、重开符合规格</label><label class="checkrow"><input type="checkbox" name="visual" required>画面可用且无阻断运行错误</label><p class="tiny muted">此处确认玩法与画面，完成学习项目的功能验收入库。资源使用信息另行记录，发布前核对。</p><label>验收意见 / 退回原因</label><textarea name="reason" placeholder="记录需要修复的问题…"></textarea><div class="modalfooter"><button type="button" id="reject-version">退回修复</button><button type="submit" class="primary">${v.status === "approved" ? "发布到小游戏库" : "通过验收"}</button></div></form>`,
     true,
   );
   const specification = $('#game-specification');
@@ -1004,9 +1025,26 @@ function bind() {
     catch(err){toast(err.message);b.disabled=false;delete b.dataset.busy;b.textContent='检查接入与游戏';}
   });
   document.querySelectorAll('[data-service-test]').forEach(b => b.onclick = async () => {
-    b.disabled = true; b.dataset.busy = 'true'; b.textContent = '检测中…';
-    try { state.services = await api(`/api/services/${b.dataset.serviceTest}/test`, {}); render(); }
-    catch (e) { toast(e.message); b.disabled = false; delete b.dataset.busy; b.textContent = '检测连接'; }
+    const service = b.dataset.serviceTest;
+    b.disabled = true; b.dataset.busy = 'true';
+    const started = Date.now();
+    const update = () => { b.textContent = `检测中 ${Math.floor((Date.now()-started)/1000)} 秒…`; };
+    update();
+    const timer = setInterval(update, 1000);
+    try {
+      const services = await api(`/api/services/${service}/test`, {}, {signal: AbortSignal.timeout(service === 'ai' ? 75000 : 30000)});
+      mutationEpoch++;
+      state.services = services;
+      toast((state.services.find(s => s.id === service)?.detail) || '检测完成');
+    } catch (e) {
+      toast(e.name === 'TimeoutError' ? '检测超过等待上限，请检查连接后重试' : e.message);
+    } finally {
+      clearInterval(timer);
+      delete b.dataset.busy;
+      b.disabled = false;
+      b.textContent = '检测连接';
+      render();
+    }
   });
   listen(document.querySelector('[data-motion-toggle]'),'click', e => {
     const hero = document.querySelector('.playground-hero');
@@ -1091,6 +1129,7 @@ function bind() {
           selected.clear();
           load();
         } else if (a === "refresh") load();
+        else if (readOnly) toast(READ_ONLY_HINT);
         else formDialog(a);
       }),
   );
@@ -1320,7 +1359,7 @@ async function syncState() {
   syncBusy=true;
   const epoch=mutationEpoch;
   try {
-    const next=await api('/api/state');
+    const next=presentPolicyPauses(await api('/api/state'));
     next.services=state.services;
     if (Date.now()-lastHealthSync>30000) {
       try { next.services=await api('/api/services'); lastHealthSync=Date.now(); } catch (_) {}

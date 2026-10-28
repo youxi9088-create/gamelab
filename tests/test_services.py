@@ -72,12 +72,10 @@ class ServicesTest(unittest.TestCase):
         r = self.registry
         r.save('ai', dict(connection='compatible', base_url=self.url, model='gpt-6-sol',
                           api_key='compatible-secret', actor_authorization='private-actor'))
-        r.save('ai', dict(connection='local_codex', base_url=self.url, api_key='bridge-secret'))
-        self.server.payload = {'choices': [{'message': {'content': '{"ok":true}'}}]}
-        self.assertEqual(r.test('ai')[1]['status'], '在线')
-        self.assertEqual(self.server.path, '/chat/completions')
-        self.assertEqual(self.server.headers_seen['authorization'], 'Bearer bridge-secret')
-        self.assertNotIn('x-openai-actor-authorization', self.server.headers_seen)
+        with patch('controlplane.codex_account.require_account'):
+            r.save('ai', dict(connection='codex_account', account_email='fixture@example.com'))
+        self.assertNotIn('api_key', r.config('ai'))
+        self.assertNotIn('http_headers', r.config('ai'))
         r.save('ai', dict(connection='openai', api_key='official-secret'))
         self.assertEqual(r.config('ai')['base_url'], 'https://api.openai.com/v1')
         r.save('ai', dict(connection='compatible', api_key='', actor_authorization=''))
