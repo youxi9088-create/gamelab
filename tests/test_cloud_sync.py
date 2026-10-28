@@ -36,9 +36,13 @@ class SyncTests(unittest.TestCase):
         self.assertEqual(db.execute('SELECT count(*) FROM records').fetchone()[0], 5)
         db.close()
 
-    def test_digest_changes_with_content(self):
-        self.assertEqual(sync.digest('same'), sync.digest('same'))
-        self.assertNotEqual(sync.digest('old'), sync.digest('new'))
+    def test_rejects_mismatched_identity_before_publishing(self):
+        db = sqlite3.connect(':memory:')
+        db.execute('CREATE TABLE records(kind,id,data)')
+        db.execute('INSERT INTO records VALUES (?,?,?)', ('jobs', 'a', '{"id":"b"}'))
+        with self.assertRaisesRegex(ValueError, 'identity'):
+            sync.collect(db, Transfer, Path('.'))
+        db.close()
 
 
 if __name__ == '__main__':

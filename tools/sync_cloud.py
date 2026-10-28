@@ -78,6 +78,12 @@ def run(args, state):
     print(json.dumps(summary), flush=True)
     if not args.apply:
         return summary
+    required = ('CLOUDFLARE_API_TOKEN', 'CLOUDFLARE_ACCOUNT_ID', 'D1_DATABASE_ID',
+                'R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY')
+    missing = [name for name in required if not os.environ.get(name)]
+    if missing:
+        print('Missing environment variables: ' + ', '.join(missing), file=sys.stderr)
+        raise ValueError('Missing credentials')
     credentials = d1.credentials()
     backend = r2_upload.S3Backend(target[0], target[2])
     if pending:
