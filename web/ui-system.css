@@ -188,6 +188,8 @@ label { color: #c9c8d5; line-height: 1.6; }
 .review-shot { width: 100%; aspect-ratio: 16/10; overflow: hidden; border-radius: 10px; }
 .cover .review-shot { height: 100%; }
 .review-shot img { display: block; width: 100%; height: 100%; padding: 0; object-fit: cover; }
+.review-shot.review-shot-full { display: flex; justify-content: center; aspect-ratio: auto; background: #0b0b11; }
+.review-shot-full img { width: auto; height: auto; max-width: 100%; max-height: min(60vh, 640px); aspect-ratio: auto; object-fit: contain; }
 .checkrow { align-items: flex-start; line-height: 1.8; color: #c9c8d5; }
 .checkrow input { margin-top: 4px; }
 .code { color: #c7c8da; background: #0b0b11; border: 1px solid #292932; border-radius: 10px; font-size: 12px; }
@@ -290,3 +292,55 @@ summary { cursor: pointer; color: #d2d4e2; padding: 8px 0; }
 .discovery-description details[open] summary{margin-bottom:8px}
 .discovery-table .actions{margin:0}
 @media(max-width:760px){.discovery-toolbar label{flex:1}}
+
+
+/* 云端只读门面：state.migration.read_only 为真时，站点只提供浏览与试玩。
+   所有会发起任务、采集或修改数据的入口在此统一隐藏；
+   app.js 的 mutate() 另有兜底拦截，两者缺一不可——
+   只靠 CSS 挡不住脚本触发，只靠 JS 会让用户点了才被告知。 */
+.readonly-banner {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid #859ddd;
+  border-radius: 0 10px 10px 0;
+  color: var(--muted);
+  padding: 13px 16px;
+  font-size: 12px;
+  margin-bottom: 24px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+body.read-only [data-action="new-batch"],
+body.read-only [data-action="new-candidate"],
+body.read-only [data-action="new-source"],
+body.read-only [data-action="mode"],
+body.read-only [data-batch],
+body.read-only [data-retry],
+body.read-only [data-supply-retry],
+body.read-only [data-tool],
+body.read-only [data-source],
+body.read-only [data-source-rule],
+body.read-only [data-unpublish],
+body.read-only [data-discovery-scan],
+body.read-only [data-discovery-settings],
+body.read-only [data-discovery-decision],
+body.read-only [data-service-test],
+body.read-only [data-service-config],
+body.read-only [data-edit],
+body.read-only [data-rename],
+body.read-only [data-edit-user],
+body.read-only [data-review],
+body.read-only [data-task-review],
+body.read-only [data-supply-metadata],
+body.read-only [data-select],
+body.read-only [data-recommendation],
+body.read-only .modalfooter,
+body.read-only #settings-form button,
+body.read-only #restore-web-form,
+body.read-only #task-message-form,
+body.read-only #rename-game,
+body.read-only #discovery-settings-form,
+body.read-only #source-rule-form {
+  display: none !important;
+}

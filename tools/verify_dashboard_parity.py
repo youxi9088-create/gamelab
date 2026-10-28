@@ -16,7 +16,8 @@ PYTHON = sys.executable
 
 COMPARE_KEYS = ['games_count', 'calls', 'unknown_calls', 'timing_complete', 'timing_measured',
                 'median_seconds', 'weekly_accepted', 'previous_week_accepted', 'weekly_published',
-                'token_coverage', 'engines', 'engine_game_counts', 'models', 'failure_reasons']
+                'token_coverage', 'engines', 'engine_game_counts', 'models', 'failure_reasons',
+                'production', 'production_evidence']
 
 
 def close(x, y):

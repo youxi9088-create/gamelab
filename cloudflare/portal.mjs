@@ -643,12 +643,166 @@ export function services() {
   ];
 }
 
+/**
+ * 来源地址规范化，与本地 controlplane/service.py::canonical_url 同口径：
+ * 剥掉 utm_/fbclid/gclid、小写 scheme 与 host、去掉路径末尾斜杠。
+ * 计数只按规范化后的键去重，拿不到合法 URL 一律返回 null（对应 Python 抛 ApiError）。
+ */
+export function canonUrl(value) {
+  if (typeof value !== 'string') return null;
+  const raw = value.trim();
+  if (!raw) return null;
+  if (raw.startsWith('#小程序://')) {
+    return /^#小程序:\/\/[^/\s\u0000-\u001f]{1,120}\/[A-Za-z0-9_-]{1,128}$/.test(raw) ? raw : null;
+  }
+  let url;
+  try { url = new URL(raw); } catch { return null; }
+  const scheme = url.protocol.replace(/:$/, '').toLowerCase();
+  if (scheme !== 'https' && scheme !== 'http') return null;
+  if (!url.hostname || url.username || url.password) return null;
+  const pairs = [];
+  url.searchParams.forEach((item, key) => {
+    const lower = key.toLowerCase();
+    if (lower.startsWith('utm_') || lower === 'fbclid' || lower === 'gclid') return;
+    pairs.push([key, item]);
+  });
+  pairs.sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : 0));
+  const query = pairs.map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&');
+  const path = url.pathname.replace(/\/+$/, '') || '/';
+  return `${scheme}://${url.host.toLowerCase()}${path}${query ? `?${query}` : ''}`;
+}
+
+/** 与本地平台一致的东八区日期（YYYY-MM-DD），用于"今日"与趋势分桶。 */
+function cnDay(value) {
+  const millis = typeof value === 'number' ? value : Date.parse(String(value || ''));
+  if (!Number.isFinite(millis)) return '';
+  return new Date(millis + 8 * 3600 * 1000).toISOString().slice(0, 10);
+}
+
+function shiftDay(day, offset) {
+  return new Date(Date.parse(`${day}T00:00:00Z`) + offset * 86400000).toISOString().slice(0, 10);
+}
+
+/**
+ * 累计生产指标，移植自 controlplane/dashboard.py::production_metrics。
+ * 看板"分析游戏 / AI 复刻生成"两张卡取这里的 analyzed / generated，
+ * 缺了就渲染成「—」，所以四个分组都要与本地口径一致，不能只补两个。
+ */
+export function productionMetrics(collections, recommendations, flags, analysisJobIds) {
+  const visible = new Map();
+  const hidden = new Set();
+  for (const candidate of collections.candidates || []) {
+    const isHidden = !!(candidate.observations && candidate.observations.catalog_hidden);
+    if (!isHidden) { visible.set(candidate.id, candidate); continue; }
+    const key = canonUrl(candidate.url);
+    if (key) hidden.add(key);
+  }
+  // 隐藏掉的候选仍占住它的 URL：同名推荐不能再算一次分析。
+  const keys = new Map();
+  for (const [id, candidate] of visible) keys.set(id, canonUrl(candidate.url) || id);
+  const groups = { websites: new Set(), analyzed: new Set(), acquired: new Set(), generated: new Set() };
+  for (const source of collections.sources || []) {
+    try {
+      const host = new URL(String(source.url || '')).hostname;
+      if (host) groups.websites.add(host.toLowerCase().replace(/^www\./, ''));
+    } catch { /* 非法来源地址不计入站点数 */ }
+  }
+  for (const item of recommendations || []) {
+    const key = canonUrl(item.url);
+    if (key && !hidden.has(key) && item.content_sha256) groups.analyzed.add(key);
+  }
+  for (const [id, candidate] of visible) {
+    if (candidate.source_bundle_id) groups.acquired.add(keys.get(id));
+  }
+  const jobById = new Map((collections.jobs || []).map(job => [job.id, job]));
+  for (const jobId of analysisJobIds || []) {
+    const job = jobById.get(jobId);
+    const cid = job && job.candidate_id;
+    if (cid && keys.has(cid)) groups.analyzed.add(keys.get(cid));
+  }
+  // 所有交付路径的 report 都算，包括本地导入。
+  for (const row of flags || []) {
+    const cid = row.candidate_id;
+    if (!cid || !keys.has(cid)) continue;
+    const key = keys.get(cid);
+    if (row.reaAttempted || row.reaEvidence || row.gameplaySpec) groups.analyzed.add(key);
+    if (!row.artifactId) continue;
+    if (row.sourceRecovered || row.bundleManifest || row.resourceCatalog
+      || row.sourceRecovery || row.resourceProvenance || row.recoveryKind) groups.acquired.add(key);
+    // D1 的 json_extract 把 JSON true 映射成整数 1，两种写法都要认。
+    const remote = row.remoteModel === true || row.remoteModel === 1;
+    if (remote || row.tool === 'codex' || row.tool === 'external-coding-agent' || row.pathKind === 'B') {
+      groups.generated.add(key);
+    }
+  }
+  const counts = {
+    websites: groups.websites.size,
+    analyzed: groups.analyzed.size,
+    acquired: groups.acquired.size,
+    generated: groups.generated.size,
+    // 模板数取自 supply 记录（downstream_summary），这里与本地一样留空。
+    templates: null,
+  };
+  // evidence 是本地 controlplane 同名字段：把去重用的键原样带出，既方便排查口径，
+  // 也让 tools/verify_dashboard_parity.py 能逐键比对而不只是比数字。
+  return { ...counts, evidence: {
+    websites: [...groups.websites].sort(),
+    analyzed: [...groups.analyzed].sort(),
+    acquired: [...groups.acquired].sort(),
+    generated: [...groups.generated].sort(),
+  } };
+}
+
+/** 顶部概览计数与近 7 天趋势，移植自 controlplane/service.py::state 的 metrics 段。 */
+export function overviewMetrics(collections, production, today) {
+  const candidates = collections.candidates || [];
+  const jobs = collections.jobs || [];
+  const versions = collections.versions || [];
+  const day = (value) => cnDay(value);
+  const trend = [];
+  for (let offset = 6; offset >= 0; offset -= 1) {
+    const date = shiftDay(today, -offset);
+    trend.push({
+      date,
+      submitted: candidates.filter(c => day(c.created_at) === date).length,
+      acquired: candidates.filter(c => day(c.acquired_at) === date).length,
+      imported: candidates.filter(c => day(c.imported_at) === date).length,
+    });
+  }
+  return {
+    submitted_today: candidates.filter(c => day(c.created_at) === today).length,
+    converting_games: new Set(jobs.filter(j => j.status === 'queued' || j.status === 'running')
+      .map(j => j.candidate_id)).size,
+    pending_review_games: new Set(versions.filter(v => v.status === 'review')
+      .map(v => v.candidate_id)).size,
+    accepted_games: new Set([
+      ...candidates.filter(c => c.imported_at).map(c => c.id),
+      ...versions.filter(v => v.status === 'approved' || v.status === 'published').map(v => v.candidate_id),
+    ]).size,
+    discovered: candidates.filter(c => day(c.created_at) === today).length,
+    acquired: candidates.filter(c => day(c.acquired_at) === today).length,
+    recovered: new Set(jobs.filter(j => day(j.completed_at) === today && j.route === 'A'
+      && (j.status === 'review' || j.status === 'completed')).map(j => j.candidate_id)).size,
+    reconstructed: new Set(jobs.filter(j => day(j.completed_at) === today && j.route === 'B'
+      && (j.status === 'review' || j.status === 'completed')).map(j => j.candidate_id)).size,
+    imported: candidates.filter(c => day(c.imported_at) === today).length,
+    review: versions.filter(v => v.status === 'review').length,
+    running: jobs.filter(j => j.status === 'running').length,
+    waiting_input: jobs.filter(j => j.status === 'waiting_input').length,
+    errors: jobs.filter(j => j.status === 'failed' || j.display_status === 'blocked').length,
+    library: new Set(versions.filter(v => v.status === 'approved' || v.status === 'published')
+      .map(v => v.candidate_id)).size,
+    trend,
+    production,
+  };
+}
+
 export async function state(env, session, publicUser) {
   // 15 次 D1 查询串行会放大 D1 的跨区延迟（库在 WNAM）：实测 29 s。
   // 它们彼此无依赖，并发后只付一次往返。events 全量取回后截取最近若干条，
   // 省掉一次重复查询——rowid DESC 下 slice 与 LIMIT 结果一致。
   const [kindRows, allEvents, usageRows, supply, gameProfiles, settingRows, names,
-    recommendations, discoveryRuns] = await Promise.all([
+    recommendations, discoveryRuns, productionEvidence] = await Promise.all([
     Promise.all(STATE_KINDS.map(kind => allRecords(env, kind))),
     allRecords(env, 'events'),
     allRecords(env, 'ai_usage'),
@@ -662,6 +816,33 @@ export async function state(env, session, publicUser) {
       // 每轮扫描的错误清单可能很长，详情面板展开也只扫一眼：每站留 3 条。
       sources: (run.sources || []).map(s => ({ ...s, errors: (s.errors || []).slice(0, 3) })),
     }))),
+    // 累计生产指标（production metrics）只看 report 里的少量证据字段。
+    // 它们在 SLIM_SQL 里已被裁掉、不会进 collections，改为单独拉"存在性/标量"：
+    // 大字段一律 IS NOT NULL，与 Python 版的"真值判断"语义一致。
+    Promise.all([
+      env.DB.prepare(`SELECT id, json_extract(data,'$.candidate_id') AS candidate_id,
+        json_extract(data,'$.artifact_id') AS artifactId,
+        json_extract(data,'$.report.rea_attempted') AS reaAttempted,
+        json_extract(data,'$.report.rea_evidence_id') AS reaEvidence,
+        (json_extract(data,'$.report.gameplay_spec') IS NOT NULL) AS gameplaySpec,
+        json_extract(data,'$.report.source_recovered') AS sourceRecovered,
+        (json_extract(data,'$.report.source_bundle_manifest') IS NOT NULL) AS bundleManifest,
+        (json_extract(data,'$.report.original_resource_catalog') IS NOT NULL) AS resourceCatalog,
+        (json_extract(data,'$.report.source_recovery') IS NOT NULL) AS sourceRecovery,
+        (json_extract(data,'$.report.resource_provenance') IS NOT NULL) AS resourceProvenance,
+        json_extract(data,'$.report.recovery_kind') AS recoveryKind,
+        json_extract(data,'$.report.remote_model_called') AS remoteModel,
+        json_extract(data,'$.report.tool') AS tool,
+        json_extract(data,'$.report.path') AS pathKind
+        FROM records WHERE kind IN ('jobs','versions')`).all(),
+      env.DB.prepare(`SELECT json_extract(data,'$.job_id') AS jobId FROM records
+        WHERE kind='events' AND json_extract(data,'$.node')='analysis'
+        AND json_extract(data,'$.node_status')='succeeded'`).all(),
+    ]).then(([flags, events]) => ({
+      flags: flags.results || [],
+      // 只要 job_id 本身：生产指标用它反查 candidate_id。
+      analysis: (events.results || []).map(row => row.jobId),
+    })),
   ]);
   const collections = Object.fromEntries(STATE_KINDS.map((kind, index) => [kind, kindRows[index]]));
   collections.events = allEvents.slice(0, RECENT_EVENTS);
@@ -717,6 +898,12 @@ export async function state(env, session, publicUser) {
   for (const row of settingRows) settings[row.id] = row;
   const pricing = settings.ai_pricing && settings.ai_pricing.rates ? settings.ai_pricing.rates : {};
 
+  // 看板顶部四张卡与趋势都取自 metrics；云端此前从未返回它，前端就渲染成「—」。
+  // 口径与本地 controlplane 一致，保证两边数字对得上（tools/verify_dashboard_parity.py 对账）。
+  const production = productionMetrics(collections, recommendations,
+    productionEvidence && productionEvidence.flags, productionEvidence && productionEvidence.analysis);
+  const metrics = overviewMetrics(collections, production, cnDay(Date.now()));
+
   // 采集建议：默认值与本地 controlplane/discovery.py DEFAULTS 一致，库里有覆盖就用库里的。
   const discoverySettings = { ...DISCOVERY_DEFAULTS, ...(settings.discovery || {}) };
   const candidateById = new Map(collections.candidates.map(c => [c.id, c]));
@@ -742,6 +929,7 @@ export async function state(env, session, publicUser) {
     recommendations: recommendations.map(recommendationPublic),
     usage,
     operation_stats: operations,
+    metrics,
     game_conversion_stats: stats.game_conversion_stats,
     dashboard_operations: stats.dashboard_operations,
     // 前端按 features 开关决定采集视图与批次联动是否可用（web/app.js:10 / :945）。

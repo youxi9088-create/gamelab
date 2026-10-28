@@ -40,6 +40,9 @@ console.log(JSON.stringify({
   engine_game_counts: d.engines.map(e => [e.name, e.games]).sort(),
   models: d.models.map(m => m.name).sort(),
   failure_reasons: d.failure_reasons.map(f => [f.code, f.count]).sort(),
+  production: (({ websites, analyzed, acquired, generated, templates }) =>
+    ({ websites, analyzed, acquired, generated, templates }))(payload.metrics.production),
+  production_evidence: payload.metrics.production.evidence,
   rows: d.games.map(r => [
     r.candidate_id, r.title, r.engine, r.status, r.stage ?? null,
     r.duration_seconds ?? null, r.calls, r.input_tokens, r.output_tokens,

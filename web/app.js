@@ -1,6 +1,10 @@
 import {patchHTML} from './dom-sync.js';
 import {dashboardPulse,dashboardGames,dashboardDiagnostics,bindDashboard} from './dashboard.js';
 let discoveryStatus='pending', discoveryRun='', discoverySelected=new Set(), discoveryCategory='', discoverySource='', libraryEngine='';
+// 云端只读门面会通过 state.migration.read_only 声明自己不承载写操作。
+// 此时前端隐藏一切"发起/修改"入口，并在 mutate 层兜底拦截，避免点了才发现是 501。
+let readOnly=false;
+const READ_ONLY_HINT='这是云端只读站点，发起任务、采集与修改请在本地平台操作。';
 const gameCategories=c=>c.catalog_facets?.categories||[String(c.category||'').trim()||'未分类'];
 const gameEngines=c=>c.catalog_facets?.engines||['待识别'];
 function discoveryGroups(rows) {
@@ -16,24 +20,24 @@ function discoveryPage() {
   let lastGroup='';
   const groupHeading=r=>{const key=JSON.stringify([r.category,r.source_id||r.source]);if(lastGroup===key)return '';lastGroup=key;return `<tr class="discovery-group"><td colspan="6">${esc(r.category||'未分类')} / ${esc(r.source||'未知网站')} <span class="muted">· ${rows.filter(x=>(x.category||'未分类')===(r.category||'未分类')&&(x.source_id||x.source)===(r.source_id||r.source)).length} 款</span></td></tr>`;};
   const statuses={pending:'待选择',pending_capture:'待抓取',rejected:'不再处理',dispatched:'已派单'};
-  return head('采集建议','每天发现游戏与品类变化，由你决定哪些进入待抓取。',
-    '<button data-discovery-settings>每日规则</button><button class="primary" data-discovery-scan>立即扫描来源</button>')+
+  return head('采集建议', readOnly?'以下为本地平台采集结果的只读快照。':'每天发现游戏与品类变化，由你决定哪些进入待抓取。',
+    readOnly?'':'<button data-discovery-settings>每日规则</button><button class="primary" data-discovery-scan>立即扫描来源</button>')+
     `<p class="notice">每日计划：${cfg.enabled?'每天北京时间 '+String(cfg.hour).padStart(2,'0')+':00':'已暂停'}。平台后台需持续运行；错过当天时间会在启动后补扫一次。${cfg.auto_dispatch?'规则自动选择的游戏会直接派单转换；人工通过仍进入待抓取。':'审核通过不会立即复刻。'}</p>
     <section class="schedule-summary" aria-label="自动分析服务"><p><strong>每日采集分析</strong><br>${cfg.enabled?'已启用 · 北京时间 '+String(cfg.hour).padStart(2,'0')+':00':'已暂停'}</p><p><strong>最近执行</strong><br>${runs[0]?esc(runs[0].day)+' · '+esc(({completed:'完成',partial:'部分完成',running:'执行中',queued:'排队中',interrupted:'中断'})[runs[0].status]||runs[0].status):'尚无记录'}</p><p><strong>执行范围</strong><br>发现游戏、分析页面品类、生成建议；${cfg.auto_dispatch?'已开启规则派单':'转换仍需通过并派单'}</p></section>
     <div class="discovery-toolbar"><label>游戏品类<select id="discovery-category"><option value="">全部品类</option>${facetOptions('category',discoveryCategory)}</select></label><label>来源网站<select id="discovery-source"><option value="">全部网站</option>${facetOptions('source',discoverySource)}</select></label><label>清单状态<select id="discovery-status">${Object.entries(statuses).map(([k,v])=>`<option value="${k}" ${discoveryStatus===k?'selected':''}>${v}</option>`).join('')}</select></label>
     <label>生成批次<select id="discovery-run"><option value="">全部日期</option>${runs.map(r=>`<option value="${esc(r.id)}" ${discoveryRun===r.id?'selected':''}>${esc(r.day)} · ${date(r.created_at)} · ${esc(r.status)}</option>`).join('')}</select></label>
-    ${discoveryStatus==='pending'?'<button data-discovery-decision="approve">选中项通过 → 待抓取</button><button data-discovery-decision="reject">选中项不再处理</button>':''}
-    ${discoveryStatus==='pending_capture'?'<button class="primary" data-discovery-decision="dispatch">开始抓取选中游戏</button>':''}</div>
+    ${!readOnly&&discoveryStatus==='pending'?'<button data-discovery-decision="approve">选中项通过 → 待抓取</button><button data-discovery-decision="reject">选中项不再处理</button>':''}
+    ${!readOnly&&discoveryStatus==='pending_capture'?'<button class="primary" data-discovery-decision="dispatch">开始抓取选中游戏</button>':''}</div>
     ${run?`<details class="panel"><summary>扫描记录与品类变化 · ${esc(run.day)} · ${esc(({queued:'等待扫描',running:'扫描中',completed:'已完成',partial:'部分完成',interrupted:'已中断'})[run.status]||run.status)}</summary>
     <p class="tiny muted">平台品类基线：${esc((run.catalog_categories||[]).join('、')||'尚无')}。首次扫描只建立观察基线，不等于网站刚新增。</p>
     ${(run.category_changes||[]).map(c=>`<div class="step"><strong>${esc(c.category)}</strong> · ${esc(c.source)} · ${c.first_observation?'首次观察':'本次新观察'}<p>${esc(c.recommendation)}</p><a href="${esc(safeUrl(c.evidence_url))}" target="_blank" rel="noopener noreferrer">品类依据 ↗</a></div>`).join('')||'<p>尚未记录新品类；不代表已覆盖全站。</p>'}
     ${(run.sources||[]).map(s=>`<div class="step"><b>${esc(s.name)}</b> · ${esc(({success:'扫描完成',partial:'部分完成',failed:'失败',needs_adapter:'需要调整规则或适配'})[s.status]||s.status)} · 新建议 ${s.new} · 去重 ${s.duplicates}<p class="tiny muted">${esc(s.coverage)}</p>${s.errors.map(e=>`<p class="tiny">${esc(e.url||'')} ${esc(e.error)}</p>`).join('')}</div>`).join('')}</details>`:''}
     <p class="tiny muted">当前 ${rows.length} / ${available.length} 款 · 按品类 / 网站分组，切换筛选会清空勾选。玩法说明来自来源页面，未经实际试玩验证。</p>
-    ${rows.length?`<div class="table-wrap discovery-list"><table class="table discovery-table" aria-label="采集建议列表"><thead><tr><th scope="col">游戏 / 来源</th><th scope="col">品类</th><th scope="col">建议原因 / 玩法</th><th scope="col">发现时间</th><th scope="col">状态</th><th scope="col">操作</th></tr></thead><tbody>${rows.map(r=>`${groupHeading(r)}<tr><td><label class="checkrow"><input type="checkbox" data-recommendation="${esc(r.id)}" ${discoverySelected.has(r.id)?'checked':''} ${['rejected','dispatched'].includes(r.status)?'disabled':''}><strong>${esc(r.title)}</strong></label><small class="discovery-source">${esc(r.source)}</small></td>
-    <td>${esc(r.category)}${r.platform_category_missing?'<small class="discovery-gap">平台尚未覆盖</small>':''}</td>
+    ${rows.length?`<div class="table-wrap discovery-list"><table class="table discovery-table" aria-label="采集建议列表"><thead><tr><th scope="col">游戏 / 来源</th><th scope="col">品类 / 技术类型</th><th scope="col">建议原因 / 玩法</th><th scope="col">发现时间</th><th scope="col">状态</th><th scope="col">操作</th></tr></thead><tbody>${rows.map(r=>`${groupHeading(r)}<tr><td><label class="checkrow"><input type="checkbox" data-recommendation="${esc(r.id)}" ${discoverySelected.has(r.id)?'checked':''} ${['rejected','dispatched'].includes(r.status)?'disabled':''}><strong>${esc(r.title)}</strong></label><small class="discovery-source">${esc(r.source)}</small></td>
+    <td>${esc(r.category)}${r.platform_category_missing?'<small class="discovery-gap">平台尚未覆盖</small>':''}<small class="discovery-source" data-technology title="${esc((r.technology?.matches||[]).map(m=>m.evidence).join('；')||'暂无识别依据')}">${esc(r.technology?.label||'待识别')}<br>${r.technology?.status==='hint'?'页面线索 · 未运行验证':'技术类型待识别'}</small></td>
     <td class="discovery-description"><p>${esc(r.reason)}</p>${r.selection_score?`<small>信息评分 ${r.selection_score.value}/100 · 未试玩</small>`:''}<details><summary>玩法与来源依据</summary><p>${esc(r.gameplay||'来源未提供，需打开原站核对，未自动编造')}</p><p class="tiny muted">${esc(r.category_basis||"来源分类记录")} · ${esc(r.description_basis)} · 页面校验 ${esc(r.content_sha256)}</p></details></td>
     <td class="tiny muted">${date(r.created_at)}</td><td><span class="badge">${statuses[r.status]}</span></td>
-    <td><div class="actions"><a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener noreferrer">原平台试玩 ↗</a>${r.job_id?`<button data-job="${esc(r.job_id)}">查看执行任务</button>`:''}</div></td></tr>`).join('')}</tbody></table></div>`:empty('当前没有对应清单','等待每日扫描，或点击“立即扫描来源”；失败与未适配站点会保留原因。')}`;
+    <td><div class="actions"><a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener noreferrer">原平台试玩 ↗</a>${r.job_id?`<button data-job="${esc(r.job_id)}">查看执行任务</button>`:''}</div></td></tr>`).join('')}</tbody></table></div>`:empty('当前没有对应清单', readOnly?'本地平台暂无采集结果。':'等待每日扫描，或点击“立即扫描来源”；失败与未适配站点会保留原因。')}`;
 }
 function discoverySettings() {
   const c=state.discovery_settings;
@@ -195,10 +199,12 @@ async function load() {
       state = await api("/api/state");
     }
     state.services = await api("/api/services");
+    readOnly = !demo && !!(state.migration && state.migration.read_only);
     render();
   } catch (e) {
     if (authRequired && (e.message.includes('登录') || e.message.includes('会话'))) { renderLogin(); return; }
     state = {};
+    readOnly = false;
     render();
     toast("无法连接平台：" + e.message);
   }
@@ -214,7 +220,7 @@ function renderLogin(error='') {
   };
 }
 function shell() {
-  return `<header class="site-header"><button class="site-brand" data-nav="library" aria-label="小游戏库首页"><span class="pixel-mark" aria-hidden="true">✣</span> Game Lab<span class="brand-cn">游戏实验室</span></button><div class="topright"><input class="search" id="global-search" placeholder="搜索游戏、任务…" aria-label="搜索游戏、任务"><button class="smallbtn" data-action="mode">${demo ? "◉ 演示模式" : "○ 实时数据"}</button><span class="tiny muted" id="sync-status" role="status">${demo ? "演示数据" : "自动同步中"}</span><button class="textbtn" data-action="refresh">↻ 刷新</button>${authRequired?'<button class="textbtn" data-action="logout">退出登录</button>':''}</div></header><nav class="site-nav" aria-label="主导航">${['library','overview','discovery','candidates','jobs','reviews','tools','settings',...(state.current_user?.role==='admin'?['administration']:[])].map(id=>nav.find(n=>n[0]===id)).map(([id,icon,title])=>`<button class="navbtn ${(page==='batches'?'jobs':page)===id?'active':''}" data-nav="${id}" ${(page==='batches'?'jobs':page)===id?'aria-current="page"':''}>${title}</button>`).join('')}</nav><main class="main ${page==='library'?'is-library':''}"><div class="content">${demo ? '<div class="demo-banner"><span>◇ 演示工作空间 · 数据与游戏插画仅用于交互设计演示</span><span>不代表已采集或复刻</span></div>' : ""}<div id="page"></div></div></main>`;
+  return `<header class="site-header"><button class="site-brand" data-nav="library" aria-label="小游戏库首页"><span class="pixel-mark" aria-hidden="true">✣</span> Game Lab<span class="brand-cn">游戏实验室</span></button><div class="topright"><input class="search" id="global-search" placeholder="搜索游戏、任务…" aria-label="搜索游戏、任务"><button class="smallbtn" data-action="mode">${demo ? "◉ 演示模式" : "○ 实时数据"}</button><span class="tiny muted" id="sync-status" role="status">${demo ? "演示数据" : "自动同步中"}</span><button class="textbtn" data-action="refresh">↻ 刷新</button>${authRequired?'<button class="textbtn" data-action="logout">退出登录</button>':''}</div></header><nav class="site-nav" aria-label="主导航">${['library','overview','discovery','candidates','jobs','reviews','tools','settings',...(state.current_user?.role==='admin'?['administration']:[])].map(id=>nav.find(n=>n[0]===id)).map(([id,icon,title])=>`<button class="navbtn ${(page==='batches'?'jobs':page)===id?'active':''}" data-nav="${id}" ${(page==='batches'?'jobs':page)===id?'aria-current="page"':''}>${title}</button>`).join('')}</nav><main class="main ${page==='library'?'is-library':''}"><div class="content">${demo ? '<div class="demo-banner"><span>◇ 演示工作空间 · 数据与游戏插画仅用于交互设计演示</span><span>不代表已采集或复刻</span></div>' : readOnly ? '<div class="readonly-banner"><span>◇ 云端只读站点 · 可浏览、可试玩</span><span>发起任务、采集扫描与内容修改请在本地平台操作</span></div>' : ""}<div id="page"></div></div></main>`;
 }
 let renderedShell = '', renderedPage = '';
 function render(background = false) {
@@ -245,6 +251,7 @@ function render(background = false) {
   if (active && navigation.scrollWidth > navigation.clientWidth) {
     navigation.scrollLeft = active.offsetLeft - navigation.clientWidth / 2 + active.offsetWidth / 2;
   }
+  document.body.classList.toggle('read-only', readOnly);
   bind();
   if(page==='administration')loadAdministration();
 }
@@ -488,11 +495,11 @@ function jobs() {
   const all=currentJobs(), active=all.filter(j=>j.status!=="completed"), list=showCompletedTasks?all:active;
   return `<div class="notice">${active.length} 个未完成任务 · ${all.filter(j=>j.status==='waiting_input').length} 个待回复 · ${all.filter(j=>j.status==='review').length} 个待验收。退回意见会直接进入下一轮修改。</div><div class="actions" style="margin-bottom:16px"><button id="toggle-completed">${showCompletedTasks?'隐藏已完成':'显示已完成'}</button></div><div class="panel">${jobTable(list.filter(j=>!query||cBy(j.candidate_id).title.includes(query)||j.id.includes(query)))}</div>`;
 }
-function reviewImage(record, label) {
+function reviewImage(record, label, full = false) {
   const src=screenshotItems(record)[0];
   const configuredZoom = Number(record.preview?.zoom || 1);
   const zoom = Number.isFinite(configuredZoom) ? Math.max(1,Math.min(8,configuredZoom)) : 1;
-  return src ? `<div class="review-shot"><img src="${esc(src)}" alt="${esc(label)}" style="transform:scale(${zoom});transform-origin:center"></div>` : `<div class="notice">${esc(label)}尚未采集。</div>`;
+  return src ? `<div class="review-shot${full ? ' review-shot-full' : ''}"><img src="${esc(src)}" alt="${esc(label)}" style="transform:scale(${full ? 1 : zoom});transform-origin:center"></div>` : `<div class="notice">${esc(label)}尚未采集。</div>`;
 }
 function supplyDeliveryList() {
   const deliveries=state.supply_deliveries||[];
@@ -523,7 +530,7 @@ function reviews() {
 const serviceNames = {wechat: "小游戏转 Web 浏览器游戏服务", ai: "AI 服务"};
 function toolPage() {
   return head("工具服务", "统一管理游戏转换、AI 与下游模板供货服务。") +
-    `<div class="notice">转换与 AI 连接检测有效期为 5 分钟；供货检查显示最近一次检查快照。${demo ? "此处始终显示真实服务状态。" : ""}</div><div class="toolgrid service-grid">${(state.services || []).map(s => `<section class="panel service-card"><div class="panelhead"><div class="tool-avatar">${s.id === 'ai' ? '✦' : '⌘'}</div><span class="badge ${s.status === '在线' ? 'green' : s.status === '异常' ? 'red' : 'gray'}">${esc(s.status)}</span></div><h2>${serviceNames[s.id]}</h2><p class="muted service-description">${s.id === 'ai' ? '为游戏分析、代码生成与修复提供模型调用。' : '接收游戏链接，自动采集、重建、运行验证并入库待验收。'}</p><div class="kv"><span>服务地址</span><span class="service-address">${esc(s.base_url || (s.id === 'ai' ? '本机 Codex（自动备用）' : '平台内置执行器'))}</span></div>${s.id === 'ai' ? `<div class="kv"><span>接入方式</span><span>${esc(s.connection_label || s.backend)}</span></div><div class="kv"><span>模型</span><span>${esc(s.model || '使用本机 Codex 默认模型')}</span></div>` : '<p class="tiny muted">执行器随平台启动；失败保留记录，可重试。基于页面材料重建的版本不表示原版已完整移植。</p>'}<div class="kv"><span>最近检测</span><span>${s.checked_at ? date(s.checked_at * 1000) : '尚未检测'}</span></div><p class="tiny muted" role="status">${esc(s.detail)}</p><div class="modalfooter"><button class="smallbtn" data-service-config="${s.id}">配置服务</button><button class="primary" data-service-test="${s.id}" ${s.status === '未配置' ? 'disabled' : ''}>检测连接</button></div></section>`).join('')}${supplyServiceCard()}</div>`;
+    `<div class="notice">转换与 AI 连接检测有效期为 5 分钟；供货检查显示最近一次检查快照。${demo ? "此处始终显示真实服务状态。" : ""}</div><div class="toolgrid service-grid">${(state.services || []).map(s => `<section class="panel service-card"><div class="panelhead"><div class="tool-avatar">${s.id === 'ai' ? '✦' : '⌘'}</div><span class="badge ${s.status === '在线' ? 'green' : s.status === '异常' ? 'red' : 'gray'}">${esc(s.status)}</span></div><h2>${serviceNames[s.id]}</h2><p class="muted service-description">${s.id === 'ai' ? '为游戏分析、代码生成与修复提供模型调用。' : '接收游戏链接，自动采集、重建、运行验证并入库待验收。'}</p><div class="kv"><span>服务地址</span><span class="service-address">${esc(s.base_url || (s.id === 'ai' ? '本机 Codex（自动备用）' : '平台内置执行器'))}</span></div>${s.id === 'ai' ? `<div class="kv"><span>接入方式</span><span>${esc((s.connection_label || s.backend) + (s.account_email ? ' · ' + s.account_email : ''))}</span></div><div class="kv"><span>模型</span><span>${esc(s.model || '使用本机 Codex 默认模型')}</span></div>` : '<p class="tiny muted">执行器随平台启动；失败保留记录，可重试。基于页面材料重建的版本不表示原版已完整移植。</p>'}<div class="kv"><span>最近检测</span><span>${s.checked_at ? date(s.checked_at * 1000) : '尚未检测'}</span></div><p class="tiny muted" role="status">${esc(s.detail)}</p><div class="modalfooter"><button class="smallbtn" data-service-config="${s.id}">配置服务</button><button class="primary" data-service-test="${s.id}" ${s.status === '未配置' ? 'disabled' : ''}>检测连接</button></div></section>`).join('')}${supplyServiceCard()}</div>`;
 }
 const supplyFields = {SUPPLY_PLATFORM_BASE:"下游接口地址",SUPPLY_APP_ID:"供应方 ID（非微信 AppID）",SUPPLY_APP_SECRET:"供应方授权码",SUPPLY_ARCHIVE_DIR:"服务器分发目录",SUPPLY_ARCHIVE_BASE_URL:"HTTPS 下载前缀",SUPPLY_EXPECTED_FINGERPRINT:"下游管理页授权码指纹（12 位）"};
 function supplyServiceCard() {
@@ -570,25 +577,29 @@ function serviceDialog(id) {
   };
 }
 function aiServiceDialog(s) {
-  const labels = {local_codex:'本地 Codex（当前电脑）',cloud_codex:'云服务器 Codex CLI',openai:'OpenAI 官方 API',compatible:'OpenAI 兼容 API'};
+  const labels = {local_codex:'本地 Codex（独立账号）',codex_account:'Codex 账号（云服务器）',cloud_codex:'云服务器 Codex CLI',openai:'OpenAI 官方 API',compatible:'OpenAI 兼容 API'};
   const drafts = Object.fromEntries(Object.entries(s.profiles || {}).map(([key, value]) => [key, {...value}]));
-  let selected = Object.hasOwn(labels, s.connection) ? s.connection : 'local_codex';
-  modal('AI 服务', `<form id="ai-service-form"><p class="notice">当前连接：${esc(s.connection_label || '旧配置')}。各连接配置分别保存，保存后启用所选连接。</p><label>接入方式</label><select name="connection">${Object.entries(labels).map(([key,label])=>`<option value="${key}">${label}</option>`).join('')}</select><label>服务基础地址</label><input name="base_url" type="url" required><label>模型名称</label><input name="model" required><label>接口协议</label><select name="wire_api"><option value="responses">Responses API</option><option value="chat_completions">Chat Completions</option></select><div id="ai-actor-field"><label>附加授权头（可选）</label><input name="actor_authorization" type="password" autocomplete="new-password"></div><label id="ai-key-label">API Key</label><input name="api_key" type="password" autocomplete="new-password"><p class="tiny muted" id="ai-connection-help"></p><div class="modalfooter"><button type="submit" class="primary">保存并启用</button></div></form>`);
+  let selected = Object.hasOwn(labels, s.connection) ? s.connection : 'codex_account';
+  modal('AI 服务', `<form id="ai-service-form"><p class="notice">当前连接：${esc(s.connection_label || '旧配置')}。各连接配置分别保存，保存后启用所选连接。</p><label>接入方式</label><select name="connection">${Object.entries(labels).map(([key,label])=>`<option value="${key}">${label}</option>`).join('')}</select><div id="ai-account-field"><label>Codex 账号邮箱</label><input name="account_email" type="email" autocomplete="username"></div><div id="ai-base-field"><label>服务基础地址</label><input name="base_url" type="url" required></div><label>模型名称</label><input name="model" required><label>接口协议</label><select name="wire_api"><option value="responses">Responses API</option><option value="chat_completions">Chat Completions</option></select><div id="ai-actor-field"><label>附加授权头（可选）</label><input name="actor_authorization" type="password" autocomplete="new-password"></div><label id="ai-key-label">API Key</label><input name="api_key" type="password" autocomplete="new-password"><p class="tiny muted" id="ai-connection-help"></p><div class="modalfooter"><button type="submit" class="primary">保存并启用</button></div></form>`);
   const form = $('#ai-service-form');
   const field = name => form.elements.namedItem(name);
   const renderFields = () => {
     const saved = drafts[selected] || {};
     field('connection').value = selected;
-    for (const name of ['base_url','model','wire_api','api_key','actor_authorization']) field(name).value = saved[name] || (name === 'wire_api' ? 'responses' : '');
+    for (const name of ['base_url','model','wire_api','api_key','actor_authorization','account_email']) field(name).value = saved[name] || (name === 'wire_api' ? 'responses' : '');
     field('api_key').placeholder = saved.has_key ? '留空保留此连接已保存的密钥' : '填写此连接的密钥';
     field('actor_authorization').placeholder = saved.has_actor_authorization ? '留空保留此连接已保存值' : '未配置';
     field('base_url').readOnly = selected === 'openai';
-    field('model').readOnly = selected === 'local_codex';
+    field('model').readOnly = false;
+    const account = selected === 'codex_account';
+    $('#ai-account-field').hidden = !account; field('account_email').required = account;
+    $('#ai-base-field').hidden = account; field('base_url').required = !account;
+    field('api_key').hidden = account; $('#ai-key-label').hidden = account;
     field('wire_api').disabled = selected !== 'compatible';
     $('#ai-actor-field').hidden = !['compatible','cloud_codex'].includes(selected);
-    $('#ai-key-label').textContent = selected === 'local_codex' ? '本地桥接令牌' : 'API Key';
-    $('#ai-connection-help').textContent = selected === 'local_codex'
-      ? '连接你电脑上的 Codex：需启动本地桥接并保持 SSH 隧道在线。地址为平台服务器的回环端口，令牌由桥接生成。电脑必须开机联网；Codex 登录凭据不上传。'
+    $('#ai-key-label').textContent = 'API Key';
+    $('#ai-connection-help').textContent = selected === 'local_codex' ? '连接本机独立登录账号的 Codex 桥接；由启动参数指定账号，凭据留在本机。电脑及 SSH 隧道须在线。' : account
+      ? '使用此账号在云服务器上的独立 Codex 登录。先完成官方浏览器授权，再保存并检测；邮箱不是凭据，无需填写 API Key。模型是否可用以实际检测为准。'
       : selected === 'cloud_codex' ? '由云服务器服务账号启动 Codex CLI，使用此处配置的模型和 API 凭据。无需你电脑在线，也不依赖服务器管理员的交互登录。'
       : selected === 'openai' ? '直连 OpenAI 官方服务，请使用官方 API Key。模型名称须在该账号下可用；Responses 请求关闭响应存储。'
       : '使用兼容 OpenAI 协议的第三方服务。基础地址通常以 /v1 结尾，不要填写 /responses。Responses 请求关闭响应存储；模型可用性以服务检测为准。';
@@ -643,6 +654,7 @@ function closeModal() {
   modalReturnFocus = null;
 }
 async function mutate(path, body, demoFn) {
+  if (readOnly) { toast(READ_ONLY_HINT); return; }
   try {
     if (demo) {
       demoFn?.();
@@ -730,18 +742,13 @@ function pipelineRecords(records) {
   const groups=[];
   for(const r of records) {
     const last=groups.at(-1), previous=last?.[0];
-    if(previous&&previous.execution_id===r.execution_id&&previous.message===r.message&&previous.round===r.round&&previous.attempt===r.attempt&&previous.status===r.status)last.push(r);
+    if(previous&&previous.message===r.message&&previous.round===r.round&&previous.attempt===r.attempt&&previous.status===r.status)last.push(r);
     else groups.push([r]);
   }
   return groups.map(group=>{
-    const r=group[0], text=r.evidence_source?r.message:(r.summary||r.message);
+    const r=group[0], text=r.summary||r.message;
     return `<div class="pipeline-record"><p class="tiny"><time>${date(r.time)}</time> ${r.round?'第 '+r.round+' 轮 · ':''}${esc(text)}</p>${text!==r.message?`<details><summary class="tiny muted">详细记录（原始内容）</summary><p class="tiny">${esc(r.message)}</p></details>`:''}${group.length>1?`<details><summary class="tiny muted">相同记录共 ${group.length} 次 · 查看时间</summary>${group.slice(1).map(item=>`<p class="tiny">${date(item.time)}</p>`).join('')}</details>`:''}</div>`;
   }).join('');
-}
-function pipelineExecutions(node) {
-  if(!node.executions?.length)return '';
-  const labels={running:'执行中',resumed:'继续执行',interrupted:'任务已结束 · 缺少本次结束记录',failed:'失败',succeeded:'通过',cancelled:'已停止',waiting_input:'待处理'};
-  return `<div class="pipeline-executions"><h4>本轮每次执行</h4>${node.executions.map(e=>`<p class="tiny"><b>第 ${esc(e.number)} 次 · ${esc(labels[e.status]||e.status)}</b> · ${date(e.started_at)}${e.ended_at?' → '+date(e.ended_at):' · 未记录结束'}${e.message?`<br>${esc(e.message)}`:''}</p>`).join('')}</div>`;
 }
 function pipelinePanel(job) {
   const pipe=job.pipeline;
@@ -750,7 +757,7 @@ function pipelinePanel(job) {
   const summary=pipe.presentation, countLabels={complete:'本轮已完成',active:'进行中',issue:'有问题',waiting:'等待处理',incomplete:'未完成',pending:'尚未开始',unknown:'结论缺失',history:'历史结果',optional:'按需 / 跳过',stopped:'已停止'};
   return `<section class="pipeline"><h3>转换阶段与完成情况</h3>${summary?`<div class="pipeline-overview"><strong>${esc(summary.headline)}</strong>${summary.current_title?`<p>当前节点：${esc(summary.current_title)} <button class="smallbtn" data-stage-focus="${esc(pipe.current)}">定位这个阶段 ↓</button></p>`:''}${summary.problem?`<p class="pipeline-problem"><b>当前问题：</b>${esc(summary.problem)}</p>`:''}<p>下一步：${esc(summary.next_action)}</p><div class="pipeline-counts">${Object.entries(countLabels).filter(([k])=>summary.counts[k]).map(([k,label])=>`<span data-group="${k}">${label} ${summary.counts[k]} 项</span>`).join('')}</div><p class="tiny muted">完成项只统计本轮有明确结论的阶段，历史完成与按需步骤单独显示。</p></div>`:''}<p class="tiny muted">${esc(pipe.note)}</p><ol>${pipe.nodes.map((n,index)=>{
     const view=n.presentation, records=n.records||[], currentRecords=records.filter(r=>(r.round||1)===(job.round||1)), history=records.filter(r=>(r.round||1)!==(job.round||1));
-    return `<li data-node="${esc(n.key)}" data-status="${esc(n.status)}" data-group="${esc(view?.group||'unknown')}" ${pipe.current===n.key?'aria-current="step"':''}><div class="pipeline-stage-header"><strong>${index+1}. ${esc(view?.title||n.label)}</strong><span class="pipeline-status">${esc(view?.label||labels[n.status]||n.status)}</span></div>${view?`<p class="pipeline-work">${esc(view.work)}</p><p class="pipeline-result"><b>当前结果：</b>${esc(view.result)}</p>${view.problem?`<p class="pipeline-problem"><b>问题：</b>${esc(view.problem)}</p>`:''}<p class="pipeline-next"><b>下一步：</b>${esc(view.next_action)}</p>${view.previous?`<p class="tiny muted">历史结论：${esc(view.previous)}</p>`:''}`:''}<details class="pipeline-evidence"><summary>查看过程与依据 · 本轮 ${currentRecords.length} 条 / 历史 ${history.length} 条</summary>${n.started_at?`<p class="tiny">开始 ${date(n.started_at)}</p>`:''}${n.ended_at?`<p class="tiny">结束 ${date(n.ended_at)}</p>`:''}${n.duration_seconds!=null?`<p class="tiny">耗时 ${n.duration_seconds} 秒</p>`:''}${!view&&n.reason&&n.reason!==job.question&&!records.some(r=>r.message?.trim()===n.reason.trim())?`<p>${esc(n.reason)}</p>`:''}${n.version_id?`<p class="tiny">关联版本 ${esc(n.version_id)}</p>`:''}${pipelineExecutions(n)}${pipelineRecords(currentRecords)}${!currentRecords.length?'<p class="tiny muted">本轮没有独立的步骤日志；如有版本结果，以阶段说明为准。</p>':''}${history.length?`<details><summary>此前轮次记录</summary>${pipelineRecords(history)}</details>`:''}</details></li>`;
+    return `<li data-node="${esc(n.key)}" data-status="${esc(n.status)}" data-group="${esc(view?.group||'unknown')}" ${pipe.current===n.key?'aria-current="step"':''}><div class="pipeline-stage-header"><strong>${index+1}. ${esc(view?.title||n.label)}</strong><span class="pipeline-status">${esc(view?.label||labels[n.status]||n.status)}</span></div>${view?`<p class="pipeline-work">${esc(view.work)}</p><p class="pipeline-result"><b>当前结果：</b>${esc(view.result)}</p>${view.problem?`<p class="pipeline-problem"><b>问题：</b>${esc(view.problem)}</p>`:''}<p class="pipeline-next"><b>下一步：</b>${esc(view.next_action)}</p>${view.previous?`<p class="tiny muted">历史结论：${esc(view.previous)}</p>`:''}`:''}<details class="pipeline-evidence"><summary>查看过程与依据 · 本轮 ${currentRecords.length} 条 / 历史 ${history.length} 条</summary>${n.started_at?`<p class="tiny">开始 ${date(n.started_at)}</p>`:''}${n.ended_at?`<p class="tiny">结束 ${date(n.ended_at)}</p>`:''}${n.duration_seconds!=null?`<p class="tiny">耗时 ${n.duration_seconds} 秒</p>`:''}${!view&&n.reason&&n.reason!==job.question&&!records.some(r=>r.message?.trim()===n.reason.trim())?`<p>${esc(n.reason)}</p>`:''}${n.version_id?`<p class="tiny">关联版本 ${esc(n.version_id)}</p>`:''}${pipelineRecords(currentRecords)}${!currentRecords.length?'<p class="tiny muted">本轮没有独立的步骤日志；如有版本结果，以阶段说明为准。</p>':''}${history.length?`<details><summary>此前轮次记录</summary>${pipelineRecords(history)}</details>`:''}</details></li>`;
   }).join('')}</ol></section>`;
 }
 function gameSpecPanel(candidate,job) {
@@ -828,7 +835,7 @@ function play(id) {
       : u === "#" || !v.preview_url
         ? empty("运行包尚未部署", "请先完成构建并配置独立试玩地址。")
         : v.preview_mode === "external"
-          ? `<div class="notice">此游戏运行包使用独立本地窗口试玩。下载版本包后按包内说明启动，也可在下方打开已启动的运行服务。</div><p><a class="primary" href="${esc(u)}" target="_blank" rel="noopener noreferrer">打开 ${esc(cBy(v.candidate_id).title)} 试玩</a></p><p class="tiny muted">版本 ${esc(v.commit || v.id)} · 本地运行包，使用范围以验收记录为准</p>`
+          ? `<div class="notice">${readOnly?'此版本以独立运行目录打包，将在新窗口打开完整游戏。':'此游戏运行包使用独立本地窗口试玩。下载版本包后按包内说明启动，也可在下方打开已启动的运行服务。'}</div><p><a class="primary" href="${esc(u)}" target="_blank" rel="noopener noreferrer">打开 ${esc(cBy(v.candidate_id).title)} 试玩</a></p><p class="tiny muted">版本 ${esc(v.commit || v.id)} · ${readOnly?'云端只读运行包':'本地运行包'}，使用范围以验收记录为准</p>`
           : `<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" src="${esc(u)}" title="游戏试玩"></iframe><p class="tiny muted">隔离运行 · ${esc(v.commit || v.id)}</p>`,
     true,
   );
@@ -848,7 +855,7 @@ function review(id) {
     c = cBy(v.candidate_id);
   modal(
     c.title + (["approved","published"].includes(v.status) ? " · 验收结果" : " · 版本验收"),
-    `<div class="preview-pair" style="grid-template-columns:minmax(0,1fr)"><div><h3>产出版本 ${badge(v.status)}</h3>${reviewImage(v,"产出版本实机截图")}<p class="tiny muted">${demo ? "演示插画，非复刻成果" : screenshotItems(v).length ? "该版本运行截图" : "该版本尚未提供运行截图"}</p><button class="smallbtn" data-play="${esc(v.id)}">▷ 打开产出试玩</button></div></div><details id="game-specification" class="panel" style="margin-top:20px" ${specificationViews.get(id)?.open ? "open" : ""}><summary><strong>游戏规格说明书</strong> <span class="tiny muted">Markdown · 点击阅读</span></summary><article id="game-specification-content" style="margin-top:16px">${specificationViews.get(id)?.html || '<p class="muted">展开后加载说明书。</p>'}</article></details>${provenancePanel(c)}<form id="review-form"><label class="checkrow"><input type="checkbox" name="gameplay" required>核心玩法、计分或胜负、重开符合规格</label><label class="checkrow"><input type="checkbox" name="visual" required>画面可用且无阻断运行错误</label><p class="tiny muted">此处确认玩法与画面，完成学习项目的功能验收入库。资源使用信息另行记录，发布前核对。</p><label>验收意见 / 退回原因</label><textarea name="reason" placeholder="记录需要修复的问题…"></textarea><div class="modalfooter"><button type="button" id="reject-version">退回修复</button><button type="submit" class="primary">${v.status === "approved" ? "发布到小游戏库" : "通过验收"}</button></div></form>`,
+    `<div class="preview-pair" style="grid-template-columns:minmax(0,1fr)"><div><h3>产出版本 ${badge(v.status)}</h3>${reviewImage(v,"产出版本实机截图",true)}<p class="tiny muted">${demo ? "演示插画，非复刻成果" : screenshotItems(v).length ? "该版本运行截图" : "该版本尚未提供运行截图"}</p><button class="smallbtn" data-play="${esc(v.id)}">▷ 打开产出试玩</button></div></div><details id="game-specification" class="panel" style="margin-top:20px" ${specificationViews.get(id)?.open ? "open" : ""}><summary><strong>游戏规格说明书</strong> <span class="tiny muted">Markdown · 点击阅读</span></summary><article id="game-specification-content" style="margin-top:16px">${specificationViews.get(id)?.html || '<p class="muted">展开后加载说明书。</p>'}</article></details>${provenancePanel(c)}<form id="review-form"><label class="checkrow"><input type="checkbox" name="gameplay" required>核心玩法、计分或胜负、重开符合规格</label><label class="checkrow"><input type="checkbox" name="visual" required>画面可用且无阻断运行错误</label><p class="tiny muted">此处确认玩法与画面，完成学习项目的功能验收入库。资源使用信息另行记录，发布前核对。</p><label>验收意见 / 退回原因</label><textarea name="reason" placeholder="记录需要修复的问题…"></textarea><div class="modalfooter"><button type="button" id="reject-version">退回修复</button><button type="submit" class="primary">${v.status === "approved" ? "发布到小游戏库" : "通过验收"}</button></div></form>`,
     true,
   );
   const specification = $('#game-specification');
@@ -1020,7 +1027,7 @@ function bind() {
       const services = await api(`/api/services/${service}/test`, {}, {signal: AbortSignal.timeout(service === 'ai' ? 75000 : 30000)});
       mutationEpoch++;
       state.services = services;
-      toast((services.find(s => s.id === service)?.detail) || '检测完成');
+      toast((state.services.find(s => s.id === service)?.detail) || '检测完成');
     } catch (e) {
       toast(e.name === 'TimeoutError' ? '检测超过等待上限，请检查连接后重试' : e.message);
     } finally {
@@ -1114,6 +1121,7 @@ function bind() {
           selected.clear();
           load();
         } else if (a === "refresh") load();
+        else if (readOnly) toast(READ_ONLY_HINT);
         else formDialog(a);
       }),
   );

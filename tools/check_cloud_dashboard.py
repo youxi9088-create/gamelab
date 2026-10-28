@@ -61,6 +61,19 @@ def main():
     if not dash.get('engines') or not dash.get('models'):
         failures.append('引擎或模型分组为空')
 
+    # 顶部四张卡："分析游戏 / AI 复刻生成"取 production，缺了前端渲染成「—」。
+    production = ((payload.get('metrics') or {}).get('production') or {})
+    blank = [key for key in ('analyzed', 'generated', 'websites', 'acquired')
+             if not isinstance(production.get(key), int)]
+    if blank:
+        failures.append(f'累计生产指标为空（前端显示「—」）: {blank}')
+    trend = (payload.get('metrics') or {}).get('trend')
+    if not isinstance(trend, list) or len(trend) != 7:
+        failures.append('近 7 天趋势缺失')
+    print('累计生产指标:', json.dumps({k: production.get(k) for k in
+                                  ('analyzed', 'generated', 'websites', 'acquired', 'templates')},
+                                 ensure_ascii=False))
+
     print(f"游戏 {dash['games_count']} 款 · 调用 {dash['calls']} 次 · "
           f"引擎 {len(dash['engines'])} 类 · 模型 {len(dash['models'])} 个 · "
           f"计时闭合 {dash['timing_complete']}/{dash['timing_measured']} · "

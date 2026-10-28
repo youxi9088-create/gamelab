@@ -12,11 +12,14 @@ ROOT = Path(r'F:/youxi/door')
 sys.path.insert(0, str(ROOT))
 from controlplane.usage import game_totals  # noqa: E402
 from controlplane.dashboard_operations import overview  # noqa: E402
+from controlplane.dashboard import production_metrics  # noqa: E402
 from controlplane.catalog_facets import effective_engine  # noqa: E402
 
 DB = Path(r'F:/youxi/door-cloudflare-migration/migration-private/platform.migration.sqlite3')
 
-KINDS = ['candidates', 'versions', 'jobs', 'events', 'ai_usage', 'supply']
+# sources / recommendations 是 production_metrics 的输入（站点数、已分析去重）。
+KINDS = ['candidates', 'versions', 'jobs', 'events', 'ai_usage', 'supply',
+         'sources', 'recommendations']
 
 
 def load():
@@ -38,6 +41,7 @@ def main():
     state = {
         'candidates': data['candidates'], 'versions': data['versions'], 'jobs': data['jobs'],
         'events': data['events'], 'supply': data['supply'],
+        'sources': data['sources'], 'recommendations': data['recommendations'],
     }
     state['game_conversion_stats'] = game_totals(
         state['candidates'], state['jobs'], state['events'], data['ai_usage'])
@@ -57,6 +61,10 @@ def main():
         'engine_game_counts': sorted((e['name'], e['games']) for e in result['engines']),
         'models': sorted(m['name'] for m in result['models']),
         'failure_reasons': sorted((f['code'], f['count']) for f in result['failure_reasons']),
+        # 看板顶部四张卡里的"分析游戏 / AI 复刻生成"取这里，云端缺了会显示「—」。
+        'production': {k: v for k, v in production_metrics(state).items()
+                       if k in ('websites', 'analyzed', 'acquired', 'generated', 'templates')},
+        'production_evidence': production_metrics(state)['evidence'],
         'rows': sorted((
             r['candidate_id'], r['title'], r['engine'], r['status'], r['stage'],
             r['duration_seconds'], r['calls'], r['input_tokens'], r['output_tokens'],
