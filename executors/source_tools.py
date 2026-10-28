@@ -12,10 +12,12 @@ VERSIONS={'webcrack':'2.16.0','cc-reverse':'2.1.1'}
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 
 def execute_tool(script,source,output,args,timeout):
+    source,output,script=Path(source).resolve(),Path(output).resolve(),Path(script).resolve()
     output.mkdir(parents=True,exist_ok=True)
     env={k:v for k,v in os.environ.items() if k.upper() in ('PATH','SYSTEMROOT','WINDIR','TEMP','TMP','HOME','USERPROFILE')}
     command=[node_binary(),'--max-old-space-size=512','--permission',
-             '--allow-fs-read='+str(ROOT/'node_modules'),'--allow-fs-read='+str(script),
+             '--allow-fs-read='+str(ROOT/'node_modules'),
+             '--allow-fs-read='+str((ROOT/'node_modules').resolve()),'--allow-fs-read='+str(script),
              '--allow-fs-read='+str(source),'--allow-fs-read='+str(output),
              '--allow-fs-write='+str(output),str(script),*map(str,args)]
     with (output/'tool.log').open('w',encoding='utf-8') as log:
@@ -23,7 +25,7 @@ def execute_tool(script,source,output,args,timeout):
     if result.returncode:raise ValueError('tool_exit_'+str(result.returncode))
 
 def run_source_tools(run,budget,engine=None):
-    run=Path(run);source=run/'web-original'
+    run=Path(run).resolve();source=run/'web-original'
     if not source.is_dir():source=run/'converted'
     root=run/'source-analysis';root.mkdir(exist_ok=True)
     report={'tools':VERSIONS,'runtime_modified':False,'editable_project_verified':False,'items':[]}
