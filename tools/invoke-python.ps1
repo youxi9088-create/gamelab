@@ -1,4 +1,4 @@
-function Invoke-DeploymentPython([string]$Executable,[string]$Script,[string[]]$Arguments=@()) {
+function Invoke-DeploymentPython([string]$Executable,[string]$Script,[string[]]$Arguments=@(),[int]$TimeoutMilliseconds=180000) {
     # Use the child process's exit status, not the caller's ambient LASTEXITCODE.
     # Drain both pipes before waiting so diagnostic output cannot block deployment.
     $quoted=@('-X','utf8','-')+$Arguments | ForEach-Object {
@@ -24,7 +24,7 @@ function Invoke-DeploymentPython([string]$Executable,[string]$Script,[string[]]$
         $bytes=[Text.Encoding]::UTF8.GetBytes($Script)
         $process.StandardInput.BaseStream.Write($bytes,0,$bytes.Length)
         $process.StandardInput.Close()
-        if(-not $process.WaitForExit(180000)){$process.Kill();throw 'Python deployment step timed out'}
+        if(-not $process.WaitForExit($TimeoutMilliseconds)){$process.Kill();throw 'Python deployment step timed out'}
         $output=$stdout.GetAwaiter().GetResult()
         $errorText=$stderr.GetAwaiter().GetResult()
         if($process.ExitCode -ne 0){throw ('Python deployment step failed (exit '+$process.ExitCode+'): '+$errorText)}

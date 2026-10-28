@@ -16,8 +16,8 @@ $oldTarget=$null
 $previousRecord=$null
 $stopped=$false
 . (Join-Path $PSScriptRoot 'invoke-python.ps1')
-function CheckedPython([string]$Script,[string[]]$Arguments=@()) {
-    Invoke-DeploymentPython $Python $Script $Arguments
+function CheckedPython([string]$Script,[string[]]$Arguments=@(),[int]$TimeoutMilliseconds=180000) {
+    Invoke-DeploymentPython $Python $Script $Arguments $TimeoutMilliseconds
 }
 function Stop-Platform {
     # Prevent Task Scheduler recovery from restarting the old release during backup.
@@ -76,7 +76,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(sys.argv[1])/'tools'))
 from production_data import backup_capacity
 backup_capacity(Path(sys.argv[2])/'shared',Path(sys.argv[2]))
-'@ @($target,$Root)
+'@ @($target,$Root) 1800000
     $oldTarget=(Get-Item -LiteralPath $app).FullName
     if((Get-Item -LiteralPath $app).LinkType){$oldTarget=(Get-Item -LiteralPath $app).Target[0]}
     $dependencyModules=Join-Path $runtime 'node_modules'
