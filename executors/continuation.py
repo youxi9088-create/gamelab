@@ -35,6 +35,7 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
     instruction+=' To locate relevant functions in large or minified files, return {search_requests:[{path,text}]} for literal source search (up to 4 queries, 8 matches each). Search excerpts also count as read. Character offsets are Python Unicode code-point indices.'
     payload={'conversation':inp.get('conversation',[])[-12:],'pending_delivery':inp.get('pending_delivery'), 'resource_paths':[k for k in files if k not in code], 'previous_report':{k:previous[k] for k in ('summary','foundation_checks','dependencies','limitations','game_spec','runtime_smoke','acceptance_actions','verification_evidence','render_comparison','render_comparison_evidence') if k in previous}}
     payload.update(context.payload())
+    payload['registered_input']={'base_version_id':inp.get('base_version',{}).get('id'),'entry':inp.get('entry','index.html'),'source_path':str(root),'dependencies':inp.get('dependencies'),'game_profile':inp.get('base_version',{}).get('game_profile')}
     from verification_history import history
     payload['executed_evidence']=history(root,inp.get('_job_id'))
     if inp.get('_previous_execution'):payload['previous_execution']=inp['_previous_execution']
@@ -58,19 +59,28 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
         payload['executor_repairs']={'files':list(changes),'reason':'Restored original template-string newlines after verified Windows serialization expansion; these changes will be included with the new version and still need runtime verification.'}
     repair_attempts=0;navigation=[];requests_seen=set();start=0
     saved=inp.get('_revision_checkpoint')
+    local_checkpoint=run/'revision-checkpoint.json'
+    if local_checkpoint.is_file():saved=json.loads(local_checkpoint.read_text('utf-8'))
     if saved:
         if saved.get('base_version_id')!=inp['base_version']['id'] or saved.get('source_hashes')!={k:digest(v) for k,v in code.items()}:
             raise ValueError('续作基线已改变，不能恢复旧检查点')
         changes=saved['changes'];entry=saved['entry'];feedback=saved['feedback'];repair_attempts=saved['repair_attempts'];navigation=saved['navigation'];requests_seen=set(saved['requests_seen']);start=saved['step']
         context.update(changes);context.seen=saved['seen'];payload.update(context.payload());payload['source_excerpts']=saved['excerpts']
-    def checkpoint(step):
+    def save_checkpoint(step):
         state={'base_version_id':inp['base_version']['id'],'source_hashes':{k:digest(v) for k,v in code.items()},'changes':changes,'entry':entry,'feedback':feedback,'repair_attempts':repair_attempts,'navigation':navigation,'requests_seen':list(requests_seen),'step':step,'seen':context.seen,'excerpts':payload['source_excerpts']}
         raw=json.dumps(state,ensure_ascii=False).encode('utf-8')
         if len(raw)>6*1024*1024:raise ValueError('续作检查点超过容量限制')
-        (run/'revision-checkpoint.json').write_bytes(raw)
+        temporary=run/'revision-checkpoint.json.tmp'
+        temporary.write_bytes(raw)
+        temporary.replace(run/'revision-checkpoint.json')
         import hashlib
-        raise RevisionYield({'run':run.name,'sha256':hashlib.sha256(raw).hexdigest(),'base_version_id':inp['base_version']['id']})
+        return {'run':run.name,'sha256':hashlib.sha256(raw).hexdigest(),'base_version_id':inp['base_version']['id']}
+    def checkpoint(step):
+        raise RevisionYield(save_checkpoint(step))
+    # A manual retry gets a fresh bounded repair budget, but keeps edits and feedback.
+    if saved:repair_attempts=0
     for attempt in range(start,start+16):
+        save_checkpoint(attempt)
         remaining=getattr(budget,'calls',None)
         if remaining is not None and remaining<=0:checkpoint(attempt)
         payload['calls_remaining']=remaining
@@ -79,7 +89,9 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
         result=chat([{'role':'system','content':instruction},{'role':'user','content':json.dumps({**payload,'runtime_feedback':feedback},ensure_ascii=False)}],budget)
         (run/f'model-step-{attempt}.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
         if progress:progress(f'续作第 {attempt+1} 次模型响应已保存，正在处理读取、修改或验证结果')
-        if result.get('question'):raise ask_type(str(result['question'])[:8000])
+        if result.get('question'):
+            feedback=str(result['question'])[:8000];save_checkpoint(attempt+1)
+            raise ask_type(feedback)
         request_kinds=[k for k in ('search_requests','read_requests') if result.get(k)]
         if request_kinds:
             feedback=None
@@ -108,6 +120,7 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
             feedback='Return at least two real browser actions with a text assertion.';continue
         iteration=run/f'revision-{attempt}';iteration.mkdir()
         repair_attempts+=1
+        save_checkpoint(attempt+1)
         if progress:progress(f'已生成 {len(patch)} 个文件修改，开始第 {repair_attempts} 次浏览器验证')
         try:
             runtime=smoke(merged,entry,iteration,actions=actions,budget=budget,local_runtime=True)
@@ -147,4 +160,5 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
             payload.update(context.payload())
             if repair_attempts>=3:break
     if repair_attempts<3:checkpoint(attempt+1)
+    save_checkpoint(attempt+1)
     raise ValueError('续作浏览器验证未通过；已保存每轮修改和验证材料：'+str(feedback)[:300])

@@ -1,0 +1,49 @@
+{
+  "plans": {
+    "revision": [
+      "analysis",
+      "adapt",
+      "test",
+      "delivery",
+      "review"
+    ],
+    "initial": [
+      "identify",
+      "acquire",
+      "analysis",
+      "adapt",
+      "test",
+      "delivery",
+      "review"
+    ],
+    "unknown": [
+      "identify",
+      "acquire",
+      "analysis"
+    ]
+  },
+  "titles": {
+    "revision": {
+      "analysis": [
+        "核对已有版本与待处理项",
+        "复用已有版本和记录，确认本轮需要修复或验证的内容。"
+      ],
+      "adapt": [
+        "继续修复与适配已有版本",
+        "保留已有代码和资源，只处理本轮未完成项；不表示重新制作游戏。"
+      ]
+    },
+    "original": {
+      "adapt": [
+        "适配原包运行环境",
+        "沿用原游戏代码与资源，处理运行入口、宿主接口和兼容问题。"
+      ]
+    },
+    "ai": {
+      "adapt": [
+        "制作可运行的网页版本",
+        "按已确认规格实现玩法及界面，随后验证。"
+      ]
+    }
+  }
+}

@@ -32,7 +32,7 @@ def timeline(job, events, versions):
             continue
         node = nodes[key]
         record = dict(time=e.get('created_at'), message=e.get('message', ''),
-                      status=e.get('node_status', 'recorded'), event_id=e['id'],
+                      status=e.get('node_status', 'recorded'), event_id=e.get('id', ''),
                       round=e.get('round'), attempt=e.get('attempt'))
         record.update({k:e[k] for k in ('execution_id','node_attempt','parent_node') if k in e})
         node['records'].append(record)
@@ -178,7 +178,8 @@ def timeline(job, events, versions):
         current = None
     from .pipeline_presentation import describe_pipeline
     presentation = describe_pipeline(job, list(nodes.values()), current)
-    return dict(current=current, nodes=list(nodes.values()), presentation=presentation,
+    from .workflow_display import visible
+    return dict(current=current, nodes=list(nodes.values()), visible_nodes=visible(job,list(nodes.values()),current), presentation=presentation,
                 note='节点状态对应当前轮次，展开可查看执行与历史证据；同一阻断可能影响多个节点，不代表多个独立故障。保存草稿不代表验证通过，缺少记录不推定成功或未执行。')
 
 
@@ -195,7 +196,7 @@ def progress_summary(job, versions):
     if status == 'running':
         pipe = job.get('pipeline', {})
         node = next((n for n in pipe.get('nodes', []) if n['key'] == pipe.get('current')), {})
-        return (node.get('label') or '转换处理') + '中'
+        return (node.get('presentation',{}).get('title') or node.get('label') or '转换处理') + '中'
     if version and version.get('status') == 'draft':
         return '已有可试玩草稿 · 验证未完成'
     return {'blocked':'待处理阻断项','failed':'执行失败','waiting_input':'等待补充信息','stopped':'已停止','cancelled':'已取消'}.get(status, '等待处理')

@@ -8,6 +8,30 @@ from revision_context import SourceContext,digest,RevisionYield
 from continuation import revise
 
 class RevisionContextTests(unittest.TestCase):
+    def test_failed_browser_retry_preserves_edits_and_failure_feedback(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t);src=root/'source';src.mkdir();run=root/'first';run.mkdir();second=root/'second';second.mkdir()
+            (src/'index.html').write_text('<button>Play</button>')
+            inp={'source_path':str(src),'base_version':{'id':'v','report':{}}}
+            actions=[{'type':'click','selector':'button','expect_text':'Play'},{'type':'click','selector':'button'}]
+            def chat(*args):return {'changes':{'index.html':'<button>Fixed</button>'},'acceptance_actions':actions}
+            def fail(*a,**k):raise ValueError('fixture interaction failed')
+            with self.assertRaisesRegex(ValueError,'续作浏览器'):
+                revise(inp,run,None,chat,fail,RuntimeError)
+            saved=json.loads((run/'revision-checkpoint.json').read_text('utf-8'))
+            self.assertEqual(saved['changes']['index.html'],'<button>Fixed</button>')
+            inp['_revision_checkpoint']=saved
+            def resume(messages,*args):
+                payload=json.loads(messages[-1]['content'])
+                self.assertIn('fixture interaction failed',payload['runtime_feedback'])
+                return {'changes':{},'acceptance_actions':actions}
+            def smoke(files,*a,**k):
+                self.assertEqual(files['index.html'],'<button>Fixed</button>')
+                return {'passed':True}
+            changes,_,report=revise(inp,second,None,resume,smoke,RuntimeError)
+            self.assertTrue(report['runtime_verified'])
+            self.assertEqual(changes['index.html'],'<button>Fixed</button>')
+
     def test_navigation_checkpoint_rechecks_hashes_and_does_not_trust_saved_text(self):
         code={'index.html':'const score=0;'};c=SourceContext(code,'index.html');saved={}
         c.retain(saved,[c.read('index.html')]+c.search([{'path':'index.html','text':'saveState'}]))

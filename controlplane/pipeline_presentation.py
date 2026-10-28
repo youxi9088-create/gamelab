@@ -4,7 +4,7 @@ STAGE_WORK = {
     'identify': ('确认游戏入口与类型', '检查链接指向什么游戏、入口在哪里、采用哪种运行方式。'),
     'acquire': ('取得游戏文件', '获取网页、脚本、图片和运行资源，保存可继续处理的材料。'),
     'analysis': ('确定转换方案', '分析代码、引擎和外部依赖，决定如何转换或继续已有版本。'),
-    'adapt': ('制作可运行的网页版本', '适配运行入口和宿主，处理浏览器兼容及必要的代码修改。'),
+    'adapt': ('处理运行适配', '按当前方案处理运行环境和未完成项，具体操作见本轮记录。'),
     'test': ('实际试玩并核对结果', '运行游戏，正常进入可交互的新手引导或正式玩法；记录操作反馈及实际验证范围，无需一定进入第一关。'),
     'repair': ('AI 诊断与修复', '出现问题时由 AI 分析证据、尝试修复，再检查修复是否有效；按需触发。'),
     'delivery': ('保存本轮交付版本', '保存游戏文件、截图与验证记录，生成可查看和试玩的版本。'),
@@ -53,6 +53,8 @@ def record_summary(record, key):
 def describe_node(node, job, current):
     key, status = node['key'], node['status']
     title, work = STAGE_WORK[key]
+    from .workflow_display import RULES,mode
+    title,work=RULES['titles'].get(mode(job),{}).get(key,(title,work))
     group, label = LABELS.get(status, ('unknown', '结果未确认'))
     this_round = job.get('round', 1)
     records = node['records']
@@ -143,7 +145,9 @@ def describe_pipeline(job, nodes, current):
         'failed': '本轮执行失败，需要处理', 'waiting_input': '等待补充信息',
         'stopped': '任务已停止', 'cancelled': '任务已取消',
     }.get(state, '正在' + active['presentation']['title'] if active else '等待阶段结果')
-    counts = {g: sum(n['presentation']['group'] == g for n in nodes) for g in ('complete','active','issue','waiting','pending','incomplete','unknown','history','optional','stopped')}
+    from .workflow_display import visible
+    shown=visible(job,nodes,current)
+    counts = {g: sum(n['presentation']['group'] == g for n in shown) for g in ('complete','active','issue','waiting','pending','incomplete','unknown','history','optional','stopped')}
     return dict(headline=headline, counts=counts,
                 current_title=active['presentation']['title'] if active else None,
                 location_label={'completed':'已完成验收','review':'人工验收','queued':'排队等待执行','cancelled':'已取消','stopped':'已停止','superseded':'已由后续任务接续'}.get(state, active['presentation']['title'] if active else '阶段结果待确认'),

@@ -82,6 +82,25 @@ const rows=async page=>await page.locator('table tbody tr').count();
   await page.locator('table tbody tr').first().waitFor();
   assert.ok(!(await page.locator('table tbody tr .job-name-cell').allInnerTexts()).some(t=>t.includes(targetId)),'刷新后任务复活了');
 
+  // 批量删除：勾选筛选结果后一次删掉，跑不动/已有产出的要被跳过而不是整批失败
+  await page.click('#jobs-select-filtered');
+  await page.waitForFunction(()=>document.body.innerText.includes('已选'));
+  const bulk=page.locator('button[data-jobs-control="remove"]');
+  console.log('批量删除按钮：'+await bulk.innerText());
+  const beforeBulk=Number((await page.locator('#jobs-status').locator('xpath=../span').innerText()).match(/共 (\d+) 条/)[1]);
+  await bulk.click();
+  await page.waitForFunction(n=>{
+    const m=document.body.innerText.match(/共 (\d+) 条/);
+    return m&&Number(m[1])<n;
+  },beforeBulk,{timeout:30000});
+  const afterBulk=Number((await page.locator('#jobs-status').locator('xpath=../span').innerText()).match(/共 (\d+) 条/)[1]);
+  console.log('批量删除：共 '+beforeBulk+' 条 → '+afterBulk+' 条');
+  assert.ok(afterBulk<beforeBulk,'批量删除没有减少任务：'+afterBulk);
+  await page.reload();
+  await page.locator('table tbody tr').first().waitFor().catch(()=>{});
+  const finalCount=Number((await page.locator('#jobs-status').locator('xpath=../span').innerText()).match(/共 (\d+) 条/)[1]);
+  assert.equal(finalCount,afterBulk,'刷新后数量变了，删除未持久化：'+finalCount);
+
   assert.deepEqual(errors,[]);
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1)});

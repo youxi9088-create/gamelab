@@ -89,3 +89,45 @@ class RemoveTaskTest(unittest.TestCase):
             service.mutate('/api/jobs/other/remove', {})
             with service.store.tx() as db:
                 self.assertEqual('review', service.store.get(db, 'candidates', 'c')['status'])
+
+class BulkRemoveTest(unittest.TestCase):
+    """批量删除用于按筛选结果清理：不可删的跳过并带回原因，不整批失败。"""
+
+    def seed(self, root, extra_jobs=()):
+        service = build(root)
+        with service.store.tx() as db:
+            for job in extra_jobs:
+                service.store.put(db, 'jobs', job)
+        return service
+
+    def test_bulk_removes_only_eligible_and_reports_reasons(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            service = self.seed(root, [
+                dict(id='running', candidate_id='c', batch_id='b', status='running'),
+                dict(id='done', candidate_id='c', batch_id='b', status='blocked'),
+            ])
+            with service.store.tx() as db:
+                service.store.put(db, 'versions',
+                                  dict(id='v1', job_id='done', candidate_id='c', status='draft'))
+            result = service.mutate('/api/jobs/bulk', {'action': 'remove', 'ids': ['j', 'running', 'done']})
+            self.assertEqual(result['changed'], ['j'])
+            reasons = {item['id']: item['reason'] for item in result['skipped_detail']}
+            self.assertIn('正在执行', reasons['running'])
+            self.assertIn('已产出版本', reasons['done'])
+            with service.store.tx() as db:
+                self.assertIsNone(service.store.get(db, 'jobs', 'j'))
+                self.assertIsNotNone(service.store.get(db, 'jobs', 'running'))
+                archives = service.store.all(db, 'deleted-tasks')
+            self.assertEqual(len(archives), 1)
+            self.assertEqual(archives[0]['scope'], 'task')
+
+    def test_bulk_remove_keeps_sibling_task_and_candidate(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            service = self.seed(root)
+            service.mutate('/api/jobs/bulk', {'action': 'remove', 'ids': ['j']})
+            with service.store.tx() as db:
+                self.assertIsNotNone(service.store.get(db, 'jobs', 'other'))
+                self.assertIsNone(service.store.get(db, 'candidates', 'c').get('imported_at'))
+                self.assertEqual(service.store.get(db, 'candidates', 'c')['status'], 'candidate')

@@ -354,6 +354,11 @@ def execute(client, job):
     repair_event_token=REPAIR_EVENT.set(repair_event)
     repair_chat_token=REPAIR_CHAT.set(repair_chat)
     budget=None
+    def saved_revision():
+        path=run/'revision-checkpoint.json'
+        if not job.get('continuation') or not path.is_file():return {}
+        raw=path.read_bytes()
+        return {'checkpoint':{'run':run.name,'sha256':hashlib.sha256(raw).hexdigest(),'base_version_id':job.get('base_version_id')}}
     def diagnose_failure(exc):
         if not getattr(exc,'auto_repair_attempted',False) and budget is not None:
             diagnose(exc,run,budget)
@@ -398,8 +403,12 @@ def execute(client, job):
         from conversion_checkpoint import restore as restore_checkpoint
         resumed, invalid_checkpoint = restore_checkpoint(job, run, ROOT / 'runs')
         if invalid_checkpoint:
-            client.post(prefix+'events',{**lease,'node':'identify',
-                'message':'检查点不可复用，回退到入口与采集检查：'+invalid_checkpoint})
+            # Evidence only: a rejected telemetry post must never abort the conversion.
+            try:
+                client.post(prefix+'events',{**lease,'node':'identify','node_status':'skipped',
+                    'message':'检查点不可复用，回退到入口与采集检查：'+invalid_checkpoint})
+            except Exception:
+                write_json(run/'checkpoint-invalid.json',{'reason':invalid_checkpoint})
         from controlplane.conversion_plan import build as build_plan
         def save_plan(observation=None,converter=None):
             plan=build_plan(inp,observation,converter,job.get('continuation',False),job['stage'])
@@ -707,13 +716,13 @@ def execute(client, job):
     except NeedsInput as exc:
         diagnosis=diagnose_failure(exc)
         write_json(run/'waiting-input-diagnosis.json',diagnosis)
-        client.post(prefix+'ask',{**lease,'question':str(exc)})
+        client.post(prefix+'ask',{**lease,'question':str(exc),**saved_revision()})
         write_json(run/'waiting-input.json',{'question':str(exc)})
         return
     except Blocked as exc:
-        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'blocked', 'reason': str(exc), 'report': diagnose_failure(exc)}
+        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'blocked', 'reason': str(exc), 'report': diagnose_failure(exc), **saved_revision()}
     except Exception as exc:
-        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'failed', 'reason': f'{type(exc).__name__}: {str(exc)[:300]}', 'report': diagnose_failure(exc)}
+        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'failed', 'reason': f'{type(exc).__name__}: {str(exc)[:300]}', 'report': diagnose_failure(exc), **saved_revision()}
     finally:
         TRACE.reset(trace_token)
         USAGE_SINK.reset(usage_token)

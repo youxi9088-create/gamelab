@@ -147,7 +147,10 @@ class TaskBackendTests(unittest.TestCase):
             'capabilities': ['rea'], 'worker_id': 'isolated', 'automatic_only': False},
             headers={'Authorization': 'Bearer ' + token})
         self.assertEqual(claimed['job']['status'], 'running')
-        self.assertEqual(claimed['job']['settings']['concurrency'], 1)
+        # 并发不再写死 1，改为跟随设置；执行器按这个数起同等数量的 worker。
+        configured = self.service.state()['settings']['concurrency']
+        self.assertEqual(claimed['job']['settings']['concurrency'], configured)
+        self.assertGreaterEqual(configured, 1)
         lease = claimed['job']['lease_token']
         _, _, heartbeat = worker.request('/api/v1/jobs/' + claimed['job']['id'] + '/heartbeat', {
             'lease_token': lease, 'progress': 10}, headers={'Authorization': 'Bearer ' + token})
@@ -188,3 +191,48 @@ class TaskBackendTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class ClaimConcurrencyTests(unittest.TestCase):
+    """并发上限跟随设置：调到 N 就应有 N 个任务同时在跑，超过则认领返回空。"""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        root = Path(self.temp.name)
+        self.service = Service(root / 'data', root / 'repo', 'http://127.0.0.1:0',
+                               runs_dir=root / 'data' / 'runs')
+        with self.service.store.tx() as db:
+            self.service.store.put(db, 'settings',
+                                   dict(self.service.store.get(db, 'settings', 'main'), concurrency=3))
+        self.server = build_server(self.service, 0, discovery_enabled=False, executor_enabled=False)
+        threading.Thread(target=self.server.serve_forever, daemon=True).start()
+        self.base = f'http://127.0.0.1:{self.server.server_port}'
+        # 直接走 service，省掉 HTTP 管理员会话；认领才需要 worker 凭证
+        self.service.mutate('/api/conversions', {'urls': [f'https://example.org/cc-{i}' for i in range(5)]})
+        registration = self.service.mutate('/api/tools', {'name': 'cc-worker', 'capabilities': ['rea', 'reconstruct']})
+        self.token = registration['token']
+
+    def tearDown(self):
+        self.server.shutdown(); self.temp.cleanup()
+
+    def claim(self):
+        worker = Client(self.base)
+        _, _, result = worker.request('/api/v1/jobs/claim', {'capabilities': ['rea'], 'worker_id': 'cc'},
+                                      headers={'Authorization': 'Bearer ' + self.token})
+        return result['job']
+
+    def test_three_jobs_can_run_at_once_and_fourth_is_denied(self):
+        claimed = [self.claim() for _ in range(3)]
+        self.assertTrue(all(job and job['status'] == 'running' for job in claimed),
+                        '并发 3 时应能同时领到 3 个任务：' + repr(claimed))
+        self.assertEqual(len({job['id'] for job in claimed}), 3, '同一个任务被领了多次')
+        for job in claimed:
+            self.assertEqual(job['settings']['concurrency'], 3)
+        self.assertIsNone(self.claim(), '超过并发上限仍领到了任务')
+
+    def test_limit_follows_settings(self):
+        with self.service.store.tx() as db:
+            settings = self.service.store.get(db, 'settings', 'main')
+            settings['concurrency'] = 1
+            self.service.store.put(db, 'settings', settings)
+        self.assertIsNotNone(self.claim())
+        self.assertIsNone(self.claim(), '并发改回 1 后仍领到了第二个任务')

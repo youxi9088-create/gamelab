@@ -64,12 +64,19 @@ function resourcePath(value,base,script=false){
  if(p.split('/').some(s=>!s||s==='.'||s==='..'||/[\\:\x00-\x1f<>"|?*]/.test(s)))throw Error('Unsafe captured resource path');
  return script&&!p.endsWith('.js')?p+'.js':p;
 }
+// Unity WebGL 构建在入口里带标准模板资源或 loader。17yoo 的 playbox 目录里
+// Cocos 和 Unity 混在一起（实测 10159/10178 是 Cocos、10219 是 Unity），所以只能
+// 按入口内容判定，不能按 URL 前缀一刀切——否则会误杀可转的 Cocos。
+const UNITY_MARK=/TemplateData\/|UnityLoader|createUnityInstance|unityInstance|Build\/[\w.-]+\.loader\.js/i;
+function unityWebGL(html){return UNITY_MARK.test(html||'');}
 function detect(html,plan){
  if(/RufflePlayer/.test(html)&&/\.swf["']/.test(html))return 'ruffle';
  if(/_CCSettings/.test(html)&&/cocos2d-js/.test(html))return 'cocos2';
  if(plan?.engine==='defold'&&plan.source_sha256===hash(html.replace(/\r\n/g,'\n'))&&html.includes('EngineLoader.load(')&&html.includes('dmloader.js'))return 'defold';
  if(plan?.engine==='browser'&&plan.source_sha256===hash(html.replace(/\r\n/g,'\n'))&&/<script\b/i.test(html))return 'browser';
  if(plan?.engine==='browser-dom'&&plan.source_sha256===hash(html.replace(/\r\n/g,'\n'))&&/<script\b/i.test(html))return 'browser-dom';
+ if(unityWebGL(html))throw Error('该入口是 Unity WebGL 构建（TemplateData/Build 加载器）：平台目前没有 Unity 运行契约，'
+  +'无法落地为本地可玩运行包，已排除本任务。若后续新增 Unity 引擎通道可重新排队。');
  throw Error('入口已取得，运行契约尚未配置；请分析已保留入口与依赖代码，再选择适配方案');
 }
 function ruffleEntry(html,url){
@@ -526,7 +533,27 @@ async function repairResources(run){
  }
  return added;
 }
-module.exports={safeURL,resourcePath,detect,ruffleEntry,adaptClient,capture,verify,repairResources,screenshot,followResourceRedirects,gameplayReady};
+// 内置 repairResources 对路径有一串校验（必须同域、必须落在观测目录内、不能写
+// 到包外），遇到被它拒绝的条目会留下缺口。这时再用回源工具补一次：它走独立的
+// Python 通道，能补上主链路没覆盖的条目。两者是互补，不是替换。
+async function repairWithTool(run,acq){
+ if(process.env.GAMELAB_REPAIR_TOOL==='0')return 0;
+ const {spawnSync}=require('node:child_process');
+ const root=path.join(run,'converted'),report=path.join(root,'evidence/runtime.json');
+ const script=path.join(__dirname,'..','tools','fetch_artifact_assets.py');
+ if(!fs.existsSync(script)||!fs.existsSync(report))return 0;
+ const missing=[...new Set((JSON.parse(fs.readFileSync(report,'utf8')).missing||[])
+  .filter(p=>typeof p==='string').map(p=>p.replace(/^\/+/,'')))];
+ const before=missing.filter(p=>!fs.existsSync(path.join(root,p))).length;
+ if(!before)return 0;
+ const base=new URL('.',safeURL(acq.url)).href;
+ const result=spawnSync(process.env.GAMELAB_PYTHON||'python',[script,root,base,'--from-runtime',report],
+  {cwd:path.join(__dirname,'..'),encoding:'utf8',timeout:900000});
+ if(result.error||result.status===undefined&&!result.stdout)return 0;
+ const after=missing.filter(p=>!fs.existsSync(path.join(root,p))).length;
+ return before-after;
+}
+module.exports={safeURL,resourcePath,detect,ruffleEntry,adaptClient,capture,verify,repairResources,screenshot,followResourceRedirects,gameplayReady,repairWithTool};
 if(require.main===module){const [mode,input,run]=process.argv.slice(2);(async()=>{
  const data=JSON.parse(fs.readFileSync(input,'utf8'));let lines,nextBatch,desired=[...(data.actions||[])];
  if(mode==='session'){
@@ -547,7 +574,9 @@ if(require.main===module){const [mode,input,run]=process.argv.slice(2);(async()=
     if(mode==='diagnose-localhost'||attempt>=19||!runtime.missing?.length||!acq.url)throw e;
     fs.writeFileSync(path.join(run,'converted/evidence','resource-check-'+Date.now()+'.json'),JSON.stringify(runtime,null,2));
     const added=await repairResources(run);
-    if(!added.length)throw e; // No download progress: hand evidence to AI, don't repeat 20 identical passes.
+    // 主链路没进展时再用回源工具补一次，仍然补不到才交给 AI，避免 20 轮空转。
+    const toolAdded=added.length?0:await repairWithTool(run,acq);
+    if(!added.length&&!toolAdded)throw e; // No download progress: hand evidence to AI, don't repeat 20 identical passes.
    }
   }
   console.log(JSON.stringify({engine:r.engine,passed:r.passed,complete:r.complete}));

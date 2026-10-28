@@ -86,6 +86,8 @@ class Conversations:
         require(job['status'] in ('review','waiting_input','blocked','failed','completed'), '任务正在执行或已被替代，暂不能提交续作', 409)
         require(isinstance(text, str) and 0 < len(text.strip()) <= 8000, '请填写 1–8000 字的回复或修改要求')
         require(not any(j['candidate_id']==job['candidate_id'] and j['id']!=job['id'] and j['status'] in ('queued','running','waiting_input','review') for j in s.all(db,'jobs')), '此游戏已有其他活动任务',409)
+        # Answering an outstanding question continues the same saved work.
+        if job['status']=='waiting_input' and job.get('revision_checkpoint'):resume_checkpoint=True
         versions = [v for v in s.all(db,'versions') if v['candidate_id']==job['candidate_id']]
         base = next((v for v in versions if v['id']==job.get('version_id')), versions[0] if versions else None)
         self.message(db, job, 'system' if automatic_followup else 'user', text.strip(), kind='auto_followup' if automatic_followup else 'message')

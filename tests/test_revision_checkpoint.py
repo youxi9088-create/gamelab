@@ -61,3 +61,25 @@ class RevisionCheckpointTests(unittest.TestCase):
         result = self.s.mutate('/api/jobs/' + job['id'] + '/retry', {})['job']
         self.assertEqual(result['revision_checkpoint'], cp)
         self.assertNotIn('checkpoint_slices', result)
+
+    def test_failure_retains_checkpoint_without_automatic_retry(self):
+        self.reply(); job=self.claim(); cp=self.checkpoint(job)
+        result=self.s.mutate('/api/v1/jobs/'+job['id']+'/complete',
+            {'lease_token':job['lease_token'],'outcome':'failed','checkpoint':cp,'reason':'Browser failed'},self.tool)['job']
+        self.assertEqual(result['status'],'failed')
+        self.assertEqual(result['revision_checkpoint'],cp)
+        self.assertNotIn('checkpoint_slices',result)
+        resumed=self.s.mutate('/api/jobs/'+job['id']+'/retry',{})['job']
+        self.assertEqual(resumed['revision_checkpoint'],cp)
+
+    def test_failure_checkpoint_rejects_wrong_digest(self):
+        self.reply(); job=self.claim(); cp=self.checkpoint(job)
+        with self.assertRaises(ApiError):
+            self.s.mutate('/api/v1/jobs/'+job['id']+'/complete',
+                {'lease_token':job['lease_token'],'outcome':'blocked','checkpoint':{**cp,'sha256':'bad'}},self.tool)
+
+    def test_answer_preserves_question_checkpoint(self):
+        self.reply();job=self.claim();cp=self.checkpoint(job)
+        self.s.mutate('/api/v1/jobs/'+job['id']+'/ask',{'lease_token':job['lease_token'],'question':'fixture question','checkpoint':cp},self.tool)
+        result=self.s.mutate('/api/jobs/'+job['id']+'/message',{'message':'fixture answer'})['job']
+        self.assertEqual(result['revision_checkpoint'],cp)

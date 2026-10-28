@@ -15,11 +15,14 @@ class Executor:
         self.service, self.port = service, port
         self.stop = threading.Event()
         self.process = None
+        self.processes = []
+        self.threads = []
         self.thread = None
         self.restarts = 0
         self._probe = None
         self._probe_time = 0
         self._probe_lock = threading.Lock()
+        self._lock = threading.Lock()
 
     def start(self):
         from .package_service import PackageService
@@ -35,24 +38,48 @@ class Executor:
         env = {**os.environ, 'PLATFORM_TOOL_TOKEN':token, 'PYTHONIOENCODING':'utf-8',
                'REPLICA_SERVICE_CONFIG':str(self.service.data_dir / 'services.json'),
                'REPLICA_RUNS_ROOT':str(self.service.runs_dir)}
-        def watch():
+        slots = self._slots()
+
+        def watch(slot):
+            # 每个槽位一个独立看门狗：worker 是"领一个任务→跑完→再领"的串行循环，
+            # 想真正并行只能起多个进程。认领在服务端是事务性的，多进程不会重复领同一个。
             while not self.stop.is_set():
                 try:
                     with (self.service.data_dir / 'executor.log').open('a',encoding='utf-8') as log:
-                        self.process = subprocess.Popen([sys.executable,str(ROOT/'executors/worker.py'),
-                            '--url',f'http://127.0.0.1:{self.port}','--automatic','--parent-pid',str(os.getpid())],cwd=ROOT,env=env,
+                        process = subprocess.Popen([sys.executable,str(ROOT/'executors/worker.py'),
+                            '--url',f'http://127.0.0.1:{self.port}','--automatic','--parent-pid',str(os.getpid()),
+                            '--worker-id',f'python-rea-ai-worker-{slot}'],cwd=ROOT,env=env,
                             stdout=log,stderr=log,creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
-                        while self.process.poll() is None and not self.stop.wait(1): pass
-                        if self.stop.is_set() and self.process.poll() is None:
-                            if os.name=='nt':
-                                subprocess.run(['taskkill','/PID',str(self.process.pid),'/T','/F'],capture_output=True,creationflags=subprocess.CREATE_NO_WINDOW)
-                            else:self.process.terminate()
-                            self.process.wait(timeout=10)
+                        with self._lock:
+                            self.processes = [p for p in self.processes if p is not process] + [process]
+                            if slot == 1: self.process = process
+                        while process.poll() is None and not self.stop.wait(1): pass
+                        if self.stop.is_set() and process.poll() is None:
+                            self._kill(process)
                         self.restarts += 1
                 except Exception: pass
                 self.stop.wait(3)
-        self.thread = threading.Thread(target=watch, daemon=True)
-        self.thread.start()
+        for slot in range(1, slots + 1):
+            thread = threading.Thread(target=watch, args=(slot,), daemon=True)
+            thread.start(); self.threads.append(thread)
+
+    def _slots(self):
+        """并发槽位数取服务端设置，读不到就退回 1（保守值）。"""
+        try:
+            with self.service.store.tx() as db:
+                value = (self.service.store.get(db,'settings','main') or {}).get('concurrency', 1)
+            return max(1, min(16, int(value)))
+        except Exception:
+            return 1
+
+    def _kill(self, process):
+        try:
+            if os.name == 'nt':
+                subprocess.run(['taskkill','/PID',str(process.pid),'/T','/F'],capture_output=True,creationflags=subprocess.CREATE_NO_WINDOW)
+            else:
+                process.terminate()
+            process.wait(timeout=10)
+        except Exception: pass
 
     def health(self):
         running = bool(self.process and self.process.poll() is None and not self.stop.is_set())
@@ -79,5 +106,6 @@ class Executor:
 
     def close(self):
         self.stop.set()
+        for thread in self.threads:thread.join(timeout=12)
         if self.thread:self.thread.join(timeout=12)
         if hasattr(self,'package_service'):self.package_service.close()

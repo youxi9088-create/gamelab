@@ -16,6 +16,10 @@ def require(condition,message,status=400):
     if not condition:
         raise ApiError(status,message)
 
+# 同时转换的任务数。执行器按这个数起同等数量的 worker 进程，认领处按它放行。
+DEFAULT_CONCURRENCY=3
+MAX_CONCURRENCY=16
+
 def canonical_url(value):
     try:
         value=value.strip()
@@ -42,13 +46,28 @@ class Service(Conversations,Discovery):
         self.play_url=play_url
         with self.store.tx() as db:
             if not self.store.get(db,'settings','main'):
-                self.store.put(db,'settings',dict(id='main',concurrency=1,lease_seconds=300,max_attempts=3,rea_minutes=45,reconstruct_minutes=180,repair_rounds=3,timezone='Asia/Shanghai',auto_publish=False))
+                self.store.put(db,'settings',dict(id='main',concurrency=DEFAULT_CONCURRENCY,lease_seconds=300,max_attempts=3,rea_minutes=45,reconstruct_minutes=180,repair_rounds=3,timezone='Asia/Shanghai',auto_publish=False))
             for name,url in [('Astrocade','https://www.astrocade.com/'),('Remix','https://remix.gg/'),('Rosebud','https://rosebud.ai/play/c/new'),('itch.io','https://itch.io/games/html5'),('Poki','https://poki.com/'),('CrazyGames','https://www.crazygames.com/')]:
                 key=name.lower().replace('.','-')
                 if not self.store.get(db,'sources',key):
                     self.store.put(db,'sources',dict(id=key,name=name,url=url,enabled=True,created_at=now()))
 
             self.reconcile_history(db)
+
+    def validate_revision_checkpoint(self,job,cp):
+        key=job['id']
+        require(job.get('continuation') and job['stage']=='reconstruct','只有续作可保存接续检查点',409)
+        require(isinstance(cp,dict) and isinstance(cp.get('run'),str) and re.fullmatch(r'[0-9a-f-]{36}',cp['run']),'无效检查点')
+        root=self.runs_dir/cp['run']
+        require(not root.is_symlink() and not root.is_junction() and root.resolve().parent==self.runs_dir.resolve(),'检查点路径越界',409)
+        try:
+            binding=json.loads((root/'job-binding.json').read_text('utf-8'))
+            require(binding=={'job_id':key,'lease_sha256':hashlib.sha256(job['lease_token'].encode()).hexdigest()},'检查点不属于当前租约',409)
+            f=root/'revision-checkpoint.json';require(f.stat().st_size<=6*1024*1024,'检查点超过容量限制')
+            require(hashlib.sha256(f.read_bytes()).hexdigest()==cp.get('sha256'),'检查点摘要不匹配',409)
+            require(cp.get('base_version_id')==job.get('base_version_id'),'检查点基线不匹配',409)
+        except (OSError,ValueError):raise ApiError(400,'检查点不可读')
+        return {k:cp[k] for k in ('run','sha256','base_version_id')}
 
     def authenticate(self,token):
         with self.store.tx() as db:
@@ -62,6 +81,13 @@ class Service(Conversations,Discovery):
         item=self.store.get(db,kind,key)
         require(item is not None,'记录不存在',404)
         return item
+
+    @staticmethod
+    def _concurrency(settings):
+        """旧库的 settings 可能没有 concurrency 字段，或存了非整数，一律收敛到合法范围。"""
+        try: value=int((settings or {}).get('concurrency',DEFAULT_CONCURRENCY))
+        except (TypeError,ValueError): value=DEFAULT_CONCURRENCY
+        return max(1,min(MAX_CONCURRENCY,value))
 
     def state(self):
         with self.store.tx() as db:
@@ -152,7 +178,9 @@ class Service(Conversations,Discovery):
             for tool in state['tools']:
                 tool['online']=bool(tool.get('last_seen') and tool['last_seen']>later(-90))
             state['settings']=self.get(db,'settings','main')
-            state['settings']['concurrency']=1
+            # 并发早先被写死为 1：执行器只会起一个 worker，界面上也改不动。
+            # 现在槽位数真正生效，缺该字段的旧库按默认值补齐，不要再覆盖。
+            state['settings']['concurrency']=self._concurrency(state['settings'])
             batches={b['id']:b for b in state['batches']}
             queue=sorted((j for j in reversed(state['jobs']) if j['status']=='queued' and not j.get('manual_paused') and batches.get(j.get('batch_id'),{}).get('status')=='running'),key=lambda j:j.get('queued_at') or j.get('created_at',''))
             for position,job in enumerate(queue,1):
@@ -483,7 +511,8 @@ class Service(Conversations,Discovery):
                     s.event(db,'执行租约超时，已保留阶段产物',j['id'],j['stage'])
             running=[j for j in jobs if j['status']=='running']
             # Global capacity, across tools and all conversion entry points.
-            if len(running)>=1:return {'job':None}
+            limit=self._concurrency(settings)
+            if len(running)>=limit:return {'job':None}
             caps=set(b.get('capabilities',[])) & set(tool['capabilities'])
             # queued_at 可能是 null（旧数据）；dict.get 只对"键缺失"兜底，不对 None 兜底，
             # 直接放进 sorted 会与字符串混排抛 TypeError，整个认领就 500 了。
@@ -499,7 +528,7 @@ class Service(Conversations,Discovery):
                 c['status']='running';s.put(db,'candidates',c)
                 if c.get('source_bundle_id'):
                     c=dict(c,source_bundle_url='/api/v1/source-bundles/'+c['source_bundle_id']+'/download')
-                return {'job':dict(job,input=self.continuation_input(db,job,c),settings={**settings,'concurrency':1})}
+                return {'job':dict(job,input=self.continuation_input(db,job,c),settings={**settings,'concurrency':limit})}
             return {'job':None}
         if kind=='jobs' and key:
             if action=='delete' and not tool:
@@ -526,26 +555,13 @@ class Service(Conversations,Discovery):
                 # 要求"候选无版本、无其他任务、批次只含它"，421 个排队任务一条都不满足，
                 # 所以清理列表需要这一条更轻的口径。
                 job=self.get(db,'jobs',key)
-                require(job['status']!='running','任务正在执行，请先停止批次或等本轮结束后再删除',409)
-                require(not any(v.get('job_id')==key for v in s.all(db,'versions')),'该任务已产出版本，不能删除；请先处理版本',409)
-                records=[]
-                for row in db.execute('SELECT kind,id,data FROM records').fetchall():
-                    kind,rid,raw=row
-                    if kind.startswith('deleted-'):continue
-                    value=json.loads(raw)
-                    if not isinstance(value,dict):continue
-                    if (kind=='jobs' and rid==key) or value.get('job_id')==key:
-                        records.append(dict(kind=kind,id=rid,data=value))
-                archive=dict(id=ident('deleted'),job_id=key,deleted_at=now(),scope='task',records=records)
-                s.put(db,'deleted-tasks',archive)
-                for record in records:
-                    db.execute('DELETE FROM records WHERE kind=? AND id=?',(record['kind'],record['id']))
-                remaining=[j for j in s.all(db,'jobs') if j.get('candidate_id')==job['candidate_id']]
-                if not remaining:
-                    candidate=self.get(db,'candidates',job['candidate_id'])
-                    if candidate.get('status') not in ('review','completed'):
-                        candidate['status']='candidate';s.put(db,'candidates',candidate)
-                return {'removed_job_id':key,'archive_id':archive['id'],'removed_records':len(records)}
+                from .job_controls import reject_removal
+                reason=reject_removal(job,s.all(db,'versions'))
+                require(not reason,reason,409)
+                from .job_controls import remove_jobs
+                changed,skipped=remove_jobs(self,db,[job])
+                require(changed and not skipped,(skipped[0]['reason'] if skipped else '任务删除失败'),409)
+                return {'removed_job_id':key,**{k:v for k,v in changed[0].items() if k!='id'}}
             if action=='work-log' and not tool:
                 job=self.get(db,'jobs',key)
                 message=str(b.get('message','')).strip()
@@ -603,6 +619,7 @@ class Service(Conversations,Discovery):
                 s.event(db,'分流选择：'+str(plan.get('label','')),key,'analysis',conversion_plan=plan,round=job.get('round',1))
                 return {'ok':True}
             if action=='ask':
+                if b.get('checkpoint'):job['revision_checkpoint']=self.validate_revision_checkpoint(job,b['checkpoint'])
                 question=b.get('question','')
                 require(isinstance(question,str) and 0<len(question.strip())<=8000,'请填写具体问题')
                 self.message(db,job,'assistant',question.strip(),kind='question')
@@ -647,22 +664,12 @@ class Service(Conversations,Discovery):
                 outcome=b.get('outcome'); report=b.get('report',{})
                 require(isinstance(report,dict),'report 必须为对象')
                 require(outcome in ('recovered','fallback','ready_review','draft','blocked','failed','checkpoint'),'未知处理结果')
+                if outcome in ('blocked','failed') and b.get('checkpoint'):
+                    job['revision_checkpoint']=self.validate_revision_checkpoint(job,b['checkpoint'])
                 job['report']=report;job['reason']=str(b.get('reason',''))[:5000]
                 if job.get('conversion_plan'):report['conversion_plan']=job['conversion_plan']
                 if outcome=='checkpoint':
-                    from pathlib import Path
-                    cp=b.get('checkpoint',{})
-                    require(job.get('continuation') and job['stage']=='reconstruct','只有续作可保存接续检查点',409)
-                    require(isinstance(cp,dict) and isinstance(cp.get('run'),str) and re.fullmatch(r'[0-9a-f-]{36}',cp['run']),'无效检查点')
-                    root=self.runs_dir/cp['run']
-                    try:
-                        binding=json.loads((root/'job-binding.json').read_text('utf-8'))
-                        require(binding=={'job_id':key,'lease_sha256':hashlib.sha256(job['lease_token'].encode()).hexdigest()},'检查点不属于当前租约',409)
-                        f=root/'revision-checkpoint.json';require(f.stat().st_size<=6*1024*1024,'检查点超过容量限制')
-                        require(hashlib.sha256(f.read_bytes()).hexdigest()==cp.get('sha256'),'检查点摘要不匹配',409)
-                        require(cp.get('base_version_id')==job.get('base_version_id'),'检查点基线不匹配',409)
-                    except (OSError,ValueError):raise ApiError(400,'检查点不可读')
-                    job['revision_checkpoint']={k:cp[k] for k in ('run','sha256','base_version_id')}
+                    job['revision_checkpoint']=self.validate_revision_checkpoint(job,b.get('checkpoint',{}))
                     job['checkpoint_slices']=job.get('checkpoint_slices',0)+1
                     if job['checkpoint_slices']>=3:
                         job.update(status='blocked',blocker={'code':'REVISION_EXECUTION_LIMIT','reason':'已连续接续三段，仍未完成当前验证','next_action':'检查保存的修复与失败报告，补齐验证能力后恢复'},reason='已达到连续续跑上限；完整上下文和失败报告已保留，可从检查点恢复')
@@ -827,7 +834,7 @@ class Service(Conversations,Discovery):
             s.put(db,'sources',item);return {'source':item}
         if kind=='settings' and not tool:
             item=self.get(db,'settings','main')
-            limits={'concurrency':(1,1),'lease_seconds':(30,1800),'max_attempts':(1,10),'rea_minutes':(1,180),'reconstruct_minutes':(1,600),'repair_rounds':(1,5)}
+            limits={'concurrency':(1,MAX_CONCURRENCY),'lease_seconds':(30,1800),'max_attempts':(1,10),'rea_minutes':(1,180),'reconstruct_minutes':(1,600),'repair_rounds':(1,5)}
             for field,(low,high) in limits.items():
                 if field in b:
                     require(isinstance(b[field],int) and low<=b[field]<=high,f'{field} 范围为 {low}–{high}')

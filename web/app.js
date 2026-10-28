@@ -1,5 +1,7 @@
 import {patchHTML} from './dom-sync.js';
-import {presentPolicyPauses} from './policy-pause.js';
+import {presentPolicyPauses as applyPolicyPauses} from './policy-pause.js';
+import {presentWorkflow} from './workflow-display.js';
+const presentPolicyPauses=state=>applyPolicyPauses(presentWorkflow(state));
 import {dashboardPulse,dashboardGames,dashboardDiagnostics,bindDashboard} from './dashboard.js';
 let discoveryStatus='pending', discoveryRun='', discoverySelected=new Set(), discoveryCategory='', discoverySource='', libraryEngine='';
 // 云端只读门面会通过 state.migration.read_only 声明自己不承载写操作。
@@ -507,12 +509,23 @@ function jobPlatform(j){
 }
 const canPauseJob=j=>['queued','running'].includes(j.status)&&!j.manual_paused;
 const canStartJob=j=>j.manual_paused||['stopped','failed','blocked','waiting_input'].includes(j.status)||j.status==='queued'&&['paused','stopped'].includes((state.batches||[]).find(b=>b.id===j.batch_id)?.status);
+const canRemoveJob=j=>j.status!=='running'&&!hasDraft(j);
 async function controlJobs(action,ids){
   if(readOnly)return toast(READ_ONLY_HINT);
   if(!state.features?.job_controls)return toast('任务控制接口等待本地服务更新完成，请稍后刷新');
   if(jobControlBusy||!ids.length)return;
+  if(action==='remove'){
+    if(!confirm(`删除选中的 ${ids.length} 个任务？\n\n只删除这些任务及其执行记录，游戏输入记录和批次保留；正在执行或已产出版本的任务会被跳过并在结果里说明原因。删除后可在归档中查到记录。`))return;
+  }
   jobControlBusy=true;render();
-  try {const result=await api('/api/jobs/bulk',{action,ids});jobSelected.clear();await load();toast(`${action==='pause'?'已暂停':'已启动'} ${result.changed.length} 个任务，跳过 ${result.skipped.length} 个`);}
+  try {
+    const result=await api('/api/jobs/bulk',{action,ids});jobSelected.clear();await load();
+    if(action==='remove'){
+      const reasons=(result.skipped_detail||[]).slice(0,3).map(x=>`${x.id}：${x.reason}`).join('\n');
+      toast(`已删除 ${result.changed.length} 个任务，跳过 ${result.skipped.length} 个${reasons?'\n'+reasons:''}`);
+    }
+    else toast(`${action==='pause'?'已暂停':'已启动'} ${result.changed.length} 个任务，跳过 ${result.skipped.length} 个`);
+  }
   catch(error){toast(error.message);}
   finally{jobControlBusy=false;render();}
 }
@@ -543,7 +556,7 @@ function jobsToolbar(total,pages){
 function jobsBulkToolbar(list){
   const platforms=[...new Map(jobsBase().map(j=>{const p=jobPlatform(j);return [p.id,p];})).values()].sort((a,b)=>a.label.localeCompare(b.label));
   const selected=list.filter(j=>jobSelected.has(j.id));
-  return `${!readOnly&&!state.features?.job_controls?'<p class="notice">任务控制接口等待本地服务更新完成；平台筛选可先使用，更新后刷新即可启用暂停与启动。</p>':''}<fieldset class="jobs-platforms"><legend>采集平台（可多选，不选表示全部）</legend>${platforms.map(p=>`<label class="checkrow"><input type="checkbox" data-job-platform="${esc(p.id)}" ${jobPlatforms.has(p.id)?'checked':''}>${esc(p.label)}</label>`).join('')}</fieldset>${readOnly?'':`<div class="actions jobs-bulk"><button id="jobs-select-filtered">选中筛选结果（${list.length}）</button><button id="jobs-clear-selected">取消选择</button><span>已选 ${selected.length} 项</span><button data-jobs-control="pause" ${!state.features?.job_controls||jobControlBusy||!selected.some(canPauseJob)?'disabled':''}>批量暂停</button><button class="primary" data-jobs-control="start" ${!state.features?.job_controls||jobControlBusy||!selected.some(canStartJob)?'disabled':''}>批量启动</button></div><p class="tiny muted">操作跨分页生效；切换筛选会清空选择。启动会重新排队，仍遵守原有 Web 范围与验证规则。</p>`}`;
+  return `${!readOnly&&!state.features?.job_controls?'<p class="notice">任务控制接口等待本地服务更新完成；平台筛选可先使用，更新后刷新即可启用暂停与启动。</p>':''}<fieldset class="jobs-platforms"><legend>采集平台（可多选，不选表示全部）</legend>${platforms.map(p=>`<label class="checkrow"><input type="checkbox" data-job-platform="${esc(p.id)}" ${jobPlatforms.has(p.id)?'checked':''}>${esc(p.label)}</label>`).join('')}</fieldset>${readOnly?'':`<div class="actions jobs-bulk"><button id="jobs-select-filtered">选中筛选结果（${list.length}）</button><button id="jobs-clear-selected">取消选择</button><span>已选 ${selected.length} 项</span><button data-jobs-control="pause" ${!state.features?.job_controls||jobControlBusy||!selected.some(canPauseJob)?'disabled':''}>批量暂停</button><button class="primary" data-jobs-control="start" ${!state.features?.job_controls||jobControlBusy||!selected.some(canStartJob)?'disabled':''}>批量启动</button><button class="danger" data-jobs-control="remove" ${!state.features?.job_controls||jobControlBusy||!selected.some(canRemoveJob)?'disabled':''}>批量删除（${selected.filter(canRemoveJob).length}）</button></div><p class="tiny muted">操作跨分页生效；切换筛选会清空选择。启动会重新排队，仍遵守原有 Web 范围与验证规则；删除只清理任务与执行记录，游戏输入记录保留。</p>`}`;
 }
 function jobsPagination(total){
   const pages=Math.max(1,Math.ceil(total/JOBS_PER_PAGE));
@@ -582,13 +595,11 @@ function supplyMetadata(id) {
 }
 function reviews() {
   const pending=(state.versions||[]).filter(v=>v.status==='review');
-  const seen=new Set();
-  const accepted=(state.versions||[]).filter(v=>{if(!['approved','published'].includes(v.status)||seen.has(v.candidate_id))return false;seen.add(v.candidate_id);return true;});
-  const cards=(items,done)=>items.map(v=>{const c=cBy(v.candidate_id);return `<article class="gamecard"><div class="cover" data-review="${esc(v.id)}">${reviewImage(v,'产出版本实机截图')}<div class="cover-badge">${badge(v.status)}</div></div><div class="gamebody"><h3>${esc(c.title)}</h3><p class="tiny muted">版本 ${esc(v.commit?.slice(0,7)||v.id)} · ${done?'验收于 '+date(v.approved_at):'提交于 '+date(v.created_at)}</p><div class="gamefoot"><span>${done?'✓ 玩法与画面已通过':'等待确认玩法与画面'}</span><button class="smallbtn ${done?'':'primary'}" data-review="${esc(v.id)}">${done?'查看验收结果':'开始验收'}</button></div></div></article>`;}).join('');
-  return head('验收中心','HTML 移植完成后人工试玩验收；通过后自动进入下游模板供货。')+
-    `<section id="pending-reviews"><div class="panelhead"><h2>待验收 <small>${pending.length} 个版本</small></h2></div><div class="cards review-cards">${cards(pending,false)||empty('当前没有待验收版本','新版本完成后会出现在这里。')}</div></section>`+
-    `<section id="accepted-reviews" style="margin-top:32px"><div class="panelhead"><h2>已验收 <small>${accepted.length} 款游戏</small></h2></div><div class="cards accepted-cards">${cards(accepted,true)||empty('尚无已验收游戏','确认玩法和画面后，游戏会移入这里。')}</div></section>`+supplyPanel();
+  const cards=pending.map(v=>{const c=cBy(v.candidate_id);return `<article class="gamecard"><div class="cover" data-review="${esc(v.id)}">${reviewImage(v,'产出版本实机截图')}<div class="cover-badge">${badge(v.status)}</div></div><div class="gamebody"><h3>${esc(c.title)}</h3><p class="tiny muted">版本 ${esc(v.commit?.slice(0,7)||v.id)} · 提交于 ${date(v.created_at)}</p><div class="gamefoot"><span>等待确认玩法与画面</span><button class="smallbtn primary" data-review="${esc(v.id)}">开始验收</button></div></div></article>`;}).join('');
+  return head('验收中心','仅展示待验收版本；通过验收的游戏可在小游戏库查看。')+
+    `<section id="pending-reviews"><div class="panelhead"><h2>待验收 <small>${pending.length} 个版本</small></h2></div><div class="cards review-cards">${cards||empty('当前没有待验收版本','完成验证的版本会出现在这里。')}</div></section>`+supplyPanel();
 }
+
 const serviceNames = {wechat: "小游戏转 Web 浏览器游戏服务", ai: "AI 服务"};
 function toolPage() {
   return head("工具服务", "统一管理游戏转换、AI 与下游模板供货服务。") +
@@ -684,7 +695,7 @@ function aiServiceDialog(s) {
 function settings() {
   const s = state.settings || {};
   const fields = [
-    ['concurrency', '云服务器同时转换任务数（固定为 1）', 1, 1, 1],
+    ['concurrency', '同时转换的任务数', 1, 16, s.concurrency || 3],
     ['rea_minutes', 'REA 尝试上限（分钟）', 1, 180, s.rea_minutes || 45],
     ['reconstruct_minutes', 'AI 复刻上限（分钟）', 1, 600, s.reconstruct_minutes || 180],
     ['repair_rounds', '自动修复轮数', 1, 5, s.repair_rounds ?? 3],
@@ -821,11 +832,12 @@ function pipelinePanel(job) {
   const pipe=job.pipeline;
   if(!pipe)return '<p class="muted">当前服务尚未提供节点时间线。</p>';
   const labels={draft_saved:'草稿已保存 · 未完成',unrecorded:'缺少阶段结论',pending:'尚未开始',recorded:'结果未确认',running:'● 进行中',succeeded:'✓ 已完成',failed:'！执行失败',blocked:'！遇到阻断',waiting_input:'待处理',skipped:'已跳过',cancelled:'已停止'};
+  const hiddenHistory=pipe.nodes.filter(n=>!(pipe.visible_nodes||pipe.nodes).some(v=>v.key===n.key)&&(n.records||[]).length);
   const summary=pipe.presentation, countLabels={complete:'本轮已完成',active:'进行中',issue:'有问题',waiting:'等待处理',incomplete:'未完成',pending:'尚未开始',unknown:'结论缺失',history:'历史结果',optional:'按需 / 跳过',stopped:'已停止'};
-  return `<section class="pipeline"><h3>转换阶段与完成情况</h3>${summary?`<div class="pipeline-overview"><strong>${esc(summary.headline)}</strong>${summary.current_title?`<p>当前节点：${esc(summary.current_title)} <button class="smallbtn" data-stage-focus="${esc(pipe.current)}">定位这个阶段 ↓</button></p>`:''}${summary.problem?`<p class="pipeline-problem"><b>当前问题：</b>${esc(summary.problem)}</p>`:''}<p>下一步：${esc(summary.next_action)}</p><div class="pipeline-counts">${Object.entries(countLabels).filter(([k])=>summary.counts[k]).map(([k,label])=>`<span data-group="${k}">${label} ${summary.counts[k]} 项</span>`).join('')}</div><p class="tiny muted">完成项只统计本轮有明确结论的阶段，历史完成与按需步骤单独显示。</p></div>`:''}<p class="tiny muted">${esc(pipe.note)}</p><ol>${pipe.nodes.map((n,index)=>{
+  return `<section class="pipeline"><h3>转换阶段与完成情况</h3>${summary?`<div class="pipeline-overview"><strong>${esc(summary.headline)}</strong>${summary.current_title?`<p>当前节点：${esc(summary.current_title)} <button class="smallbtn" data-stage-focus="${esc(pipe.current)}">定位这个阶段 ↓</button></p>`:''}${summary.problem?`<p class="pipeline-problem"><b>当前问题：</b>${esc(summary.problem)}</p>`:''}<p>下一步：${esc(summary.next_action)}</p><div class="pipeline-counts">${Object.entries(countLabels).filter(([k])=>summary.counts[k]).map(([k,label])=>`<span data-group="${k}">${label} ${summary.counts[k]} 项</span>`).join('')}</div><p class="tiny muted">仅展示本轮适用或实际发生的步骤；复用成果单独标注，未触发的诊断与发布不占位。</p></div>`:''}<p class="tiny muted">${esc(pipe.note)}</p><ol>${(pipe.visible_nodes||pipe.nodes).map((n,index)=>{
     const view=n.presentation, records=n.records||[], currentRecords=records.filter(r=>(r.round||1)===(job.round||1)), history=records.filter(r=>(r.round||1)!==(job.round||1));
     return `<li data-node="${esc(n.key)}" data-status="${esc(n.status)}" data-group="${esc(view?.group||'unknown')}" ${pipe.current===n.key?'aria-current="step"':''}><div class="pipeline-stage-header"><strong>${index+1}. ${esc(view?.title||n.label)}</strong><span class="pipeline-status">${esc(view?.label||labels[n.status]||n.status)}</span></div>${view?`<p class="pipeline-work">${esc(view.work)}</p><p class="pipeline-result"><b>当前结果：</b>${esc(view.result)}</p>${view.problem?`<p class="pipeline-problem"><b>问题：</b>${esc(view.problem)}</p>`:''}<p class="pipeline-next"><b>下一步：</b>${esc(view.next_action)}</p>${view.previous?`<p class="tiny muted">历史结论：${esc(view.previous)}</p>`:''}`:''}<details class="pipeline-evidence"><summary>查看过程与依据 · 本轮 ${currentRecords.length} 条 / 历史 ${history.length} 条</summary>${n.started_at?`<p class="tiny">开始 ${date(n.started_at)}</p>`:''}${n.ended_at?`<p class="tiny">结束 ${date(n.ended_at)}</p>`:''}${n.duration_seconds!=null?`<p class="tiny">耗时 ${n.duration_seconds} 秒</p>`:''}${!view&&n.reason&&n.reason!==job.question&&!records.some(r=>r.message?.trim()===n.reason.trim())?`<p>${esc(n.reason)}</p>`:''}${n.version_id?`<p class="tiny">关联版本 ${esc(n.version_id)}</p>`:''}${pipelineExecutions(n)}${pipelineRecords(currentRecords)}${!currentRecords.length?'<p class="tiny muted">本轮没有独立的步骤日志；如有版本结果，以阶段说明为准。</p>':''}${history.length?`<details><summary>此前轮次记录</summary>${pipelineRecords(history)}</details>`:''}</details></li>`;
-  }).join('')}</ol></section>`;
+  }).join('')}</ol>${hiddenHistory.length?`<details class="pipeline-history"><summary>其他历史阶段记录</summary>${hiddenHistory.map(n=>`<h4>${esc(n.label)}</h4>${pipelineRecords(n.records)}`).join('')}</details>`:''}</section>`;
 }
 function gameSpecPanel(candidate,job) {
   const spec=candidate.game_spec;
