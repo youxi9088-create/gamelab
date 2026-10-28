@@ -1,6 +1,14 @@
 # 本地到云端及 Git 的定时同步
 
-2026-10-28 新增，每 3 小时由 Codex 本聊天自动任务 `gamelab-3-git` 执行。本机必须开机联网且 Codex 能执行任务；这不是 Windows 系统服务，关闭应用或关机期间不能保证执行。
+2026-10-28 新增，独立 Windows 后台工具，通过任务计划 `GameLabSync` 每 3 小时执行，系统启动也触发。SYSTEM 账户运行，不需要 Codex、其他聊天应用或用户登录。电脑须开机联网；关机期间无法上传，开机后补跑。此前误建的 Codex 自动任务 `gamelab-3-git` 已停用。
+
+## 操作入口
+
+`F:/youxi/GameLab` 提供 `sync_now.bat`（后台立即同步）、`sync_status.bat`（查看状态）、`sync_pause.bat`（停用后续定时执行）、`sync_resume.bat`（恢复）。管理任务需要 Windows 管理员权限。停用不会中断已经开始的一轮。
+
+实现代码为 `tools/sync_service/`。`install.ps1` 安装任务，`run.ps1` 解密凭据并启动 `runner.py`，后者独立执行云端同步和 Git 同步并汇总结果。设置位于 `C:/ProgramData/GameLabSync/config.json`，凭据保存在机器范围 DPAPI 加密文件中，目录仅 Administrators 和 SYSTEM 可访问。运行不从 Codex 读取凭据；Git 使用工具自己的副本。Python/Node 使用本机已安装的可执行文件，不需要其所属应用运行，勿删除相关运行时目录。
+
+`C:/ProgramData/GameLabSync/status.json` 为整轮状态，`logs/` 保留最近 60 轮日志。避免重复实例，失败 30 分钟后重试，最多两次；单轮上限 170 分钟。Git 分支、暂存内容或远端历史异常会停止 Git 步骤并记入状态，不强推。后台工具不会弹窗通知，失败可在状态入口和 Windows 任务计划查看。
 
 ## 云端
 
@@ -21,4 +29,4 @@ SQLite 只读事务取得一致记录，排除账户、会话、凭据、维护�
 - `F:/youxi/door` → `sync/local`
 - `F:/youxi/door-cloudflare-migration` → `sync/cloudflare`
 
-自动任务检查差异和敏感内容后，仅提交源码、测试及普通文档。排除 data、migration-private、.cache、.deploy-backups、日志、密钥、数据库及私密 reports。已有暂存内容或冲突应停止 Git 步骤并通知，不强推，不切换工作分支。没有改动仍可重试上次未成功的 push；没有改动不产生空提交。云端和 Git 两步骤分别报告结果，不能将单项成功称为全部同步完成。
+工具按代码目录及扩展名白名单提交，并检查现有凭据值和常见令牌/私钥格式（不是完整敏感信息审计）。排除 data、migration-private、.cache、.deploy-backups、日志、数据库及私密 reports。已有暂存内容或冲突停止 Git 步骤并记录，不强推，不切换工作分支。没有改动仍可重试上次未成功的 push；没有改动不产生空提交。云端和 Git 两步骤分别报告结果，不能将单项成功称为全部同步完成。游戏运行文件备份到 R2，不自动纳入 Git。
