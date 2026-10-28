@@ -1,5 +1,6 @@
 """Cumulative, evidence-backed production counts. Never changes source records."""
 from urllib.parse import urlsplit
+from .source_routing import observations_of
 
 
 def production_metrics(state):
@@ -12,7 +13,7 @@ def production_metrics(state):
             return None
 
     candidates = {c['id']: c for c in state.get('candidates', [])
-                  if not c.get('observations', {}).get('catalog_hidden')}
+                  if not observations_of(c).get('catalog_hidden')}
     hidden = {url_key(c.get('url')) for c in state.get('candidates', [])
               if c['id'] not in candidates}
     keys = {cid: url_key(c.get('url')) or cid for cid, c in candidates.items()}

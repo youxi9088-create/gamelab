@@ -12,6 +12,12 @@ def modular_candidate(observation):
     return next(iter(urls)) if len(urls)==1 else None
 
 
+def observations_of(record):
+    """观测字段曾被写成空字符串等类型；dict.get 的默认值只兜"键缺失"，不兜类型。"""
+    value = (record or {}).get('observations')
+    return value if isinstance(value, dict) else {}
+
+
 def source_kind(url, observations=None):
     o=observations if isinstance(observations,dict) else {}
     source=str(url).strip()

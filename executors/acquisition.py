@@ -5,7 +5,42 @@ import os
 import re
 import shutil
 import subprocess
+import time
 from pathlib import Path
+
+# 网络抖动的特征码。这类失败几秒内就返回，重跑一次常常就通；把它们当成
+# "需要人工处理"会让任务永久停在 waiting_input，队列里几十个任务就这么堆住的。
+_NET_FLAKES = ('ERR_CONNECTION_CLOSED', 'ERR_CONNECTION_RESET', 'ERR_CONNECTION_TIMED_OUT',
+               'ERR_CONNECTION_REFUSED', 'ERR_CONNECTION_ABORTED', 'ERR_NETWORK_CHANGED',
+               'ERR_NAME_NOT_RESOLVED', 'ERR_INTERNET_DISCONNECTED', 'ERR_EMPTY_RESPONSE',
+               'ERR_SOCKET_NOT_CONNECTED', 'ERR_ADDRESS_UNREACHABLE',
+               'TimeoutError', 'Navigation failed because', 'net::ERR_')
+# 慢失败不重试：那更像是站点真的连不上或页面太重，重试只会吃掉整轮预算。
+_RETRY_SECONDS = 90
+_NET_RETRIES = 2
+
+
+def _is_network_flake(text):
+    return any(token in (text or '') for token in _NET_FLAKES)
+
+
+def _run_acquire(command, url, directory, child_env, timeout):
+    """Run the browser acquisition, retrying only fast network failures."""
+    result = None
+    detail = ''
+    for attempt in range(_NET_RETRIES + 1):
+        started = time.monotonic()
+        result = subprocess.run(command + [url, str(directory)],
+                                capture_output=True, timeout=timeout, shell=False, env=child_env)
+        if not result.returncode:
+            return result, ''
+        detail = result.stderr.decode('utf-8', errors='replace')[-2000:]
+        if attempt == _NET_RETRIES or not _is_network_flake(detail):
+            return result, detail
+        if time.monotonic() - started > _RETRY_SECONDS:
+            return result, detail
+        time.sleep(5 * (attempt + 1))
+    return result, detail
 
 def retained_web_source(url,observations,directory,runs_root):
     """Retry from this candidate's hash-verified capture, never another game's cache."""
@@ -50,15 +85,15 @@ def acquire(url, run, budget, observations=None, web_only=False):
         acquire_timeout = budget.remaining(240)
         child_env = {**os.environ, 'GAMELAB_ACQUIRE_TIMEOUT_MS': str(int(acquire_timeout * 1000))}
         try:
-            result = subprocess.run(command+[str(Path(__file__).with_name('acquire.cjs')),url,str(directory)],
-                capture_output=True,timeout=acquire_timeout,shell=False,env=child_env)
+            result, detail = _run_acquire(command+[str(Path(__file__).with_name('acquire.cjs'))],
+                                          url, directory, child_env, acquire_timeout)
         except subprocess.TimeoutExpired:
             detail=(directory/'observation.json')
             if web_only:
                 raise PolicyPause('Web 类型检测超时（采集预算 {} 秒），未确认游戏类型，已暂停；现场保留，请核对入口后继续。'.format(int(acquire_timeout))) from None
             raise
         if result.returncode:
-            detail=result.stderr.decode('utf-8',errors='replace')[-2000:]
+            detail=detail or result.stderr.decode('utf-8',errors='replace')[-2000:]
             (run/'acquisition-error.txt').write_text(detail,'utf-8')
             observation=retained_web_source(url,observations,directory,Path(os.environ.get('REPLICA_RUNS_ROOT',Path(__file__).parent/'runs')).resolve())
             if observation is None:

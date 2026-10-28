@@ -495,13 +495,43 @@ function routeLabel(j){return j.route_label||(j.display_status==="dependency_pen
 function routeTone(j){return j.route_tone||(j.route==="A"?"green":"");}
 function jobTable(list) {
   return list.length
-    ? `<div class="table-wrap"><table class="table"><thead><tr><th>游戏 / 任务</th><th>当前阶段</th><th>处理路径</th><th>任务状态</th><th>进度</th><th>操作</th></tr></thead><tbody>${list.map((j) => `<tr><td><b>${esc(cBy(j.candidate_id).title)}</b><br><small>${esc(j.id)}</small></td><td>${esc(j.pipeline?.presentation?.location_label || j.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || (j.display_status==="dependency_pending"?"依赖分析与适配":{ rea: "REA 分析", reconstruct: "AI 复刻", packaging: "运行包整理" }[j.stage] || j.stage || "等待分析"))}</td><td><span class="badge ${routeTone(j)}" title="${esc(j.route_detail||"")}">${esc(routeLabel(j))}</span>${j.route_basis==="inferred"?'<p class="tiny muted">按来源与阶段推断</p>':''}</td><td>${badge(j.display_status||j.status)}${hasDraft(j)?'<p class="tiny muted">已有可试玩草稿</p>':''}${j.display_status==='needs_work'&&j.status==='failed'?'<p class="tiny muted">上次续作失败，可重试</p>':''}</td><td><small>${esc(j.progress_label||"等待阶段记录")}</small></td><td><button class="textbtn" data-job="${esc(j.id)}">继续沟通 / 记录</button>${["failed", "blocked"].includes(j.status) ? `<button class="smallbtn" data-retry="${esc(j.id)}">重试</button>` : ""}</td></tr>`).join("")}</tbody></table></div>`
-    : empty("暂无任务记录", "从批次管理启动任务，执行工具将领取并回传进度。");
+    ? `<div class="table-wrap"><table class="table"><thead><tr><th>游戏 / 任务</th><th>当前阶段</th><th>处理路径</th><th>任务状态</th><th>进度</th><th>操作</th></tr></thead><tbody>${list.map((j) => `<tr><td><b>${esc(cBy(j.candidate_id).title)}</b><br><small>${esc(j.id)}</small></td><td>${esc(j.pipeline?.presentation?.location_label || j.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || (j.display_status==="dependency_pending"?"依赖分析与适配":{ rea: "REA 分析", reconstruct: "AI 复刻", packaging: "运行包整理" }[j.stage] || j.stage || "等待分析"))}</td><td><span class="badge ${routeTone(j)}" title="${esc(j.route_detail||"")}">${esc(routeLabel(j))}</span>${j.route_basis==="inferred"?'<p class="tiny muted">按来源与阶段推断</p>':''}</td><td>${badge(j.display_status||j.status)}${hasDraft(j)?'<p class="tiny muted">已有可试玩草稿</p>':''}${j.display_status==='needs_work'&&j.status==='failed'?'<p class="tiny muted">上次续作失败，可重试</p>':''}</td><td><small>${esc(j.progress_label||"等待阶段记录")}</small></td><td><button class="textbtn" data-job="${esc(j.id)}">继续沟通 / 记录</button>${["failed", "blocked"].includes(j.status) ? `<button class="smallbtn" data-retry="${esc(j.id)}">重试</button>` : ""}${j.status==="running" ? `<button class="smallbtn" disabled title="任务执行中，请先停止批次或等本轮结束">删除</button>` : `<button class="smallbtn" data-remove="${esc(j.id)}">删除</button>`}</td></tr>`).join("")}</tbody></table></div>`
+    : empty("没有符合条件的任务", "调整上方筛选或搜索词，或清除筛选查看全部任务。");
 }
 let showCompletedTasks=false;
+let jobQuery="", jobStatusFilter="", jobRouteFilter="", jobsPage=1;
+const JOBS_PER_PAGE=50;
+function jobsBase(){
+  const all=currentJobs();
+  return showCompletedTasks?all:all.filter(j=>j.status!=="completed");
+}
+function jobsFiltered(){
+  let list=jobsBase();
+  if(jobStatusFilter==="__paused")list=list.filter(j=>!!j.policy_pause);
+  else if(jobStatusFilter)list=list.filter(j=>(j.display_status||j.status)===jobStatusFilter);
+  if(jobRouteFilter)list=list.filter(j=>routeLabel(j)===jobRouteFilter);
+  const q=jobQuery.trim().toLowerCase();
+  if(q)list=list.filter(j=>String(cBy(j.candidate_id).title||"").toLowerCase().includes(q)||String(j.id||"").toLowerCase().includes(q));
+  return list;
+}
+function jobsToolbar(total,pages){
+  const statuses=[...new Set(jobsBase().map(j=>j.display_status||j.status))];
+  if(jobsBase().some(j=>j.policy_pause))statuses.push("__paused");
+  const routes=[...new Set(jobsBase().map(routeLabel))].sort();
+  const option=(value,label,current)=>`<option value="${esc(value)}"${current===value?" selected":""}>${esc(label)}</option>`;
+  return `<div class="filters"><input id="jobs-query" aria-label="搜索任务" placeholder="搜索游戏名称或任务 ID…" value="${esc(jobQuery)}"><select id="jobs-status" aria-label="按状态筛选"><option value="">全部状态</option>${statuses.map(s=>option(s,s==="__paused"?"按 Web 范围暂停":(statusMap[s]||s),jobStatusFilter)).join("")}</select><select id="jobs-route" aria-label="按处理路径筛选"><option value="">全部处理路径</option>${routes.map(r=>option(r,r,jobRouteFilter)).join("")}</select><span class="tiny muted">共 ${total} 条 · 每页 ${JOBS_PER_PAGE} 条</span>${(jobQuery||jobStatusFilter||jobRouteFilter)?'<button class="textbtn" id="jobs-reset">清除筛选</button>':''}</div>`;
+}
+function jobsPagination(total){
+  const pages=Math.max(1,Math.ceil(total/JOBS_PER_PAGE));
+  if(jobsPage>pages)jobsPage=pages;
+  return `<div class="actions" style="margin-top:12px"><button id="jobs-prev"${jobsPage<=1?" disabled":""}>上一页</button><span class="tiny muted">第 ${jobsPage} / ${pages} 页</span><button id="jobs-next"${jobsPage>=pages?" disabled":""}>下一页</button></div>`;
+}
 function jobs() {
-  const all=currentJobs(), active=all.filter(j=>j.status!=="completed"), list=showCompletedTasks?all:active;
-  return `<div class="notice">${active.length} 个未完成任务 · ${all.filter(j=>j.status==='waiting_input'&&!j.policy_pause).length} 个待回复 · ${all.filter(j=>j.policy_pause).length} 个按 Web 范围暂停 · ${all.filter(j=>j.status==='review').length} 个待验收。退回意见会直接进入下一轮修改。</div><div class="actions" style="margin-bottom:16px"><button id="toggle-completed">${showCompletedTasks?'隐藏已完成':'显示已完成'}</button></div><div class="panel">${jobTable(list.filter(j=>!query||cBy(j.candidate_id).title.includes(query)||j.id.includes(query)))}</div>`;
+  const all=currentJobs(), active=all.filter(j=>j.status!=="completed");
+  const list=jobsFiltered(), pages=Math.max(1,Math.ceil(list.length/JOBS_PER_PAGE));
+  if(jobsPage>pages)jobsPage=pages;
+  const slice=list.slice((jobsPage-1)*JOBS_PER_PAGE,jobsPage*JOBS_PER_PAGE);
+  return `<div class="notice">${active.length} 个未完成任务 · ${all.filter(j=>j.status==='waiting_input'&&!j.policy_pause).length} 个待回复 · ${all.filter(j=>j.policy_pause).length} 个按 Web 范围暂停 · ${all.filter(j=>j.status==='review').length} 个待验收。退回意见会直接进入下一轮修改。</div><div class="actions" style="margin-bottom:16px"><button id="toggle-completed">${showCompletedTasks?'隐藏已完成':'显示已完成'}</button></div><div class="panel">${jobsToolbar(list.length,pages)}${jobTable(slice)}${jobsPagination(list.length)}</div>`;
 }
 function reviewImage(record, label, full = false) {
   const src=screenshotItems(record)[0];
@@ -1162,7 +1192,25 @@ function bind() {
           }
         })),
   );
-  if($("#toggle-completed"))$("#toggle-completed").onclick=()=>{showCompletedTasks=!showCompletedTasks;render();};
+  if($("#toggle-completed"))$("#toggle-completed").onclick=()=>{showCompletedTasks=!showCompletedTasks;jobsPage=1;render();};
+  if($("#jobs-query"))$("#jobs-query").oninput=e=>{jobQuery=e.target.value;jobsPage=1;const pos=e.target.selectionStart;render();const el=$("#jobs-query");if(el){el.focus();el.setSelectionRange(pos,pos);}};
+  if($("#jobs-status"))$("#jobs-status").onchange=e=>{jobStatusFilter=e.target.value;jobsPage=1;render();};
+  if($("#jobs-route"))$("#jobs-route").onchange=e=>{jobRouteFilter=e.target.value;jobsPage=1;render();};
+  if($("#jobs-reset"))$("#jobs-reset").onclick=()=>{jobQuery="";jobStatusFilter="";jobRouteFilter="";jobsPage=1;render();};
+  if($("#jobs-prev"))$("#jobs-prev").onclick=()=>{jobsPage=Math.max(1,jobsPage-1);render();};
+  if($("#jobs-next"))$("#jobs-next").onclick=()=>{jobsPage=jobsPage+1;render();};
+  document.querySelectorAll("[data-remove]").forEach(b=>{
+    b.onclick=()=>{
+      const job=state.jobs.find(j=>j.id===b.dataset.remove);
+      const title=job?cBy(job.candidate_id).title:b.dataset.remove;
+      if(!confirm(`删除任务「${title}」？\n\n只会删除这个任务及其执行记录，游戏输入记录和批次会保留。删除后可在归档中查到记录。`))return;
+      b.disabled=true;
+      mutate(`/api/jobs/${b.dataset.remove}/remove`,{},()=>{
+        state.jobs=state.jobs.filter(j=>j.id!==b.dataset.remove);
+        toast("任务已删除");
+      }).catch(err=>{b.disabled=false;toast(err&&err.message?err.message:"删除失败，请稍后重试");});
+    };
+  });
   document.querySelectorAll("[data-retry]").forEach(
     (b) =>
       (b.onclick = () =>

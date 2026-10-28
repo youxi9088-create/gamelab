@@ -2,6 +2,7 @@
 const {chromium}=require('playwright');
 const fs=require('fs'), path=require('path'), crypto=require('crypto');
 const {declaredEntries}=require('./declared-entry.cjs');
+const {sessionOptions}=require('./browser-session.cjs');
 
 // 广告与统计域是采集超时的主要来源：4k99 详情页首字节就要 6–9 秒，挂上
 // 百度/doubleclick/mediav/recaptcha 之后 90 秒预算根本不够。它们也与游戏
@@ -39,7 +40,7 @@ async function main(){
     appids:[],limitation:'Read-only page observation; no claim that original gameplay has been played.'};
   const browser=await chromium.launch(require('./browser-options.cjs')());
   try{
-    const context=await browser.newContext({serviceWorkers:'block',acceptDownloads:false,viewport:{width:1000,height:760}});
+    const context=await browser.newContext({serviceWorkers:'block',acceptDownloads:false,viewport:{width:1000,height:760},...sessionOptions(url)});
     // Public pages cannot use this collector to probe local control-plane endpoints.
     const local=/^(localhost|127\.0\.0\.1|\[::1\])$/i.test(parsed.hostname);
     const blockedAds=new Set();

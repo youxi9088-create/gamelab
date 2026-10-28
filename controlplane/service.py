@@ -513,6 +513,31 @@ class Service(Conversations,Discovery):
                 for record in records:
                     db.execute('DELETE FROM records WHERE kind=? AND id=?',(record['kind'],record['id']))
                 return {'deleted_job_id':key,'archive_id':archive['id']}
+            if action=='remove' and not tool:
+                # 只删这一个任务及其执行记录，保留游戏输入记录与批次。上面 delete
+                # 要求"候选无版本、无其他任务、批次只含它"，421 个排队任务一条都不满足，
+                # 所以清理列表需要这一条更轻的口径。
+                job=self.get(db,'jobs',key)
+                require(job['status']!='running','任务正在执行，请先停止批次或等本轮结束后再删除',409)
+                require(not any(v.get('job_id')==key for v in s.all(db,'versions')),'该任务已产出版本，不能删除；请先处理版本',409)
+                records=[]
+                for row in db.execute('SELECT kind,id,data FROM records').fetchall():
+                    kind,rid,raw=row
+                    if kind.startswith('deleted-'):continue
+                    value=json.loads(raw)
+                    if not isinstance(value,dict):continue
+                    if (kind=='jobs' and rid==key) or value.get('job_id')==key:
+                        records.append(dict(kind=kind,id=rid,data=value))
+                archive=dict(id=ident('deleted'),job_id=key,deleted_at=now(),scope='task',records=records)
+                s.put(db,'deleted-tasks',archive)
+                for record in records:
+                    db.execute('DELETE FROM records WHERE kind=? AND id=?',(record['kind'],record['id']))
+                remaining=[j for j in s.all(db,'jobs') if j.get('candidate_id')==job['candidate_id']]
+                if not remaining:
+                    candidate=self.get(db,'candidates',job['candidate_id'])
+                    if candidate.get('status') not in ('review','completed'):
+                        candidate['status']='candidate';s.put(db,'candidates',candidate)
+                return {'removed_job_id':key,'archive_id':archive['id'],'removed_records':len(records)}
             if action=='work-log' and not tool:
                 job=self.get(db,'jobs',key)
                 message=str(b.get('message','')).strip()

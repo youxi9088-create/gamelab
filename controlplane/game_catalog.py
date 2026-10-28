@@ -4,6 +4,8 @@ import io
 import json
 from pathlib import Path
 
+from .source_routing import observations_of
+
 FIELDS = {
     'category': '玩法类型', 'dimension': '画面维度', 'perspective': '视角与布局',
     'core_gameplay': '核心玩法', 'core_experience': '核心体验',
@@ -58,8 +60,12 @@ def write_delivery(target, candidate, version):
     return facts
 
 
+def _hidden(candidate):
+    return bool(observations_of(candidate).get('catalog_hidden'))
+
+
 def index(candidates, versions):
-    candidates = {c['id']: c for c in candidates if not c.get('observations', {}).get('catalog_hidden')}
+    candidates = {c['id']: c for c in candidates if not _hidden(c)}
     latest = {}
     for v in sorted(versions, key=lambda v: (v.get('created_at', ''), v['id']), reverse=True):
         if v['candidate_id'] in candidates:

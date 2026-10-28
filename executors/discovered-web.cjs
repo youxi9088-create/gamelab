@@ -3,6 +3,7 @@ const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypt
 const {chromium,request}=require('playwright');
 const {storageEvidence}=require('./storage-evidence.cjs');
 const {entryReferences,references,rewriteModules,rewriteInlineModules}=require('./module-resources.cjs');
+const {sessionOptions}=require('./browser-session.cjs');
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 // Playwright 不会自动使用系统/环境变量代理。进程内的 APIRequestContext
 // （context.request 与 request.newContext）因此会直连，在只能经代理出网的机器上
@@ -136,7 +137,7 @@ async function capture(input,run){
  const report={url:input.url,referer:input.referer,files:[],external:[],errors:[],preloadErrors:[],missing:[],patches:[],redirects:[]};
  const browser=await chromium.launch(require('./browser-options.cjs')());let pending=[],failure,total=0;
  try{
-  const context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block',acceptDownloads:false,...proxyOptions()});
+  const context=await browser.newContext({viewport:{width:1000,height:760},serviceWorkers:'block',acceptDownloads:false,...proxyOptions(),...sessionOptions(input.url)});
   await context.addInitScript(()=>{let value;Object.defineProperty(window,'_CCSettings',{configurable:true,get:()=>value,set:v=>{value=v;if(v)window.__capturedCCSettings=JSON.parse(JSON.stringify(v));}});});
   const response=await context.request.get(entry.href,{headers:{Referer:input.referer||input.url},timeout:30000,maxRedirects:0});
   if(!response.ok())throw Error('运行入口 HTTP '+response.status());
@@ -419,7 +420,7 @@ async function repairResources(run){
  if(!missing.length||missing.length>600)throw Error('Missing-resource repair exceeds batch limit');
  const prior=acq.resource_refreshes||[],added=[];let bytes=0;
  if(prior.reduce((n,r)=>n+r.files.length,0)+missing.length>2000)throw Error('Resource repair exceeds task limit');
- const client=await request.newContext({...proxyOptions(),extraHTTPHeaders:{Referer:acq.referer||acq.url}});
+ const client=await request.newContext({...proxyOptions(),...sessionOptions(acq.url),extraHTTPHeaders:{Referer:acq.referer||acq.url}});
  try{
   for(const local of missing){
    if(typeof local!=='string'||!local.startsWith('/')||local.startsWith('//'))throw Error('Invalid observed resource path');

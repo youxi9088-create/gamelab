@@ -57,6 +57,26 @@ class WebOnlyTests(unittest.TestCase):
         self.assertIn('同意门或发行方站点锁', gate['reason'])
         self.assertEqual(gate['gated_iframe'], 'https://games.crazygames.com/x/index.html')
 
+    def test_login_modal_is_not_reported_as_a_site_lock(self):
+        # 4k99 点"开始游戏"后弹 /modal/Login；这是账号门槛，不是发行方站点锁。
+        gate = assess('https://www.4k99.com/detail/17721', '<html></html>',
+                      {'title': '双人成行', 'web_discovery': {'entries': [], 'iframe_hints': [],
+                       'iframe_probes': [{'declared_url': 'https://www.4k99.com/modal/Login?t=1793166559998&mobile=1'}]}})
+        self.assertFalse(gate['allowed'])
+        self.assertIn('弹出登录框', gate['reason'])
+        self.assertNotIn('站点锁', gate['reason'])
+        self.assertEqual(gate['gated_iframe'], '')
+        self.assertEqual(gate['login_iframe'], 'https://www.4k99.com/modal/Login?t=1793166559998&mobile=1')
+
+    def test_game_iframe_still_wins_over_a_login_modal(self):
+        # 页面同时有登录框和游戏 iframe 时，按游戏 iframe 判定，不能被登录框顶掉。
+        gate = assess('https://www.crazygames.com/game/x', '<html></html>',
+                      {'title': 'X', 'web_discovery': {'entries': [],
+                       'iframe_probes': [{'declared_url': 'https://x.test/modal/Login'}],
+                       'iframe_hints': [{'url': 'https://games.crazygames.com/x/index.html'}]}})
+        self.assertEqual(gate['gated_iframe'], 'https://games.crazygames.com/x/index.html')
+        self.assertIn('同意门或发行方站点锁', gate['reason'])
+
     def test_srcdoc_canvas_counts_as_a_rendered_entry(self):
         # astrocade 把游戏写在 srcdoc iframe 里，frame.url() 恒为 about:srcdoc，
         # 没有 URL 线索；渲染出画面就该算入口。

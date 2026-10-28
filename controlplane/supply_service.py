@@ -7,6 +7,7 @@ from pathlib import Path
 from .service import require
 from .store import now
 from .supply_config import KEYS, DEFAULT_FILE, settings, readiness
+from .source_routing import observations_of
 from .supply import inspect_source, call, SupplyError, preflight
 
 
@@ -67,7 +68,7 @@ class SupplyService:
             config = readiness()
             with self.service.store.tx() as db:
                 candidates = {c['id']: c for c in self.service.store.all(db, 'candidates')
-                              if not c.get('observations', {}).get('catalog_hidden')}
+                              if not observations_of(c).get('catalog_hidden')}
                 versions = sorted(self.service.store.all(db, 'versions'), key=lambda v: v.get('created_at', ''), reverse=True)
                 supplies = {r['id']:r for r in self.service.store.all(db,'supply')}
                 deliveries = {r['id']:r for r in self.service.store.all(db,'supply_deliveries')}
