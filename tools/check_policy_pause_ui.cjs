@@ -16,7 +16,7 @@ const assert=require('node:assert/strict');
   });
   await page.goto(process.argv[2]+'/#jobs');
   for(const label of ['已暂停 · 非 Web 游戏','已暂停 · 游戏类型待确认','已暂停 · 页面访问失败']) {
-   await page.getByText(label,{exact:true}).first().waitFor();
+   await page.locator('table tbody').getByText(label,{exact:true}).first().waitFor();
   }
   await page.screenshot({path:'qa-output/policy-pause-list.png',fullPage:true});
   const row=page.locator('tr').filter({hasText:'已暂停 · 非 Web 游戏'});

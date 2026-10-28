@@ -10,6 +10,10 @@ const rows=async page=>await page.locator('table tbody tr').count();
   page.on('dialog',d=>d.accept());
   await page.goto(base+'/#jobs');
   await page.locator('table tbody tr').first().waitFor();
+  // 读快照模式下没有勾选列，列位置会变；一律按表头文字和 class 定位，不写死序号
+  const headers=(await page.locator('table thead th').allInnerTexts()).map(h=>h.trim());
+  const col=label=>headers.indexOf(label)+1;
+  const statusCol=col('任务状态'), routeCol=col('处理路径');
 
   // 翻页：总量超过一页时，第一页只能渲染一页的行数，且能翻到第二页
   const first=await rows(page);
@@ -29,7 +33,7 @@ const rows=async page=>await page.locator('table tbody tr').count();
   const searched=await rows(page);
   console.log('搜索 toolbar-7 → '+searched+' 行');
   assert.ok(searched>0&&searched<50,'搜索没有收敛：'+searched);
-  const titles=await page.locator('table tbody tr td:first-child').allInnerTexts();
+  const titles=await page.locator('table tbody tr .job-name-cell').allInnerTexts();
   for(const t of titles)assert.match(t,/toolbar-7/,'搜索结果含无关任务：'+t);
   // 输入框在重渲染后不能丢焦点和内容
   assert.equal(await page.evaluate(()=>document.activeElement&&document.activeElement.id),'jobs-query');
@@ -41,7 +45,7 @@ const rows=async page=>await page.locator('table tbody tr').count();
   await page.selectOption('#jobs-status','queued');
   await page.waitForFunction(()=>document.querySelectorAll('table tbody tr').length<=50);
   const statusLabel=(await page.locator('#jobs-status option:checked').innerText()).trim();
-  const statuses=await page.locator('table tbody tr td:nth-child(4)').allInnerTexts();
+  const statuses=await page.locator(`table tbody tr td:nth-child(${statusCol})`).allInnerTexts();
   console.log('状态筛选 queued('+statusLabel+') → '+statuses.length+' 行');
   assert.ok(statuses.length>0,'状态筛选后为空');
   // 下拉里的叫法和表格里的徽标必须是同一个词，否则筛选看起来像没生效
@@ -55,7 +59,7 @@ const rows=async page=>await page.locator('table tbody tr').count();
   assert.ok(aiRoute,'产线下拉缺少 AI 复刻：'+JSON.stringify(routeOptions));
   await page.selectOption('#jobs-route',aiRoute);
   await page.waitForFunction(()=>document.querySelectorAll('table tbody tr').length<50);
-  const routes=await page.locator('table tbody tr td:nth-child(3)').allInnerTexts();
+  const routes=await page.locator(`table tbody tr td:nth-child(${routeCol})`).allInnerTexts();
   console.log('产线筛选 AI 复刻 → '+routes.length+' 行');
   assert.ok(routes.length>0,'产线筛选后为空');
   for(const r of routes)assert.match(r,/AI 复刻/,'产线筛选混入其他产线：'+r);
@@ -64,18 +68,19 @@ const rows=async page=>await page.locator('table tbody tr').count();
   await page.click('#jobs-reset');
   await page.waitForFunction(()=>document.querySelectorAll('table tbody tr').length===50);
   // 第一页是满页，删掉一个后后面的任务会补位，所以只能按“这个任务不见了”判断
-  const target=(await page.locator('table tbody tr').first().locator('td:first-child').innerText()).split('\n')[0].trim();
-  const targetId=(await page.locator('table tbody tr').first().locator('td:first-child small').innerText()).trim();
+  const target=(await page.locator('table tbody tr .job-name-cell').first().innerText()).split('\n')[0].trim();
+  // 非只读模式下该单元格里第一个 small 是平台标签，任务 ID 在最后一个
+  const targetId=(await page.locator('table tbody tr .job-name-cell').first().locator('small').last().innerText()).trim();
   await page.locator('button[data-remove]').first().click();
-  await page.waitForFunction(id=>!document.body.innerText.includes(id),targetId,{timeout:15000});
+  await page.waitForFunction(id=>![...document.querySelectorAll('table tbody tr .job-name-cell')].some(e=>e.innerText.includes(id)),targetId,{timeout:15000});
   console.log('删除首行：'+target+' → 剩余 '+await rows(page));
-  const after=await page.locator('table tbody tr td:first-child').allInnerTexts();
+  const after=await page.locator('table tbody tr .job-name-cell').allInnerTexts();
   assert.ok(!after.some(t=>t.includes(target)),'删除后该任务仍在列表里');
   assert.ok(!after.some(t=>t.includes(targetId)),'删除后任务 ID 仍在列表里');
   // 刷新后不能复活
   await page.reload();
   await page.locator('table tbody tr').first().waitFor();
-  assert.ok(!(await page.locator('table tbody tr td:first-child').allInnerTexts()).some(t=>t.includes(targetId)),'刷新后任务复活了');
+  assert.ok(!(await page.locator('table tbody tr .job-name-cell').allInnerTexts()).some(t=>t.includes(targetId)),'刷新后任务复活了');
 
   assert.deepEqual(errors,[]);
  }finally{await browser.close();}
