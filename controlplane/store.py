@@ -1,17 +1,39 @@
 """Transactional store. One SQLite transaction owns each lease/state transition."""
 import contextlib
 import json
+import os
 import sqlite3
 import time
+import traceback
 import uuid
 from contextvars import ContextVar
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 ACTOR=ContextVar('request_actor',default=None)
+# A write transaction holds BEGIN IMMEDIATE, so every other writer in the
+# process queues behind it. Anything past this threshold is what turns into
+# "database is locked" for heartbeats, so record where it happened.
+SLOW_TX_SECONDS=float(os.getenv('DOOR_SLOW_TX_SECONDS','2'))
+SLOW_TX_LOG='slow-tx.log'
+# Plumbing frames tell us nothing; everything else points at the handler.
+_IGNORED_FRAMES=('store.py','contextlib','importlib')
 
 def now():
     return datetime.now(timezone.utc).isoformat(timespec='seconds')
+
+
+def _log_slow_write(elapsed, path):
+    """Best effort: diagnostics must never turn a slow request into a failed one."""
+    try:
+        frames = [f for f in traceback.extract_stack()
+                  if not any(name in f.filename.replace('\\', '/') for name in _IGNORED_FRAMES)]
+        where = ' | '.join(f'{os.path.basename(f.filename)}:{f.lineno} {f.name}'
+                           for f in frames[-6:]) or 'unknown'
+        with (Path(path).parent / SLOW_TX_LOG).open('a', encoding='utf-8') as stream:
+            stream.write(f'--- {now()} write tx {elapsed:.2f}s\n    {where}\n')
+    except Exception:
+        pass
 
 def ident(prefix):
     return prefix + '-' + uuid.uuid4().hex[:12]
@@ -27,6 +49,22 @@ class Store:
             db.execute('CREATE TABLE IF NOT EXISTS records (kind TEXT NOT NULL,id TEXT NOT NULL,data TEXT NOT NULL,PRIMARY KEY(kind,id))')
             db.execute('CREATE TABLE IF NOT EXISTS idempotency (scope TEXT NOT NULL,key TEXT NOT NULL,body_hash TEXT NOT NULL,response TEXT NOT NULL,PRIMARY KEY(scope,key))')
             db.execute('CREATE TABLE IF NOT EXISTS credentials (token_hash TEXT PRIMARY KEY,tool_id TEXT NOT NULL)')
+
+    @contextlib.contextmanager
+    def read(self):
+        """Read-only connection: under WAL a reader never blocks the writer.
+
+        Long read-only builds (dashboard state) must not take BEGIN IMMEDIATE,
+        or every concurrent heartbeat and completion queues behind them.
+        """
+        db = sqlite3.connect(self.path, timeout=30)
+        try:
+            db.execute('PRAGMA busy_timeout=30000')
+            db.execute('PRAGMA journal_mode=WAL')
+            db.execute('PRAGMA query_only=1')
+            yield db
+        finally:
+            db.close()
 
     @contextlib.contextmanager
     def tx(self):
@@ -51,6 +89,7 @@ class Store:
                 time.sleep(delay)
                 delay = min(delay * 2, 1.0)
                 continue
+            started=time.monotonic()
             try:
                 yield db
                 db.commit()
@@ -58,6 +97,9 @@ class Store:
                 db.rollback()
                 raise
             finally:
+                elapsed=time.monotonic()-started
+                if elapsed>=SLOW_TX_SECONDS:
+                    _log_slow_write(elapsed,self.path)
                 db.close()
             return
 

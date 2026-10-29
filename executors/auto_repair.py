@@ -32,6 +32,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
         except Exception:pass  # Optional analysis never replaces the original failure.
     context = RepairContext(run); sources = context.load()
     mutations = 0; fingerprints = set(); feedback = None; stop_corrections = 0
+    inspect_keys = set(); consecutive_inspects = 0; MAX_CONSECUTIVE_INSPECTS = 2
     if stage is None:
         from execution_trace import TRACE
         trace = TRACE.get()
@@ -117,6 +118,11 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 '原站 unavailable 的非脚本资源可根据源码引用和失败截图选择 review_optional_resource，必须证明不影响当前引导/玩法，不能按后缀一律豁免。'
                 '站点锁、非官方版本限制必须说明授权缺口，不伪造域名、登录或官方 SDK 成功。不要下载业务 API 响应冒充离线资源。'
                 'inspect 必须提供实际读取或搜索请求，不能仅重复诊断文字。'
+                '同一批文件只能读一次；重复读取不产生新证据，平台会拒绝。最多连续两轮 inspect，之后必须给出结论。'
+                '收敛规则：先判断能否解决——能解决就选对应修复动作；不能解决再判断是否影响主玩法——'
+                '失败截图显示游戏核心（HUD、角色、对话、场景）已正常运行且缺失的只是图片/音频等非脚本资源时，'
+                '用 review_optional_resource 证明不影响引导与玩法后放过，不要继续反复分析同一批证据；'
+                '既不能解决又无法证明不影响玩法的，stop 并写清已查证证据与缺少的具体能力。'
                 '只有暂时网络/浏览器故障适合retry。patch_host仅修改列出的宿主文件，'
                 '保留原玩法、接口和资源，不删除验证或伪造成功/奖励/登录，不修改平台工具或 web-original。'
                 'patch_runtime_source 只允许在工作副本做已查证的兼容适配；若已确认平台专用编译开关导致启动分支差异，且原代码已有独立运行分支，可精确调整工作副本的构建开关，再由平台复验。不要伪装 hostname 或把 localhost 对照当成部署通过。'
@@ -152,6 +158,19 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 except (ValueError, TypeError) as exc:
                     feedback = str(exc); row['tool_error'] = feedback; continue
             if action == 'inspect':
+                # Re-reading the same files yields no new evidence. Force a verdict
+                # instead of letting the model restate the same diagnosis.
+                inspect_key = hashlib.sha256(json.dumps(
+                    {'read': answer.get('read_requests'), 'search': answer.get('search_requests')},
+                    ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+                if inspect_key in inspect_keys:
+                    feedback = ('相同的读取请求已执行过且未产生新证据，禁止再次读取相同文件。必须立即做出决定：'
+                                '能修复就选择可用修复动作；若确认为不影响引导与主玩法的非脚本资源（图片/音频等）'
+                                '且失败截图显示游戏核心已正常运行，用 review_optional_resource 评估并放过；'
+                                '否则 stop，写明已查证证据与平台缺少的具体执行能力。')
+                    row['repeated_inspect'] = True
+                    continue
+                inspect_keys.add(inspect_key)
                 try:
                     row['tool_results'] = context.inspect(answer, sources)
                     # The captured tree keeps changing between rounds: every
@@ -163,7 +182,13 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                     feedback = None
                 except (ValueError,KeyError,TypeError) as exc:
                     feedback = str(exc); row['tool_error'] = feedback
+                consecutive_inspects += 1
+                if consecutive_inspects > MAX_CONSECUTIVE_INSPECTS:
+                    row['stop_reason'] = ('连续多轮只读取证据，未产生修复动作也未给出放过结论；'
+                                          '停止重复分析，未解决项随报告保留，不阻断主玩法验收。')
+                    break
                 continue
+            consecutive_inspects = 0
             changes = answer.get('changes') or {}
             if action == 'patch_host':
                 if not isinstance(changes, dict) or not changes or set(changes)-set(code):
@@ -206,12 +231,23 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                     capabilities[action]['rollback']()
                 for name in changes: (target/name).write_bytes(code[name].encode('utf-8'))
                 if capabilities.get(action,{}).get('rollback'):capabilities[action]['rollback']()
-                if plan_path:
+                # A runtime contract records what the entry IS. A later failure in
+                # resource capture or readiness says nothing about that judgement,
+                # so dropping it only forces the next round to re-derive the same
+                # answer — that is how tasks loop forever on "运行契约尚未配置".
+                # Keep it unless this failure actually disproves the contract.
+                contract_disproved = any(hint in safe(failure)
+                                         for hint in ('运行契约尚未配置', '入口证据已改变', '入口内容与已配置运行契约不一致'))
+                if plan_path and contract_disproved:
                     if old_plan is None: plan_path.unlink(missing_ok=True)
                     else: plan_path.write_bytes(old_plan)
+                elif plan_path:
+                    row['retained_runtime_plan'] = True
                 row['verified'] = False; last = failure
                 row['verification_error'] = safe(failure)
                 sources = context.load(); feedback = ('实际复验未通过；已校验哈希的静态资源映射保留为待验证材料，请根据新请求继续处理，不能宣称成功' if capabilities.get(action,{}).get('retain_verified_downloads') else '实际复验未通过，修改已回退；请根据新日志重新分析')
+                if row.get('retained_runtime_plan'):
+                    feedback += '；本次失败与入口引擎判定无关，已配置的运行契约已保留，不要再重新选择契约，请直接针对上面的失败原因分析处理'
                 if action == 'retry' and safe(failure) == safe(row['error']):
                     row['stop_reason'] = '同一错误再次出现，停止重复修复'
                     break

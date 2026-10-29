@@ -39,6 +39,19 @@ class Handler(BaseHTTPRequestHandler):
         for k,v in (headers or {}).items():self.send_header(k,v)
         self.end_headers();self.wfile.write(body)
 
+    def log_server_error(self):
+        """Unhandled exceptions must survive console scrollback; keep a bounded file trace."""
+        text=traceback.format_exc()
+        traceback.print_exc()
+        stamp=time.strftime('%Y-%m-%dT%H:%M:%S')
+        target=urlsplit(self.path).path
+        try:
+            path=ROOT/'data/server-error.log'
+            path.parent.mkdir(parents=True,exist_ok=True)
+            with path.open('a',encoding='utf-8') as stream:
+                stream.write(f'--- {stamp} {self.command} {target}\n{text}')
+        except Exception:pass
+
     def hostname_valid(self):
         host=self.headers.get('Host','')
         require(host in (f'127.0.0.1:{self.server.server_port}',f'localhost:{self.server.server_port}'),'不支持的 Host',403)
@@ -158,7 +171,9 @@ class Handler(BaseHTTPRequestHandler):
             return self.file(ROOT/'web'/path.lstrip('/'),ROOT/'web')
         except ApiError as e:self.send(e.status,{'error':e.message})
         except Exception:
-            traceback.print_exc();self.send(500,{'error':'服务内部错误，请查看服务日志'})
+            self.log_server_error()
+            try:self.send(500,{'error':'服务内部错误，请查看服务日志'})
+            except (BrokenPipeError,ConnectionAbortedError,ConnectionResetError,OSError):pass
 
     def do_POST(self):
         actor_token=None
@@ -231,7 +246,9 @@ class Handler(BaseHTTPRequestHandler):
         except ApiError as e:self.send(e.status,{'error':e.message})
         except (ValueError,TypeError,KeyError) as e:self.send(400,{'error':'参数无效：'+str(e)[:200]})
         except Exception:
-            traceback.print_exc();self.send(500,{'error':'服务内部错误，请查看服务日志'})
+            self.log_server_error()
+            try:self.send(500,{'error':'服务内部错误，请查看服务日志'})
+            except (BrokenPipeError,ConnectionAbortedError,ConnectionResetError,OSError):pass
         finally:
             if getattr(self,'response_status',200)>=400 and getattr(self,'actor',None):
                 from controlplane.store import ident,now

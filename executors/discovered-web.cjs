@@ -78,6 +78,11 @@ function detect(html,plan){
  if(plan?.engine==='browser-dom'&&plan.source_sha256===hash(html.replace(/\r\n/g,'\n'))&&/<script\b/i.test(html))return 'browser-dom';
  if(unityWebGL(html))throw Error('该入口是 Unity WebGL 构建（TemplateData/Build 加载器）：平台目前没有 Unity 运行契约，'
   +'无法落地为本地可玩运行包，已排除本任务。若后续新增 Unity 引擎通道可重新排队。');
+ // A contract exists but the freshly fetched entry no longer matches it. Saying
+ // "not configured" here sends the diagnosis back to re-choose the same engine
+ // forever; name the real problem instead.
+ if(plan?.engine)throw Error('入口内容与已配置运行契约不一致：契约记为 '+plan.engine+'，但本次抓取的入口摘要与契约记录不符'
+  +'（入口每次请求都在变化，或本次抓到的不是同一个页面）。不能沿用旧契约，请重新核对入口证据后再选择适配方案');
  throw Error('入口已取得，运行契约尚未配置；请分析已保留入口与依赖代码，再选择适配方案');
 }
 function ruffleEntry(html,url){

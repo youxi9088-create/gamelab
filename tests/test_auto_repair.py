@@ -57,6 +57,35 @@ class AutoRepairTests(unittest.TestCase):
         def verify():raise ValueError('game failure')
         with self.assertRaises(ValueError):self.call({'action':'patch_host','changes':{'index.html':'fake success'}},verify)
         self.assertEqual(p.read_text(),'original')
+    def test_inspection_cannot_loop_on_repeated_reads(self):
+        """Restating a diagnosis while re-reading the same files must converge."""
+        answers=iter([{'action':'inspect','diagnosis':'缺三张树贴图','read_requests':[{'path':'a.js','offset':0,'length':10}]},
+                      {'action':'inspect','diagnosis':'仍缺三张树贴图','read_requests':[{'path':'a.js','offset':0,'length':10}]},
+                      {'action':'inspect','diagnosis':'还是缺三张树贴图','read_requests':[{'path':'a.js','offset':0,'length':10}]},
+                      {'action':'inspect','diagnosis':'继续缺三张树贴图','read_requests':[{'path':'a.js','offset':0,'length':10}]},
+                      {'action':'stop'}])
+        token=CHAT.set(lambda messages,budget:next(answers))
+        try:diagnose(ValueError('missing trees'),self.run,Budget(),retry=None)
+        finally:CHAT.reset(token)
+        report=json.loads((self.run/'auto-repair/report.json').read_text('utf-8'))
+        attempts=report['episodes'][-1]['attempts']
+        self.assertLessEqual(len(attempts),3)
+        self.assertTrue(any(a.get('repeated_inspect') for a in attempts))
+
+    def test_consecutive_inspection_stops_without_a_verdict_free_loop(self):
+        answers=iter([{'action':'inspect','diagnosis':'读第一批','read_requests':[{'path':'a.js','offset':0,'length':10}]},
+                      {'action':'inspect','diagnosis':'读第二批','read_requests':[{'path':'b.js','offset':0,'length':10}]},
+                      {'action':'inspect','diagnosis':'读第三批','read_requests':[{'path':'c.js','offset':0,'length':10}]},
+                      {'action':'inspect','diagnosis':'读第四批','read_requests':[{'path':'d.js','offset':0,'length':10}]},
+                      {'action':'stop'}])
+        token=CHAT.set(lambda messages,budget:next(answers))
+        try:diagnose(ValueError('missing trees'),self.run,Budget(),retry=None)
+        finally:CHAT.reset(token)
+        report=json.loads((self.run/'auto-repair/report.json').read_text('utf-8'))
+        attempts=report['episodes'][-1]['attempts']
+        self.assertLessEqual(len(attempts),3)
+        self.assertTrue(any(a.get('stop_reason') for a in attempts))
+
     def test_diagnosis_without_capability_does_not_retry(self):
         token=CHAT.set(lambda messages,budget:{'action':'retry','diagnosis':'材料缺失'})
         try:self.assertEqual(diagnose(ValueError('missing package'),self.run,Budget()),(False,None))
@@ -124,6 +153,46 @@ class AutoRepairTests(unittest.TestCase):
         context=RepairContext(self.run)
         with self.assertRaises(ValueError):context.configure({'engine':'defold','source_sha256':'old'})
         with self.assertRaises(ValueError):context.configure({'engine':'arbitrary-engine'})
+        self.assertFalse((self.run/'runtime-plan.json').exists())
+
+    def test_unrelated_verification_failure_keeps_the_configured_contract(self):
+        """A resource-capture timeout says nothing about what the entry IS.
+
+        Dropping the contract there forced every later round to re-derive the
+        same engine and looped tasks forever on "运行契约尚未配置".
+        """
+        original=self.run/'web-original';original.mkdir()
+        source='<script src="game.js"></script>'
+        (original/'source-entry.html').write_text(source,'utf-8')
+        plan={'engine':'browser','sdk':None,'source_sha256':hashlib.sha256(source.encode()).hexdigest()}
+        calls=[]
+        def chat(messages,budget):
+            payload=json.loads(messages[-1]['content'][0]['text']);calls.append(payload)
+            if len(calls)==1:return {'action':'configure_runtime','runtime_plan':plan}
+            self.assertIn('已配置的运行契约已保留',payload['tool_feedback'])
+            return {'action':'retry'}
+        attempts=[0]
+        def verify():
+            attempts[0]+=1
+            if attempts[0]==1:raise ValueError('Web capture：Error: route.fetch: Timeout 60000ms exceeded.')
+            if not (self.run/'runtime-plan.json').exists():raise ValueError('contract missing')
+            return 'recovered'
+        token=CHAT.set(chat)
+        try:self.assertEqual(diagnose(ValueError('missing contract'),self.run,Budget(),retry=verify),(True,'recovered'))
+        finally:CHAT.reset(token)
+        self.assertEqual(len(calls),2)
+
+    def test_contract_is_dropped_when_the_failure_disproves_it(self):
+        original=self.run/'web-original';original.mkdir()
+        (original/'source-entry.html').write_text('<script src="game.js"></script>','utf-8')
+        calls=[]
+        def chat(messages,budget):
+            payload=json.loads(messages[-1]['content'][0]['text']);calls.append(payload)
+            return {'action':'configure_runtime','runtime_plan':{'engine':'browser','sdk':None,'source_sha256':'stale'}}
+        def verify():raise ValueError('入口已取得，运行契约尚未配置')
+        token=CHAT.set(chat)
+        try:diagnose(ValueError('missing contract'),self.run,Budget(),retry=verify)
+        finally:CHAT.reset(token)
         self.assertFalse((self.run/'runtime-plan.json').exists())
 
     def test_missing_runtime_plan_is_corrected_before_verification(self):

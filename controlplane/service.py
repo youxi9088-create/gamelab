@@ -70,7 +70,9 @@ class Service(Conversations,Discovery):
         return {k:cp[k] for k in ('run','sha256','base_version_id')}
 
     def authenticate(self,token):
-        with self.store.tx() as db:
+        # Runs on every executor request; a write lock here serialises every
+        # heartbeat behind every dashboard read.
+        with self.store.read() as db:
             row=db.execute('SELECT tool_id FROM credentials WHERE token_hash=?',(hashlib.sha256(token.encode()).hexdigest(),)).fetchone()
             require(row,'接入凭证无效',401)
             tool=self.store.get(db,'tools',row[0])
@@ -90,11 +92,13 @@ class Service(Conversations,Discovery):
         return max(1,min(MAX_CONCURRENCY,value))
 
     def state(self):
-        with self.store.tx() as db:
+        with self.store.read() as db:
             state={k:self.store.all(db,k) for k in ('candidates','sources','batches','jobs','versions','tools','events','messages','rounds')}
             from .catalog_facets import effective_engine
+            from .acquisition_evidence import engine_by_candidate
+            acquisition=engine_by_candidate(self.runs_dir,state['jobs'])
             for candidate in state['candidates']:
-                candidate['engine']=effective_engine(candidate,state['versions'])
+                candidate['engine']=effective_engine(candidate,state['versions'],acquisition)
             state['game_test_runs']=self.store.all(db,'game_test_runs')
             profiles={p['id']:p for p in self.store.all(db,'game_profiles')}
             for version in state['versions']:
