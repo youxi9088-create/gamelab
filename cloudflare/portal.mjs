@@ -797,7 +797,7 @@ export function overviewMetrics(collections, production, today) {
   };
 }
 
-export async function state(env, session, publicUser) {
+export async function state(env, session, publicUser, snapshotInputs = null) {
   // 15 次 D1 查询串行会放大 D1 的跨区延迟（库在 WNAM）：实测 29 s。
   // 它们彼此无依赖，并发后只付一次往返。events 全量取回后截取最近若干条，
   // 省掉一次重复查询——rowid DESC 下 slice 与 LIMIT 结果一致。
@@ -846,6 +846,7 @@ export async function state(env, session, publicUser) {
   ]);
   const collections = Object.fromEntries(STATE_KINDS.map((kind, index) => [kind, kindRows[index]]));
   collections.events = allEvents.slice(0, RECENT_EVENTS);
+  if (snapshotInputs) Object.assign(snapshotInputs, { events: allEvents, usage: usageRows, supply });
   // 轮次只在"历史任务与补充记录"里显示第几轮/状态/原因（web/app.js:799），
   // 原始记录带完整 report，单条最大 838 KB —— 必须按字段裁剪，否则响应翻倍。
   collections.rounds = collections.rounds.map(row => pick(row, ROUND_KEYS));

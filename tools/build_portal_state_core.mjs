@@ -5,6 +5,8 @@
 //
 // 运行：NODE_USE_ENV_PROXY=1 node tools/build_portal_state_core.mjs <输出文件>
 import { writeFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { resolve } from 'node:path';
 import { D1_DATABASE } from '../cloudflare/tests/d1-rest.mjs';
 import { state as portalState } from '../cloudflare/portal.mjs';
 
@@ -16,7 +18,14 @@ if (!output) {
 
 // current_user 随会话变化，不能进缓存；Worker 会在返回时补上。
 const session = { user: { id: '', username: '', role: '', enabled: true } };
-const payload = await portalState({ DB: D1_DATABASE }, session, user => user);
+const inputs = {};
+let payload = await portalState({ DB: D1_DATABASE }, session, user => user, inputs);
+if (!process.env.GAMELAB_SOURCE_ROOT || !process.env.GAMELAB_PYTHON) throw new Error('Shared source root and Python runtime are required');
+const calculated = spawnSync(process.env.GAMELAB_PYTHON,
+  [resolve(process.env.GAMELAB_SOURCE_ROOT, 'tools/build_cloud_statistics.py')],
+  { input: JSON.stringify({state: payload, inputs}), encoding: 'utf8', maxBuffer: 128 * 1024 * 1024 });
+if (calculated.status !== 0) throw new Error('Shared cloud statistics failed: ' + calculated.stderr.slice(-1500));
+payload = JSON.parse(calculated.stdout);
 delete payload.current_user;
 payload.state_generated_at = new Date().toISOString();
 

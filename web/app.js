@@ -1,4 +1,9 @@
+import {reviewControls,reviewHandoff} from './review-guide.js';
 import {patchHTML} from './dom-sync.js';
+import {specificationMarkdown} from './game-specification.js';
+import {presentPolicyPauses as applyPolicyPauses} from './policy-pause.js';
+import {presentWorkflow} from './workflow-display.js';
+const presentPolicyPauses=state=>applyPolicyPauses(presentWorkflow(state));
 import {dashboardPulse,dashboardGames,dashboardDiagnostics,bindDashboard} from './dashboard.js';
 let discoveryStatus='pending', discoveryRun='', discoverySelected=new Set(), discoveryCategory='', discoverySource='', libraryEngine='';
 // 云端只读门面会通过 state.migration.read_only 声明自己不承载写操作。
@@ -33,10 +38,10 @@ function discoveryPage() {
     ${(run.category_changes||[]).map(c=>`<div class="step"><strong>${esc(c.category)}</strong> · ${esc(c.source)} · ${c.first_observation?'首次观察':'本次新观察'}<p>${esc(c.recommendation)}</p><a href="${esc(safeUrl(c.evidence_url))}" target="_blank" rel="noopener noreferrer">品类依据 ↗</a></div>`).join('')||'<p>尚未记录新品类；不代表已覆盖全站。</p>'}
     ${(run.sources||[]).map(s=>`<div class="step"><b>${esc(s.name)}</b> · ${esc(({success:'扫描完成',partial:'部分完成',failed:'失败',needs_adapter:'需要调整规则或适配'})[s.status]||s.status)} · 新建议 ${s.new} · 去重 ${s.duplicates}<p class="tiny muted">${esc(s.coverage)}</p>${s.errors.map(e=>`<p class="tiny">${esc(e.url||'')} ${esc(e.error)}</p>`).join('')}</div>`).join('')}</details>`:''}
     <p class="tiny muted">当前 ${rows.length} / ${available.length} 款 · 按品类 / 网站分组，切换筛选会清空勾选。玩法说明来自来源页面，未经实际试玩验证。</p>
-    ${rows.length?`<div class="table-wrap discovery-list"><table class="table discovery-table" aria-label="采集建议列表"><thead><tr><th scope="col">游戏 / 来源</th><th scope="col">品类 / 技术类型</th><th scope="col">建议原因 / 玩法</th><th scope="col">发现时间</th><th scope="col">状态</th><th scope="col">操作</th></tr></thead><tbody>${rows.map(r=>`${groupHeading(r)}<tr><td><label class="checkrow"><input type="checkbox" data-recommendation="${esc(r.id)}" ${discoverySelected.has(r.id)?'checked':''} ${['rejected','dispatched'].includes(r.status)?'disabled':''}><strong>${esc(r.title)}</strong></label><small class="discovery-source">${esc(r.source)}</small></td>
-    <td>${esc(r.category)}${r.platform_category_missing?'<small class="discovery-gap">平台尚未覆盖</small>':''}<small class="discovery-source" data-technology title="${esc((r.technology?.matches||[]).map(m=>m.evidence).join('；')||'暂无识别依据')}">${esc(r.technology?.label||'待识别')}<br>${r.technology?.status==='hint'?'页面线索 · 未运行验证':'技术类型待识别'}</small></td>
+    ${rows.length?`<div class="table-wrap discovery-list"><table class="table discovery-table" aria-label="采集建议列表"><thead><tr><th scope="col">${readOnly?'':`<label class="checkrow"><input type="checkbox" data-discovery-select-all aria-label="全选当前筛选结果">全选</label>`}游戏 / 来源</th><th scope="col">品类 / 技术类型</th><th scope="col">建议原因 / 玩法</th><th scope="col">发现时间</th><th scope="col">状态</th><th scope="col">操作</th></tr></thead><tbody>${rows.map(r=>`${groupHeading(r)}<tr><td><label class="checkrow"><input type="checkbox" data-recommendation="${esc(r.id)}" ${discoverySelected.has(r.id)?'checked':''} ${['rejected','dispatched'].includes(r.status)?'disabled':''}><strong>${esc(r.title)}</strong></label><small class="discovery-source">${esc(r.source)}</small></td>
+    <td>${esc(r.category)}${r.platform_category_missing?'<small class="discovery-gap">平台尚未覆盖</small>':''}${r.source_policy_label?`<small class="discovery-gap" data-source-policy title="${esc(r.source_policy_reason||'')}">${esc(r.source_policy_label)} · 已知门槛</small>`:''}<small class="discovery-source" data-technology title="${esc((r.technology?.matches||[]).map(m=>m.evidence).join('；')||'暂无识别依据')}">${esc(r.technology?.label||'待识别')}<br>${r.technology?.status==='hint'?'页面线索 · 未运行验证':'技术类型待识别'}</small></td>
     <td class="discovery-description"><p>${esc(r.reason)}</p>${r.selection_score?`<small>信息评分 ${r.selection_score.value}/100 · 未试玩</small>`:''}<details><summary>玩法与来源依据</summary><p>${esc(r.gameplay||'来源未提供，需打开原站核对，未自动编造')}</p><p class="tiny muted">${esc(r.category_basis||"来源分类记录")} · ${esc(r.description_basis)} · 页面校验 ${esc(r.content_sha256)}</p></details></td>
-    <td class="tiny muted">${date(r.created_at)}</td><td><span class="badge">${statuses[r.status]}</span></td>
+    <td class="tiny muted">${date(r.created_at)}</td><td><span class="badge">${r.job_id?esc(statusMap[(state.jobs||[]).find(j=>j.id===r.job_id)?.display_status]||statuses[r.status]):statuses[r.status]}</span></td>
     <td><div class="actions"><a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener noreferrer">原平台试玩 ↗</a>${r.job_id?`<button data-job="${esc(r.job_id)}">查看执行任务</button>`:''}</div></td></tr>`).join('')}</tbody></table></div>`:empty('当前没有对应清单', readOnly?'本地平台暂无采集结果。':'等待每日扫描，或点击“立即扫描来源”；失败与未适配站点会保留原因。')}`;
 }
 function discoverySettings() {
@@ -60,7 +65,12 @@ function bindDiscovery() {
   listen($('#discovery-source'),'change',e=>{discoverySource=e.target.value;discoverySelected.clear();render();});
   listen($('#discovery-status'),'change',e=>{discoveryStatus=e.target.value;discoveryCategory='';discoverySource='';discoverySelected.clear();render();});
   listen($('#discovery-run'),'change',e=>{discoveryRun=e.target.value;discoveryCategory='';discoverySource='';discoverySelected.clear();render();});
-  document.querySelectorAll('[data-recommendation]').forEach(e=>e.onchange=()=>e.checked?discoverySelected.add(e.dataset.recommendation):discoverySelected.delete(e.dataset.recommendation));
+  const selectionRows=[...document.querySelectorAll('[data-recommendation]:not(:disabled)')];
+  const selectAll=document.querySelector('[data-discovery-select-all]');
+  const syncSelection=()=>{if(!selectAll)return;const count=selectionRows.filter(e=>e.checked).length;selectAll.checked=selectionRows.length>0&&count===selectionRows.length;selectAll.indeterminate=count>0&&count<selectionRows.length;selectAll.disabled=!selectionRows.length;};
+  selectionRows.forEach(e=>e.onchange=()=>{e.checked?discoverySelected.add(e.dataset.recommendation):discoverySelected.delete(e.dataset.recommendation);syncSelection();});
+  if(selectAll)selectAll.onchange=()=>{selectionRows.forEach(e=>{e.checked=selectAll.checked;e.checked?discoverySelected.add(e.dataset.recommendation):discoverySelected.delete(e.dataset.recommendation);});syncSelection();};
+  syncSelection();
   document.querySelectorAll('[data-discovery-decision]').forEach(e=>e.onclick=async()=>{
     const ids=[...discoverySelected].filter(id=>(state.recommendations||[]).some(r=>r.id===id&&r.status===discoveryStatus));
     if(!ids.length)return toast('请先勾选游戏');
@@ -117,6 +127,9 @@ const statusMap = {
   needs_work: "待完善",
   dependency_pending: "依赖待处理",
   waiting_input: "待回复",
+  paused_non_web: "已暂停 · 非 Web 游戏",
+  paused_web_unknown: "已暂停 · 游戏类型待确认",
+  paused_web_access: "已暂停 · 页面访问失败",
   superseded: "已被替代",
   attention: "需要关注",
   discovered: "待选品",
@@ -196,7 +209,7 @@ async function load() {
     if (demo) {
       state = await api("/api/demo");
     } else {
-      state = await api("/api/state");
+      state = presentPolicyPauses(await api("/api/state"));
     }
     state.services = await api("/api/services");
     readOnly = !demo && !!(state.migration && state.migration.read_only);
@@ -319,18 +332,18 @@ function card(c, lib = false) {
   const v = catalogVersion(c.id);
   const art = illustrationFor(c);
   const shot = art || (lib ? cover(v) : (c.cover ? cover(c) : v?.cover || cover(c)));
-  return `<article class="gamecard"><div class="cover" data-detail="${esc(c.id)}"><img src="${esc(shot)}" alt="${esc(c.title)}${art ? " · 封面插画" : demo ? " · 演示插画" : " · 游戏预览"}" loading="lazy"><div class="cover-badge">${badge(lib ? v.status : c.status || "discovered")}</div>${demo ? '<span class="demo-img">DEMO · CONCEPT ART</span>' : `<span class="preview-label">${art ? '封面插画' : v?.cover || c.cover ? '实机画面' : '待补充截图'}</span>`}</div><div class="gamebody"><div class="game-category">${esc(c.category || "未分类")}</div><h3>${esc(c.title)}</h3><p class="game-description">${esc(gameSummary(c))}</p><div class="gamemeta">${esc(c.engine || "待识别")}<span>·</span>${esc(c.source || "手动提交")}</div><div class="gamefoot"><span>${lib ? "版本 " + esc(v?.commit?.slice(0, 7) || "待关联") : date(c.created_at)}</span><div class="actions">${lib ? `<button class="smallbtn primary" data-play="${esc(v?.id || "")}">▷ 试玩</button>` : `<button class="smallbtn ${selected.has(c.id) ? "primary" : ""}" data-select="${esc(c.id)}">${selected.has(c.id) ? "✓ 已选择" : "+ 选择"}</button>`}<button class="textbtn" data-detail="${esc(c.id)}">详情 ↗</button></div></div></div></article>`;
+  return `<article class="gamecard"><div class="cover" data-detail="${esc(c.id)}"><img src="${esc(shot)}" alt="${esc(c.title)}${art ? " · 封面插画" : demo ? " · 演示插画" : " · 游戏预览"}" loading="lazy"><div class="cover-badge">${badge(lib ? v.status : c.status || "discovered")}</div>${demo ? '<span class="demo-img">DEMO · CONCEPT ART</span>' : `<span class="preview-label">${art ? '封面插画' : v?.cover || c.cover ? '实机画面' : '待补充截图'}</span>`}</div><div class="gamebody"><div class="game-category">${esc(c.category || "未分类")}</div><h3>${esc(c.title)}</h3><p class="game-description">${esc(gameSummary(c))}</p><div class="gamemeta">原引擎：${esc(c.source_engine?.name || c.engine || "待识别")}<span>·</span>${esc(c.source || "手动提交")}</div><p class="tiny muted" title="${esc((lib ? v?.web_delivery : c.web_delivery)?.scope || "")}">交付：离线 Web · ${esc((lib ? v?.web_delivery : c.web_delivery)?.label || "待验证")}</p><div class="gamefoot"><span>${lib ? "版本 " + esc(v?.commit?.slice(0, 7) || "待关联") : date(c.created_at)}</span><div class="actions">${lib ? `<button class="smallbtn primary" data-play="${esc(v?.id || "")}">▷ 试玩</button>` : `<button class="smallbtn ${selected.has(c.id) ? "primary" : ""}" data-select="${esc(c.id)}">${selected.has(c.id) ? "✓ 已选择" : "+ 选择"}</button>`}<button class="textbtn" data-detail="${esc(c.id)}">详情 ↗</button></div></div></div></article>`;
 }
 function currentJobs() {
   const seen=new Set();
   return (state.jobs||[]).filter(j=>{if(seen.has(j.candidate_id))return false;seen.add(j.candidate_id);return j.status!=="superseded";});
 }
+const stageLabel = name => ({identify:'识别',acquire:'采集',analysis:'分析',adapt:'适配',test:'验证',repair:'诊断修复',delivery:'交付',rea:'资源分析',reconstruct:'转换',review:'验收'}[name] || name || '未记录');
 function usagePanel() {
-  const periods={day:'日',week:'周',month:'月'};
-  return `<section class="panel"><div class="panelhead"><h2>调用用量与费用</h2><button class="smallbtn" data-action="ai-pricing">配置模型单价</button></div><p class="tiny muted">北京时间分组，费用为按调用时价格估算；币种分开统计。缓存读取和写入属于总输入的一部分；缺用量、缓存明细或价格时费用显示未知。标准档估算不等于服务商账单。</p>${Object.entries(periods).map(([key,label])=>`<details><summary>按${label}统计</summary><div class="table-wrap" style="overflow:auto"><table class="table" style="min-width:720px"><thead><tr><th>周期</th><th>游戏 / 阶段</th><th>调用</th><th>已知 Token（输入 / 输出）</th><th>耗时</th><th>估算费用</th></tr></thead><tbody>${(state.usage?.[key]||[]).slice(0,100).map(r=>`<tr><td>${esc(r.period)}</td><td>${esc(cBy(r.candidate_id).title||r.candidate_id)} / ${esc(r.stage)}</td><td>${r.calls}</td><td>${r.input_tokens} / ${r.output_tokens}${r.unknown_usage_calls?`；${r.unknown_usage_calls} 次未知`:''}<small>${r.cache_known_calls?`其中缓存读取 ${r.cached_input_tokens} / 写入 ${r.cache_write_tokens}`:'缓存明细不完整或未记录'}${r.cache_unknown_calls?`；${r.cache_unknown_calls} 次明细缺失`:''}</small></td><td>${Number(r.duration_seconds).toFixed(1)} 秒</td><td>${Object.entries(r.costs).map(([c,n])=>esc(c)+' '+Number(n).toFixed(6)).join('；')||'—'}${r.unknown_cost_calls?`；${r.unknown_cost_calls} 次费用未知`:''}</td></tr>`).join('')||'<tr><td colspan="6">尚无已记录调用；历史用量不推算补录。</td></tr>'}</tbody></table></div></details>`).join('')}<p>下游已返回模板：${state.downstream_summary?.templates??'—'}，已发布：${state.downstream_summary?.published??'—'}。${esc(state.downstream_summary?.scope||'')}</p></section>`;
+  return `<section class="panel"><div class="panelhead"><h2>AI用量与费用明细</h2><button data-action="ai-pricing">配置模型单价</button></div><p class="tiny muted">每行汇总一个游戏在一个AI阶段的请求；按北京时间分组。币种分开统计。</p>${Object.entries({day:'日',week:'周',month:'月'}).map(([key,label])=>`<details><summary>按${label}统计</summary><div class="table-wrap"><table class="table"><thead><tr><th>周期</th><th>游戏</th><th>AI阶段</th><th>AI请求次数</th><th>输入Token</th><th>输出Token</th><th>请求耗时</th><th>估算费用</th></tr></thead><tbody>${(state.usage?.[key]||[]).slice(0,100).map(r=>`<tr><td>${esc(r.period)}</td><td>${esc(cBy(r.candidate_id).title||r.candidate_id)}</td><td>${esc(stageLabel(r.stage))}</td><td>${r.calls}</td><td>${Number(r.input_tokens).toLocaleString()}</td><td>${Number(r.output_tokens).toLocaleString()}</td><td>${Number(r.duration_seconds).toFixed(1)} 秒</td><td>${Object.entries(r.costs).map(([c,n])=>esc(c)+' '+Number(n).toFixed(4)).join('；')||'—'}</td></tr>`).join('')||'<tr><td colspan="8">暂无记录</td></tr>'}</tbody></table></div></details>`).join('')}</section>`;
 }
 function operationPanel() {
-  return `<section class="panel"><h2>节点执行统计</h2><p class="tiny muted">按有成对起止事件的执行记录统计，包含重试；各节点可嵌套，耗时不可相加作为总墙钟时间。</p>${Object.entries({day:'日',week:'周',month:'月'}).map(([key,label])=>`<details><summary>按${label}统计</summary><div class="table-wrap"><table class="table"><thead><tr><th>周期</th><th>游戏 / 节点</th><th>执行 / 失败</th><th>累计耗时</th></tr></thead><tbody>${(state.operation_stats?.[key]||[]).slice(0,100).map(r=>`<tr><td>${esc(r.period)}</td><td>${esc(cBy(r.candidate_id).title||r.candidate_id)} / ${esc(r.stage)}</td><td>${r.executions} / ${r.failed}</td><td>${Number(r.duration_seconds).toFixed(1)} 秒</td></tr>`).join('')||'<tr><td colspan="4">尚无可统计记录；历史耗时不推算。</td></tr>'}</tbody></table></div></details>`).join('')}</section>`;
+  return `<section class="panel"><h2>执行阶段明细</h2><p class="tiny muted">执行次数包含重试；这里统计流程阶段，与AI请求次数不同。阶段可重叠，耗时不能直接相加当作总工时。</p>${Object.entries({day:'日',week:'周',month:'月'}).map(([key,label])=>`<details><summary>按${label}统计</summary><div class="table-wrap"><table class="table"><thead><tr><th>周期</th><th>游戏</th><th>执行阶段</th><th>执行次数</th><th>失败次数</th><th>累计耗时</th></tr></thead><tbody>${(state.operation_stats?.[key]||[]).slice(0,100).map(r=>`<tr><td>${esc(r.period)}</td><td>${esc(cBy(r.candidate_id).title||r.candidate_id)}</td><td>${esc(stageLabel(r.stage))}</td><td>${r.executions}</td><td>${r.failed}</td><td>${Number(r.duration_seconds).toFixed(1)} 秒</td></tr>`).join('')||'<tr><td colspan="6">暂无记录</td></tr>'}</tbody></table></div></details>`).join('')}</section>`;
 }
 function pricingDialog() {
   const fields=[['input','未命中缓存的输入','input_per_million'],['cached','缓存读取','cached_input_per_million'],['write','缓存写入','cache_write_per_million'],['output','输出','output_per_million']];
@@ -382,9 +395,9 @@ function libraryFilters(games) {
   games.forEach(c=>gameCategories(c).forEach(category=>counts.set(category,(counts.get(category)||0)+1)));
   const categories=[...counts].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'zh-CN'));
   const categoryGames=games.filter(c=>!filter||gameCategories(c).includes(filter));
-  const engines=['微信小游戏','Web 游戏','Cocos','待识别'];
+  const engines=[...new Set(games.flatMap(gameEngines))].sort((a,b)=>a==='待识别'?1:b==='待识别'?-1:a.localeCompare(b,'zh-CN'));
   return `<section class="facet-section"><span class="facet-label">品类</span><div class="library-categories" role="group" aria-label="按游戏品类筛选"><button data-library-category="" aria-pressed="${!filter}" class="${!filter?'active':''}">全部游戏 <span>${games.length}</span></button>${categories.map(([name,count])=>`<button data-library-category="${esc(name)}" aria-pressed="${filter===name}" class="${filter===name?'active':''}">${esc(name)} <span>${count}</span></button>`).join('')}</div></section>
-  <section class="facet-section"><span class="facet-label">引擎</span><div class="library-engines" role="group" aria-label="按引擎筛选"><button data-library-engine="" aria-pressed="${!libraryEngine}">全部引擎 <span>${categoryGames.length}</span></button>${engines.map(name=>{const count=categoryGames.filter(c=>gameEngines(c).includes(name)).length;return `<button data-library-engine="${esc(name)}" aria-pressed="${libraryEngine===name}" ${!count?'disabled':''}>${esc(name)} <span>${count}</span></button>`;}).join('')}</div><p class="tiny muted">Cocos 可与微信或 Web 平台重叠；数量按当前品类统计，未知引擎不推测。</p></section>
+  <section class="facet-section"><span class="facet-label">原引擎</span><div class="library-engines" role="group" aria-label="按原平台引擎筛选"><button data-library-engine="" aria-pressed="${!libraryEngine}">全部原引擎 <span>${categoryGames.length}</span></button>${engines.map(name=>{const count=categoryGames.filter(c=>gameEngines(c).includes(name)).length;return `<button data-library-engine="${esc(name)}" aria-pressed="${libraryEngine===name}" ${!count?'disabled':''}>${esc(name)} <span>${count}</span></button>`;}).join('')}</div><p class="tiny muted">按原平台构建技术分类，Cocos 各版本归为一组；Web 与微信是运行平台，不作为引擎。转换交付目标统一为离线 Web 游戏，是否已离线可玩以版本实测为准。</p></section>
   <div class="filters"><input id="filter-query" aria-label="搜索小游戏库" placeholder="搜索游戏名称、来源…" value="${esc(query)}"><span class="tiny muted">当前显示 ${filtered(games).length} 款${filter?' · '+esc(filter):''}${libraryEngine?' · '+esc(libraryEngine):''}</span>${query||filter||libraryEngine?'<button class="textbtn" data-library-reset>清除筛选</button>':''}</div>`;
 }
 function filters() {
@@ -481,19 +494,88 @@ function batchDetail(id) {
   const b=(state.batches||[]).find(b=>b.id===id);if(!b)return;
   const jobs=batchJobs(b);
   const next={review:'已有可玩版本，请试玩后通过验收，或填写修改意见。',waiting_input:'AI 需要补充信息，回复后会继续处理。',blocked:'执行被阻断，请查看原因并补充要求或重试。',failed:'执行失败，请查看原因并重试。',stopped:'已停止，点击“继续未完成任务”可重新排队。',queued:'等待执行器领取。',running:'AI 正在处理，等待产出。',completed:'已完成验收，无须处理。',superseded:'此轮已被后续任务替代，无须重复处理。'};
-  modal(b.name+' · 批次详情',`<div class="kv"><span>批次状态</span>${badge(batchState(b))}</div><p>${esc(batchSummary(b))}</p><div class="notice">“需要关注”表示其中有游戏等待回复、验收或修复，并不一定是转换失败。请按下方每个游戏的提示处理。</div><div class="actions">${batchControls(b)}</div>${b.candidate_ids.map(cid=>{const c=cBy(cid),j=jobs.find(j=>j.candidate_id===cid),v=j&&(state.versions||[]).find(v=>v.id===j.version_id),current=currentJobs().find(x=>x.candidate_id===cid);return `<section class="panel" style="margin-top:16px"><div class="panelhead"><h3>${esc(c.title)}</h3>${badge(j?.display_status||j?.status||'draft')}</div><p class="tiny muted">当前节点：${esc(j?.pipeline?.presentation?.location_label || j?.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || "等待执行 / 详见任务记录")}</p><p>${esc(j?(j.display_status==='needs_work'?'已有草稿，整体待完善。'+(j.status==='failed'?'上次续作失败，可查看原因后重试。':'可继续补充修改要求。'):next[j.status]||'查看任务记录。'):'尚未启动；点击“开始转换这一批”派发任务。')}</p>${j?.reason?`<p class="tiny muted" style="white-space:pre-wrap">${esc(j.reason)}</p>`:''}<div class="actions">${j?`<button class="smallbtn" data-job="${esc(j.id)}">${j.status==='waiting_input'?'回复 AI':['failed','blocked'].includes(j.status)?'查看原因 / 补充要求':'任务记录与沟通'}</button>`:''}${v?.status==='review'?`<button class="primary" data-review="${esc(v.id)}">试玩并验收</button>`:''}${j&&['failed','blocked'].includes(j.status)?`<button class="smallbtn" data-retry="${esc(j.id)}">重试本任务</button>`:''}${j?.status==='superseded'&&current?`<button class="primary" data-job="${esc(current.id)}">查看后续任务</button>`:''}</div></section>`;}).join('')}`,true);
+  modal(b.name+' · 批次详情',`<div class="kv"><span>批次状态</span>${badge(batchState(b))}</div><p>${esc(batchSummary(b))}</p><div class="notice">“需要关注”表示其中有游戏等待回复、验收或修复，并不一定是转换失败。请按下方每个游戏的提示处理。</div><div class="actions">${batchControls(b)}</div>${b.candidate_ids.map(cid=>{const c=cBy(cid),j=jobs.find(j=>j.candidate_id===cid),v=j&&(state.versions||[]).find(v=>v.id===j.version_id),current=currentJobs().find(x=>x.candidate_id===cid);return `<section class="panel" style="margin-top:16px"><div class="panelhead"><h3>${esc(c.title)}</h3>${badge(j?.display_status||j?.status||'draft')}</div><p class="tiny muted">当前节点：${esc(j?.pipeline?.presentation?.location_label || j?.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || "等待执行 / 详见任务记录")}</p><p>${esc(j?(j.policy_pause?j.policy_pause.explanation:j.display_status==='needs_work'?'已有草稿，整体待完善。'+(j.status==='failed'?'上次续作失败，可查看原因后重试。':'可继续补充修改要求。'):next[j.status]||'查看任务记录。'):'尚未启动；点击“开始转换这一批”派发任务。')}</p>${j?.reason?`<p class="tiny muted" style="white-space:pre-wrap">${esc(j.reason)}</p>`:''}<div class="actions">${j?`<button class="smallbtn" data-job="${esc(j.id)}">${j.policy_pause?'查看暂停原因':j.status==='waiting_input'?'回复 AI':['failed','blocked'].includes(j.status)?'查看原因 / 补充要求':'任务记录与沟通'}</button>`:''}${v?.status==='review'?`<button class="primary" data-review="${esc(v.id)}">试玩并验收</button>`:''}${j&&['failed','blocked'].includes(j.status)?`<button class="smallbtn" data-retry="${esc(j.id)}">重试本任务</button>`:''}${j?.status==='superseded'&&current?`<button class="primary" data-job="${esc(current.id)}">查看后续任务</button>`:''}</div></section>`;}).join('')}`,true);
   liveDialog = () => batchDetail(id);
 }
 function hasDraft(j){return Boolean(j.has_draft||(state.versions||[]).some(v=>v.id===j.version_id&&v.status==='draft'));}
-function jobTable(list) {
+// 处理路径：优先用服务端按证据算出的产线（网页采集 / AI 复刻 / REA 反编译 / 原版整理），
+// route 字段只记录结果轴且到 review 才写入，排队任务全为 null，不能用来区分产线。
+function routeLabel(j){return j.route_label||(j.display_status==="dependency_pending"?"原版优先":j.route==="A"?"A · 代码整理":j.route==="B"?"B · AI 复刻":j.route==="local"?"本地运行包":"待 REA 分流");}
+function routeTone(j){return j.route_tone||(j.route==="A"?"green":"");}
+function jobTable(list, selectable=false) {
   return list.length
-    ? `<div class="table-wrap"><table class="table"><thead><tr><th>游戏 / 任务</th><th>当前阶段</th><th>处理路径</th><th>任务状态</th><th>进度</th><th>操作</th></tr></thead><tbody>${list.map((j) => `<tr><td><b>${esc(cBy(j.candidate_id).title)}</b><br><small>${esc(j.id)}</small></td><td>${esc(j.pipeline?.presentation?.location_label || j.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || (j.display_status==="dependency_pending"?"依赖分析与适配":{ rea: "REA 分析", reconstruct: "AI 复刻", packaging: "运行包整理" }[j.stage] || j.stage || "等待分析"))}</td><td><span class="badge ${j.route === "A" ? "green" : ""}">${j.display_status==="dependency_pending" ? "原版优先" : j.route === "A" ? "A · 代码整理" : j.route === "B" ? "B · AI 复刻" : j.route === "local" ? "本地运行包" : "待 REA 分流"}</span></td><td>${badge(j.display_status||j.status)}${hasDraft(j)?'<p class="tiny muted">已有可试玩草稿</p>':''}${j.display_status==='needs_work'&&j.status==='failed'?'<p class="tiny muted">上次续作失败，可重试</p>':''}</td><td><small>${esc(j.progress_label||"等待阶段记录")}</small></td><td><button class="textbtn" data-job="${esc(j.id)}">继续沟通 / 记录</button>${["failed", "blocked"].includes(j.status) ? `<button class="smallbtn" data-retry="${esc(j.id)}">重试</button>` : ""}</td></tr>`).join("")}</tbody></table></div>`
-    : empty("暂无任务记录", "从批次管理启动任务，执行工具将领取并回传进度。");
+    ? `<div class="table-wrap"><table class="table jobs-table"><thead><tr>${selectable&&!readOnly?'<th class="job-select-cell"><input type="checkbox" id="jobs-select-page" aria-label="选择本页任务"></th>':''}<th class="job-name-cell">游戏 / 任务</th><th>当前阶段</th><th>处理路径</th><th>任务状态</th><th>进度</th><th>操作</th></tr></thead><tbody>${list.map((j) => `<tr>${selectable&&!readOnly?`<td class="job-select-cell"><input type="checkbox" data-job-select="${esc(j.id)}" aria-label="选择 ${esc(cBy(j.candidate_id).title)}" ${jobSelected.has(j.id)?'checked':''}></td>`:''}<td class="job-name-cell"><b>${esc(cBy(j.candidate_id).title)}</b>${selectable?`<small class="muted"> · ${esc(jobPlatform(j).label)}</small>`:''}<br><small>${esc(j.id)}</small></td><td>${esc(j.pipeline?.presentation?.location_label || j.pipeline?.nodes.find(n=>n.key===j.pipeline.current)?.label || (j.display_status==="dependency_pending"?"依赖分析与适配":{ rea: "REA 分析", reconstruct: "AI 复刻", packaging: "运行包整理" }[j.stage] || j.stage || "等待分析"))}</td><td><span class="badge ${routeTone(j)}" title="${esc(j.route_detail||"")}">${esc(routeLabel(j))}</span>${j.route_basis==="inferred"?'<p class="tiny muted">按来源与阶段推断</p>':''}</td><td>${badge(j.display_status||j.status)}${hasDraft(j)?'<p class="tiny muted">已有可试玩草稿</p>':''}${j.display_status==='needs_work'&&j.status==='failed'?'<p class="tiny muted">上次续作失败，可重试</p>':''}</td><td><small>${esc(j.progress_label||"等待阶段记录")}</small></td><td><button class="textbtn" data-job="${esc(j.id)}">继续沟通 / 记录</button>${["failed", "blocked"].includes(j.status) ? `<button class="smallbtn" data-retry="${esc(j.id)}">重试</button>` : ""}${j.status==="running" ? `<button class="smallbtn" disabled title="任务执行中，请先停止批次或等本轮结束">删除</button>` : `<button class="smallbtn" data-remove="${esc(j.id)}">删除</button>`}</td></tr>`).join("")}</tbody></table></div>`
+    : empty("没有符合条件的任务", "调整上方筛选或搜索词，或清除筛选查看全部任务。");
+}
+let jobPlatforms=new Set(), jobSelected=new Set(), jobControlBusy=false;
+function jobPlatform(j){
+  const c=cBy(j.candidate_id), r=(state.recommendations||[]).find(r=>r.job_id===j.id);
+  if(r)return {id:r.source_id||r.source,label:r.source||r.source_id};
+  try {const host=new URL(c.url).hostname.replace(/^www\./,'');if(host)return {id:host,label:host};}catch{}
+  return {id:'unknown',label:c.source||'未知平台'};
+}
+const canPauseJob=j=>['queued','running'].includes(j.status)&&!j.manual_paused;
+const canStartJob=j=>j.manual_paused||['stopped','failed','blocked','waiting_input'].includes(j.status)||j.status==='queued'&&['paused','stopped'].includes((state.batches||[]).find(b=>b.id===j.batch_id)?.status);
+const canRemoveJob=j=>j.status!=='running'&&!hasDraft(j);
+async function controlJobs(action,ids){
+  if(readOnly)return toast(READ_ONLY_HINT);
+  if(!state.features?.job_controls)return toast('任务控制接口等待本地服务更新完成，请稍后刷新');
+  if(jobControlBusy||!ids.length)return;
+  if(action==='remove'){
+    if(!confirm(`删除选中的 ${ids.length} 个任务？\n\n只删除这些任务及其执行记录，游戏输入记录和批次保留；正在执行或已产出版本的任务会被跳过并在结果里说明原因。删除后可在归档中查到记录。`))return;
+  }
+  jobControlBusy=true;render();
+  try {
+    const result=await api('/api/jobs/bulk',{action,ids});jobSelected.clear();await load();
+    if(action==='remove'){
+      const reasons=(result.skipped_detail||[]).slice(0,3).map(x=>`${x.id}：${x.reason}`).join('\n');
+      toast(`已删除 ${result.changed.length} 个任务，跳过 ${result.skipped.length} 个${reasons?'\n'+reasons:''}`);
+    }
+    else toast(`${action==='pause'?'已暂停':'已启动'} ${result.changed.length} 个任务，跳过 ${result.skipped.length} 个`);
+  }
+  catch(error){toast(error.message);}
+  finally{jobControlBusy=false;render();}
 }
 let showCompletedTasks=false;
+let jobQuery="", jobStatusFilter="", jobRouteFilter="", jobsPage=1;
+const JOBS_PER_PAGE=50;
+function jobsBase(){
+  const all=currentJobs();
+  return showCompletedTasks?all:all.filter(j=>j.status!=="completed");
+}
+function jobsFiltered(){
+  let list=jobsBase();
+  if(jobPlatforms.size)list=list.filter(j=>jobPlatforms.has(jobPlatform(j).id));
+  if(jobStatusFilter==="__paused")list=list.filter(j=>!!j.policy_pause);
+  else if(jobStatusFilter)list=list.filter(j=>(j.display_status||j.status)===jobStatusFilter);
+  if(jobRouteFilter)list=list.filter(j=>routeLabel(j)===jobRouteFilter);
+  const q=jobQuery.trim().toLowerCase();
+  if(q)list=list.filter(j=>String(cBy(j.candidate_id).title||"").toLowerCase().includes(q)||String(j.id||"").toLowerCase().includes(q));
+  return list;
+}
+function jobsToolbar(total,pages){
+  const statuses=[...new Set(jobsBase().map(j=>j.display_status||j.status))];
+  if(jobsBase().some(j=>j.policy_pause))statuses.push("__paused");
+  const routes=[...new Set(jobsBase().map(routeLabel))].sort();
+  const option=(value,label,current)=>`<option value="${esc(value)}"${current===value?" selected":""}>${esc(label)}</option>`;
+  return `<div class="filters"><input id="jobs-query" aria-label="搜索任务" placeholder="搜索游戏名称或任务 ID…" value="${esc(jobQuery)}"><select id="jobs-status" aria-label="按状态筛选"><option value="">全部状态</option>${statuses.map(s=>option(s,s==="__paused"?"按 Web 范围暂停":(statusMap[s]||s),jobStatusFilter)).join("")}</select><select id="jobs-route" aria-label="按处理路径筛选"><option value="">全部处理路径</option>${routes.map(r=>option(r,r,jobRouteFilter)).join("")}</select><span class="tiny muted">共 ${total} 条 · 每页 ${JOBS_PER_PAGE} 条</span>${(jobQuery||jobStatusFilter||jobRouteFilter||jobPlatforms.size)?'<button class="textbtn" id="jobs-reset">清除筛选</button>':''}</div>`;
+}
+function jobsBulkToolbar(list){
+  const platforms=[...new Map(jobsBase().map(j=>{const p=jobPlatform(j);return [p.id,p];})).values()].sort((a,b)=>a.label.localeCompare(b.label));
+  const selected=list.filter(j=>jobSelected.has(j.id));
+  return `${!readOnly&&!state.features?.job_controls?'<p class="notice">任务控制接口等待本地服务更新完成；平台筛选可先使用，更新后刷新即可启用暂停与启动。</p>':''}<fieldset class="jobs-platforms"><legend>采集平台（可多选，不选表示全部）</legend>${platforms.map(p=>`<label class="checkrow"><input type="checkbox" data-job-platform="${esc(p.id)}" ${jobPlatforms.has(p.id)?'checked':''}>${esc(p.label)}</label>`).join('')}</fieldset>${readOnly?'':`<div class="actions jobs-bulk"><button id="jobs-select-filtered">选中筛选结果（${list.length}）</button><button id="jobs-clear-selected">取消选择</button><span>已选 ${selected.length} 项</span><button data-jobs-control="pause" ${!state.features?.job_controls||jobControlBusy||!selected.some(canPauseJob)?'disabled':''}>批量暂停</button><button class="primary" data-jobs-control="start" ${!state.features?.job_controls||jobControlBusy||!selected.some(canStartJob)?'disabled':''}>批量启动</button><button class="danger" data-jobs-control="remove" ${!state.features?.job_controls||jobControlBusy||!selected.some(canRemoveJob)?'disabled':''}>批量删除（${selected.filter(canRemoveJob).length}）</button></div><p class="tiny muted">操作跨分页生效；切换筛选会清空选择。启动会重新排队，仍遵守原有 Web 范围与验证规则；删除只清理任务与执行记录，游戏输入记录保留。</p>`}`;
+}
+function jobsPagination(total){
+  const pages=Math.max(1,Math.ceil(total/JOBS_PER_PAGE));
+  if(jobsPage>pages)jobsPage=pages;
+  return `<div class="actions" style="margin-top:12px"><button id="jobs-prev"${jobsPage<=1?" disabled":""}>上一页</button><span class="tiny muted">第 ${jobsPage} / ${pages} 页</span><button id="jobs-next"${jobsPage>=pages?" disabled":""}>下一页</button></div>`;
+}
 function jobs() {
-  const all=currentJobs(), active=all.filter(j=>j.status!=="completed"), list=showCompletedTasks?all:active;
-  return `<div class="notice">${active.length} 个未完成任务 · ${all.filter(j=>j.status==='waiting_input').length} 个待回复 · ${all.filter(j=>j.status==='review').length} 个待验收。退回意见会直接进入下一轮修改。</div><div class="actions" style="margin-bottom:16px"><button id="toggle-completed">${showCompletedTasks?'隐藏已完成':'显示已完成'}</button></div><div class="panel">${jobTable(list.filter(j=>!query||cBy(j.candidate_id).title.includes(query)||j.id.includes(query)))}</div>`;
+  const all=currentJobs(), active=all.filter(j=>j.status!=="completed");
+  const list=jobsFiltered(), pages=Math.max(1,Math.ceil(list.length/JOBS_PER_PAGE));
+  if(jobsPage>pages)jobsPage=pages;
+  const slice=list.slice((jobsPage-1)*JOBS_PER_PAGE,jobsPage*JOBS_PER_PAGE);
+  return `<div class="notice">${active.length} 个未完成任务 · ${all.filter(j=>j.status==='waiting_input'&&!j.policy_pause).length} 个待回复 · ${all.filter(j=>j.policy_pause).length} 个按 Web 范围暂停 · ${all.filter(j=>j.status==='review').length} 个待验收。退回意见会直接进入下一轮修改。</div><div class="actions" style="margin-bottom:16px">${!readOnly?`<button id="jobs-pause-all" ${!state.features?.job_controls||jobControlBusy||!all.some(canPauseJob)?'disabled':''}>一键暂停全部（${all.filter(canPauseJob).length}）</button>`:''}<button id="toggle-completed">${showCompletedTasks?'隐藏已完成':'显示已完成'}</button></div><div class="panel">${jobsToolbar(list.length,pages)}${jobsBulkToolbar(list)}${jobTable(slice,true)}${jobsPagination(list.length)}</div>`;
 }
 function reviewImage(record, label, full = false) {
   const src=screenshotItems(record)[0];
@@ -520,13 +602,11 @@ function supplyMetadata(id) {
 }
 function reviews() {
   const pending=(state.versions||[]).filter(v=>v.status==='review');
-  const seen=new Set();
-  const accepted=(state.versions||[]).filter(v=>{if(!['approved','published'].includes(v.status)||seen.has(v.candidate_id))return false;seen.add(v.candidate_id);return true;});
-  const cards=(items,done)=>items.map(v=>{const c=cBy(v.candidate_id);return `<article class="gamecard"><div class="cover" data-review="${esc(v.id)}">${reviewImage(v,'产出版本实机截图')}<div class="cover-badge">${badge(v.status)}</div></div><div class="gamebody"><h3>${esc(c.title)}</h3><p class="tiny muted">版本 ${esc(v.commit?.slice(0,7)||v.id)} · ${done?'验收于 '+date(v.approved_at):'提交于 '+date(v.created_at)}</p><div class="gamefoot"><span>${done?'✓ 玩法与画面已通过':'等待确认玩法与画面'}</span><button class="smallbtn ${done?'':'primary'}" data-review="${esc(v.id)}">${done?'查看验收结果':'开始验收'}</button></div></div></article>`;}).join('');
-  return head('验收中心','HTML 移植完成后人工试玩验收；通过后自动进入下游模板供货。')+
-    `<section id="pending-reviews"><div class="panelhead"><h2>待验收 <small>${pending.length} 个版本</small></h2></div><div class="cards review-cards">${cards(pending,false)||empty('当前没有待验收版本','新版本完成后会出现在这里。')}</div></section>`+
-    `<section id="accepted-reviews" style="margin-top:32px"><div class="panelhead"><h2>已验收 <small>${accepted.length} 款游戏</small></h2></div><div class="cards accepted-cards">${cards(accepted,true)||empty('尚无已验收游戏','确认玩法和画面后，游戏会移入这里。')}</div></section>`+supplyPanel();
+  const cards=pending.map(v=>{const c=cBy(v.candidate_id);return `<article class="gamecard"><div class="cover" data-review="${esc(v.id)}">${reviewImage(v,'产出版本实机截图')}<div class="cover-badge">${badge(v.status)}</div></div><div class="gamebody"><h3>${esc(c.title)}</h3><p class="tiny muted">版本 ${esc(v.commit?.slice(0,7)||v.id)} · 提交于 ${date(v.created_at)}</p><div class="gamefoot"><span>${esc(v.review_label||"等待确认玩法与画面")}</span><button class="smallbtn primary" data-review="${esc(v.id)}">开始验收</button></div></div></article>`;}).join('');
+  return head('验收中心','仅展示待验收版本；通过验收的游戏可在小游戏库查看。')+
+    `<section id="pending-reviews"><div class="panelhead"><h2>待验收 <small>${pending.length} 个版本</small></h2></div><div class="cards review-cards">${cards||empty('当前没有待验收版本','完成验证的版本会出现在这里。')}</div></section>`+supplyPanel();
 }
+
 const serviceNames = {wechat: "小游戏转 Web 浏览器游戏服务", ai: "AI 服务"};
 function toolPage() {
   return head("工具服务", "统一管理游戏转换、AI 与下游模板供货服务。") +
@@ -622,7 +702,7 @@ function aiServiceDialog(s) {
 function settings() {
   const s = state.settings || {};
   const fields = [
-    ['concurrency', '云服务器同时转换任务数（固定为 1）', 1, 1, 1],
+    ['concurrency', '同时转换的任务数', 1, 16, s.concurrency || 3],
     ['rea_minutes', 'REA 尝试上限（分钟）', 1, 180, s.rea_minutes || 45],
     ['reconstruct_minutes', 'AI 复刻上限（分钟）', 1, 600, s.reconstruct_minutes || 180],
     ['repair_rounds', '自动修复轮数', 1, 5, s.repair_rounds ?? 3],
@@ -681,12 +761,14 @@ function detail(id) {
   const c = cBy(id),
     vs = (state.versions || []).filter((v) => v.candidate_id === id);
   const latest = catalogVersion(id);
+  const accepted = vs.some(v=>['approved','published'].includes(v.status));
+  const specificationVersion = latest;
   const previewVersion = latest && screenshotItems(latest).length ? latest : null;
   const previewRecord = previewVersion || c;
   const previewImages = screenshotItems(previewRecord);
   modal(
     c.title,
-    `<div class="tabs"><button class="tab active" data-dtab="preview">游戏预览</button><button class="tab" data-dtab="source">来源信息</button><button class="tab" data-dtab="code">代码与版本</button><button class="tab" data-dtab="tasks">处理记录</button></div><div id="detail-body"></div>`,
+    `<div class="tabs"><button class="tab active" data-dtab="preview">游戏预览</button><button class="tab" data-dtab="source">来源信息</button>${specificationVersion ? '<button class="tab" data-dtab="specification">游戏规格说明书</button>' : ''}<button class="tab" data-dtab="code">代码与版本</button><button class="tab" data-dtab="tasks">处理记录</button></div><div id="detail-body"></div>`,
     true,
   );
   const panes = {
@@ -697,7 +779,7 @@ function detail(id) {
       )
       .join(
         "",
-      )}</div><p class="tiny muted">${demo ? "演示插画 · 非实际采集截图" : previewVersion ? "当前版本实机截图" : previewImages.length ? "来源预览图片" : "尚无来源或版本截图"}</p></div><div><h3>玩法简介</h3><p class="muted" style="margin:14px 0">${esc(c.description || "等待分析工具提交玩法说明。")}</p><div class="kv"><span>游戏类型</span><span>${esc(c.category || "待分类")}</span></div><div class="kv"><span>引擎</span><span>${esc(c.engine || "待识别")}</span></div><div class="kv"><span>状态</span>${badge(c.status)}</div><div class="modalfooter">${latest ? `<button class="smallbtn primary" data-play="${esc(latest.id)}">试玩当前版本</button>` : ''}<button class="smallbtn" data-rename="${esc(c.id)}">重命名</button><button class="smallbtn" data-edit="${esc(c.id)}">编辑资料</button><a href="${esc(safeUrl(c.url))}" target="_blank" rel="noopener noreferrer">打开来源试玩 ↗</a></div></div></div>`,
+      )}</div><p class="tiny muted">${demo ? "演示插画 · 非实际采集截图" : previewVersion ? "当前版本实机截图" : previewImages.length ? "来源预览图片" : "尚无来源或版本截图"}</p></div><div><h3>玩法简介</h3><p class="muted" style="margin:14px 0">${esc(c.description || "等待分析工具提交玩法说明。")}</p><div class="kv"><span>游戏类型</span><span>${esc(c.category || "待分类")}</span></div><div class="kv"><span>来源平台</span><span>${esc(c.source_platform?.name || c.source || "手动提交")} · ${esc(c.source_platform?.kind || "待识别")}</span></div><div class="kv"><span>原平台引擎</span><span>${esc(c.source_engine?.name || c.engine || "待识别")}</span></div><div class="kv"><span>识别依据</span><span>${esc(c.source_engine?.evidence || "尚无记录")}</span></div><div class="kv"><span>交付目标</span><span>离线 Web 游戏</span></div><div class="kv"><span>当前版本</span><span>${esc((previewVersion?.web_delivery || c.web_delivery)?.label || "待验证")}</span></div><p class="tiny muted">${esc((previewVersion?.web_delivery || c.web_delivery)?.scope || "")}</p><div class="kv"><span>状态</span>${badge(c.status)}</div><div class="modalfooter">${latest ? `<button class="smallbtn primary" data-play="${esc(latest.id)}">试玩当前版本</button>` : ''}<button class="smallbtn" data-rename="${esc(c.id)}">重命名</button><button class="smallbtn" data-edit="${esc(c.id)}">编辑资料</button>${accepted ? '' : `<a href="${esc(safeUrl(c.url))}" target="_blank" rel="noopener noreferrer">打开来源试玩 ↗</a>`}</div></div></div>`,
     source: `<div class="kv"><span>来源平台</span><span>${esc(c.source)}</span></div><div class="kv"><span>原始地址</span><a href="${esc(safeUrl(c.url))}" target="_blank" rel="noopener noreferrer">查看来源 ↗</a></div><div class="kv"><span>首次汇总</span><span>${date(c.created_at)}</span></div><div class="kv"><span>使用条件</span><span>${esc(({unknown:"待核实",owned:"自有实现",licensed:"已授权",open:"开源"})[c.rights] || c.rights || "待确认")}</span></div>${provenancePanel(c)}`,
     code: `<div class="code">games/${esc(c.id)}/</div>${
       vs
@@ -717,10 +799,12 @@ function detail(id) {
         .join("") ||
       empty("暂无代码版本", "执行工具提交产物并完成版本登记后可查看。")
     }`,
+    specification: `<article id="detail-specification-content">正在加载说明书…</article>`,
     tasks: jobTable((state.jobs || []).filter((j) => j.candidate_id === id)),
   };
   function set(t) {
     $("#detail-body").innerHTML = panes[t];
+    if(t==='specification' && specificationVersion)loadSpecification(specificationVersion,c,$('#detail-specification-content'));
     document
       .querySelectorAll("[data-dtab]")
       .forEach((b) => b.classList.toggle("active", b.dataset.dtab === t));
@@ -742,23 +826,29 @@ function pipelineRecords(records) {
   const groups=[];
   for(const r of records) {
     const last=groups.at(-1), previous=last?.[0];
-    if(previous&&previous.message===r.message&&previous.round===r.round&&previous.attempt===r.attempt&&previous.status===r.status)last.push(r);
+    if(previous&&previous.execution_id===r.execution_id&&previous.message===r.message&&previous.round===r.round&&previous.attempt===r.attempt&&previous.status===r.status)last.push(r);
     else groups.push([r]);
   }
   return groups.map(group=>{
-    const r=group[0], text=r.summary||r.message;
+    const r=group[0], text=r.evidence_source?r.message:(r.summary||r.message);
     return `<div class="pipeline-record"><p class="tiny"><time>${date(r.time)}</time> ${r.round?'第 '+r.round+' 轮 · ':''}${esc(text)}</p>${text!==r.message?`<details><summary class="tiny muted">详细记录（原始内容）</summary><p class="tiny">${esc(r.message)}</p></details>`:''}${group.length>1?`<details><summary class="tiny muted">相同记录共 ${group.length} 次 · 查看时间</summary>${group.slice(1).map(item=>`<p class="tiny">${date(item.time)}</p>`).join('')}</details>`:''}</div>`;
   }).join('');
+}
+function pipelineExecutions(node) {
+  if(!node.executions?.length)return '';
+  const labels={running:'执行中',resumed:'继续执行',interrupted:'任务已结束 · 缺少本次结束记录',failed:'失败',succeeded:'通过',cancelled:'已停止',waiting_input:'待处理'};
+  return `<div class="pipeline-executions"><h4>本轮每次执行</h4>${node.executions.map(e=>`<p class="tiny"><b>第 ${esc(e.number)} 次 · ${esc(labels[e.status]||e.status)}</b> · ${date(e.started_at)}${e.ended_at?' → '+date(e.ended_at):' · 未记录结束'}${e.message?`<br>${esc(e.message)}`:''}</p>`).join('')}</div>`;
 }
 function pipelinePanel(job) {
   const pipe=job.pipeline;
   if(!pipe)return '<p class="muted">当前服务尚未提供节点时间线。</p>';
   const labels={draft_saved:'草稿已保存 · 未完成',unrecorded:'缺少阶段结论',pending:'尚未开始',recorded:'结果未确认',running:'● 进行中',succeeded:'✓ 已完成',failed:'！执行失败',blocked:'！遇到阻断',waiting_input:'待处理',skipped:'已跳过',cancelled:'已停止'};
+  const hiddenHistory=pipe.nodes.filter(n=>!(pipe.visible_nodes||pipe.nodes).some(v=>v.key===n.key)&&(n.records||[]).length);
   const summary=pipe.presentation, countLabels={complete:'本轮已完成',active:'进行中',issue:'有问题',waiting:'等待处理',incomplete:'未完成',pending:'尚未开始',unknown:'结论缺失',history:'历史结果',optional:'按需 / 跳过',stopped:'已停止'};
-  return `<section class="pipeline"><h3>转换阶段与完成情况</h3>${summary?`<div class="pipeline-overview"><strong>${esc(summary.headline)}</strong>${summary.current_title?`<p>当前节点：${esc(summary.current_title)} <button class="smallbtn" data-stage-focus="${esc(pipe.current)}">定位这个阶段 ↓</button></p>`:''}${summary.problem?`<p class="pipeline-problem"><b>当前问题：</b>${esc(summary.problem)}</p>`:''}<p>下一步：${esc(summary.next_action)}</p><div class="pipeline-counts">${Object.entries(countLabels).filter(([k])=>summary.counts[k]).map(([k,label])=>`<span data-group="${k}">${label} ${summary.counts[k]} 项</span>`).join('')}</div><p class="tiny muted">完成项只统计本轮有明确结论的阶段，历史完成与按需步骤单独显示。</p></div>`:''}<p class="tiny muted">${esc(pipe.note)}</p><ol>${pipe.nodes.map((n,index)=>{
+  return `<section class="pipeline"><h3>转换阶段与完成情况</h3>${summary?`<div class="pipeline-overview"><strong>${esc(summary.headline)}</strong>${summary.current_title?`<p>当前节点：${esc(summary.current_title)} <button class="smallbtn" data-stage-focus="${esc(pipe.current)}">定位这个阶段 ↓</button></p>`:''}${summary.problem?`<p class="pipeline-problem"><b>当前问题：</b>${esc(summary.problem)}</p>`:''}<p>下一步：${esc(summary.next_action)}</p><div class="pipeline-counts">${Object.entries(countLabels).filter(([k])=>summary.counts[k]).map(([k,label])=>`<span data-group="${k}">${label} ${summary.counts[k]} 项</span>`).join('')}</div><p class="tiny muted">仅展示本轮适用或实际发生的步骤；复用成果单独标注，未触发的诊断与发布不占位。</p></div>`:''}<p class="tiny muted">${esc(pipe.note)}</p><ol>${(pipe.visible_nodes||pipe.nodes).map((n,index)=>{
     const view=n.presentation, records=n.records||[], currentRecords=records.filter(r=>(r.round||1)===(job.round||1)), history=records.filter(r=>(r.round||1)!==(job.round||1));
-    return `<li data-node="${esc(n.key)}" data-status="${esc(n.status)}" data-group="${esc(view?.group||'unknown')}" ${pipe.current===n.key?'aria-current="step"':''}><div class="pipeline-stage-header"><strong>${index+1}. ${esc(view?.title||n.label)}</strong><span class="pipeline-status">${esc(view?.label||labels[n.status]||n.status)}</span></div>${view?`<p class="pipeline-work">${esc(view.work)}</p><p class="pipeline-result"><b>当前结果：</b>${esc(view.result)}</p>${view.problem?`<p class="pipeline-problem"><b>问题：</b>${esc(view.problem)}</p>`:''}<p class="pipeline-next"><b>下一步：</b>${esc(view.next_action)}</p>${view.previous?`<p class="tiny muted">历史结论：${esc(view.previous)}</p>`:''}`:''}<details class="pipeline-evidence"><summary>查看过程与依据 · 本轮 ${currentRecords.length} 条 / 历史 ${history.length} 条</summary>${n.started_at?`<p class="tiny">开始 ${date(n.started_at)}</p>`:''}${n.ended_at?`<p class="tiny">结束 ${date(n.ended_at)}</p>`:''}${n.duration_seconds!=null?`<p class="tiny">耗时 ${n.duration_seconds} 秒</p>`:''}${!view&&n.reason&&n.reason!==job.question&&!records.some(r=>r.message?.trim()===n.reason.trim())?`<p>${esc(n.reason)}</p>`:''}${n.version_id?`<p class="tiny">关联版本 ${esc(n.version_id)}</p>`:''}${pipelineRecords(currentRecords)}${!currentRecords.length?'<p class="tiny muted">本轮没有独立的步骤日志；如有版本结果，以阶段说明为准。</p>':''}${history.length?`<details><summary>此前轮次记录</summary>${pipelineRecords(history)}</details>`:''}</details></li>`;
-  }).join('')}</ol></section>`;
+    return `<li data-node="${esc(n.key)}" data-status="${esc(n.status)}" data-group="${esc(view?.group||'unknown')}" ${pipe.current===n.key?'aria-current="step"':''}><div class="pipeline-stage-header"><strong>${index+1}. ${esc(view?.title||n.label)}</strong><span class="pipeline-status">${esc(view?.label||labels[n.status]||n.status)}</span></div>${view?`<p class="pipeline-work">${esc(view.work)}</p><p class="pipeline-result"><b>当前结果：</b>${esc(view.result)}</p>${view.problem?`<p class="pipeline-problem"><b>问题：</b>${esc(view.problem)}</p>`:''}<p class="pipeline-next"><b>下一步：</b>${esc(view.next_action)}</p>${view.previous?`<p class="tiny muted">历史结论：${esc(view.previous)}</p>`:''}`:''}<details class="pipeline-evidence"><summary>查看过程与依据 · 本轮 ${currentRecords.length} 条 / 历史 ${history.length} 条</summary>${n.started_at?`<p class="tiny">开始 ${date(n.started_at)}</p>`:''}${n.ended_at?`<p class="tiny">结束 ${date(n.ended_at)}</p>`:''}${n.duration_seconds!=null?`<p class="tiny">耗时 ${n.duration_seconds} 秒</p>`:''}${!view&&n.reason&&n.reason!==job.question&&!records.some(r=>r.message?.trim()===n.reason.trim())?`<p>${esc(n.reason)}</p>`:''}${n.version_id?`<p class="tiny">关联版本 ${esc(n.version_id)}</p>`:''}${pipelineExecutions(n)}${pipelineRecords(currentRecords)}${!currentRecords.length?'<p class="tiny muted">本轮没有独立的步骤日志；如有版本结果，以阶段说明为准。</p>':''}${history.length?`<details><summary>此前轮次记录</summary>${pipelineRecords(history)}</details>`:''}</details></li>`;
+  }).join('')}</ol>${hiddenHistory.length?`<details class="pipeline-history"><summary>其他历史阶段记录</summary>${hiddenHistory.map(n=>`<h4>${esc(n.label)}</h4>${pipelineRecords(n.records)}`).join('')}</details>`:''}</section>`;
 }
 function gameSpecPanel(candidate,job) {
   const spec=candidate.game_spec;
@@ -799,15 +889,15 @@ function jobDetail(id) {
     ${reports.length?`<details class="task-progress-reports"><summary>AI 执行汇报 · ${reports.length} 条</summary><p class="tiny muted">处理结果与已知限制，属于执行记录。</p>${messageMarkup(reports)}</details>`:''}
     ${dependencyPanel(cBy(j.candidate_id))}
     ${gameSpecPanel(cBy(j.candidate_id),j)}
-    </section><section class="task-pane" data-task-pane="conversation"><section class="task-conversation"><h3>沟通记录</h3><p class="tiny muted">你的要求、AI 答复与需要你确认的问题。</p>${j.status==='waiting_input'&&j.question&&!conversation.some(m=>m.text?.trim()===j.question.trim())?`<div class="notice">需要你回复：${esc(j.question)}</div>`:''}${messageMarkup(conversation)||'<p class="muted">暂无已分类对话，可在下方提交修改要求。</p>'}</section>
+    </section><section class="task-pane" data-task-pane="conversation"><section class="task-conversation"><h3>沟通记录</h3><p class="tiny muted">你的要求、AI 答复与需要你确认的问题。</p>${j.status==='waiting_input'&&j.question&&!conversation.some(m=>m.text?.trim()===j.question.trim())?`<div class="notice">${j.policy_pause?'暂停说明：':'需要你回复：'}${esc(j.question)}</div>`:''}${messageMarkup(conversation)||'<p class="muted">暂无已分类对话，可在下方提交修改要求。</p>'}</section>
     ${legacy.length?`<details class="task-legacy-messages"><summary>历史未分类消息 · ${legacy.length} 条</summary><p class="tiny muted">旧记录未标注用途，保留原文供核对，不自动猜测为问题或执行进度。</p>${messageMarkup(legacy)}</details>`:''}
-    ${canReply?`<form id="task-message-form"><label for="task-message">${j.status==='waiting_input'?'回复 AI':'修改要求 / 补充信息'}</label><textarea id="task-message" maxlength="8000" required placeholder="例如：保留原角色资源，调整跳跃高度，并验证手机操作。"></textarea><div class="modalfooter"><button class="primary" type="submit">发送并继续处理</button></div></form>`:'<p class="muted">当前轮处理结束后可继续提交意见。状态会自动更新。</p>'}
+    ${canReply?`<form id="task-message-form"><label for="task-message">${j.policy_pause?'补充网页入口或说明':j.status==='waiting_input'?'回复 AI':'修改要求 / 补充信息'}</label><textarea id="task-message" maxlength="8000" required placeholder="例如：保留原角色资源，调整跳跃高度，并验证手机操作。"></textarea><div class="modalfooter"><button class="primary" type="submit">发送并继续处理</button></div></form>`:'<p class="muted">当前轮处理结束后可继续提交意见。状态会自动更新。</p>'}
     <button id="reload-task" class="smallbtn">重新读取状态</button>
     </section><section class="task-pane" data-task-pane="versions"><h3>版本记录</h3>${versions.map(v=>`<div class="kv"><span>${esc(v.id)} ${badge(v.status)}</span><span><button class="smallbtn" data-task-play="${esc(v.id)}">试玩</button>${v.status==='review'?`<button class="smallbtn" data-task-review="${esc(v.id)}">验收</button>`:''}</span></div>`).join('')||'<p>尚无版本</p>'}
     ${olderJobs.length||rounds.length||extraEvents.length?`<details class="task-history"><summary>历史任务与补充记录</summary>${olderJobs.length?jobTable(olderJobs):''}${rounds.length?`<h4>轮次结果</h4>${rounds.map(r=>`<p>第 ${r.round||1} 轮：${esc(statusMap[r.status]||r.status)}${r.reason&&!roundReasonShown(r)?' · '+esc(r.reason):''}</p>`).join('')}`:''}${extraEvents.length?`<h4>其他执行记录</h4>${extraEvents.map(e=>`<p>${date(e.created_at)}${e.round?' · 第 '+e.round+' 轮':''} · ${esc(e.message)}</p>`).join('')}`:''}</details>`:''}</section>`,true);
   document.querySelector('.modal').classList.add('task-detail');
-  if(taskSectionJob!==id){taskSectionJob=id;taskSection=j.status==='waiting_input'?'conversation':'summary';}
-  if(taskSectionStatus!==j.status&&j.status==='waiting_input')taskSection='conversation';
+  if(taskSectionJob!==id){taskSectionJob=id;taskSection=j.status==='waiting_input'&&!j.policy_pause?'conversation':'summary';}
+  if(taskSectionStatus!==j.status&&j.status==='waiting_input'&&!j.policy_pause)taskSection='conversation';
   taskSectionStatus=j.status;
   const showSection=key=>{
     taskSection=key;
@@ -819,7 +909,7 @@ function jobDetail(id) {
   liveDialog = () => jobDetail(id);
   listen($('#restore-web-form'),'submit',e=>{e.preventDefault();const button=e.currentTarget.querySelector('button');button.disabled=true;mutate(`/api/jobs/${id}/restore-web`,{profile_id:$('#web-profile').value},()=>{j.status='queued';}).finally(()=>{button.disabled=false;});});
   listen($('#task-message-form'),'submit',e=>{e.preventDefault();const button=e.currentTarget.querySelector('button');button.disabled=true;mutate(`/api/jobs/${id}/message`,{message:$('#task-message').value},()=>{j.status='queued';}).finally(()=>{button.disabled=false;});});
-  $('#reload-task').onclick=async()=>{if(!demo)state={...state,...await api('/api/state')};jobDetail(id);};
+  $('#reload-task').onclick=async()=>{if(!demo)state=presentPolicyPauses({...state,...await api('/api/state')});jobDetail(id);};
   document.querySelectorAll('[data-task-play]').forEach(b=>b.onclick=()=>play(b.dataset.taskPlay));
   document.querySelectorAll('[data-task-review]').forEach(b=>b.onclick=()=>review(b.dataset.taskReview));
 }
@@ -841,10 +931,19 @@ function play(id) {
   );
 }
 const specificationViews = new Map();
+async function loadSpecification(version,candidate,content) {
+  try {
+    const response=await fetch(`/api/versions/${encodeURIComponent(version.id)}/specification.md`,{credentials:'same-origin',cache:'no-store'});
+    if(!response.ok)throw new Error('说明书加载失败，请重新打开详情');
+    const markdown=specificationMarkdown(candidate.title,version,await response.text());
+    if(content.isConnected)content.innerHTML=specificationHtml(markdown);
+  }catch(error){if(content.isConnected)content.textContent=error.message;}
+}
 function specificationHtml(markdown) {
-  // Only headings and paragraphs are emitted by the shared document generator.
-  // Treat Markdown body/HTML as text, never execute embedded markup or links.
+  // Only version-bound local evidence images are rendered; other markup stays text.
   return String(markdown).split(/\n\s*\n/).map(block => {
+    const picture=block.match(/^!\[([^\]\n]*)\]\((\/api\/versions\/[A-Za-z0-9_-]+\/specification-images\/screenshots\/[A-Za-z0-9_-]+\.(?:png|jpg|webp))\)$/);
+    if(picture)return `<figure style="margin:20px 0"><img src="${esc(picture[2])}" alt="${esc(picture[1])}" loading="lazy" style="display:block;max-width:100%;height:auto;border-radius:10px"></figure>`;
     const heading=block.match(/^(#{1,2}) (.*)$/);
     return heading ? `<h${heading[1].length+2}>${esc(heading[2])}</h${heading[1].length+2}>`
       : `<p style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(block)}</p>`;
@@ -855,20 +954,23 @@ function review(id) {
     c = cBy(v.candidate_id);
   modal(
     c.title + (["approved","published"].includes(v.status) ? " · 验收结果" : " · 版本验收"),
-    `<div class="preview-pair" style="grid-template-columns:minmax(0,1fr)"><div><h3>产出版本 ${badge(v.status)}</h3>${reviewImage(v,"产出版本实机截图",true)}<p class="tiny muted">${demo ? "演示插画，非复刻成果" : screenshotItems(v).length ? "该版本运行截图" : "该版本尚未提供运行截图"}</p><button class="smallbtn" data-play="${esc(v.id)}">▷ 打开产出试玩</button></div></div><details id="game-specification" class="panel" style="margin-top:20px" ${specificationViews.get(id)?.open ? "open" : ""}><summary><strong>游戏规格说明书</strong> <span class="tiny muted">Markdown · 点击阅读</span></summary><article id="game-specification-content" style="margin-top:16px">${specificationViews.get(id)?.html || '<p class="muted">展开后加载说明书。</p>'}</article></details>${provenancePanel(c)}<form id="review-form"><label class="checkrow"><input type="checkbox" name="gameplay" required>核心玩法、计分或胜负、重开符合规格</label><label class="checkrow"><input type="checkbox" name="visual" required>画面可用且无阻断运行错误</label><p class="tiny muted">此处确认玩法与画面，完成学习项目的功能验收入库。资源使用信息另行记录，发布前核对。</p><label>验收意见 / 退回原因</label><textarea name="reason" placeholder="记录需要修复的问题…"></textarea><div class="modalfooter"><button type="button" id="reject-version">退回修复</button><button type="submit" class="primary">${v.status === "approved" ? "发布到小游戏库" : "通过验收"}</button></div></form>`,
+    `<div class="preview-pair" style="grid-template-columns:minmax(0,1fr)"><div><h3>产出版本 ${badge(v.status)}</h3>${reviewImage(v,"产出版本实机截图",true)}<p class="tiny muted">${demo ? "演示插画，非复刻成果" : screenshotItems(v).length ? "该版本运行截图" : "该版本尚未提供运行截图"}</p><button class="smallbtn" data-play="${esc(v.id)}">▷ 打开产出试玩</button></div></div>${reviewControls(v,{esc})}<details id="game-specification" class="panel" style="margin-top:20px" ${specificationViews.get(id)?.open ? "open" : ""}><summary><strong>游戏规格说明书</strong> <span class="tiny muted">Markdown · 点击阅读</span></summary><article id="game-specification-content" style="margin-top:16px">${specificationViews.get(id)?.html || '<p class="muted">展开后加载说明书。</p>'}</article></details>${provenancePanel(c)}<form id="review-form">${reviewHandoff(v,{esc})}<label class="checkrow"><input type="checkbox" name="gameplay" required>本次交付范围内的玩法和关键交互符合规格</label><label class="checkrow"><input type="checkbox" name="visual" required>画面可用且无阻断运行错误</label><p class="tiny muted">此处确认玩法与画面，完成学习项目的功能验收入库。资源使用信息另行记录，发布前核对。</p><label>验收意见 / 退回原因</label><textarea name="reason" placeholder="填写人工核对结果，或需要修复的问题…" ${v.report?.review_mode==='ai_operation_limit'?'required':''}></textarea><div class="modalfooter"><button type="button" id="reject-version">退回修复</button><button type="submit" class="primary">${v.status === "approved" ? "发布到小游戏库" : "通过验收"}</button></div></form>`,
     true,
   );
   const specification = $('#game-specification');
+  const signature=JSON.stringify(v.game_profile || v.report?.game_profile || {});
+  const cached=specificationViews.get(id);
+  if(cached && cached.signature!==signature){delete cached.html;cached.signature=signature;}
   specification.ontoggle = async () => {
     const view=specificationViews.get(id)||{};
-    view.open=specification.open;specificationViews.set(id,view);
+    view.signature=signature;view.open=specification.open;specificationViews.set(id,view);
     if(!view.open||view.html||view.loading)return;
     view.loading=true;
     const content=specification.querySelector('article');content.textContent='正在加载说明书…';
     try {
       const response=await fetch(`/api/versions/${encodeURIComponent(id)}/specification.md`,{credentials:'same-origin'});
       if(!response.ok)throw new Error(response.status===401?'请重新登录后查看说明书':'说明书加载失败，请收起后重试');
-      view.html=specificationHtml(await response.text());
+      view.html=specificationHtml(specificationMarkdown(c.title,v,await response.text()));
       if(content.isConnected)content.innerHTML=view.html;
     } catch(error) { if(content.isConnected)content.textContent=error.message; }
     finally { view.loading=false; }
@@ -898,7 +1000,7 @@ function review(id) {
       `/api/versions/${id}/${op}`,
       {
         reason: f.get("reason"),
-        checks: { gameplay: f.get("gameplay") === "on", visual: f.get("visual") === "on" },
+        checks: { gameplay: f.get("gameplay") === "on", visual: f.get("visual") === "on", manual_review: f.get("manual_review") === "on" },
       },
       () => (v.status = op === "publish" ? "published" : "approved"),
     );
@@ -1027,7 +1129,7 @@ function bind() {
       const services = await api(`/api/services/${service}/test`, {}, {signal: AbortSignal.timeout(service === 'ai' ? 75000 : 30000)});
       mutationEpoch++;
       state.services = services;
-      toast((state.services.find(s => s.id === service)?.detail) || '检测完成');
+      toast((services.find(s => s.id === service)?.detail) || '检测完成');
     } catch (e) {
       toast(e.name === 'TimeoutError' ? '检测超过等待上限，请检查连接后重试' : e.message);
     } finally {
@@ -1154,7 +1256,33 @@ function bind() {
           }
         })),
   );
-  if($("#toggle-completed"))$("#toggle-completed").onclick=()=>{showCompletedTasks=!showCompletedTasks;render();};
+  if($("#toggle-completed"))$("#toggle-completed").onclick=()=>{showCompletedTasks=!showCompletedTasks;jobSelected.clear();jobsPage=1;render();};
+  if($("#jobs-query"))$("#jobs-query").oninput=e=>{jobQuery=e.target.value;jobSelected.clear();jobsPage=1;const pos=e.target.selectionStart;render();const el=$("#jobs-query");if(el){el.focus();el.setSelectionRange(pos,pos);}};
+  if($("#jobs-status"))$("#jobs-status").onchange=e=>{jobStatusFilter=e.target.value;jobSelected.clear();jobsPage=1;render();};
+  if($("#jobs-route"))$("#jobs-route").onchange=e=>{jobRouteFilter=e.target.value;jobSelected.clear();jobsPage=1;render();};
+  if($("#jobs-reset"))$("#jobs-reset").onclick=()=>{jobQuery="";jobStatusFilter="";jobRouteFilter="";jobPlatforms.clear();jobSelected.clear();jobsPage=1;render();};
+  document.querySelectorAll('[data-job-platform]').forEach(e=>e.onchange=()=>{e.checked?jobPlatforms.add(e.dataset.jobPlatform):jobPlatforms.delete(e.dataset.jobPlatform);jobSelected.clear();jobsPage=1;render();});
+  document.querySelectorAll('[data-job-select]').forEach(e=>e.onchange=()=>{e.checked?jobSelected.add(e.dataset.jobSelect):jobSelected.delete(e.dataset.jobSelect);render();});
+  const pageJobs=jobsFiltered().slice((jobsPage-1)*JOBS_PER_PAGE,jobsPage*JOBS_PER_PAGE);
+  if($('#jobs-select-page')){const e=$('#jobs-select-page');e.checked=pageJobs.length>0&&pageJobs.every(j=>jobSelected.has(j.id));e.indeterminate=!e.checked&&pageJobs.some(j=>jobSelected.has(j.id));e.onchange=()=>{pageJobs.forEach(j=>e.checked?jobSelected.add(j.id):jobSelected.delete(j.id));render();};}
+  listen($('#jobs-select-filtered'),'click',()=>{jobsFiltered().forEach(j=>jobSelected.add(j.id));render();});
+  listen($('#jobs-clear-selected'),'click',()=>{jobSelected.clear();render();});
+  listen($('#jobs-pause-all'),'click',()=>controlJobs('pause',currentJobs().filter(canPauseJob).map(j=>j.id)));
+  document.querySelectorAll('[data-jobs-control]').forEach(e=>e.onclick=()=>controlJobs(e.dataset.jobsControl,jobsFiltered().filter(j=>jobSelected.has(j.id)).map(j=>j.id)));
+  if($("#jobs-prev"))$("#jobs-prev").onclick=()=>{jobsPage=Math.max(1,jobsPage-1);render();};
+  if($("#jobs-next"))$("#jobs-next").onclick=()=>{jobsPage=jobsPage+1;render();};
+  document.querySelectorAll("[data-remove]").forEach(b=>{
+    b.onclick=()=>{
+      const job=state.jobs.find(j=>j.id===b.dataset.remove);
+      const title=job?cBy(job.candidate_id).title:b.dataset.remove;
+      if(!confirm(`删除任务「${title}」？\n\n只会删除这个任务及其执行记录，游戏输入记录和批次会保留。删除后可在归档中查到记录。`))return;
+      b.disabled=true;
+      mutate(`/api/jobs/${b.dataset.remove}/remove`,{},()=>{
+        state.jobs=state.jobs.filter(j=>j.id!==b.dataset.remove);
+        toast("任务已删除");
+      }).catch(err=>{b.disabled=false;toast(err&&err.message?err.message:"删除失败，请稍后重试");});
+    };
+  });
   document.querySelectorAll("[data-retry]").forEach(
     (b) =>
       (b.onclick = () =>
@@ -1351,7 +1479,7 @@ async function syncState() {
   syncBusy=true;
   const epoch=mutationEpoch;
   try {
-    const next=await api('/api/state');
+    const next=presentPolicyPauses(await api('/api/state'));
     next.services=state.services;
     if (Date.now()-lastHealthSync>30000) {
       try { next.services=await api('/api/services'); lastHealthSync=Date.now(); } catch (_) {}

@@ -1,0 +1,10 @@
+{
+  "scope": "已知来源门槛。命中后在派单前拦截，不消耗采集与转换轮次；只标记需授权或补充入口，不规避发行方站点锁。每条都必须有实测采集证据且样本全部失败，不得凭印象或单一样本加入。当前没有任何域名被拦截——见 excluded。",
+  "hosts": [],
+  "excluded": [
+    {"host": "remix.gg", "note": "2026-10-27 曾以『登录墙』入列（4 次采集全灭，final_url 带 ?next=）。修复采集等待时机后，slap-battles / helix-run-3d / index / tumblebits **4/4 全部渲染出 canvas**。根因是等待不足，不是登录墙。不再拦截。"},
+    {"host": "crazygames.com", "note": "2026-10-27 曾以『发行方站点锁 / 广告同意门』入列（3 次采集全灭）。修复后 boomng-car-crash / geometry-dash-online / kitty-cat-burger-restaurant **3/3 全部渲染出 canvas**。同样不是站点锁。若将来确实出现站点锁，需重新取证后再入列。"},
+    {"host": "poki.com", "note": "实测 3 个样本中 drive-mad 与 tunnel-rush 成功，仅 stickman-battle 偶发失败。证据不支持拦截。"},
+    {"host": "www.astrocade.com", "note": "游戏写在 srcdoc iframe 内（frame.url() 恒为 about:srcdoc），需等约 10 秒才出 canvas。已通过 srcdoc-rendered-canvas 支持，实测 2/2 成功。"}
+  ]
+}

@@ -1,5 +1,5 @@
 /* Shared admin UI scale. Game documents run in separate frames. */
-:root{--font-ui:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;--text-small:12px;--text-body:14px;--text-title:18px;--text-section:22px;--text-page:28px}
+:root{--font-ui:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;--text-small:12px;--text-body:14px;--text-card:16px;--text-title:18px;--text-section:22px;--text-page:28px}
 body{font-family:var(--font-ui);font-size:var(--text-body);line-height:1.6}
 body :is(button,input,select,textarea,table,label,p,summary){font-family:var(--font-ui);font-size:var(--text-body)}
 body :is(h1,.pagehead h1,.hero-center h1){font-family:var(--font-ui);font-size:var(--text-page);line-height:1.35;letter-spacing:0}
@@ -20,6 +20,7 @@ body .gamecard .cover{aspect-ratio:16/10;border-radius:0;overflow:hidden}
 body #app .gamecard .cover img{width:100%;height:100%;object-fit:contain;transform:none}
 body #app .gamecard:hover .cover img{transform:none}
 body .gamebody{padding:12px}
+body .gamebody .gamemeta{display:block;margin-top:6px;overflow-wrap:anywhere}
 body .gamebody h3{font-size:16px;min-height:0;margin:4px 0;overflow-wrap:anywhere}
 body .game-description{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:14px;height:auto;min-height:44px;line-height:1.6;margin:6px 0}
 body .gamefoot{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
@@ -114,3 +115,46 @@ body .feature-copy .actions{position:static;margin-top:8px}
 #overlay .pipeline .pipeline-problem{border-left:3px solid #e59a91;padding:8px 12px;background:#38252a;white-space:pre-wrap;max-height:180px;overflow:auto;font-size:14px}
 #overlay .pipeline-evidence{margin-top:12px;border-top:1px solid #343644;padding-top:10px}
 #overlay .pipeline-evidence>summary{font-size:12px;color:#b7c4ed}
+
+/* One typography contract for every management page and dialog.
+   Keep compact controls aligned with the library and discovery filters. */
+body :is(#app,#overlay,#toast),
+body :is(#app,#overlay,#toast) :where(*) {
+  font-family:var(--font-ui);
+}
+body :is(#app,#overlay) :is(button,.navbtn,.tab,.smallbtn,.textbtn),
+body #app :is(.filters,.dashboard-filters,.discovery-toolbar) :is(input,select,label),
+body #app :is(.jobs-platforms,.jobs-bulk,.facet-section),
+body #app .jobs-platforms :is(legend,label),
+body #app .jobs-bulk>span,
+body #app #global-search {
+  font-size:var(--text-small);
+  line-height:1.6;
+  font-weight:400;
+}
+body :is(#app,#overlay) :is(input,select,textarea,td,p,label,li,summary) {
+  font-size:var(--text-body);
+  line-height:1.6;
+}
+/* Compact controls and supporting text take precedence over generic elements. */
+body #app :is(.filters,.dashboard-filters,.discovery-toolbar) :is(input,select,label),
+body #app .jobs-platforms :is(legend,label),
+body :is(#app,#overlay) :is(small,.tiny,.badge,.eyebrow,th,.notice,.facet-label,.stat-label,.stat-foot,.chart-label,.legend,.gamemeta,.game-category) {
+  font-size:var(--text-small);
+  line-height:1.6;
+}
+body :is(#app,#overlay) h1 {font-size:var(--text-page);line-height:1.35;font-weight:500}
+body :is(#app,#overlay) h2 {font-size:var(--text-section);line-height:1.4;font-weight:500}
+body :is(#app,#overlay) :is(h3,h4) {font-size:var(--text-title);line-height:1.5;font-weight:500}
+body :is(#app,#overlay) .gamebody h3 {font-size:var(--text-card)}
+body :is(#app,#overlay) :is(code,pre,.code),
+body :is(#app,#overlay) :is(code,pre,.code) :where(*) {font-family:Consolas,"Cascadia Code",monospace;font-size:var(--text-small)}
+body #app .jobs-platforms legend {padding:0 6px;color:var(--muted)}
+body #app .jobs-platforms .checkrow {line-height:1.6}
+body #app .jobs-platforms input {margin:0;flex-shrink:0}
+
+/* Task identity and selection must not inherit the generic first-column width. */
+#app .jobs-table .job-select-cell{width:44px;min-width:44px;max-width:44px;padding:12px 10px;text-align:center;box-sizing:border-box}
+#app .jobs-table .job-select-cell input{display:block;width:16px;height:16px;margin:0 auto}
+#app .jobs-table .job-name-cell{width:200px;min-width:160px;max-width:200px;white-space:normal;overflow-wrap:anywhere;box-sizing:border-box}
+#app .jobs-table .job-name-cell small{white-space:normal;overflow-wrap:anywhere}
