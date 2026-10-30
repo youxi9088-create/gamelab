@@ -58,7 +58,10 @@ def publish_portal(cloud, state, backend, bucket, summary):
     output = state / 'portal-state-core.json'
     subprocess.run([node, str(cloud / 'tools/build_portal_state_core.mjs'), str(output)],
                    cwd=cloud, check=True, timeout=600,
-                   env={**os.environ, 'NODE_USE_ENV_PROXY': '1'})
+                   env={**os.environ, 'NODE_USE_ENV_PROXY': '1',
+                        'GAMELAB_SOURCE_ROOT': str(Path(__file__).resolve().parents[1]),
+                        'GAMELAB_PYTHON': sys.executable, 'PYTHONUTF8': '1',
+                        'PYTHONIOENCODING': 'utf-8'})
     payload = json.loads(output.read_text('utf-8'))
     stamp = datetime.now(timezone.utc).isoformat()
     payload['sync_receipt'] = {'verified_at': stamp, **summary}
