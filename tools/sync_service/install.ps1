@@ -2,9 +2,14 @@ param(
     [string]$LocalRoot = 'F:\youxi\door',
     [string]$CloudRoot = 'F:\youxi\door-cloudflare-migration',
     [string]$LauncherRoot = 'F:\youxi\GameLab',
-    [string]$Python = 'C:\Users\Administrator\.workbuddy\binaries\python\versions\3.13.12\python.exe'
+    [string]$Python = 'C:\Users\Administrator\.workbuddy\binaries\python\versions\3.13.12\python.exe',
+    [ValidatePattern('^([01][0-9]|2[0-3]):[0-5][0-9]$')][string]$DailyAt = '03:00',
+    [Parameter(Mandatory=$true)][string]$OriginSyncScript
 )
 $ErrorActionPreference = 'Stop'
+foreach ($requiredFile in @($Python, $OriginSyncScript, (Join-Path $LocalRoot 'data\platform.sqlite3'), (Join-Path $CloudRoot 'cloudflare\wrangler.toml'))) {
+    if (-not (Test-Path -LiteralPath $requiredFile -PathType Leaf)) { throw "Required file missing: $requiredFile" }
+}
 $syncHome = 'C:\ProgramData\GameLabSync'
 New-Item -ItemType Directory -Path $syncHome -Force | Out-Null
 & icacls $syncHome /inheritance:r /grant:r '*S-1-5-18:(OI)(CI)F' '*S-1-5-32-544:(OI)(CI)F' | Out-Null
@@ -17,7 +22,7 @@ foreach ($name in $required) {
     if (-not $value) { throw "Missing environment variable: $name" }
     $values[$name] = $value
 }
-foreach ($name in @('HTTP_PROXY','HTTPS_PROXY','ALL_PROXY','NO_PROXY')) {
+foreach ($name in @('HTTP_PROXY','HTTPS_PROXY','ALL_PROXY','NO_PROXY','NODE_BINARY')) {
     $value = [Environment]::GetEnvironmentVariable($name, 'Process')
     if ($value) { $values[$name] = $value }
 }
@@ -50,6 +55,12 @@ $config = @{
     git_name = (& $sourceGit -C $LocalRoot config user.name)
     git_email = (& $sourceGit -C $LocalRoot config user.email)
     cloud_script = (Join-Path $LocalRoot 'tools\sync_cloud.py')
+    cloud_root = $CloudRoot
+    required_cloud_targets = @('cloudflare', 'origin')
+    cloud_targets = @(
+        @{id='cloudflare'; command=@($Python, (Join-Path $LocalRoot 'tools\sync_cloud.py'), '--apply', '--cloud-root', $CloudRoot); timeout=5400},
+        @{id='origin'; command=@($Python, $OriginSyncScript); timeout=5400}
+    )
     repos = @(
         @{path=$LocalRoot; local_branch='main'; remote_branch='sync/local'},
         @{path=$CloudRoot; local_branch='migration/cloudflare-local-executor'; remote_branch='sync/cloudflare'}
@@ -57,11 +68,11 @@ $config = @{
 }
 $config | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $syncHome 'config.json') -Encoding UTF8
 $action = New-ScheduledTaskAction -Execute "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -Argument ('-NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File "' + (Join-Path $PSScriptRoot 'run.ps1') + '"') -WorkingDirectory $LocalRoot
-$periodic = New-ScheduledTaskTrigger -Once -At (Get-Date).AddHours(3) -RepetitionInterval (New-TimeSpan -Hours 3)
+$periodic = New-ScheduledTaskTrigger -Daily -At ([datetime]::Today.Add([timespan]::Parse($DailyAt)))
 $startup = New-ScheduledTaskTrigger -AtStartup
-$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -MultipleInstances IgnoreNew -ExecutionTimeLimit (New-TimeSpan -Minutes 170) -RestartCount 2 -RestartInterval (New-TimeSpan -Minutes 30) -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -MultipleInstances IgnoreNew -ExecutionTimeLimit (New-TimeSpan -Hours 4) -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 30) -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 $principal = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -LogonType ServiceAccount -RunLevel Highest
-Register-ScheduledTask -TaskName 'GameLabSync' -Action $action -Trigger @($periodic,$startup) -Settings $settings -Principal $principal -Description 'Independent GameLab cloud and Git synchronization every 3 hours' -Force | Out-Null
+Register-ScheduledTask -TaskName 'GameLabSync' -Action $action -Trigger @($periodic,$startup) -Settings $settings -Principal $principal -Description "Daily GameLab cloud and Git synchronization at $DailyAt (machine local time), with startup catch-up" -Force | Out-Null
 New-Item -ItemType Directory -Path $LauncherRoot -Force | Out-Null
 Copy-Item -Path (Join-Path $PSScriptRoot 'shortcuts\*') -Destination $LauncherRoot -Force
-Write-Output 'GameLabSync installed: every 3 hours, at system startup, runs without Codex or user login.'
+Write-Output "GameLabSync installed: daily at $DailyAt (machine local time), at system startup, runs without Codex or user login."

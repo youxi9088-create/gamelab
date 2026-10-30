@@ -3,6 +3,9 @@ import json
 from pathlib import Path
 import sqlite3
 import unittest
+from unittest.mock import Mock, patch
+import io
+import tempfile
 
 SPEC = importlib.util.spec_from_file_location('sync_cloud', Path(__file__).resolve().parents[1] / 'tools/sync_cloud.py')
 sync = importlib.util.module_from_spec(SPEC)
@@ -43,6 +46,33 @@ class SyncTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'identity'):
             sync.collect(db, Transfer, Path('.'))
         db.close()
+
+    def test_readback_checks_unchanged_records_and_rejects_missing_or_stale_data(self):
+        d1 = Mock()
+        records = [('jobs', 'j', '{"id":"j","status":"review"}')]
+        d1.post_query.return_value = {'result': [{'results': [{'data': records[0][2]}]}]}
+        sync.verify_records(d1, (), records)
+        for reply in ({'result': []}, {'result': [{'results': []}]},
+                      {'result': [{'results': [{'data': '{"id":"j","status":"running"}'}]}]}):
+            d1.post_query.return_value = reply
+            with self.assertRaises(ValueError):
+                sync.verify_records(d1, (), records)
+
+    def test_portal_get_readback_not_only_successful_upload(self):
+        with tempfile.TemporaryDirectory() as folder:
+            state = Path(folder)
+            (state / 'portal-state-core.json').write_text('{"state_generated_at":"now"}', encoding='utf-8')
+            backend = Mock()
+            bodies = []
+            backend.s3.put_object.side_effect = lambda **kw: bodies.append(kw['Body'])
+            backend.s3.get_object.side_effect = lambda **kw: {'Body': io.BytesIO(bodies[-1])}
+            with patch.object(sync.subprocess, 'run'), patch.object(sync.shutil, 'which', return_value='node'):
+                receipt = sync.publish_portal(state, state, backend, 'bucket', {'records': 2})
+                self.assertEqual(receipt['verification'], 'd1-records-and-r2-content')
+                self.assertEqual(json.loads(bodies[-1])['sync_receipt']['records'], 2)
+                backend.s3.get_object.side_effect = lambda **kw: {'Body': io.BytesIO(b'old snapshot')}
+                with self.assertRaisesRegex(ValueError, 'readback'):
+                    sync.publish_portal(state, state, backend, 'bucket', {'records': 2})
 
 
 if __name__ == '__main__':

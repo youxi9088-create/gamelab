@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 import os
+import shutil
 from pathlib import Path
 import sqlite3
 import subprocess
@@ -31,6 +32,48 @@ def atomic_json(path, value):
     temp = path.with_suffix('.tmp')
     temp.write_text(json.dumps(value, ensure_ascii=True, indent=2), encoding='utf-8')
     temp.replace(path)
+
+
+def verify_records(d1, credentials, records):
+    """Read back every source record, including unchanged checkpoint entries."""
+    for offset in range(0, len(records), 50):
+        group = records[offset:offset + 50]
+        reply = d1.post_query(*credentials, {'batch': [
+            {'sql': 'SELECT data FROM records WHERE kind=? AND id=?', 'params': [kind, key]}
+            for kind, key, _ in group]})
+        results = reply.get('result', [])
+        if len(results) != len(group):
+            raise ValueError('Cloud record readback incomplete')
+        for result, (_, _, raw) in zip(results, group):
+            rows = result.get('results', [])
+            if len(rows) != 1 or json.loads(rows[0]['data']) != json.loads(raw):
+                raise ValueError('Cloud record readback differs from source snapshot')
+
+
+def publish_portal(cloud, state, backend, bucket, summary):
+    """Generate with the installed Node and verify bytes from cloud storage."""
+    node = os.environ.get('NODE_BINARY') or shutil.which('node')
+    if not node:
+        raise ValueError('Node runtime is required for cloud portal generation')
+    output = state / 'portal-state-core.json'
+    subprocess.run([node, str(cloud / 'tools/build_portal_state_core.mjs'), str(output)],
+                   cwd=cloud, check=True, timeout=600,
+                   env={**os.environ, 'NODE_USE_ENV_PROXY': '1'})
+    payload = json.loads(output.read_text('utf-8'))
+    stamp = datetime.now(timezone.utc).isoformat()
+    payload['sync_receipt'] = {'verified_at': stamp, **summary}
+    body = json.dumps(payload, ensure_ascii=True, separators=(',', ':')).encode('utf-8')
+    key = 'portal/state-core.json'
+    backend.s3.put_object(Bucket=bucket, Key=key, Body=body,
+                          ContentType='application/json; charset=utf-8', CacheControl='no-cache')
+    stream = backend.s3.get_object(Bucket=bucket, Key=key)['Body']
+    try:
+        if stream.read() != body:
+            raise ValueError('Cloud portal readback differs from generated snapshot')
+    finally:
+        stream.close()
+    return {'verified_at': stamp, 'portal_sha256': hashlib.sha256(body).hexdigest(),
+            'portal_bytes': len(body), 'verification': 'd1-records-and-r2-content'}
 
 
 def collect(db, transfer, artifacts):
@@ -74,7 +117,8 @@ def run(args, state):
     changed = [r for r in records if old.get('records', {}).get(r[0] + '/' + r[1]) != hashes[r[0] + '/' + r[1]]]
     file_hashes = {f['object_key']: f['sha256'] for f in files}
     pending = [f for f in files if old.get('files', {}).get(f['object_key']) != f['sha256']]
-    summary = {'records': len(records), 'changed_records': len(changed), 'files': len(files), 'pending_files': len(pending), 'applied': args.apply}
+    summary = {'records': len(records), 'changed_records': len(changed), 'files': len(files), 'pending_files': len(pending), 'applied': args.apply,
+               'record_counts': dict(Counter(r[0] for r in records))}
     print(json.dumps(summary), flush=True)
     if not args.apply:
         return summary
@@ -116,10 +160,18 @@ def run(args, state):
         d1.flush_batches(*credentials, d1.build_batches(rows), 'files')
     sql = 'INSERT INTO records(kind,id,data) VALUES (?,?,?) ON CONFLICT(kind,id) DO UPDATE SET data=excluded.data'
     d1.flush_batches(*credentials, d1.build_batches([(sql, row) for row in changed]), 'records')
+    verify_records(d1, credentials, records)
     # Publish the pre-generated portal only after objects and their records exist.
     print('Refreshing cloud portal snapshot', flush=True)
-    subprocess.run([sys.executable, str(cloud / 'tools/refresh_portal_state.py')], cwd=cloud, check=True, timeout=600)
+    summary.update(publish_portal(cloud, state, backend, target[2], summary))
     atomic_json(checkpoint, {'target': target, 'records': hashes, 'files': file_hashes})
+    atomic_json(state / 'last-success.json', summary)
+    # Receipts contain aggregate counts, never source records, credentials or user accounts.
+    from datetime import timedelta
+    day = datetime.now(timezone(timedelta(hours=8))).strftime('%Y-%m-%d')
+    receipts = state / 'daily'
+    receipts.mkdir(exist_ok=True)
+    atomic_json(receipts / (day + '.json'), summary)
     return summary
 
 

@@ -66,6 +66,37 @@ def git_sync(config, repo):
     return {'ok': True, 'changed_files': len(selected), 'commit': git('rev-parse', 'HEAD').stdout.strip()}
 
 
+def sync_targets(config, log_dir):
+    """Attempt targets independently; an unconfigured required target fails closed."""
+    targets = config.get('cloud_targets')
+    if targets is None:
+        command = [config['python'], config['cloud_script'], '--apply']
+        if config.get('cloud_root'):
+            command += ['--cloud-root', config['cloud_root']]
+        targets = [{'id': 'cloudflare', 'command': command}]
+    results = {}
+    required = set(config.get('required_cloud_targets', ['cloudflare']))
+    for target in targets:
+        name = target.get('id', '')
+        if not re.fullmatch(r'[a-z0-9_-]{1,40}', name) or name in results:
+            raise ValueError('Invalid or duplicate cloud target identifier')
+        command = target.get('command')
+        if not isinstance(command, list) or not command or not all(isinstance(a, str) and a for a in command):
+            results[name] = {'ok': False, 'reason': 'Deployment command not configured'}
+            continue
+        log = log_dir / (datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + name + '.log')
+        try:
+            with log.open('w', encoding='utf-8') as out:
+                code = subprocess.run(command, stdout=out, stderr=subprocess.STDOUT,
+                                      timeout=target.get('timeout', 9000)).returncode
+            results[name] = {'ok': code == 0, 'exit_code': code, 'log': str(log)}
+        except Exception as error:
+            results[name] = {'ok': False, 'error_type': type(error).__name__, 'log': str(log)}
+    for name in required - results.keys():
+        results[name] = {'ok': False, 'reason': 'Required cloud target not configured'}
+    return {'ok': bool(results) and all(r['ok'] for r in results.values()), 'targets': results}
+
+
 def main():
     config = json.loads((HOME / 'config.json').read_text('utf-8-sig'))
     (HOME / 'logs').mkdir(exist_ok=True)
@@ -85,11 +116,7 @@ def main():
             temp.replace(HOME / 'status.json')
         save()
         try:
-            log = HOME / 'logs' / (datetime.now().strftime('%Y%m%d-%H%M%S') + '.log')
-            with log.open('w', encoding='utf-8') as out:
-                code = subprocess.run([config['python'], config['cloud_script'], '--apply'],
-                                      stdout=out, stderr=subprocess.STDOUT, timeout=9000).returncode
-            result['cloud'] = {'ok': code == 0, 'exit_code': code, 'log': str(log)}
+            result['cloud'] = sync_targets(config, HOME / 'logs')
         except Exception as error:
             result['cloud'] = {'ok': False, 'error_type': type(error).__name__}
         save()
@@ -105,6 +132,10 @@ def main():
         result['finished_at'] = datetime.now(timezone.utc).isoformat()
         result['ok'] = result['cloud']['ok'] and all(r['ok'] for r in result['git'].values())
         save()
+        if result['ok']:
+            temp = HOME / 'last-success.tmp'
+            temp.write_text(json.dumps(result, indent=2), encoding='utf-8')
+            temp.replace(HOME / 'last-success.json')
         # Bound routine log retention without touching source or game artifacts.
         for old in sorted((HOME / 'logs').glob('*.log'))[:-60]:
             old.unlink()
