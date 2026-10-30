@@ -13,6 +13,41 @@ from controlplane.conversion_plan import build
 
 
 class DiscoveredWebTests(unittest.TestCase):
+    def test_unsupported_static_structure_uses_browser_without_hiding_resource_errors(self):
+        from discovered_web import capture_with_browser_fallback
+        from modular_web import UnsupportedContract
+        from unittest.mock import Mock
+        with tempfile.TemporaryDirectory() as temp:
+            run=Path(temp);browser=Mock(return_value='captured')
+            for reason in ('empty importmap','classic script','SDK CDN variant'):
+                static=Mock(side_effect=UnsupportedContract(reason))
+                self.assertEqual(capture_with_browser_fallback(static,browser,run,'https://example.org/game'),'captured')
+                self.assertEqual(json.loads((run/'capture-fallback.json').read_text('utf-8'))['reason'],reason)
+            self.assertEqual(browser.call_count,3)
+            with self.assertRaisesRegex(ValueError,'download failed'):
+                capture_with_browser_fallback(Mock(side_effect=ValueError('download failed')),browser,run,'https://example.org/game')
+            self.assertEqual(browser.call_count,3)
+
+    def test_final_proposal_is_not_applied_and_verified_prefix_is_resumable(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)/'source';(root/'evidence').mkdir(parents=True)
+            (root/'index.html').write_text('<canvas></canvas>')
+            (root/'evidence/acquisition.json').write_text('{"files":[],"engine":"browser"}')
+            run=Path(temp)/'run';run.mkdir();calls=[]
+            def chat(*args):
+                calls.append(1)
+                if len(calls)==1:return {'actions':[{'type':'key','key':'w'}]}
+                return {'complete':True,'actions':[{'type':'key','key':'f'}], 'changes':{'index.html':'UNEXECUTED'}}
+            def observe(actions,*args):return {'passed':True,'actions':list(actions)}
+            inp={'source_path':str(root),'base_version':{'id':'fixture','report':{}}}
+            with patch('discovered_web.ReviewBrowser.observe',side_effect=observe):
+                changes,_,report=revise(inp,run,SimpleNamespace(calls=2,remaining=lambda s:s),chat,None,None)
+            self.assertEqual(report['acceptance_actions'],[{'type':'key','key':'w'}])
+            self.assertEqual(report['blocker']['code'],'WEB_VERIFICATION_BUDGET')
+            self.assertEqual(report['verification_stage'],'pending')
+            self.assertNotIn('index.html',changes)
+            self.assertEqual((run/'converted/index.html').read_text(),'<canvas></canvas>')
+
     def test_non_cocos_assertion_rejected_before_input_and_model_can_correct(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp)/'source';(root/'evidence').mkdir(parents=True)
@@ -130,8 +165,11 @@ class DiscoveredWebTests(unittest.TestCase):
             budget = SimpleNamespace(calls=1, remaining=lambda seconds: seconds)
             inp = {'source_path': str(root), 'base_version': {'id': 'fixture-v1', 'report': {}}}
             with patch('discovered_web.ReviewBrowser.observe', side_effect=execute):
-                with self.assertRaisesRegex(Exception, '尚未执行验证'):
-                    revise(inp, run, budget, lambda *a: {'complete': True, 'actions': [{'type': 'click', 'x': 1, 'y': 1}]}, None, None)
+                _,_,report=revise(inp, run, budget, lambda *a: {'complete': True, 'actions': [{'type': 'click', 'x': 1, 'y': 1}]}, None, None)
+            self.assertEqual(report['acceptance_actions'],[])
+            self.assertEqual(report['verification_stage'],'pending')
+            self.assertEqual(report['foundation_checks']['gameplay']['status'],'pending')
+            self.assertEqual(report['blocker']['code'],'WEB_VERIFICATION_BUDGET')
 
     def test_only_unique_observed_entry_is_selected(self):
         a = {'url': 'https://example.org/a', 'canvas_count': 1, 'evidence': 'rendered-canvas', 'referer': 'https://example.org/host'}

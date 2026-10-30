@@ -1,13 +1,18 @@
 const {chromium}=require('../executors/node_modules/playwright');
 const assert=require('assert/strict');
 (async()=>{
- const browser=await chromium.launch({channel:'msedge',headless:true});
+ const browser=await chromium.launch(require('../executors/browser-options.cjs')());
  try{
   const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto(process.argv[2]+'/#library');
   await page.locator('.gamecard').first().waitFor();
   assert.equal(await page.locator('.gamecard').count(),8);
+  assert(await page.locator('.gamecard .gamemeta').first().isVisible());
+  assert.equal(await page.locator('[data-library-engine="Web 游戏"]').count(),0);
+  assert.equal(await page.locator('[data-library-engine="微信小游戏"]').count(),0);
+  assert(await page.locator('[data-library-engine="原生 Canvas"]').isVisible());
+  assert((await page.locator('.gamecard').first().innerText()).includes('离线可玩待验证'));
   assert((await page.locator('.gamecard').first().boundingBox()).width<=241);
   await page.locator('[data-library-category="益智"]').click();
   assert.equal(await page.locator('.gamecard').count(),4);
@@ -22,6 +27,10 @@ const assert=require('assert/strict');
   await page.setViewportSize({width:390,height:844});
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
   await page.screenshot({path:'qa-output/product-library-mobile.png',fullPage:true});
+  await page.locator('.gamecard [data-detail]').first().click();
+  await page.locator('.modal').getByText('原平台引擎',{exact:true}).waitFor();
+  assert(await page.locator('.modal').getByText('离线 Web 游戏',{exact:true}).isVisible());
+  await page.getByRole('button',{name:'关闭',exact:true}).click();
   await page.setViewportSize({width:1440,height:1000});
   await page.goto(process.argv[2]+'/#jobs');
   await page.locator('[data-job]').first().click();

@@ -16,7 +16,7 @@ def overview(state, usage, clock=None):
     candidates={c['id']:c for c in state.get('candidates',[]) if not c.get('observations',{}).get('catalog_hidden')}
     totals={r['candidate_id']:r for r in state.get('game_conversion_stats',[])}
     rows=[];models={};engines={};failures={}
-    first_accepts=[];published_dates=[]
+    first_accepts=[];submission_dates={};undated_submissions=set()
     for cid,c in candidates.items():
         jobs=sorted([j for j in state.get('jobs',[]) if j['candidate_id']==cid],key=lambda j:j.get('created_at',''),reverse=True)
         j=next((x for x in jobs if x.get('status')!='superseded'),jobs[0] if jobs else {})
@@ -27,7 +27,12 @@ def overview(state, usage, clock=None):
         supplies=sorted([s for s in state.get('supply',[]) if s.get('candidate_id')==cid],key=lambda s:s.get('created_at',''),reverse=True)
         supply=supplies[0] if supplies else {}
         for s in supplies:
-            if s.get('state')=='published' and stamp(s.get('published_at')):published_dates.append(stamp(s['published_at']))
+            if s.get('submitted') and s.get('submission_id'):
+                key=s['submission_id']
+                received=stamp(s.get('accepted_at')) or stamp(s.get('submitted_at'))
+                if received:
+                    submission_dates[key]=min(received,submission_dates.get(key,received))
+                else:undated_submissions.add(key)
         t=totals.get(cid,{})
         calls=[u for u in usage if u.get('candidate_id')==cid]
         costs={};unknown_cost=0;retry_tokens=0;retry_unknown=0
@@ -56,15 +61,24 @@ def overview(state, usage, clock=None):
                  supply_status=supply.get('state') or supply.get('status') or 'not_submitted',
                  supply_reason=supply.get('notice') or supply.get('error_code') or '',
                  supply_error=supply.get('error_code'),supply_age_seconds=age(supply.get('created_at')))
+        row.update(supply_submitted=bool(supply.get('submitted')),
+                   supply_submission_id=supply.get('submission_id'),
+                   supply_state_text=supply.get('state_text') or '',
+                   supply_updated_at=supply.get('updated_at'),
+                   supply_sync_status=supply.get('status'))
+        # Conversion closes at handoff to review, independently of telemetry gaps.
+        row['conversion_closed']=row['status'] in ('review','completed','approved','published')
         row['candidate_id']=cid;rows.append(row)
         group=engines.setdefault(engine,dict(name=engine,games=0,accepted=0,calls=0,tokens=0,known_fields=0,unknown=0))
         group['games']+=1;group['accepted']+=bool(accepted);group['calls']+=t.get('calls',0)
         group['tokens']+=t.get('input_tokens',0)+t.get('output_tokens',0);group['unknown']+=t.get('unknown_usage_calls',0)
         group['known_fields']+=t.get('known_token_fields',0)
-    seen=set()
+    seen=set();complete_tokens=0;complete_calls=0
     for u in usage:
         if u.get('candidate_id') not in candidates or u.get('id') in seen:continue
         seen.add(u.get('id'))
+        if all(u.get(k) is not None for k in ('input_tokens','output_tokens')):
+            complete_tokens+=u['input_tokens']+u['output_tokens'];complete_calls+=1
         key=(u.get('provider') or '未记录')+' / '+(u.get('model') or '未记录')
         g=models.setdefault(key,dict(name=key,calls=0,tokens=0,known_fields=0,unknown=0,costs={}))
         g['calls']+=1;g['tokens']+=(u.get('input_tokens') or 0)+(u.get('output_tokens') or 0)
@@ -73,15 +87,17 @@ def overview(state, usage, clock=None):
         if u.get('estimated_cost') is not None:g['costs'][u['currency']]=g['costs'].get(u['currency'],0)+u['estimated_cost']
     calls=sum(r.get('calls',0) for r in rows);unknown=sum(r.get('unknown_usage_calls',0) for r in rows)
     measured=[r for r in rows if r.get('duration_seconds') is not None]
-    complete=[r for r in measured if not r.get('unpaired_events')]
+    complete=[r for r in measured if r['conversion_closed']]
     local=clock.astimezone(timezone(timedelta(hours=8)))
     week=local.replace(hour=0,minute=0,second=0,microsecond=0)-timedelta(days=local.weekday())
     last=week-timedelta(days=7)
     return dict(updated_at=clock.isoformat(),games=rows,models=list(models.values()),engines=list(engines.values()),
                 failure_reasons=[dict(code=k,count=v) for k,v in failures.items()],
                 weekly_accepted=sum(week<=d<=clock for d in first_accepts),previous_week_accepted=sum(last<=d<week for d in first_accepts),
-                weekly_published=sum(week<=d<=clock for d in published_dates) if published_dates else None,
+                weekly_submitted=sum(week<=d<=clock for d in submission_dates.values()),
+                undated_submissions=len(undated_submissions-submission_dates.keys()),
                 token_coverage=(calls-unknown)/calls if calls else None,calls=calls,unknown_calls=unknown,
+                average_tokens=complete_tokens/complete_calls if complete_calls else None,average_token_calls=complete_calls,
                 timing_complete=len(complete),timing_measured=len(measured),games_count=len(rows),
                 median_seconds=median([r['duration_seconds'] for r in complete]) if complete else None,
                 first_pass_rate=None,first_pass_note='历史验收尝试未完整记录，暂不计算首次通过率；已入库数量不是首次通过数量。')

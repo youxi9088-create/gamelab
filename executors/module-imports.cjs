@@ -11,6 +11,12 @@ const {pathToFileURL} = require('node:url');
  const ast=parse(source,{sourceType:'module'}),refs=[];
  const visit=node=>{
   if(!node || typeof node!=='object')return;
+  if(node.type==='CallExpression' && node.callee?.type==='Import'){
+   const value=node.arguments?.[0];
+   if(value?.type!=='StringLiteral')throw new Error('Dynamic module path cannot be resolved statically');
+   refs.push({start:value.start,end:value.end,value:value.value});
+  }
+  if(node.type==='ImportExpression' && node.source?.type!=='StringLiteral')throw new Error('Dynamic module path cannot be resolved statically');
   if(['ImportDeclaration','ExportNamedDeclaration','ExportAllDeclaration','ImportExpression'].includes(node.type)){
    const value=node.source;
    if(value?.type==='StringLiteral')refs.push({start:value.start,end:value.end,value:value.value});

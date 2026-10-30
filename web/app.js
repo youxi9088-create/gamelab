@@ -1,4 +1,6 @@
+import {reviewControls,reviewHandoff} from './review-guide.js';
 import {patchHTML} from './dom-sync.js';
+import {specificationMarkdown} from './game-specification.js';
 import {presentPolicyPauses as applyPolicyPauses} from './policy-pause.js';
 import {presentWorkflow} from './workflow-display.js';
 const presentPolicyPauses=state=>applyPolicyPauses(presentWorkflow(state));
@@ -325,18 +327,18 @@ function card(c, lib = false) {
   const v = catalogVersion(c.id);
   const art = illustrationFor(c);
   const shot = art || (lib ? cover(v) : (c.cover ? cover(c) : v?.cover || cover(c)));
-  return `<article class="gamecard"><div class="cover" data-detail="${esc(c.id)}"><img src="${esc(shot)}" alt="${esc(c.title)}${art ? " · 封面插画" : demo ? " · 演示插画" : " · 游戏预览"}" loading="lazy"><div class="cover-badge">${badge(lib ? v.status : c.status || "discovered")}</div>${demo ? '<span class="demo-img">DEMO · CONCEPT ART</span>' : `<span class="preview-label">${art ? '封面插画' : v?.cover || c.cover ? '实机画面' : '待补充截图'}</span>`}</div><div class="gamebody"><div class="game-category">${esc(c.category || "未分类")}</div><h3>${esc(c.title)}</h3><p class="game-description">${esc(gameSummary(c))}</p><div class="gamemeta">${esc(c.engine || "待识别")}<span>·</span>${esc(c.source || "手动提交")}</div><div class="gamefoot"><span>${lib ? "版本 " + esc(v?.commit?.slice(0, 7) || "待关联") : date(c.created_at)}</span><div class="actions">${lib ? `<button class="smallbtn primary" data-play="${esc(v?.id || "")}">▷ 试玩</button>` : `<button class="smallbtn ${selected.has(c.id) ? "primary" : ""}" data-select="${esc(c.id)}">${selected.has(c.id) ? "✓ 已选择" : "+ 选择"}</button>`}<button class="textbtn" data-detail="${esc(c.id)}">详情 ↗</button></div></div></div></article>`;
+  return `<article class="gamecard"><div class="cover" data-detail="${esc(c.id)}"><img src="${esc(shot)}" alt="${esc(c.title)}${art ? " · 封面插画" : demo ? " · 演示插画" : " · 游戏预览"}" loading="lazy"><div class="cover-badge">${badge(lib ? v.status : c.status || "discovered")}</div>${demo ? '<span class="demo-img">DEMO · CONCEPT ART</span>' : `<span class="preview-label">${art ? '封面插画' : v?.cover || c.cover ? '实机画面' : '待补充截图'}</span>`}</div><div class="gamebody"><div class="game-category">${esc(c.category || "未分类")}</div><h3>${esc(c.title)}</h3><p class="game-description">${esc(gameSummary(c))}</p><div class="gamemeta">原引擎：${esc(c.source_engine?.name || c.engine || "待识别")}<span>·</span>${esc(c.source || "手动提交")}</div><p class="tiny muted" title="${esc((lib ? v?.web_delivery : c.web_delivery)?.scope || "")}">交付：离线 Web · ${esc((lib ? v?.web_delivery : c.web_delivery)?.label || "待验证")}</p><div class="gamefoot"><span>${lib ? "版本 " + esc(v?.commit?.slice(0, 7) || "待关联") : date(c.created_at)}</span><div class="actions">${lib ? `<button class="smallbtn primary" data-play="${esc(v?.id || "")}">▷ 试玩</button>` : `<button class="smallbtn ${selected.has(c.id) ? "primary" : ""}" data-select="${esc(c.id)}">${selected.has(c.id) ? "✓ 已选择" : "+ 选择"}</button>`}<button class="textbtn" data-detail="${esc(c.id)}">详情 ↗</button></div></div></div></article>`;
 }
 function currentJobs() {
   const seen=new Set();
   return (state.jobs||[]).filter(j=>{if(seen.has(j.candidate_id))return false;seen.add(j.candidate_id);return j.status!=="superseded";});
 }
+const stageLabel = name => ({identify:'识别',acquire:'采集',analysis:'分析',adapt:'适配',test:'验证',repair:'诊断修复',delivery:'交付',rea:'资源分析',reconstruct:'转换',review:'验收'}[name] || name || '未记录');
 function usagePanel() {
-  const periods={day:'日',week:'周',month:'月'};
-  return `<section class="panel"><div class="panelhead"><h2>调用用量与费用</h2><button class="smallbtn" data-action="ai-pricing">配置模型单价</button></div><p class="tiny muted">北京时间分组，费用为按调用时价格估算；币种分开统计。缓存读取和写入属于总输入的一部分；缺用量、缓存明细或价格时费用显示未知。标准档估算不等于服务商账单。</p>${Object.entries(periods).map(([key,label])=>`<details><summary>按${label}统计</summary><div class="table-wrap" style="overflow:auto"><table class="table" style="min-width:720px"><thead><tr><th>周期</th><th>游戏 / 阶段</th><th>调用</th><th>已知 Token（输入 / 输出）</th><th>耗时</th><th>估算费用</th></tr></thead><tbody>${(state.usage?.[key]||[]).slice(0,100).map(r=>`<tr><td>${esc(r.period)}</td><td>${esc(cBy(r.candidate_id).title||r.candidate_id)} / ${esc(r.stage)}</td><td>${r.calls}</td><td>${r.input_tokens} / ${r.output_tokens}${r.unknown_usage_calls?`；${r.unknown_usage_calls} 次未知`:''}<small>${r.cache_known_calls?`其中缓存读取 ${r.cached_input_tokens} / 写入 ${r.cache_write_tokens}`:'缓存明细不完整或未记录'}${r.cache_unknown_calls?`；${r.cache_unknown_calls} 次明细缺失`:''}</small></td><td>${Number(r.duration_seconds).toFixed(1)} 秒</td><td>${Object.entries(r.costs).map(([c,n])=>esc(c)+' '+Number(n).toFixed(6)).join('；')||'—'}${r.unknown_cost_calls?`；${r.unknown_cost_calls} 次费用未知`:''}</td></tr>`).join('')||'<tr><td colspan="6">尚无已记录调用；历史用量不推算补录。</td></tr>'}</tbody></table></div></details>`).join('')}<p>下游已返回模板：${state.downstream_summary?.templates??'—'}，已发布：${state.downstream_summary?.published??'—'}。${esc(state.downstream_summary?.scope||'')}</p></section>`;
+  return `<section class="panel"><div class="panelhead"><h2>AI用量与费用明细</h2><button data-action="ai-pricing">配置模型单价</button></div><p class="tiny muted">每行汇总一个游戏在一个AI阶段的请求；按北京时间分组。币种分开统计。</p>${Object.entries({day:'日',week:'周',month:'月'}).map(([key,label])=>`<details><summary>按${label}统计</summary><div class="table-wrap"><table class="table"><thead><tr><th>周期</th><th>游戏</th><th>AI阶段</th><th>AI请求次数</th><th>输入Token</th><th>输出Token</th><th>请求耗时</th><th>估算费用</th></tr></thead><tbody>${(state.usage?.[key]||[]).slice(0,100).map(r=>`<tr><td>${esc(r.period)}</td><td>${esc(cBy(r.candidate_id).title||r.candidate_id)}</td><td>${esc(stageLabel(r.stage))}</td><td>${r.calls}</td><td>${Number(r.input_tokens).toLocaleString()}</td><td>${Number(r.output_tokens).toLocaleString()}</td><td>${Number(r.duration_seconds).toFixed(1)} 秒</td><td>${Object.entries(r.costs).map(([c,n])=>esc(c)+' '+Number(n).toFixed(4)).join('；')||'—'}</td></tr>`).join('')||'<tr><td colspan="8">暂无记录</td></tr>'}</tbody></table></div></details>`).join('')}</section>`;
 }
 function operationPanel() {
-  return `<section class="panel"><h2>节点执行统计</h2><p class="tiny muted">按有成对起止事件的执行记录统计，包含重试；各节点可嵌套，耗时不可相加作为总墙钟时间。</p>${Object.entries({day:'日',week:'周',month:'月'}).map(([key,label])=>`<details><summary>按${label}统计</summary><div class="table-wrap"><table class="table"><thead><tr><th>周期</th><th>游戏 / 节点</th><th>执行 / 失败</th><th>累计耗时</th></tr></thead><tbody>${(state.operation_stats?.[key]||[]).slice(0,100).map(r=>`<tr><td>${esc(r.period)}</td><td>${esc(cBy(r.candidate_id).title||r.candidate_id)} / ${esc(r.stage)}</td><td>${r.executions} / ${r.failed}</td><td>${Number(r.duration_seconds).toFixed(1)} 秒</td></tr>`).join('')||'<tr><td colspan="4">尚无可统计记录；历史耗时不推算。</td></tr>'}</tbody></table></div></details>`).join('')}</section>`;
+  return `<section class="panel"><h2>执行阶段明细</h2><p class="tiny muted">执行次数包含重试；这里统计流程阶段，与AI请求次数不同。阶段可重叠，耗时不能直接相加当作总工时。</p>${Object.entries({day:'日',week:'周',month:'月'}).map(([key,label])=>`<details><summary>按${label}统计</summary><div class="table-wrap"><table class="table"><thead><tr><th>周期</th><th>游戏</th><th>执行阶段</th><th>执行次数</th><th>失败次数</th><th>累计耗时</th></tr></thead><tbody>${(state.operation_stats?.[key]||[]).slice(0,100).map(r=>`<tr><td>${esc(r.period)}</td><td>${esc(cBy(r.candidate_id).title||r.candidate_id)}</td><td>${esc(stageLabel(r.stage))}</td><td>${r.executions}</td><td>${r.failed}</td><td>${Number(r.duration_seconds).toFixed(1)} 秒</td></tr>`).join('')||'<tr><td colspan="6">暂无记录</td></tr>'}</tbody></table></div></details>`).join('')}</section>`;
 }
 function pricingDialog() {
   const fields=[['input','未命中缓存的输入','input_per_million'],['cached','缓存读取','cached_input_per_million'],['write','缓存写入','cache_write_per_million'],['output','输出','output_per_million']];
@@ -388,9 +390,9 @@ function libraryFilters(games) {
   games.forEach(c=>gameCategories(c).forEach(category=>counts.set(category,(counts.get(category)||0)+1)));
   const categories=[...counts].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'zh-CN'));
   const categoryGames=games.filter(c=>!filter||gameCategories(c).includes(filter));
-  const engines=['微信小游戏','Web 游戏','Cocos','待识别'];
+  const engines=[...new Set(games.flatMap(gameEngines))].sort((a,b)=>a==='待识别'?1:b==='待识别'?-1:a.localeCompare(b,'zh-CN'));
   return `<section class="facet-section"><span class="facet-label">品类</span><div class="library-categories" role="group" aria-label="按游戏品类筛选"><button data-library-category="" aria-pressed="${!filter}" class="${!filter?'active':''}">全部游戏 <span>${games.length}</span></button>${categories.map(([name,count])=>`<button data-library-category="${esc(name)}" aria-pressed="${filter===name}" class="${filter===name?'active':''}">${esc(name)} <span>${count}</span></button>`).join('')}</div></section>
-  <section class="facet-section"><span class="facet-label">引擎</span><div class="library-engines" role="group" aria-label="按引擎筛选"><button data-library-engine="" aria-pressed="${!libraryEngine}">全部引擎 <span>${categoryGames.length}</span></button>${engines.map(name=>{const count=categoryGames.filter(c=>gameEngines(c).includes(name)).length;return `<button data-library-engine="${esc(name)}" aria-pressed="${libraryEngine===name}" ${!count?'disabled':''}>${esc(name)} <span>${count}</span></button>`;}).join('')}</div><p class="tiny muted">引擎按实际构建识别并只归入一个分类，Cocos 各版本统一归到 Cocos；数量按当前品类统计，未知引擎不推测。</p></section>
+  <section class="facet-section"><span class="facet-label">原引擎</span><div class="library-engines" role="group" aria-label="按原平台引擎筛选"><button data-library-engine="" aria-pressed="${!libraryEngine}">全部原引擎 <span>${categoryGames.length}</span></button>${engines.map(name=>{const count=categoryGames.filter(c=>gameEngines(c).includes(name)).length;return `<button data-library-engine="${esc(name)}" aria-pressed="${libraryEngine===name}" ${!count?'disabled':''}>${esc(name)} <span>${count}</span></button>`;}).join('')}</div><p class="tiny muted">按原平台构建技术分类，Cocos 各版本归为一组；Web 与微信是运行平台，不作为引擎。转换交付目标统一为离线 Web 游戏，是否已离线可玩以版本实测为准。</p></section>
   <div class="filters"><input id="filter-query" aria-label="搜索小游戏库" placeholder="搜索游戏名称、来源…" value="${esc(query)}"><span class="tiny muted">当前显示 ${filtered(games).length} 款${filter?' · '+esc(filter):''}${libraryEngine?' · '+esc(libraryEngine):''}</span>${query||filter||libraryEngine?'<button class="textbtn" data-library-reset>清除筛选</button>':''}</div>`;
 }
 function filters() {
@@ -595,7 +597,7 @@ function supplyMetadata(id) {
 }
 function reviews() {
   const pending=(state.versions||[]).filter(v=>v.status==='review');
-  const cards=pending.map(v=>{const c=cBy(v.candidate_id);return `<article class="gamecard"><div class="cover" data-review="${esc(v.id)}">${reviewImage(v,'产出版本实机截图')}<div class="cover-badge">${badge(v.status)}</div></div><div class="gamebody"><h3>${esc(c.title)}</h3><p class="tiny muted">版本 ${esc(v.commit?.slice(0,7)||v.id)} · 提交于 ${date(v.created_at)}</p><div class="gamefoot"><span>等待确认玩法与画面</span><button class="smallbtn primary" data-review="${esc(v.id)}">开始验收</button></div></div></article>`;}).join('');
+  const cards=pending.map(v=>{const c=cBy(v.candidate_id);return `<article class="gamecard"><div class="cover" data-review="${esc(v.id)}">${reviewImage(v,'产出版本实机截图')}<div class="cover-badge">${badge(v.status)}</div></div><div class="gamebody"><h3>${esc(c.title)}</h3><p class="tiny muted">版本 ${esc(v.commit?.slice(0,7)||v.id)} · 提交于 ${date(v.created_at)}</p><div class="gamefoot"><span>${esc(v.review_label||"等待确认玩法与画面")}</span><button class="smallbtn primary" data-review="${esc(v.id)}">开始验收</button></div></div></article>`;}).join('');
   return head('验收中心','仅展示待验收版本；通过验收的游戏可在小游戏库查看。')+
     `<section id="pending-reviews"><div class="panelhead"><h2>待验收 <small>${pending.length} 个版本</small></h2></div><div class="cards review-cards">${cards||empty('当前没有待验收版本','完成验证的版本会出现在这里。')}</div></section>`+supplyPanel();
 }
@@ -754,12 +756,14 @@ function detail(id) {
   const c = cBy(id),
     vs = (state.versions || []).filter((v) => v.candidate_id === id);
   const latest = catalogVersion(id);
+  const accepted = vs.some(v=>['approved','published'].includes(v.status));
+  const specificationVersion = latest;
   const previewVersion = latest && screenshotItems(latest).length ? latest : null;
   const previewRecord = previewVersion || c;
   const previewImages = screenshotItems(previewRecord);
   modal(
     c.title,
-    `<div class="tabs"><button class="tab active" data-dtab="preview">游戏预览</button><button class="tab" data-dtab="source">来源信息</button><button class="tab" data-dtab="code">代码与版本</button><button class="tab" data-dtab="tasks">处理记录</button></div><div id="detail-body"></div>`,
+    `<div class="tabs"><button class="tab active" data-dtab="preview">游戏预览</button><button class="tab" data-dtab="source">来源信息</button>${specificationVersion ? '<button class="tab" data-dtab="specification">游戏规格说明书</button>' : ''}<button class="tab" data-dtab="code">代码与版本</button><button class="tab" data-dtab="tasks">处理记录</button></div><div id="detail-body"></div>`,
     true,
   );
   const panes = {
@@ -770,7 +774,7 @@ function detail(id) {
       )
       .join(
         "",
-      )}</div><p class="tiny muted">${demo ? "演示插画 · 非实际采集截图" : previewVersion ? "当前版本实机截图" : previewImages.length ? "来源预览图片" : "尚无来源或版本截图"}</p></div><div><h3>玩法简介</h3><p class="muted" style="margin:14px 0">${esc(c.description || "等待分析工具提交玩法说明。")}</p><div class="kv"><span>游戏类型</span><span>${esc(c.category || "待分类")}</span></div><div class="kv"><span>引擎</span><span>${esc(c.engine || "待识别")}</span></div><div class="kv"><span>状态</span>${badge(c.status)}</div><div class="modalfooter">${latest ? `<button class="smallbtn primary" data-play="${esc(latest.id)}">试玩当前版本</button>` : ''}<button class="smallbtn" data-rename="${esc(c.id)}">重命名</button><button class="smallbtn" data-edit="${esc(c.id)}">编辑资料</button><a href="${esc(safeUrl(c.url))}" target="_blank" rel="noopener noreferrer">打开来源试玩 ↗</a></div></div></div>`,
+      )}</div><p class="tiny muted">${demo ? "演示插画 · 非实际采集截图" : previewVersion ? "当前版本实机截图" : previewImages.length ? "来源预览图片" : "尚无来源或版本截图"}</p></div><div><h3>玩法简介</h3><p class="muted" style="margin:14px 0">${esc(c.description || "等待分析工具提交玩法说明。")}</p><div class="kv"><span>游戏类型</span><span>${esc(c.category || "待分类")}</span></div><div class="kv"><span>来源平台</span><span>${esc(c.source_platform?.name || c.source || "手动提交")} · ${esc(c.source_platform?.kind || "待识别")}</span></div><div class="kv"><span>原平台引擎</span><span>${esc(c.source_engine?.name || c.engine || "待识别")}</span></div><div class="kv"><span>识别依据</span><span>${esc(c.source_engine?.evidence || "尚无记录")}</span></div><div class="kv"><span>交付目标</span><span>离线 Web 游戏</span></div><div class="kv"><span>当前版本</span><span>${esc((previewVersion?.web_delivery || c.web_delivery)?.label || "待验证")}</span></div><p class="tiny muted">${esc((previewVersion?.web_delivery || c.web_delivery)?.scope || "")}</p><div class="kv"><span>状态</span>${badge(c.status)}</div><div class="modalfooter">${latest ? `<button class="smallbtn primary" data-play="${esc(latest.id)}">试玩当前版本</button>` : ''}<button class="smallbtn" data-rename="${esc(c.id)}">重命名</button><button class="smallbtn" data-edit="${esc(c.id)}">编辑资料</button>${accepted ? '' : `<a href="${esc(safeUrl(c.url))}" target="_blank" rel="noopener noreferrer">打开来源试玩 ↗</a>`}</div></div></div>`,
     source: `<div class="kv"><span>来源平台</span><span>${esc(c.source)}</span></div><div class="kv"><span>原始地址</span><a href="${esc(safeUrl(c.url))}" target="_blank" rel="noopener noreferrer">查看来源 ↗</a></div><div class="kv"><span>首次汇总</span><span>${date(c.created_at)}</span></div><div class="kv"><span>使用条件</span><span>${esc(({unknown:"待核实",owned:"自有实现",licensed:"已授权",open:"开源"})[c.rights] || c.rights || "待确认")}</span></div>${provenancePanel(c)}`,
     code: `<div class="code">games/${esc(c.id)}/</div>${
       vs
@@ -790,10 +794,12 @@ function detail(id) {
         .join("") ||
       empty("暂无代码版本", "执行工具提交产物并完成版本登记后可查看。")
     }`,
+    specification: `<article id="detail-specification-content">正在加载说明书…</article>`,
     tasks: jobTable((state.jobs || []).filter((j) => j.candidate_id === id)),
   };
   function set(t) {
     $("#detail-body").innerHTML = panes[t];
+    if(t==='specification' && specificationVersion)loadSpecification(specificationVersion,c,$('#detail-specification-content'));
     document
       .querySelectorAll("[data-dtab]")
       .forEach((b) => b.classList.toggle("active", b.dataset.dtab === t));
@@ -920,10 +926,19 @@ function play(id) {
   );
 }
 const specificationViews = new Map();
+async function loadSpecification(version,candidate,content) {
+  try {
+    const response=await fetch(`/api/versions/${encodeURIComponent(version.id)}/specification.md`,{credentials:'same-origin',cache:'no-store'});
+    if(!response.ok)throw new Error('说明书加载失败，请重新打开详情');
+    const markdown=specificationMarkdown(candidate.title,version,await response.text());
+    if(content.isConnected)content.innerHTML=specificationHtml(markdown);
+  }catch(error){if(content.isConnected)content.textContent=error.message;}
+}
 function specificationHtml(markdown) {
-  // Only headings and paragraphs are emitted by the shared document generator.
-  // Treat Markdown body/HTML as text, never execute embedded markup or links.
+  // Only version-bound local evidence images are rendered; other markup stays text.
   return String(markdown).split(/\n\s*\n/).map(block => {
+    const picture=block.match(/^!\[([^\]\n]*)\]\((\/api\/versions\/[A-Za-z0-9_-]+\/specification-images\/screenshots\/[A-Za-z0-9_-]+\.(?:png|jpg|webp))\)$/);
+    if(picture)return `<figure style="margin:20px 0"><img src="${esc(picture[2])}" alt="${esc(picture[1])}" loading="lazy" style="display:block;max-width:100%;height:auto;border-radius:10px"></figure>`;
     const heading=block.match(/^(#{1,2}) (.*)$/);
     return heading ? `<h${heading[1].length+2}>${esc(heading[2])}</h${heading[1].length+2}>`
       : `<p style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(block)}</p>`;
@@ -934,20 +949,23 @@ function review(id) {
     c = cBy(v.candidate_id);
   modal(
     c.title + (["approved","published"].includes(v.status) ? " · 验收结果" : " · 版本验收"),
-    `<div class="preview-pair" style="grid-template-columns:minmax(0,1fr)"><div><h3>产出版本 ${badge(v.status)}</h3>${reviewImage(v,"产出版本实机截图",true)}<p class="tiny muted">${demo ? "演示插画，非复刻成果" : screenshotItems(v).length ? "该版本运行截图" : "该版本尚未提供运行截图"}</p><button class="smallbtn" data-play="${esc(v.id)}">▷ 打开产出试玩</button></div></div><details id="game-specification" class="panel" style="margin-top:20px" ${specificationViews.get(id)?.open ? "open" : ""}><summary><strong>游戏规格说明书</strong> <span class="tiny muted">Markdown · 点击阅读</span></summary><article id="game-specification-content" style="margin-top:16px">${specificationViews.get(id)?.html || '<p class="muted">展开后加载说明书。</p>'}</article></details>${provenancePanel(c)}<form id="review-form"><label class="checkrow"><input type="checkbox" name="gameplay" required>核心玩法、计分或胜负、重开符合规格</label><label class="checkrow"><input type="checkbox" name="visual" required>画面可用且无阻断运行错误</label><p class="tiny muted">此处确认玩法与画面，完成学习项目的功能验收入库。资源使用信息另行记录，发布前核对。</p><label>验收意见 / 退回原因</label><textarea name="reason" placeholder="记录需要修复的问题…"></textarea><div class="modalfooter"><button type="button" id="reject-version">退回修复</button><button type="submit" class="primary">${v.status === "approved" ? "发布到小游戏库" : "通过验收"}</button></div></form>`,
+    `<div class="preview-pair" style="grid-template-columns:minmax(0,1fr)"><div><h3>产出版本 ${badge(v.status)}</h3>${reviewImage(v,"产出版本实机截图",true)}<p class="tiny muted">${demo ? "演示插画，非复刻成果" : screenshotItems(v).length ? "该版本运行截图" : "该版本尚未提供运行截图"}</p><button class="smallbtn" data-play="${esc(v.id)}">▷ 打开产出试玩</button></div></div>${reviewControls(v,{esc})}<details id="game-specification" class="panel" style="margin-top:20px" ${specificationViews.get(id)?.open ? "open" : ""}><summary><strong>游戏规格说明书</strong> <span class="tiny muted">Markdown · 点击阅读</span></summary><article id="game-specification-content" style="margin-top:16px">${specificationViews.get(id)?.html || '<p class="muted">展开后加载说明书。</p>'}</article></details>${provenancePanel(c)}<form id="review-form">${reviewHandoff(v,{esc})}<label class="checkrow"><input type="checkbox" name="gameplay" required>本次交付范围内的玩法和关键交互符合规格</label><label class="checkrow"><input type="checkbox" name="visual" required>画面可用且无阻断运行错误</label><p class="tiny muted">此处确认玩法与画面，完成学习项目的功能验收入库。资源使用信息另行记录，发布前核对。</p><label>验收意见 / 退回原因</label><textarea name="reason" placeholder="填写人工核对结果，或需要修复的问题…" ${v.report?.review_mode==='ai_operation_limit'?'required':''}></textarea><div class="modalfooter"><button type="button" id="reject-version">退回修复</button><button type="submit" class="primary">${v.status === "approved" ? "发布到小游戏库" : "通过验收"}</button></div></form>`,
     true,
   );
   const specification = $('#game-specification');
+  const signature=JSON.stringify(v.game_profile || v.report?.game_profile || {});
+  const cached=specificationViews.get(id);
+  if(cached && cached.signature!==signature){delete cached.html;cached.signature=signature;}
   specification.ontoggle = async () => {
     const view=specificationViews.get(id)||{};
-    view.open=specification.open;specificationViews.set(id,view);
+    view.signature=signature;view.open=specification.open;specificationViews.set(id,view);
     if(!view.open||view.html||view.loading)return;
     view.loading=true;
     const content=specification.querySelector('article');content.textContent='正在加载说明书…';
     try {
       const response=await fetch(`/api/versions/${encodeURIComponent(id)}/specification.md`,{credentials:'same-origin'});
       if(!response.ok)throw new Error(response.status===401?'请重新登录后查看说明书':'说明书加载失败，请收起后重试');
-      view.html=specificationHtml(await response.text());
+      view.html=specificationHtml(specificationMarkdown(c.title,v,await response.text()));
       if(content.isConnected)content.innerHTML=view.html;
     } catch(error) { if(content.isConnected)content.textContent=error.message; }
     finally { view.loading=false; }
@@ -977,7 +995,7 @@ function review(id) {
       `/api/versions/${id}/${op}`,
       {
         reason: f.get("reason"),
-        checks: { gameplay: f.get("gameplay") === "on", visual: f.get("visual") === "on" },
+        checks: { gameplay: f.get("gameplay") === "on", visual: f.get("visual") === "on", manual_review: f.get("manual_review") === "on" },
       },
       () => (v.status = op === "publish" ? "published" : "approved"),
     );

@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "revision": "2026-10-30.1",
+  "rules": [
+    {"id":"loader.ruffle","version":1,"group":"loader","priority":100,"requires":["ruffle","swf"],"adapter":"ruffle","provides":["flash-player"]},
+    {"id":"loader.cocos2","version":1,"group":"loader","priority":100,"requires":["ccsettings","cocos2"],"adapter":"cocos2","provides":["cocos2-runtime"]},
+    {"id":"loader.defold","version":1,"group":"loader","priority":100,"requires":["defold-loader","defold-call"],"adapter":"defold","provides":["defold-runtime"]},
+    {"id":"loader.browser","version":1,"group":"loader","priority":0,"requires":["script"],"excludes":["ruffle","ccsettings","defold-loader"],"adapter":"browser","provides":["browser-observed-capture"]},
+    {"id":"host.remix","version":1,"group":"host","priority":10,"requires":["remix-sdk"],"adapter":"remix-local","provides":["local-anonymous-host","local-storage"]}
+  ],
+  "features": {
+    "script":"<script\\b",
+    "ruffle":"RufflePlayer",
+    "swf":"\\.swf[\"']",
+    "ccsettings":"_CCSettings",
+    "cocos2":"cocos2d-js",
+    "defold-loader":"dmloader\\.js",
+    "defold-call":"EngineLoader\\.load\\(",
+    "remix-sdk":"<script\\b[^>]*src=[\"']https://(?:cdn\\.jsdelivr\\.net/npm|remix\\.gg/cdn)/@remix-gg/sdk@[^/\"']+/dist/index\\.min\\.js[\"']",
+    "module":"<script\\b[^>]*type=[\"']module[\"']",
+    "importmap":"<script\\b[^>]*type=[\"']importmap[\"']",
+    "unity":"createUnityInstance|UnityLoader"
+  }
+}

@@ -112,9 +112,19 @@ class Page(HTMLParser):
             genre=next((label for pattern,label in rules if re.search(pattern,description,re.I)),'')
             if genre:basis='按来源说明关键词推断，需人工确认'
         from .game_technology import classify
-        return dict(technology=classify(self.html, game), title=str(game.get('name') or self.meta.get('og:title') or self.title).strip()[:120],
+        return dict(dimension=dimension_evidence(game, description), technology=classify(self.html, game), title=str(game.get('name') or self.meta.get('og:title') or self.title).strip()[:120],
                     category=genre[:80] or '未识别',
                     category_basis=basis,gameplay=description)
+
+
+def dimension_evidence(game, description):
+    """Only game-specific metadata, never global navigation or engine guesses."""
+    text = ' '.join(str(game.get(k, '')) for k in ('name', 'genre', 'keywords', 'gamePlatform')) + ' ' + description
+    if re.search(r'(?i)(?<![a-z0-9])3[ -]?d(?![a-z0-9])|三维|立体游戏', text):
+        return '3d'
+    if re.search(r'(?i)(?<![a-z0-9])2[ -]?d(?![a-z0-9])|二维|2维', text):
+        return '2d'
+    return 'unknown'
 
 
 def scan(source, fetcher=fetch):
@@ -148,6 +158,8 @@ def scan(source, fetcher=fetch):
                for token in rule['game_paths']): return True
         return False
     found=[];excluded=set(source.get('excluded_urls',[]));suppressed=0
+    if rule.get('full_site'):
+        return scan_sitemaps(source,get,allowed,game_link,excluded)
     for entry in entries[:rule['max_pages']]:
         if not allowed(entry): raise ValueError('扫描入口必须属于当前来源站点')
         try:
@@ -178,3 +190,58 @@ def scan(source, fetcher=fetch):
                 errors=errors,links_found=len(found)+suppressed,suppressed=suppressed,
                 coverage=f"扫描 {min(len(entries),rule['max_pages'])} 个入口，最多读取 {rule['max_games']} 个详情；未覆盖全站分页、登录内容或 JS 专有接口",
                 status='partial' if (results or suppressed) and errors else 'success' if results or suppressed else 'needs_adapter')
+
+
+def scan_sitemaps(source,get,allowed,game_link,excluded):
+    """Enumerate public sitemap details, with bounded concurrency and progress."""
+    import xml.etree.ElementTree as ET
+    import time
+    from concurrent.futures import ThreadPoolExecutor
+    from .service import canonical_url
+    origin=urlsplit(source['url'])
+    pending=[f'{origin.scheme}://{origin.netloc}/sitemap.xml']
+    visited=set();details=set();errors=[];results=[]
+    report=source.get('progress',lambda value:None)
+    stopped=source.get('stop_requested',lambda:False)
+    while pending and not stopped():
+        url=pending.pop(0)
+        if url in visited:continue
+        visited.add(url)
+        try:
+            if not allowed(url):raise ValueError('站点地图超出来源范围')
+            root=ET.fromstring(get(url))
+            kind=root.tag.split('}')[-1]
+            if kind not in ('sitemapindex','urlset'):raise ValueError('无效站点地图')
+            for node in root.iter():
+                if node.tag.split('}')[-1]!='loc' or not node.text:continue
+                link=node.text.strip()
+                if not allowed(link):continue
+                if kind=='sitemapindex':
+                    if link not in visited and link not in pending:pending.append(link)
+                elif game_link(link):details.add(canonical_url(link))
+        except Exception as exc:errors.append({'url':url,'error':str(exc)[:300]})
+        report(dict(phase='sitemaps',sitemaps_read=len(visited),sitemaps_pending=len(pending),details_found=len(details),errors=len(errors)))
+    suppressed=len(details & excluded)
+    urls=sorted(details-excluded)
+    def read(url):
+        if stopped():return None,{'url':url,'error':'扫描已停止'}
+        try:
+            time.sleep(.15)
+            html=get(url);meta=Page(html).game_metadata()
+            if not meta['title']:raise ValueError('详情缺少可识别标题')
+            return dict(url=url,**meta,evidence_url=url,content_sha256=hashlib.sha256(html.encode()).hexdigest(),description_basis='来源页面公开说明；未实际试玩'),None
+        except Exception as exc:return None,{'url':url,'error':str(exc)[:300]}
+    # Submit in small batches so cancellation never leaves a giant work queue.
+    completed=0
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        for offset in range(0,len(urls),20):
+            if stopped():break
+            for item,error in pool.map(read,urls[offset:offset+20]):
+                completed+=1
+                if item:results.append(item)
+                if error:errors.append(error)
+            report(dict(phase='details',sitemaps_read=len(visited),details_found=len(details),existing_skipped=suppressed,details_total=len(urls),details_read=completed,new=len(results),errors=len(errors)))
+    complete=not errors and not stopped() and completed==len(urls) and bool(details)
+    return dict(games=results,categories=[],errors=errors,links_found=len(details),suppressed=suppressed,
+                coverage=f'站点地图扫描：读取 {len(visited)} 份地图，发现 {len(details)} 个游戏详情，跳过已有 {suppressed}，读取 {completed}/{len(urls)}；覆盖 Sitemap 列出的公开游戏，不含未列入清单、登录或 robots 禁止内容',
+                status='success' if complete else 'partial')

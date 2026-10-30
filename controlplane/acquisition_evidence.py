@@ -12,10 +12,10 @@ import json
 import time
 from pathlib import Path
 
-LABELS = {'cocos2': 'Cocos 2', 'browser': '通用 Web 运行包', 'ruffle': 'Ruffle / Flash'}
+LABELS = {'cocos2': 'Cocos 2', 'browser': '通用 Web 运行包', 'ruffle': 'Ruffle / Flash', 'three':'Three.js', 'defold':'Defold', 'unity':'Unity', 'cocos3':'Cocos 3'}
 # Most specific wins: a candidate whose later attempt was downgraded to the
 # generic browser runtime still deserves the Cocos label from the earlier one.
-PRIORITY = ('cocos2', 'ruffle', 'browser')
+PRIORITY = ('cocos2', 'cocos3', 'three', 'defold', 'unity', 'ruffle', 'browser')
 CACHE_SECONDS = 120
 
 _CACHE = {'key': None, 'at': 0.0, 'signature': None, 'value': {}}

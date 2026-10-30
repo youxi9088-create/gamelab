@@ -12,6 +12,15 @@ class Budget:
     def remaining(self,seconds):return seconds
 
 class WorkflowToolsTests(unittest.TestCase):
+    def test_inline_game_module_is_analyzed_before_vendor(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);source=root/'web-original';source.mkdir()
+            html='<script type="importmap">{"imports":{}}</script><script type="module">const score=1+2;console.log(score);</script>'
+            (source/'index.html').write_text(html,'utf-8')
+            report=run_source_tools(root,Budget(),'three')
+            self.assertEqual(report['items'][0]['status'],'analyzed',report)
+            self.assertEqual(report['items'][0]['source_document'],'web-original/index.html')
+            self.assertEqual((source/'index.html').read_text('utf-8'),html)
     def test_optional_resource_requires_source_failure_and_can_be_rolled_back(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);target=root/'converted';(target/'evidence').mkdir(parents=True);(target/'screenshots').mkdir()

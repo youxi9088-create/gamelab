@@ -3,6 +3,10 @@ from datetime import datetime,timedelta,timezone
 import math
 from .store import now
 
+def ordered_events(events):
+    # Second-resolution timestamps otherwise inherit random UUID ordering.
+    return sorted(events,key=lambda e:(e.get('created_at',''),0 if e.get('node_status')=='running' else 1))
+
 def estimate(row, rate):
     """Price one request. Cached reads/writes are subsets of total input."""
     if not rate:return {'estimated_cost':None,'currency':None,'cost_unknown_reason':'pricing_missing'}
@@ -95,7 +99,7 @@ def add_cache_totals(total,row):
 
 def operations(events,jobs,period='day'):
     owners={j['id']:j['candidate_id'] for j in jobs};starts={};rows={};tz=timezone(timedelta(hours=8))
-    for e in sorted(events,key=lambda x:x.get('created_at','')):
+    for e in ordered_events(events):
         if not e.get('node') or e.get('job_id') not in owners:continue
         key=(e['job_id'],e.get('round'),e.get('attempt'),e['node'])
         if e.get('node_status')=='running':starts[key]=e;continue
@@ -115,10 +119,10 @@ def game_totals(candidates, jobs, events, usage):
           cached_input_tokens=0,cache_write_tokens=0,cache_known_calls=0,cache_unknown_calls=0,
           unknown_usage_calls=0,known_token_fields=0,input_known_calls=0,output_known_calls=0,duration_seconds=None,unpaired_events=0)
           for c in candidates if not c.get('observations',{}).get('catalog_hidden')}
-    intervals={cid:[] for cid in rows};starts={}
-    for e in sorted(events,key=lambda x:x.get('created_at','')):
+    intervals={cid:[] for cid in rows};starts={};closed=set()
+    for e in ordered_events(events):
         cid=owners.get(e.get('job_id'))
-        if cid not in rows or e.get('node') not in ('identify','acquire','analysis','adapt','test','delivery'):continue
+        if cid not in rows or e.get('node') not in ('identify','acquire','analysis','adapt','repair','test','delivery'):continue
         key=(e['job_id'],e.get('round'),e.get('attempt'),e['node'])
         if e.get('node_status')=='running':
             if key in starts:rows[cid]['unpaired_events']+=1
@@ -129,7 +133,8 @@ def game_totals(candidates, jobs, events, usage):
                 a=datetime.fromisoformat(start);b=datetime.fromisoformat(e['created_at'])
                 if b>=a:intervals[cid].append((a,b))
                 else:rows[cid]['unpaired_events']+=1
-            else:rows[cid]['unpaired_events']+=1
+                closed.add((e['job_id'],e.get('round'),e['node']))
+            elif e.get('attempt') is not None or (e['job_id'],e.get('round'),e['node']) not in closed:rows[cid]['unpaired_events']+=1
     for key in starts:rows[owners[key[0]]]['unpaired_events']+=1
     for cid,spans in intervals.items():
         merged=[]

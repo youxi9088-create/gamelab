@@ -1,6 +1,7 @@
 """Acceptance-triggered supply outbox. No historical approvals are auto-enrolled."""
 import hashlib
 import hmac
+import ipaddress
 import json
 import os
 from pathlib import Path
@@ -74,7 +75,14 @@ def call(method, route, payload=None, query=None):
     config = supply_settings()
     base = config['SUPPLY_PLATFORM_BASE'].rstrip('/')
     parsed = urllib.parse.urlsplit(base)
-    if parsed.scheme != 'https' or not parsed.hostname or parsed.username or parsed.query or parsed.fragment or parsed.path not in ('', '/'):
+    lan_http = False
+    if config.get('SUPPLY_ALLOW_LAN_HTTP') is True and parsed.scheme == 'http':
+        try:
+            address = ipaddress.ip_address(parsed.hostname)
+            lan_http = any(address in ipaddress.ip_network(net) for net in ('10.0.0.0/8','172.16.0.0/12','192.168.0.0/16'))
+        except ValueError:
+            pass
+    if (parsed.scheme != 'https' and not lan_http) or not parsed.hostname or parsed.username or parsed.query or parsed.fragment or parsed.path not in ('', '/'):
         raise SupplyError('INVALID_PLATFORM_URL', 400)
     app, secret = config['SUPPLY_APP_ID'], config['SUPPLY_APP_SECRET']
     qs = urllib.parse.urlencode(sorted((k, str(v)) for k, v in (query or {}).items() if str(v)))
@@ -322,6 +330,7 @@ class SupplyWorker:
                 if result.get('submission_id') != row['submission_id'] or not result.get('state'):
                     raise SupplyError('INVALID_SUBMIT_RESPONSE', 502)
                 row['submitted'] = True
+                row.setdefault('submitted_at', now())
             else:
                 result = self.client('GET', 'extraction/status', query={'submission_id': row['submission_id']})
                 if result.get('submission_id') != row['submission_id'] or not result.get('state'):
@@ -335,7 +344,7 @@ class SupplyWorker:
                 row.update(issues=list(combined.values()), max_seq=max(combined, default=0),
                            revision=issues.get('revision'))
                 row['issues_complete'] = len(combined) >= issues.get('total', len(combined))
-            for key in ('state', 'state_text', 'next_action', 'notice', 'queue_position', 'extraction_id', 'template', 'percent'):
+            for key in ('state', 'state_text', 'next_action', 'notice', 'queue_position', 'extraction_id', 'template', 'percent', 'accepted_at'):
                 if key in result:
                     row[key] = result[key]
             row.update(status='done' if result['state'] in TERMINAL and row.get('issues_complete') else 'tracking',

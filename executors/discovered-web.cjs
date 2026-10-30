@@ -71,19 +71,15 @@ function resourcePath(value,base,script=false){
 const UNITY_MARK=/TemplateData\/|UnityLoader|createUnityInstance|unityInstance|Build\/[\w.-]+\.loader\.js/i;
 function unityWebGL(html){return UNITY_MARK.test(html||'');}
 function detect(html,plan){
+ const selected=require('./runtime-contracts.cjs').match(html);
+ if(selected.engine)return selected.engine==='browser'&&plan?.engine==='browser-dom'?'browser-dom':selected.engine;
  if(/RufflePlayer/.test(html)&&/\.swf["']/.test(html))return 'ruffle';
  if(/_CCSettings/.test(html)&&/cocos2d-js/.test(html))return 'cocos2';
- if(plan?.engine==='defold'&&plan.source_sha256===hash(html.replace(/\r\n/g,'\n'))&&html.includes('EngineLoader.load(')&&html.includes('dmloader.js'))return 'defold';
- if(plan?.engine==='browser'&&plan.source_sha256===hash(html.replace(/\r\n/g,'\n'))&&/<script\b/i.test(html))return 'browser';
- if(plan?.engine==='browser-dom'&&plan.source_sha256===hash(html.replace(/\r\n/g,'\n'))&&/<script\b/i.test(html))return 'browser-dom';
- if(unityWebGL(html))throw Error('该入口是 Unity WebGL 构建（TemplateData/Build 加载器）：平台目前没有 Unity 运行契约，'
-  +'无法落地为本地可玩运行包，已排除本任务。若后续新增 Unity 引擎通道可重新排队。');
- // A contract exists but the freshly fetched entry no longer matches it. Saying
- // "not configured" here sends the diagnosis back to re-choose the same engine
- // forever; name the real problem instead.
- if(plan?.engine)throw Error('入口内容与已配置运行契约不一致：契约记为 '+plan.engine+'，但本次抓取的入口摘要与契约记录不符'
-  +'（入口每次请求都在变化，或本次抓到的不是同一个页面）。不能沿用旧契约，请重新核对入口证据后再选择适配方案');
- throw Error('入口已取得，运行契约尚未配置；请分析已保留入口与依赖代码，再选择适配方案');
+ if(html.includes('EngineLoader.load(')&&html.includes('dmloader.js'))return 'defold';
+ // Plans are diagnostic records, not permission to inspect a public game.
+ // Actual offline execution remains the acceptance gate.
+ if(/<script\b/i.test(html))return plan?.engine==='browser-dom'?'browser-dom':'browser';
+ throw Error('入口没有可执行脚本；请核对是否仍是介绍页或未加载的游戏入口');
 }
 function ruffleEntry(html,url){
  const swf=html.match(/\.load\(\s*["']([^"']+\.swf)["']/),scripts=[...html.matchAll(/<script\b[^>]*src=["']([^"']+)["']/gi)].map(m=>m[1]);
@@ -171,6 +167,8 @@ async function state(page,engine){
    result.buttons=[...document.querySelectorAll('button,[role="button"]')].filter(n=>n.getClientRects().length).slice(0,40).map(n=>{const r=n.getBoundingClientRect();return {path:n.id||n.tagName,label:n.innerText,x:r.x+r.width/2,y:r.y+r.height/2};});
    if(kind==='browser-dom')result.loaded=!!result.text.trim()&&result.buttons.length>0;
   }else{result.loaded=window.gameLoaded===true;result.playerState=window.player?.readyState;}
+  result.input_state={document_focused:document.hasFocus(),focused_tag:document.activeElement?.tagName||null,
+   pointer_locked:!!document.pointerLockElement,pointer_lock_target:document.pointerLockElement?.tagName||null};
   return result;
  },engine);
 }
@@ -179,6 +177,8 @@ async function capture(input,run){
  fs.mkdirSync(original,{recursive:true});fs.mkdirSync(out,{recursive:true});
  let prior={};try{prior=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json'),'utf8'));}catch{}
  const report={url:input.url,referer:input.referer,files:[],external:[],errors:[],preloadErrors:[],missing:[],patches:[],redirects:[],cache_hits:0};
+ const acquired=require('./acquired-resources.cjs').load(path.join(run,'acquisition'),entry.href);
+ report.discovery_snapshot={available:acquired.size,reused:0,scope:'Exact URL and selected frame; hash-checked bytes from this discovery run'};
  let page;
  let browser=await require('./extension-browser.cjs').launchBrowser(report);let pending=[],failure,total=0;
  try{
@@ -188,6 +188,7 @@ async function capture(input,run){
   if(!response.ok())throw Error('运行入口 HTTP '+response.status());
   const html=await response.text();if(Buffer.byteLength(html)>2e6)throw Error('Entry too large');
   fs.writeFileSync(path.join(original,'source-entry.html'),html);
+  const matchedContract=require('./runtime-contracts.cjs').record(run,html,input.url);
   const planFile=path.join(run,'runtime-plan.json'),plan=fs.existsSync(planFile)?JSON.parse(fs.readFileSync(planFile)):null;
   report.capture_key=hash(JSON.stringify({url:input.url,referer:input.referer,html,plan}));
   const reusable=prior.capture_key===report.capture_key?new Map((prior.files||[]).map(f=>[f.url,f])):new Map();
@@ -216,6 +217,8 @@ async function capture(input,run){
   const sdk=[...html.matchAll(/<script\b[^>]*src=["']([^"']+)["']/gi)].map(m=>new URL(m[1],entry).href).filter(u=>u==='https://c.17yoo.cn/sdknew/main.js');
   if(engine==='ruffle'){const r=ruffleEntry(html,entry);runtimeHTML=r.html;report.movie=r.movie;report.patches.push({kind:'ruffle-local-host',reason:'Preserve SWF and engine; replace portal loading UI with a standalone player'});}
   else if(sdk.length){runtimeHTML=runtimeHTML.replace(sdk[0],'local-host.js');fs.copyFileSync(path.join(__dirname,'adapters/mini-game-sdk.js'),path.join(out,'local-host.js'));report.patches.push({kind:'mini-game-sdk',reason:'Local host; rewarded ads explicitly fail, no fake login or rewards'});}
+  const remix=[...html.matchAll(/<script\b[^>]*src=["']([^"']+)["']/gi)].map(m=>m[1]).filter(u=>/^https:\/\/(?:cdn\.jsdelivr\.net\/npm|remix\.gg\/cdn)\/@remix-gg\/sdk@[^/]+\/dist\/index\.min\.js$/.test(u));
+  if(remix.length===1&&matchedContract.selected.some(r=>r.adapter==='remix-local')){runtimeHTML=runtimeHTML.replace(remix[0],'local-host.js');fs.copyFileSync(path.join(__dirname,'adapters/remix-local.js'),path.join(out,'local-host.js'));report.patches.push({kind:'remix-local-host',contract:'host.remix',reason:'Declared Remix SDK replaced with local anonymous play and storage; no remote rewards'});}
   const poki=plan?.sdk==='poki-offline';
   if(poki){
    const scripts=[...html.matchAll(/<script\b[^>]*src=["']([^"']+)["']/gi)].map(m=>m[1]).filter(u=>/^https:\/\/game-cdn\.poki\.com\/scripts\/[^?#]+\/poki-sdk\.js$/.test(u));
@@ -226,24 +229,35 @@ async function capture(input,run){
   }
   const seen=new Map();
   const declared=await entryReferences(runtimeHTML,entry.href);
+  const assetEvidence=require('./static-resource-evidence.cjs');
+  const declaredAssets=assetEvidence.references(runtimeHTML,entry.href);
   report.declaredCode=[...declared.urls];
   const adblock=createAdblock(report,entry.href);
   let preloading=false;
   await context.route('**/*',async route=>{
    const req=route.request();let u;try{u=safeURL(req.url());}catch{return route.abort();}
    if(u.href===entry.href&&req.isNavigationRequest())return route.fulfill({contentType:'text/html',body:runtimeHTML});
-   if(u.href===new URL('local-host.js',base).href&&sdk.length)return route.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.join(out,'local-host.js'))});
+   if(u.href===new URL('local-host.js',base).href&&(sdk.length||remix.length===1))return route.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.join(out,'local-host.js'))});
    if(u.href===new URL('runtime-host.js',base).href&&poki)return route.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.join(out,'runtime-host.js'))});
    if(await context.extensionBlock?.(req,{source:input.url})||adblock.block(req))return route.abort('blockedbyclient');
    const declaredScript=req.method()==='GET'&&req.resourceType()==='script'&&declared.urls.has(u.href);
-   if(u.origin!==entry.origin&&!declaredScript&&!['image','font','stylesheet','media'].includes(req.resourceType())){report.external.push(u.origin+u.pathname);return route.abort();}
+   const declaredAsset=assetEvidence.permits(req,declaredAssets);
+   if(u.origin!==entry.origin&&!declaredScript&&!declaredAsset&&!['image','font','stylesheet','media'].includes(req.resourceType())){report.external.push(u.origin+u.pathname);return route.abort();}
    const task=(async()=>{
     // Fetch and retain bytes before fulfilling the browser request. Large SWFs
     // and WASM modules must not depend on Chromium's inspector response cache.
-    const cached=req.method()==='GET'&&['script','stylesheet','image','font','media'].includes(req.resourceType())?require('./capture-cache.cjs').cachedResponse(original,reusable.get(u.href)):null;
+    const cached=req.method()==='GET'&&['script','stylesheet','image','font','media'].includes(req.resourceType())?(require('./capture-cache.cjs').cachedResponse(original,reusable.get(u.href))||acquired.get(u.href)):null;
+    if(cached?.acquired)report.discovery_snapshot.reused++;
     if(cached)report.cache_hits++;
     const res=cached||await followResourceRedirects(async(url,first)=>{
-     if(first)return route.fetch({headers:{...req.headers(),referer:input.referer||input.url},maxRedirects:0,timeout:60000});
+     if(first){
+      try{return await require('./resource-retry.cjs').transfer(()=>route.fetch({headers:{...req.headers(),referer:input.referer||input.url},maxRedirects:0,timeout:60000}),{method:req.method()});}
+      catch(error){
+       if(req.method()!=='GET'||!/ECONNRESET|ETIMEDOUT|socket hang up/i.test(error.message))throw error;
+       const response=await require('./browser-resource-transfer.cjs').fetchResource(browser,url,safeURL);
+       (report.transport_fallbacks??=[]).push({url,transport:'browser',status:response.status()});return response;
+      }
+     }
      if(req.method()!=='GET')throw Error('Resource redirect requires a GET request');
      // Do not forward source-origin credentials to a redirected resource host.
      return context.request.get(url,{headers:{referer:input.referer||input.url},maxRedirects:0,timeout:60000});
@@ -259,20 +273,21 @@ async function capture(input,run){
     const file=resourcePath(u.href,base,script),data=await res.body(),sha256=hash(data);
     if(script){
      for(const ref of await references(data.toString('utf8'),sourceURL,declared.mappings))declared.urls.add(ref.url);
+     for(const url of assetEvidence.references(data.toString('utf8'),sourceURL))declaredAssets.add(url);
     }
     if(seen.has(file)){if(seen.get(file)!==sha256)throw Error('Resource query collision: '+file);}
     else{
      if(seen.size>=1800||total+data.length>220*1024*1024)throw Error('Web snapshot exceeds file/byte budget');
      seen.set(file,sha256);total+=data.length;
      const dest=path.join(original,file);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.writeFileSync(dest,data);
-     report.files.push({url:u.href,path:file,bytes:data.length,sha256,script,sourceURL,contentType:res.headers()['content-type']||'application/octet-stream'});
+     report.files.push({url:u.href,path:file,bytes:data.length,sha256,script,sourceURL,declared_asset:declaredAsset,contentType:res.headers()['content-type']||'application/octet-stream'});
     }
     let body=data;
     // Fulfilling a redirected response keeps the original browser URL. Restore
     // the final response's module base explicitly while retaining original bytes.
     if(script&&sourceURL!==u.href)body=Buffer.from(await rewriteModules(data.toString('utf8'),sourceURL,declared.mappings,url=>url));
     if(engine==='cocos2'&&file.endsWith('.js')){const adapted=adaptClient(data.toString('utf8'));if(adapted.changed){body=Buffer.from(adapted.text);report.patches.push({file,kind:'existing-client-offline-mode',before:sha256,after:hash(body),reason:'Use the original client offline branch; online sync and rankings unavailable'});}}
-    await route.fulfill(cached?{status:200,contentType:cached.headers()['content-type'],body}:{response:res,body});await res.dispose();
+    await route.fulfill(cached||res.browserTransfer?{status:res.status(),contentType:res.headers()['content-type'],body}:{response:res,body});await res.dispose();
    })().catch(async e=>{failure=e.message;await route.abort().catch(()=>{});});
    pending.push(task);await task;
   });
@@ -314,8 +329,18 @@ async function capture(input,run){
    for(const item of report.files){let rel=path.posix.relative(path.posix.dirname(file),item.path);if(!rel.startsWith('.'))rel='./'+rel;text=text.split(item.url).join(rel);}
    if(text!==before){fs.writeFileSync(dest,text);report.patches.push({file,before:hash(before),after:hash(text)});}
   }
+  // Literal rewrites cannot see dynamically assembled src/href values. Bind
+  // only exact captured URLs; preserve query identity and package base paths.
+  const bindings=Object.fromEntries(report.files.map(f=>[f.url,'./'+f.path]));
+  fs.writeFileSync(path.join(out,'runtime-resource-map.js'),'window.runtimeResourceBindings='+JSON.stringify(bindings).replace(/</g,'\\u003c')+';');
+  fs.copyFileSync(path.join(__dirname,'adapters/runtime-resource-bindings.js'),path.join(out,'runtime-resource-bindings.js'));
+  const host=path.join(out,'index.html'),hostHTML=fs.readFileSync(host,'utf8');
+  const inject='<script src="runtime-resource-map.js"></script><script src="runtime-resource-bindings.js"></script>';
+  fs.writeFileSync(host,/<head\b[^>]*>/i.test(hostHTML)?hostHTML.replace(/<head\b[^>]*>/i,m=>m+inject):inject+hostHTML);
+  report.runtime_resource_map=bindings;
   report.bytes=total;report.external=[...new Set(report.external)];
   report.complete=true;
+  require('./runtime-contracts.cjs').update(run,'captured',{engine,files:report.files.length});
  }catch(error){
   report.failure=error.message;
   if(page){report.observed=await state(page,report.engine).catch(()=>null);await screenshot(page,path.join(run,'original-runtime.png')).catch(()=>{});}
@@ -325,6 +350,16 @@ async function capture(input,run){
 }
 async function verify(run,actions=[],nextBatch=null,viewportReview=false,environment='deployment'){
  const started=Date.now(),root=path.resolve(run,'converted'),report={passed:false,errors:[],missing:[],external:[],blocked_external:[],required_external:[],steps:[],actions:[],renderDiagnostics:[],resource_requests:[]},acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
+ // Apply the shared exact bindings to resumed legacy captures as well.
+ const map=Object.fromEntries((acq.files||[]).filter(f=>f.url&&f.path).map(f=>[f.url,'./'+f.path]));
+ Object.assign(map,acq.runtime_resource_map||{});
+ fs.writeFileSync(path.join(root,'runtime-resource-map.js'),'window.runtimeResourceBindings='+JSON.stringify(map).replace(/</g,'\\u003c')+';');
+ fs.copyFileSync(path.join(__dirname,'adapters/runtime-resource-bindings.js'),path.join(root,'runtime-resource-bindings.js'));
+ const hostFile=path.join(root,'index.html'),hostText=fs.readFileSync(hostFile,'utf8');
+ if(!hostText.includes('src="runtime-resource-map.js"')){
+  const injection='<script src="runtime-resource-map.js"></script><script src="runtime-resource-bindings.js"></script>';
+  fs.writeFileSync(hostFile,/<head\b[^>]*>/i.test(hostText)?hostText.replace(/<head\b[^>]*>/i,m=>m+injection):injection+hostText);
+ }
  const adblock=createAdblock(report,acq.url||'https://replica-runtime.invalid/');
  // Only explicit evidence-reviewed decisions from this capture may omit a missing resource.
  const reviewed=(acq.optional_resources||[]).filter(x=>x.capture_key===acq.capture_key&&x.reason&&x.screenshot_sha256);
@@ -378,7 +413,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false,environ
    // Exact request URLs stay in local execution evidence; public error text omits queries.
    if(!report.resource_requests.some(item=>item.url===req.url()&&item.method===req.method()&&item.type===req.resourceType())&&report.resource_requests.length<200)
     report.resource_requests.push({id:'resource-'+(report.resource_requests.length+1),url:req.url(),type:req.resourceType(),method:req.method(),phase});
-   report.external.push(url);report.blocked_external.push({url,type:req.resourceType(),method:req.method()});if(['script','stylesheet','image','font','media','document'].includes(req.resourceType()))report.required_external.push(url);return r.abort();
+   report.external.push(url);report.blocked_external.push({url,type:req.resourceType(),method:req.method()});if(['script','stylesheet','image','font','media','document'].includes(req.resourceType())||(req.method()==='GET'&&['fetch','xhr'].includes(req.resourceType())&&u.pathname.toLowerCase().endsWith('.json')))report.required_external.push(url);return r.abort();
   });
   page=await c.newPage();page.on('pageerror',e=>report.errors.push((e.stack||e.message).slice(0,3000)));   page.on('response',r=>{
    if(r.status()<400)return;
@@ -454,7 +489,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false,environ
     a.hold_ms=Math.max(80,Math.min(1000,Number(a.hold_ms)||100));
     await page.mouse.click(a.x,a.y,{delay:a.hold_ms});
    }
-   else if(a.type==='key'&&['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','Enter','w','a','s','d','r','p','Shift','Escape'].includes(a.key)){
+   else if(a.type==='key'&&require('./input-controls.json').keys.includes(a.key)){
     const hold=Math.max(0,Math.min(10000,Number(a.hold_ms)||0));
     await page.keyboard.down(a.key);try{if(hold)await page.waitForTimeout(hold);}finally{await page.keyboard.up(a.key);}
    }
@@ -462,7 +497,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false,environ
    else if(a.type==='viewport'&&[[1000,760],[390,844],[844,390]].some(([w,h])=>a.width===w&&a.height===h)){await page.setViewportSize({width:a.width,height:a.height});}
    else if(a.type==='wait'){}
    else if(a.type==='reload'){await page.reload({waitUntil:'domcontentloaded'});await gameplayReady(page,acq.engine);}
-   else throw Error('Unsupported input action');
+   else {report.rejected_action=a;throw Error('Unsupported input action: '+JSON.stringify(a));}
    await page.waitForTimeout(Math.max(a.type==='reload'?5000:200,Math.min(10000,a.wait_ms||1500)));
    navigationCheckpoint();
    settleNonFatalRuntime(report);
@@ -492,7 +527,8 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false,environ
   batch=await nextBatch(report);
   }
  }catch(e){report.passed=false;report.failure=e.message;if(e.readiness)report.readiness=e.readiness;report.issues=runtimeIssues(report);if(page){report.lastObserved=await state(page,acq.engine).catch(()=>null);await screenshot(page,path.join(root,'screenshots/failed.png')).catch(()=>{});}throw e;}
- finally{fs.writeFileSync(path.join(root,'evidence/runtime.json'),JSON.stringify(report,null,2));if(!report.passed&&report.failure&&nextBatch?.onFailure)nextBatch.onFailure();if(context)await context.unrouteAll({behavior:'wait'});if(browser)await browser.close();await new Promise(r=>server.close(r));}
+ finally{fs.writeFileSync(path.join(root,'evidence/runtime.json'),JSON.stringify(report,null,2));if(!report.passed)require('./runtime-contracts.cjs').update(run,'runtime-failed',{errors:report.errors.length,missing:report.missing.length,required_external:report.required_external.length});if(!report.passed&&report.failure&&nextBatch?.onFailure)nextBatch.onFailure();if(context)await context.unrouteAll({behavior:'wait'});if(browser)await browser.close();await new Promise(r=>server.close(r));}
+ require('./runtime-contracts.cjs').update(run,'runtime-verified',{passed:report.passed,actions:report.actions.length,scope:'Offline startup and executed inputs; gameplay acceptance is independent'});
  return report;
 }
 async function repairResources(run){

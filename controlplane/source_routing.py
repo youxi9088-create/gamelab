@@ -3,9 +3,19 @@ import re
 from urllib.parse import urlsplit
 
 
+def hidden_frame_urls(observation):
+    states=observation.get('web_discovery',{}).get('iframe_states',[])
+    # Duplicate src can occur in distinct frames. Exclude only if every
+    # observed instance is explicitly hidden; absent evidence is not hidden.
+    urls={s.get('url') for s in states if isinstance(s,dict) and s.get('url')}
+    return {u for u in urls if all(s.get('visible') is False for s in states if isinstance(s,dict) and s.get('url')==u)}
+
+
 def modular_candidate(observation):
     leads=observation.get('web_discovery',{}).get('iframe_hints',[])
+    hidden=hidden_frame_urls(observation)
     urls={r['url'] for r in leads if isinstance(r,dict) and r.get('evidence')=='iframe-src'
+          and r.get('url') not in hidden
           and r.get('width',0)>200 and r.get('height',0)>150
           and urlsplit(r.get('url','')).scheme=='https'
           and (urlsplit(r['url']).hostname or '').endswith('.games.remix.gg')}

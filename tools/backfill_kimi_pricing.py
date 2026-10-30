@@ -18,7 +18,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(r'F:/youxi/door')
+ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from controlplane.usage import estimate, validate_pricing  # noqa: E402
 
@@ -79,14 +79,20 @@ def main():
         backup(connection, backup_path)
         print('已备份:', backup_path)
 
+        connection.execute('BEGIN IMMEDIATE')
         connection.execute(
-            "UPDATE records SET data=? WHERE kind='settings' AND id='ai_pricing'",
+            "INSERT INTO records(kind,id,data) VALUES('settings','ai_pricing',?) ON CONFLICT(kind,id) DO UPDATE SET data=excluded.data",
             (json.dumps({'id': 'ai_pricing', 'rates': validated,
                          'updated_at': datetime.now(timezone.utc).isoformat()},
                         ensure_ascii=False),))
         changed = 0
         for tid, priced, data in targets:
-            data.update({k: v for k, v in priced.items() if k != 'pricing'})
+            current=connection.execute("SELECT data FROM records WHERE kind='ai_usage' AND id=?",(tid,)).fetchone()
+            if not current:continue
+            data=json.loads(current['data'])
+            if data.get('estimated_cost') is not None:continue
+            data['pricing_backfill']={'at':datetime.now(timezone.utc).isoformat(),'source':'https://platform.kimi.com/','reason':'用户指定按 Kimi K2.7 Code 补算缺失费用','previous_cost_unknown_reason':data.get('cost_unknown_reason')}
+            data.update(estimate(data,validated[KIMI_KEY]))
             connection.execute("UPDATE records SET data=? WHERE kind='ai_usage' AND id=?",
                                (json.dumps(data, ensure_ascii=False), tid))
             changed += 1
@@ -98,4 +104,5 @@ def main():
 
 
 if __name__ == '__main__':
+    if hasattr(sys.stdout,'reconfigure'):sys.stdout.reconfigure(encoding='utf-8')
     sys.exit(main())

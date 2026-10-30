@@ -146,6 +146,17 @@ class Handler(BaseHTTPRequestHandler):
                     payload=archive.read_bytes()
                     require(__import__('hashlib').sha256(payload).hexdigest()==delivery.get('sha256'),'供货包校验失败',409)
                     return self.send(200,payload,'application/zip',{'Content-Disposition':f'attachment; filename="delivery-{key}.zip"'})
+                if path.startswith('/api/versions/') and '/specification-images/' in path:
+                    key=path.split('/')[3]
+                    relative=path.split('/specification-images/',1)[1]
+                    with self.server.service.store.tx() as db:
+                        version=dict(self.server.service.get(db,'versions',key))
+                        saved=self.server.service.store.get(db,'game_profiles',key)
+                        if saved:version['game_profile']=saved['profile']
+                    from controlplane.game_catalog import profile
+                    require(relative in [p['path'] for p in profile({},version).get('illustrations',[])],'规格图片不存在',404)
+                    root=self.server.service.repo.artifacts/version['artifact_id']
+                    return self.file(root/relative,root)
                 if path.startswith('/api/versions/') and path.endswith('/specification.md'):
                     key=path.split('/')[3]
                     with self.server.service.store.tx() as db:
@@ -154,7 +165,7 @@ class Handler(BaseHTTPRequestHandler):
                         saved=self.server.service.store.get(db,'game_profiles',key)
                         if saved:version['game_profile']=saved['profile']
                     from controlplane.game_catalog import document,profile
-                    return self.send(200,document(candidate['title'],profile(candidate,version)).encode('utf-8'),
+                    return self.send(200,document(candidate['title'],profile(candidate,version),f'/api/versions/{key}/specification-images/').encode('utf-8'),
                                      'text/markdown; charset=utf-8')
                 if path.startswith('/api/versions/') and path.endswith('/download'):
                     key=path.split('/')[3]
@@ -271,6 +282,10 @@ class Handler(BaseHTTPRequestHandler):
         if runtime and resolved.name=='boot.js':
             from controlplane.runtime_compatibility import mounted_boot
             content,compatibility=mounted_boot(content)
+            if compatibility:extra={**(extra or {}),**compatibility}
+        if runtime and resolved.name=='runtime-resource-bindings.js':
+            from controlplane.runtime_compatibility import mounted_resource_bindings
+            content,compatibility=mounted_resource_bindings(content,resolved.parent)
             if compatibility:extra={**(extra or {}),**compatibility}
         self.send(200,content,ct,extra)
 

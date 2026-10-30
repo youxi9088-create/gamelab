@@ -2,10 +2,49 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from controlplane.game_catalog import document, export, index, FIELDS, normalize
+from controlplane.game_catalog import document, export, index, FIELDS, normalize, profile
 
 
 class CatalogTests(unittest.TestCase):
+    def test_submission_documents_all_paths_and_only_current_evidence(self):
+        from controlplane.game_catalog import prepare_submission
+        for field in ('files','changes'):
+            body={field:{},'report':{'game_profile':{'rules':'Verified rule'},'runtime_smoke':{'captured_screenshots':['screenshots/current.png'],'steps':[]}}}
+            prepare_submission(body,Path('.'))
+            self.assertIn('## 场景、关卡与难度设计',body[field]['GAME_SPECIFICATION.md'])
+            self.assertIn('screenshots/current.png',body[field]['GAME_SPECIFICATION.md'])
+            self.assertEqual(len(body['report']['game_profile']['illustrations']),1)
+        with tempfile.TemporaryDirectory() as d:
+            target=Path(d)/('a'*36)/'converted';target.mkdir(parents=True)
+            prepare_submission({'local_run':'a'*36,'report':{}},Path(d))
+            self.assertIn('未登记',(target/'GAME_SPECIFICATION.md').read_text('utf-8'))
+            with self.assertRaises(ValueError):prepare_submission({'local_run':'../escape','report':{}},Path(d))
+
+    def test_automatic_pictures_only_use_recorded_version_steps(self):
+        runtime={'captured_screenshots':['screenshots/step-1.png'], 'steps':[
+            {'screenshot':'screenshots/stale.png','text':'old state'},
+            {'screenshot':'screenshots/step-1.png','text':'Result 275'}]}
+        facts=profile({}, {'report':{'runtime_smoke':runtime}})
+        self.assertEqual(len(facts['illustrations']),1)
+        self.assertEqual(facts['illustrations'][0]['path'],'screenshots/step-1.png')
+        self.assertIn('Result 275',facts['illustrations'][0]['caption'])
+        self.assertEqual(profile({}, {'report':{}})['illustrations'],[])
+
+    def test_detailed_profile_images_are_version_bound_and_exported(self):
+        facts=normalize({'rules':'Score = tips + chaos','illustrations':[{'path':'screenshots/step-1.png','caption':'Result, not proof of all levels'}]})
+        self.assertIn('## 目标、规则与结算数值',document('Game',facts))
+        self.assertIn('![实机图 1](screenshots/step-1.png)',document('Game',facts))
+        for path in ['https://example.org/a.png','../a.png','screenshots/../a.png','screenshots/a.svg']:
+            with self.assertRaises(ValueError):normalize({'illustrations':[{'path':path,'caption':'bad'}]})
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);source=root/'games/x/v/screenshots';source.mkdir(parents=True)
+            (source/'step-1.png').write_bytes(b'image')
+            export(root,[{'id':'x','title':'Game'}],[{'id':'v','candidate_id':'x','status':'review','source_directory':'games/x/v','game_profile':facts}])
+            self.assertEqual((root/'catalog/versions/v/screenshots/step-1.png').read_bytes(),b'image')
+            local=(root/'catalog/versions/v/GAME_SPECIFICATION.md').read_text('utf-8')
+            self.assertIn((root/'catalog/versions/v/screenshots/step-1.png').resolve().as_posix(),local)
+            self.assertIn('](screenshots/step-1.png)',document('Game',facts))
+
     def test_dimension_annotation_does_not_discard_delivery(self):
         self.assertEqual(normalize({'dimension':'2D（使用 Cocos 3.x 引擎，主逻辑为 2D 战斗系统）'})['dimension'], '2D')
         self.assertEqual(normalize({'dimension':'3D (unverified)'})['dimension'], '3D')

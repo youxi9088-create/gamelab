@@ -128,7 +128,7 @@ def delivery_source(source, candidate, version, metadata, facts=None):
         steps, step_note = evidence_steps(version)
         def write(name, value):
             (docs/name).write_text(json.dumps(value, ensure_ascii=False, indent=2)+'\n', 'utf-8')
-        (docs/'GAME_SPECIFICATION.md').write_text(document(candidate['title'], facts), 'utf-8')
+        (docs/'GAME_SPECIFICATION.md').write_text(document(candidate['title'], facts, '../'), 'utf-8')
         write('game-profile.json', facts)
         write('license.json', metadata.get('license_declaration') or {})
         write('acceptance-actions-original.json', (version.get('report') or {}).get('acceptance_actions') or [])

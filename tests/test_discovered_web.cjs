@@ -192,12 +192,15 @@ test('engine detection does not route by game name or URL',()=>{
  assert.match(r.html,/allowNetworking:'none'/);
 });
 
-test('AI runtime plans require matching source evidence and known loader contract',()=>{
+test('observed scripts choose an automatic adapter without mandatory plans',()=>{
  const html='<script src="dmloader.js"></script><script>EngineLoader.load("canvas","fixture")</script>';
  const sha=require('node:crypto').createHash('sha256').update(html).digest('hex');
- assert.throws(()=>detect(html));
+ assert.equal(detect(html),'defold');
  assert.equal(detect(html,{engine:'defold',source_sha256:sha}),'defold');
- assert.throws(()=>detect(html,{engine:'defold',source_sha256:'stale'}));
+ assert.equal(detect(html,{engine:'defold',source_sha256:'stale'}),'defold');
+ assert.equal(detect('<script>drawGame()</script>'),'browser');
+ assert.equal(detect('<script>createUnityInstance()</script>'),'browser');
+ assert.equal(detect('<script>drawGame()</script>',{engine:'browser',source_sha256:'old'}),'browser');
  assert.throws(()=>detect('<canvas/>',{engine:'defold',source_sha256:sha}));
 });
 

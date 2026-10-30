@@ -41,6 +41,41 @@ class DiscoveryTests(unittest.TestCase):
         self.assertEqual(state['discovery_runs'][0]['recommendation_ids'],[])
         self.assertEqual(state['discovery_runs'][0]['category_changes'],[])
 
+    def test_scoped_scan_only_visits_selected_source(self):
+        other=self.s.mutate('/api/sources',{'name':'other','url':'https://other.example.org'})['source']
+        visited=[]
+        def scanner(source):
+            visited.append(source['id'])
+            return self.result
+        run=self.s.mutate('/api/discovery/scan',{'source_ids':[self.source['id']]})['run']
+        duplicate=self.s.mutate('/api/discovery/scan',{'source_ids':[self.source['id']]})
+        self.assertEqual(duplicate['run']['id'],run['id'])
+        with self.assertRaises(ApiError):self.s.mutate('/api/discovery/scan',{'source_ids':[other['id']]})
+        with self.assertRaises(ApiError):self.s.mutate('/api/discovery/scan',{'source_ids':[]})
+        DiscoveryScheduler(self.s,scanner).tick(self.instant)
+        self.assertEqual(visited,[self.source['id']])
+        self.assertEqual(self.s.state()['jobs'],[])
+
+    def test_full_site_sitemap_enumeration_and_existing_skip(self):
+        pages={
+            'https://example.org/robots.txt':'User-agent: *\nAllow: /',
+            'https://example.org/sitemap.xml':'<sitemapindex><sitemap><loc>https://example.org/map.xml</loc></sitemap></sitemapindex>',
+            'https://example.org/map.xml':'<urlset><url><loc>https://example.org/game/fresh-game</loc></url><url><loc>https://example.org/game/old</loc></url><url><loc>https://outside.test/game/no</loc></url></urlset>',
+            'https://example.org/game/fresh-game':'<title>New game</title>'}
+        visited=[];progress=[]
+        def fetcher(url):
+            visited.append(url)
+            return pages[url]
+        source=dict(self.source,discovery_rule={'full_site':True},excluded_urls=['https://example.org/game/old'],progress=progress.append)
+        result=scan(source,fetcher)
+        self.assertEqual(result['status'],'success')
+        self.assertEqual([g['url'] for g in result['games']],['https://example.org/game/fresh-game'])
+        self.assertEqual(result['suppressed'],1)
+        self.assertNotIn('https://example.org/game/old',visited)
+        self.assertEqual(progress[-1]['details_read'],1)
+        del pages['https://example.org/game/fresh-game']
+        self.assertEqual(scan(source,fetcher)['status'],'partial')
+
     def test_approval_only_queues_capture_and_dispatch_needs_approval(self):
         from controlplane.game_technology import classify
         self.result['games'][0]['technology'] = classify(metadata={'gamePlatform':'HTML5'})

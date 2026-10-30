@@ -23,7 +23,11 @@ def audit(root,aliases=None):
         text=p.read_text('utf-8',errors='replace');values=[];direct=set()
         if p.suffix=='.html':
             parser=References();parser.feed(text);values+=parser.refs
-        if p.suffix in ('.css','.html'):values+=re.findall(r'url\(\s*["\']?([^\s"\')]+)',text)
+        if p.suffix in ('.css','.html'):
+            # JavaScript templates may contain CSS url(${variable}); those are
+            # expressions, not literal resource paths in the document stylesheet.
+            css_text=re.sub(r'<script\b[^>]*>.*?</script\s*>','',text,flags=re.I|re.S) if p.suffix=='.html' else text
+            values+=re.findall(r'url\(\s*["\']?([^\s"\')]+)',css_text)
         if p.suffix in ('.js','.mjs'):
             # Object methods such as app.import('cc') resolve module identifiers,
             # not document-relative files. Do not report a nonexistent file cc.

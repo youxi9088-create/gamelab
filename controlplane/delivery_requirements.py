@@ -5,14 +5,34 @@ Human gameplay acceptance is still required.
 """
 REQUIRED={'gameplay':'基础玩法','resources':'基础资源','scene':'场景','objects':'物件','characters':'角色','animation':'动作','ui':'UI 界面'}
 
+def operation_review(report,files):
+    """A narrowly scoped human check, never evidence of gameplay success."""
+    review=report.get('manual_review')
+    runtime=report.get('runtime_smoke') or {}
+    if not isinstance(review,dict) or review.get('kind')!='ai_operation_limit':return None
+    if report.get('runtime_verified') is not True or runtime.get('passed') is not True:return None
+    if review.get('defect_confirmed') is not False or review.get('diagnosed') is not True:return None
+    if not isinstance(review.get('attempts'),int) or review['attempts']<3:return None
+    if not all(isinstance(review.get(k),list) and review[k] and all(isinstance(x,str) and x.strip() for x in review[k]) for k in ('verified','checks')):return None
+    if not isinstance(review.get('reason'),str) or not review['reason'].strip():return None
+    if not any(isinstance(a,dict) and a.get('type') in ('click','key','drag') for a in runtime.get('actions',[])):return None
+    if any(runtime.get(k) for k in ('errors','missing','required_external','navigation_attempts')):return None
+    proof=report.get('verification_evidence')
+    if not isinstance(proof,str) or proof not in set(files):return None
+    if not any(str(p).startswith('screenshots/') and str(p).lower().endswith(('.png','.jpg','.webp','.jpeg')) for p in files):return None
+    if (report.get('foundation_checks',{}).get('gameplay') or {}).get('status')!='pending':return None
+    return review
+
 def delivery_gaps(report,files):
     checks=report.get('foundation_checks',{})
     if not isinstance(checks,dict):checks={}
     available=set(files);gaps=[]
+    review=operation_review(report,available)
     for key,label in REQUIRED.items():
         item=checks.get(key,{})
         if not isinstance(item,dict):item={}
         status=item.get('status')
+        if key=='gameplay' and review:continue
         if status=='not_applicable' and key not in ('gameplay','resources','ui') and item.get('reason'):
             continue
         evidence=item.get('evidence',[])

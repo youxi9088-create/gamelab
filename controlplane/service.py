@@ -7,6 +7,7 @@ from datetime import datetime, timedelta, timezone
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 from .store import Store, now, later, ident
 from .repository import Repository
+from .game_names import link_title, acquired_title
 
 class ApiError(Exception):
     def __init__(self,status,message):
@@ -94,20 +95,29 @@ class Service(Conversations,Discovery):
     def state(self):
         with self.store.read() as db:
             state={k:self.store.all(db,k) for k in ('candidates','sources','batches','jobs','versions','tools','events','messages','rounds')}
-            from .catalog_facets import effective_engine
+            from .catalog_facets import source_engine, web_delivery
             from .acquisition_evidence import engine_by_candidate
             acquisition=engine_by_candidate(self.runs_dir,state['jobs'])
             for candidate in state['candidates']:
-                candidate['engine']=effective_engine(candidate,state['versions'],acquisition)
+                candidate['source_engine']=source_engine(candidate,state['versions'],acquisition)
+                from .source_routing import source_kind
+                kind=source_kind(candidate.get('url',''),candidate.get('observations'))
+                candidate['source_platform']={'name':candidate.get('source') or '手动提交','kind':'微信小游戏' if kind=='wechat' else '网页平台' if kind=='web' else '待识别'}
+                candidate['engine']=candidate['source_engine']['name']
+                versions=sorted((v for v in state['versions'] if v.get('candidate_id')==candidate['id']),key=lambda v:(v.get('created_at',''),v['id']),reverse=True)
+                candidate['web_delivery']=web_delivery(versions[0] if versions else None)
             state['game_test_runs']=self.store.all(db,'game_test_runs')
             profiles={p['id']:p for p in self.store.all(db,'game_profiles')}
             for version in state['versions']:
+                version['web_delivery']=web_delivery(version)
                 if version['id'] in profiles:
                     version['game_profile']=profiles[version['id']]['profile']
             from .game_catalog import index as game_catalog_index
             state['game_catalog']=game_catalog_index(state['candidates'],state['versions'])
             from .usage import aggregate,operations,game_totals
             usage=self.store.all(db,'ai_usage')
+            visible_ids={c['id'] for c in state['candidates'] if not c.get('observations',{}).get('catalog_hidden')}
+            usage=[row for row in usage if row.get('candidate_id') in visible_ids]
             state['game_conversion_stats']=game_totals(state['candidates'],state['jobs'],state['events'],usage)
             state['usage']={p:aggregate(usage,p) for p in ('day','week','month')}
             state['operation_stats']={p:operations(state['events'],state['jobs'],p) for p in ('day','week','month')}
@@ -313,7 +323,7 @@ class Service(Conversations,Discovery):
                         reused.append({'url':url,'candidate_id':existing['id'],'job_id':active['id'],'status':active['status']})
                         continue
                     require(not history,'已有未完成任务，请在原任务继续修复，不重复创建批次',409)
-                    title=url[len('#小程序://'):].split('/')[0] if url.startswith('#小程序://') else urlsplit(url).hostname
+                    title=link_title(url)
                     candidate=self._mutate(db,'/api/candidates',dict(url=url,title=title,source='链接批量转换'),None)['candidate']
                     candidate['automatic']=True;s.put(db,'candidates',candidate)
                     candidates.append(candidate)
@@ -328,7 +338,7 @@ class Service(Conversations,Discovery):
             if existing:
                 active=next((j for j in s.all(db,'jobs') if j['candidate_id']==existing['id'] and j['status'] in ('queued','running','review','completed','waiting_input')),None)
                 if active:return {'candidate':existing,'job':active,'deduplicated':True}
-            title=url[len('#小程序://'):].split('/')[0] if url.startswith('#小程序://') else urlsplit(url).hostname
+            title=link_title(url)
             candidate=self._mutate(db,'/api/candidates',dict(url=url,title=title,source='链接自动转换'),None)['candidate']
             candidate['automatic']=True
             s.put(db,'candidates',candidate)
@@ -640,7 +650,7 @@ class Service(Conversations,Discovery):
                 observations=b.get('observations')
                 require(isinstance(observations,dict) and len(json.dumps(observations))<300000,'观察材料格式无效或过大')
                 candidate=self.get(db,'candidates',job['candidate_id'])
-                candidate.update(observations=observations,title=candidate['title'] if candidate.get('title_edited') else str(b.get('title') or candidate['title'])[:120],acquired_at=now())
+                candidate.update(observations=observations,title=acquired_title(candidate,b.get('title')),acquired_at=now())
                 s.put(db,'candidates',candidate)
                 s.event(db,'链接采集完成，已保存来源材料',key,'acquire')
                 return {'ok':True}
@@ -704,7 +714,15 @@ class Service(Conversations,Discovery):
                     if current_spec and not (job.get('automatic') or outcome=='draft'):
                         from .game_specs import verification_gaps, test_report
                         gaps.extend(verification_gaps(current_spec,test_report(report)))
+                    if report.get('manual_review'):
+                        from .delivery_requirements import delivery_gaps
+                        gaps=list(dict.fromkeys([*gaps,*delivery_gaps(report,artifact['files'])]))
                     is_draft=bool(gaps) or outcome=='draft'
+                    from .delivery_requirements import operation_review
+                    manual_review=operation_review(report,artifact['files']) if not is_draft else None
+                    if manual_review:
+                        report['review_mode']='ai_operation_limit'
+                        if report.get('blocker'):report['model_blocker']=report.pop('blocker')
                     if is_draft:
                         require(report.get('runtime_verified') is True,'未通过运行验证的结果不能作为可试玩草稿')
                         job['reason']+='。草稿已保存，基础还原待补齐：'+'；'.join(gaps)
@@ -720,6 +738,7 @@ class Service(Conversations,Discovery):
                     version['screenshots']=[self.play_url+'/play/'+artifact['id']+'/'+f for f in artifact['files'] if f.startswith('screenshots/revision-' if job.get('continuation') else 'screenshots/') and f.lower().endswith(('.png','.jpg','.jpeg','.webp'))]
                     version['cover']=version['screenshots'][0] if version['screenshots'] else ''
                     version['preview']=preview
+                    if manual_review:version['review_label']='待验收 · AI 操作受限'
                     if is_draft:version['status']='draft'
                     s.put(db,'versions',version)
                     candidate['status']='review';candidate.setdefault('acquired_at',now());s.put(db,'candidates',candidate)
@@ -730,7 +749,7 @@ class Service(Conversations,Discovery):
                         job.update(status='blocked',progress=0)
                         candidate['status']='blocked';s.put(db,'candidates',candidate)
                     if report.get('runtime_verified'):
-                        s.event(db,('运行已通过；剩余检查：'+'；'.join(gaps) if gaps else '运行证据已保存；本轮仍按草稿提交') if is_draft else '运行与交付检查通过，等待人工试玩验收',key,'test',node='test',node_status='waiting_input' if is_draft else 'succeeded',round=finished_round)
+                        s.event(db,('运行已通过；剩余检查：'+'；'.join(gaps) if gaps else '运行证据已保存；本轮仍按草稿提交') if is_draft else ('AI 操作受限，待人工核对关键交互' if manual_review else '运行与交付检查通过，等待人工试玩验收'),key,'test',node='test',node_status='waiting_input' if is_draft or manual_review else 'succeeded',round=finished_round)
                     self.message(db,job,'assistant',job.get('reason') or '新版本已生成，请试玩验收',kind='result')
                     if is_draft:
                         from .auto_followup import decide
@@ -794,6 +813,9 @@ class Service(Conversations,Discovery):
                     if record:require(not dependency_gaps(record),'依赖尚未验证完成，请先继续适配并提交新版本',409)
                 checks=b.get('checks',{})
                 require(isinstance(checks,dict) and all(checks.get(x) is True for x in ('gameplay','visual')),'请确认玩法和画面两项验收')
+                if version.get('report',{}).get('review_mode')=='ai_operation_limit':
+                    require(checks.get('manual_review') is True and bool(str(b.get('reason','')).strip()),'请实际完成待核对操作，勾选人工核对并填写结果',409)
+                    version['manual_review_acceptance']={'confirmed_at':now(),'result':str(b['reason']).strip()[:3000]}
                 version.update(status='approved',approved_at=now(),checks={'gameplay':True,'visual':True},acceptance_scope='functional')
                 candidate['status']='approved';candidate.setdefault('imported_at',now())
                 job=self.get(db,'jobs',version['job_id']);job['status']='completed';s.put(db,'jobs',job)

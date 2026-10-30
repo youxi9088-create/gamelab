@@ -53,7 +53,7 @@ class RepairContext:
     def load(self):
         code = {}; total = 0
         candidates = [self.run / name for name in (
-            'acquisition/observation.json', 'acquisition/source.html', 'conversion-plan.json', 'discovered-web-input.json',
+            'entry-contract.json', 'web-original/index.html', 'acquisition/observation.json', 'acquisition/source.html', 'conversion-plan.json', 'discovered-web-input.json',
             'web-acquisition.json', 'web-capture.log', 'web-verify.log', 'web-browser.log', 'previous-execution.json', 'runtime-environment.json',
             'converted/evidence/runtime.json', 'web-original/source-entry.html')]
         for dirname in ('source-analysis', 'acquisition', 'web-original', 'repair-sources', 'converted', 'entry-probes'):

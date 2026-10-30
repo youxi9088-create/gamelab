@@ -1,8 +1,24 @@
 import unittest
-from controlplane.catalog_facets import facets, effective_engine
+from controlplane.catalog_facets import facets, effective_engine, source_engine, web_delivery
 
 
 class CatalogFacetTests(unittest.TestCase):
+    def test_source_engine_does_not_inherit_reimplementation_engine(self):
+        c={'id':'a','engine':'待分析','url':'https://example.org'}
+        self.assertEqual(source_engine(c,[{'candidate_id':'a','report':{'engine':'Three.js','path':'B'}}])['family'],'待识别')
+        self.assertEqual(source_engine(c,[],{'a':'Ruffle / Flash'})['name'],'Flash（SWF）')
+        self.assertEqual(source_engine(c,[],{'a':'Defold'})['family'],'Defold')
+        self.assertEqual(facets({'url':'#小程序://x','engine':'unknown'})['engines'],['待识别'])
+
+    def test_offline_target_is_not_automatic_success(self):
+        self.assertEqual(web_delivery()['status'],'not_generated')
+        self.assertEqual(web_delivery({'id':'v','status':'approved','report':{'runtime_verified':True}})['status'],'unverified')
+        report={'runtime_verified':True,'verification_stage':'gameplay','foundation_checks':{'gameplay':{'status':'verified'}},'runtime_smoke':{'passed':True,'environment':'deployment','blocked_external':[],'external':[]}}
+        self.assertEqual(web_delivery({'report':report})['status'],'verified')
+        report['runtime_smoke']['external']=['https://example.org/optional.glb']
+        self.assertEqual(web_delivery({'report':report})['status'],'verified_limited')
+        report['runtime_smoke']['required_external']=['https://example.org/required.js']
+        self.assertEqual(web_delivery({'report':report})['status'],'unverified')
     def test_engine_uses_version_evidence_without_title_guess_or_mutation(self):
         candidate={'id':'a','title':'Flash Cocos','engine':'待分析'}
         versions=[{'candidate_id':'other','report':{'engine':'Wrong'}},
@@ -27,9 +43,9 @@ class CatalogFacetTests(unittest.TestCase):
             self.assertEqual(facets({'url':'#小程序://fixture','category':'微信小游戏 / 益智','engine':engine}),
                              {'categories':['益智'],'engines':['Cocos']}, engine)
         # Non-Cocos web engines still land in the Web bucket.
-        self.assertEqual(facets({'url':'https://example.org','engine':'Three.js'})['engines'],['Web 游戏'])
-        self.assertEqual(facets({'url':'https://example.org','engine':'通用 Web 运行包'})['engines'],['Web 游戏'])
-        self.assertEqual(facets({'url':'https://example.org','engine':'Ruffle / Flash'})['engines'],['Web 游戏'])
+        self.assertEqual(facets({'url':'https://example.org','engine':'Three.js'})['engines'],['Three.js'])
+        self.assertEqual(facets({'url':'https://example.org','engine':'通用 Web 运行包'})['engines'],['待识别'])
+        self.assertEqual(facets({'url':'https://example.org','engine':'Ruffle / Flash'})['engines'],['Flash'])
 
     def test_acquisition_evidence_fills_only_candidates_without_version_evidence(self):
         candidate={'id':'a','engine':'待分析'}

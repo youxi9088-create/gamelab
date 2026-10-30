@@ -53,9 +53,22 @@ class Discovery:
                 c['aliases']={k.strip().lower():v.strip() for k,v in b['aliases'].items()}
             s.put(db,'settings',c);return {'settings':c}
         if action=='scan':
+            full_site=b.get('full_site',False)
+            require(type(full_site) is bool,'full_site 必须为布尔值')
+            source_ids=b.get('source_ids')
+            require(not full_site or source_ids,'全站扫描必须指定来源')
+            if source_ids is not None:
+                require(isinstance(source_ids,list) and 1<=len(source_ids)<=100 and all(isinstance(x,str) for x in source_ids),'请选择有效扫描来源')
+                source_ids=sorted(set(source_ids))
+                for source_id in source_ids:
+                    require(self.get(db,'sources',source_id).get('enabled'),'扫描来源已停用')
             active=next((r for r in s.all(db,'discovery_runs') if r['status'] in ('queued','running')),None)
-            if active:return {'run':active,'deduplicated':True}
+            if active:
+                require(active.get('source_ids')==source_ids and active.get('full_site',False)==full_site,'已有不同范围的扫描正在执行，请等待完成',409)
+                return {'run':active,'deduplicated':True}
             run=dict(id=ident('scan'),day=datetime.now(TZ).date().isoformat(),status='queued',trigger='manual',created_at=now(),sources=[],recommendation_ids=[],category_changes=[])
+            if source_ids is not None:run['source_ids']=source_ids
+            run['full_site']=full_site
             s.put(db,'discovery_runs',run);return {'run':run}
         if action=='rules':
             source=self.get(db,'sources',b.get('source_id',''))
@@ -155,7 +168,7 @@ class DiscoveryScheduler:
                 pending=dict(id=ident('scan'),day=day,trigger='daily',created_at=now(),sources=[],recommendation_ids=[],category_changes=[])
             if not pending:return
             run=pending;run.update(status='running',heartbeat_at=now());s.put(db,'discovery_runs',run)
-            sources=[x for x in s.all(db,'sources') if x.get('enabled')]
+            sources=[x for x in s.all(db,'sources') if x.get('enabled') and (run.get('source_ids') is None or x['id'] in run['source_ids'])]
             candidates=s.all(db,'candidates')
             catalog=set()
             for c in candidates:
@@ -167,8 +180,21 @@ class DiscoveryScheduler:
             with s.tx() as db:
                 excluded=[r['url'] for r in s.all(db,'recommendations')]+[c['canonical_url'] for c in s.all(db,'candidates')]
             source={**source,'excluded_urls':excluded,'discovery_rule':{'max_games':cfg['max_games'],'max_pages':cfg['max_pages'],**source.get('discovery_rule',{})}}
+            if run.get('full_site'):
+                source['discovery_rule']['full_site']=True
+                def progress(value):
+                    with s.tx() as progress_db:
+                        run.update(progress=value,heartbeat_at=now())
+                        s.put(progress_db,'discovery_runs',run)
+                source['progress']=progress
+                source['stop_requested']=self.stop.is_set
             try: result=self.scanner(source)
             except Exception as exc: result={'games':[],'categories':[],'status':'failed','errors':[{'error':str(exc)[:300]}],'coverage':'扫描未完成'}
+            filtered=0
+            if cfg.get('only_2d', True):
+                original=result['games']
+                result['games']=[g for g in original if g.get('dimension')=='2d']
+                filtered=len(original)-len(result['games'])
             from .discovery_language import translate
             translate(result['games'],self.service,run['id'])
             with s.tx() as db:
@@ -213,7 +239,7 @@ class DiscoveryScheduler:
                                     source_policy_label=gate.get('label') or gate['policy'],
                                     source_policy_reason=gate['reason'])
                     s.put(db,'recommendations',item);run['recommendation_ids'].append(key);new+=1
-                run['sources'].append(dict(source_id=source['id'],name=source['name'],status=result['status'],new=new,duplicates=duplicates,errors=result.get('errors',[]),coverage=result.get('coverage','')))
+                run['sources'].append(dict(source_id=source['id'],name=source['name'],status=result['status'],new=new,duplicates=duplicates,errors=result.get('errors',[]),filtered_non_2d_or_unknown=filtered,coverage=result.get('coverage','')))
                 run['heartbeat_at']=now();s.put(db,'discovery_runs',run)
         with s.tx() as db:
             # Explicit opt-in only; always preserve existing human decisions.

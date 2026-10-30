@@ -48,7 +48,7 @@ $env:REPLICA_AI_API_KEY = '<secret>'
 
 `REPLICA_AI_VISION=1` 时向支持视觉输入的模型发送实际截图。观察输入支持 `actions` 数组，例如 `[{"type":"click","selector":"#restart","expect_text":"得分 0","assert_selector":"#score"}]`；也支持 key 和有上限的 wait。每步保存截图，只验证显式预期，不自动宣称完整玩法正确。提供本地源包和 actions 时，先对原游戏执行这些动作获取观察材料。没有自动推断未知控件并自主通关的能力。
 
-浏览器校验使用锁定的 `playwright@1.62.1` 默认 Chromium；不会自动检测并切换到系统 Edge。仅显式设置 `BROWSER_EXECUTABLE` 才覆盖默认浏览器。Windows 服务部署应以运行执行器的账户安装 Playwright Chromium，并让服务进程继承相同的 `PLAYWRIGHT_BROWSERS_PATH`，避免服务账户和管理员账户的浏览器缓存不一致。禁止游戏请求外部网络，临时本地服务器只提供显式产物文件，截图和报告保存在 `runs/`。这不是容器级隔离，生产 worker 仍必须部署在专用隔离环境。
+浏览器校验使用锁定的 `playwright@1.62.1`。共享 `browser-options.cjs` 按环境变量 `BROWSER_EXECUTABLE` / `BROWSER_HEADLESS`、私有 `data/browser-runtime.json` 的 `executablePath` / `headless`、默认无头 Chromium 的顺序选择浏览器。本机按用户要求配置原生 Chrome 有头模式，使用隔离上下文，不读取个人资料；其他机器不会自动切换浏览器。`BROWSER_HEADLESS=0`（或 `false`/`no`）使用有头模式。Windows 服务部署应以运行执行器的账户安装所选浏览器，默认 Chromium 需保持相同的 `PLAYWRIGHT_BROWSERS_PATH`。禁止游戏请求外部网络，临时本地服务器只提供显式产物文件，截图和报告保存在 `runs/`。这不是容器级隔离，生产 worker 仍必须部署在专用隔离环境。
 
 ## 接口
 

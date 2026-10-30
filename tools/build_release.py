@@ -12,12 +12,13 @@ def git(*args):return subprocess.check_output(['git',*args])
 
 
 # Runtime files are never part of a code release, even if accidentally tracked.
-EXCLUDED_ROOTS = {'bundled-games', '.codex-web-debug', 'data', 'game-library', 'repo', 'qa-output', 'backups', 'node_modules'}
+EXCLUDED_ROOTS = {'bundled-games', '.codex-web-debug', 'data', 'game-library', 'repo', 'qa-output', 'backups', 'node_modules', 'snapshots', 'logs', 'migration-private', 'deployment-packages'}
 EXCLUDED_PREFIXES = ('executors/runs/', 'executors/node_modules/')
 
 
 def is_release_file(path):
-    return path.split('/')[0] not in EXCLUDED_ROOTS and not path.startswith(EXCLUDED_PREFIXES)
+    return (path.split('/')[0] not in EXCLUDED_ROOTS and not path.startswith(EXCLUDED_PREFIXES)
+            and not any(part.startswith('.env') for part in path.split('/')))
 
 
 def build(ref,output):

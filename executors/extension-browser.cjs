@@ -19,7 +19,7 @@ async function launchBrowser(report,{configFile=process.env.GAMELAB_EXTENSION_CO
   async newContext(options){
    if(context)throw Error('Extension browser supports one isolated context');
    const {storageState,...rest}=options;
-   context=await chromium.launchPersistentContext('',{...rest,headless:true,channel:'chromium',args:['--enable-unsafe-swiftshader',`--disable-extensions-except=${extension}`,`--load-extension=${extension}`]});
+   context=await chromium.launchPersistentContext('',{...rest,headless:require('./browser-options.cjs')().headless,channel:'chromium',args:['--enable-unsafe-swiftshader',`--disable-extensions-except=${extension}`,`--load-extension=${extension}`]});
    evidence.rendering='Chromium with software WebGL fallback enabled';
    try{
     const worker=context.serviceWorkers().find(w=>w.url().startsWith('chrome-extension://'))||await context.waitForEvent('serviceworker',{predicate:w=>w.url().startsWith('chrome-extension://'),timeout:15000});

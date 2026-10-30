@@ -21,6 +21,11 @@ def safe(value):
 
 def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=None, stage=None, pending_checks=None):
     """Only caller-supplied verification can execute; model cannot run commands."""
+    if retry and target and Path(target).resolve()==(Path(run)/'converted').resolve() and (Path(run)/'converted/evidence/runtime.json').is_file() and (Path(run)/'web-acquisition.json').is_file():
+        from runtime_recovery import recover_declared_static
+        try: recovered,result=recover_declared_static(run,budget,retry)
+        except (OSError,ValueError,TypeError,KeyError):recovered=False
+        if recovered:return True,result
     run = Path(run); root = run / 'auto-repair'; root.mkdir(exist_ok=True)
     evidence = root / uuid.uuid4().hex; evidence.mkdir()
     rounds = []; original = error; last = error
@@ -230,7 +235,6 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 if capabilities.get(action, {}).get('rollback') and not capabilities[action].get('retain_verified_downloads'):
                     capabilities[action]['rollback']()
                 for name in changes: (target/name).write_bytes(code[name].encode('utf-8'))
-                if capabilities.get(action,{}).get('rollback'):capabilities[action]['rollback']()
                 # A runtime contract records what the entry IS. A later failure in
                 # resource capture or readiness says nothing about that judgement,
                 # so dropping it only forces the next round to re-derive the same

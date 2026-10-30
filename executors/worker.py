@@ -259,7 +259,8 @@ def reconstruct(inp, run, budget=None):
     write_json(run / 'gameplay-spec.json', spec)
     if spec.get('insufficient_evidence') is True:
         raise NeedsInput('链接材料不足以确认玩法：' + str(spec.get('reason','请先在微信中打开游戏以产生缓存'))[:300])
-    result = chat([{'role': 'system', 'content': 'Implement an original dependency-free browser game from the specification. Return JSON {"files":{"index.html":"...","game.js":"...","README.md":"..."},"entry":"index.html","limitations":[]}. No external network, inline dependencies, no shell commands. Do not depend on localStorage or cookies (sandboxed iframe); use memory or catch storage errors. Include a visible button with id restart. Implement scoring, end state and restart where specified. Return acceptance_actions as an array of concrete browser actions: {type:click,selector:#restart,expect_text:initial visible text}; include at least restart and one gameplay action using stable DOM controls. Use quoted JSON strings. First-version requirements: preserve the evidenced core gameplay loop, scene, interactive objects, characters, actual movement animations and original UI components/layout; do not replace them with a generic template or static sliding models. Return game_profile describing only the delivered game facts, not reconstruction history: category, dimension (2D/3D/2.5D), perspective, core_gameplay, core_experience, controls, game_loop, content (actual counts), progression, save; each field is a string, unknown fields are empty. Return foundation_checks with keys gameplay,resources,scene,objects,characters,animation,ui. Each needs status (pending until actually verified), reason and evidence file paths. Do not claim visual or gameplay equivalence from a successful page load. Use the supplied original resource catalog for characters and scene visuals; preserve exact paths. Do not substitute canvas/CSS shapes for original art. If the resources are only icons, incomplete atlases or unrelated assets, return resource_adaptation_required:true and a reason instead of producing a substitute game. No secrets. Do not claim tests ran.'}, {'role': 'user', 'content': json.dumps({'spec':spec,'original_resource_catalog':resource_catalog,'user_conversation':inp.get('conversation',[])}, ensure_ascii=False)}], budget)
+    from controlplane.game_catalog import PROFILE_INSTRUCTIONS
+    result = chat([{'role': 'system', 'content': PROFILE_INSTRUCTIONS + '\n' + 'Implement an original dependency-free browser game from the specification. Return JSON {"files":{"index.html":"...","game.js":"...","README.md":"..."},"entry":"index.html","limitations":[]}. No external network, inline dependencies, no shell commands. Do not depend on localStorage or cookies (sandboxed iframe); use memory or catch storage errors. Include a visible button with id restart. Implement scoring, end state and restart where specified. Return acceptance_actions as an array of concrete browser actions: {type:click,selector:#restart,expect_text:initial visible text}; include at least restart and one gameplay action using stable DOM controls. Use quoted JSON strings. First-version requirements: preserve the evidenced core gameplay loop, scene, interactive objects, characters, actual movement animations and original UI components/layout; do not replace them with a generic template or static sliding models. Return detailed game_profile according to PROFILE_INSTRUCTIONS above, with all sixteen fields and explicit verification boundaries. Return foundation_checks with keys gameplay,resources,scene,objects,characters,animation,ui. Each needs status (pending until actually verified), reason and evidence file paths. Do not claim visual or gameplay equivalence from a successful page load. Use the supplied original resource catalog for characters and scene visuals; preserve exact paths. Do not substitute canvas/CSS shapes for original art. If the resources are only icons, incomplete atlases or unrelated assets, return resource_adaptation_required:true and a reason instead of producing a substitute game. No secrets. Do not claim tests ran.'}, {'role': 'user', 'content': json.dumps({'spec':spec,'original_resource_catalog':resource_catalog,'user_conversation':inp.get('conversation',[])}, ensure_ascii=False)}], budget)
     if result.get('resource_adaptation_required'):
         raise Blocked('资源解析待适配：'+str(result.get('reason','原资源尚不足以重建画面'))[:500])
     files = validate_files(result.get('files'))
@@ -298,6 +299,10 @@ class Client:
         self.base, self.token = base.rstrip('/'), token
 
     def post(self, path, body):
+        if path=='artifacts':
+            from controlplane.game_catalog import prepare_submission
+            body.setdefault('title',getattr(self,'game_title','交付游戏'))
+            prepare_submission(body,RUNS)
         req = urllib.request.Request(self.base + '/api/v1/' + path, data=json.dumps(body).encode(), headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + self.token})
         with urllib.request.urlopen(req, timeout=30) as response:
             return json.load(response)
@@ -396,6 +401,7 @@ def execute(client, job):
     thread.start()
     try:
         inp = job.get('input', {})
+        client.game_title=inp.get('title') or '交付游戏'
         from execution_feedback import previous_failure
         prior_failure=previous_failure(job)
         if prior_failure:
@@ -482,6 +488,9 @@ def execute(client, job):
                 report['dependencies']=saved['dependencies']
             gaps=delivery_gaps(report,available)
             report['delivery_gaps']=gaps
+            if not gaps and report.get('manual_review'):
+                report['review_mode']='ai_operation_limit'
+                if report.get('blocker'):report['model_blocker']=report.pop('blocker')
             screenshots=list(sorted((run/report['iteration']).glob('*.png')))[:4]
             if str(report.get('recovery_kind','')).startswith('discovered-web-'):
                 # The platform may have fetched genuinely missing binary files
@@ -739,7 +748,7 @@ def execute(client, job):
 
 def execute_isolated(client, job):
     """Run each claimed job in its own process so revoked leases cancel work."""
-    env={**os.environ,'PLATFORM_TOOL_TOKEN':client.token}
+    env={**os.environ,'PLATFORM_TOOL_TOKEN':client.token,'PYTHONIOENCODING':'utf-8'}
     process=subprocess.Popen([sys.executable,str(Path(__file__).resolve()),'--url',client.base,'--execute-job'],
         stdin=subprocess.PIPE,text=True,encoding='utf-8',env=env,
         creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
@@ -795,7 +804,7 @@ def main():
         parser.error('Set PLATFORM_TOOL_TOKEN or --token')
     client = Client(args.url, args.token)
     if args.execute_job:
-        execute(client,json.load(sys.stdin))
+        execute(client,json.loads(sys.stdin.buffer.read().decode('utf-8')))
         return
     while True:
         try:

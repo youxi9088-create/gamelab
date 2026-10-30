@@ -122,6 +122,43 @@ class RuntimeRecoveryTest(unittest.TestCase):
         self.assertEqual((self.target/'index.html').read_bytes(),before)
         self.assertFalse((self.target/'runtime-resource-map.js').exists())
 
+    def test_declared_binary_model_requires_valid_glb_header(self):
+        import struct
+        url='https://assets.example/model.gltf-binary?v=1'
+        (self.target/'index.html').write_text('<html><head></head><body><script>fetch("'+url+'")</script></body></html>')
+        self.report['resource_requests'][0].update(type='fetch',url=url)
+        (self.target/'evidence/runtime.json').write_text(json.dumps(self.report))
+        with patch.object(Response,'read',return_value=b'glTF'+struct.pack('<II',2,12)):
+            result=self.recovery.execute(self.args)
+        self.assertEqual(len(result['files']),1)
+        self.recovery.rollback()
+        with patch.object(Response,'read',return_value=b'not a binary model'):
+            with self.assertRaises(ValueError):self.recovery.execute(self.args)
+
+    def test_declared_json_fetch_is_localized_and_invalid_json_rejected(self):
+        url='https://assets.example/words.json?v=2'
+        (self.target/'index.html').write_text('<html><head></head><body><script>fetch("'+url+'")</script></body></html>')
+        self.report['resource_requests'][0].update(type='fetch',url=url)
+        (self.target/'evidence/runtime.json').write_text(json.dumps(self.report))
+        with patch.object(Response,'read',return_value=b'{"words":["hello"]}'):
+            result=self.recovery.execute(self.args)
+        self.assertTrue(result['files'][0]['path'].endswith('.json'))
+        self.recovery.rollback()
+        with patch.object(Response,'read',return_value=b'not json'):
+            with self.assertRaises(ValueError):self.recovery.execute(self.args)
+
+    def test_stylesheet_runtime_copy_rebases_and_preserves_raw_evidence(self):
+        self.report['resource_requests'][0].update(type='stylesheet',url='https://assets.example/css/theme.css')
+        (self.target/'evidence/runtime.json').write_text(json.dumps(self.report))
+        raw=b'@font-face{src:url(../fonts/main.woff2?v=7)}'
+        with patch.object(Response,'read',return_value=raw):
+            result=self.recovery.execute(self.args)
+        name=result['files'][0]['path']
+        self.assertEqual((self.run/'web-original'/name).read_bytes(),raw)
+        self.assertIn(b'https://assets.example/fonts/main.woff2?v=7',(self.target/name).read_bytes())
+        self.recovery.rollback()
+        self.assertFalse((self.target/name).exists())
+
     def test_continuation_publishes_verified_binding_not_stale_patch(self):
         self.recovery.execute(self.args)
         changes={'index.html':'stale model patch'};context={}
@@ -145,7 +182,7 @@ class RuntimeRecoveryTest(unittest.TestCase):
         # Self-authored fixture only; its external request is blocked by verify.
         (self.target/'index.html').write_text('<html><head></head><body><h1>Fixture</h1><button>Play</button><script>const s=document.createElement("script");s.src="https://"+"assets.example/runtime.js?v=2";document.head.append(s);</script></body></html>')
         def browser(mode):
-            result=subprocess.run([node_binary(),'tests/test_runtime_recovery.cjs',str(self.run),mode],capture_output=True,text=True,timeout=90)
+            result=subprocess.run([node_binary(),'tests/test_runtime_recovery.cjs',str(self.run),mode],capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=90)
             self.assertEqual(result.returncode,0,result.stdout+result.stderr)
         browser('blocked')
         self.recovery.execute(self.args)

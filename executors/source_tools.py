@@ -2,6 +2,7 @@
 import hashlib
 import json
 import os
+import re
 import subprocess
 from pathlib import Path
 from controlplane.runtime import node_binary
@@ -39,9 +40,20 @@ def run_source_tools(run,budget,engine=None):
         files.append(p)
     # Prefer game code over engines and SDKs; bounds are explicit in the report.
     scripts=[p for p in files if p.suffix in ('.js','.mjs') and p.stat().st_size<=1_000_000]
-    scripts.sort(key=lambda p:(any(x in p.name.lower() for x in ('cocos','engine','sdk','vendor')), -p.stat().st_size))
+    # Bundled Web games often keep the actual game in inline HTML modules.
+    # Analyze a copy; never replace the original runtime with decompiled output.
+    inline_sources={}
+    for document in [p for p in files if p.suffix.lower()=='.html' and p.stat().st_size<=2_000_000][:3]:
+        for index,match in enumerate(re.finditer(r'<script\b([^>]*)>(.*?)</script>',document.read_text('utf-8'),re.S|re.I)):
+            attrs,code=match.groups()
+            if re.search(r'\bsrc\s*=',attrs,re.I) or not re.search(r'\btype\s*=\s*["\']module["\']',attrs,re.I) or not code.strip() or len(code.encode())>1_000_000:continue
+            dest=root/'inputs'/f'{digest(document)[:12]}-inline-{index}.js'
+            dest.parent.mkdir(exist_ok=True);dest.write_text(code,'utf-8');scripts.append(dest)
+            inline_sources[dest]=document.relative_to(run).as_posix()
+    scripts.sort(key=lambda p:(0 if p in inline_sources else 2 if 'vendor' in p.parts or any(x in p.name.lower() for x in ('cocos','engine','sdk','three')) else 1, -p.stat().st_size))
     for p in scripts[:3]:
         key=digest(p);out=root/('js-'+VERSIONS['webcrack']+'-'+key);item={'tool':'webcrack','source':p.relative_to(run).as_posix(),'sha256':key,'output':out.relative_to(run).as_posix()}
+        if p in inline_sources:item['source_document']=inline_sources[p]
         try:
             marker=out/'complete.json'
             if marker.exists() and valid_artifacts(out):item['status']='reused'

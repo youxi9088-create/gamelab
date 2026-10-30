@@ -42,8 +42,10 @@ async function main(){
     appids:[],limitation:'Read-only page observation; no claim that original gameplay has been played.'};
   const adblock=createAdblock(observation,url);
   const browser=await require('./extension-browser.cjs').launchBrowser(observation);
+  let frameSampler;
   try{
-    const context=await browser.newContext({serviceWorkers:'block',acceptDownloads:false,viewport:{width:1000,height:760},...sessionOptions(url)});
+    const context=await browser.newContext({serviceWorkers:'block',acceptDownloads:false,viewport:{width:1280,height:800},...sessionOptions(url)});
+    const resourceRecorder=require('./acquired-resources.cjs').recorder(context,dir);
     // Public pages cannot use this collector to probe local control-plane endpoints.
     const local=/^(localhost|127\.0\.0\.1|\[::1\])$/i.test(parsed.hostname);
     const blockedAds=new Set();
@@ -56,6 +58,23 @@ async function main(){
       return route.continue();
     });
     const page=await context.newPage(), scripts=[], pending=[], popupTasks=[], errors=[], failed=[], documents=[], popups=[];
+    const observedFrames=[];
+    frameSampler=setInterval(()=>{
+      if(page.url()!==url)return;
+      page.locator('iframe[src]').evaluateAll(nodes=>nodes.map(n=>({url:n.src,width:n.getBoundingClientRect().width,height:n.getBoundingClientRect().height})))
+       .then(rows=>{for(const info of rows)if(info.width>200&&info.height>150&&/^https:\/\//.test(info.url)&&!observedFrames.some(r=>r.url===info.url))observedFrames.push({...info,evidence:'iframe-src',observed_on:url,observed_at:new Date().toISOString()});}).catch(()=>{});
+    },250);
+    page.on('framenavigated',frame=>{
+      if(!frame.parentFrame()||page.url()!==url)return;
+      pending.push((async()=>{
+        const address=frame.url();
+        if(!/^https:\/\//.test(address))return;
+        const handle=await frame.frameElement();
+        const info=await handle.evaluate(n=>({url:n.src,width:n.getBoundingClientRect().width,height:n.getBoundingClientRect().height}));
+        if(info.url!==address||info.width<=200||info.height<=150)return;
+        if(!observedFrames.some(r=>r.url===address))observedFrames.push({...info,evidence:'iframe-src',observed_on:url,observed_at:new Date().toISOString()});
+      })().catch(()=>{}));
+    });
     let bytes=0;
     let lastRequestAt=Date.now();
     page.on('request',()=>{lastRequestAt=Date.now();});
@@ -73,6 +92,7 @@ async function main(){
     });
     const response=await page.goto(url,{referer,waitUntil:'domcontentloaded',timeout:within(45000)});
     if(!response||!response.ok())throw Error('Source returned HTTP '+response?.status());
+    observation.web_discovery.requested_entry=await require('./requested-entry.cjs').recoverRequestedEntry(page,url,within(20000));
     // Client-rendered hosts may reveal an explicit ad-skip control after a countdown.
     // Only activate a visible, non-link control whose own label explicitly says to skip/close an ad.
     const skipInfo=()=>page.evaluate(()=>{
@@ -116,7 +136,8 @@ async function main(){
     // （reason 记 ambiguous）。改为包含匹配 + 按面积择优。
     const start=/开始游戏|立即游戏|立即开始|开始玩|开始挑战|进入游戏|免费玩|play\s*game|play\s*now|start\s*game|start\s*playing|play\s*free/i;
     const excluded=/(^|[^a-z])(ad|ads|advert|reward|login|sign.?in|consent|cookie|privacy|agree|accept|auth)([^a-z]|$)|广告|登录|同意|隐私/i;
-    const launchCandidates=controlSnapshot.filter(x=>start.test(x.label)&&!excluded.test(x.identity))
+    const runtimeAlreadyDeclared=page.frames().some(f=>{try{return new URL(f.url()).hostname.endsWith('.games.remix.gg')}catch{return false}});
+    const launchCandidates=controlSnapshot.filter(x=>!runtimeAlreadyDeclared&&start.test(x.label)&&!excluded.test(x.identity))
       .sort((a,b)=>b.area-a.area);
     const launch_action={attempted:launchCandidates.length>0,clicked:false,
       label:launchCandidates.length?launchCandidates[0].label:'',method:'mouse',
@@ -132,6 +153,8 @@ async function main(){
       }
     }
     observation.web_discovery.launch_action=launch_action;
+    const recoveredEntry=await require('./requested-entry.cjs').recoverRequestedEntry(page,url,within(20000));
+    if(recoveredEntry.attempted)observation.web_discovery.requested_entry=recoveredEntry;
     // 内嵌游戏壳层要几秒才渲染完；astrocade 的 srcdoc iframe 约 10 秒才出 canvas。
     // 早先这段只在"点过启动按钮"后才等，没有可点按钮的站点（如 astrocade）就会在
     // 游戏渲染完成前收尾，看起来像"没有入口"。改成一律在预算内等待。
@@ -158,7 +181,15 @@ async function main(){
       }
     }
     await page.waitForTimeout(1500);
+    // Hydration may redirect well after DOMContentLoaded; check again before
+    // binding the captured document and canvas to the requested game.
+    const finalRecovery=observedFrames.length?{attempted:false}:await require('./requested-entry.cjs').recoverRequestedEntry(page,url,within(20000));
+    if(finalRecovery.attempted){
+      observation.web_discovery.requested_entry=finalRecovery;
+      await page.waitForTimeout(Math.min(8000,within(8000)));
+    }
     await Promise.allSettled([...pending,...popupTasks]);
+    await resourceRecorder.finish();
     const html=await page.content();
     fs.writeFileSync(path.join(dir,'source.html'),html.slice(0,2000000));
     const viewport=page.viewportSize()||{width:1000,height:760};
@@ -193,9 +224,12 @@ async function main(){
     // 静态 src 属性可能为空：srcdoc、JS 动态注入、或跨域壳层（astrocade 就是这样）。
     // 这时 frame 其实已经载入了真实地址，必须用运行时的 frame.url() 回填，
     // 否则线索直接丢失、后续无从探测，看起来就像"站点没有入口"。
-    const rawHints=[];
+    const rawHints=[...observedFrames];
+    const iframeStates=[];
     for(const handle of (await page.locator('iframe').elementHandles()).slice(0,10)){
       if(left()<2500)break;
+      const state=await handle.evaluate(require('./frame-visibility.cjs').frameState).catch(()=>null);
+      if(state)iframeStates.push(state);
       const info=await handle.evaluate(n=>({url:(()=>{const raw=n.getAttribute('src')||n.getAttribute('data-url')||n.getAttribute('data-src');try{return raw?new URL(raw,document.baseURI).href:''}catch{return ''}})(),evidence:n.src?'iframe-src':n.hasAttribute('data-url')?'iframe-data-url':n.hasAttribute('data-src')?'iframe-data-src':'iframe',width:n.getBoundingClientRect().width,height:n.getBoundingClientRect().height})).catch(()=>null);
       if(!info)continue;
       if(!info.url){
@@ -205,16 +239,17 @@ async function main(){
       }
       rawHints.push(info);
     }
+    observation.web_discovery.iframe_states=iframeStates;
     const filtered=rawHints.filter(n=>n.url||n.width>200&&n.height>150);
     // 按"像不像游戏容器"排序，而不是 DOM 顺序：4k99 详情页头两个 iframe 是百度广告。
     observation.web_discovery.iframe_hints=filtered.map(n=>({...n,ad:AD_HOST.test(hostOf(n.url)),
       score:scoreFrame(n.url,n.width,n.height,viewport)}))
       .sort((a,b)=>b.score-a.score)
-      .map(n=>({url:n.url,evidence:n.evidence,width:n.width,height:n.height,ad:n.ad,score:n.score}));
+      .map(n=>({url:n.url,evidence:n.evidence,width:n.width,height:n.height,ad:n.ad,score:n.score,observed_on:n.observed_on,observed_at:n.observed_at}));
     const iframe_probes=[];
     // 早先只探测 data-url/data-src 型，而 4k99 的真实入口 c.17yoo.cn/playbox/<id>/
     // 恰恰是 iframe-src 型，从不进入探测。改为按打分取非广告候选，两种类型都探。
-    for(const lead of observation.web_discovery.iframe_hints.filter(item=>!item.ad&&/^https?:\/\//i.test(item.url)).slice(0,3)){
+    for(const lead of observation.web_discovery.iframe_hints.filter(item=>!item.ad&&!(iframeStates.some(s=>s.url===item.url)&&iframeStates.filter(s=>s.url===item.url).every(s=>s.visible===false))&&/^https?:\/\//i.test(item.url)).slice(0,3)){
       if(left()<6000)break;
       const probe=await context.newPage();let status=null;
       probe.on('response',response=>{if(response.request().resourceType()==='document'&&response.url()===lead.url)status=response.status()});
@@ -240,9 +275,14 @@ async function main(){
     observation.web_discovery.blocked_ad_hosts=[...blockedAds].slice(0,20);
     observation.appids=(()=>{const match=html.match(/game_code["']?\s*:\s*["'](wx[0-9a-f]{16})/);return match?[match[1]]:[...new Set(html.match(/wx[0-9a-f]{16}/g)||[])].slice(0,1)})();
   }finally{
+    clearInterval(frameSampler);
     // 无论成功还是中途卡住，都把已收集到的证据落盘。
     try{fs.writeFileSync(path.join(dir,'observation.json'),JSON.stringify(observation,null,2))}catch{}
-    await browser.close().catch(()=>{});
+    // 有头 Chrome 在页面仍有挂起请求时，close() 也可能一直等待。观测已落盘后
+    // 只允许收尾再占用 5 秒，避免外层 240 秒预算耗尽后把成功采集误判为失败。
+    await Promise.race([browser.close().catch(()=>{}),new Promise(resolve=>setTimeout(resolve,5000))]);
   }
 }
-main().catch(e=>{console.error(e.message);process.exitCode=1});
+// 这是独立 CLI，不作为库引用。完成观测与浏览器收尾后明确退出，避免页面
+// 响应体、路由回调等遗留异步句柄让进程永久存活；Playwright 退出钩子会清理子进程。
+main().then(()=>process.exit(0)).catch(e=>{console.error(e.message);process.exit(1)});

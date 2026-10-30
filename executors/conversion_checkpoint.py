@@ -4,11 +4,24 @@ import json
 from pathlib import Path
 import shutil
 import tempfile
+import time
 
 from repair_context import linked
 
 TREES = ('converted', 'web-original')
-FILES = ('web-acquisition.json', 'discovered-web-input.json', 'conversion-plan.json', 'original-runtime.png')
+FILES = ('web-acquisition.json', 'discovered-web-input.json', 'conversion-plan.json', 'original-runtime.png', 'runtime-contract.json')
+
+
+def publish_snapshot(staging, destination):
+    # Windows scanners can briefly hold a newly copied directory. Never replace
+    # an existing immutable snapshot while retrying a sharing violation.
+    for attempt in range(5):
+        try:
+            staging.rename(destination)
+            return
+        except PermissionError:
+            if destination.exists() or attempt==4:raise
+            time.sleep(0.05*(attempt+1))
 
 
 def digest(path):
@@ -73,7 +86,27 @@ def save(run, inp, observation, kind='web-capture'):
         staging = Path(temporary) / 'snapshot';staging.mkdir()
         copy_snapshot(run, staging, rows)
         (staging / 'checkpoint.json').write_text(json.dumps(metadata, ensure_ascii=False), 'utf-8')
-        staging.rename(destination)
+        publish_snapshot(staging,destination)
+    return metadata
+
+
+def save_verified_recovery(run):
+    """Commit a new immutable resume point only after actual runtime success."""
+    run=Path(run)
+    capture=run/'checkpoints/web-capture/checkpoint.json'
+    if not capture.is_file() or (run/'checkpoints/web-runtime').exists():return None
+    runtime=read(run/'converted/evidence/runtime.json')
+    if runtime.get('passed') is not True:return None
+    prior=read(capture)
+    if prior.get('job_id')!=read(run/'job-binding.json').get('job_id'):
+        raise ValueError('修复检查点任务绑定不一致')
+    rows=[{'path':p.relative_to(run).as_posix(),'sha256':digest(p)} for p in members(run)]
+    metadata={**prior,'files':rows,'recovered_runtime':True}
+    with tempfile.TemporaryDirectory(dir=run/'checkpoints') as temporary:
+        staging=Path(temporary)/'snapshot';staging.mkdir()
+        copy_snapshot(run,staging,rows)
+        (staging/'checkpoint.json').write_text(json.dumps(metadata,ensure_ascii=False),'utf-8')
+        publish_snapshot(staging,run/'checkpoints/web-runtime')
     return metadata
 
 

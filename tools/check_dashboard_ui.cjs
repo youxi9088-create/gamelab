@@ -1,7 +1,7 @@
 const {chromium}=require('../executors/node_modules/playwright');
 const assert=require('assert/strict');
 (async()=>{
- const browser=await chromium.launch({channel:'msedge',headless:true});
+ const browser=await chromium.launch(require('../executors/browser-options.cjs')());
  try {
   const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
@@ -14,6 +14,9 @@ const assert=require('assert/strict');
   assert.equal((await cards.last().locator('.stat-value').innerText()).replace(/\s/g,''),'0个');
   assert.equal((await cards.nth(2).locator('.stat-value').innerText()).replace(/\s/g,''),'1款');
   await page.getByRole('heading',{name:'单个游戏转换用量',exact:true}).waitFor();
+  const average=page.locator('.dashboard-pulse article').filter({hasText:'平均Token消耗'});
+  assert.equal(await average.locator('strong').innerText(),'101,000');
+  assert.equal(await page.getByText('Token记录覆盖率',{exact:true}).count(),0);
   assert.equal(await page.locator('.dashboard-games tbody tr').count(),1);
   await page.getByLabel('搜索转换游戏',{exact:true}).fill('no-matching-game');
   await page.getByLabel('搜索转换游戏',{exact:true}).press('Tab');
@@ -22,7 +25,10 @@ const assert=require('assert/strict');
   assert((await page.locator('.dashboard-games tbody').innerText()).includes('隔离验证游戏'));
   await page.getByRole('heading',{name:'下游供货明细',exact:true}).waitFor();
   await page.getByRole('heading',{name:'按模型分析',exact:true}).waitFor();
-  assert((await page.locator('.dashboard-games tbody').innerText()).includes('缓存读取 20,000 / 写入 10,000'));
+  assert.equal(await page.locator('.dashboard-games th').allTextContents().then(x=>x.join('|')),'游戏|原引擎|当前进度|执行耗时|Token消耗|AI请求次数|估算费用|交付状态|操作');
+  assert(!(await page.locator('.dashboard-games tbody').innerText()).includes('记录未闭合'));
+  await page.getByText('统计说明与记录详情',{exact:true}).click();
+  assert((await page.locator('.dashboard-games details').innerText()).includes('缓存读取 20,000 / 写入 10,000'));
   await page.getByRole('button',{name:'配置模型单价',exact:true}).click();
   const form=page.locator('#pricing-form');
   assert.equal(await form.locator('[name="cached"]').inputValue(),'1');

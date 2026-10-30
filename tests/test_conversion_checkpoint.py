@@ -55,6 +55,17 @@ class CheckpointTests(unittest.TestCase):
         self.assertFalse(result.get('prior_runtime_failed'))  # Different bytes require fresh validation.
         self.assertEqual((self.prior / 'converted/game.js').read_text(), 'later failed patch')
 
+    def test_verified_recovery_creates_new_snapshot_without_overwriting_capture(self):
+        self.save()
+        self.assertIsNone(checkpoints.save_verified_recovery(self.prior))
+        self.write('converted/index.html','recovered local host')
+        self.write('converted/evidence/runtime.json',{'passed':True})
+        self.assertTrue(checkpoints.save_verified_recovery(self.prior)['recovered_runtime'])
+        result,reason=checkpoints.restore(self.job,self.current,self.runs)
+        self.assertIsNone(reason)
+        self.assertEqual((self.current/'converted/index.html').read_text(),'recovered local host')
+        self.assertEqual((self.prior/'checkpoints/web-capture/converted/index.html').read_text(),'<script src="game.js"></script>')
+
     def test_changed_input_or_wrong_job_invalidates_before_copy(self):
         self.save()
         for changed in ({**self.job, 'id': 'other-job'},
