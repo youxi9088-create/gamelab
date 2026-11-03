@@ -58,6 +58,7 @@ def control_jobs(service, db, body):
     s = service.store
     action = body.get('action')
     require(action in ('pause', 'start', 'remove'), '未知任务操作')
+    require(type(body.get('prioritize',True)) is bool,'优先处理标记必须为布尔值')
     ids = body.get('ids')
     require(isinstance(ids, list) and ids and all(isinstance(i, str) for i in ids), '请选择任务')
     ids = list(dict.fromkeys(ids))
@@ -92,6 +93,7 @@ def control_jobs(service, db, body):
                 job = service.continue_job(db, job, '手动批量启动，保留既有要求和范围限制，继续未完成任务。', resume_checkpoint=True)['job']
             job.pop('manual_paused', None); job.pop('paused_at', None)
             job.update(status='queued', queued_at=now(), attempt=0, automatic=True)
+            if body.get('prioritize',True):job['manual_priority_at']=now()
             batch['status']='running'; s.put(db, 'batches', batch)
         s.put(db, 'jobs', job)
         s.event(db, '手动暂停任务，撤销执行租约并保留材料' if action=='pause' else '手动启动任务，进入执行队列', job['id'], job['stage'])

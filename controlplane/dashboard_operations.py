@@ -1,6 +1,49 @@
 """Read-only operational dashboard. Unknown historical measurements stay unknown."""
 from datetime import datetime, timedelta, timezone
 from statistics import median
+import math
+
+
+def production_kpis(state, rows, usage):
+    """Game-grain cumulative KPIs; unknown downstream/monetary data stays unknown."""
+    visible={r['candidate_id'] for r in rows}
+    converted={r['candidate_id'] for r in rows if r['conversion_closed']}
+    excluded={c['id'] for c in state.get('candidates',[]) if c.get('status') in ('rejected','archived','deleted')}
+    supplies=[s for s in state.get('supply',[]) if s.get('candidate_id') in visible and s.get('submitted') and s.get('submission_id')]
+    templates={s['template']['template_id'] for s in supplies if isinstance(s.get('template'),dict) and s['template'].get('template_id')}
+    groups={cid:[] for cid in converted};seen=set()
+    for index,u in enumerate(usage):
+        cid=u.get('candidate_id');key=u.get('id') or ('unidentified',index)
+        if cid not in groups or key in seen:continue
+        seen.add(key);groups[cid].append(u)
+    tokens=[];costs=[];cost_lower=[];sample_calls=[];cache_estimated_calls=0;unpriced_games=0
+    def number(value):return type(value) in (int,float) and math.isfinite(value) and value>=0
+    for calls in groups.values():
+        if not calls:continue
+        if all(number(u.get('input_tokens')) and number(u.get('output_tokens')) for u in calls):
+            from .usage import cost_bounds
+            prices=state.get('ai_pricing') or {}
+            bounds=[cost_bounds(u,prices.get(str(u.get('provider'))+':'+str(u.get('model')))) for u in calls]
+            tokens.append(sum(u['input_tokens']+u['output_tokens'] for u in calls))
+            if all(b is not None for b in bounds):
+                costs.append(sum(b['upper'] for b in bounds));cost_lower.append(sum(b['lower'] for b in bounds))
+                cache_estimated_calls+=sum(b['cache_assumed'] for b in bounds)
+            else:unpriced_games+=1
+            sample_calls.append(calls)
+    durations=[r['duration_seconds'] for r in rows if r['candidate_id'] in converted and number(r.get('duration_seconds'))]
+    from .capture_inventory import cumulative
+    cumulative_counts=cumulative(state,converted,{s['candidate_id'] for s in supplies},state.get('capture_inventory'),template_ids=templates,
+                                 templated_candidates={s['candidate_id'] for s in supplies if isinstance(s.get('template'),dict) and s['template'].get('template_id')})
+    return dict(converted_games=len(converted),pending_games=len(visible-converted-excluded),
+                **cumulative_counts,
+                template_generated_games=None,template_generation_status='not_provided_by_downstream',
+                median_seconds=median(durations) if durations else None,timing_games=len(durations),
+                average_tokens=sum(tokens)/len(tokens) if tokens else None,token_games=len(tokens),
+                average_cost_cny=sum(costs)/len(tokens) if tokens and not unpriced_games else None,cost_games=len(tokens),priced_games=len(costs),
+                average_cost_cny_lower=sum(cost_lower)/len(tokens) if tokens and not unpriced_games else None,
+                cache_estimated_calls=cache_estimated_calls,unpriced_games=unpriced_games,
+                usage_cost_games=len(tokens),average_calls=sum(len(calls) for calls in sample_calls)/len(sample_calls) if sample_calls else None,
+                average_scope='平均Token与费用使用同一批完整Token游戏；缓存明细缺失按未命中保守估算费用，可能偏高；未知单价不按零计算，整批均费显示未知；累计全部轮次含失败重试')
 
 
 def overview(state, usage, clock=None):
@@ -37,7 +80,11 @@ def overview(state, usage, clock=None):
         calls=[u for u in usage if u.get('candidate_id')==cid]
         costs={};unknown_cost=0;retry_tokens=0;retry_unknown=0
         for u in calls:
-            if u.get('estimated_cost') is None:unknown_cost+=1
+            if u.get('estimated_cost') is None:
+                unknown_cost+=1
+                from .usage import cost_bounds
+                bound=cost_bounds(u,(state.get('ai_pricing') or {}).get(str(u.get('provider'))+':'+str(u.get('model'))))
+                if bound:costs['CNY']=costs.get('CNY',0)+bound['upper']
             else:costs[u['currency']]=costs.get(u['currency'],0)+u['estimated_cost']
             if (u.get('round') or 1)>1:
                 retry_tokens+=(u.get('input_tokens') or 0)+(u.get('output_tokens') or 0)
@@ -67,7 +114,7 @@ def overview(state, usage, clock=None):
                    supply_updated_at=supply.get('updated_at'),
                    supply_sync_status=supply.get('status'))
         # Conversion closes at handoff to review, independently of telemetry gaps.
-        row['conversion_closed']=row['status'] in ('review','completed','approved','published')
+        row['conversion_closed']=bool(accepted) or any(v.get('status')=='review' for v in versions) or any(x.get('status') in ('review','completed','approved','published') for x in jobs)
         row['candidate_id']=cid;rows.append(row)
         group=engines.setdefault(engine,dict(name=engine,games=0,accepted=0,calls=0,tokens=0,known_fields=0,unknown=0))
         group['games']+=1;group['accepted']+=bool(accepted);group['calls']+=t.get('calls',0)
@@ -91,7 +138,7 @@ def overview(state, usage, clock=None):
     local=clock.astimezone(timezone(timedelta(hours=8)))
     week=local.replace(hour=0,minute=0,second=0,microsecond=0)-timedelta(days=local.weekday())
     last=week-timedelta(days=7)
-    return dict(updated_at=clock.isoformat(),games=rows,models=list(models.values()),engines=list(engines.values()),
+    return dict(updated_at=clock.isoformat(),games=rows,kpis=production_kpis(state,rows,usage),models=list(models.values()),engines=list(engines.values()),
                 failure_reasons=[dict(code=k,count=v) for k,v in failures.items()],
                 weekly_accepted=sum(week<=d<=clock for d in first_accepts),previous_week_accepted=sum(last<=d<week for d in first_accepts),
                 weekly_submitted=sum(week<=d<=clock for d in submission_dates.values()),

@@ -23,6 +23,19 @@ _NET_RETRIES = 2
 def _is_network_flake(text):
     return any(token in (text or '') for token in _NET_FLAKES)
 
+def _browser_run(command, *, env, timeout):
+    from process_tree import terminate_owned_process
+    process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=env,
+        creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
+    try:
+        stdout,stderr=process.communicate(timeout=timeout)
+    except subprocess.TimeoutExpired as error:
+        terminate_owned_process(process)
+        process.communicate(timeout=8)
+        error.infrastructure_failure={'kind':'acquisition_process_timeout','owner':'platform','verification_required':True}
+        raise
+    return subprocess.CompletedProcess(command,process.returncode,stdout,stderr)
+
 
 # 云端串流（云游戏）页面：画面在远端服务器渲染，浏览器只接收视频流，页面里
 # 根本没有可落地的 HTML5/资源，再怎么适配也产不出本地运行包。4k99 上有相当
@@ -47,8 +60,8 @@ def _run_acquire(command, url, directory, child_env, timeout, referer=None):
     detail = ''
     for attempt in range(_NET_RETRIES + 1):
         started = time.monotonic()
-        result = subprocess.run(command + [url, str(directory)] + ([referer] if referer else []),
-                                capture_output=True, timeout=timeout, shell=False, env=child_env)
+        result = _browser_run(command + [url, str(directory)] + ([referer] if referer else []),
+                              timeout=timeout, env=child_env)
         if not result.returncode:
             return result, ''
         detail = result.stderr.decode('utf-8', errors='replace')[-2000:]

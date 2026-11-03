@@ -54,6 +54,8 @@ def previous_failure(job):
                 'run':run.name,'source_url':(read('acquisition/collected.json') or read('acquisition/observation.json') or {}).get('url'),
                 'stage':repair.get('stage'),'original_error':repair.get('original_error'),
                 'historical_evidence':historical,
+                'infrastructure_recovery':read('infrastructure-recovery.json') or {},
+                'infrastructure_failure':(job.get('report') or {}).get('infrastructure_failure'),
                 'attempts':attempts,'runtime':{k:runtime[k] for k in ('passed','failure','runtime_origin','errors','missing','required_external','lastObserved') if k in runtime},
                 'instruction':'Compare stages before reusing a diagnosis. Successful earlier entry interactions are leads to revalidate, not failed repairs. Do not treat old success as current acceptance.'}
     except (OSError,ValueError,TypeError):return None

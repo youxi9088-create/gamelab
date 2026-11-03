@@ -55,7 +55,7 @@ class RepairContext:
         candidates = [self.run / name for name in (
             'entry-contract.json', 'web-original/index.html', 'acquisition/observation.json', 'acquisition/source.html', 'conversion-plan.json', 'discovered-web-input.json',
             'web-acquisition.json', 'web-capture.log', 'web-verify.log', 'web-browser.log', 'previous-execution.json', 'runtime-environment.json',
-            'converted/evidence/runtime.json', 'web-original/source-entry.html')]
+            'converted/evidence/runtime.json', 'converted/evidence/acquisition.json', 'web-original/source-entry.html')]
         for dirname in ('source-analysis', 'acquisition', 'web-original', 'repair-sources', 'converted', 'entry-probes'):
             root = self.run / dirname
             if root.is_dir() and not linked(root):
@@ -81,11 +81,24 @@ class RepairContext:
                 symptoms = crash_sites(self.run, runtime.get('errors') or [])
             except (OSError, ValueError):
                 symptoms = []
-        return {'browser_extension':runtime.get('browser_extension',{}), 'adblock':runtime.get('adblock',{}), 'runtime_issues':runtime.get('issues',[]), 'resource_requests':runtime.get('resource_requests',[]), 'crash_sites': symptoms, 'source_inventory': [{'path': n, 'characters': len(t),
+        acquisition_name='web-acquisition.json' if 'web-acquisition.json' in code else 'converted/evidence/acquisition.json'
+        try:acquisition=json.loads(code.get(acquisition_name,'{}'))
+        except ValueError:acquisition={}
+        failures=[]
+        for missing in dict.fromkeys(runtime.get('missing',[])):
+            name=str(missing).split('?')[0].lstrip('/')
+            observed=[r for r in acquisition.get('unavailable',[]) if r.get('path')==name]
+            statuses=list(dict.fromkeys(r.get('http_status') for r in observed))
+            failures.append({'path':name,'observed_source_statuses':statuses,
+                'source_status_scope':'current_run_capture' if acquisition_name=='web-acquisition.json' else 'retained_version_capture_requires_recheck',
+                'classification':'source_unavailable' if statuses and all(s in (404,410) for s in statuses)
+                    else 'access_denied' if any(s in (401,403) for s in statuses) else 'unresolved',
+                'optional':None,'next_check':'Inspect exact source reference, fallback and current screenshot; extension and HTTP status alone do not establish optionality.'})
+        return {'resource_failures':failures,'browser_extension':runtime.get('browser_extension',{}), 'adblock':runtime.get('adblock',{}), 'runtime_issues':runtime.get('issues',[]), 'resource_requests':runtime.get('resource_requests',[]), 'crash_sites': symptoms, 'source_inventory': [{'path': n, 'characters': len(t),
                     'sha256': hashlib.sha256(t.encode()).hexdigest(), 'editable': False} for n,t in code.items()],
                 'source_excerpts': [self.context.read(n, 0, 20000) for n in (
                     'source-analysis/report.json', 'previous-execution.json', 'runtime-environment.json', 'discovered-web-input.json', 'acquisition/observation.json', 'acquisition/source.html',
-                    'web-original/source-entry.html', 'web-acquisition.json', 'web-browser.log', 'converted/evidence/runtime.json') if n in code]}
+                    'web-original/source-entry.html', 'web-acquisition.json', 'converted/evidence/acquisition.json', 'web-browser.log', 'converted/evidence/runtime.json') if n in code]}
 
     def inspect(self, answer, payload):
         if not answer.get('read_requests') and not answer.get('search_requests'):
@@ -136,7 +149,7 @@ class RepairContext:
                 raise ValueError('DOM 运行契约与已验证入口不匹配')
         if plan.get('sdk') not in (None, 'poki-offline'):
             raise ValueError('runtime_plan.sdk 仅允许 JSON null（或省略）与 "poki-offline"；不需要 SDK 时使用 null，不能填字符串 none、空字符串或引擎名')
-        if plan.get('sdk') == 'poki-offline' and 'poki-sdk.js' not in source:
+        if plan.get('sdk') == 'poki-offline' and not re.search(r'''(?:https:)?//game-cdn\.poki\.com/scripts/(?:[^/?#]+/poki-sdk\.js|[a-f0-9]+/poki-sdk-core-[a-f0-9]+\.js)(?=["'])''', source):
             raise ValueError('原入口没有声明该宿主 SDK')
         value = {k: plan.get(k) for k in ('engine', 'sdk', 'source_sha256')}
         path = self.run / 'runtime-plan.json'

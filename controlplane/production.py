@@ -5,14 +5,17 @@ import shutil
 from pathlib import Path
 
 
-def status(service):
+def status(service,auth_store=None):
     root=Path(os.environ.get('GAMELAB_SHARED_ROOT',service.data_dir.parent))
     def read(name):
         try:return json.loads((root/name).read_text('utf-8'))
         except (OSError,ValueError):return None
-    with service.store.tx() as db:
+    with service.store.read() as db:
         maintenance=service.store.get(db,'settings','maintenance') or {}
         audit=service.store.all(db,'audit')[:200]
+    if auth_store is not None and auth_store.path!=service.store.path:
+        with auth_store.read() as db:
+            audit=sorted(audit+auth_store.all(db,'audit')[:200],key=lambda row:row.get('created_at',''),reverse=True)[:200]
     disk=shutil.disk_usage(root)
     return dict(shared_root=str(root),data_directory=str(service.data_dir),game_repository=str(service.repo.root),
         release=read('release.json'),backup=read('backup-status.json'),monitor=read('monitor-status.json'),

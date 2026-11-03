@@ -9,6 +9,8 @@ async function fetchResource(browser,url,validate){
    if(route.request().url()===document&&route.request().isNavigationRequest())return route.fulfill({contentType:'text/html',body:'<!doctype html><title>Resource transfer</title>'});
    return route.continue();
   });
+  const failures=[];
+  context.on('requestfailed',request=>{failures.push({error:request.failure()?.errorText||'network failure',host:new URL(request.url()).hostname});});
   const page=await context.newPage();await page.goto(document,{timeout:20000});
   const result=await page.evaluate(async address=>{
    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);
@@ -20,7 +22,7 @@ async function fetchResource(browser,url,validate){
     let binary='';for(const part of parts)for(let i=0;i<part.length;i+=8192)binary+=String.fromCharCode(...part.subarray(i,i+8192));
     return {status:response.status,url:response.url,headers:Object.fromEntries(response.headers),data:btoa(binary)};
    }finally{clearTimeout(timer);}
-  },url);
+  },url).catch(error=>{throw new Error(error.message+' | browser network: '+JSON.stringify(failures.slice(-5)));});
   validate(result.url);const body=Buffer.from(result.data,'base64');
   return {ok:()=>result.status>=200&&result.status<300,status:()=>result.status,url:()=>result.url,headers:()=>result.headers,body:async()=>body,dispose:async()=>{},browserTransfer:true};
  }finally{await context.close();}

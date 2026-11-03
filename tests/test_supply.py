@@ -21,6 +21,8 @@ class SupplyTests(unittest.TestCase):
         env = patch.dict(os.environ, {'SUPPLY_CONFIG_FILE': str(self.s.data_dir/'absent-config.json')})
         env.start()
         self.addCleanup(env.stop)
+        publisher=patch('controlplane.supply_distribution.publish',side_effect=lambda archive,digest,config:config.get('SUPPLY_ARCHIVE_BASE_URL','https://files.example/games').rstrip('/')+'/'+Path(archive).name)
+        publisher.start();self.addCleanup(publisher.stop)
 
     def approved(self, metadata=None):
         self.fixture.enqueue()
@@ -50,6 +52,29 @@ class SupplyTests(unittest.TestCase):
             'e97806d91bb849a7ceceb913eab5303df903f2ae62dc3eec2a4a7dd0bee7a560')
         self.assertEqual(signature(*args, 'GET', PREFIX+'/extraction/issues?since_seq=3&submission_id=demo-0000000000000001', b''),
             '3ca0df4e3037f539e47ab83b3b4013ecdc9408930b8fa5b641ba7c4e601ca6e7')
+
+    def test_updated_checker_rechecks_local_block_once_without_new_submission(self):
+        vid=self.approved({'license_declaration':{'distributable':'yes','owner':'Fixture'}})
+        with self.s.store.tx() as db:
+            row=self.s.get(db,'supply',vid)
+            row.update(status='blocked',error_code='MISSING_LOCAL_RESOURCE',next_poll=0)
+            original_id=row['submission_id'];self.s.store.put(db,'supply',row)
+        ordinary=self.approved({'license_declaration':{'distributable':'yes','owner':'Fixture'}})
+        calls=[]
+        def client(method,route,**kwargs):
+            calls.append(route)
+            return {'app_id':'sup_fixture'}
+        worker=SupplyWorker(self.s,client)
+        with self.config(),patch('controlplane.supply.build_archive',side_effect=SupplyError('MISSING_LOCAL_RESOURCE',422)) as build:
+            worker.tick(package_recheck_only=True);self.due(vid);worker.tick(package_recheck_only=True)
+            self.assertEqual(build.call_count,1)
+        with self.s.store.read() as db:
+            row=self.s.get(db,'supply',vid)
+            self.assertEqual(self.s.get(db,'supply',ordinary)['status'],'pending')
+        self.assertEqual(row['status'],'blocked')
+        self.assertTrue(row['package_check_revision'])
+        self.assertEqual(row['submission_id'],original_id)
+        self.assertNotIn('extraction/submit',calls)
 
     def test_approval_persists_outbox_and_rights_block_does_not_undo_acceptance(self):
         vid = self.approved()
@@ -90,6 +115,59 @@ class SupplyTests(unittest.TestCase):
         self.assertEqual(row['next_action'], 'supplier')
         self.assertEqual(len(row['issues']), 1)
         self.assertEqual(self.s.state()['versions'][0]['status'], 'approved')
+
+    def test_platform_failure_is_rechecked_without_resubmission(self):
+        vid=self.approved({'license_declaration':{'distributable':'yes','owner':'Fixture'}})
+        with self.s.store.tx() as db:
+            row=self.s.get(db,'supply',vid);row.update(submitted=True,status='done',state='failed',next_action='platform',next_poll=0);self.s.store.put(db,'supply',row)
+        calls=[]
+        def client(method,route,**kwargs):
+            calls.append((method,route));self.assertEqual(method,'GET')
+            if route=='extraction/status':return {'submission_id':row['submission_id'],'state':'failed','next_action':'platform','revision':1}
+            return {'revision':1,'items':[],'total':0}
+        with self.config():SupplyWorker(self.s,client).tick()
+        result=self.s.state()['supply'][0]
+        self.assertEqual(result['status'],'done')
+        from controlplane.supply import STATUS_SYNC_REVISION
+        self.assertEqual(result['status_sync_revision'],STATUS_SYNC_REVISION)
+        self.assertEqual(calls,[('GET','extraction/status'),('GET','extraction/issues')])
+        SupplyWorker(self.s,lambda *a,**k:self.fail('Fresh terminal state was polled again')).tick()
+
+    def test_delivery_metadata_and_long_name_survive_unknown_submit_outcome(self):
+        vid=self.approved({'license_declaration':{'distributable':'yes','owner':'Fixture'}})
+        with self.s.store.tx() as db:
+            v=self.s.get(db,'versions',vid);v.setdefault('report',{})['acceptance_actions']=[{'type':'click','selector':'#start'}];self.s.store.put(db,'versions',v)
+            c=self.s.get(db,'candidates',v['candidate_id']);c['title']='Long verified game title '*5;self.s.store.put(db,'candidates',c)
+        payloads=[]
+        def client(method,route,payload=None,**kw):
+            if route=='whoami':return {'app_id':'sup_fixture'}
+            payloads.append(payload)
+            if len(payloads)==1:raise SupplyError('NETWORK_ERROR')
+            return {'submission_id':payload['submission_id'],'state':'queued'}
+        worker=SupplyWorker(self.s,client)
+        with self.config():worker.tick();self.due(vid);worker.tick()
+        self.assertEqual(payloads[0],payloads[1]);self.assertLessEqual(len(payloads[0]['game_name']),40)
+        self.assertEqual(payloads[0]['acceptance_steps'][0]['target'],'#start')
+
+    def test_review_preparation_finds_rights_and_config_before_acceptance(self):
+        from controlplane.supply_preparation import prepare_one_review
+        self.fixture.enqueue();job=self.fixture.completion(self.fixture.claim());vid=job['version_id']
+        prepare_one_review(self.s)
+        with self.s.store.read() as db:
+            row=self.s.store.get(db,'supply_preparations',vid)
+            self.assertEqual(self.s.store.get(db,'versions',vid)['status'],'review')
+            self.assertEqual(self.s.store.all(db,'supply'),[])
+        self.assertEqual({x['code'] for x in row['blockers']},{'LICENSE_UNDECLARED','CONFIG_REQUIRED'})
+        self.assertEqual(row['package'],'passed_static_checks');self.assertFalse(row['submission_sent'])
+
+    def test_explicit_status_sync_preserves_terminal_payload_and_acceptance(self):
+        vid=self.approved({'license_declaration':{'distributable':'yes','owner':'Fixture'}})
+        with self.s.store.tx() as db:
+            row=self.s.get(db,'supply',vid);row.update(submitted=True,status='done',state='published',archive_sha256='a'*64,payload_sha256='b'*64);self.s.store.put(db,'supply',row)
+        result=self.s.mutate('/api/supply/'+vid+'/sync',{})['supply']
+        self.assertEqual(result['state'],'published');self.assertTrue(result['submitted']);self.assertEqual(result['status'],'tracking')
+        self.assertEqual(result['submission_id'],row['submission_id']);self.assertEqual(result['payload_sha256'],'b'*64)
+        self.assertEqual(next(v for v in self.s.state()['versions'] if v['id']==vid)['status'],'approved')
 
     def test_configuration_missing_blocks_without_network(self):
         self.approved({'license_declaration': {'distributable': 'yes', 'owner': 'Fixture'}})

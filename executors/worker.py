@@ -29,6 +29,7 @@ from controlplane.service_registry import ai_config, NoRedirect
 from controlplane.ai_provider import complete
 from controlplane.runtime import node_binary
 from revision_context import RevisionYield
+from platform_transport import open_request, PlatformConnectionRefused
 
 ROOT = Path(__file__).resolve().parent
 RUNS = Path(os.environ.get('REPLICA_RUNS_ROOT', ROOT/'runs')).resolve()
@@ -303,15 +304,29 @@ class Client:
             from controlplane.game_catalog import prepare_submission
             body.setdefault('title',getattr(self,'game_title','交付游戏'))
             prepare_submission(body,RUNS)
-        req = urllib.request.Request(self.base + '/api/v1/' + path, data=json.dumps(body).encode(), headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + self.token})
-        with urllib.request.urlopen(req, timeout=30) as response:
-            return json.load(response)
+        # Reuse one key across transport retries: a lost response must not
+        # duplicate an event, completion, usage row or task claim.
+        request_key = uuid.uuid4().hex
+        req = urllib.request.Request(self.base + '/api/v1/' + path, data=json.dumps(body).encode(), headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + self.token, 'Idempotency-Key': request_key})
+        for attempt in range(3):
+            try:
+                with open_request(req, timeout=30) as response:
+                    return json.load(response)
+            except PlatformConnectionRefused:
+                raise  # Already bounded; never multiply connection-refusal retries.
+            except urllib.error.HTTPError:
+                raise  # In particular, never retry rejected or expired leases.
+            except (urllib.error.URLError, ConnectionError, TimeoutError) as exc:
+                if attempt == 2:
+                    exc.platform_request_path=path.split('?')[0]
+                    raise
+                time.sleep(attempt + 1)
 
     def source_bundle(self, url, destination):
         if not url.startswith('/api/v1/source-bundles/') or not url.endswith('/download') or '..' in url:
             raise Blocked('Unexpected source bundle endpoint')
         req = urllib.request.Request(self.base + url, headers={'Authorization': 'Bearer ' + self.token})
-        with urllib.request.urlopen(req, timeout=60) as response:
+        with open_request(req, timeout=60) as response:
             blob = response.read(10_000_001)
         if len(blob) > 10_000_000:
             raise Blocked('Source bundle exceeds compressed size limit')
@@ -365,6 +380,14 @@ def execute(client, job):
         raw=path.read_bytes()
         return {'checkpoint':{'run':run.name,'sha256':hashlib.sha256(raw).hexdigest(),'base_version_id':job.get('base_version_id')}}
     def diagnose_failure(exc):
+        from infrastructure_recovery import classify
+        kind=classify(exc)
+        if kind or getattr(exc,'infrastructure_failure',None):
+            return {'run_directory':str(run),'auto_repair':None,
+                    'infrastructure_failure':getattr(exc,'infrastructure_failure',{'kind':kind,'owner':'platform','verification_required':True})}
+        if getattr(exc,'control_plane_transport',False):
+            return {'run_directory':str(run),'auto_repair':None,
+                    'infrastructure_failure':{'kind':'control_plane_connection_refused','message':str(exc)}}
         if not getattr(exc,'auto_repair_attempted',False) and budget is not None:
             diagnose(exc,run,budget)
         path=run/'auto-repair/report.json'
@@ -373,7 +396,7 @@ def execute(client, job):
         def invoke(*args, **kwargs):
             previous=phase[0];phase[0]=node
             def recover(exc,retry):
-                if isinstance(exc,RevisionYield):
+                if isinstance(exc,RevisionYield) or getattr(exc,'control_plane_transport',False):
                     raise exc
                 return diagnose(exc,run,budget,retry=retry)
             try:
@@ -733,7 +756,8 @@ def execute(client, job):
     except Blocked as exc:
         completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'blocked', 'reason': str(exc), 'report': diagnose_failure(exc), **saved_revision()}
     except Exception as exc:
-        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'failed', 'reason': f'{type(exc).__name__}: {str(exc)[:300]}', 'report': diagnose_failure(exc), **saved_revision()}
+        diagnosis=diagnose_failure(exc)
+        completion = {**lease, 'event_id': str(uuid.uuid4()), 'outcome': 'blocked' if diagnosis.get('infrastructure_failure') else 'failed', 'reason': f'{type(exc).__name__}: {str(exc)[:300]}', 'report': diagnosis, **saved_revision()}
     finally:
         TRACE.reset(trace_token)
         USAGE_SINK.reset(usage_token)

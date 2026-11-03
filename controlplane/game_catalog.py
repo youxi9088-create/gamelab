@@ -109,6 +109,10 @@ def prepare_submission(body, runs):
         if not target.resolve().is_relative_to(Path(runs).resolve()):raise ValueError('运行目录越界')
         (target/'GAME_SPECIFICATION.md').write_text(text,'utf-8')
         (target/'game-profile.json').write_text(json.dumps(facts,ensure_ascii=False,indent=2),'utf-8')
+        from .conversion_delivery_checks import inspect
+        checks=inspect(target,report)
+        report['conversion_delivery_checks']=checks
+        (target/'CONVERSION_DELIVERY_CHECKS.json').write_text(json.dumps(checks,ensure_ascii=False,indent=2),'utf-8')
     else:
         field='changes' if 'changes' in body else 'files'
         body.setdefault(field,{})['GAME_SPECIFICATION.md']=text

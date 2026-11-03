@@ -69,6 +69,9 @@ def browser_get(address,run,budget):
             stream.write(json.dumps({'url_sha256':hashlib.sha256(address.encode()).hexdigest(),**errors[-1]},ensure_ascii=False)+'\n')
         transient=any(word in detail.lower() for word in ('fetch','timeout','timed out','reset','connection','network','aborted'))
         if not transient:break
+    if transient:
+        from public_resource_failure import PublicResourceTransportError
+        raise PublicResourceTransportError(address,len(errors))
     raise ValueError('公共资源浏览器传输失败（'+str(len(errors))+'次；'+errors[-1]['error'][:250]+'）：'+address)
 
 

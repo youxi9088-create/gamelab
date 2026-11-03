@@ -23,13 +23,54 @@ def estimate(row, rate):
     for field,price in [('cached_input_tokens','cached_input_per_million'),('cache_write_tokens','cache_write_per_million')]:
         n=row.get(field)
         if price in selected:
-            if n is None:return {**result,'cost_unknown_reason':field+'_missing'}
+            if n is None:
+                # If cache writes cost exactly the ordinary input rate, their
+                # unknown split cannot change the total. Keep the token field
+                # unknown; price all remaining input at that same rate.
+                if field=='cache_write_tokens' and selected[price]==selected['input_per_million']:
+                    result['cache_write_billed_at_input_rate']=True
+                    continue
+                return {**result,'cost_unknown_reason':field+'_missing'}
             ordinary-=n;parts[field]=n*selected[price]/1_000_000
         elif n:
             return {**result,'cost_unknown_reason':price+'_missing'}
-    parts['uncached_input_tokens']=ordinary*selected['input_per_million']/1_000_000
+    parts['input_tokens_at_input_rate' if result.get('cache_write_billed_at_input_rate') else 'uncached_input_tokens']=ordinary*selected['input_per_million']/1_000_000
     parts['output_tokens']=row['output_tokens']*selected['output_per_million']/1_000_000
     return {**result,'estimated_cost':sum(parts.values()),'cost_breakdown':parts,'cost_unknown_reason':None}
+
+
+def cost_bounds(row, rate=None):
+    """CNY bounds when usage is complete but cache splits are unknown.
+
+    Do not mutate the ledger or pretend an unknown cache count was zero. The
+    maximum corresponds to allocating remaining input to the most expensive
+    supported input category; the minimum uses the least expensive category.
+    """
+    def known(n):return type(n) in (int,float) and math.isfinite(n) and n>=0
+    if row.get('currency')=='CNY' and known(row.get('estimated_cost')):
+        return {'lower':row['estimated_cost'],'upper':row['estimated_cost'],'cache_assumed':False}
+    rate=row.get('pricing') or rate
+    if not rate or rate.get('currency')!='CNY' or row.get('service_tier') not in (None,'','default','standard'):return None
+    if not all(known(row.get(k)) for k in ('input_tokens','output_tokens')):return None
+    selected=rate
+    if rate.get('long_context') and row['input_tokens']>rate['long_context']['threshold']:selected=rate['long_context']
+    if not all(known(selected.get(k)) for k in ('input_per_million','output_per_million')):return None
+    base=row['input_tokens']*selected['input_per_million']+row['output_tokens']*selected['output_per_million']
+    remaining=row['input_tokens'];deltas=[0];assumed=False
+    for field,price in [('cached_input_tokens','cached_input_per_million'),('cache_write_tokens','cache_write_per_million')]:
+        count=row.get(field)
+        if price not in selected:
+            if count:return None
+            continue
+        if not known(selected[price]):return None
+        delta=selected[price]-selected['input_per_million']
+        if count is None:
+            deltas.append(delta);assumed=assumed or delta!=0
+        else:
+            if not known(count):return None
+            remaining-=count;base+=count*delta
+    if remaining<0:return None
+    return {'lower':(base+remaining*min(deltas))/1_000_000,'upper':(base+remaining*max(deltas))/1_000_000,'cache_assumed':assumed}
 
 def record(store,db,job,value,pricing):
     if not isinstance(value,dict):raise ValueError('用量记录格式错误')

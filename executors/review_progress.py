@@ -3,7 +3,7 @@ import hashlib
 import json
 
 def action_signature(actions):
-    return json.dumps([{k:v for k,v in a.items() if k in ('type','x','y','to_x','to_y','key','hold_ms')} for a in actions if a.get('type') in ('click','key','drag')],sort_keys=True)
+    return json.dumps([{k:v for k,v in a.items() if k in ('type','x','y','to_x','to_y','key','hold_ms','delta_x','delta_y','ticks')} for a in actions if a.get('type') in ('click','key','drag','wheel')],sort_keys=True)
 
 class ReviewProgress:
     def __init__(self):self.previous=None;self.count=0;self.action_count=0;self.repeated='';self.stalls=0

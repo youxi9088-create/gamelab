@@ -113,6 +113,11 @@ def delivery_source(source, candidate, version, metadata, facts=None):
                     raise ValueError('网页引用启动脚本，不能自动剔除：'+relative)
                 changes.append({'kind':'omit_launcher','path':relative,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
                 p.unlink()
+        # Public CSS dependencies are independent of whether resource names
+        # need adapting. Never let an early no-renames return skip font closure.
+        from .supply_fonts import localize as localize_fonts
+        fonts=localize_fonts(target)
+        if fonts:changes.append({'kind':'localize_declared_css_fonts','files':len(fonts)})
         from .supply_resources import prepare as prepare_resources
         layout=prepare_resources(target)
         if layout.get('renamed') or layout.get('deduplicated'):

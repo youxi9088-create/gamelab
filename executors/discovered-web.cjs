@@ -58,12 +58,8 @@ async function followResourceRedirects(fetch, value, evidence){
   url=safeURL(new URL(location,url).href).href;
  }
 }
-function resourcePath(value,base,script=false){
- const u=safeURL(value),b=safeURL(base);let p;
- if(u.origin===b.origin&&u.pathname.startsWith(b.pathname))p=decodeURIComponent(u.pathname.slice(b.pathname.length))||'index.html';
- else p='_remote/'+hash(u.origin+u.pathname).slice(0,16)+'/'+decodeURIComponent(u.pathname.split('/').pop()||'resource');
- if(p.split('/').some(s=>!s||s==='.'||s==='..'||/[\\:\x00-\x1f<>"|?*]/.test(s)))throw Error('Unsafe captured resource path');
- return script&&!p.endsWith('.js')?p+'.js':p;
+function resourcePath(value,base,script=false,type=''){
+ return require('./capture-resource-paths.cjs').resourcePath(safeURL(value).href,safeURL(base).href,script,type);
 }
 // Unity WebGL 构建在入口里带标准模板资源或 loader。17yoo 的 playbox 目录里
 // Cocos 和 Unity 混在一起（实测 10159/10178 是 Cocos、10219 是 Unity），所以只能
@@ -189,9 +185,7 @@ async function capture(input,run){
   const html=await response.text();if(Buffer.byteLength(html)>2e6)throw Error('Entry too large');
   fs.writeFileSync(path.join(original,'source-entry.html'),html);
   const matchedContract=require('./runtime-contracts.cjs').record(run,html,input.url);
-  const planFile=path.join(run,'runtime-plan.json'),plan=fs.existsSync(planFile)?JSON.parse(fs.readFileSync(planFile)):null;
-  report.capture_key=hash(JSON.stringify({url:input.url,referer:input.referer,html,plan}));
-  const reusable=prior.capture_key===report.capture_key?new Map((prior.files||[]).map(f=>[f.url,f])):new Map();
+  const planFile=path.join(run,'runtime-plan.json');let plan=fs.existsSync(planFile)?JSON.parse(fs.readFileSync(planFile)):null;
   let engine;
   try{engine=detect(html,plan);}catch(e){
    // Retain declared loader text for the provider-independent investigation tools.
@@ -207,6 +201,12 @@ async function capture(input,run){
    }
    throw e;
   }
+  if(engine==='browser'){
+   const observedPlan=require('./dom-runtime-plan.cjs').observedDOMPlan(input,run,html,plan);
+   if(observedPlan){plan=observedPlan;engine=detect(html,plan);fs.writeFileSync(planFile,JSON.stringify(plan));}
+  }
+  report.capture_key=hash(JSON.stringify({url:input.url,referer:input.referer,html,plan}));
+  const reusable=prior.capture_key===report.capture_key?new Map((prior.files||[]).map(f=>[f.url,f])):new Map();
   report.engine=engine;report.runtimePlan=plan;
   if(engine==='ruffle'&&process.env.RUFFLE_BROWSER_EXECUTABLE){
    await browser.close();delete report.browser_extension;
@@ -221,9 +221,9 @@ async function capture(input,run){
   if(remix.length===1&&matchedContract.selected.some(r=>r.adapter==='remix-local')){runtimeHTML=runtimeHTML.replace(remix[0],'local-host.js');fs.copyFileSync(path.join(__dirname,'adapters/remix-local.js'),path.join(out,'local-host.js'));report.patches.push({kind:'remix-local-host',contract:'host.remix',reason:'Declared Remix SDK replaced with local anonymous play and storage; no remote rewards'});}
   const poki=plan?.sdk==='poki-offline';
   if(poki){
-   const scripts=[...html.matchAll(/<script\b[^>]*src=["']([^"']+)["']/gi)].map(m=>m[1]).filter(u=>/^https:\/\/game-cdn\.poki\.com\/scripts\/[^?#]+\/poki-sdk\.js$/.test(u));
+   const scripts=require('./poki-sdk-declarations.cjs')(html,entry.href);
    if(scripts.length!==1)throw Error('Poki host plan requires one explicitly declared SDK');
-   runtimeHTML=runtimeHTML.replace(scripts[0],'runtime-host.js');
+   runtimeHTML=runtimeHTML.replace(scripts[0].literal,'runtime-host.js');
    fs.copyFileSync(path.join(__dirname,'adapters/poki-offline.js'),path.join(out,'runtime-host.js'));
    report.patches.push({kind:'poki-offline',reason:'Use original SDK rejection branch; advertisements and rewards unavailable',before:hash(html),after:hash(runtimeHTML)});
   }
@@ -246,7 +246,7 @@ async function capture(input,run){
    const task=(async()=>{
     // Fetch and retain bytes before fulfilling the browser request. Large SWFs
     // and WASM modules must not depend on Chromium's inspector response cache.
-    const cached=req.method()==='GET'&&['script','stylesheet','image','font','media'].includes(req.resourceType())?(require('./capture-cache.cjs').cachedResponse(original,reusable.get(u.href))||acquired.get(u.href)):null;
+    const cached=req.method()==='GET'&&['script','stylesheet','image','font','media'].includes(req.resourceType())?(require('./capture-cache.cjs').cachedResponse(original,reusable.get(u.href))||acquired.get(u.href)||require('./recovered-resource-cache.cjs').recoveredResource(entry.href,u.href)):null;
     if(cached?.acquired)report.discovery_snapshot.reused++;
     if(cached)report.cache_hits++;
     const res=cached||await followResourceRedirects(async(url,first)=>{
@@ -270,7 +270,7 @@ async function capture(input,run){
     }
     if(Number(res.headers()['content-length']||0)>220*1024*1024)throw Error('Resource exceeds byte budget');
     const script=req.resourceType()==='script',sourceURL=res.url?.()||u.href;
-    const file=resourcePath(u.href,base,script),data=await res.body(),sha256=hash(data);
+    const file=resourcePath(u.href,base,script,req.resourceType()),data=await res.body(),sha256=hash(data);
     if(script){
      for(const ref of await references(data.toString('utf8'),sourceURL,declared.mappings))declared.urls.add(ref.url);
      for(const url of assetEvidence.references(data.toString('utf8'),sourceURL))declaredAssets.add(url);
@@ -350,16 +350,21 @@ async function capture(input,run){
 }
 async function verify(run,actions=[],nextBatch=null,viewportReview=false,environment='deployment'){
  const started=Date.now(),root=path.resolve(run,'converted'),report={passed:false,errors:[],missing:[],external:[],blocked_external:[],required_external:[],steps:[],actions:[],renderDiagnostics:[],resource_requests:[]},acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
+ report.verifier_revision=hash(Buffer.from(['discovered-web.cjs','parser-resource-bindings.cjs','poki-startup-fallback.cjs','poki-sdk-declarations.cjs','adapters/runtime-resource-bindings.js','browser-options.cjs'].map(f=>hash(fs.readFileSync(path.join(__dirname,f)))).join('|')));
  // Apply the shared exact bindings to resumed legacy captures as well.
  const map=Object.fromEntries((acq.files||[]).filter(f=>f.url&&f.path).map(f=>[f.url,'./'+f.path]));
  Object.assign(map,acq.runtime_resource_map||{});
  fs.writeFileSync(path.join(root,'runtime-resource-map.js'),'window.runtimeResourceBindings='+JSON.stringify(map).replace(/</g,'\\u003c')+';');
  fs.copyFileSync(path.join(__dirname,'adapters/runtime-resource-bindings.js'),path.join(root,'runtime-resource-bindings.js'));
+ require('./poki-startup-fallback.cjs')(root,acq);
  const hostFile=path.join(root,'index.html'),hostText=fs.readFileSync(hostFile,'utf8');
  if(!hostText.includes('src="runtime-resource-map.js"')){
   const injection='<script src="runtime-resource-map.js"></script><script src="runtime-resource-bindings.js"></script>';
   fs.writeFileSync(hostFile,/<head\b[^>]*>/i.test(hostText)?hostText.replace(/<head\b[^>]*>/i,m=>m+injection):injection+hostText);
  }
+ const parserFile=path.join(root,'index.html'),parserBefore=fs.readFileSync(parserFile,'utf8');
+ const parserAfter=require('./parser-resource-bindings.cjs')(parserBefore,map,acq.url,root);
+ if(parserAfter!==parserBefore)fs.writeFileSync(parserFile,parserAfter);
  const adblock=createAdblock(report,acq.url||'https://replica-runtime.invalid/');
  // Only explicit evidence-reviewed decisions from this capture may omit a missing resource.
  const reviewed=(acq.optional_resources||[]).filter(x=>x.capture_key===acq.capture_key&&x.reason&&x.screenshot_sha256);
@@ -413,7 +418,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false,environ
    // Exact request URLs stay in local execution evidence; public error text omits queries.
    if(!report.resource_requests.some(item=>item.url===req.url()&&item.method===req.method()&&item.type===req.resourceType())&&report.resource_requests.length<200)
     report.resource_requests.push({id:'resource-'+(report.resource_requests.length+1),url:req.url(),type:req.resourceType(),method:req.method(),phase});
-   report.external.push(url);report.blocked_external.push({url,type:req.resourceType(),method:req.method()});if(['script','stylesheet','image','font','media','document'].includes(req.resourceType())||(req.method()==='GET'&&['fetch','xhr'].includes(req.resourceType())&&u.pathname.toLowerCase().endsWith('.json')))report.required_external.push(url);return r.abort();
+   report.external.push(url);report.blocked_external.push({url,type:req.resourceType(),method:req.method()});if(['script','stylesheet','image','font','media','document'].includes(req.resourceType())||(req.method()==='GET'&&['fetch','xhr'].includes(req.resourceType())&&/\.(json|glb|gltf|gltf-binary|mp3|wav|ogg|m4a|png|jpe?g|webp|woff2?|ttf|otf)$/i.test(u.pathname)))report.required_external.push(url);return r.abort();
   });
   page=await c.newPage();page.on('pageerror',e=>report.errors.push((e.stack||e.message).slice(0,3000)));   page.on('response',r=>{
    if(r.status()<400)return;
@@ -495,6 +500,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false,environ
    }
    else if(a.type==='drag'&&[a.x,a.y,a.to_x,a.to_y].every(Number.isFinite)&&a.x>=0&&a.x<=bounds.width&&a.to_x>=0&&a.to_x<=bounds.width&&a.y>=0&&a.y<=bounds.height&&a.to_y>=0&&a.to_y<=bounds.height){await page.mouse.move(a.x,a.y);await page.mouse.down();await page.mouse.move(a.to_x,a.to_y,{steps:12});await page.waitForTimeout(Math.max(100,Math.min(3000,a.hold_ms||300)));await page.mouse.up();}
    else if(a.type==='viewport'&&[[1000,760],[390,844],[844,390]].some(([w,h])=>a.width===w&&a.height===h)){await page.setViewportSize({width:a.width,height:a.height});}
+   else if(a.type==='wheel'){await require('./wheel-input.cjs').applyWheel(page,a);}
    else if(a.type==='wait'){}
    else if(a.type==='reload'){await page.reload({waitUntil:'domcontentloaded'});await gameplayReady(page,acq.engine);}
    else {report.rejected_action=a;throw Error('Unsupported input action: '+JSON.stringify(a));}
@@ -527,7 +533,7 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false,environ
   batch=await nextBatch(report);
   }
  }catch(e){report.passed=false;report.failure=e.message;if(e.readiness)report.readiness=e.readiness;report.issues=runtimeIssues(report);if(page){report.lastObserved=await state(page,acq.engine).catch(()=>null);await screenshot(page,path.join(root,'screenshots/failed.png')).catch(()=>{});}throw e;}
- finally{fs.writeFileSync(path.join(root,'evidence/runtime.json'),JSON.stringify(report,null,2));if(!report.passed)require('./runtime-contracts.cjs').update(run,'runtime-failed',{errors:report.errors.length,missing:report.missing.length,required_external:report.required_external.length});if(!report.passed&&report.failure&&nextBatch?.onFailure)nextBatch.onFailure();if(context)await context.unrouteAll({behavior:'wait'});if(browser)await browser.close();await new Promise(r=>server.close(r));}
+ finally{fs.writeFileSync(path.join(root,'evidence/runtime.json'),JSON.stringify(report,null,2));if(!report.passed)require('./runtime-contracts.cjs').update(run,'runtime-failed',{errors:report.errors.length,missing:report.missing.length,required_external:report.required_external.length});try{await require('./verification-cleanup.cjs').cleanupVerification(context,browser,server);}catch(error){report.passed=false;report.failure_phase='infrastructure-cleanup';report.failure=error.message;fs.writeFileSync(path.join(root,'evidence/runtime.json'),JSON.stringify(report,null,2));throw error;}}
  require('./runtime-contracts.cjs').update(run,'runtime-verified',{passed:report.passed,actions:report.actions.length,scope:'Offline startup and executed inputs; gameplay acceptance is independent'});
  return report;
 }
@@ -543,6 +549,7 @@ async function repairResources(run){
  const prior=acq.resource_refreshes||[],added=[];let bytes=0;
  if(prior.reduce((n,r)=>n+r.files.length,0)+missing.length>2000)throw Error('Resource repair exceeds task limit');
  const client=await request.newContext({...proxyOptions(),...sessionOptions(acq.url),extraHTTPHeaders:{Referer:acq.referer||acq.url}});
+ let recoveryBrowser;
  try{
   for(const local of missing){
    if(typeof local!=='string'||!local.startsWith('/')||local.startsWith('//'))throw Error('Invalid observed resource path');
@@ -559,7 +566,17 @@ async function repairResources(run){
    // round, so a package that had already run cleanly still ended up blocked.
    if(fs.existsSync(dest)){(acq.repaired_present=acq.repaired_present||[]).push(relative);continue;}
    acq.redirects=acq.redirects||[];
-   const response=await followResourceRedirects(value=>client.get(value,{maxRedirects:0,timeout:30000}),url.href,acq.redirects);
+   const response=await followResourceRedirects(async value=>{
+    const recovered=require('./recovered-resource-cache.cjs').recoveredResource(acq.url,value);
+    if(recovered){(acq.recovered_public_resources??=[]).push({url:value,source:'operator-collected-public-cache',verification_required:true});return recovered;}
+    try{return await client.get(value,{maxRedirects:0,timeout:30000});}
+    catch(error){
+     if(!recoveryBrowser)recoveryBrowser=await chromium.launch(require('./browser-options.cjs')());
+     const fetched=await require('./browser-resource-transfer.cjs').fetchResource(recoveryBrowser,value,safeURL);
+     (acq.transport_fallbacks??=[]).push({url:value,transport:'browser',status:fetched.status(),phase:'missing-local-repair'});
+     return fetched;
+    }
+   },url.href,acq.redirects);
    // Keep unavailable resources for evidence-based review; never infer optionality from extension.
    if(!response.ok()){
     const entry={url:url.href,path:relative,http_status:response.status()};
@@ -569,6 +586,7 @@ async function repairResources(run){
    if(Number(response.headers()['content-length']||0)>20*1024*1024)throw Error('Resource exceeds repair byte limit');
    const data=await response.body();
    if(data.length>20*1024*1024)throw Error('Resource exceeds repair byte limit');
+   if(/\.(woff2?|ttf|otf)$/i.test(relative)&&!['wOFF','wOF2','OTTO','\x00\x01\x00\x00'].includes(data.subarray(0,4).toString('latin1')))throw Error('Recovered font has invalid binary signature');
    if((acq.bytes||0)+bytes+data.length>220*1024*1024||acq.files.length+added.length>=1800)throw Error('Resource repair exceeds snapshot limits');
    if(bytes+data.length>30*1024*1024){
     await response.dispose();
@@ -581,6 +599,7 @@ async function repairResources(run){
    added.push({url:url.href,path:relative,bytes:data.length,sha256:hash(data)});await response.dispose();
   }
  }finally{
+  if(recoveryBrowser)await recoveryBrowser.close();
   await client.dispose();
   // Save original-source failures even when no resources could be downloaded.
   if(added.length||acq.unavailable||acq.repaired_present){
@@ -639,5 +658,6 @@ if(require.main===module){const [mode,input,run]=process.argv.slice(2);(async()=
   }
   console.log(JSON.stringify({engine:r.engine,passed:r.passed,complete:r.complete}));
  }
+ catch(error){if(nextBatch?.onFailure)nextBatch.onFailure();throw error;}
  finally{if(lines)lines.close();}
 })().catch(e=>{console.error(e.stack);process.exitCode=1;});}

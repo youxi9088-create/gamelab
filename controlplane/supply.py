@@ -14,15 +14,19 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import zipfile
+import zlib
+import logging
 from html.parser import HTMLParser
 from .store import now
 from .repository import safe_relative
 from .supply_config import settings as supply_settings, readiness
+from .supply_preparation import PACKAGE_CHECK_REVISION, needs_package_recheck
 
 PREFIX = '/v0.1/apecv/gameagent/supply/open'
 TERMINAL = {'published', 'rejected', 'failed', 'canceled', 'needs_your_fix'}
 INTERVAL = {'queued': 300, 'received': 300, 'analyzing': 60, 'building': 60,
-            'awaiting_platform_review': 1800, 'template_ready': 1800, 'certifying': 1800}
+            'awaiting_platform_review': 60, 'template_ready': 300, 'certifying': 300}
+STATUS_SYNC_REVISION='template-supply-client-1.0.1-20261103-config-recovery'
 CONFIG_KEYS = ('SUPPLY_PLATFORM_BASE', 'SUPPLY_APP_ID', 'SUPPLY_APP_SECRET',
                'SUPPLY_ARCHIVE_DIR', 'SUPPLY_ARCHIVE_BASE_URL')
 ERROR_TEXT = {
@@ -38,6 +42,13 @@ ERROR_TEXT = {
     'EXTERNAL_DEPENDENCY': '运行入口依赖外部服务或网络资源，请整理为随包静态资源后交付新版本',
     'MISSING_LOCAL_RESOURCE': 'HTML 入口引用的本地资源不存在，请补齐后交付新版本',
     'NESTED_ARCHIVE': '当前是嵌套运行包，请将真实静态运行目录整理为根入口后交付',
+    'SECRET_IN_CODE':'供货包发现疑似口令或密钥；请按文件和行号核查，不自动删除或绕过',
+    'ARCHIVE_DISTRIBUTION_FAILED':'供货包上传或免登录回下载核验失败，保留原提交编号重试',
+    'DOWNLOAD_HASH_MISMATCH':'分发下载字节与本地ZIP摘要不一致，禁止提交',
+    'EXTERNAL_REQUEST_REJECTED':'代码仍有外部请求，须本地化真实资源或整理外部服务调用；不能只依赖运行时拦截',
+    'CONFIG_FILE_UNREADABLE':'供货进程无法读取配置，请核对服务账号读取权限',
+    'CONFIG_FILE_INVALID':'供货配置无法解析，请检查原子写入及文件内容',
+    'DOWNSTREAM_TARGET_CHANGED':'当前下游地址或供应方身份与原提交不符，不能自动改投其他目标',
 }
 
 
@@ -61,9 +72,10 @@ def signature(secret, app_id, timestamp, nonce, method, path, body):
 
 
 class SupplyError(Exception):
-    def __init__(self, code, status=0, retry_after=300):
+    def __init__(self, code, status=0, retry_after=300, details=None):
         super().__init__(code)
         self.code, self.status, self.retry_after = code, status, retry_after
+        self.details=details or []
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -71,8 +83,9 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
         return None
 
 
-def call(method, route, payload=None, query=None):
-    config = supply_settings()
+def call(method, route, payload=None, query=None, *, config=None):
+    config = supply_settings() if config is None else config
+    if config.get('_config_error'):raise SupplyError(config['_config_error'],503)
     base = config['SUPPLY_PLATFORM_BASE'].rstrip('/')
     parsed = urllib.parse.urlsplit(base)
     lan_http = False
@@ -96,7 +109,8 @@ def call(method, route, payload=None, query=None):
                'X-Supply-Signature': signature(secret, app, ts, nonce, method, path, body)}
     req = urllib.request.Request(base + path, data=body if method == 'POST' else None, method=method, headers=headers)
     try:
-        with urllib.request.build_opener(NoRedirect).open(req, timeout=330 if route == 'extraction/submit' else 30) as response:
+        opener=urllib.request.build_opener(urllib.request.ProxyHandler({}),NoRedirect()) if lan_http else urllib.request.build_opener(NoRedirect())
+        with opener.open(req, timeout=330 if route == 'extraction/submit' else 30) as response:
             result = json.load(response)
             if not isinstance(result, dict):
                 raise SupplyError('INVALID_RESPONSE', 502)
@@ -123,15 +137,17 @@ def enqueue(store, db, version):
     existing = store.get(db, 'supply', version['id'])
     if existing:
         return existing
+    from .supply_metadata import metadata_for
     return store.put(db, 'supply', dict(id=version['id'], version_id=version['id'],
         candidate_id=version['candidate_id'], submission_id='supply-' + secrets.token_hex(16),
         status='pending', notice='功能验收通过，等待供货检查与自动推送',
         next_action='none', created_at=now(), updated_at=now(), next_poll=0,
-        metadata=version.get('report', {}).get('supply', {}), attempts=0, issues=[]))
+        metadata=metadata_for(store,db,version), attempts=0, issues=[]))
 
 
 def public(row):
-    return {k: v for k, v in row.items() if k not in ('metadata', 'lease_until', 'lease_token', 'archive_path')}
+    from .supply_preparation import recovery
+    return {**{k: v for k, v in row.items() if k not in ('metadata', 'lease_until', 'lease_token', 'archive_path','archive_url')},'recovery':recovery(row)}
 
 
 class ResourceReferences(HTMLParser):
@@ -193,8 +209,14 @@ def inspect_source(source):
     try:aliases=validated_aliases(source)
     except (ValueError,KeyError,OSError):raise SupplyError('RESOURCE_PREPARATION_FAILED',422) from None
     references=audit(source,aliases=aliases)
-    if references['missing']:raise SupplyError('MISSING_LOCAL_RESOURCE',422)
-    if references['external']:raise SupplyError('EXTERNAL_DEPENDENCY',422)
+    from .resource_audit import external_request_findings
+    outbound=external_request_findings(files)
+    if outbound:raise SupplyError('EXTERNAL_REQUEST_REJECTED',422,details=outbound)
+    if references['missing']:raise SupplyError('MISSING_LOCAL_RESOURCE',422,details=[{'file':r['file'],'reference':r['reference'].split('?')[0]} for r in references['missing'][:20]])
+    if references['external']:raise SupplyError('EXTERNAL_DEPENDENCY',422,details=[{'file':r['file']} for r in references['external'][:20]])
+    from .supply_preparation import secret_findings
+    findings=secret_findings(files)
+    if findings:raise SupplyError('SECRET_IN_CODE',422,details=findings)
     return files, total
 
 
@@ -214,8 +236,12 @@ def _build_archive(source, destination):
             for item, rel in files:
                 # Stable bytes on retry; metadata timestamps must not change the hash.
                 info = zipfile.ZipInfo(rel, (2020, 1, 1, 0, 0, 0))
-                info.compress_type = zipfile.ZIP_DEFLATED
-                archive.writestr(info, item.read_bytes())
+                data=item.read_bytes()
+                # Preserve exact content while avoiding pathological member ratios.
+                # Size/file-count limits still apply to the final archive.
+                compressed=len(zlib.compress(data))-6
+                info.compress_type = zipfile.ZIP_STORED if len(data)>max(1,compressed)*50 else zipfile.ZIP_DEFLATED
+                archive.writestr(info, data)
         if temp.stat().st_size > 100_000_000:
             raise SupplyError('ARCHIVE_TOO_LARGE', 413)
         temp.replace(destination)
@@ -242,21 +268,40 @@ class SupplyWorker:
         while not self.stop.is_set():
             try:
                 self.tick()
-            except Exception:
+                from .supply_preparation import prepare_one_review
+                prepare_one_review(self.service)
+            except Exception as error:
                 # No credentials or signed download addresses in logs.
-                pass
+                logging.warning('Supply loop interrupted: %s',type(error).__name__)
             self.stop.wait(10)
 
-    def tick(self):
+    def tick(self,submitted_only=False,package_recheck_only=False):
         store = self.service.store
         with store.tx() as db:
             if (store.get(db,'settings','maintenance') or {}).get('draining'):return
+            config=supply_settings()
+            ready=readiness(config)
+            default_policy=store.get(db,'settings','supply_defaults') or {}
+            destination=hashlib.sha256((str(config.get('SUPPLY_PLATFORM_BASE'))+'\n'+str(config.get('SUPPLY_APP_ID'))).encode()).hexdigest()
+            def recovered_config(r):
+                if (r.get('error_code')=='LICENSE_UNDECLARED' and not r.get('submitted') and not r.get('archive_sha256')
+                        and default_policy.get('enabled') is True and default_policy.get('scope')=='platform_outputs'
+                        and (default_policy.get('license_declaration') or {}).get('distributable')=='yes'
+                        and (default_policy.get('license_declaration') or {}).get('owner')
+                        and not (r.get('metadata',{}).get('license_declaration') or {}).get('owner')
+                        and (r.get('metadata',{}).get('license_declaration') or {}).get('distributable')!='no'):return True
+                if not ready['configured'] or r.get('status')!='blocked':return False
+                if r.get('error_code')=='DOWNSTREAM_TARGET_CHANGED':return bool(r.get('submitted') and r.get('destination_key')==destination)
+                return r.get('error_code') in ('CONFIG_FILE_UNREADABLE','CONFIG_FILE_INVALID')
+            # Recheck unsealed local packages once per loaded checker revision.
+            # Submitted payloads, rights and platform failures retain their guards.
             row = next((r for r in store.all(db, 'supply')
-                        if r['status'] not in ('blocked', 'done') and r.get('next_poll', 0) <= time.time()
+                        if (not submitted_only or r.get('submitted')) and (not package_recheck_only or needs_package_recheck(r)) and (r['status'] not in ('blocked', 'done') or recovered_config(r) or needs_package_recheck(r) or (r.get('submitted') and r.get('status_sync_revision')!=STATUS_SYNC_REVISION) or (r['status']=='blocked' and r.get('error_code')=='CONFIG_REQUIRED' and config.get('SUPPLY_DELIVERY_MODE')=='cs' and ready['configured'] and not r.get('distribution_recovery_attempted'))) and r.get('next_poll', 0) <= time.time()
                         and r.get('lease_until', 0) <= time.time()), None)
             if not row:
                 return
             row.update(lease_until=time.time()+900, lease_token=secrets.token_hex(16))
+            if row.get('status')=='blocked':row['distribution_recovery_attempted']=True
             store.put(db, 'supply', row)
             version = self.service.get(db, 'versions', row['version_id'])
             candidate = self.service.get(db, 'candidates', row['candidate_id'])
@@ -264,13 +309,23 @@ class SupplyWorker:
         previous_status = (row.get('status'), row.get('state'), row.get('error_code'))
         try:
             config = supply_settings()
+            if config.get('_config_error'):raise SupplyError(config['_config_error'],503)
+            if row.get('destination_key') and not readiness(config)['configured']:raise SupplyError('CONFIG_REQUIRED',503)
+            def request(method,route,**kwargs):
+                return self.client(method,route,config=config,**kwargs) if self.client is call else self.client(method,route,**kwargs)
             if row.get('destination_key'):
                 destination_key = hashlib.sha256((str(config.get('SUPPLY_PLATFORM_BASE'))+'\n'+str(config.get('SUPPLY_APP_ID'))).encode()).hexdigest()
                 if destination_key != row['destination_key']:
                     raise SupplyError('DOWNSTREAM_TARGET_CHANGED', 409)
             if not row.get('submitted'):
                 meta = row.get('metadata') or {}
+                if not row.get('archive_sha256'):
+                    from .supply_metadata import metadata_for
+                    with store.read() as db:meta=metadata_for(store,db,version,meta)
+                    row['metadata']=meta
                 license = meta.get('license_declaration') or {}
+                ready=readiness(config)
+                row['preparation']={'checked_at':now(),'delivery_mode':ready['delivery_mode'],'configuration_missing':ready['missing'],'configuration_errors':ready['errors'],'rights_declared':license.get('distributable')=='yes' and bool(str(license.get('owner','')).strip()),'package':'not_checked'}
                 if license.get('distributable') != 'yes' or not str(license.get('owner', '')).strip():
                     raise SupplyError('LICENSE_UNDECLARED', 422)
                 required = CONFIG_KEYS
@@ -278,25 +333,30 @@ class SupplyWorker:
                 if not readiness()['configured']:
                     raise SupplyError('CONFIG_REQUIRED', 400)
                 row['preflight']=preflight(config)
-                config_digest = hashlib.sha256(('\n'.join(config[k] for k in required)+'\n'+config.get('SUPPLY_EXPECTED_FINGERPRINT','')).encode()).hexdigest()
+                config_digest = hashlib.sha256(('\n'.join(str(config.get(k,'')) for k in (*required,'SUPPLY_DELIVERY_MODE','SUPPLY_CS_TENANT_ID','SUPPLY_CS_AUTHORIZATION'))+'\n'+config.get('SUPPLY_EXPECTED_FINGERPRINT','')).encode()).hexdigest()
                 if self.checked_config != config_digest:
-                    identity = self.client('GET', 'whoami')
+                    identity = request('GET', 'whoami')
                     if identity.get('app_id') != config['SUPPLY_APP_ID']:
                         raise SupplyError('SUPPLIER_IDENTITY_MISMATCH', 403)
                     self.checked_config = config_digest
-                base = config['SUPPLY_ARCHIVE_BASE_URL'].rstrip('/')
-                parsed = urllib.parse.urlsplit(base)
-                if parsed.scheme != 'https' or not parsed.hostname or parsed.username or parsed.query or parsed.fragment:
-                    raise SupplyError('INVALID_ARCHIVE_URL', 400)
-                if not 1 <= len(candidate['title']) <= 40:
+                game_name=' '.join(candidate['title'].split())[:40]
+                if not game_name:
                     raise SupplyError('GAME_NAME_INVALID', 422)
                 from .supply_delivery import resolve_source, delivery_source
                 source = resolve_source(self.service.repo, version)
                 with store.tx() as db:
                     profile_record = store.get(db, 'game_profiles', version['id']) or {}
                 archive = self.service.data_dir/'supply'/f"{row['submission_id']}.zip"
-                with delivery_source(source, candidate, version, meta, profile_record.get('profile')) as (delivery, supplement):
-                    digest = build_archive(delivery, archive)
+                if not row.get('archive_sha256'):
+                    row['package_check_revision']=PACKAGE_CHECK_REVISION
+                if row.get('archive_sha256') and archive.is_file():
+                    digest=hashlib.sha256(archive.read_bytes()).hexdigest()
+                    supplement={}
+                else:
+                    with delivery_source(source, candidate, version, meta, profile_record.get('profile')) as (delivery, supplement):
+                        digest = build_archive(delivery, archive)
+                if not meta.get('acceptance_steps') and supplement.get('acceptance_steps'):
+                    meta={**meta,'acceptance_steps':supplement['acceptance_steps']}
                 if supplement.get('runtime_recheck_required'):
                     meta={**meta,'known_limitations':list(dict.fromkeys([*(meta.get('known_limitations') or []),
                         '供货副本已整理入口、启动文件或资源映射，原玩法证据对应原版本；下游须核对整理后运行效果。']))}
@@ -304,18 +364,16 @@ class SupplyWorker:
                     raise SupplyError('IMMUTABLE_VERSION_CHANGED', 409)
                 # Persist digest before outbound I/O so unknown submit outcomes remain idempotent.
                 row['archive_sha256'] = digest
+                row['metadata']=meta
+                row['preparation']['package']='passed_static_checks'
                 with store.tx() as db:
                     store.put(db, 'supply', row)
-                target = Path(config['SUPPLY_ARCHIVE_DIR'])/archive.name
-                target.parent.mkdir(parents=True, exist_ok=True)
-                if target.resolve() != archive.resolve():
-                    if target.exists() and hashlib.sha256(target.read_bytes()).hexdigest() != digest:
-                        raise SupplyError('ARCHIVE_TARGET_CONFLICT', 409)
-                    staging = target.with_suffix('.tmp')
-                    shutil.copyfile(archive, staging)
-                    staging.replace(target)
-                payload = dict(submission_id=row['submission_id'], archive_url=base+'/'+archive.name,
-                               archive_sha256=digest, game_name=candidate['title'], license_declaration=license)
+                if not row.get('archive_url'):
+                    from .supply_distribution import publish
+                    row['archive_url']=publish(archive,digest,config)
+                    with store.tx() as db:store.put(db,'supply',row)
+                payload = dict(submission_id=row['submission_id'], archive_url=row['archive_url'],
+                               archive_sha256=digest, game_name=game_name, license_declaration=license)
                 for field in ('acceptance_steps', 'known_limitations', 'contact_note'):
                     if meta.get(field):
                         payload[field] = meta[field]
@@ -326,16 +384,16 @@ class SupplyWorker:
                 row['destination_key'] = hashlib.sha256((config['SUPPLY_PLATFORM_BASE']+'\n'+config['SUPPLY_APP_ID']).encode()).hexdigest()
                 with store.tx() as db:
                     store.put(db, 'supply', row)
-                result = self.client('POST', 'extraction/submit', payload=payload)
+                result = request('POST', 'extraction/submit', payload=payload)
                 if result.get('submission_id') != row['submission_id'] or not result.get('state'):
                     raise SupplyError('INVALID_SUBMIT_RESPONSE', 502)
                 row['submitted'] = True
                 row.setdefault('submitted_at', now())
             else:
-                result = self.client('GET', 'extraction/status', query={'submission_id': row['submission_id']})
+                result = request('GET', 'extraction/status', query={'submission_id': row['submission_id']})
                 if result.get('submission_id') != row['submission_id'] or not result.get('state'):
                     raise SupplyError('INVALID_STATUS_RESPONSE', 502)
-                issues = self.client('GET', 'extraction/issues', query={'submission_id': row['submission_id'],
+                issues = request('GET', 'extraction/issues', query={'submission_id': row['submission_id'],
                     'since_seq': str(row.get('max_seq', 0) if row.get('revision') == result.get('revision') else 0), 'limit': '200'})
                 if issues.get('revision') != row.get('revision'):
                     row['issues'] = []
@@ -349,8 +407,11 @@ class SupplyWorker:
                     row[key] = result[key]
             row.update(status='done' if result['state'] in TERMINAL and row.get('issues_complete') else 'tracking',
                        next_poll=time.time()+INTERVAL.get(result['state'], 60), error_code='')
+            if row.get('issues_complete'):row['status_sync_revision']=STATUS_SYNC_REVISION
         except SupplyError as exc:
+            row.setdefault('preparation',{})['issues']={'code':exc.code,'items':exc.details}
             retry = exc.status == 0 or exc.status >= 500 or exc.status == 429
+            if row.get('submitted') and not retry:row['status_sync_revision']=STATUS_SYNC_REVISION
             row.update(status='retrying' if retry else 'blocked', error_code=exc.code,
                        notice=('自动重试：' if retry else '供货阻塞：')+ERROR_TEXT.get(exc.code, exc.code),
                        next_action='none' if retry else 'supplier', next_poll=time.time()+exc.retry_after)

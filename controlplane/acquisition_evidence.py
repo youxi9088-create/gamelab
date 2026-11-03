@@ -13,9 +13,10 @@ import time
 from pathlib import Path
 
 LABELS = {'cocos2': 'Cocos 2', 'browser': '通用 Web 运行包', 'ruffle': 'Ruffle / Flash', 'three':'Three.js', 'defold':'Defold', 'unity':'Unity', 'cocos3':'Cocos 3'}
+LABELS.update(phaser='Phaser', pixi='PixiJS', babylon='Babylon.js', laya='LayaAir', godot='Godot', canvas2d='原生 Canvas 2D')
 # Most specific wins: a candidate whose later attempt was downgraded to the
 # generic browser runtime still deserves the Cocos label from the earlier one.
-PRIORITY = ('cocos2', 'cocos3', 'three', 'defold', 'unity', 'ruffle', 'browser')
+PRIORITY = ('cocos2', 'cocos3', 'defold', 'unity', 'ruffle', 'phaser', 'pixi', 'babylon', 'laya', 'godot', 'three', 'canvas2d', 'browser')
 CACHE_SECONDS = 120
 
 _CACHE = {'key': None, 'at': 0.0, 'signature': None, 'value': {}}
@@ -80,11 +81,25 @@ def _scan(root):
             continue
         try:
             job_id = json.loads(binding.read_text(encoding='utf-8')).get('job_id')
-            engine = json.loads(evidence.read_text(encoding='utf-8')).get('engine')
+            acquisition = json.loads(evidence.read_text(encoding='utf-8-sig'))
+            engine = acquisition.get('engine')
         except (OSError, ValueError, AttributeError):
             continue
-        if job_id and engine in LABELS:
-            by_job.setdefault(job_id, set()).add(engine)
+        if job_id:
+            codes = {engine} if engine in LABELS else set()
+            from .original_engines import infer
+            codes.update(infer(acquisition))
+            # Read only retained original HTML, never converted/index.html.
+            if not codes or codes <= {'browser'}:
+                for original in (directory / 'web-original' / 'source-entry.html',
+                                 directory / 'original' / 'source-entry.html'):
+                    try:
+                        if original.is_file() and original.stat().st_size <= 2_000_000:
+                            codes.update(infer(acquisition, original.read_text('utf-8-sig')))
+                            break
+                    except (OSError, UnicodeError, ValueError):
+                        pass
+            by_job.setdefault(job_id, set()).update(codes)
     return by_job
 
 

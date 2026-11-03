@@ -9,11 +9,37 @@ import json
 import os
 from pathlib import Path
 import re
+from html.parser import HTMLParser
 from urllib.parse import unquote, urlsplit
 
 from .repository import safe_relative
 
 HASH_NAME=re.compile(r'(?:^|[.-])[0-9a-f]{8,}(?:[.-]|$)',re.I)
+
+def stylesheet_paths(root):
+    """Explicit stylesheet roles survive captures whose URL has no .css suffix."""
+    root=Path(root).resolve();found=set()
+    def add(value,base):
+        if not isinstance(value,str):return
+        try:u=urlsplit(value)
+        except ValueError:return
+        if u.scheme or u.netloc or not u.path:return
+        target=(root/unquote(u.path).lstrip('/') if u.path.startswith('/') else base/unquote(u.path)).resolve()
+        if target.is_relative_to(root) and target.is_file() and not target.is_symlink():found.add(target.relative_to(root).as_posix())
+    class Links(HTMLParser):
+        def handle_starttag(self,tag,attrs):
+            a=dict(attrs)
+            if tag=='link' and 'stylesheet' in a.get('rel','').lower().split():add(a.get('href'),self.base)
+    for html in root.rglob('*.html'):
+        if html.relative_to(root).parts[0] in ('evidence','verification','screenshots','supply-delivery') or html.stat().st_size>2_000_000:continue
+        parser=Links();parser.base=html.parent;parser.feed(html.read_text('utf-8'))
+    metadata=root/'evidence/acquisition.json'
+    if metadata.is_file() and metadata.stat().st_size<=4_000_000:
+        try:
+            for row in json.loads(metadata.read_text('utf-8')).get('files',[]):
+                if row.get('type')=='stylesheet' or str(row.get('contentType','')).split(';')[0].strip().lower()=='text/css':add(row.get('path'),root)
+        except (ValueError,TypeError,AttributeError):pass
+    return found
 
 
 def adapter(mapping):
@@ -49,26 +75,26 @@ def prepare(root):
     browser_capture=(root/'evidence/acquisition.json').is_file() or (
         (root/'local-config.js').is_file() and (root/'resource-downloads.json').is_file())
     if not recognized and not browser_capture:return {'renamed':0,'deduplicated':0}
-    files=sorted(p for p in root.rglob('*') if p.is_file())
+    files=sorted(p for p in root.rglob('*') if p.is_file());stylesheets=stylesheet_paths(root)
     plans={};seen={};hashes={};renamed=deduplicated=0
     categories={'.png':'image','.jpg':'image','.jpeg':'image','.webp':'image','.mp3':'audio','.ogg':'audio',
                 '.wav':'audio','.json':'asset-data','.atlas':'atlas','.plist':'atlas','.bin':'buffer','.js':'module','.mjs':'module'}
     for p in files:
         old=p.relative_to(root).as_posix();parts=Path(old).parts
         if not parts:continue
-        if recognized and parts[0] not in ('assets','subpackages','cocos-js'):continue
+        if recognized and parts[0] not in ('assets','subpackages','cocos-js') and old not in stylesheets:continue
         if not recognized and parts[0] in ('evidence','verification','screenshots','platform-delivery','supply-delivery'):continue
         digest=hashlib.sha256(p.read_bytes()).hexdigest();key=(p.suffix.lower(),digest)
         # Code/styles retain directory-relative evaluation semantics. Only data
         # responses may share storage across directories.
-        can_dedupe=p.suffix.lower() not in ('.js','.mjs','.cjs','.html','.css') and not p.name.startswith('config')
+        can_dedupe=p.suffix.lower() not in ('.js','.mjs','.cjs','.html','.css') and old not in stylesheets and not p.name.startswith('config')
         if can_dedupe and key in seen:
             plans[old]=seen[key];hashes[old]=digest;deduplicated+=1;continue
         new=old
-        if HASH_NAME.search(p.name):
-            label=categories.get(p.suffix.lower(),'resource')
+        if HASH_NAME.search(p.name) or (old in stylesheets and p.suffix.lower()!='.css'):
+            label='stylesheet' if old in stylesheets else categories.get(p.suffix.lower(),'resource')
             # Keep original directory so relative JS imports retain their base.
-            suffix=p.suffix
+            suffix='.css' if old in stylesheets else p.suffix
             # Some historical asset labels truncated the extension. Only actual
             # validated glTF binary bytes qualify for a standard .glb name.
             if suffix.lower().startswith('.gltf-b'):
@@ -87,9 +113,6 @@ def prepare(root):
         else:
             if hashlib.sha256(dest.read_bytes()).hexdigest()!=hashes[old]:raise ValueError('供货资源去重哈希不符')
             p.unlink()
-    if browser_capture and not recognized:
-        from .supply_fonts import localize
-        localize(root)
     def reference(value,relative):
         # Arbitrary JS string literals can contain shader programs, long text,
         # or malformed URL-like strings. Look up paths lexically rather than

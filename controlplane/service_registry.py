@@ -31,6 +31,21 @@ class ServiceRegistry:
         self.lock = threading.RLock()
         self.checks = {}
         self.executor = None
+        self.runtime_service = None
+
+    def builtin_status(self):
+        """Read persisted tool heartbeats across UI/executor process boundaries."""
+        from .store import later
+        service=self.runtime_service
+        with service.store.read() as db:
+            tools=[t for t in service.store.all(db,'tools') if t.get('enabled') and set(t.get('capabilities',[]))&{'rea','reconstruct'}]
+        online=[t for t in tools if t.get('last_seen') and t['last_seen']>later(-90)]
+        latest=max((t.get('last_seen') for t in tools if t.get('last_seen')),default=None)
+        return dict(id='wechat',backend='builtin',base_url='',model='',has_key=False,
+                    status='已连接' if online else '待连接',configured=True,
+                    detail='内置执行器心跳正常；不代表每款游戏都能转换成功。' if online else '使用平台内置执行器，无需配置外部地址；尚未收到有效心跳，请检查执行器进程。',
+                    checks={'executor_heartbeat':bool(online)},checked_at=None,last_seen=latest,
+                    readiness_scope='执行器连接状态；Node、浏览器和REA能力检查独立',online_executors=len(online))
 
     def configs(self):
         return json.loads(self.path.read_text('utf-8')) if self.path.exists() else {}
@@ -48,6 +63,8 @@ class ServiceRegistry:
                     health=self.executor.health()
                     result.append(dict(id=kind,base_url='',model='',has_key=False,status='在线' if health['ready'] else '异常',detail=health['detail'],checks=health['checks'],checked_at=time.time(),backend='builtin'))
                     continue
+                if kind=='wechat' and self.runtime_service and not c.get('base_url'):
+                    result.append(self.builtin_status());continue
                 from .ai_provider import codex_binary
                 backend=c.get('backend','auto')
                 configured = bool(c.get('base_url') and (kind != 'ai' or c.get('model') and c.get('api_key'))) or kind=='ai' and backend!='api' and bool(codex_binary())
@@ -136,6 +153,8 @@ class ServiceRegistry:
                 c['model'] = str(body.get('model', '')).strip()
                 require(c['model'] and key, '请填写模型名称和 API Key')
                 c['wire_api'] = str(body.get('wire_api') or old.get('wire_api') or 'chat_completions').strip()
+                if 'use_proxy' in body or 'use_proxy' in old:
+                    c['use_proxy'] = body.get('use_proxy', old.get('use_proxy')) is not False
                 require(c['wire_api'] in ('chat_completions', 'responses'), '无效 AI 接口协议')
                 actor = str(body.get('actor_authorization', '')).strip() or old.get('http_headers', {}).get('x-openai-actor-authorization', '')
                 require(not any(x in actor for x in ('\r', '\n')) and len(actor) <= 4096, '附加授权头格式无效')
@@ -158,7 +177,7 @@ class ServiceRegistry:
     def test(self, kind):
         with self.lock:
             c = dict(self.config(kind))
-        if kind=='wechat' and self.executor and not c.get('base_url'):
+        if kind=='wechat' and (self.executor or self.runtime_service) and not c.get('base_url'):
             return self.public()
         if kind=='ai':
             from .ai_provider import complete, AIProviderError

@@ -4,9 +4,43 @@ import hmac
 import re
 import secrets
 import time
+import os
+import sqlite3
+import json
+from pathlib import Path
+from contextlib import closing
 from .store import ident, now
 
 ROLES={'admin','operator','viewer'}
+
+
+def isolated_store(platform_store, path):
+    """One-time identity migration; task write transactions cannot stall login."""
+    from .store import Store
+    auth = Store(path)
+    with auth.read() as db:
+        populated = bool(auth.all(db, 'users'))
+    if not populated:
+        with platform_store.read() as db:
+            users = platform_store.all(db, 'users')
+        with auth.tx() as db:
+            if not auth.all(db, 'users'):
+                for user in users:
+                    auth.put(db, 'users', user)
+    return auth
+
+
+def actor_names(platform_store, db):
+    names={u['id']:u['username'] for u in platform_store.all(db,'users')}
+    path=Path(os.environ.get('PORTAL_AUTH_DB',str(Path(platform_store.path).parent/'portal-accounts.sqlite3')))
+    if path.is_file() and path.resolve()!=Path(platform_store.path).resolve():
+        try:
+            with closing(sqlite3.connect('file:'+path.as_posix()+'?mode=ro',uri=True,timeout=2)) as auth:
+                for row in auth.execute("SELECT data FROM records WHERE kind='users'"):
+                    user=json.loads(row[0]);names[user['id']]=user['username']
+        except (sqlite3.Error,OSError,ValueError,KeyError):
+            pass
+    return names
 
 
 def public(user):
@@ -27,15 +61,19 @@ class Accounts:
                     password_hash=password_hash(password),revision=1,created_at=now()))
 
     def enabled(self):
-        with self.store.tx() as db:return bool(self.store.all(db,'users'))
+        with self.store.read() as db:return bool(self.store.all(db,'users'))
 
     def login(self,username,password):
         if not isinstance(username,str) or not isinstance(password,str) or len(password)>1024:return None
-        with self.store.tx() as db:
+        with self.store.read() as db:
             user=next((u for u in self.store.all(db,'users') if u['username']==username),None)
-            hashed=user['password_hash'] if user else password_hash('unavailable')
-            valid=hmac.compare_digest(password_hash(password,hashed.split(':')[0]),hashed)
-            if not user or not user['enabled'] or not valid:return None
+        hashed=user['password_hash'] if user else '0'*32+':'+'0'*64
+        valid=hmac.compare_digest(password_hash(password,hashed.split(':')[0]),hashed)
+        if not user or not user['enabled'] or not valid:return None
+        with self.store.tx() as db:
+            current=self.store.get(db,'users',user['id'])
+            if not current or not current['enabled'] or current['revision']!=user['revision'] or current['password_hash']!=hashed:
+                return None
             token=secrets.token_urlsafe(32)
             row=dict(id=hashlib.sha256(token.encode()).hexdigest(),user_id=user['id'],revision=user['revision'],
                 csrf=secrets.token_urlsafe(24),expires=time.time()+43200,authenticated=True)
@@ -45,7 +83,7 @@ class Accounts:
 
     def session(self,token):
         if not token:return None
-        with self.store.tx() as db:
+        with self.store.read() as db:
             row=self.store.get(db,'portal_sessions',hashlib.sha256(token.encode()).hexdigest())
             if not row or row['expires']<=time.time():return None
             user=self.store.get(db,'users',row['user_id'])
@@ -57,7 +95,7 @@ class Accounts:
             with self.store.tx() as db:db.execute("DELETE FROM records WHERE kind='portal_sessions' AND id=?",(hashlib.sha256(token.encode()).hexdigest(),))
 
     def list(self):
-        with self.store.tx() as db:return [public(u) for u in self.store.all(db,'users')]
+        with self.store.read() as db:return [public(u) for u in self.store.all(db,'users')]
 
     def save(self,body,actor):
         from .service import require

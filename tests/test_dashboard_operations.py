@@ -1,8 +1,60 @@
 import unittest
+import tempfile
+from pathlib import Path
+from unittest.mock import patch
 from datetime import datetime,timezone
 from controlplane.dashboard_operations import overview
 
 class OperationalDashboardTests(unittest.TestCase):
+    def setUp(self):
+        directory=tempfile.TemporaryDirectory();self.addCleanup(directory.cleanup)
+        isolated=patch('controlplane.capture_inventory.DEFAULT_FILE',Path(directory.name)/'inventory.json')
+        isolated.start();self.addCleanup(isolated.stop)
+    def test_eight_kpis_use_game_grain_and_complete_cny_samples(self):
+        state={'candidates':[{'id':x} for x in ('a','b','c','d')]+[{'id':'h','observations':{'catalog_hidden':True}}],
+               'jobs':[{'id':'old','candidate_id':'a','status':'review'},{'id':'new','candidate_id':'a','status':'running','created_at':'2026-11-03'}, {'id':'b','candidate_id':'b','status':'completed'}],
+               'supply':[{'candidate_id':'a','submitted':True,'submission_id':x,'template':{'template_id':'t1'}} for x in ('one','two')]+[{'candidate_id':'c','submitted':False,'submission_id':'pending'}],
+               'game_conversion_stats':[{'candidate_id':'a','duration_seconds':100},{'candidate_id':'b','duration_seconds':300}]}
+        usage=[{'id':'a1','candidate_id':'a','input_tokens':100,'output_tokens':20,'estimated_cost':1,'currency':'CNY'},
+               {'id':'a2','candidate_id':'a','input_tokens':50,'output_tokens':30,'estimated_cost':2,'currency':'CNY'},
+               {'id':'b1','candidate_id':'b','input_tokens':20,'output_tokens':None,'estimated_cost':1,'currency':'USD'}]
+        k=overview(state,usage+[usage[0]])['kpis']
+        self.assertEqual((k['converted_games'],k['pending_games'],k['supplied_games'],k['downstream_templates']),(2,2,1,1))
+        self.assertIsNone(k['template_generated_games'])
+        self.assertEqual(k['median_seconds'],200)
+        self.assertEqual((k['average_tokens'],k['token_games']),(200,1))
+        self.assertEqual((k['average_cost_cny'],k['cost_games']),(3,1))
+
+    def test_zero_cost_is_known_but_missing_and_usd_are_not_cny(self):
+        state={'candidates':[{'id':'a'}],'jobs':[{'id':'j','candidate_id':'a','status':'review'}]}
+        self.assertIsNone(overview(state,[])['kpis']['average_cost_cny'])
+        k=overview(state,[{'id':'free','candidate_id':'a','input_tokens':0,'output_tokens':0,'estimated_cost':0,'currency':'CNY'}])['kpis']
+        self.assertEqual(k['average_cost_cny'],0)
+        self.assertEqual(k['average_tokens'],0)
+    def test_token_and_cost_averages_share_exact_complete_game_cohort(self):
+        state={'candidates':[{'id':x} for x in ('complete','no-price','no-usage','usd')],
+               'jobs':[{'id':'j-'+x,'candidate_id':x,'status':'review'} for x in ('complete','no-price','no-usage','usd')],
+               'capture_inventory':{'schema_version':1,'games':[]}}
+        calls=[{'id':'1','candidate_id':'complete','input_tokens':100,'output_tokens':20,'estimated_cost':1,'currency':'CNY'},
+               {'id':'2','candidate_id':'complete','input_tokens':30,'output_tokens':10,'estimated_cost':2,'currency':'CNY'},
+               {'id':'3','candidate_id':'no-price','input_tokens':9999999,'output_tokens':1,'estimated_cost':None,'currency':'CNY'},
+               {'id':'4','candidate_id':'no-usage','input_tokens':None,'output_tokens':10,'estimated_cost':8,'currency':'CNY'},
+               {'id':'5','candidate_id':'usd','input_tokens':1000,'output_tokens':20,'estimated_cost':1,'currency':'USD'}]
+        k=overview(state,calls+[calls[0]])['kpis']
+        self.assertEqual(k['token_games'],k['cost_games']);self.assertEqual(k['usage_cost_games'],3)
+        self.assertAlmostEqual(k['average_tokens'],(160+10000000+1020)/3)
+        self.assertIsNone(k['average_cost_cny']);self.assertEqual(k['unpriced_games'],2)
+    def test_complete_tokens_with_missing_cache_remain_in_both_averages(self):
+        rate={'currency':'CNY','input_per_million':6.5,'output_per_million':27,'cached_input_per_million':1.3}
+        state={'candidates':[{'id':'a'},{'id':'b'}],'jobs':[{'id':x,'candidate_id':x,'status':'review'} for x in ('a','b')],
+               'capture_inventory':{'schema_version':1,'games':[]}}
+        calls=[{'id':'known','candidate_id':'a','input_tokens':100,'output_tokens':20,'estimated_cost':1,'currency':'CNY'},
+               {'id':'no-cache-detail','candidate_id':'b','input_tokens':1000,'output_tokens':100,'cached_input_tokens':None,'cache_write_tokens':None,'estimated_cost':None,'currency':'CNY','pricing':rate}]
+        result=overview(state,calls);k=result['kpis']
+        self.assertEqual(k['usage_cost_games'],2);self.assertEqual(k['token_games'],k['cost_games'])
+        self.assertEqual(k['average_tokens'],610);self.assertAlmostEqual(k['average_cost_cny'],.5046);self.assertAlmostEqual(k['average_cost_cny_lower'],.502)
+        self.assertEqual(k['cache_estimated_calls'],1);self.assertIsNone(calls[1]['cached_input_tokens']);self.assertIsNone(calls[1]['estimated_cost'])
+        self.assertAlmostEqual(next(r for r in result['games'] if r['candidate_id']=='b')['costs']['CNY'],.0092)
     def test_review_closes_conversion_despite_telemetry_gaps(self):
         state=dict(candidates=[dict(id=k) for k in ('review','running','empty')],
                    jobs=[dict(id=k,candidate_id=k,status='review' if k!='running' else 'running') for k in ('review','running','empty')],

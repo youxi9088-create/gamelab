@@ -16,7 +16,7 @@ class Completed:
 class AcquisitionRetryTest(unittest.TestCase):
     def _run(self, results):
         with mock.patch('acquisition.time.sleep'), \
-             mock.patch('acquisition.subprocess.run', side_effect=results) as runner:
+             mock.patch('acquisition._browser_run', side_effect=results) as runner:
             result, detail = _run_acquire(['node'], 'https://example.org/g', Path('d'), {}, 240)
         return result, detail, runner.call_count
 
@@ -46,7 +46,7 @@ class AcquisitionRetryTest(unittest.TestCase):
 
         with mock.patch('acquisition.time.sleep'), \
              mock.patch('acquisition.time.monotonic', side_effect=[0, 500, 500, 900, 900, 1300]), \
-             mock.patch('acquisition.subprocess.run', side_effect=[Completed(1, b'net::ERR_CONNECTION_CLOSED')] * 3) as runner:
+             mock.patch('acquisition._browser_run', side_effect=[Completed(1, b'net::ERR_CONNECTION_CLOSED')] * 3) as runner:
             result, detail = _run_acquire(['node'], 'https://example.org/g', Path('d'), {}, 240)
         self.assertEqual(1, runner.call_count)
         self.assertEqual(1, result.returncode)

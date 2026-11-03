@@ -70,6 +70,13 @@ def audit(db_path=ROOT/'data/platform.sqlite3'):
 
 def probe_download(output):
     config = settings()
+    if config.get('SUPPLY_DELIVERY_MODE')=='cs':
+        if not readiness(config)['configured']:raise SupplyError('CONFIG_REQUIRED',400)
+        from controlplane.supply_distribution import publish
+        package=prepare(output)
+        url=publish(Path(package['archive']),package['sha256'],config)
+        return {'download_from_this_machine':'PASS','delivery_mode':'cs','download_host':urllib.parse.urlsplit(url).hostname,
+                'sha256':package['sha256'],'submission_sent':False,'downstream_network_and_allowlist':'not verified'}
     directory = Path(config.get('SUPPLY_ARCHIVE_DIR', ''))
     url = urllib.parse.urlsplit(config.get('SUPPLY_ARCHIVE_BASE_URL', ''))
     if not directory.is_absolute() or url.scheme != 'https' or not url.hostname or url.username or url.query or url.fragment:

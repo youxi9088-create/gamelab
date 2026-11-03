@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict');
+const {declaredEntries}=require('../executors/declared-entry.cjs');
+const config={files:[],mode:'Universal',projectId:'11111111-1111-4111-8111-111111111111',revisionId:'22222222-2222-4222-8222-222222222222'};
+const script=value=>'self.__next_f.push('+JSON.stringify([1,value])+')';
+const data='60:'+JSON.stringify(['$','$L60',null,config])+'\n';
+const base='https://rosebud.ai/play/fixture';
+const rows=declaredEntries([script(data.slice(0,50)),script(data.slice(50))],base);
+assert.equal(rows.length,1);assert.equal(rows[0].url,'https://playground-gateway-v2-snduoq54tq-uc.a.run.app/api/server/'+config.revisionId+'/index.html');assert.equal(rows[0].requires_fresh_probe,true);
+assert.deepEqual(declaredEntries([script(data)],'https://example.org/play/fixture'),[]);
+assert.deepEqual(declaredEntries([script('60:'+JSON.stringify({...config,revisionId:'../private'}))],base),[]);
+assert.deepEqual(declaredEntries([script(data+'61:'+JSON.stringify({...config,revisionId:config.projectId}))],base),[]);
+global.executed=false;assert.deepEqual(declaredEntries(['self.__next_f.push((global.executed=true,[1,"fake"]))'],base),[]);assert.equal(global.executed,false);
+console.log('Universal declarations stay source-bound, unambiguous and require fresh verification');

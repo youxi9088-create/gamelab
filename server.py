@@ -12,7 +12,7 @@ import zipfile
 from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlsplit, unquote
+from urllib.parse import urlsplit, unquote, parse_qs
 from controlplane.service import Service, ApiError, require
 from controlplane.service_registry import ServiceRegistry
 
@@ -28,14 +28,23 @@ class Handler(BaseHTTPRequestHandler):
         self.response_status=status
         if isinstance(body,(dict,list)):body=json.dumps(body,ensure_ascii=False).encode()
         elif isinstance(body,str):body=body.encode()
+        compressed=False
+        if content_type.startswith('application/json') and len(body)>4096 and 'gzip' in self.headers.get('Accept-Encoding','').lower():
+            import gzip
+            body=gzip.compress(body,compresslevel=3);compressed=True
         self.send_response(status)
+        if compressed:
+            self.send_header('Content-Encoding','gzip')
+            self.send_header('Vary','Accept-Encoding')
         self.send_header('Content-Type',content_type)
         self.send_header('Content-Length',str(len(body)))
         self.send_header('X-Content-Type-Options','nosniff')
         self.send_header('Referrer-Policy','no-referrer')
-        self.send_header('Cache-Control','no-store')
+        self.send_header('Cache-Control',(headers or {}).get('Cache-Control','no-store'))
         if not self.server.playback:
-            self.send_header('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: http:; frame-src 'self' http://127.0.0.1:* http://localhost:*; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'")
+            public=urlsplit(getattr(self.server,'public_origin',''))
+            play_origin=(public.scheme+'://'+public.hostname+':8766') if public.hostname and public.scheme in ('http','https') else ''
+            self.send_header('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: http:; frame-src 'self' http://127.0.0.1:* http://localhost:*; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'".replace("frame-src 'self'","frame-src 'self' "+play_origin))
         for k,v in (headers or {}).items():self.send_header(k,v)
         self.end_headers();self.wfile.write(body)
 
@@ -54,7 +63,10 @@ class Handler(BaseHTTPRequestHandler):
 
     def hostname_valid(self):
         host=self.headers.get('Host','')
-        require(host in (f'127.0.0.1:{self.server.server_port}',f'localhost:{self.server.server_port}'),'不支持的 Host',403)
+        allowed={f'127.0.0.1:{self.server.server_port}',f'localhost:{self.server.server_port}'}
+        public=urlsplit(getattr(self.server,'public_origin',''))
+        if public.scheme in ('http','https') and public.netloc:allowed.add(public.netloc)
+        require(host in allowed,'不支持的 Host',403)
 
     def cookie(self):
         cookie=SimpleCookie()
@@ -66,7 +78,7 @@ class Handler(BaseHTTPRequestHandler):
     def origin_allowed(self):
         origin=self.headers.get('Origin')
         if not origin:return True
-        allowed={f'http://127.0.0.1:{self.server.server_port}',f'http://localhost:{self.server.server_port}'}
+        allowed={f'http://127.0.0.1:{self.server.server_port}',f'http://localhost:{self.server.server_port}', 'http://192.168.56.52:8765'}
         public_origin=getattr(self.server,'public_origin','')
         if public_origin:allowed.add(public_origin)
         return origin in allowed
@@ -124,16 +136,33 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send(200,out.getvalue(),'application/zip')
             if path.startswith('/api/'):
                 self.admin()
+                if path.startswith('/api/artifact-images/'):
+                    parts=path.strip('/').split('/')
+                    require(len(parts)>=4,'图片不存在',404)
+                    with self.server.service.store.read() as db:
+                        artifact=self.server.service.get(db,'artifacts',parts[2])
+                    root=self.server.service.repo.artifacts/artifact['id']
+                    rel='/'.join(parts[3:])
+                    require(Path(rel).suffix.lower() in ('.png','.jpg','.jpeg','.webp','.gif'),'仅提供图片',403)
+                    return self.file(root/rel,root)
                 if path=='/api/services':return self.send(200,self.server.registry.public())
                 if path=='/api/state':
-                    state=self.server.service.state();state['current_user']=self.actor
+                    query=parse_qs(urlsplit(self.path).query)
+                    if query.get('view')==['summary']:
+                        from controlplane.ui_state import cached_summary
+                        state=cached_summary(self.server.service)
+                    elif query.get('candidate'):
+                        from controlplane.ui_detail import candidate_detail
+                        return self.send(200,candidate_detail(self.server.service,query['candidate'][0]))
+                    else:state=self.server.service.state()
+                    state['current_user']=self.actor
                     if self.actor['role']!='admin':
                         state.pop('supply_service',None);state.pop('supply_config',None)
                     return self.send(200,state)
                 if path=='/api/accounts':return self.send(200,{'users':self.server.accounts.list()})
                 if path=='/api/operations':
                     from controlplane.production import status
-                    return self.send(200,status(self.server.service))
+                    return self.send(200,status(self.server.service,self.server.accounts.store))
                 if path=='/api/demo':return self.file(ROOT/'web/demo.json',ROOT/'web')
                 if path=='/api/docs':return self.file(ROOT/'docs/API.md',ROOT/'docs')
                 if path.startswith('/api/supply-deliveries/') and path.endswith('/download'):
@@ -230,7 +259,7 @@ class Handler(BaseHTTPRequestHandler):
                 from controlplane.store import ACTOR
                 actor_token=ACTOR.set(self.actor)
                 if path!='/api/operations/drain':
-                    with self.server.service.store.tx() as db:
+                    with self.server.service.store.read() as db:
                         require(not (self.server.service.store.get(db,'settings','maintenance') or {}).get('draining'),'系统正在维护，暂不接受修改，请稍后重试',503)
             try:body=json.loads(self.rfile.read(length))
             except (json.JSONDecodeError,UnicodeDecodeError):raise ApiError(400,'无效的 JSON')
@@ -251,8 +280,9 @@ class Handler(BaseHTTPRequestHandler):
             else:result=self.server.service.mutate(path,body,tool,idem)
             if not tool:
                 from controlplane.store import ident,now
-                with self.server.service.store.tx() as db:
-                    self.server.service.store.put(db,'audit',dict(id=ident('audit'),actor_id=self.actor['id'],actor_name=self.actor['username'],path=path,created_at=now(),result='success'))
+                audit_store=self.server.accounts.store if path.startswith('/api/accounts/') else self.server.service.store
+                with audit_store.tx() as db:
+                    audit_store.put(db,'audit',dict(id=ident('audit'),actor_id=self.actor['id'],actor_name=self.actor['username'],path=path,created_at=now(),result='success'))
             self.send(200,result)
         except ApiError as e:self.send(e.status,{'error':e.message})
         except (ValueError,TypeError,KeyError) as e:self.send(400,{'error':'参数无效：'+str(e)[:200]})
@@ -264,8 +294,8 @@ class Handler(BaseHTTPRequestHandler):
             if getattr(self,'response_status',200)>=400 and getattr(self,'actor',None):
                 from controlplane.store import ident,now
                 try:
-                    with self.server.service.store.tx() as db:
-                        self.server.service.store.put(db,'audit',dict(id=ident('audit'),actor_id=self.actor['id'],actor_name=self.actor['username'],path=urlsplit(self.path).path,created_at=now(),result='denied_or_failed',http_status=self.response_status))
+                    with self.server.accounts.store.tx() as db:
+                        self.server.accounts.store.put(db,'audit',dict(id=ident('audit'),actor_id=self.actor['id'],actor_name=self.actor['username'],path=urlsplit(self.path).path,created_at=now(),result='denied_or_failed',http_status=self.response_status))
                 except Exception:traceback.print_exc()
             if actor_token is not None:
                 from controlplane.store import ACTOR
@@ -278,6 +308,13 @@ class Handler(BaseHTTPRequestHandler):
         ct=mimetypes.guess_type(resolved.name)[0] or 'application/octet-stream'
         if resolved.suffix=='.js':ct='text/javascript'
         if ct.startswith('text/'):ct+='; charset=utf-8'
+        thumb=parse_qs(urlsplit(self.path).query).get('thumb')
+        if thumb and not runtime and resolved.suffix.lower() in ('.png','.jpg','.jpeg','.webp'):
+            try:
+                from controlplane.ui_images import thumbnail
+                body,mime,etag=thumbnail(resolved,int(thumb[0]),self.server.service.data_dir/'ui-thumbnails')
+                return self.send(200,body,mime,{**(extra or {}),'Cache-Control':'private, max-age=3600','ETag':'"'+etag+'"'})
+            except (ValueError,OSError,ImportError):pass
         content=resolved.read_bytes()
         if runtime and resolved.name=='boot.js':
             from controlplane.runtime_compatibility import mounted_boot
@@ -295,13 +332,16 @@ class Handler(BaseHTTPRequestHandler):
         parts=path.strip('/').split('/')
         require(len(parts)>=3 and parts[0] in ('play','runtime'),'试玩版本不存在',404)
         artifact_id=parts[1]
-        with self.server.service.store.tx() as db:
+        with self.server.service.store.read() as db:
             artifact=self.server.service.get(db,'artifacts',artifact_id)
             require(parts[0]!='runtime' or artifact.get('runtime_local'),'版本未启用独立运行',403)
         root=self.server.service.repo.artifacts/artifact_id
         csp="sandbox allow-scripts; default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' http://127.0.0.1:* http://localhost:*"
         if parts[0]=='runtime':
             csp="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'"
+        admin_origin=os.environ.get('PORTAL_ADMIN_ORIGIN','')
+        if admin_origin and urlsplit(admin_origin).scheme in ('http','https'):
+            csp=csp.replace("frame-ancestors 'self'", "frame-ancestors 'self' "+admin_origin)
         rel='/'.join(parts[2:])
         # 打包产物（Cocos / Babel 转译结果）的模块加载器常按无扩展名路径请求 JS，
         # 磁盘上的文件却带 .js。不回退会让浏览器报 "Missing module"，整局起不来。
@@ -320,15 +360,26 @@ class Handler(BaseHTTPRequestHandler):
                     pass
         return self.file(root/rel,root,{'Content-Security-Policy':csp},runtime=True)
 
+class PlatformHTTPServer(ThreadingHTTPServer):
+    # Heartbeats, claims, UI polls and resource requests arrive in bursts.
+    # The stdlib default backlog of five is smaller than our six job slots.
+    request_queue_size = 128
+
+
 def build_server(service,port,playback=False):
-    server=ThreadingHTTPServer(('127.0.0.1',port),Handler)
+    server=PlatformHTTPServer(('127.0.0.1',port),Handler)
     server.service=service;server.playback=playback;server.sessions={};server.session_lock=threading.Lock()
     server.admin_username=os.environ.get('PORTAL_ADMIN_USERNAME','')
     server.admin_password=os.environ.get('PORTAL_ADMIN_PASSWORD','')
     server.public_origin=os.environ.get('PORTAL_PUBLIC_ORIGIN','').rstrip('/')
     require(bool(server.admin_username)==bool(server.admin_password),'PORTAL_ADMIN_USERNAME 和 PORTAL_ADMIN_PASSWORD 必须同时配置')
     from controlplane.accounts import Accounts
-    server.accounts=Accounts(service.store,server.admin_username,server.admin_password)
+    account_store=service.store
+    auth_path=os.environ.get('PORTAL_AUTH_DB')
+    if auth_path:
+        from controlplane.accounts import isolated_store
+        account_store=isolated_store(service.store,Path(auth_path))
+    server.accounts=Accounts(account_store,server.admin_username,server.admin_password)
     server.auth_required=server.accounts.enabled();server.login_failures={}
     def prune_sessions():
         now=time.time()
@@ -336,6 +387,7 @@ def build_server(service,port,playback=False):
         if len(server.sessions)>1000:server.sessions.clear()
     server.prune_sessions=prune_sessions
     server.registry=ServiceRegistry(service.data_dir/'services.json')
+    server.registry.runtime_service=service
     from controlplane.supply_service import SupplyService
     server.supply_service=SupplyService(service)
     return server

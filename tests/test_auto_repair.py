@@ -15,6 +15,31 @@ class Budget:
 
 
 class AutoRepairTests(unittest.TestCase):
+    def test_control_plane_failure_never_invokes_game_diagnosis(self):
+        from platform_transport import PlatformConnectionRefused
+        from unittest.mock import Mock
+        chat=Mock();token=CHAT.set(chat)
+        failure=PlatformConnectionRefused('local callback unavailable')
+        try:
+            with self.assertRaises(PlatformConnectionRefused) as raised:
+                diagnose(failure,self.run,Budget(),retry=lambda:None)
+        finally:CHAT.reset(token)
+        self.assertIs(raised.exception,failure);chat.assert_not_called()
+
+    def test_callback_failure_during_retry_propagates_without_another_ai_round(self):
+        from platform_transport import PlatformConnectionRefused
+        from unittest.mock import Mock
+        chat=Mock(return_value={'action':'retry','diagnosis':'Check transient runtime timeout'})
+        token=CHAT.set(chat);failure=PlatformConnectionRefused('callback unavailable')
+        def retry():raise failure
+        try:
+            with self.assertRaises(PlatformConnectionRefused) as raised:
+                diagnose(TimeoutError('runtime timeout'),self.run,Budget(),retry=retry)
+        finally:CHAT.reset(token)
+        self.assertIs(raised.exception,failure);self.assertEqual(chat.call_count,1)
+        report=json.loads((self.run/'auto-repair/report.json').read_text('utf-8'))
+        self.assertTrue(report['attempts'][-1]['infrastructure_failure'])
+
     def test_diagnostic_probe_does_not_rerun_unchanged_failed_step(self):
         calls=[]
         answers=iter([{'action':'probe','arguments':{}},{'action':'stop'}])

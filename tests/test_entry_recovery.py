@@ -18,6 +18,33 @@ class Budget:
 
 
 class EntryRecoveryTests(unittest.TestCase):
+    def test_failed_stale_dom_control_exposes_current_controls_for_next_probe(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);url='https://example.org/game';calls=[]
+            def chat(messages,budget):
+                payload=json.loads(messages[-1]['content'][0]['text']);calls.append(payload)
+                if len(calls)==1:return {'action':'probe_entry','arguments':{'entry_id':'1'}}
+                if len(calls)==2:return {'action':'verify_dom_entry','arguments':{'entry_id':'1','label':'Continue'}}
+                labels=[r.get('label') for r in payload['pending_current_checks']]
+                self.assertIn('Begin',labels);self.assertNotIn('SIGN IN',labels)
+                return {'action':'verify_dom_entry','arguments':{'entry_id':'1','label':'Begin'}}
+            def acquire(*args,**kwargs):return {'web_discovery':{'launch_controls':[{'label':'Continue','visible':True}]}}
+            def execute(command,**kwargs):
+                passed=command[3]=='Begin'
+                proof={'passed':passed,'url':url,'current_url':url,'current_observation':{'controls':['SIGN IN','Begin']}}
+                if not passed:proof['failure']='Prior control absent'
+                (Path(command[4])/'interaction.json').write_text(json.dumps(proof));return SimpleNamespace(returncode=0 if passed else 1)
+            token=CHAT.set(chat)
+            try:
+                with patch('entry_recovery.subprocess.run',side_effect=execute):
+                    result=recover({'url':url,'web_discovery':{'iframe_hints':[{'url':url}]}},root,Budget(),acquire)
+            finally:CHAT.reset(token)
+            self.assertEqual(len(calls),3);self.assertEqual(result['web_discovery']['entries'][0]['evidence'],'interactive-dom')
+    def test_navigation_and_account_controls_do_not_displace_game_start(self):
+        from entry_recovery import game_controls,declared_leads
+        result={'web_discovery':{'launch_controls':[{'label':s,'visible':True} for s in ['SIGN IN','Inspect desk','WORLD RANKINGS','BEGIN COUNTDOWN']]}}
+        self.assertEqual([r['label'] for r in game_controls(result)],['BEGIN COUNTDOWN','Inspect desk'])
+        self.assertEqual(list(declared_leads({'launch_links':[{'url':'https://example.org/play','label':'PLAY','navigation':True}]})),[])
     def test_historical_dom_keeps_referrer_and_requires_interaction_despite_canvas(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);source='https://example.org/game';child='https://cdn.example/game';parent='https://example.org/wrapper'

@@ -1,7 +1,7 @@
 // Read literal JSON loader configuration; never evaluate page-provided code.
 const {safeURL}=require('./discovered-web.cjs');
 function declaredEntries(scripts,base){
- const entries=[];
+ const entries=[...require('./universal-entry.cjs').universalEntries(scripts,base)];
  for(const source of scripts.slice(0,80)){
   if(typeof source!=='string'||source.length>500000)continue;
   const starts=[...source.matchAll(/\b(?:var|let|const)\s+[A-Za-z_$][\w$]*\s*=\s*(?=\{)/g)].slice(0,40);

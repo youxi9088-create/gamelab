@@ -16,6 +16,7 @@ from urllib.parse import urlsplit, urljoin
 from remote_assets import validate_url, tls_context, NoRedirect
 
 STATIC = {'script':'.js', 'stylesheet':'.css', 'image':'.png', 'font':'.woff2', 'media':'.bin'}
+STATIC_BINARY_SUFFIXES=('.mp3','.wav','.ogg','.m4a','.png','.jpg','.jpeg','.webp','.woff','.woff2','.ttf','.otf')
 
 def literal_dependencies(run):
     run=Path(run);target=run/'converted'
@@ -31,9 +32,9 @@ def literal_dependencies(run):
             if '${' not in value:found.add(urljoin(source,value))
     return found
 
-def static_json_request(request,declarations):
+def static_data_request(request,declarations):
     return (request.get('method')=='GET' and request.get('type') in ('fetch','xhr')
-        and urlsplit(request.get('url','')).path.lower().endswith(('.json','.glb','.gltf','.gltf-binary')) and request.get('url') in declarations)
+        and urlsplit(request.get('url','')).path.lower().endswith(('.json','.glb','.gltf','.gltf-binary',*STATIC_BINARY_SUFFIXES)) and request.get('url') in declarations)
 
 
 def declared_static_ids(run):
@@ -55,7 +56,8 @@ def declared_static_ids(run):
     code_declarations=literal_dependencies(run)
     return [r['id'] for r in runtime.get('resource_requests',[])
             if ((r.get('method')=='GET' and r.get('type') in ('stylesheet','font','image','media') and r.get('url') in declarations)
-                or static_json_request(r,code_declarations)) and r.get('url') not in acquisition.get('runtime_resource_map',{})][:12]
+                or (r.get('method')=='GET' and r.get('type')=='script' and r.get('url') in code_declarations)
+                or static_data_request(r,code_declarations)) and r.get('url') not in acquisition.get('runtime_resource_map',{})][:12]
 
 
 def recover_declared_static(run,budget,retry):
@@ -118,7 +120,7 @@ class StaticRecovery:
         observed = self.requests()
         for key in ids:
             r = observed.get(key, {})
-            if (r.get('method')!='GET' or r.get('type') not in STATIC) and not static_json_request(r,literal_dependencies(self.run)):
+            if (r.get('method')!='GET' or r.get('type') not in STATIC) and not static_data_request(r,literal_dependencies(self.run)):
                 raise ValueError('仅支持本轮实际观察到的静态 GET 资源；不支持导航、XHR、fetch、登录或业务 API')
             u = urlsplit(r['url'])
             if u.scheme!='https' or u.username or u.password or not u.hostname or u.port not in (None,443):
@@ -170,12 +172,24 @@ class StaticRecovery:
                     data=base64.b64decode(fetched['data']);mime=fetched['headers'].get('content-type','').lower()
                 if not data or len(data)>8*1024*1024 or 'text/html' in mime:
                     raise ValueError('静态资源为空、过大或返回 HTML 页面，不能作为资源保存')
+                if (r['type']=='font' or u.path.lower().endswith(('.woff','.woff2','.ttf','.otf'))) and data[:4] not in (b'wOFF',b'wOF2',b'OTTO',b'\x00\x01\x00\x00'):
+                    raise ValueError('补抓字体的二进制文件头无效')
                 if r['type'] in ('fetch','xhr'):
                     if u.path.lower().endswith(('.glb','.gltf-binary')):
                         import struct
                         if len(data)<12 or data[:4]!=b'glTF' or struct.unpack('<I',data[4:8])[0]!=2 or struct.unpack('<I',data[8:12])[0]!=len(data):
                             raise ValueError('二进制模型不是有效的GLB v2文件')
-                    else:json.loads(data.decode('utf-8-sig'))
+                    elif u.path.lower().endswith(('.json','.gltf')):json.loads(data.decode('utf-8-sig'))
+                    else:
+                        suffix=Path(u.path).suffix.lower()
+                        valid={'.mp3':data[:3]==b'ID3' or (len(data)>1 and data[0]==255 and data[1]&224==224),
+                            '.wav':data[:4]==b'RIFF' and data[8:12]==b'WAVE','.ogg':data[:4]==b'OggS',
+                            '.m4a':data[4:8]==b'ftyp','.png':data[:8]==b'\x89PNG\r\n\x1a\n',
+                            '.jpg':data[:3]==b'\xff\xd8\xff','.jpeg':data[:3]==b'\xff\xd8\xff',
+                            '.webp':data[:4]==b'RIFF' and data[8:12]==b'WEBP',
+                            '.woff':data[:4]==b'wOFF','.woff2':data[:4]==b'wOF2',
+                            '.ttf':data[:4]==b'\x00\x01\x00\x00','.otf':data[:4]==b'OTTO'}
+                        if not valid.get(suffix):raise ValueError('公开静态二进制资源的文件头无效')
                 total+=len(data)
                 if total>24*1024*1024 or acq.get('bytes',0)+total>220*1024*1024:
                     raise ValueError('运行资源补齐超过字节预算')

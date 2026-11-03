@@ -170,5 +170,6 @@ class BrowserTransferRetryTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError,'HTTP 403'):m.browser_get('https://example.org/model',Path(tmp),Budget())
                 self.assertEqual(call.call_count,1)
             with patch.object(m.subprocess,'run',return_value=subprocess.CompletedProcess([],1,b'',b'connection reset')) as call:
-                with self.assertRaisesRegex(ValueError,'3次'):m.browser_get('https://example.org/model',Path(tmp),Budget())
+                from public_resource_failure import PublicResourceTransportError
+                with self.assertRaisesRegex(PublicResourceTransportError,'3次'):m.browser_get('https://example.org/model',Path(tmp),Budget())
                 self.assertEqual(call.call_count,3)

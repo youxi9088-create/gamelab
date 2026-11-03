@@ -2,6 +2,7 @@
 function publicURL(value){try{const u=new URL(value);return u.origin+u.pathname}catch{return String(value).split(/[?#]/)[0]}}
 function runtimeIssues(report){
  const issues=[];
+ if((report.failure||'').includes('Viewport screenshot timed out'))issues.push({code:'VERIFIER_SCREENSHOT_TIMEOUT',domain:'infrastructure',next_action:'平台重建本任务验证会话并有限复验；持续失败保留检查点，不修改游戏代码或忽略截图门禁'});
  if(report.readiness)issues.push({code:'RUNTIME_NOT_READY',observation:report.readiness,next_action:'依据场景、可交互按钮与加载提示分析初始化阻断；就绪不代表玩法已验证'});
  const navigation=[...(report.navigation_attempts||[]),...(report.navigation||[])].filter(x=>!x.allowed);
  if(navigation.length)issues.push({code:'RUNTIME_NAVIGATION',urls:[...new Set(navigation.map(x=>publicURL(x.url)))],next_action:'检查实际跳转与宿主契约；站点授权和登录限制需要真实授权，不可伪造环境'});

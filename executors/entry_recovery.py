@@ -13,11 +13,20 @@ def declared_leads(discovery):
     """Navigation links are observations, not runnable-game entry candidates."""
     for key in ('iframe_hints','loader_hints','launch_links'):
         for row in discovery.get(key,[]):
-            if not isinstance(row,dict) or not isinstance(row.get('url'),str) or row.get('ad'):continue
+            if not isinstance(row,dict) or not isinstance(row.get('url'),str) or row.get('ad') or row.get('navigation'):continue
             if key=='launch_links' and not re.fullmatch(
                     r'(?:play(?:\s+(?:now|game))?|start(?:\s+game)?|launch(?:\s+game)?|open\s+game|开始(?:游戏)?|启动(?:游戏)?|进入游戏|试玩)',
                     str(row.get('label','')).strip(),re.I):continue
             yield key,row
+
+
+def game_controls(result):
+    """Offer observed game controls before unrelated account/navigation actions."""
+    unsafe=re.compile(r'login|sign[\s_-]*in|purchase|payment|consent|cookie|privacy|rankings|leaderboard|登录|购买|支付|授权|排行榜',re.I)
+    launch=re.compile(r'play|begin|start|continue|offline|solo|practice|开始|进入|试玩|继续',re.I)
+    rows=[c for c in result.get('web_discovery',{}).get('launch_controls',[])
+          if c.get('visible') and c.get('label') and not unsafe.search(c['label'])]
+    return sorted(rows,key=lambda c:not bool(launch.search(c['label'])))
 
 
 def historical_leads(run, observation):
@@ -88,7 +97,7 @@ def recover(observation, run, budget, acquire):
         pending = [{'action':'probe_entry', 'entry_id':c['entry_id'], 'scope':'本轮声明的入口尚未探测'}
                    for c in choices if c['url'] not in probes]
         for url, result in observed.items():
-            for control in result.get('web_discovery',{}).get('launch_controls',[]):
+            for control in game_controls(result):
                 label = control.get('label')
                 if control.get('visible') and label and (url,label) not in interactions:
                     pending.append({'action':'verify_dom_entry','entry_id':next(c['entry_id'] for c in choices if c['url']==url),
@@ -126,12 +135,12 @@ def recover(observation, run, budget, acquire):
         if next(c.get('requires_dom') for c in choices if c['url']==url):entries=[]
         current.setdefault('web_discovery', {})['entries'] = entries
         current['entry_recovery'] = {'declared_url': url, 'evidence': result.get('evidence', {})}
-        return {'url': url, 'entries': entries, 'declared_entries':choices, 'controls':result.get('web_discovery',{}).get('launch_controls',[]),
+        return {'url': url, 'entries': entries, 'declared_entries':choices, 'controls':game_controls(result),
                 'evidence_directory': str(directory.relative_to(run))}
     def validate_dom(arguments):
         url, label = selected(arguments), arguments.get('label')
         prior = observed.get(url)
-        if not prior or label not in [c.get('label') for c in prior.get('web_discovery',{}).get('launch_controls',[]) if c.get('visible')]:
+        if not prior or label not in [c.get('label') for c in game_controls(prior)]:
             raise ValueError('DOM 验证必须选择本轮已探测入口中实际可见的按钮文本')
         return url, label
     def probe_dom(arguments):
@@ -147,7 +156,13 @@ def recover(observation, run, budget, acquire):
                                 capture_output=True,encoding='utf-8',errors='replace',timeout=budget.remaining(100))
         proof=json.loads((directory/'interaction.json').read_text('utf-8'))
         if result.returncode or not proof.get('passed'):
-            raise ValueError(proof.get('failure') or 'DOM 入口实际交互未通过')
+            controls=(proof.get('current_observation') or {}).get('controls')
+            if proof.get('current_url')==url and isinstance(controls,list):
+                observed[url].setdefault('web_discovery',{})['launch_controls']=[
+                    {'label':label,'visible':True} for label in controls[:80] if isinstance(label,str) and label]
+            actual=[c['label'] for c in game_controls(observed[url])]
+            raise ValueError((proof.get('failure') or 'DOM 入口实际交互未通过')+
+                             ('；本轮新会话实际可见游戏控件：'+json.dumps(actual,ensure_ascii=False) if actual else ''))
         if proof.get('kind') == 'canvas-entry':
             canvas_entries = proof.get('entries') or []
             entry({'web_discovery': {'entries': canvas_entries}})

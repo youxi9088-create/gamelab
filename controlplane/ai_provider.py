@@ -17,6 +17,21 @@ USAGE_SINK=ContextVar('ai_usage_sink',default=None)
 class AIProviderError(RuntimeError):
     """Only locally constructed, credential-free messages may use this type."""
 
+def http_failure_kind(error):
+    """Map upstream details to fixed codes; never expose raw provider bodies."""
+    try:
+        body=json.loads(error.read(16384))
+        detail=str(body.get('error',body)).lower()
+    except Exception:
+        detail=''
+    rules=[('context_limit',('context_length','maximum context','context window','too many tokens')),
+           ('image_limit',('too many images','maximum number of images','image count','image limit')),
+           ('invalid_image',('invalid image','image decode','unsupported image','image format')),
+           ('unsupported_input',('unsupported parameter','unknown parameter','not supported')),
+           ('model_unavailable',('model not found','model does not exist'))]
+    return next((code for code,words in rules if any(word in detail for word in words)),
+                'authentication' if error.code in (401,403) else 'request_rejected')
+
 def emit_usage(provider,model,started,status,usage=None):
     sink=USAGE_SINK.get()
     if sink:
@@ -278,7 +293,7 @@ def _complete(messages, config, timeout=300):
         # 一次 URLError 会让任务 blocked，等下轮重跑要多花整轮 AI 成本。
         for retry in range(3):
             try:
-                with urllib.request.build_opener(NoRedirect).open(request, timeout=max(1,min(timeout, 300))) as response:
+                with urllib.request.build_opener(NoRedirect, *([urllib.request.ProxyHandler({})] if config.get("use_proxy") is False else [])).open(request, timeout=max(1,min(timeout, 300))) as response:
                     if wire_api=='responses' and 'text/event-stream' in str(response.headers.get('Content-Type','')).lower():
                         read_responses_stream(response,envelope,started+max(1,min(timeout,300)))
                     else:envelope=json.load(response)
@@ -302,13 +317,23 @@ def _complete(messages, config, timeout=300):
             except urllib.error.HTTPError as exc:
                 envelope={}
                 if exc.code in (401,403,400,422):  # 认证/请求体问题，重试无意义
+                    failure_kind=http_failure_kind(exc)
                     usage=None
                     emit_usage('api',config['model'],started,'failed',usage)
                     if mode == 'api':
-                        raise AIProviderError('AI API 调用失败：HTTP '+str(exc.code)+'；请检查连接和模型配置') from None
+                        failure=AIProviderError('AI API 调用失败：HTTP '+str(exc.code)+'（'+failure_kind+'）；请检查对应请求或模型配置')
+                        failure.failure_kind=failure_kind
+                        raise failure from None
                     raise
                 if retry<2:
-                    time.sleep(2*(retry+1));continue
+                    delay = 2*(retry+1)
+                    if exc.code == 429:
+                        from .rate_limit_delay import retry_delay
+                        delay = retry_delay(exc.headers, retry, timeout - (time.monotonic() - started))
+                        if delay is None:
+                            emit_usage('api',config['model'],started,'failed',None)
+                            raise AIProviderError('AI API HTTP 429: Retry-After exceeds remaining call budget; retain task checkpoint') from None
+                    time.sleep(delay);continue
                 usage=None
                 emit_usage('api',config['model'],started,'failed',usage)
                 if mode == 'api':

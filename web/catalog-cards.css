@@ -1,0 +1,14 @@
+/* Browsing cards show identity and a next action; evidence lives in details. */
+#app .compact-cards{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+#app .compact-card{display:flex;flex-direction:column;min-width:0}
+#app .compact-card .card-cover{display:block;width:100%;padding:0;border:0;border-radius:0;background:transparent;text-align:left;cursor:pointer;aspect-ratio:16/10}
+#app .compact-card .card-cover:focus-visible{outline:2px solid var(--accent,#cbb6fc);outline-offset:-3px}
+#app .compact-card .gamebody{padding:14px;display:flex;flex:1;flex-direction:column;gap:8px;min-width:0}
+#app .compact-card .gamebody h3{margin:0;font-size:16px;line-height:1.45;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:2.9em;overflow-wrap:anywhere}
+#app .compact-card .card-meta{display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden;color:var(--muted,#aeb1c4);font-size:12px;line-height:1.5;white-space:nowrap;text-overflow:ellipsis}
+#app .compact-card .card-meta span{overflow:hidden;text-overflow:ellipsis}
+#app .compact-card .gamefoot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:5px;flex-wrap:nowrap}
+#app .compact-card .gamefoot .smallbtn{min-height:34px;padding:6px 12px;white-space:nowrap}
+#app .compact-card .gamefoot .textbtn{padding:6px 0;white-space:nowrap}
+@media(max-width:620px){#app .compact-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#app .compact-card .gamebody{padding:11px;gap:7px}#app .compact-card .gamebody h3{font-size:14px}#app .compact-card .gamefoot .smallbtn{padding:6px 9px;font-size:12px}}
+@media(max-width:340px){#app .compact-cards{grid-template-columns:1fr}}

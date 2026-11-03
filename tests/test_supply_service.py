@@ -79,7 +79,7 @@ class SupplyServiceTest(unittest.TestCase):
         try:
             node=node_binary()
             result=subprocess.run([str(node),'tools/check_supply_service_ui.cjs',f'http://127.0.0.1:{server.server_port}'],
-                                  capture_output=True,text=True,timeout=60)
+                                  capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=60)
             self.assertEqual(result.returncode,0,result.stderr)
         finally:
             server.shutdown()

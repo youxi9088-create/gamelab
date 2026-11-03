@@ -25,6 +25,9 @@ class Downstream:
         self.issue_queries = []
 
     def open(self, request, timeout):
+        # The real distribution step now verifies the public archive before submit.
+        if urlsplit(request.full_url).hostname=='files.example':
+            return io.BytesIO((self.archive_dir/Path(urlsplit(request.full_url).path).name).read_bytes())
         headers = {k.lower(): v for k, v in request.header_items()}
         assert headers['x-supply-app-id'] == 'sup_protocol'
         nonce = headers['x-supply-nonce']

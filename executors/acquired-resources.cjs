@@ -15,7 +15,7 @@ function recorder(context,dir){
   }catch{}})());
  };
  context.on('response',listener);
- return {async finish(){context.off('response',listener);await Promise.allSettled(pending);fs.writeFileSync(path.join(dir,'resource-snapshot.json'),JSON.stringify({schema:1,files:rows,bytes}));}};
+ return {async finish(timeout=3000){context.off('response',listener);const result=await require('./bounded-settle.cjs').boundedSettle(pending,timeout);fs.writeFileSync(path.join(dir,'resource-snapshot.json'),JSON.stringify({schema:1,files:rows,bytes,response_collection:result}));return result;}};
 }
 function load(dir,entry){
  if(!fs.existsSync(dir)||fs.lstatSync(dir).isSymbolicLink())return new Map();

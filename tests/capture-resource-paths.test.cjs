@@ -1,0 +1,10 @@
+const assert=require('node:assert/strict');const{resourcePath}=require('../executors/capture-resource-paths.cjs');
+const base='https://games.example/build/';
+const a=resourcePath('https://fonts.example/css2?family=Alpha',base,false,'stylesheet'),b=resourcePath('https://fonts.example/css2?family=Beta',base,false,'stylesheet');
+assert.notEqual(a,b);assert.equal(a,resourcePath('https://fonts.example/css2?family=Alpha#ignored',base,false,'stylesheet'));assert.match(a,/css2\.css$/);
+assert.equal(resourcePath('https://games.example/build/img/a.png',base),'img/a.png');
+assert.equal(resourcePath('https://games.example/build/main.js?v=2',base,true),'main.js');
+assert.match(resourcePath('https://cdn.example/module?target=es2022',base,true),/module\.js$/);
+assert.throws(()=>resourcePath('https://cdn.example/%2e%2e%2fprivate',base));
+assert.throws(()=>resourcePath('https://cdn.example/a%3fb',base));
+console.log('6 capture path cases passed: exact query identity, CSS MIME suffix, unchanged local layout, JS suffix, traversal/unsafe rejection');

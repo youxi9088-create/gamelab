@@ -5,7 +5,7 @@ from .source_routing import source_kind
 
 def engine_family(value):
     value=str(value or '').lower()
-    for marker,name in [('cocos','Cocos'),('unity','Unity'),('laya','LayaAir'),('three','Three.js'),('defold','Defold'),('phaser','Phaser'),('egret','Egret'),('godot','Godot'),('flash','Flash'),('ruffle','Flash'),('canvas','原生 Canvas'),('pixi','PixiJS')]:
+    for marker,name in [('cocos','Cocos'),('unity','Unity'),('laya','LayaAir'),('three','Three.js'),('defold','Defold'),('phaser','Phaser'),('egret','Egret'),('godot','Godot'),('flash','Flash'),('ruffle','Flash'),('canvas','原生 Canvas'),('pixi','PixiJS'),('babylon','Babylon.js')]:
         if marker in value:return name
     return '待识别'
 

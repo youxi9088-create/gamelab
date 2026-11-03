@@ -7,7 +7,7 @@ from datetime import datetime, timedelta, timezone
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 from .store import Store, now, later, ident
 from .repository import Repository
-from .game_names import link_title, acquired_title
+from .game_names import link_title, acquired_title, display_title, clean_title
 
 class ApiError(Exception):
     def __init__(self,status,message):
@@ -95,6 +95,17 @@ class Service(Conversations,Discovery):
     def state(self):
         with self.store.read() as db:
             state={k:self.store.all(db,k) for k in ('candidates','sources','batches','jobs','versions','tools','events','messages','rounds')}
+            for candidate in state['candidates']:
+                title=display_title(candidate)
+                if title and title!=candidate.get('title'):
+                    candidate['source_title']=candidate.get('title','');candidate['title']=title
+            named_candidates={c['id']:c for c in state['candidates']}
+            for version in state['versions']:
+                candidate=named_candidates.get(version.get('candidate_id'),{})
+                if not candidate.get('title_edited') and version.get('title'):
+                    title=clean_title(version['title'],candidate.get('url',''))
+                    if title and title!=version['title']:
+                        version['source_title']=version['title'];version['title']=title
             from .catalog_facets import source_engine, web_delivery
             from .acquisition_evidence import engine_by_candidate
             acquisition=engine_by_candidate(self.runs_dir,state['jobs'])
@@ -125,7 +136,8 @@ class Service(Conversations,Discovery):
             from .conversations import message_presentation
             for message in state['messages']:
                 message['presentation']=message_presentation(message,state['jobs'],state['events'],state['rounds'])
-            actor_names={u['id']:u['username'] for u in self.store.all(db,'users')}
+            from .accounts import actor_names as account_actor_names
+            actor_names=account_actor_names(self.store,db)
             for collection in ('jobs','messages','versions','candidates'):
                 for row in state[collection]:
                     if row.get('created_by'):row['created_by_name']=actor_names.get(row['created_by'],row['created_by'])
@@ -137,16 +149,18 @@ class Service(Conversations,Discovery):
             state['web_profiles']=public_profiles()
             from .supply import public as supply_public, configuration as supply_configuration
             state['supply']=[supply_public(r) for r in self.store.all(db,'supply')]
+            state['supply_preparations']=[{k:v for k,v in r.items() if k not in ('lease_token','lease_until','archive_path')} for r in self.store.all(db,'supply_preparations')]
+            state['supply_defaults']=self.store.get(db,'settings','supply_defaults') or {}
             state['supply_deliveries']=[{k:r[k] for k in ('id','candidate_id','version_id','version_status','prepared_at',
                 'template_structure','archive_bytes','files','downstream_size_limits_pass','sha256','manual_acceptance_guide','runtime_recheck_required') if k in r}
                 for r in self.store.all(db,'supply_deliveries')]
             templates={r['template']['template_id'] for r in state['supply'] if isinstance(r.get('template'),dict) and r['template'].get('template_id')}
             state['downstream_summary']={'templates':len(templates),'published':len({r['template']['template_id'] for r in state['supply'] if r.get('state')=='published' and isinstance(r.get('template'),dict) and r['template'].get('template_id')}),'scope':'仅下游实际返回模板 ID 的记录；提交成功不计入模板生成'}
             state['supply_config']=supply_configuration()
-            from .supply_config import settings as supply_settings, KEYS
+            from .supply_config import settings as supply_settings, KEYS, SECRET_KEYS
             supply_settings_value=supply_settings()
             state['supply_service']={**state['supply_config'],
-                'values':{k:supply_settings_value.get(k,'') for k in KEYS if k!='SUPPLY_APP_SECRET'},
+                'values':{k:supply_settings_value.get(k,'') for k in KEYS if k not in SECRET_KEYS},
                 'has_secret':bool(supply_settings_value.get('SUPPLY_APP_SECRET')),
                 'check':self.store.get(db,'supply_checks','main') or {}}
             from .discovery import config
@@ -157,7 +171,11 @@ class Service(Conversations,Discovery):
             state['recommendations']=[chinese_recommendation(r) for r in state['recommendations']]
             from .dependencies import summary
             from .catalog_facets import facets
+            from .game_categories import category_projection
             for candidate in state['candidates']:
+                candidate['category_classification']=category_projection(candidate,state['versions'])
+                candidate['source_category']=candidate.get('category','')
+                candidate['category']=candidate['category_classification']['name']
                 candidate['catalog_facets']=facets(candidate,state['discovery_settings']['aliases'])
                 candidate['dependency_summary']=summary(candidate.get('dependencies'))
                 from .web_profiles import profiles,supports
@@ -201,7 +219,8 @@ class Service(Conversations,Discovery):
                 job['queue_position']=position
                 job['progress_label']=f'排队第 {position} 位 · 等待空闲执行器'
             state['conversion_queue']={'limit':1,'running':sum(j['status']=='running' for j in state['jobs']),'waiting':len(queue)}
-            state['repository']={'path':str(self.repo.root),'strategy':'monorepo','branch':'main','head':self.repo.run('rev-parse','HEAD'),'remote_configured':bool(self.repo.run('remote'))}
+            from .repository_status import metadata as repository_metadata
+            state['repository']=repository_metadata(self.repo.root)
             today=datetime.now(timezone(timedelta(hours=8))).date().isoformat()
             def day(t):
                 return datetime.fromisoformat(t).astimezone(timezone(timedelta(hours=8))).date().isoformat() if t else ''
@@ -283,6 +302,11 @@ class Service(Conversations,Discovery):
             from .supply import public as supply_public
             row=self.get(db,'supply',key)
             require(row.get('lease_until',0)<=__import__('time').time(),'供货处理中，请稍后重试',409)
+            if action=='sync':
+                require(row.get('submitted') and row.get('submission_id'),'尚未提交下游，不能同步状态',409)
+                row.update(status='tracking',next_poll=0,status_sync_revision='',sync_requested_at=now())
+                s.put(db,'supply',row);s.event(db,'请求同步原下游供货状态',stage='supply',version_id=key,action='sync')
+                return {'supply':supply_public(row)}
             require(row['status'] in ('pending','blocked','retrying'),'当前供货记录不可修改；下游要求改包时请交付并验收新版本',409)
             if action=='metadata':
                 require(not row.get('archive_sha256'),'已开始提交，不能改动原提交；请重试原记录或交付新版本',409)
@@ -365,7 +389,7 @@ class Service(Conversations,Discovery):
             require(not cover or cover.startswith(('https://','http://','/assets/')),'无效封面地址')
             rights=b.get('rights','unknown')
             require(rights in ('unknown','owned','licensed','open'),'无效的使用范围')
-            candidate=dict(id=ident('game'),title=title,url=url,canonical_url=url,source=record['source'],category=str(b.get('category','休闲'))[:40],engine=str(b.get('engine','待分析'))[:60],description=str(b.get('description',''))[:3000],cover=cover,status='candidate',rights=rights,created_at=now(),last_seen=now(),source_records=[record],source_path=b.get('source_path','') if not tool else '',observations=b.get('observations',{}),screenshots=b.get('screenshots',[])[:10])
+            candidate=dict(id=ident('game'),title=title,url=url,canonical_url=url,source=record['source'],category=str(b.get('category','待分类'))[:40],engine=str(b.get('engine','待分析'))[:60],description=str(b.get('description',''))[:3000],cover=cover,status='candidate',rights=rights,created_at=now(),last_seen=now(),source_records=[record],source_path=b.get('source_path','') if not tool else '',observations=b.get('observations',{}),screenshots=b.get('screenshots',[])[:10])
             s.put(db,'candidates',candidate);s.event(db,f'新候选：{title}',candidate_id=candidate['id'])
             return {'candidate':candidate,'deduplicated':False}
         if kind=='candidates' and key and action=='spec-test-report':
@@ -532,7 +556,7 @@ class Service(Conversations,Discovery):
             require(requested_job is None or isinstance(requested_job,str),'无效定向任务')
             # queued_at 可能是 null（旧数据）；dict.get 只对"键缺失"兜底，不对 None 兜底，
             # 直接放进 sorted 会与字符串混排抛 TypeError，整个认领就 500 了。
-            for job in sorted(reversed(jobs),key=lambda j:j.get('queued_at') or j.get('created_at','')):
+            for job in sorted(reversed(jobs),key=lambda j:(0 if j.get('manual_priority_at') else 1,j.get('manual_priority_at') or j.get('queued_at') or j.get('created_at',''))):
                 if requested_job is not None and job['id']!=requested_job:continue
                 batch=self.get(db,'batches',job['batch_id'])
                 if job.get('manual_paused') or job['status']!='queued' or job['stage'] not in caps or batch['status']!='running':continue
@@ -650,6 +674,7 @@ class Service(Conversations,Discovery):
                 observations=b.get('observations')
                 require(isinstance(observations,dict) and len(json.dumps(observations))<300000,'观察材料格式无效或过大')
                 candidate=self.get(db,'candidates',job['candidate_id'])
+                if b.get('title'):candidate['source_title']=str(b['title'])[:1000]
                 candidate.update(observations=observations,title=acquired_title(candidate,b.get('title')),acquired_at=now())
                 s.put(db,'candidates',candidate)
                 s.event(db,'链接采集完成，已保存来源材料',key,'acquire')

@@ -23,6 +23,10 @@ def validate_control_batch(actions):
             raise ValueError('不支持的动作类型；请按给定动作协议重新提交，动作尚未执行')
         if action.get('type')=='key' and action.get('key') not in contract['keys']:
             raise ValueError('不支持的按键；使用单个字母、数字、方向键或已列出的控制键，不提交按键组合，动作尚未执行')
+    for action in actions:
+        if action.get('type')=='wheel':
+            from wheel_input import validate_wheel
+            validate_wheel(action)
     controls=[a for a in actions if isinstance(a,dict) and a.get('type') in ('reload','viewport')]
     if not controls or len(actions)==1:
         return
@@ -64,8 +68,8 @@ class ReviewBrowser:
                     self.process.stdin.flush()
                     self.process.wait(timeout=8)
                 except (OSError, subprocess.TimeoutExpired):
-                    self.process.kill()
-                    self.process.wait(timeout=8)
+                    from process_tree import terminate_owned_process
+                    terminate_owned_process(self.process)
             self.process.stdin.close()
             self.process.stdout.close()
             self.process = None
@@ -198,16 +202,20 @@ def convert(inp, observation, run, budget, chat, resume=False):
     save_checkpoint(run, inp, observation)
     resume_info = json.loads((run/'checkpoint-resume.json').read_text('utf-8')) if resume else {}
     if resume and resume_info.get('prior_runtime_failed'):
-        from auto_repair import diagnose
-        from execution_trace import run_stage
-        from worker import Blocked
-        previous = json.loads((run/'previous-execution.json').read_text('utf-8')) if (run/'previous-execution.json').exists() else {}
-        failure = Blocked(previous.get('original_error') or '上轮运行验证未通过，从保留的采集产物继续诊断')
-        recovered, _ = diagnose(failure, run, budget, target=run/'converted', stage='test',
-            retry=lambda: run_stage('test', lambda: command('viewport' if viewport else 'verify', 420)))
-        if not recovered:
-            failure.auto_repair_attempted = True
-            raise failure
+        from verifier_revision import changed
+        if changed(run, ROOT):
+            guarded(lambda: command('viewport' if viewport else 'verify', 420), run, budget, run / 'converted', node='test')
+        else:
+            from auto_repair import diagnose
+            from execution_trace import run_stage
+            from worker import Blocked
+            previous = json.loads((run/'previous-execution.json').read_text('utf-8')) if (run/'previous-execution.json').exists() else {}
+            failure = Blocked(previous.get('original_error') or '上轮运行验证未通过，从保留的采集产物继续诊断')
+            recovered, _ = diagnose(failure, run, budget, target=run/'converted', stage='test',
+                retry=lambda: run_stage('test', lambda: command('viewport' if viewport else 'verify', 420)))
+            if not recovered:
+                failure.auto_repair_attempted = True
+                raise failure
     else:
         guarded(lambda: command('viewport' if viewport else 'verify', 420), run, budget, run / 'converted', node='test')
     acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
@@ -378,6 +386,8 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
     target = prepare_revision_copy(root, run)
     shutil.copy2(root / 'evidence/acquisition.json', run / 'web-acquisition.json')
     acquisition = json.loads((run / 'web-acquisition.json').read_text('utf-8'))
+    from revision_resource_cache import adopt
+    adopt(run, acquisition)
     viewport, viewport_changes = prepare_viewport(target, acquisition['engine'])
     from host_adapters import refresh
     host_changes = refresh(target, acquisition)
@@ -457,10 +467,11 @@ task_requests 是管理员通过平台提交的任务要求，按时间从旧到
 pending_delivery 是平台共享交付检查返回的剩余缺项。本轮必须逐项处理这些缺项，不重复仅总结已经通过的项目；需要更多证据时读取相关源码或执行针对性操作，能力不足时说明具体阻碍。
 反馈须简短：summary只写“当前：…；待核对：…；下一步：…”，总计不超过180字。不要复述历史、函数名、坐标或整段源码；详细依据保留在证据字段。计划与已执行结果分开，不将尚未执行动作描述成成功。
 AI试玩边界：同一目标优先短按移动（建议100–400ms）、观察、调整；hold_ms是持续按住后松开，click是点按，drag是按住拖动。转向、前进、平移按已查证控制映射选择；先点击游戏区域取得焦点，不凭猜测改键位，不要求开发者增加坐标UI。
-同一目标连续3次无可观察进展，先读取相关源码或运行证据诊断一次；没有新方案则停止该目标。正常加载、场景可见且已有真实操作反馈，但关键交互受AI操作能力限制时，可返回complete:false与manual_review:{kind:"ai_operation_limit",reason:"具体操作限制",verified:["实机确认内容"],checks:["人工需要完成的具体操作与预期反馈"],defect_confirmed:false}，同时明确foundation_checks各项；gameplay保持pending，不能标verified。仅加载、菜单、静态说明、必需资源缺失、运行错误或已确认功能缺陷不得用此出口。不自动追加波次通关、高分、结算或尚未触发的存档要求；用户明确范围仍优先。
+同一目标连续3次无可观察进展，先读取相关源码或运行证据诊断一次；核对正常触发前置条件、当前是否满足、输入位置与时序。概率触发对象可在正常界面扩大有效接触或尝试区域并等待观察，但不得修改概率、调用内部生成接口或注入对象。缺少输入能力应明确报告平台能力缺口，不盲目换键。没有新方案则停止该目标。正常加载、场景可见且已有真实操作反馈，但关键交互受AI操作能力限制时，可返回complete:false与manual_review:{kind:"ai_operation_limit",reason:"具体操作限制",verified:["实机确认内容"],checks:["人工需要完成的具体操作与预期反馈"],defect_confirmed:false}，同时明确foundation_checks各项；gameplay保持pending，不能标verified。仅加载、菜单、静态说明、必需资源缺失、运行错误或已确认功能缺陷不得用此出口。不自动追加波次通关、高分、结算或尚未触发的存档要求；用户明确范围仍优先。
 每次返回 JSON：{actions:[...], summary, complete:false}，actions 是要追加的真实鼠标/键盘动作：
 {type:"click",x:0..1000,y:0..760,wait_ms:200..10000}、{type:"key",key:"单个英文字母或数字|ArrowLeft|ArrowRight|ArrowUp|ArrowDown|Space|Enter|Shift|Escape|Tab|Backspace|Delete|Home|End|PageUp|PageDown|/|?",hold_ms:0..10000}（hold_ms是真实持续按住，用于行走；默认点按）、{type:"drag",x,y,to_x,to_y,hold_ms:100..3000}、{type:"wait",wait_ms:...}、{type:"reload"}。
 另有真实视口操作 {type:"viewport",width:390,height:844}，仅支持1000×760、390×844和844×390三种。切换视口必须单独提交，先看新截图再操作；坐标边界取最新runtime.observed.viewport，不能继续套用旧尺寸。只改变隔离浏览器尺寸，不修改游戏或伪造适配通过；竖屏要求须在390×844中核对实际玩法和操作，不以菜单截图通过。
+滚轮动作：{type:"wheel",x,y,delta_y:-1200..1200,delta_x:可选同范围,ticks:1..12}，至少一个delta非零；先移动到截图确认的目标位置，再发送真实滚轮事件。只在有控制依据时使用，不算单独完成核心玩法。
 验证终点允许正常进入新手引导（tutorial）或正式玩法（gameplay），无需一定进入第一关，也不要求完成教程。新手引导需画面正常、至少一次真实操作有可观察反馈；仅加载画面、菜单、静态教程说明、登录提示或无法操作不算通过。结束时返回 verification_stage:"tutorial" 或 "gameplay"，准确记录实际到达阶段。操作必须基于给定截图或 buttons 坐标。每次最多4个动作，本轮最多80个新动作，累计回放上限300个。click默认按住100毫秒后抬起，允许hold_ms:80..1000，供按帧读取输入的运行时观察真实点击。
 按标注顺序核对每个新动作后的截图，不能只看最后画面而忽略中间反馈。reload必须单独一批提交，不能与升级、建设等动作同批；先实际观察关键步骤完成及保存触发条件，再决定是否刷新，避免丢失尚未保存的教程进度。
 整个分析过程保持同一个隔离浏览器，模型分析期间游戏时间仍会继续。每轮截图是当前真实状态，不能假设动画被暂停。已有动作前缀在续作开始时只回放一次，不要重复添加。
@@ -612,6 +623,13 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
                     continue
                 if patch:
                     continue
+                if final.get('complete'):
+                    from review_assessment import require_complete_checks
+                    try:
+                        final['foundation_checks'] = require_complete_checks(final.get('foundation_checks'))
+                    except ValueError:
+                        final['complete'] = False
+                        raise
                 if final.get('complete') or final.get('blocker') or final.get('manual_review'):
                     break
                 feedback = '请提供基于截图的下一步实际动作，或如实说明具体阻碍。'

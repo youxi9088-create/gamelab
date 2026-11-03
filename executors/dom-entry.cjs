@@ -91,17 +91,29 @@ async function probe(url,label,dir,referer){
  safeURL(url);fs.mkdirSync(dir,{recursive:true});
   if(referer)safeURL(referer);
  const browser=await chromium.launch(require('./browser-options.cjs')());
- const report={passed:false,url,label,referer,errors:[]};
+ const report={passed:false,url,label,referer,errors:[]};let page;
  try{
   const context=await browser.newContext({viewport:{width:390,height:844},serviceWorkers:'block',acceptDownloads:false});
-  await context.route('**/*',route=>{try{if(!/^(data|blob):/.test(route.request().url()))safeURL(route.request().url());return route.continue();}catch{return route.abort();}});
-  const page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
+  await context.route('**/*',async route=>{try{
+   const req=route.request();if(!/^(data|blob):/.test(req.url()))safeURL(req.url());
+   if(req.method()==='GET'&&['script','stylesheet','image','font','media'].includes(req.resourceType())){
+    const cached=require('./recovered-resource-cache.cjs').recoveredResource(url,req.url());
+    if(cached){(report.recovered_public_resources??=[]).push(req.url());return route.fulfill({status:200,contentType:cached.headers()['content-type'],body:await cached.body()});}
+   }
+   return route.continue();
+  }catch{return route.abort();}});
+  page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
   const response=await page.goto(url,{referer,waitUntil:'domcontentloaded',timeout:45000});
   if(!response?.ok())throw Error('DOM entry HTTP '+response?.status());
   await page.getByRole('button',{name:label,exact:true}).waitFor({state:'visible',timeout:15000});
   Object.assign(report,await verifyInteraction(page,label,dir));
   if(report.errors.length)throw Error('DOM entry has script errors');
- }catch(e){report.passed=false;report.failure=e.message;throw e;}
+ }catch(e){
+  report.passed=false;report.failure=e.message;let timer;
+  try{if(page){report.current_url=page.url();report.current_observation=await Promise.race([snapshot(page).catch(()=>null),new Promise(resolve=>{timer=setTimeout(()=>resolve(null),1500)})]);}}
+  finally{clearTimeout(timer)}
+  throw e;
+ }
  finally{fs.writeFileSync(path.join(dir,'interaction.json'),JSON.stringify(report,null,2));await browser.close();}
  return report;
 }

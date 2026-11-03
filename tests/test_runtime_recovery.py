@@ -1,4 +1,5 @@
 import hashlib
+import os
 import json
 from pathlib import Path
 import subprocess
@@ -29,6 +30,31 @@ class Response:
 
 
 class RuntimeRecoveryTest(unittest.TestCase):
+    def test_literal_audio_fetch_keeps_real_wav_bytes_and_requires_reverification(self):
+        import io,wave
+        data=io.BytesIO()
+        with wave.open(data,'wb') as wav:
+            wav.setnchannels(1);wav.setsampwidth(2);wav.setframerate(8000);wav.writeframes(b'\0\0'*800)
+        content=data.getvalue();url='https://assets.example/track.wav'
+        (self.target/'index.html').write_text('<html><head></head><script>const track="'+url+'";fetch(track);</script></html>')
+        self.report['resource_requests'][0].update(url=url,type='fetch');(self.target/'evidence/runtime.json').write_text(json.dumps(self.report))
+        class AudioResponse(Response):
+            headers={'Content-Type':'audio/wav'}
+            def read(self,n):return content
+        with patch('runtime_recovery.urllib.request.build_opener') as opener:
+            opener.return_value.open.return_value=AudioResponse();result=self.recovery.execute(self.args)
+        self.assertTrue(result['verification_required']);self.assertEqual((self.target/result['files'][0]['path']).read_bytes(),content)
+
+    def test_audio_fetch_rejects_disguised_non_audio_response(self):
+        url='https://assets.example/track.mp3'
+        (self.target/'index.html').write_text('<script>fetch("'+url+'");</script>')
+        self.report['resource_requests'][0].update(url=url,type='fetch');(self.target/'evidence/runtime.json').write_text(json.dumps(self.report))
+        class InvalidAudio(Response):
+            headers={'Content-Type':'audio/mpeg'}
+            def read(self,n):return b'<!doctype html><h1>Unavailable</h1>'
+        with patch('runtime_recovery.urllib.request.build_opener') as opener:
+            opener.return_value.open.return_value=InvalidAudio()
+            with self.assertRaisesRegex(ValueError,'文件头无效'):self.recovery.execute(self.args)
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.run=Path(self.temp.name);self.target=self.run/'converted'
@@ -122,6 +148,30 @@ class RuntimeRecoveryTest(unittest.TestCase):
         self.assertEqual((self.target/'index.html').read_bytes(),before)
         self.assertFalse((self.target/'runtime-resource-map.js').exists())
 
+    def test_font_transport_fallback_validates_before_writing(self):
+        import base64
+        import urllib.error
+        self.report['resource_requests'][0].update(type='font',url='https://assets.example/font.woff2')
+        (self.target/'evidence/runtime.json').write_text(json.dumps(self.report))
+        for data in (b'{"error":"unavailable"}',b'wOF2font-fixture'):
+            response=type('Result',(),{'returncode':0,'stdout':json.dumps({'status':200,'headers':{},'data':base64.b64encode(data).decode()})})()
+            with patch('runtime_recovery.urllib.request.build_opener') as opener, patch('runtime_recovery.subprocess.run',return_value=response):
+                opener.return_value.open.side_effect=urllib.error.URLError('TLS closed')
+                if data.startswith(b'wOF2'):
+                    result=self.recovery.execute(self.args)
+                    self.assertEqual((self.target/result['files'][0]['path']).read_bytes(),data)
+                    self.recovery.rollback()
+                else:
+                    with self.assertRaisesRegex(ValueError,'文件头'):self.recovery.execute(self.args)
+                    self.assertFalse((self.target/'runtime-resource-map.js').exists())
+
+    def test_http_denial_does_not_invoke_browser_fallback(self):
+        import urllib.error
+        with patch('runtime_recovery.urllib.request.build_opener') as opener, patch('runtime_recovery.subprocess.run') as browser:
+            opener.return_value.open.side_effect=urllib.error.HTTPError(self.url,403,'Forbidden',{},None)
+            with self.assertRaises(urllib.error.HTTPError):self.recovery.execute(self.args)
+            browser.assert_not_called()
+
     def test_declared_binary_model_requires_valid_glb_header(self):
         import struct
         url='https://assets.example/model.gltf-binary?v=1'
@@ -182,7 +232,8 @@ class RuntimeRecoveryTest(unittest.TestCase):
         # Self-authored fixture only; its external request is blocked by verify.
         (self.target/'index.html').write_text('<html><head></head><body><h1>Fixture</h1><button>Play</button><script>const s=document.createElement("script");s.src="https://"+"assets.example/runtime.js?v=2";document.head.append(s);</script></body></html>')
         def browser(mode):
-            result=subprocess.run([node_binary(),'tests/test_runtime_recovery.cjs',str(self.run),mode],capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=90)
+            result=subprocess.run([node_binary(),'tests/test_runtime_recovery.cjs',str(self.run),mode],capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=90,
+                                  env={**os.environ,'GAMELAB_NETBLOCK':'0'})
             self.assertEqual(result.returncode,0,result.stdout+result.stderr)
         browser('blocked')
         self.recovery.execute(self.args)

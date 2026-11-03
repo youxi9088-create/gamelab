@@ -55,6 +55,11 @@ async function main(){
       if(!local && /^(localhost|127\.|10\.|192\.168\.|169\.254\.|172\.(1[6-9]|2\d|3[01])\.|\[)/i.test(u.hostname))return route.abort();
       if(local && u.origin!==parsed.origin && /^(localhost|127\.|\[::1\])/i.test(u.hostname))return route.abort();
       if(await context.extensionBlock?.(route.request(),{source:url})||adblock.block(route.request())){blockedAds.add(u.hostname);return route.abort('blockedbyclient')}
+      const req=route.request();
+      if(req.method()==='GET'&&['script','stylesheet','image','font','media'].includes(req.resourceType())){
+        const cached=require('./recovered-resource-cache.cjs').recoveredResource(url,req.url());
+        if(cached){(observation.recovered_public_resources??=[]).push(req.url());return route.fulfill({status:200,contentType:cached.headers()['content-type'],body:await cached.body()});}
+      }
       return route.continue();
     });
     const page=await context.newPage(), scripts=[], pending=[], popupTasks=[], errors=[], failed=[], documents=[], popups=[];
@@ -130,6 +135,7 @@ async function main(){
       }).filter(x=>x.visible);
     });
     observation.web_discovery.launch_controls=controlSnapshot.map(x=>({label:x.label,visible:x.visible,area:x.area})).slice(0,40);
+    observation.web_discovery.initial_launch_controls=observation.web_discovery.launch_controls;
     // Activate one explicit game-start control. Links and ambiguous, ad, consent,
     // privacy, or authentication controls are never clicked.
     // 早先是全等正则，文案多一个字就失配；且候选多于 1 个就整个放弃
@@ -188,8 +194,8 @@ async function main(){
       observation.web_discovery.requested_entry=finalRecovery;
       await page.waitForTimeout(Math.min(8000,within(8000)));
     }
-    await Promise.allSettled([...pending,...popupTasks]);
-    await resourceRecorder.finish();
+    observation.web_discovery.response_collection=await require('./bounded-settle.cjs').boundedSettle([...pending,...popupTasks],within(3000));
+    observation.web_discovery.resource_collection=await resourceRecorder.finish(within(3000));
     const html=await page.content();
     fs.writeFileSync(path.join(dir,'source.html'),html.slice(0,2000000));
     const viewport=page.viewportSize()||{width:1000,height:760};
@@ -217,6 +223,13 @@ async function main(){
     }
     if(srcdocs.length)observation.web_discovery.srcdoc_frames=srcdocs;
     await page.screenshot({path:path.join(dir,'source.png'),timeout:within(15000)}).catch(()=>{});
+    // Deferred modules can render their menu after the initial launch sample.
+    // Preserve the pre-click sample and expose fresh controls for a new DOM probe.
+    observation.web_discovery.final_launch_controls=await page.locator('button,[role="button"],input[type="button"],input[type="submit"]').evaluateAll(nodes=>nodes.map(n=>{
+      const r=n.getBoundingClientRect(),s=getComputedStyle(n);
+      return {label:(n.innerText||n.getAttribute('aria-label')||n.value||n.title||'').trim().replace(/\s+/g,' ').slice(0,160),visible:r.width>0&&r.height>0&&!n.disabled&&s.display!=='none'&&s.visibility!=='hidden'&&n.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)),area:Math.round(r.width*r.height)};
+    }).filter(n=>n.visible).slice(0,40));
+    if(!launch_action.attempted)observation.web_discovery.launch_controls=observation.web_discovery.final_launch_controls;
     observation.metadata=await page.locator('meta[name="description"],meta[property="og:description"]').evaluateAll(nodes=>nodes.map(n=>n.content));
     const inline=await page.locator('script:not([src])').allTextContents();
     observation.web_discovery.loader_hints=declaredEntries(inline,page.url());
@@ -261,7 +274,7 @@ async function main(){
       finally{await probe.close().catch(()=>{})}
     }
     observation.web_discovery.iframe_probes=iframe_probes;
-    observation.web_discovery.launch_links=await page.locator('a[href]').evaluateAll(nodes=>nodes.map(n=>({url:n.href,label:(n.innerText||n.getAttribute('aria-label')||n.title||'').trim().replace(/\s+/g,' ').slice(0,160),visible:!!(n.getClientRects().length&&getComputedStyle(n).visibility!=='hidden')})).filter(n=>n.visible&&/^https?:/.test(n.url)).slice(0,80));
+    observation.web_discovery.launch_links=await page.locator('a[href]').evaluateAll(nodes=>nodes.map(n=>({url:n.href,navigation:!!n.closest('nav,header,footer,[role="navigation"]'),label:(n.innerText||n.getAttribute('aria-label')||n.title||'').trim().replace(/\s+/g,' ').slice(0,160),visible:!!(n.getClientRects().length&&getComputedStyle(n).visibility!=='hidden')})).filter(n=>n.visible&&/^https?:/.test(n.url)).slice(0,80));
     observation.final_url=page.url();
     observation.title=await page.title();
     observation.frames=frames;

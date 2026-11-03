@@ -6,7 +6,7 @@ import threading
 from pathlib import Path
 from .service import require
 from .store import now
-from .supply_config import KEYS, DEFAULT_FILE, settings, readiness
+from .supply_config import KEYS, SECRET_KEYS, DEFAULT_FILE, settings, readiness, secure_config_file
 from .source_routing import observations_of
 from .supply import inspect_source, call, SupplyError, preflight
 
@@ -21,7 +21,7 @@ class SupplyService:
         with self.service.store.tx() as db:
             check = self.service.store.get(db, 'supply_checks', 'main') or {}
         return {
-            **readiness(), 'values': {k: config.get(k, '') for k in KEYS if k != 'SUPPLY_APP_SECRET'},
+            **readiness(), 'values': {k: config.get(k, '') for k in KEYS if k not in SECRET_KEYS},
             'has_secret': bool(config.get('SUPPLY_APP_SECRET')),
             'environment_overrides': [k for k in KEYS if k in os.environ],
             'check': check,
@@ -33,11 +33,11 @@ class SupplyService:
             path = Path(os.getenv('SUPPLY_CONFIG_FILE', str(DEFAULT_FILE)))
             old = json.loads(path.read_text('utf-8-sig')) if path.exists() else {}
             require(isinstance(old, dict), '服务端配置文件格式错误')
-            merged = {k: old.get(k, '') for k in KEYS}
+            merged = {**old,**{k: old.get(k, '') for k in KEYS}}
             for k, value in body.items():
                 require(isinstance(value, str) and len(value) <= 4096 and '\n' not in value and '\r' not in value, '配置格式无效')
                 value = value.strip()
-                if k == 'SUPPLY_APP_SECRET' and not value:
+                if k in SECRET_KEYS and not value:
                     continue
                 require(k not in os.environ or value == os.environ[k].strip(),
                         '该字段由服务端环境变量覆盖，请在部署环境修改')
@@ -49,12 +49,7 @@ class SupplyService:
             # Restrict access before writing credentials.
             temp.touch(mode=0o600, exist_ok=True)
             try:
-                if os.name == 'nt':
-                    sid = subprocess.check_output(['whoami', '/user', '/fo', 'csv', '/nh'], text=True).strip().split(',')[-1].strip('"')
-                    subprocess.run(['icacls', str(temp), '/inheritance:r', '/grant:r', '*'+sid+':F', '*S-1-5-18:F'],
-                                   check=True, capture_output=True)
-                else:
-                    temp.chmod(0o600)
+                secure_config_file(temp)
                 temp.write_text(json.dumps(merged, ensure_ascii=False, indent=2), 'utf-8')
                 os.replace(temp, path)
             finally:
