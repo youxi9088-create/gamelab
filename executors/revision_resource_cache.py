@@ -8,7 +8,11 @@ from html import escape
 
 def adopt(run, acquisition):
     run=Path(run).resolve();target=run/'converted'
-    job=json.loads((run/'job-binding.json').read_text('utf-8'))['job_id']
+    # Unbound imports and isolated inspections cannot inherit another run's
+    # resources. Cache reuse is optional; do not crash the normal revision.
+    try:job=json.loads((run/'job-binding.json').read_text('utf-8'))['job_id']
+    except (OSError,ValueError,KeyError,TypeError):return []
+    if not isinstance(job,str) or not job:return []
     declarations='\n'.join(p.read_text('utf-8',errors='replace') for p in target.rglob('*')
         if p.is_file() and p.suffix.lower() in ('.html','.js','.mjs') and p.stat().st_size<=5_000_000
         and p.relative_to(target).parts[0] not in ('evidence','verification','screenshots'))

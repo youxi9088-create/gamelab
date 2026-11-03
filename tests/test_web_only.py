@@ -28,8 +28,8 @@ class WebOnlyTests(unittest.TestCase):
                 (directory/'source.html').write_text('<h1>Unknown</h1>',encoding='utf-8')
                 (directory/'observation.json').write_text(json.dumps({'title':'Unknown','metadata':[],'appids':[]}),encoding='utf-8')
                 from types import SimpleNamespace
-                return SimpleNamespace(returncode=0)
-            with patch('controlplane.runtime.node_binary',return_value='fixture'), patch('acquisition.subprocess.run',side_effect=capture) as run:
+                return SimpleNamespace(returncode=0,stderr=b'')
+            with patch('controlplane.runtime.node_binary',return_value='fixture'), patch('acquisition._browser_run',side_effect=capture) as run:
                 with self.assertRaises(PolicyPause) as caught:
                     acquire('https://example.org/game',root,Budget(20),web_only=True)
                 self.assertTrue(caught.exception.auto_repair_attempted)

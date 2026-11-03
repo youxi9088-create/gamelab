@@ -9,6 +9,14 @@ from revision_resource_cache import adopt
 
 
 class RevisionResources(unittest.TestCase):
+    def test_missing_or_invalid_current_binding_never_reuses_other_runs(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run,acq=self.fixture(Path(temp))
+            (run/'job-binding.json').unlink()
+            self.assertEqual(adopt(run,acq),[])
+            (run/'job-binding.json').write_text('{}')
+            self.assertEqual(adopt(run,acq),[])
+            self.assertFalse((run/'converted/_runtime_resources/model.glb').exists())
     def fixture(self,root,job='job-a',tamper=False):
         old=root/'prior';new=root/'current'
         for directory in (old,new):

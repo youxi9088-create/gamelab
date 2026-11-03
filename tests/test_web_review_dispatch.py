@@ -6,6 +6,10 @@ from pathlib import Path
 from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'executors'))
 import discovered_web as web
+from controlplane.delivery_requirements import REQUIRED
+
+def fixture_checks():
+    return {key:{'status':'verified','reason':'Isolated browser fixture assessment'} for key in REQUIRED}
 
 
 class WebReviewDispatchTests(unittest.TestCase):
@@ -31,7 +35,7 @@ class WebReviewDispatchTests(unittest.TestCase):
                 run=Path(folder)/'run';run.mkdir()
                 replies=[]
                 if count:replies.append({'actions':[{'type':'click','x':10,'y':10}]})
-                replies.append({'complete':True,'verification_stage':stage,'foundation_checks':{'gameplay':{'status':'verified','reason':'引导操作反馈已观察；第一关未验证'}}})
+                replies.append({'complete':True,'verification_stage':stage,'foundation_checks':fixture_checks()})
                 responses=iter(replies)
                 def chat(messages,*args):
                     self.assertIn('无需一定进入第一关',messages[0]['content'])
@@ -96,7 +100,7 @@ class WebReviewDispatchTests(unittest.TestCase):
                 {'read_requests':[{'path':'index.html','offset':0,'length':100}],
                  'search_requests':[{'path':'index.html','text':'saveState'}],
                  'actions':[{'type':'click','x':10,'y':10},{'type':'key','key':'Enter'}], 'complete':False},
-                {'complete':True,'foundation_checks':[{'gameplay':{'status':'verified','reason':'isolated evidence'}}]}
+                {'complete':True,'foundation_checks':[{key:value} for key,value in fixture_checks().items()]}
             ])
             inp={'source_path':str(root),'base_version':{'id':'fixture-version','report':{}},'title':'fixture'}
             with patch.object(web,'ReviewBrowser',Browser):
