@@ -47,6 +47,7 @@ class Store:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with self.tx() as db:
             db.execute('CREATE TABLE IF NOT EXISTS records (kind TEXT NOT NULL,id TEXT NOT NULL,data TEXT NOT NULL,PRIMARY KEY(kind,id))')
+            db.execute('CREATE INDEX IF NOT EXISTS records_kind ON records(kind)')
             db.execute('CREATE TABLE IF NOT EXISTS idempotency (scope TEXT NOT NULL,key TEXT NOT NULL,body_hash TEXT NOT NULL,response TEXT NOT NULL,PRIMARY KEY(scope,key))')
             db.execute('CREATE TABLE IF NOT EXISTS credentials (token_hash TEXT PRIMARY KEY,tool_id TEXT NOT NULL)')
 
