@@ -214,11 +214,11 @@ class Service(Conversations,Discovery):
             # 现在槽位数真正生效，缺该字段的旧库按默认值补齐，不要再覆盖。
             state['settings']['concurrency']=self._concurrency(state['settings'])
             batches={b['id']:b for b in state['batches']}
-            queue=sorted((j for j in reversed(state['jobs']) if j['status']=='queued' and not j.get('manual_paused') and batches.get(j.get('batch_id'),{}).get('status')=='running'),key=lambda j:j.get('queued_at') or j.get('created_at',''))
+            queue=sorted((j for j in reversed(state['jobs']) if j['status']=='queued' and not j.get('manual_paused') and batches.get(j.get('batch_id'),{}).get('status')=='running'),key=lambda j:(0 if j.get('manual_priority_at') else 1,j.get('manual_priority_at') or j.get('queued_at') or j.get('created_at','')))
             for position,job in enumerate(queue,1):
                 job['queue_position']=position
                 job['progress_label']=f'排队第 {position} 位 · 等待空闲执行器'
-            state['conversion_queue']={'limit':1,'running':sum(j['status']=='running' for j in state['jobs']),'waiting':len(queue)}
+            state['conversion_queue']={'limit':state['settings']['concurrency'],'running':sum(j['status']=='running' for j in state['jobs']),'waiting':len(queue)}
             from .repository_status import metadata as repository_metadata
             state['repository']=repository_metadata(self.repo.root)
             today=datetime.now(timezone(timedelta(hours=8))).date().isoformat()

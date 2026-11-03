@@ -18,6 +18,10 @@ class SelectedWorkflowTests(unittest.TestCase):
                 settings=s.get(db,'settings','main');settings['concurrency']=1;s.store.put(db,'settings',settings)
             s.mutate('/api/jobs/bulk',{'action':'pause','ids':[key]})
             s.mutate('/api/jobs/bulk',{'action':'start','ids':[key]})
+            state=s.state();projected={j['id']:j for j in state['jobs']}
+            self.assertEqual(projected[key]['queue_position'],1)
+            self.assertEqual(projected[jobs[0]['id']]['queue_position'],2)
+            self.assertEqual(state['conversion_queue']['limit'],1)
             claimed=s.mutate('/api/v1/jobs/claim',{'capabilities':['rea','reconstruct']},tool)['job'];self.assertEqual(claimed['id'],key)
             s.mutate('/api/v1/jobs/'+key+'/complete',{'lease_token':claimed['lease_token'],'outcome':'fallback','reason':'fixture stage transition'},tool)
             self.assertEqual(s.mutate('/api/v1/jobs/claim',{'capabilities':['rea','reconstruct']},tool)['job']['id'],key)
