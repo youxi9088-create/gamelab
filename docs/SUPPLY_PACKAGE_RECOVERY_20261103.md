@@ -32,3 +32,6 @@
 - 归档当时六个真实运行任务的完整工作目录，共118,874,287字节，并保存数据库备份、原任务与现场绑定。沿正常暂停/启动流程撤销租约、保留现场出处，再恢复；未保存浏览器操作需重新验证，不声称内存会话原样续接。
 - 主服务PID21076退出，由原service_entry看门狗拉起PID13616，8765/8766健康检查通过，供货新模块由新常驻进程加载。六项任务及其他排队项已恢复，既有人工暂停不动；回执 checkpoint-reload-20261103-202708/receipt.json。
 - 本轮六项供货恢复中，Eventide Drop已读回published，其他记录处于queued/analyzing/certifying等真实后续状态；HTTP503保持原提交编号重试，不能当作新包重推。
+
+## 22:36 最终加载与供货结果
+共享资源检查及CSS类型修复已随后端af3b4aa加载，测试前端glfinal_20261103_01部署完成。六项中四项published（Finger Haunt、Eventide Drop、Chubby Knight、Don’t Trust），PolyRace已template_ready，Sir Rolls仍needs_your_fix。后者沿原任务第9轮进入正常修订，待真实音频资源闭合与玩法复验后产新待验收版本，旧签名包和验收不覆盖。当前全供货：published36、template_ready5、needs_your_fix11、blocked4、failed2，不能把已提交都写成成功供货。
