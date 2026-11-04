@@ -13,6 +13,23 @@ from controlplane.conversion_plan import build
 
 
 class DiscoveredWebTests(unittest.TestCase):
+    def test_unpaired_browser_surrogate_is_retained_in_review_evidence(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)/'source';(root/'evidence').mkdir(parents=True)
+            (root/'index.html').write_text('<canvas></canvas>')
+            (root/'evidence/acquisition.json').write_text('{"files":[],"engine":"browser"}')
+            run=Path(temp)/'run';run.mkdir()
+            observed={'passed':True,'actions':[], 'text':'中文 🐸 truncated\ud83d'}
+            inp={'source_path':str(root),'base_version':{'id':'fixture','report':{}}}
+            def chat(messages,budget):
+                self.assertIn('\\ud83d',messages[-1]['content'][0]['text'])
+                return {'complete':False,'summary':'Remaining gameplay has not been checked.'}
+            with patch('discovered_web.ReviewBrowser.observe',return_value=observed):
+                changes,_,report=revise(inp,run,SimpleNamespace(calls=1,remaining=lambda s:s),chat,None,None)
+            saved=json.loads((run/'web-review-0/runtime.json').read_text('utf-8'))
+            self.assertEqual(saved['text'],observed['text'])
+            self.assertNotEqual(report.get('verification_stage'),'complete')
+
     def test_unsupported_static_structure_uses_browser_without_hiding_resource_errors(self):
         from discovered_web import capture_with_browser_fallback
         from modular_web import UnsupportedContract

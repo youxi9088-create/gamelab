@@ -1,4 +1,5 @@
 """Bounded platform-model diagnosis with verified, reversible host repairs."""
+from json_evidence import dumps as evidence_json
 from contextvars import ContextVar
 import hashlib
 import json
@@ -143,7 +144,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 '缺权限、材料、认证或无可执行契约时stop并指出已查证证据与缺少的具体能力。'
                 '只有真实服务端才能成立的存档、排行榜、登录、对战结算不得伪造返回值或假装成功，这类应stop并说明缺后端。'
                 '本地 Codex 与 API 具有相同的上述工具；不要要求外部终端或依赖开发会话。修复是否成功由实际验证决定。'},
-                {'role': 'user', 'content': [{'type':'text','text':json.dumps(payload, ensure_ascii=False)}]+context.images()}], budget)
+                {'role': 'user', 'content': [{'type':'text','text':evidence_json(payload, ensure_ascii=False)}]+context.images()}], budget)
             action = answer.get('action') if isinstance(answer,dict) else None
             if (not isinstance(action,str) or not action.strip()
                     or (action=='stop' and not any(isinstance(answer.get(k),str) and answer[k].strip() for k in ('diagnosis','reason')))):
@@ -151,7 +152,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 feedback = '诊断响应缺少有效action，或stop缺少已查证原因。请返回约定JSON；停止须说明本轮证据及具体缺口，空响应不代表问题不可解决。'
                 row={'attempt':attempt+1,'error':safe(last),'response_error':feedback}
                 rounds.append(row)
-                (evidence/f'{len(rounds)}.json').write_text(json.dumps(row,ensure_ascii=False,indent=2),'utf-8')
+                (evidence/f'{len(rounds)}.json').write_text(evidence_json(row,ensure_ascii=False,indent=2),'utf-8')
                 if response_corrections>=2:
                     row['stop_reason']='连续两次诊断响应不完整；保留原验证失败，不能认定游戏无修复方案。'
                     break
@@ -160,7 +161,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                    'hypothesis': safe(answer.get('hypothesis','')), 'evidence': answer.get('evidence',[])[:12],
                    'action': action, 'reason': safe(answer.get('reason','')), 'next_action': safe(answer.get('next_action',''))}
             rounds.append(row)
-            (evidence / f'{len(rounds)}.json').write_text(json.dumps(row, ensure_ascii=False, indent=2), 'utf-8')
+            (evidence / f'{len(rounds)}.json').write_text(evidence_json(row, ensure_ascii=False, indent=2), 'utf-8')
             event('running', '诊断：'+row['diagnosis']+'；处理：'+{'stop':'保留阻断','inspect':'读取证据继续分析','configure_runtime':'验证运行契约并重新捕获','retry':'重新验证','patch_host':'修复宿主后重新验证'}.get(action, capabilities.get(action, {}).get('description', '无效方案')))
             if action == 'stop' and outstanding:
                 row['unresolved_checks'] = outstanding
@@ -189,7 +190,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                             answer[key]=arguments[key]
                 # Re-reading the same files yields no new evidence. Force a verdict
                 # instead of letting the model restate the same diagnosis.
-                inspect_key = hashlib.sha256(json.dumps(
+                inspect_key = hashlib.sha256(evidence_json(
                     {'read': answer.get('read_requests'), 'search': answer.get('search_requests'),
                      'inventory':sources.get('source_inventory')},
                     ensure_ascii=False, sort_keys=True).encode()).hexdigest()
@@ -231,7 +232,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 if all(code[k] == v for k,v in changes.items()):
                     feedback = '修改与当前内容相同，未执行；请分析其他原因'; continue
             else: changes = {}
-            fingerprint = hashlib.sha256(json.dumps({'action':action,'changes':changes,'plan':answer.get('runtime_plan'),
+            fingerprint = hashlib.sha256(evidence_json({'action':action,'changes':changes,'plan':answer.get('runtime_plan'),
                 'arguments':answer.get('arguments'), 'error':safe(last)},sort_keys=True).encode()).hexdigest()
             if fingerprint in fingerprints:
                 row['stop_reason'] = '同一错误与同一方案重复，停止重复执行'; break
@@ -247,7 +248,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
             if not capabilities.get(action, {}).get('diagnostic_only'):
                 mutations += 1
             row['patch_hashes'] = {k: hashlib.sha256(v.encode()).hexdigest() for k,v in changes.items()}
-            (evidence / f'{attempt+1}-patch.json').write_text(json.dumps(changes, ensure_ascii=False), 'utf-8')
+            (evidence / f'{attempt+1}-patch.json').write_text(evidence_json(changes, ensure_ascii=False), 'utf-8')
             for name, value in changes.items(): (target/name).write_bytes(value.encode('utf-8'))
             try:
                 if action in capabilities:
@@ -304,9 +305,9 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
         event('failed', '自动诊断中断或达到边界，保留原错误和已有产物')
     finally:
         report={'original_error': safe(original), 'stage':stage, 'attempts': rounds, 'evidence_directory':evidence.name}
-        (evidence/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8')
+        (evidence/'report.json').write_text(evidence_json(report,ensure_ascii=False,indent=2),'utf-8')
         previous=json.loads((root/'report.json').read_text('utf-8')).get('episodes',[]) if (root/'report.json').exists() else []
-        (root/'report.json').write_text(json.dumps({**report,'episodes':previous+[report]},ensure_ascii=False,indent=2),'utf-8')
+        (root/'report.json').write_text(evidence_json({**report,'episodes':previous+[report]},ensure_ascii=False,indent=2),'utf-8')
     return False, None
 
 
