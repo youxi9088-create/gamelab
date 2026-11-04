@@ -44,7 +44,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
             run_source_tools(run,budget,acq.get('engine'))
         except Exception:pass  # Optional analysis never replaces the original failure.
     context = RepairContext(run); sources = context.load()
-    mutations = 0; fingerprints = set(); feedback = None; stop_corrections = 0
+    mutations = 0; fingerprints = set(); feedback = None; stop_corrections = 0; response_corrections = 0
     inspect_keys = set(); consecutive_inspects = 0; MAX_CONSECUTIVE_INSPECTS = 2
     if stage is None:
         from execution_trace import TRACE
@@ -144,8 +144,18 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 '只有真实服务端才能成立的存档、排行榜、登录、对战结算不得伪造返回值或假装成功，这类应stop并说明缺后端。'
                 '本地 Codex 与 API 具有相同的上述工具；不要要求外部终端或依赖开发会话。修复是否成功由实际验证决定。'},
                 {'role': 'user', 'content': [{'type':'text','text':json.dumps(payload, ensure_ascii=False)}]+context.images()}], budget)
-            if not isinstance(answer, dict): raise ValueError('诊断返回格式无效')
-            action = answer.get('action', 'stop')
+            action = answer.get('action') if isinstance(answer,dict) else None
+            if (not isinstance(action,str) or not action.strip()
+                    or (action=='stop' and not any(isinstance(answer.get(k),str) and answer[k].strip() for k in ('diagnosis','reason')))):
+                response_corrections += 1
+                feedback = '诊断响应缺少有效action，或stop缺少已查证原因。请返回约定JSON；停止须说明本轮证据及具体缺口，空响应不代表问题不可解决。'
+                row={'attempt':attempt+1,'error':safe(last),'response_error':feedback}
+                rounds.append(row)
+                (evidence/f'{len(rounds)}.json').write_text(json.dumps(row,ensure_ascii=False,indent=2),'utf-8')
+                if response_corrections>=2:
+                    row['stop_reason']='连续两次诊断响应不完整；保留原验证失败，不能认定游戏无修复方案。'
+                    break
+                continue
             row = {'attempt': attempt+1, 'error': safe(last), 'diagnosis': safe(answer.get('diagnosis','')),
                    'hypothesis': safe(answer.get('hypothesis','')), 'evidence': answer.get('evidence',[])[:12],
                    'action': action, 'reason': safe(answer.get('reason','')), 'next_action': safe(answer.get('next_action',''))}

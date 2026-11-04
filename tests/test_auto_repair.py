@@ -15,6 +15,26 @@ class Budget:
 
 
 class AutoRepairTests(unittest.TestCase):
+    def test_empty_diagnosis_is_corrected_before_verification_retry(self):
+        answers=iter([{}, {'action':'retry','diagnosis':'Retry observed transient failure'}]);payloads=[]
+        def chat(messages,budget):
+            payloads.append(messages[-1]['content'][0]['text']);return next(answers)
+        token=CHAT.set(chat)
+        try:self.assertEqual(diagnose(ValueError('fixture'),self.run,Budget(),retry=lambda:'verified'),(True,'verified'))
+        finally:CHAT.reset(token)
+        self.assertIn('诊断响应缺少',payloads[1])
+        rows=json.loads((self.run/'auto-repair/report.json').read_text('utf-8'))['attempts']
+        self.assertIn('response_error',rows[0]);self.assertTrue(rows[1]['verified'])
+
+    def test_empty_stop_is_bounded_and_never_claims_verified(self):
+        from unittest.mock import Mock
+        chat=Mock(return_value={'action':'stop'});retry=Mock();token=CHAT.set(chat)
+        try:self.assertEqual(diagnose(ValueError('missing'),self.run,Budget(),retry=retry),(False,None))
+        finally:CHAT.reset(token)
+        self.assertEqual(chat.call_count,2);retry.assert_not_called()
+        rows=json.loads((self.run/'auto-repair/report.json').read_text('utf-8'))['attempts']
+        self.assertTrue(all('response_error' in row for row in rows));self.assertIn('stop_reason',rows[-1])
+
     def test_control_plane_failure_never_invokes_game_diagnosis(self):
         from platform_transport import PlatformConnectionRefused
         from unittest.mock import Mock
