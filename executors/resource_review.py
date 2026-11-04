@@ -5,7 +5,27 @@ from pathlib import Path
 from runtime_recovery import StaticRecovery
 
 class OptionalResourceReview(StaticRecovery):
+    def arguments(self,args):
+        if not isinstance(args,dict):
+            raise ValueError('资源审核须提交 arguments 对象，包含 path 或 paths 及 reason')
+        paths=args.get('paths',[args.get('path')])
+        if not isinstance(paths,list) or not 1<=len(paths)<=20:
+            raise ValueError('须提交 path 或 paths（1至20个具体资源路径）')
+        normalized=[]
+        for path in paths:
+            if (not isinstance(path,str) or not path or path.startswith('//')
+                    or any(c in path for c in ('\\',':','?','#','%'))):
+                raise ValueError('资源路径须为包内路径，如 assets/audio/theme.mp3 或 /assets/audio/theme.mp3')
+            path=path.removeprefix('/')
+            if any(part in ('','.','..') for part in path.split('/')):
+                raise ValueError('资源路径不能包含空段、当前目录或上级目录')
+            normalized.append(path)
+        if len(set(normalized))!=len(normalized):
+            raise ValueError('资源路径规范化后不能重复')
+        return {**args,**({'paths':normalized} if 'paths' in args else {'path':normalized[0]})}
+
     def validate(self,args):
+        args=self.arguments(args)
         if 'paths' in args:
             paths=args['paths']
             if not isinstance(paths,list) or not 1<=len(paths)<=20 or len(set(paths))!=len(paths):
@@ -26,6 +46,7 @@ class OptionalResourceReview(StaticRecovery):
         if not shot.is_file() or shot.is_symlink():raise ValueError('缺少本轮失败截图')
 
     def execute(self,args):
+        args=self.arguments(args)
         self.validate(args);self.before={}
         p=self.run/'web-acquisition.json';acq=json.loads(p.read_text('utf-8'))
         if not acq.get('capture_key'):

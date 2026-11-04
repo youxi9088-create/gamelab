@@ -172,10 +172,16 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 except (ValueError, TypeError) as exc:
                     feedback = str(exc); row['tool_error'] = feedback; continue
             if action == 'inspect':
+                arguments=answer.get('arguments')
+                if isinstance(arguments,dict):
+                    for key in ('read_requests','search_requests'):
+                        if key not in answer and key in arguments:
+                            answer[key]=arguments[key]
                 # Re-reading the same files yields no new evidence. Force a verdict
                 # instead of letting the model restate the same diagnosis.
                 inspect_key = hashlib.sha256(json.dumps(
-                    {'read': answer.get('read_requests'), 'search': answer.get('search_requests')},
+                    {'read': answer.get('read_requests'), 'search': answer.get('search_requests'),
+                     'inventory':sources.get('source_inventory')},
                     ensure_ascii=False, sort_keys=True).encode()).hexdigest()
                 if inspect_key in inspect_keys:
                     feedback = ('相同的读取请求已执行过且未产生新证据，禁止再次读取相同文件。必须立即做出决定：'
@@ -184,18 +190,21 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                                 '否则 stop，写明已查证证据与平台缺少的具体执行能力。')
                     row['repeated_inspect'] = True
                     continue
-                inspect_keys.add(inspect_key)
                 try:
                     row['tool_results'] = context.inspect(answer, sources)
+                    inspect_keys.add(inspect_key)
                     # The captured tree keeps changing between rounds: every
                     # offline verify pass backfills more runtime assets. Without
                     # a reload the next prompt reuses the inventory taken at the
                     # first failure, so the model keeps "diagnosing" missing
                     # files that already exist and never reaches retry.
+                    previous_sources = sources
                     sources = context.load()
+                    context.context.restore_navigation(sources, previous_sources)
                     feedback = None
                 except (ValueError,KeyError,TypeError) as exc:
                     feedback = str(exc); row['tool_error'] = feedback
+                    continue
                 consecutive_inspects += 1
                 if consecutive_inspects > MAX_CONSECUTIVE_INSPECTS:
                     row['stop_reason'] = ('连续多轮只读取证据，未产生修复动作也未给出放过结论；'

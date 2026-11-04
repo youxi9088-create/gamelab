@@ -103,9 +103,11 @@ async function probe(url,label,dir,referer){
    return route.continue();
   }catch{return route.abort();}});
   page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
-  const response=await page.goto(url,{referer,waitUntil:'domcontentloaded',timeout:45000});
+  // A stalled deferred resource can postpone DOMContentLoaded even when the
+  // observed game controls already work. Verify those controls and transition.
+  const response=await page.goto(url,{referer,waitUntil:'commit',timeout:45000});
   if(!response?.ok())throw Error('DOM entry HTTP '+response?.status());
-  await page.getByRole('button',{name:label,exact:true}).waitFor({state:'visible',timeout:15000});
+  await page.getByRole('button',{name:label,exact:true}).waitFor({state:'visible',timeout:45000});
   Object.assign(report,await verifyInteraction(page,label,dir));
   if(report.errors.length)throw Error('DOM entry has script errors');
  }catch(e){

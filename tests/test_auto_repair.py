@@ -84,11 +84,13 @@ class AutoRepairTests(unittest.TestCase):
         self.assertEqual(p.read_text(),'original')
     def test_inspection_cannot_loop_on_repeated_reads(self):
         """Restating a diagnosis while re-reading the same files must converge."""
+        (self.target/'a.js').write_text('const fixture = 1;')
         answers=iter([{'action':'inspect','diagnosis':'缺三张树贴图','read_requests':[{'path':'a.js','offset':0,'length':10}]},
                       {'action':'inspect','diagnosis':'仍缺三张树贴图','read_requests':[{'path':'a.js','offset':0,'length':10}]},
                       {'action':'inspect','diagnosis':'还是缺三张树贴图','read_requests':[{'path':'a.js','offset':0,'length':10}]},
                       {'action':'inspect','diagnosis':'继续缺三张树贴图','read_requests':[{'path':'a.js','offset':0,'length':10}]},
                       {'action':'stop'}])
+        answers=iter([{**a,'read_requests':[{'path':'converted/a.js','offset':0,'length':10}]} for a in answers])
         token=CHAT.set(lambda messages,budget:next(answers))
         try:diagnose(ValueError('missing trees'),self.run,Budget(),retry=None)
         finally:CHAT.reset(token)
@@ -98,11 +100,13 @@ class AutoRepairTests(unittest.TestCase):
         self.assertTrue(any(a.get('repeated_inspect') for a in attempts))
 
     def test_consecutive_inspection_stops_without_a_verdict_free_loop(self):
+        for name in ('a','b','c','d'):(self.target/(name+'.js')).write_text('const fixture = 1;')
         answers=iter([{'action':'inspect','diagnosis':'读第一批','read_requests':[{'path':'a.js','offset':0,'length':10}]},
                       {'action':'inspect','diagnosis':'读第二批','read_requests':[{'path':'b.js','offset':0,'length':10}]},
                       {'action':'inspect','diagnosis':'读第三批','read_requests':[{'path':'c.js','offset':0,'length':10}]},
                       {'action':'inspect','diagnosis':'读第四批','read_requests':[{'path':'d.js','offset':0,'length':10}]},
                       {'action':'stop'}])
+        answers=iter([{**a,'read_requests':[{**r,'path':'converted/'+r['path']} for r in a.get('read_requests',[])]} for a in answers])
         token=CHAT.set(lambda messages,budget:next(answers))
         try:diagnose(ValueError('missing trees'),self.run,Budget(),retry=None)
         finally:CHAT.reset(token)
@@ -110,6 +114,24 @@ class AutoRepairTests(unittest.TestCase):
         attempts=report['episodes'][-1]['attempts']
         self.assertLessEqual(len(attempts),3)
         self.assertTrue(any(a.get('stop_reason') for a in attempts))
+
+    def test_invalid_inspect_does_not_block_corrected_nested_request(self):
+        (self.target/'fixture.js').write_text('const recovered = true;')
+        answers=iter([{'action':'inspect','arguments':{}},
+                      {'action':'inspect','arguments':{'search_requests':[{'path':'converted/fixture.js','text':'recovered'}]}},
+                      {'action':'stop'}])
+        payloads=[]
+        def chat(messages,budget):
+            payloads.append(json.loads(messages[-1]['content'][0]['text']))
+            return next(answers)
+        token=CHAT.set(chat)
+        try:diagnose(ValueError('fixture'),self.run,Budget())
+        finally:CHAT.reset(token)
+        rows=json.loads((self.run/'auto-repair/report.json').read_text('utf-8'))['attempts']
+        self.assertIn('tool_error',rows[0])
+        self.assertTrue(rows[1]['tool_results'])
+        self.assertNotIn('repeated_inspect',rows[1])
+        self.assertTrue(any('recovered' in x.get('text','') for x in payloads[-1]['source_excerpts']))
 
     def test_diagnosis_without_capability_does_not_retry(self):
         token=CHAT.set(lambda messages,budget:{'action':'retry','diagnosis':'材料缺失'})

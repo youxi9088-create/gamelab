@@ -15,6 +15,14 @@ class BatchReviewTests(unittest.TestCase):
    review=OptionalResourceReview(run,None);args={'paths':paths,'reason':'Source uses a verified synthesizer fallback; observed screenshot shows playable scene.'}
    self.assertEqual(len(review.execute(args)),2);review.rollback()
    self.assertEqual((run/'web-acquisition.json').read_bytes(),raw)
+   rooted={**args,'paths':['/'+p for p in paths]}
+   self.assertEqual([item['path'] for item in review.execute(rooted)],paths)
+   review.rollback()
+   for invalid in ['//host/a.mp3','/../a.mp3','C:/a.mp3','assets\\a.mp3','/%2e%2e/a.mp3']:
+    with self.assertRaises(ValueError):review.execute({'path':invalid,'reason':args['reason']})
+   with self.assertRaises(ValueError):review.execute({**args,'paths':[paths[0],'/'+paths[0]]})
+   with self.assertRaisesRegex(ValueError,'资源路径'):
+    review.execute({']':']'})
    with self.assertRaises(ValueError):review.execute({**args,'paths':paths+['unknown.mp3']})
    self.assertEqual((run/'web-acquisition.json').read_bytes(),raw)
 
