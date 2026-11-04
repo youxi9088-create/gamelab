@@ -28,8 +28,18 @@ def literal_dependencies(run):
             if p.resolve().is_relative_to(target.resolve()):candidates.append((p,row.get('sourceURL') or row.get('url','')))
     for p,source in candidates[:100]:
         if not p.is_file() or p.stat().st_size>2_000_000:continue
-        for value in re.findall(r'''["']([^\s"'<>]+)["']''',unescape(p.read_text('utf-8'))):
+        text=unescape(p.read_text('utf-8'))
+        for value in re.findall(r'''["']([^\s"'<>]+)["']''',text):
             if '${' not in value:found.add(urljoin(source,value))
+        # Resolve only constant-string templates, never execute source code or
+        # infer a dynamic expression. The resulting URL must still be observed
+        # as a script GET before recovery can select it.
+        constants={name:value for name,quote,value in re.findall(
+            r'''\bconst\s+([A-Za-z_$][\w$]*)\s*=\s*(["'])([^"'\\\r\n]*)\2''',text)
+            if len(re.findall(r'\b(?:const|let|var)\s+'+re.escape(name)+r'\b',text))==1}
+        for template in re.findall(r'`([^`\\\r\n]+)`',text)[:100]:
+            value=re.sub(r'\$\{([A-Za-z_$][\w$]*)\}',lambda m:constants.get(m[1],m[0]),template)
+            if '${' not in value and not re.search(r'[\s<>]',value):found.add(urljoin(source,value))
     return found
 
 def static_data_request(request,declarations):
@@ -73,7 +83,7 @@ def recover_declared_static(run,budget,retry):
             seen.add(signature)
             recovery=StaticRecovery(run,budget)
             try:
-                result=recovery.execute({'resource_ids':ids,'reason':'Observed static GET exactly matches a literal HTML/CSS dependency in this package.'})
+                result=recovery.execute({'resource_ids':ids,'reason':'Observed static GET matches a literal dependency or a constant-string module URL in this package; no source code is executed.'})
                 attempts.append({'resources':signature,'downloaded':len(result['files']),'verified':False})
                 value=retry()
             except Exception as error:

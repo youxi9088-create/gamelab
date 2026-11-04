@@ -5,6 +5,20 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'executors'))
 from runtime_recovery import declared_static_ids,recover_declared_static
 
 class RecoveryRulesTest(unittest.TestCase):
+ def test_constant_module_templates_require_observed_get_and_no_dynamic_expression(self):
+  with tempfile.TemporaryDirectory() as d:
+   run=Path(d);target=run/'converted';(target/'evidence').mkdir(parents=True)
+   (run/'web-acquisition.json').write_text(json.dumps({'url':'https://game.example/','files':[]}))
+   url='https://cdn.example/v1/sdk.js'
+   (target/'evidence/runtime.json').write_text(json.dumps({'resource_requests':[
+    {'id':'script','url':url,'method':'GET','type':'script'},
+    {'id':'api','url':url,'method':'GET','type':'fetch'},
+    {'id':'post','url':url,'method':'POST','type':'script'}]}))
+   for declaration,expected in [('const VERSION="v1";', ['script']),('let VERSION="v1";',[]),('const VERSION="v1"; function other(){const VERSION="v2";}',[])]:
+    (target/'index.html').write_text('<script>'+declaration+'import(`https://cdn.example/${VERSION}/sdk.js`);</script>')
+    self.assertEqual(declared_static_ids(run),expected)
+   (target/'index.html').write_text('<script>import(`https://cdn.example/${chooseVersion()}/sdk.js`);</script>')
+   self.assertEqual(declared_static_ids(run),[])
  def test_literal_audio_fetch_is_static_but_api_and_posts_are_not(self):
   with tempfile.TemporaryDirectory() as d:
    run=Path(d);target=run/'converted';(target/'evidence').mkdir(parents=True);url='https://media.example/music.mp3'
