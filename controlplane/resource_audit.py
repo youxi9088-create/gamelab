@@ -8,14 +8,55 @@ from urllib.parse import urlsplit,unquote
 
 def javascript_tokens(text):
     """Lexical tokens excluding comments; documentation is not a dependency."""
-    token=re.compile(r'''(?P<quoted>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)|(?P<comment>//[^\n]*|/\*.*?\*/)|(?P<word>[A-Za-z_$][\w$]*)|(?P<punct>\S)''',re.S)
     tokens=[]
-    for match in token.finditer(text):
-        if match.lastgroup=='comment':continue
-        raw=match[0];value=raw[1:-1].replace('\\/','/') if match.lastgroup=='quoted' else raw
-        if match.lastgroup=='quoted' and '${' in value:value=''
-        tokens.append((match.lastgroup,value,match.start()))
-    return tokens
+    word=re.compile(r'[A-Za-z_$][\w$]*')
+    def scan(pos, stop=False):
+        depth=0
+        while pos<len(text):
+            ch=text[pos]
+            if ch.isspace():pos+=1;continue
+            if text.startswith('//',pos):
+                end=text.find('\n',pos);pos=len(text) if end<0 else end+1;continue
+            if text.startswith('/*',pos):
+                end=text.find('*/',pos+2);pos=len(text) if end<0 else end+2;continue
+            # A regex character class can contain quotes/backticks. Consuming
+            # these as JS strings corrupts all later template boundaries.
+            previous=tokens[-1][1] if tokens else ''
+            if ch=='/' and previous in ('','(','[','{','=',':',',',';','!','?','&','|','return','throw','case','=>'):
+                begin=pos;pos+=1;in_class=False
+                while pos<len(text):
+                    if text[pos]=='\\':pos+=2;continue
+                    if text[pos]=='[':in_class=True
+                    elif text[pos]==']':in_class=False
+                    elif text[pos]=='/' and not in_class:
+                        pos+=1
+                        while pos<len(text) and text[pos].isalpha():pos+=1
+                        break
+                    elif text[pos] in ('\n','\r'):break
+                    pos+=1
+                tokens.append(('regex','',begin));continue
+            if ch in ('"',"'",'`'):
+                begin=pos;quote=ch;pos+=1;parts=[];dynamic=False
+                while pos<len(text):
+                    if text[pos]=='\\' and pos+1<len(text):
+                        parts.append(text[pos:pos+2]);pos+=2;continue
+                    if text[pos]==quote:pos+=1;break
+                    if quote=='`' and text.startswith('${',pos):
+                        dynamic=True;pos=scan(pos+2,True);continue
+                    parts.append(text[pos]);pos+=1
+                value='' if dynamic else ''.join(parts).replace('\\/','/')
+                tokens.append(('quoted',value,begin));continue
+            if ch=='}' and stop and depth==0:return pos+1
+            if ch=='{':depth+=1
+            elif ch=='}':depth-=1
+            match=word.match(text,pos)
+            if match:
+                tokens.append(('word',match[0],pos));pos=match.end();continue
+            tokens.append(('punct',ch,pos));pos+=1
+        return pos
+    scan(0)
+    return sorted(tokens,key=lambda row:row[2])
+
 
 
 def javascript_requests(text):
@@ -32,7 +73,7 @@ def javascript_requests(text):
         beacon=value=='sendBeacon' and prefix=='.' and object_name=='navigator'
         arg=i+2
         if value=='open' and prefix=='.' and i+5<len(tokens) and tokens[i+1][1]=='(' and tokens[i+2][1].upper() in ('GET','POST','PUT','PATCH','DELETE','HEAD') and tokens[i+3][1]==',':arg=i+4;direct=True
-        if (direct or ctor or beacon) and i+1<len(tokens) and tokens[i+1][1]=='(' and arg<len(tokens) and tokens[arg][0]=='quoted' and tokens[arg][1]:
+        if (direct or ctor or beacon) and i+1<len(tokens) and tokens[i+1][1]=='(' and arg<len(tokens) and tokens[arg][0]=='quoted' and tokens[arg][1] and arg+1<len(tokens) and tokens[arg+1][1] in (')',','):
             result.append({'reference':tokens[arg][1],'line':text.count('\n',0,pos)+1,'base':'module' if value=='import' else 'document'})
     return result
 
