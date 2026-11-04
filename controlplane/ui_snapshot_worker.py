@@ -33,10 +33,12 @@ def main():
         sys.stdin.buffer.read()
         stopped.set()
     threading.Thread(target=watch_parent, daemon=True).start()
+    first_snapshot=True
     while not stopped.is_set():
         started = time.monotonic()
         try:
-            value = summary(service.state())
+            value = summary(service.state(defer_engine_evidence=first_snapshot))
+            first_snapshot=False
             faulthandler.cancel_dump_traceback_later()
             value['ui_build_seconds'] = round(time.monotonic() - started, 3)
             sys.stdout.buffer.write(json.dumps(value, ensure_ascii=False, separators=(',', ':')).encode('utf-8') + b'\n')

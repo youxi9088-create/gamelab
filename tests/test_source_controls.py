@@ -29,3 +29,12 @@ class SourceControlsTests(unittest.TestCase):
   self.assertTrue(snapshot['sources'][0]['enabled'])
   self.s.mutate('/api/sources/'+x['id']+'/delete',{})
   self.assertNotIn(x['id'],[r['id'] for r in current_sources(self.s,snapshot)['sources']])
+
+ def test_initial_ui_state_does_not_wait_for_historical_engine_scan(self):
+  from unittest.mock import patch
+  with patch('controlplane.acquisition_evidence.engine_by_candidate',side_effect=RuntimeError('slow historical evidence')) as scan:
+   state=self.s.state(defer_engine_evidence=True)
+   self.assertTrue(state['ui_engine_evidence_pending']);scan.assert_not_called()
+   self.assertTrue(state['sources'])
+  with patch('controlplane.acquisition_evidence.engine_by_candidate',return_value={}) as scan:
+   self.assertFalse(self.s.state()['ui_engine_evidence_pending']);scan.assert_called_once()

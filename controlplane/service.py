@@ -92,7 +92,7 @@ class Service(Conversations,Discovery):
         except (TypeError,ValueError): value=DEFAULT_CONCURRENCY
         return max(1,min(MAX_CONCURRENCY,value))
 
-    def state(self):
+    def state(self, *, defer_engine_evidence=False):
         with self.store.read() as db:
             state={k:self.store.all(db,k) for k in ('candidates','sources','batches','jobs','versions','tools','events','messages','rounds')}
             for candidate in state['candidates']:
@@ -108,7 +108,8 @@ class Service(Conversations,Discovery):
                         version['source_title']=version['title'];version['title']=title
             from .catalog_facets import source_engine, web_delivery
             from .acquisition_evidence import engine_by_candidate
-            acquisition=engine_by_candidate(self.runs_dir,state['jobs'])
+            acquisition={} if defer_engine_evidence else engine_by_candidate(self.runs_dir,state['jobs'])
+            state['ui_engine_evidence_pending']=bool(defer_engine_evidence)
             for candidate in state['candidates']:
                 candidate['source_engine']=source_engine(candidate,state['versions'],acquisition)
                 from .source_routing import source_kind
