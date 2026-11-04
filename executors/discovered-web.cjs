@@ -350,7 +350,7 @@ async function capture(input,run){
 }
 async function verify(run,actions=[],nextBatch=null,viewportReview=false,environment='deployment'){
  const started=Date.now(),root=path.resolve(run,'converted'),report={passed:false,errors:[],missing:[],external:[],blocked_external:[],required_external:[],steps:[],actions:[],renderDiagnostics:[],resource_requests:[]},acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
- report.verifier_revision=hash(Buffer.from(['discovered-web.cjs','parser-resource-bindings.cjs','poki-startup-fallback.cjs','poki-sdk-declarations.cjs','adapters/runtime-resource-bindings.js','browser-options.cjs'].map(f=>hash(fs.readFileSync(path.join(__dirname,f)))).join('|')));
+ report.verifier_revision=hash(Buffer.from(['discovered-web.cjs','parser-resource-bindings.cjs','native-module-bindings.cjs','poki-startup-fallback.cjs','poki-sdk-declarations.cjs','adapters/runtime-resource-bindings.js','browser-options.cjs'].map(f=>hash(fs.readFileSync(path.join(__dirname,f)))).join('|')));
  // Apply the shared exact bindings to resumed legacy captures as well.
  const map=Object.fromEntries((acq.files||[]).filter(f=>f.url&&f.path).map(f=>[f.url,'./'+f.path]));
  Object.assign(map,acq.runtime_resource_map||{});
@@ -363,7 +363,8 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false,environ
   fs.writeFileSync(hostFile,/<head\b[^>]*>/i.test(hostText)?hostText.replace(/<head\b[^>]*>/i,m=>m+injection):injection+hostText);
  }
  const parserFile=path.join(root,'index.html'),parserBefore=fs.readFileSync(parserFile,'utf8');
- const parserAfter=require('./parser-resource-bindings.cjs')(parserBefore,map,acq.url,root);
+ const parserBound=require('./parser-resource-bindings.cjs')(parserBefore,map,acq.url,root);
+ const parserAfter=require('./native-module-bindings.cjs')(parserBound,acq,root);
  if(parserAfter!==parserBefore)fs.writeFileSync(parserFile,parserAfter);
  const adblock=createAdblock(report,acq.url||'https://replica-runtime.invalid/');
  // Only explicit evidence-reviewed decisions from this capture may omit a missing resource.

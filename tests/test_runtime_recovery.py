@@ -51,6 +51,8 @@ class RuntimeRecoveryTest(unittest.TestCase):
         self.recovery.execute(self.args)
         result=subprocess.run([node_binary(),'tests/test_native_module_binding.cjs',str(self.run)],capture_output=True,text=True,encoding='utf-8',timeout=45)
         self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+        legacy=subprocess.run([node_binary(),'tests/test_native_module_binding.cjs',str(self.run),'legacy'],capture_output=True,text=True,encoding='utf-8',timeout=45)
+        self.assertEqual(legacy.returncode,0,legacy.stdout+legacy.stderr)
     def test_literal_audio_fetch_keeps_real_wav_bytes_and_requires_reverification(self):
         import io,wave
         data=io.BytesIO()

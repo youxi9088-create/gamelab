@@ -5,6 +5,12 @@ const {chromium} = require('../executors/node_modules/playwright');
 
 (async () => {
   const root = path.resolve(process.argv[2], 'converted');
+  if(process.argv[3]==='legacy'){
+    const file=path.join(root,'index.html');
+    const legacy=fs.readFileSync(file,'utf8').replace(/<script type="importmap">[\s\S]*?<\/script>/i,'');
+    const acq=JSON.parse(fs.readFileSync(path.resolve(root,'../web-acquisition.json')));
+    fs.writeFileSync(file,require('../executors/native-module-bindings.cjs')(legacy,acq,root));
+  }
   const browser = await chromium.launch(require('../executors/browser-options.cjs')());
   const external = [];
   try {
