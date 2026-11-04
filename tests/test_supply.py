@@ -160,6 +160,28 @@ class SupplyTests(unittest.TestCase):
         self.assertEqual({x['code'] for x in row['blockers']},{'LICENSE_UNDECLARED','CONFIG_REQUIRED'})
         self.assertEqual(row['package'],'passed_static_checks');self.assertFalse(row['submission_sent'])
 
+    def test_review_scan_allows_concurrent_executor_write(self):
+        import sqlite3
+        from contextlib import contextmanager
+        from controlplane.supply_preparation import prepare_one_review
+        self.fixture.enqueue();self.fixture.completion(self.fixture.claim())
+        original_read=self.s.store.read;observed=[];errors=[]
+        def trace(sql):
+            if "kind='versions'" not in sql:return
+            try:
+                with sqlite3.connect(self.s.store.path,timeout=0.05) as writer:
+                    writer.execute('BEGIN IMMEDIATE')
+                    writer.execute("INSERT INTO records VALUES ('probe','heartbeat','{}')")
+                observed.append(True)
+            except Exception as exc:errors.append(str(exc))
+        @contextmanager
+        def read():
+            with original_read() as db:
+                db.set_trace_callback(trace)
+                yield db
+        with patch.object(self.s.store,'read',read):prepare_one_review(self.s)
+        self.assertEqual(errors,[]);self.assertEqual(observed,[True])
+
     def test_explicit_status_sync_preserves_terminal_payload_and_acceptance(self):
         vid=self.approved({'license_declaration':{'distributable':'yes','owner':'Fixture'}})
         with self.s.store.tx() as db:

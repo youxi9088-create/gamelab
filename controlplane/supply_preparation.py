@@ -42,7 +42,9 @@ def prepare_one_review(service):
     with service.store.read() as db:policy=service.store.get(db,'settings','supply_defaults') or {}
     revision=hashlib.sha256(PACKAGE_CHECK_REVISION.encode()+json.dumps({'readiness':readiness(settings()),'supply_defaults':policy},sort_keys=True).encode()).hexdigest()
     store=service.store
-    with store.tx() as db:
+    # Version JSON may include large verification reports. Scanning it must
+    # never hold the writer lock needed by executor heartbeats and events.
+    with store.read() as db:
         if (store.get(db,'settings','maintenance') or {}).get('draining'):return
         selected=None
         for entry in db.execute("SELECT data FROM records WHERE kind='versions' AND json_extract(data,'$.status')='review'"):
@@ -51,6 +53,12 @@ def prepare_one_review(service):
             if old.get('lease_until',0)>time.time() or (old.get('checker_revision')==revision and old.get('status') in ('ready','blocked')):continue
             selected=v;break
         if selected is None:return
+    with store.tx() as db:
+        if (store.get(db,'settings','maintenance') or {}).get('draining'):return
+        selected=store.get(db,'versions',selected['id'])
+        if not selected or selected.get('status')!='review':return
+        old=store.get(db,'supply_preparations',selected['id']) or {}
+        if old.get('lease_until',0)>time.time() or (old.get('checker_revision')==revision and old.get('status') in ('ready','blocked')):return
         candidate=service.get(db,'candidates',selected['candidate_id']);token=secrets.token_hex(16)
         row={'id':selected['id'],'version_id':selected['id'],'candidate_id':selected['candidate_id'],'status':'running','checker_revision':revision,'lease_until':time.time()+900,'lease_token':token}
         store.put(db,'supply_preparations',row)
