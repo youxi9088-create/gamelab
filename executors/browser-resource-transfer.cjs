@@ -4,8 +4,9 @@ async function fetchResource(browser,url,validate){
  const context=await browser.newContext({serviceWorkers:'block'});
  try{
   const document=new URL('/.gamelab-resource-transfer',url).href;
+  let rejectedURL=false;
   await context.route('**/*',async route=>{
-   try{validate(route.request().url());}catch{return route.abort();}
+   try{validate(route.request().url());}catch{rejectedURL=true;return route.abort();}
    if(route.request().url()===document&&route.request().isNavigationRequest())return route.fulfill({contentType:'text/html',body:'<!doctype html><title>Resource transfer</title>'});
    return route.continue();
   });
@@ -15,7 +16,9 @@ async function fetchResource(browser,url,validate){
   const result=await page.evaluate(async address=>{
    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);
    try{
-    const response=await fetch(address,{credentials:'omit',signal:controller.signal});
+    let response;
+    try{response=await fetch(address,{credentials:'omit',signal:controller.signal});}
+    catch{return {transportFailure:true};}
     if(Number(response.headers.get('content-length'))>20*1024*1024)throw Error('Browser resource exceeds byte limit');
     const reader=response.body.getReader(),parts=[];let size=0;
     for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>20*1024*1024){await reader.cancel();throw Error('Browser resource exceeds byte limit');}parts.push(value);}
@@ -23,6 +26,8 @@ async function fetchResource(browser,url,validate){
     return {status:response.status,url:response.url,headers:Object.fromEntries(response.headers),data:btoa(binary)};
    }finally{clearTimeout(timer);}
   },url).catch(error=>{throw new Error(error.message+' | browser network: '+JSON.stringify(failures.slice(-5)));});
+  if(rejectedURL)throw Error('Resource URL rejected by public network policy');
+  if(result.transportFailure){const error=Error('Public resource transport failed');error.code='RESOURCE_TRANSPORT_FAILURE';throw error;}
   validate(result.url);const body=Buffer.from(result.data,'base64');
   return {ok:()=>result.status>=200&&result.status<300,status:()=>result.status,url:()=>result.url,headers:()=>result.headers,body:async()=>body,dispose:async()=>{},browserTransfer:true};
  }finally{await context.close();}

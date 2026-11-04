@@ -547,7 +547,7 @@ async function repairResources(run){
  if(!missing.length||missing.length>600)throw Error('Missing-resource repair exceeds batch limit');
  const hgd=require('./html-game-downloader.cjs').plan(run,acq,missing);
  acq.resource_tools={...(acq.resource_tools||{}),html_game_downloader:{tool:'HtmlGameDownloader',status:hgd.status,reason:hgd.reason,error:hgd.error,commit:hgd.commit,matched:hgd.references?.length||0}};
- const prior=acq.resource_refreshes||[],added=[];let bytes=0;
+ const prior=acq.resource_refreshes||[],added=[];let bytes=0;const repairStarted=Date.now();
  if(prior.reduce((n,r)=>n+r.files.length,0)+missing.length>2000)throw Error('Resource repair exceeds task limit');
  const client=await request.newContext({...proxyOptions(),...sessionOptions(acq.url),extraHTTPHeaders:{Referer:acq.referer||acq.url}});
  let recoveryBrowser;
@@ -567,7 +567,8 @@ async function repairResources(run){
    // round, so a package that had already run cleanly still ended up blocked.
    if(fs.existsSync(dest)){(acq.repaired_present=acq.repaired_present||[]).push(relative);continue;}
    acq.redirects=acq.redirects||[];
-   const response=await followResourceRedirects(async value=>{
+   let response;
+   try{response=await followResourceRedirects(async value=>{
     const recovered=require('./recovered-resource-cache.cjs').recoveredResource(acq.url,value);
     if(recovered){(acq.recovered_public_resources??=[]).push({url:value,source:'operator-collected-public-cache',verification_required:true});return recovered;}
     try{return await client.get(value,{maxRedirects:0,timeout:30000});}
@@ -577,7 +578,14 @@ async function repairResources(run){
      (acq.transport_fallbacks??=[]).push({url:value,transport:'browser',status:fetched.status(),phase:'missing-local-repair'});
      return fetched;
     }
-   },url.href,acq.redirects);
+   },url.href,acq.redirects);}catch(error){
+    if(error.code!=='RESOURCE_TRANSPORT_FAILURE')throw error;
+    (acq.transport_failures??=[]).push({url:url.href,path:relative,kind:'public_resource_transport',verification_required:true});
+    // Do not let one unavailable transport hide later HTTP evidence. Bound
+    // the batch rather than multiplying per-resource retry time indefinitely.
+    if(Date.now()-repairStarted>90000)break;
+    continue;
+   }
    // Keep unavailable resources for evidence-based review; never infer optionality from extension.
    if(!response.ok()){
     const entry={url:url.href,path:relative,http_status:response.status()};
@@ -603,7 +611,7 @@ async function repairResources(run){
   if(recoveryBrowser)await recoveryBrowser.close();
   await client.dispose();
   // Save original-source failures even when no resources could be downloaded.
-  if(added.length||acq.unavailable||acq.repaired_present){
+  if(added.length||acq.unavailable||acq.repaired_present||acq.transport_failures){
    acq.files.push(...added);acq.bytes=(acq.bytes||0)+added.reduce((n,f)=>n+f.bytes,0);
    acq.resource_refreshes=[...prior,{files:added,observed_missing:missing,reason:runtime.failure}];
    fs.writeFileSync(file,JSON.stringify(acq,null,2));fs.writeFileSync(path.join(root,'evidence/acquisition.json'),JSON.stringify(acq,null,2));

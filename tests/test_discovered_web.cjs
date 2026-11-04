@@ -148,6 +148,40 @@ test('missing resources use only the observed original directory and never repla
   await assert.rejects(()=>repairResources(run),/original directory/);assert.equal(fetched.length,1);
  }finally{request.newContext=original;fs.rmSync(run,{recursive:true,force:true});}
 });
+test('resource transport failure preserves evidence and allows later resources',async()=>{
+ const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-transport-batch-'));
+ const {chromium}=require('../executors/node_modules/playwright'),transfer=require('../executors/browser-resource-transfer.cjs');
+ const original=request.newContext,launch=chromium.launch,fetch=transfer.fetchResource;
+ request.newContext=async()=>({get:async url=>{
+  if(url.endsWith('a.png'))throw Error('network reset');
+  return {ok:()=>true,status:()=>200,headers:()=>({}),body:async()=>Buffer.from('actual fixture'),dispose:async()=>{}};
+ },dispose:async()=>{}});
+ chromium.launch=async()=>({close:async()=>{}});
+ transfer.fetchResource=async()=>{const e=Error('network unavailable');e.code='RESOURCE_TRANSPORT_FAILURE';throw e;};
+ try{
+  fs.mkdirSync(path.join(run,'converted/evidence'),{recursive:true});
+  fs.writeFileSync(path.join(run,'web-acquisition.json'),JSON.stringify({url:'https://fixture.example/game/index.html',files:[],bytes:0}));
+  fs.writeFileSync(path.join(run,'converted/evidence/runtime.json'),JSON.stringify({missing:['/assets/a.png','/assets/b.png']}));
+  const added=await repairResources(run);assert.deepEqual(added.map(x=>x.path),['assets/b.png']);
+  const acq=JSON.parse(fs.readFileSync(path.join(run,'web-acquisition.json')));
+  assert.equal(acq.transport_failures[0].path,'assets/a.png');assert.equal(acq.unavailable,undefined);
+  transfer.fetchResource=async()=>{throw Error('Resource URL rejected by public network policy');};
+  await assert.rejects(()=>repairResources(run),/public network policy/);
+ }finally{request.newContext=original;chromium.launch=launch;transfer.fetchResource=fetch;fs.rmSync(run,{recursive:true,force:true});}
+});
+
+test('browser transfer distinguishes transport failure from URL policy rejection',async()=>{
+ const {fetchResource}=require('../executors/browser-resource-transfer.cjs');
+ let handler,unsafe=false;
+ const browser={newContext:async()=>({route:async(_,fn)=>{handler=fn;},on:()=>{},close:async()=>{},newPage:async()=>({goto:async()=>{},evaluate:async()=>{
+  if(unsafe)await handler({request:()=>({url:()=> 'http://127.0.0.1/private'}),abort:()=>{}});
+  return {transportFailure:true};
+ }})})};
+ await assert.rejects(()=>fetchResource(browser,'https://fixture.example/a',safeURL),e=>e.code==='RESOURCE_TRANSPORT_FAILURE');
+ unsafe=true;
+ await assert.rejects(()=>fetchResource(browser,'https://fixture.example/a',safeURL),e=>!e.code&&/policy/.test(e.message));
+});
+
 test('resource repair keeps large observed sets in bounded batches without losing the snapshot',async()=>{
  const run=fs.mkdtempSync(path.join(os.tmpdir(),'door-resource-batch-')),original=request.newContext;
  const payload=Buffer.alloc(16*1024*1024,7),disposed=[];
