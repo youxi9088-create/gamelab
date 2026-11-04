@@ -141,6 +141,7 @@ class Service(Conversations,Discovery):
             for collection in ('jobs','messages','versions','candidates'):
                 for row in state[collection]:
                     if row.get('created_by'):row['created_by_name']=actor_names.get(row['created_by'],row['created_by'])
+            state['sources']=[x for x in state['sources'] if not x.get('deleted_at')]
             state['features']={'link_batches':True,'pipeline_timeline':True}
             state['features']['discovery']=True
             state['features']['job_controls']=True
@@ -360,7 +361,7 @@ class Service(Conversations,Discovery):
             url=canonical_url(b.get('url',''))
             existing=next((c for c in s.all(db,'candidates') if c['canonical_url']==url),None)
             if existing:
-                active=next((j for j in s.all(db,'jobs') if j['candidate_id']==existing['id'] and j['status'] in ('queued','running','review','completed','waiting_input')),None)
+                active=next((j for j in s.all(db,'jobs') if j['candidate_id']==existing['id'] and j['status'] != 'superseded'),None)
                 if active:return {'candidate':existing,'job':active,'deduplicated':True}
             title=link_title(url)
             candidate=self._mutate(db,'/api/candidates',dict(url=url,title=title,source='链接自动转换'),None)['candidate']
@@ -884,10 +885,20 @@ class Service(Conversations,Discovery):
                 s.put(db,'tools',item);db.execute('INSERT INTO credentials VALUES (?,?)',(hashlib.sha256(token.encode()).hexdigest(),item['id']))
                 return {'tool':item,'token':token}
         if kind=='sources' and not tool:
-            if key and action=='toggle':
-                item=self.get(db,'sources',key);item['enabled']=not item['enabled'];s.put(db,'sources',item);return {'source':item}
+            if key:
+                item=self.get(db,'sources',key)
+                require(not item.get('deleted_at'),'来源已删除',409)
+                if action=='delete':
+                    item.update(enabled=False,deleted_at=now())
+                elif action in ('toggle','enable','disable'):
+                    item['enabled']=not item['enabled'] if action=='toggle' else action=='enable'
+                else:raise ApiError(404,'未知来源操作')
+                s.put(db,'sources',item);return {'source':item}
             name=str(b.get('name','')).strip();require(name,'填写来源名称')
-            item=dict(id=ident('source'),name=name[:100],url=canonical_url(b.get('url','')),enabled=True,created_at=now())
+            url=canonical_url(b.get('url',''))
+            require(url.startswith(('http://','https://')),'采集来源需要 HTTP(S) 网址')
+            require(not any(x['url']==url and not x.get('deleted_at') for x in s.all(db,'sources')),'来源网址已存在',409)
+            item=dict(id=ident('source'),name=name[:100],url=url,enabled=True,created_at=now())
             s.put(db,'sources',item);return {'source':item}
         if kind=='settings' and not tool:
             item=self.get(db,'settings','main')

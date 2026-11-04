@@ -744,7 +744,7 @@ function settings() {
     ['repair_rounds', '自动修复轮数', 1, 5, s.repair_rounds ?? 3],
   ];
   return head("来源与规则", "管理采集来源、处理预算与版本交付规则。") +
-    `<div class="setting-grid"><div class="settings-column"><section class="panel"><div class="panelhead"><h2>处理预算</h2></div><p class="settings-help">设置同时处理的任务数，以及每轮分析与修复的上限。</p><form id="settings-form"><div class="formgrid">${fields.map(([name, label, min, max, value]) => `<div><label for="setting-${name}">${label}</label><input id="setting-${name}" name="${name}" type="number" min="${min}" ${max == null ? '' : `max="${max}"`} value="${value}" required></div>`).join('')}</div><div class="modalfooter"><button class="primary">保存规则</button></div></form></section><section class="panel"><div class="panelhead"><h2>统一源码仓库</h2></div><p class="settings-help">所有游戏统一保存，平台代码与游戏代码分离。</p><div class="code">game-library/<br>  games/{game-id}/<br>    src/ · public/ · game.json · README.md<br>  shared/<br>  tooling/</div><div class="kv"><span>仓库状态</span><span>${esc(state.repository?.status || '由服务端配置')}</span></div><div class="kv"><span>迁移方式</span><span>保留提交历史，同步到公司 Git</span></div></section></div><div class="settings-column"><section class="panel"><div class="panelhead"><h2>采集来源</h2><button class="textbtn" data-action="new-source">＋ 添加来源</button></div>${(state.sources || []).map(s => `<div class="healthrow"><div><h3>${esc(s.name)}</h3><a class="tiny" href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer">${esc(s.url)}</a></div><button class="smallbtn" data-source-rule="${esc(s.id)}">扫描规则</button><button class="smallbtn" data-source="${esc(s.id)}" aria-label="${s.enabled ? '停用' : '启用'}来源 ${esc(s.name)}" aria-pressed="${s.enabled}">${s.enabled ? '已启用' : '已停用'}</button></div>`).join('') || '<p class="muted">尚未配置来源</p>'}</section><section class="panel"><div class="panelhead"><h2>发布要求</h2></div><ul class="requirements">${['工程可构建，核心功能通过测试', '人工确认玩法、画面和资源使用条件', '版本绑定源码提交与运行产物', '预览版本和发布版本独立管理'].map(t => `<li>${t}</li>`).join('')}</ul></section></div></div>`;
+    `<div class="setting-grid"><div class="settings-column"><section class="panel"><div class="panelhead"><h2>处理预算</h2></div><p class="settings-help">设置同时处理的任务数，以及每轮分析与修复的上限。</p><form id="settings-form"><div class="formgrid">${fields.map(([name, label, min, max, value]) => `<div><label for="setting-${name}">${label}</label><input id="setting-${name}" name="${name}" type="number" min="${min}" ${max == null ? '' : `max="${max}"`} value="${value}" required></div>`).join('')}</div><div class="modalfooter"><button class="primary">保存规则</button></div></form></section><section class="panel"><div class="panelhead"><h2>统一源码仓库</h2></div><p class="settings-help">所有游戏统一保存，平台代码与游戏代码分离。</p><div class="code">game-library/<br>  games/{game-id}/<br>    src/ · public/ · game.json · README.md<br>  shared/<br>  tooling/</div><div class="kv"><span>仓库状态</span><span>${esc(state.repository?.status || '由服务端配置')}</span></div><div class="kv"><span>迁移方式</span><span>保留提交历史，同步到公司 Git</span></div></section></div><div class="settings-column"><section class="panel"><div class="panelhead"><h2>采集来源</h2><button class="textbtn" data-action="new-source">＋ 添加来源</button></div>${(state.sources || []).map(s => `<div class="healthrow"><div><h3>${esc(s.name)}</h3><a class="tiny" href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer">${esc(s.url)}</a></div><button class="smallbtn" data-source-rule="${esc(s.id)}">扫描规则</button><button class="smallbtn" data-source="${esc(s.id)}" aria-label="${s.enabled ? '停用' : '启用'}来源 ${esc(s.name)}" aria-pressed="${s.enabled}">${s.enabled ? '停用' : '启用'}</button><button class="smallbtn danger" data-source-delete="${esc(s.id)}">删除</button></div>`).join('') || '<p class="muted">尚未配置来源</p>'}</section><section class="panel"><div class="panelhead"><h2>发布要求</h2></div><ul class="requirements">${['工程可构建，核心功能通过测试', '人工确认玩法、画面和资源使用条件', '版本绑定源码提交与运行产物', '预览版本和发布版本独立管理'].map(t => `<li>${t}</li>`).join('')}</ul></section></div></div>`;
 }
 let modalReturnFocus = null, liveDialog = null, backgroundDialog = false;
 function modal(title, body, wide = false) {
@@ -1113,6 +1113,14 @@ function formDialog(type) {
       } catch(error) { $("#modal-error").textContent=error.message;button.disabled=false; }
       return;
     }
+    if (type === "new-candidate") {
+      const button=e.target.querySelector('button.primary');button.disabled=true;
+      try {
+        const result=await api('/api/conversions',body);await load();
+        modal(result.deduplicated?'该链接已有任务':'转换任务已创建',`<p>${result.deduplicated?'已找到原任务，可查看进度或继续处理。':'游戏已进入转换队列。'}</p><button class="primary" data-job="${esc(result.job.id)}">查看任务</button>`);bind();
+      } catch(error) { $("#modal-error").textContent=error.message;button.disabled=false; }
+      return;
+    }
     if (type === "new-tool")
       body.capabilities = body.capabilities
         .split(",")
@@ -1352,6 +1360,11 @@ function bind() {
           t.enabled = !t.enabled;
         })),
   );
+  document.querySelectorAll('[data-source-delete]').forEach(b=>b.onclick=()=>{
+    const source=state.sources.find(s=>s.id===b.dataset.sourceDelete);
+    modal('删除采集来源',`<p>删除 ${esc(source.name)} 后停止后续采集，已采集游戏和历史记录保留。</p><button class="danger" id="confirm-source-delete">删除来源</button>`);
+    $('#confirm-source-delete').onclick=()=>mutate(`/api/sources/${source.id}/delete`,{},()=>{state.sources=state.sources.filter(s=>s.id!==source.id);});
+  });
   document.querySelectorAll("[data-source]").forEach(
     (b) =>
       (b.onclick = () =>

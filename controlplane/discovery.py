@@ -179,6 +179,8 @@ class DiscoveryScheduler:
         for source in sources:
             if self.stop.is_set():break
             with s.read() as db:
+                current=s.get(db,'sources',source['id'])
+                if not current or not current.get('enabled') or current.get('deleted_at'):continue
                 excluded=[r['url'] for r in s.all(db,'recommendations')]+[c['canonical_url'] for c in s.all(db,'candidates')]
             source={**source,'excluded_urls':excluded,'discovery_rule':{'max_games':cfg['max_games'],'max_pages':cfg['max_pages'],**source.get('discovery_rule',{})}}
             if run.get('full_site'):
