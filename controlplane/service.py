@@ -260,7 +260,7 @@ class Service(Conversations,Discovery):
         from .store import ACTOR
         scope=(tool['id'] if tool else (ACTOR.get() or {}).get('id','admin'))+':'+path
         digest=hashlib.sha256(json.dumps(body,sort_keys=True).encode()).hexdigest()
-        with self.store.tx() as db:
+        with self.store.tx(label=path) as db:
             if idem:
                 require(len(idem)<=160,'幂等键过长')
                 row=db.execute('SELECT body_hash,response FROM idempotency WHERE scope=? AND key=?',(scope,idem)).fetchone()

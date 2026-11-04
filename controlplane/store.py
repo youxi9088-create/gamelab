@@ -23,13 +23,16 @@ def now():
     return datetime.now(timezone.utc).isoformat(timespec='seconds')
 
 
-def _log_slow_write(elapsed, path):
+def _log_slow_write(elapsed, path, label=None):
     """Best effort: diagnostics must never turn a slow request into a failed one."""
     try:
         frames = [f for f in traceback.extract_stack()
                   if not any(name in f.filename.replace('\\', '/') for name in _IGNORED_FRAMES)]
         where = ' | '.join(f'{os.path.basename(f.filename)}:{f.lineno} {f.name}'
                            for f in frames[-6:]) or 'unknown'
+        if label:
+            import re
+            where='request='+re.sub(r'[^a-zA-Z0-9_/-]','_',str(label).split('?',1)[0])[:180]+' | '+where
         with (Path(path).parent / SLOW_TX_LOG).open('a', encoding='utf-8') as stream:
             stream.write(f'--- {now()} write tx {elapsed:.2f}s\n    {where}\n')
     except Exception:
@@ -68,7 +71,7 @@ class Store:
             db.close()
 
     @contextlib.contextmanager
-    def tx(self):
+    def tx(self, label=None):
         # Every request opens its own connection here. Under WAL the last
         # connection to close deletes the -wal/-shm pair, so a connection that
         # opened just before that is left with a stale shared-memory mapping and
@@ -100,7 +103,7 @@ class Store:
             finally:
                 elapsed=time.monotonic()-started
                 if elapsed>=SLOW_TX_SECONDS:
-                    _log_slow_write(elapsed,self.path)
+                    _log_slow_write(elapsed,self.path,label)
                 db.close()
             return
 
