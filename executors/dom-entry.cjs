@@ -46,13 +46,25 @@ async function nestedDOM(page){
  }
  return frames;
 }
+async function observedControl(page,label,timeout=5000){
+ const matches=await page.waitForFunction(label=>{
+  const indices=[...document.querySelectorAll('button,[role="button"]')].flatMap((n,i)=>{
+   const r=n.getBoundingClientRect();
+   return r.width>0&&r.height>0&&getComputedStyle(n).visibility!=='hidden'&&!n.disabled
+    &&(n.innerText||n.getAttribute('aria-label')||'').trim()===label?[i]:[];
+  });
+  return indices.length?indices:null;
+ },label,{timeout});
+ const indices=await matches.jsonValue();await matches.dispose();
+ if(indices.length!==1)throw Error('DOM control is ambiguous');
+ return page.locator('button,[role="button"]').nth(indices[0]);
+}
 async function verifyInteraction(page,label,dir,{waitMs=20000}={}){
  if(!Number.isInteger(waitMs)||waitMs<0||waitMs>20000)throw Error('Invalid interaction observation deadline');
  if(typeof label!=='string'||!label.trim()||label.length>160)throw Error('Invalid observed control label');
  const before=await snapshot(page),url=page.url();
  if(!before.controls.includes(label))throw Error('Control is not visible in current entry');
- const control=page.getByRole('button',{name:label,exact:true});
- if(await control.count()!==1)throw Error('DOM control is ambiguous');
+ const control=await observedControl(page,label);
  if(await control.evaluate(n=>!!n.closest('a,form')||/(login|sign.?in|purchase|buy|payment|consent|cookie|privacy|agree|accept|登录|购买|支付|同意|授权)/i.test([n.innerText,n.id,n.className,n.getAttribute('aria-label')].join(' '))))throw Error('Control is outside game interaction scope');
  const priorEntries=await frameEntries(page);
  const priorFrames=await nestedDOM(page);
@@ -107,7 +119,7 @@ async function probe(url,label,dir,referer){
   // observed game controls already work. Verify those controls and transition.
   const response=await page.goto(url,{referer,waitUntil:'commit',timeout:45000});
   if(!response?.ok())throw Error('DOM entry HTTP '+response?.status());
-  await page.getByRole('button',{name:label,exact:true}).waitFor({state:'visible',timeout:45000});
+  await observedControl(page,label,45000);
   Object.assign(report,await verifyInteraction(page,label,dir));
   if(report.errors.length)throw Error('DOM entry has script errors');
  }catch(e){

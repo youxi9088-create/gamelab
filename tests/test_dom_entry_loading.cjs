@@ -24,7 +24,7 @@ const {probe} = require('../executors/dom-entry.cjs');
           return;
         }
         await route.fulfill({contentType: 'text/html', body:
-          '<h1>Choose a character</h1><button onclick="this.textContent=\'Next turn\';document.querySelector(\'h1\').textContent=\'Adventure started\'">Begin</button><script defer src="/deferred.js"></script>'});
+          '<h1>Choose a character</h1><button aria-label="Launch the first round" onclick="this.textContent=\'Next turn\';document.querySelector(\'h1\').textContent=\'Adventure started\'">Begin</button><script defer src="/deferred.js"></script>'});
       });
       return page;
     };

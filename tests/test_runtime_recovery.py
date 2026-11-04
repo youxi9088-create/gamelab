@@ -30,6 +30,27 @@ class Response:
 
 
 class RuntimeRecoveryTest(unittest.TestCase):
+    def test_native_import_map_preserves_existing_aliases_and_source(self):
+        import re
+        original='<html><head><script type="importmap">{"imports":{"existing":"./existing.js"}}</script></head><body><script src="loader.js"></script></body></html>'
+        loader='import('+json.dumps(self.url)+');'
+        (self.target/'index.html').write_text(original)
+        (self.target/'loader.js').write_text(loader)
+        result=self.recovery.execute(self.args)
+        html=(self.target/'index.html').read_text()
+        mapping=json.loads(re.search(r'<script type="importmap">(.*?)</script>',html)[1])
+        self.assertEqual(mapping['imports']['existing'],'./existing.js')
+        self.assertEqual(mapping['imports'][self.url],'./'+result['files'][0]['path'])
+        self.assertEqual((self.target/'loader.js').read_text(),loader)
+        self.recovery.rollback()
+        self.assertEqual((self.target/'index.html').read_text(),original)
+
+    def test_browser_native_import_uses_captured_module(self):
+        (self.target/'index.html').write_text('<html><head></head><body><h1>Fixture</h1><script src="loader.js"></script></body></html>')
+        (self.target/'loader.js').write_text('import('+json.dumps(self.url)+');')
+        self.recovery.execute(self.args)
+        result=subprocess.run([node_binary(),'tests/test_native_module_binding.cjs',str(self.run)],capture_output=True,text=True,encoding='utf-8',timeout=45)
+        self.assertEqual(result.returncode,0,result.stdout+result.stderr)
     def test_literal_audio_fetch_keeps_real_wav_bytes_and_requires_reverification(self):
         import io,wave
         data=io.BytesIO()

@@ -233,9 +233,26 @@ class StaticRecovery:
                 html=re.sub(r'(<head\b[^>]*>)',lambda m:m[0]+injection,html,count=1,flags=re.I)
             # Parser-created attributes cannot be intercepted by JS setters.
             from html import escape
+            script_urls={item.get('url') for item in acq.get('files',[])+files
+                         if item.get('type')=='script' or item.get('script')}
+            imports={url:local for url,local in mappings.items() if url in script_urls}
+            map_pattern=r'(<script\b[^>]*\btype\s*=\s*["\']importmap["\'][^>]*>)([\s\S]*?)(</script\s*>)'
+            existing_map=re.search(map_pattern,html,re.I)
+            module_map=json.loads(existing_map[2]) if existing_map and imports else {}
             for url,local in mappings.items():
                 for spelling in {url,escape(url,quote=True)}:
                     html=html.replace('"'+spelling+'"','"'+local+'"').replace("'"+spelling+"'","'"+local+"'")
+            # Native import() does not pass through fetch/XHR wrappers. Bind
+            # observed script URLs in the browser's module resolver as well.
+            if imports:
+                existing=re.search(map_pattern,html,re.I)
+                module_map.setdefault('imports',{}).update(imports)
+                encoded_map=json.dumps(module_map,ensure_ascii=False).replace('<','\\u003c')
+                if existing:
+                    html=html[:existing.start()]+existing[1]+encoded_map+existing[3]+html[existing.end():]
+                else:
+                    tag='<script type="importmap">'+encoded_map+'</script>'
+                    html=re.sub(r'(<head\b[^>]*>)',lambda m:m[0]+tag,html,count=1,flags=re.I)
             self.write(self.target/'index.html',html.encode())
             self.write(self.target/'runtime-resource-map.js',('window.runtimeResourceBindings='+json.dumps(mappings)+';').encode())
             self.write(self.target/'runtime-resource-bindings.js',(Path(__file__).parent/'adapters/runtime-resource-bindings.js').read_bytes())
