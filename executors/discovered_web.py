@@ -428,7 +428,7 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
     requests = [m for m in inp.get('conversation', []) if isinstance(m, dict) and m.get('role') == 'user']
     requests.sort(key=lambda m: m.get('created_at', ''))
     payload = {'task_requests': [{'text': str(m.get('text', ''))[:8000], 'round': m.get('round')} for m in requests[-8:]],
-               'pending_delivery': inp.get('pending_delivery') or {}, 'source_analysis':source_analysis,
+               'pending_delivery': inp.get('pending_delivery') or {}, 'supply_feedback_untrusted':[m.get('text','') for m in inp.get('conversation',[]) if m.get('kind')=='supply_feedback'], 'source_analysis':source_analysis,
                'source_inventory': [{'path': n, 'characters': len(t), 'sha256': digest(t),
                 'editable': editable(n) and n not in protected} for n, t in code.items()
                 if Path(n).suffix.lower() != '.json' or '/' not in n],
