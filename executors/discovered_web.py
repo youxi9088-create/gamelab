@@ -16,13 +16,22 @@ from controlplane.runtime_viewport import prepare as prepare_viewport
 ROOT = Path(__file__).resolve().parent
 
 
-def validate_control_batch(actions):
+def validate_control_batch(actions, viewport=None):
+    import math
+    viewport=viewport or {'width':1000,'height':760}
     contract=json.loads((ROOT/'input-controls.json').read_text('utf-8'))
     for action in actions:
         if not isinstance(action,dict) or action.get('type') not in contract['types']:
             raise ValueError('不支持的动作类型；请按给定动作协议重新提交，动作尚未执行')
         if action.get('type')=='key' and action.get('key') not in contract['keys']:
             raise ValueError('不支持的按键；使用单个字母、数字、方向键或已列出的控制键，不提交按键组合，动作尚未执行')
+        if action.get('type') in ('click','drag'):
+            coordinates=[('x','width'),('y','height')]
+            if action['type']=='drag':coordinates += [('to_x','width'),('to_y','height')]
+            for key,dimension in coordinates:
+                value=action.get(key)
+                if type(value) not in (int,float) or not math.isfinite(value) or not 0<=value<=viewport[dimension]:
+                    raise ValueError(f'操作坐标超出当前视口 {viewport["width"]}×{viewport["height"]} 或格式无效；动作尚未执行，请依据最新截图重新提交坐标')
     for action in actions:
         if action.get('type')=='wheel':
             from wheel_input import validate_wheel
@@ -599,7 +608,7 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
                     raise ValueError('Action budget exceeded')
                 if acquisition.get('engine') != 'cocos2' and any(isinstance(a, dict) and 'expect_labels' in a for a in proposed):
                     raise ValueError('expect_labels 仅支持 cocos2 引擎；当前引擎没有 Cocos 标签接口。动作尚未执行，请重新提交不含此字段的动作，再根据实际截图或 text 评估结果；不能视为断言已通过')
-                validate_control_batch(proposed)
+                validate_control_batch(proposed,(runtime.get('observed') or {}).get('viewport'))
                 # Baseline files are carried for publication, not submitted host
                 # edits. Counting them rejects even an empty patch on large games.
                 if sum(len(v.encode('utf-8')) for v in patch.values()) > 2_000_000:

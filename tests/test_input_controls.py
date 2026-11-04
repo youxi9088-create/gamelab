@@ -6,6 +6,13 @@ from discovered_web import validate_control_batch
 
 
 class InputControlsTests(unittest.TestCase):
+    def test_pointer_coordinates_use_current_viewport_before_execution(self):
+        valid={'type':'click','x':560,'y':700,'hold_ms':120}
+        validate_control_batch([valid],{'width':1000,'height':760})
+        for change in ({'y':825},{'x':float('nan')},{'x':True},{'x':-1}):
+            with self.assertRaisesRegex(ValueError,'动作尚未执行'):validate_control_batch([{**valid,**change}],{'width':1000,'height':760})
+        validate_control_batch([{'type':'click','x':300,'y':825}],{'width':390,'height':844})
+        with self.assertRaises(ValueError):validate_control_batch([{'type':'drag','x':10,'y':10,'to_x':400,'to_y':20}],{'width':390,'height':844})
     def test_wheel_real_input_protocol_and_bounds(self):
         action={'type':'wheel','x':500,'y':400,'delta_y':-100,'ticks':9}
         validate_control_batch([action])
