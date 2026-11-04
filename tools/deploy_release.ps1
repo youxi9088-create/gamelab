@@ -145,6 +145,16 @@ with sqlite3.connect(p,timeout=30) as db:
     foreach($pair in $moves){Link-Directory (Join-Path $target $pair[0]) (Join-Path $shared $pair[1])}
     if(Test-Path -LiteralPath $dependencyModules){Link-Directory (Join-Path $target 'executors\node_modules') $dependencyModules}
     if(Test-Path (Join-Path $runtime '.tools')){Link-Directory (Join-Path $target 'executors\.tools') (Join-Path $runtime '.tools')}
+    # A healthy HTTP endpoint does not prove the executor's resource tool exists.
+    # Check the selected release and shared dependency before switching app.
+    CheckedPython @'
+import sys
+from pathlib import Path
+sys.path.insert(0,str(Path(sys.argv[1])/'executors'))
+from html_game_downloader import extract
+result=extract([{'url':'https://example.org/game/','text':'<audio src="audio.mp3"></audio>'}])
+assert result['status']=='completed' and any(r['url']=='https://example.org/game/audio.mp3' for r in result['references']),'Resource parser preflight failed'
+'@ @($target)
     $backupFile=Join-Path $Root ('backups\production-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'.zip')
     & $Python (Join-Path $target 'tools\production_data.py') backup --root $shared --file $backupFile
     if($LASTEXITCODE -ne 0){throw 'Production backup failed'}
