@@ -7,11 +7,13 @@ def inspect(root, report):
     root = Path(root)
     refs = audit(root)
     findings = []
-    for key, code in [('missing', 'MISSING_LOCAL_RESOURCE'), ('external', 'EXTERNAL_DEPENDENCY'), ('backend', 'BACKEND_DEPENDENCY')]:
+    for key, code in [('missing', 'MISSING_LOCAL_RESOURCE'), ('external', 'EXTERNAL_DEPENDENCY'), ('backend_endpoints', 'BACKEND_DEPENDENCY')]:
         for row in refs.get(key, []):
             findings.append({'code': code, 'file': row['file'],
                              'reference': row['reference'].split('?')[0].split('#')[0]})
     engine = str(report.get('recovery_kind', ''))
+    from .offline_delivery import feature_findings
+    findings.extend(feature_findings([(p,p.relative_to(root).as_posix()) for p in root.rglob('*') if p.is_file()]))
     if 'unity' in engine:
         findings.append({'code': 'TOOLCHAIN_COMPATIBILITY_REQUIRED', 'file': 'index.html'})
     actions = report.get('acceptance_actions') or []

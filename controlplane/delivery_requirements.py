@@ -27,6 +27,9 @@ def delivery_gaps(report,files):
     checks=report.get('foundation_checks',{})
     if not isinstance(checks,dict):checks={}
     available=set(files);gaps=[]
+    offline=report.get('offline_delivery')
+    if not isinstance(offline,dict) or offline.get('status')!='verified':
+        gaps.append('单机交付：排行榜、联机、广告、充值的移除及最终请求检查尚未完成')
     review=operation_review(report,available)
     for key,label in REQUIRED.items():
         item=checks.get(key,{})

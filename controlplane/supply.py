@@ -46,6 +46,7 @@ ERROR_TEXT = {
     'ARCHIVE_DISTRIBUTION_FAILED':'供货包上传或免登录回下载核验失败，保留原提交编号重试',
     'DOWNLOAD_HASH_MISMATCH':'分发下载字节与本地ZIP摘要不一致，禁止提交',
     'EXTERNAL_REQUEST_REJECTED':'代码仍有外部请求，须本地化真实资源或整理外部服务调用；不能只依赖运行时拦截',
+    'OFFLINE_FEATURE_REMAINS':'最终供货包仍有排行榜、联机、广告或充值入口/调用，须形成单机修订并重新验证',
     'CONFIG_FILE_UNREADABLE':'供货进程无法读取配置，请核对服务账号读取权限',
     'CONFIG_FILE_INVALID':'供货配置无法解析，请检查原子写入及文件内容',
     'DOWNSTREAM_TARGET_CHANGED':'当前下游地址或供应方身份与原提交不符，不能自动改投其他目标',
@@ -215,6 +216,10 @@ def inspect_source(source):
     from .resource_audit import external_request_findings
     outbound=external_request_findings(files)
     if outbound:raise SupplyError('EXTERNAL_REQUEST_REJECTED',422,details=outbound)
+    from .offline_delivery import feature_findings
+    forbidden=feature_findings(files)
+    if forbidden:raise SupplyError('OFFLINE_FEATURE_REMAINS',422,details=forbidden[:30])
+    if references.get('backend_endpoints'):raise SupplyError('EXTERNAL_REQUEST_REJECTED',422,details=[{'file':r['file'],'reason':'backend_endpoint'} for r in references['backend_endpoints'][:30]])
     if references['missing']:raise SupplyError('MISSING_LOCAL_RESOURCE',422,details=[{'file':r['file'],'reference':r['reference'].split('?')[0]} for r in references['missing'][:20]])
     if references['external']:raise SupplyError('EXTERNAL_DEPENDENCY',422,details=[{'file':r['file']} for r in references['external'][:20]])
     from .supply_preparation import secret_findings

@@ -21,6 +21,10 @@ FIELDS = {
 PROFILE_INSTRUCTIONS = '''game_profile 必须是详细中文游戏规格，所有文字字段为字符串：category、dimension（2D/3D/2.5D/混合）、perspective、core_gameplay、core_experience、controls、game_loop、content、progression、save、rules、systems、ui_flow、level_design、verification、evidence。不可只用一句宣传语概括。controls按“按键/动作 → 作用 → 必要触发条件”逐行写，每条不超过60字；区分实机验证与仅源码确认。不要放函数名、变量名、坐标、失败过程或修复建议，未确认的键位不编造；game_loop按开始、操作、结果、继续说明；rules写目标、成功/失败、计分公式及已查证阈值；systems分解对象、状态、触发及系统交互；ui_flow写各界面信息和按钮转移；content区分固定数量和程序生成；save写保存内容、触发、恢复及不保存项；verification区分实机验证、仅源码确认、未验证；evidence给出源码文件/函数及本轮证据位置。未知数值明确未确认，不能编造。可用换行和编号。不要把恢复故障日志当作玩法说明。'''
 
 
+from .game_categories import GENRES
+PROFILE_INSTRUCTIONS += '\ncategory 按已查证核心玩法从以下品类选择，最多三个，用 / 分隔：'+ '、'.join(name for name,_ in GENRES)+'。不得把 2D/3D、引擎、来源网站、联机模式或游戏名称当品类；不得默认填写休闲。证据不足填待分类，玩法细分说明放 core_gameplay。'
+
+
 def normalize(value):
     if not isinstance(value, dict):
         raise ValueError('game_profile 必须是对象')
@@ -112,8 +116,14 @@ def prepare_submission(body, runs):
         from .conversion_delivery_checks import inspect
         checks=inspect(target,report)
         report['conversion_delivery_checks']=checks
+        from .offline_delivery import inspect as inspect_offline
+        report['offline_delivery']=inspect_offline(target,report.get('runtime_smoke'),report.get('offline_features'))
+        (target/'OFFLINE_DELIVERY_CHECKS.json').write_text(json.dumps(report['offline_delivery'],ensure_ascii=False,indent=2),'utf-8')
         (target/'CONVERSION_DELIVERY_CHECKS.json').write_text(json.dumps(checks,ensure_ascii=False,indent=2),'utf-8')
     else:
+        report['offline_delivery']={'policy_revision':'2026-11-04-offline-1','status':'pending',
+            'unreviewed_features':['leaderboard','multiplayer','advertising','payments'],
+            'scope':'非本地运行目录交付需合并最终完整产物后执行单机审计，不能以局部修改或模型声明替代。'}
         field='changes' if 'changes' in body else 'files'
         body.setdefault(field,{})['GAME_SPECIFICATION.md']=text
         body[field]['game-profile.json']=json.dumps(facts,ensure_ascii=False,indent=2)

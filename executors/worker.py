@@ -515,11 +515,12 @@ def execute(client, job):
                 report['review_mode']='ai_operation_limit'
                 if report.get('blocker'):report['model_blocker']=report.pop('blocker')
             screenshots=list(sorted((run/report['iteration']).glob('*.png')))[:4]
-            if str(report.get('recovery_kind','')).startswith('discovered-web-'):
+            if inp.get('source_path'):
                 # The platform may have fetched genuinely missing binary files
                 # from the original source. Snapshot this lease's full package,
                 # preserving the immutable baseline and all previous versions.
                 from controlplane.repository import safe_relative
+                if not (run/'converted').exists():shutil.copytree(inp['source_path'],run/'converted')
                 for name,text in changes.items():
                     safe_relative(name)
                     destination=run/'converted'/name
@@ -532,6 +533,11 @@ def execute(client, job):
                 artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'local_run':run.name,'entry':entry,'report':report})['artifact_id']
             else:
                 artifact=measured('delivery',client.post)('artifacts',{**lease,'job_id':job['id'],'changes':changes,'entry':entry,'report':report,'screenshots':{f'screenshots/revision-{i}.png':base64.b64encode(p.read_bytes()).decode() for i,p in enumerate(screenshots)}})['artifact_id']
+            # Artifact preparation audits the complete merged package, including
+            # non-Web revisions. Decide status from that final audit, not the
+            # earlier partial changes or inherited baseline report.
+            gaps=delivery_gaps(report,available)
+            report['delivery_gaps']=gaps
             client.post(prefix+'complete',{**lease,'outcome':'draft' if gaps else 'ready_review','artifact_id':artifact,'report':report,'reason':report['summary']})
             return
         if job['stage'] == 'rea':

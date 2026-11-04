@@ -10,7 +10,9 @@ from tools.import_local_review import intake
 from controlplane.delivery_requirements import REQUIRED
 
 def fixture_report():
-    return {'runtime_verified':True,'foundation_checks':{k:{'status':'verified','evidence':['index.html']} for k in REQUIRED}}
+    # This self-authored accepted fixture supplies the new offline prerequisite;
+    # these tests exercise conversation/checkpoint transitions, not gameplay.
+    return {'offline_delivery':{'status':'verified'},'runtime_verified':True,'foundation_checks':{k:{'status':'verified','evidence':['index.html']} for k in REQUIRED}}
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'executors'))
 import worker

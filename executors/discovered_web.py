@@ -420,6 +420,9 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
         if p.is_file() and not p.is_symlink() and p.stat().st_size<=1_000_000:
             name=p.relative_to(run).as_posix();code[name]=p.read_text('utf-8');protected.add(name)
     context = SourceContext(code, 'index.html')
+    from offline_source_patch import OfflineSourcePatch
+    from controlplane.offline_delivery import INSTRUCTIONS as OFFLINE_INSTRUCTIONS, inspect as inspect_offline
+    offline_patch=OfflineSourcePatch(run,budget,root)
     # Keep engine blobs and thousands of resource JSONs out of the initial
     # prompt. All text remains available through explicit bounded reads.
     requests = [m for m in inp.get('conversation', []) if isinstance(m, dict) and m.get('role') == 'user']
@@ -500,6 +503,7 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
 全部恢复与自动交互验证由平台任务执行，不要求外部开发者制作成品。符合上述操作受限条件时可以提交人工核对；人工验收独立，不是自动验证通过。'''
     from controlplane.game_catalog import PROFILE_INSTRUCTIONS
     instruction += '\n'+PROFILE_INSTRUCTIONS
+    instruction += '\n'+OFFLINE_INSTRUCTIONS+'\n允许通过 offline_edits 精确移除上述功能：{feature,evidence,purpose,patches:[{path:"converted/文件.js",sha256:"当前摘要",replacements:[{old:"唯一匹配原文，8至4000字",new:"替换文本，最多4000字"}]}]}。每次最多2个非引擎业务模块、每模块4处；只能使用 offline_patch_files 内的文件，先读源码。不得伪造后端、支付、广告成功或奖励。修改后平台重启并实际复验，最终离线审计未通过不能 complete。'
     feedback = None
     final = {}
     runtime = {}
@@ -529,6 +533,12 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
             iteration = run / f'web-review-{step}'
             iteration.mkdir()
             runtime = observe_verified(browser, run, budget, actions, restart)
+            if offline_patch.before:
+                edited_paths=[row['path'].removeprefix('converted/') for row in offline_patch.rows]
+                offline_patch.commit()
+                updated={name:(target/name).read_text('utf-8') for name in edited_paths}
+                changes.update(updated);context.update(updated)
+                changes['evidence/runtime-source-patches.json']=(target/'evidence/runtime-source-patches.json').read_text('utf-8')
             sync_runtime_resources(target,changes,context)
             if runtime.get('passed') and isinstance(runtime.get('actions'), list):
                 actions = list(runtime['actions'])  # Retain actual input timing for later replays.
@@ -540,6 +550,8 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
             payload['resource_tools'] = current_acquisition.get('resource_tools', {})
             (iteration / 'runtime.json').write_text(evidence_json(runtime, ensure_ascii=False), 'utf-8')
             pending = False
+            payload['offline_delivery']=inspect_offline(target,runtime,final.get('offline_features'))
+            payload['offline_patch_files']=list(offline_patch.candidates().values())
             screenshots = sorted((target / 'screenshots').glob('*.png'), key=lambda p: p.stat().st_mtime)
             selected = screenshots[-1:]
             if selected:
@@ -576,7 +588,7 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
                                 'reason': '本段验证预算已用完' if exhausted else 'AI 调用中断：' + getattr(exc, 'safe_detail', type(exc).__name__),
                                 'next_action': '从本轮已验证操作自动接续剩余检查' if exhausted else '服务恢复后从本轮已验证操作继续原任务，重新观察后完成剩余检查'}}
             (iteration / 'model.json').write_text(evidence_json(final, ensure_ascii=False, indent=2), 'utf-8')
-            if step==round_limit-1 and any(final.get(k) for k in ('actions','changes','edits','read_requests','search_requests')):
+            if step==round_limit-1 and any(final.get(k) for k in ('actions','changes','edits','offline_edits','read_requests','search_requests')):
                 # No observation budget remains: do not apply or certify the
                 # model's unexecuted proposal. Publish only the verified prefix
                 # as a resumable draft, instead of discarding this round.
@@ -597,9 +609,15 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
                     break
                 # Reads and input actions can be proposed together. Never silently
                 # discard the actual interaction while showing its proposed summary.
-                if not (final.get('actions') or final.get('changes') or final.get('edits')):
+                if not (final.get('actions') or final.get('changes') or final.get('edits') or final.get('offline_edits')):
                     continue
             try:
+                if final.get('offline_edits'):
+                    if final.get('actions') or final.get('changes') or final.get('edits'):
+                        raise ValueError('离线功能修改独立提交，先复验再执行新操作')
+                    offline_patch.apply(final['offline_edits'])
+                    pending=True;restart=True
+                    continue
                 patch = context.apply(final.get('changes', {}), final.get('edits', []))
                 if set(patch) & protected:
                     raise ValueError('Captured engine and game files are immutable; change only the host')
@@ -635,6 +653,10 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
                 if patch:
                     continue
                 if final.get('complete'):
+                    offline_check=inspect_offline(target,runtime,final.get('offline_features'))
+                    if offline_check['status']!='verified':
+                        final['complete']=False
+                        raise ValueError('单机交付检查尚未完成：'+evidence_json(offline_check,ensure_ascii=False))
                     from review_assessment import require_complete_checks
                     try:
                         final['foundation_checks'] = require_complete_checks(final.get('foundation_checks'))
@@ -658,6 +680,7 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
             current = target / 'screenshots/current.png'
             if current.exists(): shutil.copy2(current, iteration / 'current.png')
     finally:
+        if offline_patch.before:offline_patch.rollback()
         browser.close()
     if not runtime.get('passed'):
         from worker import Blocked
@@ -683,6 +706,8 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
         'source_navigation':{k:payload.get(k,[]) for k in ('source_excerpts','source_search_results')},
         'scope': '平台配置的 AI 依据真实浏览器输入与截图评估；人工验收独立'}, ensure_ascii=False)
     report = {**previous, 'foundation_checks': checks, 'iteration': iteration.name, 'runtime_verified': True,
+        'offline_features':final.get('offline_features',{}),
+        'offline_delivery':inspect_offline(target,runtime,final.get('offline_features')),
         'source_analysis':source_analysis,
         'verification_stage': stage if completed else 'pending',
         'runtime_viewport': viewport,

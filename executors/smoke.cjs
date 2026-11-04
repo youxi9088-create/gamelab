@@ -30,6 +30,14 @@ async function main(){
       blockedRequests.push(u);return route.abort();
     });
     const page=await context.newPage();
+    await page.exposeFunction('__recordOfflinePolicyViolation',value=>{
+      try{const u=new URL(value);blockedRequests.push(u.origin+u.pathname);}catch{}
+    });
+    await page.addInitScript(()=>{
+      document.addEventListener('securitypolicyviolation',event=>{
+        if(/^https?:|^wss?:/.test(event.blockedURI))window.__recordOfflinePolicyViolation(event.blockedURI);
+      });
+    });
     // Capture the actual visible game surface instead of its host-page margins.
     async function captureGame(target){
       const surfaces=page.locator('canvas:visible');let best=null,area=0;
@@ -132,6 +140,7 @@ async function main(){
       report.spec_tests=await require('./spec_test.cjs').run({url:origin+'/'+input.entry,spec:input.spec},path.join(path.dirname(reportPath),'spec-tests'));
       if(!report.spec_tests.passed)errors.push('Specification tests did not pass; see spec-tests/spec-tests.json');
     }
+    report.environment='local-artifact';report.network_observation_complete=true;
     report.passed=errors.length===0&&blockedRequests.length===0;
     fs.writeFileSync(reportPath,JSON.stringify(report,null,2));
     if(!report.passed)process.exitCode=2;

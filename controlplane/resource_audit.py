@@ -88,6 +88,10 @@ def audit(root,aliases=None):
         text=p.read_text('utf-8',errors='replace');values=[];direct=set()
         if p.suffix=='.html':
             parser=References();parser.feed(text);values+=parser.refs
+            requests=[r for m in re.finditer(r'<script\b[^>]*>(.*?)</script\s*>',text,re.I|re.S)
+                      for r in javascript_requests(m[1])]
+            direct={r['reference'] for r in requests}
+            values+=requests
         if p.suffix in ('.css','.html'):
             # JavaScript templates may contain CSS url(${variable}); those are
             # expressions, not literal resource paths in the document stylesheet.

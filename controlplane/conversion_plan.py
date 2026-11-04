@@ -24,6 +24,8 @@ def build(inp, observation=None, converter=None, continuation=False, stage='rea'
         missing.append('需要匹配游戏包及引擎插件' if kind=='wechat' else '需要完整内嵌源码与资源映射，或匹配的 Web 适配方案')
     for item in (inp.get('dependencies') or {}).get('items',[]):
         if item.get('status') not in ('verified','not_applicable'):missing.append(item.get('name','依赖')+'：'+(item.get('next_action') or item.get('reason','待验证')))
+    from .offline_delivery import FEATURES, INSTRUCTIONS
     return {'schema_version':1,'recorded':False,'route':route,'label':LABELS[route],'source_kind':kind,'evidence':evidence,'missing':missing,
+            'offline_policy':{'revision':'2026-11-04-offline-1','remove_features':list(FEATURES),'instructions':INSTRUCTIONS},
             'next_action':'按所选路径执行资源校验、宿主适配和规格测试' if route!='blocked' else missing[0],
             'scope':'登记方案、Cocos 2 / Ruffle / Defold 原包、显式 Remix Three 模块契约及通用浏览器探测；引擎能力和资源闭合仍需实际执行，分析不是验收'}

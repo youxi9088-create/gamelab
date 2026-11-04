@@ -7,9 +7,9 @@ from pathlib import Path
 # would mistake newly copied files for code already loaded by this process.
 PACKAGE_CHECK_REVISION=hashlib.sha256(b''.join(
     Path(__file__).with_name(name+'.py').read_bytes()
-    for name in ('supply','supply_preparation','supply_resources','supply_delivery','resource_audit','supply_metadata','supply_fonts')
+    for name in ('supply','supply_preparation','supply_resources','supply_delivery','resource_audit','supply_metadata','supply_fonts','offline_delivery')
 )).hexdigest()
-LOCAL_PACKAGE_ERRORS=frozenset(('MISSING_LOCAL_RESOURCE','EXTERNAL_DEPENDENCY',
+LOCAL_PACKAGE_ERRORS=frozenset(('OFFLINE_FEATURE_REMAINS','MISSING_LOCAL_RESOURCE','EXTERNAL_DEPENDENCY',
     'EXTERNAL_REQUEST_REJECTED','TOOLCHAIN_UNSUPPORTED','ARCHIVE_UNSAFE',
     'NO_ENTRY_HTML','NESTED_ARCHIVE','SECRET_IN_CODE','LOCAL_PREPARATION_ERROR'))
 
