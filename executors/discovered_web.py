@@ -91,12 +91,13 @@ class ReviewBrowser:
         if restart or (self.process and self.process.poll() is not None):
             self.close()
         if self.process is None:
+            from infrastructure_recovery import browser_environment
             request = self.run / 'web-review-input.json'
             request.write_text(evidence_json({'actions': actions}), 'utf-8')
             self.log = (self.run / 'web-browser.log').open('a', encoding='utf-8')
             self.process = subprocess.Popen([node_binary(), str(ROOT / 'discovered-web.cjs'), 'session', str(request), str(self.run)],
                 stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=self.log, encoding='utf-8',
-                env={**os.environ, 'GAMELAB_PYTHON': sys.executable})
+                env={**os.environ, 'GAMELAB_PYTHON': sys.executable, **browser_environment(self.run)})
             self.events = queue.Queue()
             output, events = self.process.stdout, self.events
             def reader():

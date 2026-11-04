@@ -5,6 +5,18 @@ from pathlib import Path
 import urllib.error
 
 
+def browser_environment(run):
+    """Keep this job's selected fallback when later repairs rebuild its browser."""
+    path=Path(run)/'infrastructure-recovery.json'
+    if not path.is_file():return {}
+    report=json.loads(path.read_text('utf-8'))
+    if any(a.get('kind') in ('verifier_screenshot_timeout','verifier_webgl_context_failure')
+           and a.get('retry_environment',{}).get('BROWSER_WEBGL_BACKEND')=='default'
+           for a in report.get('attempts',[])):
+        return {'BROWSER_HEADLESS':'true','BROWSER_WEBGL_BACKEND':'default'}
+    return {}
+
+
 def classify(error):
     if getattr(error,'resource_transport_failure',None):return 'public_resource_transport'
     if getattr(error,'platform_request_path',None) and isinstance(getattr(error,'reason',error),TimeoutError):

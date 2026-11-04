@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import Mock,patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'executors'))
 from auto_repair import CHAT,guarded
-from infrastructure_recovery import classify,recover
+from infrastructure_recovery import classify,recover,browser_environment
 
 
 class Budget:
@@ -15,6 +15,17 @@ class Budget:
 
 
 class InfrastructureRecoveryTests(unittest.TestCase):
+    def test_selected_fallback_survives_later_resource_failure_without_changing_global_config(self):
+        with tempfile.TemporaryDirectory() as tmp,patch.dict(os.environ,{'BROWSER_WEBGL_BACKEND':'swiftshader'}):
+            self.assertEqual(browser_environment(tmp),{})
+            retry=Mock(side_effect=RuntimeError('Offline check failed: missing audio'))
+            with self.assertRaisesRegex(RuntimeError,'missing audio'):
+                recover(RuntimeError('Viewport screenshot timed out'),tmp,Budget(),retry)
+            self.assertEqual(browser_environment(tmp),{'BROWSER_HEADLESS':'true','BROWSER_WEBGL_BACKEND':'default'})
+            self.assertEqual(os.environ['BROWSER_WEBGL_BACKEND'],'swiftshader')
+            self.assertEqual(recover(RuntimeError('Viewport screenshot timed out'),tmp,Budget(),retry),(False,None))
+            self.assertEqual(retry.call_count,1)
+
     def test_webgl_context_failure_gets_bounded_session_recovery_without_game_edits(self):
         with tempfile.TemporaryDirectory() as tmp:
             error=RuntimeError('Runtime script error: Error: Error creating WebGL context.')
