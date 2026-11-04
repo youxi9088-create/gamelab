@@ -250,7 +250,10 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
             except Exception as failure:
                 # Failed host edits roll back. Hash-verified resource captures may remain
                 # as unverified inputs for the next attempt; historical artifacts stay immutable.
-                if capabilities.get(action, {}).get('rollback') and not capabilities[action].get('retain_verified_downloads'):
+                resource_evidence_retained=('tool_result' in row and any(capabilities.get(action,{}).get(key)
+                    for key in ('retain_verified_downloads','retain_reviewed_resources')))
+                if resource_evidence_retained:row['retained_resource_evidence']=True
+                if capabilities.get(action, {}).get('rollback') and not resource_evidence_retained:
                     capabilities[action]['rollback']()
                 for name in changes: (target/name).write_bytes(code[name].encode('utf-8'))
                 # A runtime contract records what the entry IS. A later failure in
@@ -268,7 +271,7 @@ def diagnose(error, run, budget, retry=None, target=None, limit=2, capabilities=
                 row['verified'] = False; last = failure
                 row['verification_error'] = safe(failure)
                 if getattr(failure,'control_plane_transport',False):raise
-                sources = context.load(); feedback = ('实际复验未通过；已校验哈希的静态资源映射保留为待验证材料，请根据新请求继续处理，不能宣称成功' if capabilities.get(action,{}).get('retain_verified_downloads') else '实际复验未通过，修改已回退；请根据新日志重新分析')
+                sources = context.load(); feedback = ('实际复验未通过；已校验的资源材料及审核记录保留，请根据新请求继续处理，不能宣称成功' if resource_evidence_retained else '实际复验未通过，修改已回退；请根据新日志重新分析')
                 if row.get('retained_runtime_plan'):
                     feedback += '；本次失败与入口引擎判定无关，已配置的运行契约已保留，不要再重新选择契约，请直接针对上面的失败原因分析处理'
                 if action == 'retry' and safe(failure) == safe(row['error']):

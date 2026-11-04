@@ -63,4 +63,5 @@ class OptionalResourceReview(StaticRecovery):
 
     def capability(self):
         return {'description':'依据原站 unavailable 404/410、本轮 missing、失败截图及源码引用，标记不影响当前阶段的非必需图片/字体/音频。arguments:{path:具体路径,reason:用途和截图依据}；同一明确回退机制可用paths:[1至20个具体路径]批量提交，每项仍须全部证据，任一不符整批拒绝。不能按扩展名猜测，不能用于SDK/脚本/配置；之后仍需原验证器及交互验证。',
-                'validate':self.validate,'execute':self.execute,'rollback':self.rollback}
+                'validate':self.validate,'execute':self.execute,'rollback':self.rollback,
+                'retain_reviewed_resources':True}
