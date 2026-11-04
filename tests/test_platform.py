@@ -61,6 +61,26 @@ class PlatformTest(unittest.TestCase):
         self.s.mutate('/api/tools/' + self.tool['id'] + '/toggle', {})
         self.expect_error(403, lambda: self.s.authenticate(self.token))
 
+    def test_claim_does_not_deserialize_terminal_reports_or_read_their_batches(self):
+        from unittest.mock import patch
+        self.enqueue();old=self.claim();self.completion(old)
+        with self.s.store.tx() as db:
+            terminal=self.s.store.get(db,'jobs',old['id'])
+            terminal['report']={'large_terminal_marker':'x'*100000}
+            self.s.store.put(db,'jobs',terminal)
+        candidate=self.enqueue(self.candidate('https://example.org/next'))
+        original=json.loads
+        def loads(value,*args,**kwargs):
+            self.assertNotIn('large_terminal_marker',value)
+            return original(value,*args,**kwargs)
+        get=self.s.get
+        def guarded_get(db,kind,key):
+            self.assertFalse(kind=='batches' and key==old['batch_id'])
+            return get(db,kind,key)
+        with patch('controlplane.service.json.loads',side_effect=loads),patch.object(self.s,'get',side_effect=guarded_get):
+            claimed=self.claim()
+        self.assertEqual(claimed['candidate_id'],candidate['id'])
+
     def test_explicit_reconstruction_requires_observations_and_idle_job(self):
         c=self.enqueue()
         job=self.s.state()['jobs'][0]

@@ -90,7 +90,7 @@ class TaskPresentationTests(unittest.TestCase):
             a=s.mutate('/api/tools',{'name':'a','capabilities':['rea']})['tool']
             b=s.mutate('/api/tools',{'name':'b','capabilities':['rea']})['tool']
             with s.store.tx() as db:
-                settings=s.store.get(db,'settings','main');settings['concurrency']=8;s.store.put(db,'settings',settings)
+                settings=s.store.get(db,'settings','main');settings['concurrency']=1;s.store.put(db,'settings',settings)
             first=s.mutate('/api/v1/jobs/claim',{'capabilities':['rea']},a)['job']
             self.assertIsNone(s.mutate('/api/v1/jobs/claim',{'capabilities':['rea']},b)['job'])
             state=s.state()

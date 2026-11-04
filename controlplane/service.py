@@ -541,7 +541,9 @@ class Service(Conversations,Discovery):
             require(tool,'领取任务需要工具凭证',401)
             if (s.get(db,'settings','maintenance') or {}).get('draining'):return {'job':None}
             settings=self.get(db,'settings','main')
-            jobs=s.all(db,'jobs')
+            # Terminal reports can be large; idle workers poll every five
+            # seconds. Only active queue states participate in lease/claim.
+            jobs=[json.loads(row[0]) for row in db.execute("SELECT data FROM records WHERE kind='jobs' AND json_extract(data,'$.status') IN ('queued','running') ORDER BY rowid DESC")]
             for j in jobs:
                 if j['status']=='running' and j.get('lease_expires_at','')<now():
                     j['status']='failed' if j['attempt']>=settings['max_attempts'] else 'queued'
@@ -558,9 +560,10 @@ class Service(Conversations,Discovery):
             # 直接放进 sorted 会与字符串混排抛 TypeError，整个认领就 500 了。
             for job in sorted(reversed(jobs),key=lambda j:(0 if j.get('manual_priority_at') else 1,j.get('manual_priority_at') or j.get('queued_at') or j.get('created_at',''))):
                 if requested_job is not None and job['id']!=requested_job:continue
-                batch=self.get(db,'batches',job['batch_id'])
-                if job.get('manual_paused') or job['status']!='queued' or job['stage'] not in caps or batch['status']!='running':continue
+                if job.get('manual_paused') or job['status']!='queued' or job['stage'] not in caps:continue
                 if b.get('automatic_only') and not job.get('automatic'):continue
+                batch=self.get(db,'batches',job['batch_id'])
+                if batch['status']!='running':continue
                 if job['attempt']>=settings['max_attempts']:
                     job.update(status='blocked',reason='达到最大执行次数');s.put(db,'jobs',job);continue
                 job.update(status='running',attempt=job['attempt']+1,tool_id=tool['id'],worker_id=str(b.get('worker_id',''))[:120],lease_token=secrets.token_urlsafe(24),lease_expires_at=later(settings['lease_seconds']),started_at=now())
