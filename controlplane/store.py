@@ -51,6 +51,7 @@ class Store:
         with self.tx() as db:
             db.execute('CREATE TABLE IF NOT EXISTS records (kind TEXT NOT NULL,id TEXT NOT NULL,data TEXT NOT NULL,PRIMARY KEY(kind,id))')
             db.execute('CREATE INDEX IF NOT EXISTS records_kind ON records(kind)')
+            db.execute("CREATE INDEX IF NOT EXISTS records_active_jobs ON records(kind) WHERE kind='jobs' AND json_extract(data,'$.status') IN ('queued','running')")
             db.execute('CREATE TABLE IF NOT EXISTS idempotency (scope TEXT NOT NULL,key TEXT NOT NULL,body_hash TEXT NOT NULL,response TEXT NOT NULL,PRIMARY KEY(scope,key))')
             db.execute('CREATE TABLE IF NOT EXISTS credentials (token_hash TEXT PRIMARY KEY,tool_id TEXT NOT NULL)')
 
