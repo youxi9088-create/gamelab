@@ -40,10 +40,14 @@ def recover(error, run, budget, retry):
     report['attempts'].append(row)
     path.write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8')
     previous_headless=os.environ.get('BROWSER_HEADLESS')
+    previous_backend=os.environ.get('BROWSER_WEBGL_BACKEND')
     try:
         # This worker owns one job. Avoid a detached Windows desktop compositor
         # in the replacement browser without changing global runtime settings.
         os.environ['BROWSER_HEADLESS']='true'
+        if kind=='verifier_screenshot_timeout':
+            os.environ['BROWSER_WEBGL_BACKEND']='default'
+            row['retry_environment']['BROWSER_WEBGL_BACKEND']='default'
         result=retry()
     except Exception as failure:
         row['error_type']=type(failure).__name__
@@ -58,4 +62,6 @@ def recover(error, run, budget, retry):
     finally:
         if previous_headless is None:os.environ.pop('BROWSER_HEADLESS',None)
         else:os.environ['BROWSER_HEADLESS']=previous_headless
+        if previous_backend is None:os.environ.pop('BROWSER_WEBGL_BACKEND',None)
+        else:os.environ['BROWSER_WEBGL_BACKEND']=previous_backend
         path.write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8')

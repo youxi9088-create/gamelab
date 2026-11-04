@@ -168,6 +168,7 @@ class DiscoveryScheduler:
                 pending=dict(id=ident('scan'),day=day,trigger='daily',created_at=now(),sources=[],recommendation_ids=[],category_changes=[])
             if not pending:return
             run=pending;run.update(status='running',heartbeat_at=now());s.put(db,'discovery_runs',run)
+        with s.read() as db:
             sources=[x for x in s.all(db,'sources') if x.get('enabled') and (run.get('source_ids') is None or x['id'] in run['source_ids'])]
             candidates=s.all(db,'candidates')
             catalog=set()
@@ -177,7 +178,7 @@ class DiscoveryScheduler:
             run['catalog_categories']=sorted(catalog)
         for source in sources:
             if self.stop.is_set():break
-            with s.tx() as db:
+            with s.read() as db:
                 excluded=[r['url'] for r in s.all(db,'recommendations')]+[c['canonical_url'] for c in s.all(db,'candidates')]
             source={**source,'excluded_urls':excluded,'discovery_rule':{'max_games':cfg['max_games'],'max_pages':cfg['max_pages'],**source.get('discovery_rule',{})}}
             if run.get('full_site'):
@@ -197,6 +198,10 @@ class DiscoveryScheduler:
                 filtered=len(original)-len(result['games'])
             from .discovery_language import translate
             translate(result['games'],self.service,run['id'])
+            # Candidate reports are large. Snapshot the deduplication catalog
+            # outside the write lease; dispatch still performs canonical dedupe.
+            with s.read() as db:
+                existing={c['canonical_url'] for c in s.all(db,'candidates')}
             with s.tx() as db:
                 previous=s.get(db,'discovery_sources',source['id']) or {'categories':[]}
                 seen=set(previous['categories'])
@@ -215,7 +220,6 @@ class DiscoveryScheduler:
                 s.put(db,'discovery_sources',dict(id=source['id'],categories=sorted(seen|set(observed)),scanned_at=now()))
                 new=0;duplicates=result.get('suppressed',0)
                 from .service import canonical_url
-                existing={c['canonical_url'] for c in s.all(db,'candidates')}
                 for g in result['games']:
                     url=canonical_url(g['url']);key='rec-'+hashlib.sha256(url.encode()).hexdigest()[:24]
                     old=s.get(db,'recommendations',key)

@@ -32,11 +32,12 @@ class InfrastructureRecoveryTests(unittest.TestCase):
         self.assertEqual(classify(RuntimeError('page.goto: Timeout 30000ms navigating to https://replica-runtime.invalid/')),'verifier_navigation_timeout')
         self.assertIsNone(classify(RuntimeError('page.goto: Timeout 30000ms navigating to https://public.example/game/')))
     def test_capture_recovery_scopes_browser_mode_to_its_owned_session(self):
-        with tempfile.TemporaryDirectory() as tmp,patch.dict(os.environ,{'BROWSER_HEADLESS':'false'}):
+        with tempfile.TemporaryDirectory() as tmp,patch.dict(os.environ,{'BROWSER_HEADLESS':'false','BROWSER_WEBGL_BACKEND':'swiftshader'}):
             error=RuntimeError('Viewport screenshot timed out')
-            value=recover(error,tmp,Budget(),lambda:os.environ['BROWSER_HEADLESS'])
-            self.assertEqual(value,(True,'true'))
+            value=recover(error,tmp,Budget(),lambda:(os.environ['BROWSER_HEADLESS'],os.environ['BROWSER_WEBGL_BACKEND']))
+            self.assertEqual(value,(True,('true','default')))
             self.assertEqual(os.environ['BROWSER_HEADLESS'],'false')
+            self.assertEqual(os.environ['BROWSER_WEBGL_BACKEND'],'swiftshader')
     def test_only_endpoint_bound_timeouts_are_control_plane_failures(self):
         error=TimeoutError('timed out')
         self.assertIsNone(classify(error))

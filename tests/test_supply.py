@@ -162,14 +162,14 @@ class SupplyTests(unittest.TestCase):
 
     def test_review_scan_allows_concurrent_executor_write(self):
         import sqlite3
-        from contextlib import contextmanager
+        from contextlib import contextmanager,closing
         from controlplane.supply_preparation import prepare_one_review
         self.fixture.enqueue();self.fixture.completion(self.fixture.claim())
         original_read=self.s.store.read;observed=[];errors=[]
         def trace(sql):
             if "kind='versions'" not in sql:return
             try:
-                with sqlite3.connect(self.s.store.path,timeout=0.05) as writer:
+                with closing(sqlite3.connect(self.s.store.path,timeout=0.05)) as writer, writer:
                     writer.execute('BEGIN IMMEDIATE')
                     writer.execute("INSERT INTO records VALUES ('probe','heartbeat','{}')")
                 observed.append(True)

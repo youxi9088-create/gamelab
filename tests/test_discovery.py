@@ -19,7 +19,7 @@ class DiscoveryTests(unittest.TestCase):
                 source['enabled']=False;self.s.store.put(db,'sources',source)
         self.source=self.s.mutate('/api/sources',{'name':'fixture','url':'https://example.org'})['source']
         self.s.mutate('/api/candidates',{'title':'Existing','url':'https://example.org/existing','category':'益智'})
-        self.result={'status':'success','games':[dict(url='https://example.org/game/a',title='Game A',category='Puzzle',gameplay='Match tiles',content_sha256='fixture',description_basis='test fixture')],
+        self.result={'status':'success','games':[dict(url='https://example.org/game/a',title='Game A',category='Puzzle',dimension='2d',gameplay='Match tiles',content_sha256='fixture',description_basis='test fixture')],
                      'categories':[dict(name='Racing',url='https://example.org/t/racing')],'errors':[],'coverage':'fixture'}
         self.scheduler=DiscoveryScheduler(self.s,lambda source:self.result)
         self.instant=datetime.now(TZ).replace(hour=12,minute=0)
@@ -40,6 +40,20 @@ class DiscoveryTests(unittest.TestCase):
         self.assertEqual(state['recommendations'][0]['status'],'rejected')
         self.assertEqual(state['discovery_runs'][0]['recommendation_ids'],[])
         self.assertEqual(state['discovery_runs'][0]['category_changes'],[])
+
+    def test_candidate_catalog_scans_leave_executor_writes_available(self):
+        import sqlite3
+        from contextlib import closing
+        original=self.s.store.all;checks=[]
+        def read_all(db,kind):
+            if kind=='candidates':
+                with closing(sqlite3.connect(self.s.store.path,timeout=0.05)) as writer, writer:
+                    writer.execute('BEGIN IMMEDIATE')
+                    writer.execute("INSERT OR REPLACE INTO records VALUES ('probe','heartbeat','{}')")
+                checks.append(kind)
+            return original(db,kind)
+        with patch.object(self.s.store,'all',side_effect=read_all):self.scheduler.tick(self.instant)
+        self.assertGreaterEqual(len(checks),3)
 
     def test_scoped_scan_only_visits_selected_source(self):
         other=self.s.mutate('/api/sources',{'name':'other','url':'https://other.example.org'})['source']
