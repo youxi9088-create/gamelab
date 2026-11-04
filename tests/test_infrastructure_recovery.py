@@ -15,6 +15,18 @@ class Budget:
 
 
 class InfrastructureRecoveryTests(unittest.TestCase):
+    def test_webgl_context_failure_gets_bounded_session_recovery_without_game_edits(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            error=RuntimeError('Runtime script error: Error: Error creating WebGL context.')
+            attempt=Mock(side_effect=error)
+            model=Mock(side_effect=AssertionError('Do not modify game for graphics context failure'))
+            token=CHAT.set(model)
+            try:
+                for _ in range(2):
+                    with self.assertRaises(RuntimeError):guarded(attempt,Path(tmp),Budget())
+            finally:CHAT.reset(token)
+            self.assertEqual(attempt.call_count,3);model.assert_not_called()
+            self.assertEqual(error.infrastructure_failure['kind'],'verifier_webgl_context_failure')
     def test_public_transfer_failure_retains_resource_identity_without_game_edits(self):
         import json
         from public_resource_failure import PublicResourceTransportError

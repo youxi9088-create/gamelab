@@ -11,6 +11,8 @@ def classify(error):
         return 'control_plane_timeout'
     if 'Viewport screenshot timed out' in str(error):
         return 'verifier_screenshot_timeout'
+    if 'Error creating WebGL context' in str(error):
+        return 'verifier_webgl_context_failure'
     if 'page.goto' in str(error) and 'Timeout' in str(error) and 'https://replica-runtime.invalid/' in str(error):
         return 'verifier_navigation_timeout'
     return None
@@ -29,7 +31,7 @@ def recover(error, run, budget, retry):
         error.infrastructure_failure['endpoint']=error.platform_request_path
     # Writes have already used the client's stable idempotency key and bounded
     # retries. Never add another replay layer or ask the model to edit a game.
-    if kind not in ('verifier_screenshot_timeout','verifier_navigation_timeout'):
+    if kind not in ('verifier_screenshot_timeout','verifier_navigation_timeout','verifier_webgl_context_failure'):
         return False,None
     if retry is None or any(a.get('kind')==kind for a in report['attempts']):
         return False,None
@@ -45,7 +47,7 @@ def recover(error, run, budget, retry):
         # This worker owns one job. Avoid a detached Windows desktop compositor
         # in the replacement browser without changing global runtime settings.
         os.environ['BROWSER_HEADLESS']='true'
-        if kind=='verifier_screenshot_timeout':
+        if kind in ('verifier_screenshot_timeout','verifier_webgl_context_failure'):
             os.environ['BROWSER_WEBGL_BACKEND']='default'
             row['retry_environment']['BROWSER_WEBGL_BACKEND']='default'
         result=retry()
