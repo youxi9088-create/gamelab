@@ -149,8 +149,8 @@ class Handler(BaseHTTPRequestHandler):
                 if path=='/api/state':
                     query=parse_qs(urlsplit(self.path).query)
                     if query.get('view')==['summary']:
-                        from controlplane.ui_state import cached_summary
-                        state=cached_summary(self.server.service)
+                        from controlplane.ui_state import cached_summary,current_sources
+                        state=current_sources(self.server.service,cached_summary(self.server.service))
                     elif query.get('candidate'):
                         from controlplane.ui_detail import candidate_detail
                         return self.send(200,candidate_detail(self.server.service,query['candidate'][0]))

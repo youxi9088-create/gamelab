@@ -18,3 +18,14 @@ class SourceControlsTests(unittest.TestCase):
    j=a['job'];j['status']='failed';self.s.store.put(db,'jobs',j)
   b=self.s.mutate('/api/conversions',{'url':'https://example.org/game'})
   self.assertTrue(b['deduplicated']);self.assertEqual(a['job']['id'],b['job']['id'])
+
+ def test_sources_refresh_without_rebuilding_snapshot(self):
+  from controlplane.ui_state import current_sources
+  x=self.s.mutate('/api/sources',{'name':'实时池','url':'https://example.org/live'})['source']
+  snapshot={'sources':[dict(x)],'ui_snapshot_age_seconds':90}
+  self.s.mutate('/api/sources/'+x['id']+'/disable',{})
+  result=current_sources(self.s,snapshot)
+  self.assertFalse(next(r for r in result['sources'] if r['id']==x['id'])['enabled'])
+  self.assertTrue(snapshot['sources'][0]['enabled'])
+  self.s.mutate('/api/sources/'+x['id']+'/delete',{})
+  self.assertNotIn(x['id'],[r['id'] for r in current_sources(self.s,snapshot)['sources']])

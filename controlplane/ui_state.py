@@ -138,3 +138,10 @@ def detail(state, candidate_id):
     return {key: [deepcopy(row) for row in state.get(key, [])
                   if row.get('candidate_id') == candidate_id or row.get('job_id') in job_ids
                   or (key == 'candidates' and row['id'] == candidate_id)] for key in collections}
+
+
+def current_sources(service, state):
+    """Small mutable configuration must not wait for the heavy statistics build."""
+    with service.store.read() as db:
+        sources=[row for row in service.store.all(db,'sources') if not row.get('deleted_at')]
+    return dict(state,sources=sources)
