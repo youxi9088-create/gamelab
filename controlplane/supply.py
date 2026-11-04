@@ -187,7 +187,10 @@ def inspect_source(source):
                     and not (item.suffix.lower()=='.json' and rel.startswith(('verification/','evidence/'))))
                 or item.name.lower() in ('package.json', 'godot.js')
                 or '.framework.js' in item.name or '.loader.js' in item.name):
-            raise SupplyError('TOOLCHAIN_UNSUPPORTED', 422)
+            reason=('unsupported_engine_binary' if item.suffix.lower() in ('.wasm','.pck','.unityweb') else
+                    'build_source' if item.suffix.lower() in ('.ts','.tsx','.jsx','.vue') or item.name.lower()=='package.json' else
+                    'engine_loader' if item.name.lower()=='godot.js' or '.framework.js' in item.name or '.loader.js' in item.name else 'hash_filename')
+            raise SupplyError('TOOLCHAIN_UNSUPPORTED', 422, details=[{'file':rel,'reason':reason}])
         if item.suffix.lower() in ('.html', '.htm'):
             parser = ResourceReferences()
             parser.feed(item.read_text(encoding='utf-8', errors='replace'))
@@ -196,10 +199,10 @@ def inspect_source(source):
                     continue
                 parts = urllib.parse.urlsplit(url)
                 if parts.scheme or parts.netloc or parts.path.startswith('/'):
-                    raise SupplyError('EXTERNAL_DEPENDENCY', 422)
+                    raise SupplyError('EXTERNAL_DEPENDENCY', 422, details=[{'file':rel,'reason':'non_relative_html_reference'}])
                 resource = (item.parent/urllib.parse.unquote(parts.path)).resolve()
                 if not resource.is_relative_to(source) or not resource.is_file():
-                    raise SupplyError('MISSING_LOCAL_RESOURCE', 422)
+                    raise SupplyError('MISSING_LOCAL_RESOURCE', 422, details=[{'file':rel,'reference':parts.path}])
         total += item.stat().st_size
         files.append((item, rel))
         if total > 500_000_000 or len(files) > 2000:
