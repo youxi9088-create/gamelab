@@ -5,7 +5,7 @@ import sys
 import tempfile
 import time
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'executors'))
 from process_tree import terminate_owned_process
@@ -14,6 +14,25 @@ from acquisition import _browser_run
 
 @unittest.skipUnless(os.name=='nt','Windows executor process tree')
 class BrowserProcessTreeTests(unittest.TestCase):
+    def test_taskkill_timeout_after_tree_exit_preserves_original_failure(self):
+        host=Mock(pid=123)
+        host.poll.side_effect=[None,0,0]
+        with patch('process_tree.subprocess.run',side_effect=subprocess.TimeoutExpired('taskkill',20)) as run:
+            terminate_owned_process(host)
+        self.assertEqual(run.call_count,1)
+        host.kill.assert_not_called()
+        host.wait.assert_called_once_with(timeout=8)
+
+    def test_taskkill_timeout_retries_tree_before_host_fallback(self):
+        host=Mock(pid=123)
+        host.poll.return_value=None
+        with patch('process_tree.subprocess.run',side_effect=subprocess.TimeoutExpired('taskkill',20)) as run:
+            terminate_owned_process(host)
+        self.assertEqual(run.call_count,2)
+        self.assertIn('/T',run.call_args.args[0])
+        host.kill.assert_called_once()
+        host.wait.assert_called_once_with(timeout=8)
+
     def test_timeout_cleanup_terminates_owned_host_and_child(self):
         import ctypes
         kernel=ctypes.WinDLL('kernel32',use_last_error=True)
