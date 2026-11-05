@@ -1,3 +1,4 @@
+import {supplyList,bindSupplyList} from './supply-review.js';
 function uiImageMarkup(html,thumb=false){
  return html.replace(/(<img\b[^>]*\bsrc=)(["'])([^"']+)\2/gi,(all,prefix,q,value)=>{
   let u;try{u=new URL(value.replace(/&amp;/g,'&'),location.href)}catch{return all}
@@ -623,9 +624,9 @@ function supplyDeliveryList() {
   return `<h3>已准备的供货包</h3><p class="muted">包含游戏文件、规格、授权声明和人工验收指引。下载运行包不代表下游已接受或模板已生成；草稿和待验收状态保持原样。</p>${deliveries.map(r=>`<details class="step"><summary>${esc(cBy(r.candidate_id).title)} · ${esc(({approved:'已验收',published:'已发布',review:'待人工验收',draft:'草稿'})[r.version_status]||r.version_status)}</summary><p>版本：${esc(r.version_id)} · ${(Number(r.archive_bytes||0)/1048576).toFixed(1)} MiB · ${esc(r.files)} 个文件</p><p>${r.template_structure==='pass'?'静态结构检查通过':'已保留完整运行包；当前模板格式兼容性待确认'}；${r.downstream_size_limits_pass?'数量与大小符合限制':'文件数量或大小仍超出当前下游限制'}</p>${r.runtime_recheck_required?'<p>已整理入口或资源布局，需在接收环境核对运行效果。</p>':''}<p style="overflow-wrap:anywhere">SHA-256：${esc(r.sha256)}</p><a class="button" href="/api/supply-deliveries/${encodeURIComponent(r.id)}/download">下载供货包</a></details>`).join('')}`;
 }
 function supplyPanel() {
-  const names={pending:'待自动推送',blocked:'供货阻塞',retrying:'等待自动重试',tracking:'下游处理中',done:'下游已结束'};
-  return `<section class="panel" style="margin-top:24px"><div class="panelhead"><h2>下游模板供货</h2></div>${state.supply_config && !state.supply_config.configured ? `<div class="notice">下游服务待配置，验收后会保留待推送任务。待处理：${esc([...(state.supply_config.missing||[]).map(k=>({SUPPLY_PLATFORM_BASE:"下游接口地址",SUPPLY_APP_ID:"供应方身份",SUPPLY_APP_SECRET:"授权码",SUPPLY_ARCHIVE_DIR:"分发目录",SUPPLY_ARCHIVE_BASE_URL:"HTTPS 下载前缀"})[k]||k),...(state.supply_config.errors||[])].join("、"))}</div>` : ""}<p class="muted">新版本人工验收通过后自动推送。供货问题不影响功能验收结果；历史已验收版本不会自动补推。</p>${supplyDeliveryList()}${(state.supply||[]).map(r=>`<details class="step"><summary>${esc(cBy(r.candidate_id).title)} · ${esc(r.state_text||names[r.status]||r.status)}</summary><p>版本：${esc(r.version_id)} · 提交：${esc(r.submission_id)}</p><p>下一步：${esc(({supplier:'我方处理',platform:'等待下游处理',none:'无需人工操作'})[r.next_action]||r.next_action||'—')} ${r.queue_position?` · 排队第 ${esc(r.queue_position)} 位`:''}</p><p>${esc(r.notice||'')}</p>${r.error_code?`<p class="tiny">错误码：${esc(r.error_code)}</p>`:''}${(r.issues||[]).map(i=>`<div class="notice"><b>${esc(i.severity)} · ${esc(i.title||i.code)}</b><p>${esc(i.detail||'')}</p><p>${esc(i.suggestion||'')}</p><p class="tiny">${esc((i.files||[]).join('、'))}</p></div>`).join('')}${['pending','blocked','retrying'].includes(r.status)?`<div class="actions">${!r.archive_sha256?`<button data-supply-metadata="${esc(r.id)}">补充供货资料</button>`:''}<button data-supply-retry="${esc(r.id)}">重新检查 / 重试</button></div>`:''}</details>`).join('')||'<p class="muted">尚无供货任务。下一次人工验收通过后自动创建。</p>'}</section>`;
+  return `<section class="panel supply-center"><div class="panelhead"><div><h2>供货进度</h2><p class="muted">功能验收与下游供货分别记录。这里保留供货历史，不需要重复验收。</p></div></div>${state.supply_config&&!state.supply_config.configured?'<div class="notice">供货服务尚未配置，已验收任务会保留，等待配置后推送。</div>':''}${supplyList(state,{esc,date,cBy,readOnly})}${(state.supply_deliveries||[]).length?`<details class="supply-packages"><summary>已准备的供货包 · ${(state.supply_deliveries||[]).length} 个</summary>${supplyDeliveryList()}</details>`:''}<p class="tiny muted">新版本人工验收通过后自动推送；历史已验收版本不会自动补推。供货记录随后台统计更新。</p></section>`;
 }
+
 function supplyMetadata(id) {
   modal('供货资料',`<p>仅填写已核实的可分发授权，须覆盖模板抽取与衍生作品发布。正常交付由执行器在 report.supply 中一并提供。</p><form id="supply-metadata-form"><label>供货资料 JSON</label><textarea name="metadata" rows="12" placeholder='{"license_declaration":{"distributable":"","owner":""},"known_limitations":[]}'></textarea><p class="tiny muted">可填写 license_declaration、acceptance_steps、known_limitations、contact_note。保存后自动检查并推送。</p><button class="primary">保存并继续供货</button></form>`);
   $('#supply-metadata-form').onsubmit=async e=>{
@@ -637,7 +638,7 @@ function supplyMetadata(id) {
 function reviews() {
   const pending=(state.versions||[]).filter(v=>v.status==='review');
   const cards=pending.map(v=>{const c=cBy(v.candidate_id);return `<article class="gamecard"><div class="cover" data-review="${esc(v.id)}">${reviewImage(v,'产出版本实机截图')}<div class="cover-badge">${badge(v.status)}</div></div><div class="gamebody"><h3>${esc(c.title)}</h3><p class="tiny muted">版本 ${esc(v.commit?.slice(0,7)||v.id)} · 提交于 ${date(v.created_at)}</p><div class="gamefoot"><span>${esc(v.review_label||"等待确认玩法与画面")}</span><button class="smallbtn primary" data-review="${esc(v.id)}">开始验收</button></div></div></article>`;}).join('');
-  return head('验收中心','仅展示待验收版本；通过验收的游戏可在小游戏库查看。')+
+  return head('验收中心','先确认玩法与画面，再跟踪供货。已验收游戏可在小游戏库查看。')+
     `<section id="pending-reviews"><div class="panelhead"><h2>待验收 <small>${pending.length} 个版本</small></h2></div><div class="cards review-cards">${cards||empty('当前没有待验收版本','完成验证的版本会出现在这里。')}</div></section>`+supplyPanel();
 }
 
@@ -1154,6 +1155,7 @@ function formDialog(type) {
 function bind() {
   document.querySelectorAll('[data-stage-focus]').forEach(b=>b.onclick=()=>document.querySelector('.pipeline [data-node="'+CSS.escape(b.dataset.stageFocus)+'"]')?.scrollIntoView({block:'center',behavior:'instant'}));
   bindDashboard(render);
+  bindSupplyList(document,()=>preserveUI($('#app'),()=>render(true)));
   document.querySelectorAll('[data-supply-metadata]').forEach(b=>b.onclick=()=>supplyMetadata(b.dataset.supplyMetadata));
   document.querySelectorAll('[data-supply-retry]').forEach(b=>b.onclick=async()=>{
     try {await api('/api/supply/'+b.dataset.supplyRetry+'/retry',{});await load();}catch(e){toast(e.message);}
