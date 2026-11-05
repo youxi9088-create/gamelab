@@ -13,6 +13,22 @@ from controlplane.conversion_plan import build
 
 
 class DiscoveredWebTests(unittest.TestCase):
+    def test_replay_progress_does_not_count_as_verified_snapshot(self):
+        import queue,io
+        from discovered_web import ReviewBrowser
+        with tempfile.TemporaryDirectory() as temp:
+            run=Path(temp);(run/'converted/evidence').mkdir(parents=True)
+            (run/'converted/evidence/runtime.json').write_text('{"passed":false}')
+            waits=[]
+            browser=ReviewBrowser(run,SimpleNamespace(remaining=lambda s:waits.append(s) or s))
+            browser.process=SimpleNamespace(poll=lambda:None,stdin=io.StringIO())
+            browser.events=queue.Queue()
+            browser.events.put('{"event":"progress","phase":"action-observed","completed":42}')
+            browser.events.put('{"event":"snapshot"}')
+            self.assertFalse(browser.observe([])['passed'])
+            self.assertEqual(waits,[420,420])
+            self.assertEqual(json.loads((run/'web-observation-progress.json').read_text())['completed'],42)
+
     def test_unpaired_browser_surrogate_is_retained_in_review_evidence(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp)/'source';(root/'evidence').mkdir(parents=True)

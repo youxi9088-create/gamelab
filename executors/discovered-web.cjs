@@ -513,6 +513,9 @@ async function verify(run,actions=[],nextBatch=null,viewportReview=false,environ
    const observed={...await state(page,acq.engine),elapsed_ms:Date.now()-started,storage:await storageEvidence(page)};
    if(storageBeforeReload)observed.storage_before_reload=storageBeforeReload;
    report.steps.push(observed);
+   // A long checkpoint replay can exceed the bridge's idle timeout. Report
+   // completed observations, never a timer heartbeat or a successful snapshot.
+   if(nextBatch)console.log(JSON.stringify({event:'progress',phase:'action-observed',completed:report.actions.length}));
    if(a.expect_labels){if(!Array.isArray(a.expect_labels)||!a.expect_labels.length||!a.expect_labels.every(text=>typeof text==='string'&&observed.labels.some(l=>l.text.includes(text))))throw Error('Expected Cocos labels not observed');}
    if(!replaying){
     const shot='screenshots/step-'+i+'.png';await screenshot(page,path.join(root,shot));

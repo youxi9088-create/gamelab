@@ -119,7 +119,10 @@ class ReviewBrowser:
                 # The copied baseline runtime.json is not an observation from
                 # this process. Route failure to the shared diagnosis instead.
                 raise RuntimeError(f'Platform browser exited before observation (exit {status}); see web-browser.log')
-            if json.loads(line).get('event') == 'snapshot':
+            event=json.loads(line)
+            if event.get('event') == 'progress':
+                (self.run/'web-observation-progress.json').write_text(evidence_json(event),'utf-8')
+            if event.get('event') == 'snapshot':
                 return json.loads((self.run / 'converted/evidence/runtime.json').read_text('utf-8'))
 
 
