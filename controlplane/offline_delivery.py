@@ -55,8 +55,27 @@ def feature_findings(files):
     return rows
 
 
+def normalize_review(root,review):
+    """Resolve the executor's converted/ working-copy label to package paths."""
+    root=Path(root).resolve()
+    if not isinstance(review,dict):return {}
+    result={}
+    for feature,item in review.items():
+        if not isinstance(item,dict):result[feature]=item;continue
+        item=dict(item);evidence=item.get('evidence')
+        if isinstance(evidence,list):
+            normalized=[]
+            for name in evidence:
+                if isinstance(name,str) and name.startswith('converted/') and '\\' not in name and ':' not in name and '..' not in Path(name).parts and not (root/name).is_file():
+                    relative=name[len('converted/'):];target=(root/relative).resolve()
+                    if target.is_relative_to(root) and target.is_file():name=relative
+                normalized.append(name)
+            item['evidence']=normalized
+        result[feature]=item
+    return result
+
 def inspect(root,runtime=None,review=None):
-    root=Path(root);runtime=runtime or {};review=review or {}
+    root=Path(root);runtime=runtime or {};review=normalize_review(root,review)
     files=[(p,p.relative_to(root).as_posix()) for p in root.rglob('*') if p.is_file() and not set(p.relative_to(root).parts)&IGNORED]
     findings=feature_findings(files)+external_request_findings(files)
     refs=audit(root)
@@ -71,7 +90,7 @@ def inspect(root,runtime=None,review=None):
         item=review.get(feature) if isinstance(review,dict) else None
         evidence=item.get('evidence') if isinstance(item,dict) else None
         valid=(isinstance(item,dict) and item.get('status') in ('removed','absent') and bool(item.get('reason'))
-               and isinstance(evidence,list) and evidence and all(isinstance(n,str) and not Path(n).is_absolute()
+               and isinstance(evidence,list) and evidence and all(isinstance(n,str) and not Path(n).is_absolute() and '..' not in Path(n).parts and '\\' not in n and ':' not in n
                and (root/n).resolve().is_relative_to(root.resolve()) and (root/n).is_file() for n in evidence))
         if not valid:missing.append(feature)
     environment=(runtime.get('environment')=='deployment' or runtime.get('environment')=='local-artifact' and runtime.get('network_observation_complete') is True)

@@ -7,6 +7,21 @@ from controlplane.conversion_delivery_checks import inspect as conversion_checks
 
 
 class OfflineDeliveryTests(unittest.TestCase):
+    def test_working_copy_prefix_resolves_only_to_existing_package_evidence(self):
+        from controlplane.offline_delivery import normalize_review
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t);(root/'index.html').write_text('<button>Play</button>')
+            review={k:{'status':'absent','reason':'Actual source and runtime checked','evidence':['converted/index.html']} for k in FEATURES}
+            runtime={'passed':True,'environment':'deployment','actions':[{'type':'click'}]}
+            self.assertEqual(inspect(root,runtime,review)['status'],'verified')
+            self.assertEqual(review['payments']['evidence'],['converted/index.html'])
+            self.assertEqual(normalize_review(root,review)['payments']['evidence'],['index.html'])
+            for path in ['converted/missing.js','converted/../index.html','converted/C:/outside.js']:
+                bad={k:{**v,'evidence':[path]} for k,v in review.items()}
+                self.assertNotEqual(inspect(root,runtime,bad)['status'],'verified')
+            (root/'game.js').write_text('sdk.showRewardedAd();')
+            self.assertEqual(inspect(root,runtime,review)['status'],'needs_work')
+
     def test_final_package_rejects_interface_even_if_ui_is_hidden(self):
         with tempfile.TemporaryDirectory() as t:
             root=Path(t);(root/'index.html').write_text('<button>Start</button><script src="game.js"></script>')

@@ -21,7 +21,7 @@ import worker
 class ConversationsTest(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
-        root=Path(self.tmp.name);self.s=Service(root/'data',root/'repo','http://127.0.0.1:8766')
+        root=Path(self.tmp.name);self.s=Service(root/'data',root/'repo','http://127.0.0.1:8766',runs_dir=root/'runs')
         src=root/'source';src.mkdir();(src/'index.html').write_text('<button id="start">Old</button>')
         (src/'assets').mkdir();(src/'assets/original.bin').write_bytes(b'original-resource')
         self.c=self.s.mutate('/api/candidates',{'title':'Conversation fixture','url':'https://example.org/rounds','source_path':str(src),'rights':'owned'})['candidate']
@@ -31,6 +31,15 @@ class ConversationsTest(unittest.TestCase):
 
     def reply(self,text='Change the button label'):
         return self.s.mutate('/api/jobs/'+self.j['id']+'/message',{'message':text})['job']
+
+    def test_resume_does_not_load_other_games_historical_jobs_or_versions(self):
+        original=self.s.store.all
+        def limited(db,kind):
+            if kind in ('jobs','versions'):raise AssertionError('Global historical scan during resume')
+            return original(db,kind)
+        with patch.object(self.s.store,'all',side_effect=limited):job=self.reply()
+        self.assertEqual(job['base_version_id'],self.v['id'])
+        self.assertEqual(job['status'],'queued')
 
     def claim(self):
         return self.s.mutate('/api/v1/jobs/claim',{'capabilities':['reconstruct'],'automatic_only':True},self.tool)['job']

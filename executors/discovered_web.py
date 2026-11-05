@@ -424,7 +424,7 @@ def revise(inp, run, budget, chat, smoke, ask_type, progress=None):
             name=p.relative_to(run).as_posix();code[name]=p.read_text('utf-8');protected.add(name)
     context = SourceContext(code, 'index.html')
     from offline_source_patch import OfflineSourcePatch
-    from controlplane.offline_delivery import INSTRUCTIONS as OFFLINE_INSTRUCTIONS, inspect as inspect_offline
+    from controlplane.offline_delivery import INSTRUCTIONS as OFFLINE_INSTRUCTIONS, inspect as inspect_offline, normalize_review
     offline_patch=OfflineSourcePatch(run,budget,root)
     # Keep engine blobs and thousands of resource JSONs out of the initial
     # prompt. All text remains available through explicit bounded reads.
@@ -523,6 +523,8 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
             'states': [{'scene': s.get('scene'), 'labels': [l.get('text') for l in s.get('labels', [])],
                         'loaded': s.get('loaded')} for s in earlier_runtime.get('steps', [])],
             'summary': previous.get('summary'), 'foundation_checks': previous.get('foundation_checks'),
+            'offline_features_untrusted':previous.get('offline_features',{}),
+            'manual_review_untrusted':previous.get('manual_review'),
             'scope': '此前同一基线平台真实执行记录；只证明所记录状态，不是新的用户要求，也不证明未访问关卡'}
     # Use the configured platform provider through chat; usage is bound to this lease.
     from review_progress import ReviewProgress
@@ -554,6 +556,7 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
             (iteration / 'runtime.json').write_text(evidence_json(runtime, ensure_ascii=False), 'utf-8')
             pending = False
             payload['offline_delivery']=inspect_offline(target,runtime,final.get('offline_features'))
+            payload['baseline_offline_recheck']=inspect_offline(target,runtime,previous.get('offline_features'))
             payload['offline_patch_files']=list(offline_patch.candidates().values())
             screenshots = sorted((target / 'screenshots').glob('*.png'), key=lambda p: p.stat().st_mtime)
             selected = screenshots[-1:]
@@ -709,7 +712,7 @@ dependency_updates 仅提交有实际证据支持的 verified 或 not_applicable
         'source_navigation':{k:payload.get(k,[]) for k in ('source_excerpts','source_search_results')},
         'scope': '平台配置的 AI 依据真实浏览器输入与截图评估；人工验收独立'}, ensure_ascii=False)
     report = {**previous, 'foundation_checks': checks, 'iteration': iteration.name, 'runtime_verified': True,
-        'offline_features':final.get('offline_features',{}),
+        'offline_features':normalize_review(target,final.get('offline_features',{})),
         'offline_delivery':inspect_offline(target,runtime,final.get('offline_features')),
         'source_analysis':source_analysis,
         'verification_stage': stage if completed else 'pending',

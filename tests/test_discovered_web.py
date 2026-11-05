@@ -172,12 +172,16 @@ class DiscoveredWebTests(unittest.TestCase):
             (root/'evidence/acquisition.json').write_text('{"files":[],"engine":"ruffle"}','utf-8')
             run=Path(temp)/'run';run.mkdir()
             budget=SimpleNamespace(calls=1,remaining=lambda seconds:seconds)
-            inp={'source_path':str(root),'base_version':{'id':'fixture-v1','report':{}},
+            earlier={'runtime_smoke':{'passed':True,'actions':[]},'verification_evidence':'verification/fixture.json',
+                     'offline_features':{'payments':{'status':'absent','reason':'prior only','evidence':['converted/index.html']}}}
+            inp={'source_path':str(root),'base_version':{'id':'fixture-v1','report':earlier},
                  'pending_delivery':{'gaps':['fixture remaining backend check']}}
             with patch('discovered_web.ReviewBrowser.observe',return_value={'passed':True,'actions':[]}):
                 def chat(messages,*args):
                     payload=json.loads(messages[1]['content'][0]['text'])
                     self.assertEqual(payload['pending_delivery'],inp['pending_delivery'])
+                    self.assertEqual(payload['previous_executed_evidence']['offline_features_untrusted'],earlier['offline_features'])
+                    self.assertNotEqual(payload['baseline_offline_recheck']['status'],'verified')
                     raise Blocked('AI call count budget exhausted')
                 _,_,report=revise(inp,run,budget,chat,None,None)
             self.assertEqual(report['blocker']['code'],'WEB_VERIFICATION_BUDGET')
