@@ -33,21 +33,37 @@ def main():
         sys.stdin.buffer.read()
         stopped.set()
     threading.Thread(target=watch_parent, daemon=True).start()
-    first_snapshot=True
+    from .ui_live import operational
+    latest = [None]
+    def statistics():
+        first=True
+        while not stopped.is_set():
+            started=time.monotonic()
+            try:
+                value=summary(service.state(defer_engine_evidence=first))
+                first=False
+                value['ui_build_seconds']=round(time.monotonic()-started,3)
+                from .store import now
+                value['ui_statistics_built_at']=now()
+                latest[0]=value
+                faulthandler.cancel_dump_traceback_later()
+            except Exception:
+                traceback.print_exc(file=sys.stderr)
+            stopped.wait(30)
+    threading.Thread(target=statistics,daemon=True).start()
     while not stopped.is_set():
-        started = time.monotonic()
         try:
-            value = summary(service.state(defer_engine_evidence=first_snapshot))
-            first_snapshot=False
-            faulthandler.cancel_dump_traceback_later()
-            value['ui_build_seconds'] = round(time.monotonic() - started, 3)
+            if latest[0] is None:
+                stopped.wait(1)
+                continue
+            value=operational(service,latest[0])
             sys.stdout.buffer.write(json.dumps(value, ensure_ascii=False, separators=(',', ':')).encode('utf-8') + b'\n')
             sys.stdout.buffer.flush()
         except (BrokenPipeError, OSError):
             return
         except Exception:
             traceback.print_exc(file=sys.stderr)
-        stopped.wait(10)
+        stopped.wait(2)
 
 
 if __name__ == '__main__':

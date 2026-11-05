@@ -54,6 +54,9 @@ class Store:
             db.execute("CREATE INDEX IF NOT EXISTS records_active_jobs ON records(kind) WHERE kind='jobs' AND json_extract(data,'$.status') IN ('queued','running')")
             db.execute('CREATE TABLE IF NOT EXISTS idempotency (scope TEXT NOT NULL,key TEXT NOT NULL,body_hash TEXT NOT NULL,response TEXT NOT NULL,PRIMARY KEY(scope,key))')
             db.execute('CREATE TABLE IF NOT EXISTS credentials (token_hash TEXT PRIMARY KEY,tool_id TEXT NOT NULL)')
+            if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='ui_live_records'").fetchone():
+                from .ui_live import install
+                install(db)
 
     @contextlib.contextmanager
     def read(self):
