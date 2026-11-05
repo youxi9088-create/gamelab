@@ -16,6 +16,17 @@ class Client:
 
 
 class WorkerTests(unittest.TestCase):
+    def test_output_limit_correction_is_bounded_and_preserves_inputs(self):
+        messages=[{'role':'system','content':'Original contract'},{'role':'user','content':[{'type':'text','text':'evidence'}]}]
+        original=json.loads(json.dumps(messages));budget=SimpleNamespace(calls=3,remaining=lambda seconds:seconds)
+        with patch('worker.ai_config',return_value={}),patch('worker.complete',side_effect=[
+            RuntimeError('AI API 调用失败：响应未完成：incomplete / max_output_tokens'),({'complete':False},'fixture')]) as complete:
+            self.assertFalse(worker.chat(messages,budget)['complete'])
+            self.assertEqual(complete.call_count,2)
+            self.assertIn('输出达到上限',complete.call_args.args[0][0]['content'])
+            self.assertEqual(budget.calls,1)
+        self.assertEqual(messages,original)
+
     def test_malformed_json_retries_only_provider_preserving_evidence(self):
         messages = [{'role': 'system', 'content': 'Use allowed tools only'},
                     {'role': 'user', 'content': [{'type': 'text', 'text': 'evidence'}]}]
@@ -96,7 +107,7 @@ class WorkerTests(unittest.TestCase):
         self.assertTrue(client.calls[-1][0].endswith('/ask'))
 
     def test_ai_key_missing_blocks(self):
-        with patch.dict('os.environ', {}, clear=True):
+        with patch.dict('os.environ', {}, clear=True), patch('worker.ai_config',return_value={'backend':'api'}):
             with self.assertRaises(worker.Blocked):
                 worker.chat([])
 

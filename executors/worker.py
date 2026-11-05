@@ -212,12 +212,18 @@ def chat(messages, budget=None):
                 marker in detail for marker in ('URLError','超时','流式响应提前结束','IncompleteRead','RemoteDisconnected','ConnectionResetError','HTTP 408','HTTP 429','HTTP 500','HTTP 502','HTTP 503','HTTP 504','HTTP 520','HTTP 522','HTTP 524'))
             malformed = isinstance(exc, json.JSONDecodeError) or (
                 isinstance(exc, RuntimeError) and detail.startswith('AI API 调用失败：响应不是有效 JSON'))
-            if (transient or malformed) and attempt==0 and (budget is None or budget.calls>0):
+            truncated=isinstance(exc,RuntimeError) and detail.startswith('AI API 调用失败：') and 'max_output_tokens' in detail
+            if (transient or malformed or truncated) and attempt==0 and (budget is None or budget.calls>0):
                 # Each attempt is a separate metered provider call and consumes
                 # the task's call budget. Invalid actions/authentication still stop.
-                if malformed:
+                if malformed or truncated:
                     correction = ('上一次回答未能解析为合法 JSON。请基于相同证据重新回答，严格遵守原有字段和允许的动作，'
                                   '仅返回一个合法 JSON 对象，正确转义字符串；不要添加 Markdown 或 JSON 外的说明。')
+                    if truncated:
+                        correction=('上一次输出达到上限，回答未完整返回。本次仍须遵守原字段、动作和验证标准，'
+                            '只输出本轮必要的完整JSON对象；摘要不超过180字，不重复历史、证据原文或大段源码。'
+                            '有精确补丁工具时使用有界替换。若必需的完整文件无法容纳，如实返回未完成和具体缺项，'
+                            '不得截断文件、伪造完成或省略必需验证。')
                     request_messages = [dict(message) for message in messages]
                     system = next((message for message in request_messages
                                    if message.get('role') == 'system' and isinstance(message.get('content'), str)), None)

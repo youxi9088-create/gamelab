@@ -8,6 +8,21 @@ from controlplane.ai_provider import _complete, responses_input, read_responses_
 
 
 class VisualInputTests(unittest.TestCase):
+    def test_chat_output_limit_cannot_certify_even_parseable_partial_json(self):
+        from controlplane.ai_provider import USAGE_SINK,AIProviderError
+        envelope={'choices':[{'finish_reason':'length','message':{'content':'{"complete":true}'}}],
+                  'usage':{'prompt_tokens':12,'completion_tokens':12000}}
+        response=io.BytesIO(json.dumps(envelope).encode());calls=[];token=USAGE_SINK.set(calls.append)
+        try:
+            with patch('urllib.request.build_opener') as opener:
+                opener.return_value.open.return_value.__enter__.return_value=response
+                with self.assertRaisesRegex(AIProviderError,'max_output_tokens'):
+                    _complete([],{'backend':'api','base_url':'https://example.org','api_key':'fixture','model':'fixture'},30)
+            self.assertEqual(len(calls),1)
+            self.assertEqual(calls[0]['output_tokens'],12000)
+            self.assertEqual(calls[0]['status'],'failed')
+        finally:USAGE_SINK.reset(token)
+
     def test_terminal_failure_has_safe_specific_reason(self):
         from controlplane.ai_provider import AITerminalFailure
         envelope={'status':'incomplete','incomplete_details':{'reason':'max_output_tokens'},'error':{'message':'private-secret'}}

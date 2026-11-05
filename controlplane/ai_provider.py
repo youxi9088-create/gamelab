@@ -307,6 +307,8 @@ def _complete(messages, config, timeout=300):
                         content=''.join(chunks)
                         message=None
                     else:
+                        if envelope['choices'][0].get('finish_reason')=='length':
+                            raise AITerminalFailure('incomplete',{'incomplete_details':{'reason':'max_output_tokens'}})
                         message=envelope['choices'][0]['message']
                         content=message.get('content') or ''
                     usage=response_usage(envelope,wire_api)
