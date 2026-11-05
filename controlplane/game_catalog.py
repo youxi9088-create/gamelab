@@ -16,6 +16,11 @@ FIELDS = {
     'rules': '目标、规则与结算数值', 'systems': '玩法系统与相互作用',
     'ui_flow': '界面流程与反馈', 'level_design': '场景、关卡与难度设计',
     'verification': '已验证流程与未覆盖范围', 'evidence': '事实依据与定位',
+    'gameplay_signature':'玩法特征签名', 'session_mechanism':'单局循环机制',
+    'replay_mechanism':'重玩循环机制', 'drive_mechanism':'驱动力机制',
+    'goal_mechanism':'目标机制', 'achievement_mechanism':'玩法达成机制',
+    'feedback_mechanism':'反馈机制', 'continuation_mechanism':'延续机制',
+    'motivation_mechanism':'动机机制', 'core_goal_reachability':'核心目标达成性（试玩质检）',
 }
 
 PROFILE_INSTRUCTIONS = '''game_profile 必须是详细中文游戏规格，所有文字字段为字符串：category、dimension（2D/3D/2.5D/混合）、perspective、core_gameplay、core_experience、controls、game_loop、content、progression、save、rules、systems、ui_flow、level_design、verification、evidence。不可只用一句宣传语概括。controls按“按键/动作 → 作用 → 必要触发条件”逐行写，每条不超过60字；区分实机验证与仅源码确认。不要放函数名、变量名、坐标、失败过程或修复建议，未确认的键位不编造；game_loop按开始、操作、结果、继续说明；rules写目标、成功/失败、计分公式及已查证阈值；systems分解对象、状态、触发及系统交互；ui_flow写各界面信息和按钮转移；content区分固定数量和程序生成；save写保存内容、触发、恢复及不保存项；verification区分实机验证、仅源码确认、未验证；evidence给出源码文件/函数及本轮证据位置。未知数值明确未确认，不能编造。可用换行和编号。不要把恢复故障日志当作玩法说明。'''
@@ -23,6 +28,7 @@ PROFILE_INSTRUCTIONS = '''game_profile 必须是详细中文游戏规格，所�
 
 from .game_categories import GENRES
 PROFILE_INSTRUCTIONS += '\ncategory 按已查证核心玩法从以下品类选择，最多三个，用 / 分隔：'+ '、'.join(name for name,_ in GENRES)+'。不得把 2D/3D、引擎、来源网站、联机模式或游戏名称当品类；不得默认填写休闲。证据不足填待分类，玩法细分说明放 core_gameplay。'
+PROFILE_INSTRUCTIONS += '''\n另补齐十个字符串字段，事实与准入推断分离：gameplay_signature（核心循环、交互、规则及UI布局，不能只描述美术）、session_mechanism（开始/结束/连续无限及已知时长依据）、replay_mechanism（重开/下一局及保留状态）、drive_mechanism（本地最高分/解锁/成长等重玩驱动）、goal_mechanism（明确目标）、achievement_mechanism（操作→规则→目标）、feedback_mechanism（实时反馈）、continuation_mechanism（新目标）、motivation_mechanism（依据上述机制归纳挑战/成长/成就动机）、core_goal_reachability（仅本轮试玩实测达成与死锁/数值缺陷，未知明确未实测，禁止源码推断通过）。前九项分别标注代码静态来源文件/定位；动机的综合推断另标推断。核心目标达成性独立归试玩质检，不作为准入否决。未知留未确认，不编造。累计游玩约10分钟包含短局重玩；不得因2D/3D、横屏、操作复杂、单局长或工程故障否决。同品类不等于换皮；交互、UI布局或玩法任一改变须保留差异。'''
 
 
 def normalize(value):

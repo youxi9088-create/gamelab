@@ -171,7 +171,7 @@ class DiscoveryTests(unittest.TestCase):
         for _ in range(2):self.s.mutate(prefix+'/usage',{**lease,'usage':usage},tool)
         self.s.mutate(prefix+'/usage',{**lease,'usage':dict(usage,call_id='unknown',input_tokens=None,output_tokens=None,status='failed')},tool)
         # Authored fixture evidence tests state accounting, not real game restoration.
-        report={'runtime_verified':True,'recovery_kind':'discovered-web-cocos2','path':'A',
+        report={'runtime_verified':True,'recovery_kind':'discovered-web-cocos2','path':'A','offline_delivery':{'status':'verified'},
                 'foundation_checks':{k:{'status':'verified','evidence':['index.html']} for k in REQUIRED}}
         artifact=self.s.mutate('/api/v1/artifacts',{**lease,'job_id':job['id'],
             'files':{'index.html':'<p>Authored statistics fixture</p>'},'entry':'index.html','report':report},tool)
@@ -223,13 +223,55 @@ class DiscoveryTests(unittest.TestCase):
         self.s.mutate('/api/discovery/settings',{'auto_select':True,'auto_dispatch':True,
             'allowed_categories':['益智'],'score_threshold':40,'daily_limit':1})
         self.result['games'].append(dict(self.result['games'][0],url='https://example.org/game/b'))
-        self.scheduler.tick(self.instant)
+        def assessed(items,*args):
+            for item in items:item['admission']={'status':'eligible'}
+        with patch('controlplane.admission.assess',side_effect=assessed):self.scheduler.tick(self.instant)
         state=self.s.state()
         self.assertEqual(len(state['jobs']),1)
         self.assertEqual(sorted(r['status'] for r in state['recommendations']),['dispatched','pending'])
         self.scheduler.tick(self.instant)
         self.assertEqual(len(self.s.state()['jobs']),1)
         self.assertEqual(self.s.state()['versions'],[])
+
+    def test_filtered_records_are_retained_and_cannot_be_approved_or_dispatched(self):
+        from controlplane.admission import REVISION
+        def assessed(items,*args):
+            items[0]['admission']={'revision':REVISION,'status':'filtered','gates':{'loop':{'status':'fail','reason':'明确无目标，仅交互展示'}}}
+        self.result['games'][0]['dimension']='3d'
+        with patch('controlplane.admission.assess',side_effect=assessed):self.scheduler.tick(self.instant)
+        item=self.s.state()['recommendations'][0]
+        self.assertEqual(item['status'],'filtered')
+        self.assertIn('无目标',item['reason'])
+        for action in ('approve','dispatch'):
+            with self.assertRaises(ApiError):self.s.mutate('/api/discovery/'+action,{'ids':[item['id']]})
+        self.assertEqual(self.s.state()['jobs'],[])
+
+    def test_unknown_dimension_and_unknown_admission_are_not_discarded_or_auto_selected(self):
+        self.result['games'][0]['dimension']='unknown'
+        self.s.mutate('/api/discovery/settings',{'auto_select':True,'allowed_categories':['益智'],'score_threshold':0})
+        self.scheduler.tick(self.instant)
+        item=self.s.state()['recommendations'][0]
+        self.assertEqual(item['admission']['status'],'unknown')
+        self.assertEqual(item['status'],'pending')
+        self.s.mutate('/api/discovery/approve',{'ids':[item['id']]})
+        self.assertEqual(self.s.state()['recommendations'][0]['status'],'pending_capture')
+
+    def test_saved_pending_reassessment_preserves_observation_time_and_human_decisions(self):
+        self.scheduler.tick(self.instant)
+        first=self.s.state()['recommendations'][0]
+        with self.s.store.tx() as db:
+            item=self.s.store.get(db,'recommendations',first['id']);item.pop('admission');item['last_seen']='2020-01-01T00:00:00+00:00';self.s.store.put(db,'recommendations',item)
+        self.result['games']=[]
+        self.scheduler.tick(self.instant+timedelta(days=1))
+        item=self.s.state()['recommendations'][0]
+        self.assertEqual(item['last_seen'],'2020-01-01T00:00:00+00:00')
+        self.assertEqual(item['admission']['status'],'unknown')
+        self.s.mutate('/api/discovery/reject',{'ids':[item['id']]})
+        with self.s.store.tx() as db:
+            saved=self.s.store.get(db,'recommendations',item['id']);saved.pop('admission');self.s.store.put(db,'recommendations',saved)
+        self.scheduler.tick(self.instant+timedelta(days=2))
+        self.assertEqual(self.s.state()['recommendations'][0]['status'],'rejected')
+        self.assertNotIn('admission',self.s.state()['recommendations'][0])
 
 
 class ScanTests(unittest.TestCase):

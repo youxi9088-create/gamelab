@@ -1,5 +1,6 @@
 """Daily recommendations and human selection, separate from conversion jobs."""
 import hashlib
+import json
 import re
 import threading
 from datetime import datetime, timedelta, timezone
@@ -87,6 +88,9 @@ class Discovery:
         ids=b.get('ids',[])
         require(isinstance(ids,list) and 1<=len(ids)<=100 and all(isinstance(i,str) for i in ids),'请选择 1–100 项')
         items=[self.get(db,'recommendations',i) for i in dict.fromkeys(ids)]
+        if action in ('approve','dispatch'):
+            from .admission import filtered
+            require(not any(filtered(i) or i['status']=='filtered' for i in items),'选中游戏不满足准入门槛，不能通过或派单；请查看未准入原因',409)
         if action in ('approve','reject'):
             target='pending_capture' if action=='approve' else 'rejected'
             require(all(i['status'] in ('pending',target) for i in items),'清单状态已变化，请刷新后操作',409)
@@ -181,7 +185,8 @@ class DiscoveryScheduler:
             with s.read() as db:
                 current=s.get(db,'sources',source['id'])
                 if not current or not current.get('enabled') or current.get('deleted_at'):continue
-                excluded=[r['url'] for r in s.all(db,'recommendations')]+[c['canonical_url'] for c in s.all(db,'candidates')]
+                prior_recommendations=s.all(db,'recommendations')
+                excluded=[r['url'] for r in prior_recommendations]+[c['canonical_url'] for c in s.all(db,'candidates')]
             source={**source,'excluded_urls':excluded,'discovery_rule':{'max_games':cfg['max_games'],'max_pages':cfg['max_pages'],**source.get('discovery_rule',{})}}
             if run.get('full_site'):
                 source['discovery_rule']['full_site']=True
@@ -193,17 +198,39 @@ class DiscoveryScheduler:
                 source['stop_requested']=self.stop.is_set
             try: result=self.scanner(source)
             except Exception as exc: result={'games':[],'categories':[],'status':'failed','errors':[{'error':str(exc)[:300]}],'coverage':'扫描未完成'}
+            from .admission import REVISION
+            # Reassess a bounded slice of undecided historical suggestions from
+            # saved source prose; never rewrite human decisions or dispatch history.
+            urls={g['url'] for g in result['games']}
+            result['games'] += [dict(r,_saved_source_assessment=True) for r in prior_recommendations if r.get('source_id')==source['id'] and r['status']=='pending'
+                                and not r.get('decision_by') and (r.get('admission') or {}).get('revision')!=REVISION and r['url'] not in urls][:cfg['max_games']]
+            # Dimension and engineering capability are not gameplay admission gates.
+            # Keep every discovered detail, including unknown/3D and filtered games.
             filtered=0
-            if cfg.get('only_2d', True):
-                original=result['games']
-                result['games']=[g for g in original if g.get('dimension')=='2d']
-                filtered=len(original)-len(result['games'])
             from .discovery_language import translate
             translate(result['games'],self.service,run['id'])
             # Candidate reports are large. Snapshot the deduplication catalog
             # outside the write lease; dispatch still performs canonical dedupe.
             with s.read() as db:
                 existing={c['canonical_url'] for c in s.all(db,'candidates')}
+                versions=[{'id':r[0],'candidate_id':r[1],'game_profile':json.loads(r[2])} for r in db.execute("""SELECT id,json_extract(data,'$.candidate_id'),
+                    COALESCE(json_extract(data,'$.game_profile'),json_extract(data,'$.report.game_profile'),'{}') FROM records
+                    WHERE kind='versions' AND json_extract(data,'$.status') IN ('approved','published','review') ORDER BY rowid DESC""")]
+            from .admission import assess,filtered as admission_filtered
+            baselines=[];seen_candidates=set()
+            for v in versions:
+                cid=v.get('candidate_id')
+                if cid in seen_candidates:continue
+                seen_candidates.add(cid)
+                facts=v.get('game_profile') or (v.get('report') or {}).get('game_profile') or {}
+                if facts.get('core_gameplay'):
+                    baselines.append({'id':v['id'],'category':category(facts.get('category',''),cfg['aliases']),
+                                      'signature':{k:str(facts.get(k,''))[:1600] for k in ('core_gameplay','controls','rules','ui_flow','game_loop')}})
+            for g in result['games']:g['category']=category(g['category'],cfg['aliases'])
+            def assessment_progress():
+                with s.tx() as db:
+                    run['heartbeat_at']=now();s.put(db,'discovery_runs',run)
+            assess(result['games'],baselines,self.service,run['id'],assessment_progress,self.stop.is_set)
             with s.tx() as db:
                 previous=s.get(db,'discovery_sources',source['id']) or {'categories':[]}
                 seen=set(previous['categories'])
@@ -228,13 +255,22 @@ class DiscoveryScheduler:
                     if old or url in existing:
                         duplicates+=1
                         if old:
-                            old['last_seen']=now();s.put(db,'recommendations',old)
+                            if old['status']=='pending' and not old.get('decision_by') and (old.get('admission') or {}).get('revision')!=REVISION:
+                                old['admission']=g['admission'];run['recommendation_ids'].append(key)
+                                if admission_filtered(old):
+                                    old['status']='filtered';filtered+=1
+                                    old['reason']='；'.join(g['reason'] for g in old['admission']['gates'].values() if g['status']=='fail')
+                            if not g.get('_saved_source_assessment'):old['last_seen']=now()
+                            s.put(db,'recommendations',old)
                         continue
                     cat=category(g['category'],cfg['aliases']);missing=cat not in catalog and cat!='未识别'
                     reason='平台尚未覆盖该品类，建议补充代表游戏' if missing else '平台已有该品类，建议对比玩法后决定是否补充'
                     if cat=='未识别':reason='来源未提供可识别品类，建议先人工核对再决定'
                     item=dict(g,id=key,url=url,category=cat,source_id=source['id'],source=source['name'],
                         reason=reason,platform_category_missing=missing,status='pending',run_id=run['id'],created_at=now(),last_seen=now())
+                    if admission_filtered(item):
+                        item['status']='filtered';filtered+=1
+                        item['reason']='；'.join(g['reason'] for g in item['admission']['gates'].values() if g['status']=='fail')
                     from .selection import score
                     item['selection_score']=score(item)
                     # 扫描时就标出已知门槛，派单事务回滚也不会丢，列表里也看得见。
@@ -245,7 +281,7 @@ class DiscoveryScheduler:
                                     source_policy_label=gate.get('label') or gate['policy'],
                                     source_policy_reason=gate['reason'])
                     s.put(db,'recommendations',item);run['recommendation_ids'].append(key);new+=1
-                run['sources'].append(dict(source_id=source['id'],name=source['name'],status=result['status'],new=new,duplicates=duplicates,errors=result.get('errors',[]),filtered_non_2d_or_unknown=filtered,coverage=result.get('coverage','')))
+                run['sources'].append(dict(source_id=source['id'],name=source['name'],status=result['status'],new=new,duplicates=duplicates,errors=result.get('errors',[]),filtered_admission=filtered,coverage=result.get('coverage','')))
                 run['heartbeat_at']=now();s.put(db,'discovery_runs',run)
         with s.tx() as db:
             # Explicit opt-in only; always preserve existing human decisions.
@@ -254,6 +290,7 @@ class DiscoveryScheduler:
                 used=sum(1 for r in s.all(db,'recommendations') if r.get('decision_by')=='selection-policy' and r.get('decision_day')==day)
                 from .source_policy import host_policy
                 def selectable(r):
+                    if r.get('admission',{}).get('status')!='eligible':return False
                     if host_policy(r.get('url','')):
                         # 已知门槛的来源不占每日自动选品名额，也不进待抓取。
                         return False

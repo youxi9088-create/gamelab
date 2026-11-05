@@ -1,0 +1,5 @@
+export function admissionDetails(item,esc){
+ const a=item.admission, labels={pass:'达标',fail:'不达标',unknown:'待判断'};
+ if(!a)return '<p class="tiny muted">准入待判断 · 历史记录尚无三门槛证据</p>';
+ return `<p class="tiny">${a.status==='filtered'?'未准入':a.status==='eligible'?'初筛达标':'准入待判断'} · 页面初筛</p><details class="admission-details"><summary>查看准入依据</summary><p class="tiny muted">页面说明用于初筛推断，源码机制须抓取后核查；核心目标能否达成另走试玩质检。缺证据不等于不达标。</p>${Object.values(a.gates||{}).map(g=>`<div class="step"><strong>${esc(g.label)} · ${esc(labels[g.status]||'待判断')}</strong><p>${esc(g.reason||'证据不足')}</p>${g.baseline_id?`<p class="tiny muted">对比版本：${esc(g.baseline_id)}</p>`:''}${(g.quotes||[]).map(q=>`<blockquote>${esc(q)}</blockquote>`).join('')}</div>`).join('')}${Object.keys(a.mechanisms||{}).length?`<details><summary>机制事实与提取来源</summary>${Object.values(a.mechanisms).map(m=>`<p><strong>${esc(m.label)}</strong>：${esc(m.value)}<br><small>来源页面：${esc(m.quote)}</small></p>`).join('')}</details>`:''}<p class="tiny muted">${esc(a.quality?.reason||'试玩质检独立处理')} · 规则 ${esc(a.revision||'待更新')}</p></details>`;
+}

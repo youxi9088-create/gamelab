@@ -5,6 +5,10 @@ export const specificationFields = {
   game_loop:'游戏流程', content:'内容规模', progression:'奖励与成长', save:'存档方式',
   rules:'目标、规则与结算数值', systems:'玩法系统与相互作用', ui_flow:'界面流程与反馈',
   level_design:'场景、关卡与难度设计', verification:'已验证流程与未覆盖范围', evidence:'事实依据与定位',
+  gameplay_signature:'玩法特征签名',session_mechanism:'单局循环机制',replay_mechanism:'重玩循环机制',
+  drive_mechanism:'驱动力机制',goal_mechanism:'目标机制',achievement_mechanism:'玩法达成机制',
+  feedback_mechanism:'反馈机制',continuation_mechanism:'延续机制',motivation_mechanism:'动机机制',
+  core_goal_reachability:'核心目标达成性（试玩质检）',
 };
 export function specificationMarkdown(title, version, fallback='') {
   const facts=version.game_profile || version.report?.game_profile;
