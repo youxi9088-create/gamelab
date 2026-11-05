@@ -92,6 +92,17 @@ class Service(Conversations,Discovery):
         except (TypeError,ValueError): value=DEFAULT_CONCURRENCY
         return max(1,min(MAX_CONCURRENCY,value))
 
+    def claim_available(self,tool):
+        """Advisory read only; the actual claim still checks capacity atomically."""
+        with self.store.read() as db:
+            settings=self.get(db,'settings','main');limit=self._concurrency(settings)
+            active=list(db.execute("SELECT json_extract(data,'$.status'),json_extract(data,'$.lease_expires_at'),json_extract(data,'$.manual_paused'),json_extract(data,'$.stage'),json_extract(data,'$.batch_id') FROM records WHERE kind='jobs' AND json_extract(data,'$.status') IN ('queued','running')"))
+            batches={b['id']:b['status'] for b in self.store.all(db,'batches')}
+            stamp=now();running=sum(status=='running' and (expiry or '')>=stamp for status,expiry,_,_,_ in active)
+            queued=any((status=='running' and (expiry or '')<stamp) or (status=='queued' and not paused and stage in tool.get('capabilities',[]) and batches.get(batch)=='running') for status,expiry,paused,stage,batch in active)
+            draining=(self.store.get(db,'settings','maintenance') or {}).get('draining')
+            return {'available':bool(not draining and running<limit and queued),'running':running,'limit':limit}
+
     def state(self, *, defer_engine_evidence=False):
         with self.store.read() as db:
             state={k:self.store.all(db,k) for k in ('candidates','sources','batches','jobs','versions','tools','events','messages','rounds')}

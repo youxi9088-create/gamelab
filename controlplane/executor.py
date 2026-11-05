@@ -66,7 +66,7 @@ class Executor:
     def _slots(self):
         """并发槽位数取服务端设置，读不到就退回 1（保守值）。"""
         try:
-            with self.service.store.tx() as db:
+            with self.service.store.read() as db:
                 value = (self.service.store.get(db,'settings','main') or {}).get('concurrency', 1)
             return max(1, min(16, int(value)))
         except Exception:

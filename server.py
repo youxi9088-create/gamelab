@@ -119,6 +119,11 @@ class Handler(BaseHTTPRequestHandler):
                 require(valid,'请先登录门户',401)
                 return self.send(200,{'csrf':session['csrf']})
             if path=='/health':return self.send(200,{'ok':True,'service':'control-plane'})
+            if path=='/api/v1/jobs/availability':
+                auth=self.headers.get('Authorization','')
+                require(auth.startswith('Bearer '),'缺少接入凭证',401)
+                tool=self.server.service.authenticate(auth[7:])
+                return self.send(200,self.server.service.claim_available(tool))
             if path.startswith('/api/v1/source-bundles/') and path.endswith('/download'):
                 auth=self.headers.get('Authorization','')
                 require(auth.startswith('Bearer '),'缺少接入凭证',401)
@@ -400,6 +405,12 @@ def main():
     p.add_argument('--no-executor',action='store_true',help='Disable automatic conversion worker (isolated tests)')
     p.add_argument('--no-discovery',action='store_true',help='Disable daily discovery scheduler')
     args=p.parse_args()
+    if args.service in ('all','admin'):
+        from controlplane.process_priority import prioritize_control_plane
+        try:prioritize_control_plane()
+        except OSError:
+            import logging
+            logging.warning('Control-plane scheduling priority could not be set')
     service=Service(Path(args.data_dir).resolve(),Path(args.repo_dir).resolve(),f'http://127.0.0.1:{args.play_port}')
     servers=[]
     if args.service in ('all','admin'):servers.append(build_server(service,args.port))

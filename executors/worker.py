@@ -305,6 +305,14 @@ class Client:
     def __init__(self, base, token):
         self.base, self.token = base.rstrip('/'), token
 
+    def claim_available(self):
+        req=urllib.request.Request(self.base+'/api/v1/jobs/availability',headers={'Authorization':'Bearer '+self.token})
+        try:
+            with open_request(req,timeout=30) as response:return json.load(response)['available']
+        except urllib.error.HTTPError as error:
+            if error.code==404:return True  # Older servers retain atomic claim.
+            raise
+
     def post(self, path, body):
         if path=='artifacts':
             from controlplane.game_catalog import prepare_submission
@@ -844,7 +852,7 @@ def main():
         return
     while True:
         try:
-            job = client.post('jobs/claim', {'capabilities': ['rea', 'reconstruct'], 'worker_id': args.worker_id,'automatic_only':args.automatic}).get('job')
+            job = client.post('jobs/claim', {'capabilities': ['rea', 'reconstruct'], 'worker_id': args.worker_id,'automatic_only':args.automatic}).get('job') if client.claim_available() else None
             if job:
                 execute_isolated(client, job)
         except (urllib.error.URLError, OSError):

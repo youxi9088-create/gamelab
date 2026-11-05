@@ -6,15 +6,15 @@ const assert=require('assert/strict');
   const page=await browser.newPage({viewport:{width:1360,height:960}}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto(process.argv[2]+'/#reviews');
-  await page.getByRole('heading',{name:'下游模板供货',exact:true}).waitFor();
-  await page.getByText('Fixture · 供货阻塞',{exact:true}).click();
+  await page.getByRole('heading',{name:'供货进度',exact:true}).waitFor();
+  await page.locator('.supply-record').filter({hasText:'Fixture'}).locator('.supply-record-details summary').click();
   await page.getByRole('button',{name:'补充供货资料',exact:true}).click();
   await page.locator('#supply-metadata-form textarea').fill(JSON.stringify({
     license_declaration:{distributable:'yes',owner:'Isolated fixture owner'}
   }));
   await page.getByRole('button',{name:'保存并继续供货',exact:true}).click();
-  await page.getByText('Fixture · 待自动推送',{exact:true}).waitFor();
-  await page.getByText('Fixture · 待自动推送',{exact:true}).click();
+  await page.locator('[data-supply-filter="processing"]').click();
+  await page.locator('.supply-record').filter({hasText:'Fixture'}).locator('.badge').filter({hasText:'待自动推送'}).waitFor();
   await page.screenshot({path:'qa-output/supply-desktop.png',fullPage:true});
   await page.setViewportSize({width:390,height:844});
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));

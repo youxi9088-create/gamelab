@@ -39,6 +39,20 @@ class SlowWriteTransactionTests(unittest.TestCase):
             db.execute("INSERT INTO records VALUES ('k','i','{}')")
         self.assertEqual(self._log(), '')
 
+    def test_lock_wait_is_measured_separately_from_body_and_commit(self):
+        import threading,re
+        s=Store(self.root/'waiting.sqlite3');ready=threading.Event()
+        def holder():
+            with s.tx() as db:
+                ready.set();time.sleep(.15)
+        thread=threading.Thread(target=holder);thread.start();self.assertTrue(ready.wait(5))
+        try:
+            with s.tx(label='/fixture/events') as db:db.execute('SELECT 1')
+        finally:thread.join(5)
+        text=self._log()
+        self.assertTrue(any(float(v)>.05 for v in re.findall(r'wait=([0-9.]+)s',text)))
+        self.assertIn('body=',text);self.assertIn('commit_or_rollback=',text);self.assertIn('close=',text)
+
     def test_logging_failure_never_breaks_the_transaction(self):
         original = store_module.SLOW_TX_LOG
         store_module.SLOW_TX_LOG = 'no/such/directory/slow-tx.log'

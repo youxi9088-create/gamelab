@@ -285,7 +285,7 @@ class SupplyWorker:
 
     def tick(self,submitted_only=False,package_recheck_only=False):
         store = self.service.store
-        with store.tx() as db:
+        with store.read() as db:
             if (store.get(db,'settings','maintenance') or {}).get('draining'):return
             config=supply_settings()
             ready=readiness(config)
@@ -308,11 +308,16 @@ class SupplyWorker:
                         and r.get('lease_until', 0) <= time.time()), None)
             if not row:
                 return
+            version = self.service.get(db, 'versions', row['version_id'])
+            candidate = self.service.get(db, 'candidates', row['candidate_id'])
+        selected=row
+        with store.tx(label='/supply/claim') as db:
+            if (store.get(db,'settings','maintenance') or {}).get('draining'):return
+            row=store.get(db,'supply',selected['id'])
+            if row!=selected or row.get('lease_until',0)>time.time() or row.get('next_poll',0)>time.time():return
             row.update(lease_until=time.time()+900, lease_token=secrets.token_hex(16))
             if row.get('status')=='blocked':row['distribution_recovery_attempted']=True
             store.put(db, 'supply', row)
-            version = self.service.get(db, 'versions', row['version_id'])
-            candidate = self.service.get(db, 'candidates', row['candidate_id'])
         lease = row['lease_token']
         previous_status = (row.get('status'), row.get('state'), row.get('error_code'))
         try:

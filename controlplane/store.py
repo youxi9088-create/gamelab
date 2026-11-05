@@ -23,7 +23,7 @@ def now():
     return datetime.now(timezone.utc).isoformat(timespec='seconds')
 
 
-def _log_slow_write(elapsed, path, label=None):
+def _log_slow_write(elapsed, path, label=None, phases=None):
     """Best effort: diagnostics must never turn a slow request into a failed one."""
     try:
         frames = [f for f in traceback.extract_stack()
@@ -34,7 +34,8 @@ def _log_slow_write(elapsed, path, label=None):
             import re
             where='request='+re.sub(r'[^a-zA-Z0-9_/-]','_',str(label).split('?',1)[0])[:180]+' | '+where
         with (Path(path).parent / SLOW_TX_LOG).open('a', encoding='utf-8') as stream:
-            stream.write(f'--- {now()} write tx {elapsed:.2f}s\n    {where}\n')
+            timing=' '.join(f'{key}={value:.3f}s' for key,value in (phases or {}).items())
+            stream.write(f'--- {now()} write tx {elapsed:.2f}s {timing}\n    {where}\n')
     except Exception:
         pass
 
@@ -85,6 +86,7 @@ class Store:
         # Reopening on exactly that error is enough to clear it.
         delay = 0.05
         for attempt in range(6):
+            requested=time.monotonic()
             db = sqlite3.connect(self.path, timeout=30)
             try:
                 db.execute('PRAGMA busy_timeout=30000')
@@ -92,23 +94,32 @@ class Store:
                 db.execute('BEGIN IMMEDIATE')
             except sqlite3.OperationalError as exc:
                 db.close()
+                waited=time.monotonic()-requested
+                if waited>=SLOW_TX_SECONDS:
+                    _log_slow_write(waited,self.path,label,{'wait_failed':waited})
                 if 'readonly' not in str(exc) or attempt == 5:
                     raise
                 time.sleep(delay)
                 delay = min(delay * 2, 1.0)
                 continue
             started=time.monotonic()
+            body_finished=started;commit_finished=started;body_returned=False
             try:
                 yield db
+                body_finished=time.monotonic()
+                body_returned=True
                 db.commit()
+                commit_finished=time.monotonic()
             except Exception:
+                if not body_returned:body_finished=time.monotonic()
                 db.rollback()
+                commit_finished=time.monotonic()
                 raise
             finally:
-                elapsed=time.monotonic()-started
-                if elapsed>=SLOW_TX_SECONDS:
-                    _log_slow_write(elapsed,self.path,label)
                 db.close()
+                closed=time.monotonic();elapsed=closed-requested
+                if elapsed>=SLOW_TX_SECONDS:
+                    _log_slow_write(elapsed,self.path,label,{'wait':started-requested,'body':body_finished-started,'commit_or_rollback':commit_finished-body_finished,'close':closed-commit_finished})
             return
 
     @staticmethod
