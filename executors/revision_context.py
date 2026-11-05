@@ -1,5 +1,6 @@
 """Bounded source navigation and exact edits for large revision packages."""
 import hashlib
+import json
 from pathlib import Path
 from controlplane.repository import safe_relative
 
@@ -17,6 +18,14 @@ def digest(text):
 def editable(name):
     safe_relative(name)
     return name.split('/')[0] not in READ_ONLY and Path(name).suffix.lower() in TEXT
+
+def navigation_request(value):
+    if isinstance(value,str):
+        try:value=json.loads(value)
+        except ValueError:raise ValueError('Source request must be an object with path and range/search fields') from None
+    if not isinstance(value,dict):raise ValueError('Source request must be an object')
+    if not isinstance(value.get('path'),str):raise ValueError('Source request requires a string path')
+    return value
 
 class SourceContext:
     def __init__(self,code,entry):
@@ -77,6 +86,8 @@ class SourceContext:
 
     def reads(self,requests):
         if not isinstance(requests,list) or not 1<=len(requests)<=4:raise ValueError('Provide 1-4 read requests')
+        requests=[navigation_request(r) for r in requests]
+        if any(type(r.get('length',16000)) is not int for r in requests):raise ValueError('Source read length must be an integer')
         if sum(r.get('length',16000) for r in requests)>100000:raise ValueError('Read batch exceeds context budget')
         return [self.read(r['path'],r.get('offset',0),r.get('length',16000)) for r in requests]
 
@@ -84,6 +95,7 @@ class SourceContext:
         if not isinstance(requests,list) or not 1<=len(requests)<=4:raise ValueError('Provide 1-4 source searches')
         results=[]
         for request in requests:
+            request=navigation_request(request)
             name=request['path'];needle=request['text']
             if name not in self.code or not isinstance(needle,str) or not 1<=len(needle)<=200:raise ValueError('Invalid source search')
             text=self.code[name];offset=0;matches=[]
@@ -109,7 +121,8 @@ class SourceContext:
                     parts=self.reads([request]) if kind=='read_requests' else self.search([request])
                     self.retain(payload,parts)
                 except (ValueError,KeyError,TypeError) as exc:
-                    errors.append(str(request.get('path',''))+': '+str(exc))
+                    name=request.get('path','') if isinstance(request,dict) else 'invalid request'
+                    errors.append(str(name)+': '+str(exc))
         return '; '.join(errors) or None
 
     def covered(self,name,start,end):

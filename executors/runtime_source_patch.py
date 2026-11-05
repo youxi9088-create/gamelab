@@ -12,6 +12,11 @@ def sha(data):return hashlib.sha256(data).hexdigest()
 
 
 class RuntimeSourcePatch:
+    MAX_BYTES = 2_000_000
+
+    def syntax_sources(self, name, data):
+        return [data]
+
     def __init__(self, run, budget):
         self.run = Path(run).resolve()
         self.target = self.run / 'converted'
@@ -59,7 +64,7 @@ class RuntimeSourcePatch:
                 if text.count(old)!=1:raise ValueError('原文必须在当前模块中唯一匹配，禁止盲目全局替换')
                 text = text.replace(old,new,1)
             after = text.encode('utf-8')
-            if len(after)>2_000_000:raise ValueError('修改后模块超出限制')
+            if len(after)>self.MAX_BYTES:raise ValueError('修改后模块超出限制')
             prepared[name] = (before,after)
             rows.append({**allowed[name], 'after_sha256': sha(after), 'replacements': replacements})
         return prepared, rows
@@ -69,10 +74,11 @@ class RuntimeSourcePatch:
     def apply(self, arguments):
         prepared,rows = self.prepare(arguments)
         # Parse as modules without executing model-supplied code in the service process.
-        for before,after in prepared.values():
-            result = subprocess.run([node_binary(),'--input-type=module','--check'],input=after,
-                                    capture_output=True,timeout=self.budget.remaining(15))
-            if result.returncode:raise ValueError('修改后的 JavaScript 语法检查失败，未写入工作副本')
+        for name,(before,after) in prepared.items():
+            for source in self.syntax_sources(name,after):
+                result = subprocess.run([node_binary(),'--input-type=module','--check'],input=source,
+                                        capture_output=True,timeout=self.budget.remaining(15))
+                if result.returncode:raise ValueError('修改后的 JavaScript 语法检查失败，未写入工作副本')
         self.before = {name: before for name,(before,after) in prepared.items()}
         self.rows = rows;self.purpose = arguments['purpose'][:1600]
         for name,(before,after) in prepared.items():(self.run/name).write_bytes(after)

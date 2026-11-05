@@ -2,9 +2,35 @@
 from pathlib import Path
 from runtime_source_patch import RuntimeSourcePatch, sha
 from controlplane.offline_delivery import FEATURES
+from repair_context import linked
+from html.parser import HTMLParser
+
+
+class InlineScripts(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=False)
+        self.scripts=[];self.current=None
+    def handle_starttag(self,tag,attrs):
+        attrs=dict(attrs)
+        if tag=='script':
+            kind=attrs.get('type','').strip().lower()
+            self.current=[] if 'src' not in attrs and kind in ('','module','text/javascript','application/javascript') else None
+    def handle_data(self,text):
+        if self.current is not None:self.current.append(text)
+    def handle_endtag(self,tag):
+        if tag=='script' and self.current is not None:
+            self.scripts.append(''.join(self.current).encode('utf-8'));self.current=None
 
 
 class OfflineSourcePatch(RuntimeSourcePatch):
+    MAX_BYTES=4_000_000
+
+    def syntax_sources(self,name,data):
+        if Path(name).suffix.lower()!='.html':return [data]
+        parser=InlineScripts();parser.feed(data.decode('utf-8'));parser.close()
+        if parser.current is not None:raise ValueError('修改后的HTML含未闭合脚本')
+        return parser.scripts
+
     def __init__(self,run,budget,baseline):
         super().__init__(run,budget);self.baseline=Path(baseline).resolve()
 
@@ -12,11 +38,12 @@ class OfflineSourcePatch(RuntimeSourcePatch):
         result={}
         for working in self.target.rglob('*'):
             relative=working.relative_to(self.target)
-            if working.suffix.lower() not in ('.js','.mjs') or set(relative.parts)&{'vendor','assets','node_modules','_runtime_resources','evidence','verification','screenshots','platform-delivery','supply-delivery'}:continue
+            if working.suffix.lower() not in ('.js','.mjs','.html') or set(relative.parts)&{'vendor','assets','node_modules','_runtime_resources','evidence','verification','screenshots','platform-delivery','supply-delivery'}:continue
             original=self.baseline/relative
-            if working.is_symlink() or original.is_symlink() or not original.is_file() or not working.is_file():continue
+            if any(linked(p) for p in (working,original,*working.parents,*original.parents)):continue
+            if not original.is_file() or not working.is_file():continue
             if not working.resolve().is_relative_to(self.target) or not original.resolve().is_relative_to(self.baseline):continue
-            if not 0<working.stat().st_size<=2_000_000 or original.stat().st_size>2_000_000:continue
+            if not 0<working.stat().st_size<=self.MAX_BYTES or original.stat().st_size>self.MAX_BYTES:continue
             name='converted/'+relative.as_posix()
             result[name]={'path':name,'sha256':sha(working.read_bytes()),'original_sha256':sha(original.read_bytes()),'bytes':working.stat().st_size}
         return result

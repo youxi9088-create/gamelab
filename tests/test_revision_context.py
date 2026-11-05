@@ -8,6 +8,17 @@ from revision_context import SourceContext,digest,RevisionYield
 from continuation import revise
 
 class RevisionContextTests(unittest.TestCase):
+    def test_serialized_navigation_requests_and_bad_entries_preserve_successes(self):
+        context=SourceContext({'main.js':'const score = 1;'},'main.js');payload={}
+        request=json.dumps({'path':'main.js','offset':0,'length':16})
+        error=context.navigate(payload,{'read_requests':[request,'not json'],
+            'search_requests':[json.dumps({'path':'main.js','text':'score'})]})
+        self.assertIn('invalid request',error)
+        self.assertTrue(payload['source_excerpts'])
+        self.assertEqual(payload['source_search_results'][0]['total_matches'],1)
+        with self.assertRaises(ValueError):context.reads([{'path':'main.js','length':'large'}])
+        with self.assertRaises(ValueError):context.search([json.dumps(['main.js'])])
+
     def test_failed_browser_retry_preserves_edits_and_failure_feedback(self):
         with tempfile.TemporaryDirectory() as t:
             root=Path(t);src=root/'source';src.mkdir();run=root/'first';run.mkdir();second=root/'second';second.mkdir()
