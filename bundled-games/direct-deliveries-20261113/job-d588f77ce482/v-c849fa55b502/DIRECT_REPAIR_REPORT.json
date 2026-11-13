@@ -1,0 +1,691 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "click",
+        "selector": "canvas",
+        "x": 638,
+        "y": 592,
+        "result": "Original preloader Play directly enters menu"
+      },
+      {
+        "type": "click",
+        "selector": "canvas",
+        "x": 1040,
+        "y": 260,
+        "result": "Original combat loads"
+      },
+      {
+        "type": "drag",
+        "selector": "canvas",
+        "from": [
+          330,
+          350
+        ],
+        "to": [
+          180,
+          290
+        ],
+        "result": "Actual headshot kill, score1 and4coins"
+      },
+      {
+        "type": "click",
+        "selector": "canvas",
+        "x": 1240,
+        "y": 43,
+        "result": "Pause"
+      },
+      {
+        "type": "click",
+        "selector": "canvas",
+        "x": 758,
+        "y": 360,
+        "result": "Resume"
+      },
+      {
+        "type": "observe",
+        "result": "Original defeat after1kill: score1/best1, headshot1/arrows1/100%,4coins"
+      },
+      {
+        "type": "click",
+        "selector": "canvas",
+        "x": 640,
+        "y": 534,
+        "result": "Native replay resets score0 and retains4coins"
+      },
+      {
+        "type": "click",
+        "selector": "canvas",
+        "x": 519,
+        "y": 360,
+        "result": "Pause exit returns menu"
+      },
+      {
+        "type": "click",
+        "selector": "canvas",
+        "x": 1080,
+        "y": 380,
+        "result": "Native ordinary coin helmet shop; insufficient4<100 does not buy"
+      },
+      {
+        "type": "reload",
+        "result": "Fresh preloader/menu restores best1 and4coins"
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8885/",
+      "http://127.0.0.1:8885/jquery-2.1.1.min.js",
+      "http://127.0.0.1:8885/c2runtime.js",
+      "http://127.0.0.1:8885/data.js",
+      "http://127.0.0.1:8885/icon-256.png",
+      "http://127.0.0.1:8885/images/txtwhite.png",
+      "http://127.0.0.1:8885/images/txtwhite_black.png",
+      "http://127.0.0.1:8885/images/menu_play-sheet0.png",
+      "http://127.0.0.1:8885/images/titulo-sheet0.png",
+      "http://127.0.0.1:8885/media/music.ogg",
+      "http://127.0.0.1:8885/media/btnclick.ogg",
+      "http://127.0.0.1:8885/media/fire1.ogg",
+      "http://127.0.0.1:8885/media/fire2.ogg",
+      "http://127.0.0.1:8885/media/fire3.ogg",
+      "http://127.0.0.1:8885/media/impacto1.ogg",
+      "http://127.0.0.1:8885/media/impacto2.ogg",
+      "http://127.0.0.1:8885/media/grito1.ogg",
+      "http://127.0.0.1:8885/media/grito2.ogg",
+      "http://127.0.0.1:8885/media/grito3.ogg",
+      "http://127.0.0.1:8885/media/grito4.ogg",
+      "http://127.0.0.1:8885/media/grito5.ogg",
+      "http://127.0.0.1:8885/media/buy.ogg",
+      "http://127.0.0.1:8885/media/apple.ogg",
+      "http://127.0.0.1:8885/images/bgwin-sheet0.png",
+      "http://127.0.0.1:8885/images/btnmenuwin-sheet0.png",
+      "http://127.0.0.1:8885/images/btnmenuwin-sheet1.png",
+      "http://127.0.0.1:8885/images/btnplaywin-sheet0.png",
+      "http://127.0.0.1:8885/images/btnplaywin-sheet1.png",
+      "http://127.0.0.1:8885/images/btnmorewin-sheet0.png",
+      "http://127.0.0.1:8885/images/btnmorewin-sheet1.png",
+      "http://127.0.0.1:8885/images/star_complete-sheet0.png",
+      "http://127.0.0.1:8885/images/btnshop_win-sheet0.png",
+      "http://127.0.0.1:8885/images/btnshop_win-sheet1.png",
+      "http://127.0.0.1:8885/images/btnpausa-sheet0.png",
+      "http://127.0.0.1:8885/images/btnpausa-sheet1.png",
+      "http://127.0.0.1:8885/images/ui_music-sheet0.png",
+      "http://127.0.0.1:8885/images/ui_sound-sheet0.png",
+      "http://127.0.0.1:8885/images/ui_coin-sheet0.png",
+      "http://127.0.0.1:8885/images/ui_calavera-sheet0.png",
+      "http://127.0.0.1:8885/images/ui_apple-sheet0.png",
+      "http://127.0.0.1:8885/images/p_cabeza-sheet0.png",
+      "http://127.0.0.1:8885/images/p_cuerpo-sheet0.png",
+      "http://127.0.0.1:8885/images/p_brazo-sheet0.png",
+      "http://127.0.0.1:8885/images/p_mano-sheet0.png",
+      "http://127.0.0.1:8885/images/p_muslo-sheet0.png",
+      "http://127.0.0.1:8885/images/lanza-sheet0.png",
+      "http://127.0.0.1:8885/images/arco-sheet0.png",
+      "http://127.0.0.1:8885/images/flecha-sheet0.png",
+      "http://127.0.0.1:8885/images/arco_linea_up-sheet0.png",
+      "http://127.0.0.1:8885/images/punto_mano-sheet0.png",
+      "http://127.0.0.1:8885/images/cam-sheet0.png",
+      "http://127.0.0.1:8885/images/bggame-sheet0.png",
+      "http://127.0.0.1:8885/images/suelo-sheet0.png",
+      "http://127.0.0.1:8885/images/headshot-sheet0.png",
+      "http://127.0.0.1:8885/images/credits_bg-sheet0.png",
+      "http://127.0.0.1:8885/images/fade-sheet0.png",
+      "http://127.0.0.1:8885/images/menu_backclose-sheet0.png",
+      "http://127.0.0.1:8885/images/menu_backclose-sheet1.png",
+      "http://127.0.0.1:8885/images/menu_shop-sheet0.png",
+      "http://127.0.0.1:8885/images/menu_credits-sheet0.png",
+      "http://127.0.0.1:8885/images/menu_credits-sheet1.png",
+      "http://127.0.0.1:8885/images/menu_moregames-sheet0.png",
+      "http://127.0.0.1:8885/images/menu_moregames-sheet1.png",
+      "http://127.0.0.1:8885/images/menu_setting-sheet0.png",
+      "http://127.0.0.1:8885/images/bgmenu-sheet0.png",
+      "http://127.0.0.1:8885/images/shop_buy-sheet0.png",
+      "http://127.0.0.1:8885/images/shop_equip-sheet0.png",
+      "http://127.0.0.1:8885/images/shop_candado-sheet0.png",
+      "http://127.0.0.1:8885/images/pausa_bg-sheet0.png",
+      "http://127.0.0.1:8885/images/pausa_continuar-sheet0.png",
+      "http://127.0.0.1:8885/images/pausa_continuar-sheet1.png",
+      "http://127.0.0.1:8885/images/btncolor-sheet0.png",
+      "http://127.0.0.1:8885/images/btncolor-sheet1.png",
+      "http://127.0.0.1:8885/images/transicion-sheet0.png",
+      "http://127.0.0.1:8885/images/setting_sound-sheet0.png",
+      "http://127.0.0.1:8885/images/setting_sound-sheet1.png",
+      "http://127.0.0.1:8885/images/setting_music-sheet0.png",
+      "http://127.0.0.1:8885/images/setting_music-sheet1.png",
+      "http://127.0.0.1:8885/images/setting_moregames-sheet0.png",
+      "http://127.0.0.1:8885/images/bgshop-sheet0.png",
+      "http://127.0.0.1:8885/images/zolapa_bg-sheet0.png",
+      "http://127.0.0.1:8885/images/shopbg_item-sheet0.png",
+      "http://127.0.0.1:8885/images/bgshop2-sheet0.png",
+      "http://127.0.0.1:8885/images/logo_grande-sheet0.png",
+      "http://127.0.0.1:8885/images/circle-sheet0.png",
+      "http://127.0.0.1:8885/images/line-sheet0.png",
+      "http://127.0.0.1:8885/images/blood.png",
+      "http://127.0.0.1:8885/images/shop_rueda_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/masc-sheet0.png",
+      "http://127.0.0.1:8885/images/domed_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/shop_coin-sheet0.png",
+      "http://127.0.0.1:8885/images/txtshop.png",
+      "http://127.0.0.1:8885/images/kattle_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/nonla_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/adventurer_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/bucket_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/mask_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/french_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/soviet_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/watermelon_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/mushroom_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/manzana_p.png",
+      "http://127.0.0.1:8885/images/asd.png",
+      "http://127.0.0.1:8885/images/spawner-sheet0.png",
+      "http://127.0.0.1:8885/images/shop_helmet-sheet0.png",
+      "http://127.0.0.1:8885/",
+      "http://127.0.0.1:8885/jquery-2.1.1.min.js",
+      "http://127.0.0.1:8885/c2runtime.js",
+      "http://127.0.0.1:8885/data.js",
+      "http://127.0.0.1:8885/images/txtwhite.png",
+      "http://127.0.0.1:8885/images/txtwhite_black.png",
+      "http://127.0.0.1:8885/images/menu_play-sheet0.png",
+      "http://127.0.0.1:8885/images/titulo-sheet0.png",
+      "http://127.0.0.1:8885/icon-256.png",
+      "http://127.0.0.1:8885/media/music.ogg",
+      "http://127.0.0.1:8885/media/btnclick.ogg",
+      "http://127.0.0.1:8885/media/fire1.ogg",
+      "http://127.0.0.1:8885/media/fire2.ogg",
+      "http://127.0.0.1:8885/media/fire3.ogg",
+      "http://127.0.0.1:8885/media/impacto1.ogg",
+      "http://127.0.0.1:8885/media/impacto2.ogg",
+      "http://127.0.0.1:8885/media/grito1.ogg",
+      "http://127.0.0.1:8885/media/grito2.ogg",
+      "http://127.0.0.1:8885/media/grito3.ogg",
+      "http://127.0.0.1:8885/media/grito4.ogg",
+      "http://127.0.0.1:8885/media/grito5.ogg",
+      "http://127.0.0.1:8885/media/buy.ogg",
+      "http://127.0.0.1:8885/media/apple.ogg",
+      "http://127.0.0.1:8885/images/bgwin-sheet0.png",
+      "http://127.0.0.1:8885/images/btnmenuwin-sheet0.png",
+      "http://127.0.0.1:8885/images/btnmenuwin-sheet1.png",
+      "http://127.0.0.1:8885/images/btnplaywin-sheet0.png",
+      "http://127.0.0.1:8885/images/btnplaywin-sheet1.png",
+      "http://127.0.0.1:8885/images/btnmorewin-sheet0.png",
+      "http://127.0.0.1:8885/images/btnmorewin-sheet1.png",
+      "http://127.0.0.1:8885/images/star_complete-sheet0.png",
+      "http://127.0.0.1:8885/images/btnshop_win-sheet0.png",
+      "http://127.0.0.1:8885/images/btnshop_win-sheet1.png",
+      "http://127.0.0.1:8885/images/btnpausa-sheet0.png",
+      "http://127.0.0.1:8885/images/btnpausa-sheet1.png",
+      "http://127.0.0.1:8885/images/ui_music-sheet0.png",
+      "http://127.0.0.1:8885/images/ui_sound-sheet0.png",
+      "http://127.0.0.1:8885/images/ui_coin-sheet0.png",
+      "http://127.0.0.1:8885/images/ui_calavera-sheet0.png",
+      "http://127.0.0.1:8885/images/ui_apple-sheet0.png",
+      "http://127.0.0.1:8885/images/p_cabeza-sheet0.png",
+      "http://127.0.0.1:8885/images/p_cuerpo-sheet0.png",
+      "http://127.0.0.1:8885/images/p_brazo-sheet0.png",
+      "http://127.0.0.1:8885/images/p_mano-sheet0.png",
+      "http://127.0.0.1:8885/images/p_muslo-sheet0.png",
+      "http://127.0.0.1:8885/images/lanza-sheet0.png",
+      "http://127.0.0.1:8885/images/arco-sheet0.png",
+      "http://127.0.0.1:8885/images/flecha-sheet0.png",
+      "http://127.0.0.1:8885/images/arco_linea_up-sheet0.png",
+      "http://127.0.0.1:8885/images/punto_mano-sheet0.png",
+      "http://127.0.0.1:8885/images/cam-sheet0.png",
+      "http://127.0.0.1:8885/images/bggame-sheet0.png",
+      "http://127.0.0.1:8885/images/suelo-sheet0.png",
+      "http://127.0.0.1:8885/images/headshot-sheet0.png",
+      "http://127.0.0.1:8885/images/credits_bg-sheet0.png",
+      "http://127.0.0.1:8885/images/fade-sheet0.png",
+      "http://127.0.0.1:8885/images/menu_backclose-sheet0.png",
+      "http://127.0.0.1:8885/images/menu_backclose-sheet1.png",
+      "http://127.0.0.1:8885/images/menu_shop-sheet0.png",
+      "http://127.0.0.1:8885/images/menu_credits-sheet0.png",
+      "http://127.0.0.1:8885/images/menu_credits-sheet1.png",
+      "http://127.0.0.1:8885/images/menu_moregames-sheet0.png",
+      "http://127.0.0.1:8885/images/menu_moregames-sheet1.png",
+      "http://127.0.0.1:8885/images/menu_setting-sheet0.png",
+      "http://127.0.0.1:8885/images/bgmenu-sheet0.png",
+      "http://127.0.0.1:8885/images/shop_buy-sheet0.png",
+      "http://127.0.0.1:8885/images/shop_equip-sheet0.png",
+      "http://127.0.0.1:8885/images/shop_candado-sheet0.png",
+      "http://127.0.0.1:8885/images/pausa_bg-sheet0.png",
+      "http://127.0.0.1:8885/images/pausa_continuar-sheet0.png",
+      "http://127.0.0.1:8885/images/pausa_continuar-sheet1.png",
+      "http://127.0.0.1:8885/images/btncolor-sheet0.png",
+      "http://127.0.0.1:8885/images/btncolor-sheet1.png",
+      "http://127.0.0.1:8885/images/transicion-sheet0.png",
+      "http://127.0.0.1:8885/images/setting_sound-sheet0.png",
+      "http://127.0.0.1:8885/images/setting_sound-sheet1.png",
+      "http://127.0.0.1:8885/images/setting_music-sheet0.png",
+      "http://127.0.0.1:8885/images/setting_music-sheet1.png",
+      "http://127.0.0.1:8885/images/setting_moregames-sheet0.png",
+      "http://127.0.0.1:8885/images/bgshop-sheet0.png",
+      "http://127.0.0.1:8885/images/zolapa_bg-sheet0.png",
+      "http://127.0.0.1:8885/images/shopbg_item-sheet0.png",
+      "http://127.0.0.1:8885/images/bgshop2-sheet0.png",
+      "http://127.0.0.1:8885/images/logo_grande-sheet0.png",
+      "http://127.0.0.1:8885/images/circle-sheet0.png",
+      "http://127.0.0.1:8885/images/line-sheet0.png",
+      "http://127.0.0.1:8885/images/blood.png",
+      "http://127.0.0.1:8885/images/shop_rueda_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/masc-sheet0.png",
+      "http://127.0.0.1:8885/images/domed_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/shop_coin-sheet0.png",
+      "http://127.0.0.1:8885/images/txtshop.png",
+      "http://127.0.0.1:8885/images/kattle_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/nonla_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/adventurer_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/bucket_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/mask_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/french_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/soviet_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/watermelon_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/mushroom_helmet-sheet0.png",
+      "http://127.0.0.1:8885/images/manzana_p.png",
+      "http://127.0.0.1:8885/images/asd.png",
+      "http://127.0.0.1:8885/images/spawner-sheet0.png",
+      "http://127.0.0.1:8885/images/shop_helmet-sheet0.png"
+    ],
+    "scope": "Desktop IAB1280x720. Final source actual headshot kill then native defeat: score1/best1, headshot1/arrows1/100%,4coins. Replay starts score0 retaining4coins, pause/resume/back and insufficient-coins shop observed; reload menu restores best1/coins4. Earlier two rounds defeated score0. This is original endless combat, no campaign victory claimed. All enemy variants, high score difficulty, affordable helmet purchases, mobile touch and audible sound not exhausted. Complete non-truncated final network covers full path.",
+    "network_scope": "Final native clock/transition repair: reload, preloader/menu, actual headshot/score1/coins4 and defeat result, replay reset, pause/back, insufficient-coins shop and refresh best1/coins4.",
+    "evidence": "evidence/direct-repair/network.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "Original single-player combat and local score/coin storage remain. Removed Poki SDK/bootstrap, all ePoki host functions and callers, ad-return polling and external credit navigation. Native preloader/replay/menu transitions directly resume original clock/audio/fade; no ad success flags/callbacks or reward fabricated. No online room/leaderboard/payment code is initialized; shop spends earned ordinary coins only.",
+      "evidence": [
+        "data.js",
+        "index.html",
+        "evidence/direct-repair/network.json",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "Original single-player combat and local score/coin storage remain. Removed Poki SDK/bootstrap, all ePoki host functions and callers, ad-return polling and external credit navigation. Native preloader/replay/menu transitions directly resume original clock/audio/fade; no ad success flags/callbacks or reward fabricated. No online room/leaderboard/payment code is initialized; shop spends earned ordinary coins only.",
+      "evidence": [
+        "data.js",
+        "index.html",
+        "evidence/direct-repair/network.json",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "Original single-player combat and local score/coin storage remain. Removed Poki SDK/bootstrap, all ePoki host functions and callers, ad-return polling and external credit navigation. Native preloader/replay/menu transitions directly resume original clock/audio/fade; no ad success flags/callbacks or reward fabricated. No online room/leaderboard/payment code is initialized; shop spends earned ordinary coins only.",
+      "evidence": [
+        "data.js",
+        "index.html",
+        "evidence/direct-repair/network.json",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "Original single-player combat and local score/coin storage remain. Removed Poki SDK/bootstrap, all ePoki host functions and callers, ad-return polling and external credit navigation. Native preloader/replay/menu transitions directly resume original clock/audio/fade; no ad success flags/callbacks or reward fabricated. No online room/leaderboard/payment code is initialized; shop spends earned ordinary coins only.",
+      "evidence": [
+        "data.js",
+        "index.html",
+        "evidence/direct-repair/network.json",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "Actual throw/headshot kill, defeat settlement1/4coins, replay resets0.",
+      "evidence": [
+        "evidence/direct-repair/result-score1-coins4-final.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "Original local sprites/media preload complete; no failed/external requests.",
+      "evidence": [
+        "evidence/direct-repair/reload-best1-coins4-final.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Original preloader/menu/combat/result/shop render.",
+      "evidence": [
+        "evidence/direct-repair/coin-shop-final.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "Original arrow trajectory/collision/headshot and enemies actually used.",
+      "evidence": [
+        "evidence/direct-repair/headshot-score1-coins4-paused.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "Original player/enemy physics/throw/death animation.",
+      "evidence": [
+        "evidence/direct-repair/headshot-score1-coins4-paused.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Projectile/body physics, menu fades, pause/resume actual.",
+      "evidence": [
+        "evidence/direct-repair/pause-final.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "Results/replay/menu/shop and refresh best1/4coins observed.",
+      "evidence": [
+        "evidence/direct-repair/reload-best1-coins4-final.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "click",
+      "selector": "canvas",
+      "x": 638,
+      "y": 592,
+      "result": "Original preloader Play directly enters menu"
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "x": 1040,
+      "y": 260,
+      "result": "Original combat loads"
+    },
+    {
+      "type": "drag",
+      "selector": "canvas",
+      "from": [
+        330,
+        350
+      ],
+      "to": [
+        180,
+        290
+      ],
+      "result": "Actual headshot kill, score1 and4coins"
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "x": 1240,
+      "y": 43,
+      "result": "Pause"
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "x": 758,
+      "y": 360,
+      "result": "Resume"
+    },
+    {
+      "type": "observe",
+      "result": "Original defeat after1kill: score1/best1, headshot1/arrows1/100%,4coins"
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "x": 640,
+      "y": 534,
+      "result": "Native replay resets score0 and retains4coins"
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "x": 519,
+      "y": 360,
+      "result": "Pause exit returns menu"
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "x": 1080,
+      "y": 380,
+      "result": "Native ordinary coin helmet shop; insufficient4<100 does not buy"
+    },
+    {
+      "type": "reload",
+      "result": "Fresh preloader/menu restores best1 and4coins"
+    }
+  ],
+  "scope": "Desktop IAB1280x720. Final source actual headshot kill then native defeat: score1/best1, headshot1/arrows1/100%,4coins. Replay starts score0 retaining4coins, pause/resume/back and insufficient-coins shop observed; reload menu restores best1/coins4. Earlier two rounds defeated score0. This is original endless combat, no campaign victory claimed. All enemy variants, high score difficulty, affordable helmet purchases, mobile touch and audible sound not exhausted. Complete non-truncated final network covers full path.",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "Original readable Construct2 runtime exact original SHA; original object/layout data retained. Actual headshot score and defeat/replay verified.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best1-coins4-final.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "Original local sprites/media retained; complete final runtime no failed/external request.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best1-coins4-final.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "11 other event sheets canonical unchanged SHA; original combat/scoring/save data retained. Only host/ads/credit transitions changed.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best1-coins4-final.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "Original local storage SaveGame/LoadGame retained, actual refresh best1/coins4. No backend needed by original combat.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best1-coins4-final.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "Removed SDK/init and ePoki callbacks/callers; native transitions resume original clock/fades without ad-state fabrication.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best1-coins4-final.png",
+        "next_action": ""
+      }
+    ],
+    "scope": "Desktop IAB1280x720. Final source actual headshot kill then native defeat: score1/best1, headshot1/arrows1/100%,4coins. Replay starts score0 retaining4coins, pause/resume/back and insufficient-coins shop observed; reload menu restores best1/coins4. Earlier two rounds defeated score0. This is original endless combat, no campaign victory claimed. All enemy variants, high score difficulty, affordable helmet purchases, mobile touch and audible sound not exhausted. Complete non-truncated final network covers full path."
+  },
+  "dependency_review": {
+    "previous_revision": 2,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "离线启动通过；广告过滤及被拒绝请求见 runtime_smoke，存档及结算尚未验证",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证保存恢复和阶段结果"
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 2,
+      "updated_at": "2026-11-03T14:12:20+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "Original readable Construct2 runtime exact original SHA; original object/layout data retained. Actual headshot score and defeat/replay verified.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best1-coins4-final.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "Original local sprites/media retained; complete final runtime no failed/external request.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best1-coins4-final.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "11 other event sheets canonical unchanged SHA; original combat/scoring/save data retained. Only host/ads/credit transitions changed.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best1-coins4-final.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "Original local storage SaveGame/LoadGame retained, actual refresh best1/coins4. No backend needed by original combat.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best1-coins4-final.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "Removed SDK/init and ePoki callbacks/callers; native transitions resume original clock/fades without ad-state fabrication.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best1-coins4-final.png",
+          "next_action": ""
+        }
+      ],
+      "scope": "Desktop IAB1280x720. Final source actual headshot kill then native defeat: score1/best1, headshot1/arrows1/100%,4coins. Replay starts score0 retaining4coins, pause/resume/back and insufficient-coins shop observed; reload menu restores best1/coins4. Earlier two rounds defeated score0. This is original endless combat, no campaign victory claimed. All enemy variants, high score difficulty, affordable helmet purchases, mobile touch and audible sound not exhausted. Complete non-truncated final network covers full path."
+    },
+    "basis": "Actual source and UI proof; normal revisioned dependency API before task completion."
+  },
+  "base_version_id": "v-c5ead5b51c32",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "original_job": "job-d588f77ce482",
+    "at": "2026-11-11T16:44:39.938581+00:00"
+  },
+  "game_profile": {
+    "category": "动作 · 长矛投掷",
+    "dimension": "",
+    "perspective": "",
+    "core_gameplay": "Drag back and release to throw original spears at enemies; survive and score.",
+    "core_experience": "",
+    "controls": "Mouse drag/release, native pause/resume/back/replay/shop.",
+    "game_loop": "",
+    "content": "",
+    "progression": "",
+    "save": "Original Construct2 local storage, refresh restores best1 and4coins.",
+    "rules": "",
+    "systems": "",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "Desktop IAB1280x720. Final source actual headshot kill then native defeat: score1/best1, headshot1/arrows1/100%,4coins. Replay starts score0 retaining4coins, pause/resume/back and insufficient-coins shop observed; reload menu restores best1/coins4. Earlier two rounds defeated score0. This is original endless combat, no campaign victory claimed. All enemy variants, high score difficulty, affordable helmet purchases, mobile touch and audible sound not exhausted. Complete non-truncated final network covers full path.",
+    "evidence": "",
+    "illustrations": [
+      {
+        "path": "screenshots/startup.png",
+        "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Readable c2runtime.js Construct2 engine and structured data.js original event sheets/layout/object rules.",
+    "reuse": "Event-sheet combat/save and physics require extraction with Construct2 compatibility; not separately certified reusable modules.",
+    "dependencies": "Local Construct2, jQuery, original sprites/media and localForage save; no host/backend.",
+    "preservation": "Exact original engine SHA and11unchanged event sheets; original project objects/layouts/physics/scoring/save retained. No health/difficulty/score changes."
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

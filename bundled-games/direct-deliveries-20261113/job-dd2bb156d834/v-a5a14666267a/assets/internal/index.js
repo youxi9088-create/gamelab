@@ -1,0 +1,1 @@
+require("assets/internal/index.js");

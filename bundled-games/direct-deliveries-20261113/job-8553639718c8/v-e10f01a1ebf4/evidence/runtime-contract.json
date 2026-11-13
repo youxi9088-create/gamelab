@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "registry_revision": "2026-10-30.1",
+  "features": {
+    "script": true,
+    "ruffle": false,
+    "swf": false,
+    "ccsettings": false,
+    "cocos2": false,
+    "defold-loader": false,
+    "defold-call": false,
+    "remix-sdk": false,
+    "module": true,
+    "importmap": true,
+    "unity": false
+  },
+  "selected": [
+    {
+      "id": "loader.browser",
+      "version": 1,
+      "group": "loader",
+      "adapter": "browser",
+      "provides": [
+        "browser-observed-capture"
+      ],
+      "evidence": [
+        "script"
+      ]
+    }
+  ],
+  "ambiguous": [],
+  "rejected": [
+    {
+      "id": "loader.ruffle",
+      "missing": [
+        "ruffle",
+        "swf"
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "loader.cocos2",
+      "missing": [
+        "ccsettings",
+        "cocos2"
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "loader.defold",
+      "missing": [
+        "defold-loader",
+        "defold-call"
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "host.remix",
+      "missing": [
+        "remix-sdk"
+      ],
+      "conflicts": []
+    }
+  ],
+  "engine": "browser",
+  "status": "matched",
+  "candidate": null,
+  "entry": "https://playground-gateway-v2-snduoq54tq-uc.a.run.app/api/server/a2b50097-0a05-4b4c-9b37-6df465b98666/index.html",
+  "source_sha256": "97c943a495d93d87d9af18bd694330671788ff17bd332d0304c4b7d734cafaa4",
+  "stage": "runtime-verified",
+  "verification": "startup-only",
+  "history": [
+    {
+      "stage": "entry-observed",
+      "registry_revision": "2026-10-30.1",
+      "source_sha256": "97c943a495d93d87d9af18bd694330671788ff17bd332d0304c4b7d734cafaa4",
+      "selected": [
+        "loader.browser"
+      ]
+    },
+    {
+      "stage": "captured",
+      "engine": "browser",
+      "files": 41
+    },
+    {
+      "stage": "runtime-failed",
+      "errors": 0,
+      "missing": 0,
+      "required_external": 4
+    },
+    {
+      "stage": "runtime-failed",
+      "errors": 0,
+      "missing": 0,
+      "required_external": 1
+    },
+    {
+      "stage": "runtime-verified",
+      "passed": true,
+      "actions": 0,
+      "scope": "Offline startup and executed inputs; gameplay acceptance is independent"
+    }
+  ]
+}

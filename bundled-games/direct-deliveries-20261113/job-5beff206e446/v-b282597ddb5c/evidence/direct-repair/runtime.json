@@ -1,0 +1,180 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "warnings": [],
+  "missing": [],
+  "required_external": [],
+  "non_game_http_findings": [],
+  "non_game_http_resolution": "",
+  "actions": [
+    {
+      "step": 1,
+      "type": "setup",
+      "result": "原Level1/Deckhand/本地Pirate，PLAY进入。",
+      "selector": "index.html / PLAY"
+    },
+    {
+      "step": 2,
+      "type": "original-cut",
+      "result": "原10/10平局正常重切，未重置牌局或注入RNG。",
+      "selector": "Face-down cut card1 and recut2"
+    },
+    {
+      "step": 3,
+      "type": "discard-and-pegging",
+      "result": "原六弃二、四张出牌、31限制及GO；每次输入见完整台账。",
+      "selector": "Original card buttons / Submit discard / CALL GO"
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "result": "玩家7/电脑14、Next Hand，不声称全场胜利。",
+      "selector": "COUNT HAND"
+    },
+    {
+      "step": 5,
+      "type": "reload-and-return",
+      "result": "真实刷新、ReturnToGame恢复同一牌面与7/14。",
+      "selector": "Document reload / RETURN TO GAME"
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:9010/index.html",
+    "http://127.0.0.1:9010/rosebud-game-defaults.css",
+    "http://127.0.0.1:9010/private-chat.css",
+    "http://127.0.0.1:9010/main.js",
+    "http://127.0.0.1:9010/_remote/662ad3731c0723a6/phaser.esm.js",
+    "http://127.0.0.1:9010/id.js",
+    "http://127.0.0.1:9010/cribbage-logic.js",
+    "http://127.0.0.1:9010/victory-results.js",
+    "http://127.0.0.1:9010/background-music.js",
+    "http://127.0.0.1:9010/assets/turbo-crib-dark-english-galleon-bg.webp",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX/AP804Oa6AAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+    "http://127.0.0.1:9010/assets/turbocrib-ship-logo-no-bg-no-text.png",
+    "http://127.0.0.1:9010/assets/golden-speaker-volume-icon-small.png",
+    "http://127.0.0.1:9010/assets/the-galleons-gambit.mp3",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX//wCKxvRFAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+    "http://127.0.0.1:9010/assets/cut-for-deal-dark-ocean.webp",
+    "http://127.0.0.1:9010/assets/turbocrib-card-back-compressed.jpg",
+    "http://127.0.0.1:9010/assets/weathered-driftwood-grain-small.png",
+    "http://127.0.0.1:9010/assets/galleon-simple-small-3d-2.png",
+    "http://127.0.0.1:9010/assets/anchor-simple-small-3d-brighter.png",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg==",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ9JREFUeNq01ssOwyAMRFG46v//Mt1ESmgh+DFmE2GPOBARKb2NVjo+17PXLD8a1+pl5+A+wSgFygymWYHBb0FtsKhJDdZlncG2IzJ4ayoMDv20wTmSMzClEgbWYNTAkQ0Z+OJ+A/eWnAaR9+oxCF4Os0H8htsMUp+pwcgBBiMNnAwF8GqIgL2hAzaGFFgZauDPKABmowZ4GL369/0rwACp2yA/ttmvsQAAAABJRU5ErkJggg==",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABdJREFUeNpi/P//PwMMMDEgAdwcgAADAJZuAwXJYZOzAAAAAElFTkSuQmCC",
+    "http://127.0.0.1:9010/assets/audio/card-shuffle-round-start.mp3",
+    "http://127.0.0.1:9010/assets/audio/your-turn-3-beeps.mp3",
+    "http://127.0.0.1:9010/assets/audio/peg-thunk.mp3",
+    "http://127.0.0.1:9010/assets/audio/peg-thunk.mp3",
+    "http://127.0.0.1:9010/assets/audio/your-turn-3-beeps.mp3",
+    "http://127.0.0.1:9010/assets/audio/peg-thunk.mp3",
+    "http://127.0.0.1:9010/assets/audio/your-turn-3-beeps.mp3",
+    "http://127.0.0.1:9010/assets/audio/peg-thunk.mp3",
+    "http://127.0.0.1:9010/assets/audio/peg-thunk.mp3",
+    "http://127.0.0.1:9010/index.html",
+    "http://127.0.0.1:9010/rosebud-game-defaults.css",
+    "http://127.0.0.1:9010/private-chat.css",
+    "http://127.0.0.1:9010/main.js",
+    "http://127.0.0.1:9010/_remote/662ad3731c0723a6/phaser.esm.js",
+    "http://127.0.0.1:9010/id.js",
+    "http://127.0.0.1:9010/cribbage-logic.js",
+    "http://127.0.0.1:9010/victory-results.js",
+    "http://127.0.0.1:9010/background-music.js",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX/AP804Oa6AAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+    "http://127.0.0.1:9010/assets/turbocrib-ship-logo-no-bg-no-text.png",
+    "http://127.0.0.1:9010/assets/golden-speaker-volume-icon-small.png",
+    "http://127.0.0.1:9010/assets/turbo-crib-dark-english-galleon-bg.webp",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX//wCKxvRFAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+    "http://127.0.0.1:9010/assets/the-galleons-gambit.mp3",
+    "http://127.0.0.1:9010/assets/weathered-driftwood-grain-small.png",
+    "http://127.0.0.1:9010/assets/turbocrib-card-back-compressed.jpg",
+    "http://127.0.0.1:9010/assets/galleon-simple-small-3d-2.png",
+    "http://127.0.0.1:9010/assets/anchor-simple-small-3d-brighter.png"
+  ],
+  "scope": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+  "network_scope": "Complete startup through one native CPU hand, native scoring and actual reload/Return to Game; no second hand or match-victory claim.",
+  "evidence": "evidence/direct-repair/network-final.json",
+  "expected_media_cancellations": [
+    {
+      "event": {
+        "sequence": 190,
+        "source": {
+          "tabId": 61
+        },
+        "method": "Network.loadingFailed",
+        "params": {
+          "canceled": true,
+          "errorText": "net::ERR_ABORTED",
+          "requestId": "63776.22",
+          "timestamp": 1318438.814334,
+          "type": "Media"
+        }
+      },
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 813969,
+        "connectionReused": false,
+        "encodedDataLength": 191,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Content-Length": "1253300",
+          "Content-type": "audio/mpeg",
+          "Date": "Fri, 13 Nov 2026 09:17:05 GMT",
+          "Last-Modified": "Thu, 12 Nov 2026 22:17:18 GMT",
+          "Server": "SimpleHTTP/0.6 Python/3.14.4"
+        },
+        "mimeType": "audio/mpeg",
+        "protocol": "http/1.0",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 9010,
+        "responseTime": 1794561425472.584,
+        "securityState": "secure",
+        "status": 200,
+        "statusText": "OK",
+        "timing": {
+          "connectEnd": 0.777,
+          "connectStart": 0.396,
+          "dnsEnd": 0.396,
+          "dnsStart": 0.387,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 2.75,
+          "receiveHeadersStart": 2.677,
+          "requestTime": 1318423.764257,
+          "sendEnd": 0.909,
+          "sendStart": 0.821,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:9010/assets/the-galleons-gambit.mp3"
+      },
+      "reason": "原背景音乐HTTP200后浏览器Media canceled ERR_ABORTED，原字节及GET/SHA保留，不声明听觉验证。"
+    }
+  ]
+}

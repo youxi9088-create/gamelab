@@ -1,0 +1,5567 @@
+{
+  "events": [
+    {
+      "sequence": 27,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "type": "other"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "requestId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "timestamp": 1210627.887023,
+        "type": "Document",
+        "wallTime": 1794453630.305784
+      }
+    },
+    {
+      "sequence": 31,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545769,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "13848",
+            "Content-type": "text/html",
+            "Date": "Thu, 12 Nov 2026 03:20:30 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:20:15 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "text/html",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453630308.66,
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.638,
+            "connectStart": 0.316,
+            "dnsEnd": 0.316,
+            "dnsStart": 0.311,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.709,
+            "receiveHeadersStart": 1.504,
+            "requestTime": 1210627.888145,
+            "sendEnd": 0.73,
+            "sendStart": 0.679,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/"
+        },
+        "timestamp": 1210627.890943,
+        "type": "Document"
+      }
+    },
+    {
+      "sequence": 38,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 66,
+          "lineNumber": 10,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "Blocking",
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8897/"
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/3a125e88c76c9347/css2"
+        },
+        "requestId": "59144.26",
+        "timestamp": 1210627.897183,
+        "type": "Stylesheet",
+        "wallTime": 1794453630.315852
+      }
+    },
+    {
+      "sequence": 40,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.26",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545647,
+          "connectionReused": false,
+          "encodedDataLength": 7889,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "7687",
+            "Content-type": "application/octet-stream",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:19:33 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/octet-stream",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629835.807,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.685,
+            "connectStart": 0.277,
+            "dnsEnd": 0.277,
+            "dnsStart": 0.271,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.953,
+            "receiveHeadersStart": 1.872,
+            "requestTime": 1210627.414924,
+            "sendEnd": 0.793,
+            "sendStart": 0.733,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/3a125e88c76c9347/css2"
+        },
+        "timestamp": 1210627.897216,
+        "type": "Stylesheet"
+      }
+    },
+    {
+      "sequence": 43,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 64,
+          "lineNumber": 11,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "Blocking",
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8897/"
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/rosebud-game-defaults.css"
+        },
+        "requestId": "59144.27",
+        "timestamp": 1210627.897242,
+        "type": "Stylesheet",
+        "wallTime": 1794453630.315903
+      }
+    },
+    {
+      "sequence": 45,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.27",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545653,
+          "connectionReused": false,
+          "encodedDataLength": 688,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "503",
+            "Content-type": "text/css",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:19:32 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "text/css",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629841.331,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 6.583,
+            "connectStart": 6.213,
+            "dnsEnd": 6.213,
+            "dnsStart": 6.207,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 7.423,
+            "receiveHeadersStart": 7.327,
+            "requestTime": 1210627.414993,
+            "sendEnd": 6.675,
+            "sendStart": 6.633,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/rosebud-game-defaults.css"
+        },
+        "timestamp": 1210627.897253,
+        "type": "Stylesheet"
+      }
+    },
+    {
+      "sequence": 48,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 51,
+          "lineNumber": 12,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8897/"
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/rosebud-game-defaults.js"
+        },
+        "requestId": "59144.28",
+        "timestamp": 1210627.897266,
+        "type": "Script",
+        "wallTime": 1794453630.315928
+      }
+    },
+    {
+      "sequence": 50,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.28",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545663,
+          "connectionReused": false,
+          "encodedDataLength": 1004,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "805",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:30 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629847.186,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.44,
+            "connectStart": 0.16,
+            "dnsEnd": 0.16,
+            "dnsStart": 0.154,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.141,
+            "receiveHeadersStart": 1.085,
+            "requestTime": 1210627.42709,
+            "sendEnd": 0.511,
+            "sendStart": 0.477,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/rosebud-game-defaults.js"
+        },
+        "timestamp": 1210627.897277,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 53,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 42,
+          "lineNumber": 201,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "requestId": "59144.29",
+        "timestamp": 1210627.89729,
+        "type": "Script",
+        "wallTime": 1794453630.31595
+      }
+    },
+    {
+      "sequence": 55,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.29",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545657,
+          "connectionReused": false,
+          "encodedDataLength": 60293,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "60092",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:20:15 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629841.503,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 6.529,
+            "connectStart": 6.364,
+            "dnsEnd": 6.364,
+            "dnsStart": 6.363,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 7.795,
+            "receiveHeadersStart": 7.432,
+            "requestTime": 1210627.41506,
+            "sendEnd": 6.648,
+            "sendStart": 6.625,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "timestamp": 1210627.897299,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 62,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 23,
+          "lineNumber": 0,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/main.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+        },
+        "requestId": "59144.34",
+        "timestamp": 1210627.911133,
+        "type": "Script",
+        "wallTime": 1794453630.329802
+      }
+    },
+    {
+      "sequence": 64,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.34",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545672,
+          "connectionReused": false,
+          "encodedDataLength": 326,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "127",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629850.491,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.499,
+            "connectStart": 0.229,
+            "dnsEnd": 0.229,
+            "dnsStart": 0.224,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.549,
+            "receiveHeadersStart": 1.464,
+            "requestTime": 1210627.430016,
+            "sendEnd": 0.567,
+            "sendStart": 0.531,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+        },
+        "timestamp": 1210627.911159,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 67,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 35,
+          "lineNumber": 1,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/main.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js"
+        },
+        "requestId": "59144.35",
+        "timestamp": 1210627.911191,
+        "type": "Script",
+        "wallTime": 1794453630.329851
+      }
+    },
+    {
+      "sequence": 69,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.35",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545677,
+          "connectionReused": false,
+          "encodedDataLength": 371,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "172",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629851.092,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.94,
+            "connectStart": 0.63,
+            "dnsEnd": 0.63,
+            "dnsStart": 0.627,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.528,
+            "receiveHeadersStart": 1.949,
+            "requestTime": 1210627.430132,
+            "sendEnd": 1.006,
+            "sendStart": 0.972,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js"
+        },
+        "timestamp": 1210627.911202,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 72,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 151,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/main.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/level.js"
+        },
+        "requestId": "59144.36",
+        "timestamp": 1210627.911219,
+        "type": "Script",
+        "wallTime": 1794453630.32988
+      }
+    },
+    {
+      "sequence": 74,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.36",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545688,
+          "connectionReused": false,
+          "encodedDataLength": 14304,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "14103",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:30 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629851.616,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.887,
+            "connectStart": 0.751,
+            "dnsEnd": 0.751,
+            "dnsStart": 0.749,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.94,
+            "receiveHeadersStart": 2.408,
+            "requestTime": 1210627.430197,
+            "sendEnd": 0.977,
+            "sendStart": 0.954,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/level.js"
+        },
+        "timestamp": 1210627.911229,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 77,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 76,
+          "lineNumber": 3,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/main.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/i18n.js"
+        },
+        "requestId": "59144.37",
+        "timestamp": 1210627.911242,
+        "type": "Script",
+        "wallTime": 1794453630.329903
+      }
+    },
+    {
+      "sequence": 79,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.37",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545693,
+          "connectionReused": false,
+          "encodedDataLength": 28745,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "28544",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:30 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629852.168,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.761,
+            "connectStart": 0.603,
+            "dnsEnd": 0.603,
+            "dnsStart": 0.601,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.676,
+            "receiveHeadersStart": 2.52,
+            "requestTime": 1210627.430637,
+            "sendEnd": 0.804,
+            "sendStart": 0.777,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/i18n.js"
+        },
+        "timestamp": 1210627.911252,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 82,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 7,
+          "lineNumber": 1,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+        },
+        "requestId": "59144.38",
+        "timestamp": 1210627.911359,
+        "type": "Script",
+        "wallTime": 1794453630.330019
+      }
+    },
+    {
+      "sequence": 84,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.38",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545703,
+          "connectionReused": false,
+          "encodedDataLength": 381956,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "381754",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629855.315,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 2.037,
+            "connectStart": 1.487,
+            "dnsEnd": 1.487,
+            "dnsStart": 1.481,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.821,
+            "receiveHeadersStart": 2.728,
+            "requestTime": 1210627.433577,
+            "sendEnd": 2.134,
+            "sendStart": 2.091,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+        },
+        "timestamp": 1210627.91137,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 87,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/b27e1bc27ef59d52/three.mjs.js"
+        },
+        "requestId": "59144.39",
+        "timestamp": 1210627.91139,
+        "type": "Script",
+        "wallTime": 1794453630.330051
+      }
+    },
+    {
+      "sequence": 89,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.39",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545707,
+          "connectionReused": false,
+          "encodedDataLength": 365753,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "365551",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629855.584,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.544,
+            "connectStart": 1.26,
+            "dnsEnd": 1.26,
+            "dnsStart": 1.257,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.586,
+            "receiveHeadersStart": 2.49,
+            "requestTime": 1210627.434083,
+            "sendEnd": 1.664,
+            "sendStart": 1.641,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/b27e1bc27ef59d52/three.mjs.js"
+        },
+        "timestamp": 1210627.9114,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 92,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/c5daec8564995c4e/RoundedBoxGeometry.mjs.js"
+        },
+        "requestId": "59144.40",
+        "timestamp": 1210627.911456,
+        "type": "Script",
+        "wallTime": 1794453630.330117
+      }
+    },
+    {
+      "sequence": 94,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.40",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545711,
+          "connectionReused": false,
+          "encodedDataLength": 2068,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "1868",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629855.657,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.856,
+            "connectStart": 0.699,
+            "dnsEnd": 0.699,
+            "dnsStart": 0.698,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.019,
+            "receiveHeadersStart": 1.866,
+            "requestTime": 1210627.43478,
+            "sendEnd": 1.002,
+            "sendStart": 0.978,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/c5daec8564995c4e/RoundedBoxGeometry.mjs.js"
+        },
+        "timestamp": 1210627.911466,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 97,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "stack": {
+            "callFrames": [
+              {
+                "columnNumber": 37093,
+                "functionName": "load",
+                "lineNumber": 5,
+                "scriptId": "18",
+                "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+              },
+              {
+                "columnNumber": 38594,
+                "functionName": "load",
+                "lineNumber": 5,
+                "scriptId": "18",
+                "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+              },
+              {
+                "columnNumber": 19,
+                "functionName": "loadTiled",
+                "lineNumber": 61,
+                "scriptId": "9",
+                "url": "http://127.0.0.1:8897/main.js"
+              },
+              {
+                "columnNumber": 16,
+                "functionName": "",
+                "lineNumber": 66,
+                "scriptId": "9",
+                "url": "http://127.0.0.1:8897/main.js"
+              }
+            ]
+          },
+          "type": "script"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/"
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/asphalt-tile.webp"
+        },
+        "requestId": "59144.41",
+        "timestamp": 1210627.922326,
+        "type": "Image",
+        "wallTime": 1794453630.34188
+      }
+    },
+    {
+      "sequence": 99,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.41",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545729,
+          "connectionReused": false,
+          "encodedDataLength": 222406,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "222216",
+            "Content-type": "image/webp",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:30 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "image/webp",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629959.234,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.724,
+            "connectStart": 0.23,
+            "dnsEnd": 0.23,
+            "dnsStart": 0.223,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.685,
+            "receiveHeadersStart": 1.366,
+            "requestTime": 1210627.538857,
+            "sendEnd": 0.833,
+            "sendStart": 0.774,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/asphalt-tile.webp"
+        },
+        "timestamp": 1210627.923252,
+        "type": "Image"
+      }
+    },
+    {
+      "sequence": 102,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "stack": {
+            "callFrames": [
+              {
+                "columnNumber": 37093,
+                "functionName": "load",
+                "lineNumber": 5,
+                "scriptId": "18",
+                "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+              },
+              {
+                "columnNumber": 38594,
+                "functionName": "load",
+                "lineNumber": 5,
+                "scriptId": "18",
+                "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+              },
+              {
+                "columnNumber": 19,
+                "functionName": "loadTiled",
+                "lineNumber": 61,
+                "scriptId": "9",
+                "url": "http://127.0.0.1:8897/main.js"
+              },
+              {
+                "columnNumber": 20,
+                "functionName": "",
+                "lineNumber": 68,
+                "scriptId": "9",
+                "url": "http://127.0.0.1:8897/main.js"
+              }
+            ]
+          },
+          "type": "script"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/"
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/sidewalk-tile.webp"
+        },
+        "requestId": "59144.43",
+        "timestamp": 1210627.923359,
+        "type": "Image",
+        "wallTime": 1794453630.342031
+      }
+    },
+    {
+      "sequence": 104,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.43",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545733,
+          "connectionReused": false,
+          "encodedDataLength": 31669,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "31480",
+            "Content-type": "image/webp",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:30 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "image/webp",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629959.334,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.657,
+            "connectStart": 0.463,
+            "dnsEnd": 0.463,
+            "dnsStart": 0.46,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.626,
+            "receiveHeadersStart": 1.385,
+            "requestTime": 1210627.538938,
+            "sendEnd": 0.796,
+            "sendStart": 0.767,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/sidewalk-tile.webp"
+        },
+        "timestamp": 1210627.923388,
+        "type": "Image"
+      }
+    },
+    {
+      "sequence": 107,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 1,
+          "lineNumber": 208,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8897/"
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/city-map-bg.webp"
+        },
+        "requestId": "59144.44",
+        "timestamp": 1210627.939771,
+        "type": "Image",
+        "wallTime": 1794453630.358443
+      }
+    },
+    {
+      "sequence": 109,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.44",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 545739,
+          "connectionReused": false,
+          "encodedDataLength": 80987,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "80798",
+            "Content-type": "image/webp",
+            "Date": "Thu, 12 Nov 2026 03:20:29 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:30 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "image/webp",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453629964.675,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.359,
+            "connectStart": 0.16,
+            "dnsEnd": 0.16,
+            "dnsStart": 0.156,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 0.933,
+            "receiveHeadersStart": 0.887,
+            "requestTime": 1210627.544777,
+            "sendEnd": 0.424,
+            "sendStart": 0.388,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/city-map-bg.webp"
+        },
+        "timestamp": 1210627.939811,
+        "type": "Image"
+      }
+    },
+    {
+      "sequence": 114,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 1,
+          "lineNumber": 208,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Range": "bytes=0-",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/audio/city-rush-music.mp3"
+        },
+        "requestId": "59144.45",
+        "timestamp": 1210627.981118,
+        "type": "Media",
+        "wallTime": 1794453630.399796
+      }
+    },
+    {
+      "sequence": 115,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 1,
+          "lineNumber": 208,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Range": "bytes=0-",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/audio/taxi-go.mp3"
+        },
+        "requestId": "59144.46",
+        "timestamp": 1210627.981354,
+        "type": "Media",
+        "wallTime": 1794453630.400018
+      }
+    },
+    {
+      "sequence": 116,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 1,
+          "lineNumber": 208,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Range": "bytes=0-",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/audio/coin-collect.mp3"
+        },
+        "requestId": "59144.47",
+        "timestamp": 1210627.981586,
+        "type": "Media",
+        "wallTime": 1794453630.400256
+      }
+    },
+    {
+      "sequence": 117,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.45",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 0,
+          "connectionReused": false,
+          "encodedDataLength": 0,
+          "fromDiskCache": true,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "239953",
+            "Content-Range": "bytes 0-239952/239953",
+            "Content-type": "audio/mpeg",
+            "Date": "Thu, 12 Nov 2026 03:20:30 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.1",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453630119.005,
+          "securityState": "secure",
+          "status": 206,
+          "statusText": "Partial Content",
+          "timing": {
+            "connectEnd": -1,
+            "connectStart": -1,
+            "dnsEnd": -1,
+            "dnsStart": -1,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 0.34,
+            "receiveHeadersStart": 0.309,
+            "requestTime": 1210627.981979,
+            "sendEnd": 0.133,
+            "sendStart": 0.133,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/audio/city-rush-music.mp3"
+        },
+        "timestamp": 1210628.032834,
+        "type": "Media"
+      }
+    },
+    {
+      "sequence": 120,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.46",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 0,
+          "connectionReused": false,
+          "encodedDataLength": 0,
+          "fromDiskCache": true,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "17180",
+            "Content-Range": "bytes 0-17179/17180",
+            "Content-type": "audio/mpeg",
+            "Date": "Thu, 12 Nov 2026 03:20:30 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.1",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453630118.75,
+          "securityState": "secure",
+          "status": 206,
+          "statusText": "Partial Content",
+          "timing": {
+            "connectEnd": -1,
+            "connectStart": -1,
+            "dnsEnd": -1,
+            "dnsStart": -1,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.309,
+            "receiveHeadersStart": 1.28,
+            "requestTime": 1210627.982082,
+            "sendEnd": 0.198,
+            "sendStart": 0.198,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/audio/taxi-go.mp3"
+        },
+        "timestamp": 1210628.033576,
+        "type": "Media"
+      }
+    },
+    {
+      "sequence": 123,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": false,
+        "loaderId": "3153523E3480B47363AAB3AEFAB4AB66",
+        "requestId": "59144.47",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 0,
+          "connectionReused": false,
+          "encodedDataLength": 0,
+          "fromDiskCache": true,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "10493",
+            "Content-Range": "bytes 0-10492/10493",
+            "Content-type": "audio/mpeg",
+            "Date": "Thu, 12 Nov 2026 03:20:30 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.1",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453630117.135,
+          "securityState": "secure",
+          "status": 206,
+          "statusText": "Partial Content",
+          "timing": {
+            "connectEnd": -1,
+            "connectStart": -1,
+            "dnsEnd": -1,
+            "dnsStart": -1,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.209,
+            "receiveHeadersStart": 1.169,
+            "requestTime": 1210627.982253,
+            "sendEnd": 0.081,
+            "sendStart": 0.081,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/audio/coin-collect.mp3"
+        },
+        "timestamp": 1210628.033711,
+        "type": "Media"
+      }
+    },
+    {
+      "sequence": 144,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "type": "other"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "requestId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "timestamp": 1210847.264467,
+        "type": "Document",
+        "wallTime": 1794453849.680687
+      }
+    },
+    {
+      "sequence": 148,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546027,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "13848",
+            "Content-type": "text/html",
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:20:15 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "text/html",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849683.821,
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.22,
+            "connectStart": 0.713,
+            "dnsEnd": 0.713,
+            "dnsStart": 0.542,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.804,
+            "receiveHeadersStart": 2.529,
+            "requestTime": 1210847.265605,
+            "sendEnd": 1.444,
+            "sendStart": 1.308,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/"
+        },
+        "timestamp": 1210847.279347,
+        "type": "Document"
+      }
+    },
+    {
+      "sequence": 161,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 66,
+          "lineNumber": 10,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "Blocking",
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/3a125e88c76c9347/css2"
+        },
+        "requestId": "59144.49",
+        "timestamp": 1210847.294519,
+        "type": "Stylesheet",
+        "wallTime": 1794453849.710718
+      }
+    },
+    {
+      "sequence": 162,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 64,
+          "lineNumber": 11,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "Blocking",
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/rosebud-game-defaults.css"
+        },
+        "requestId": "59144.50",
+        "timestamp": 1210847.294653,
+        "type": "Stylesheet",
+        "wallTime": 1794453849.710814
+      }
+    },
+    {
+      "sequence": 163,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 51,
+          "lineNumber": 12,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/rosebud-game-defaults.js"
+        },
+        "requestId": "59144.51",
+        "timestamp": 1210847.294679,
+        "type": "Script",
+        "wallTime": 1794453849.710839
+      }
+    },
+    {
+      "sequence": 164,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 42,
+          "lineNumber": 201,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "requestId": "59144.52",
+        "timestamp": 1210847.2947,
+        "type": "Script",
+        "wallTime": 1794453849.710859
+      }
+    },
+    {
+      "sequence": 171,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.49",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546035,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/octet-stream",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849719.141,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 4.532,
+            "connectStart": 4.108,
+            "dnsEnd": 4.108,
+            "dnsStart": 4.1,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 5.486,
+            "receiveHeadersStart": 5.376,
+            "requestTime": 1210847.298078,
+            "sendEnd": 4.657,
+            "sendStart": 4.58,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/3a125e88c76c9347/css2"
+        },
+        "timestamp": 1210847.310476,
+        "type": "Stylesheet"
+      }
+    },
+    {
+      "sequence": 174,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.50",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546040,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "text/css",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849720.393,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 2.134,
+            "connectStart": 1.943,
+            "dnsEnd": 1.943,
+            "dnsStart": 1.939,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 3.061,
+            "receiveHeadersStart": 2.953,
+            "requestTime": 1210847.301753,
+            "sendEnd": 2.209,
+            "sendStart": 2.167,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/rosebud-game-defaults.css"
+        },
+        "timestamp": 1210847.310538,
+        "type": "Stylesheet"
+      }
+    },
+    {
+      "sequence": 178,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.52",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546045,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849720.948,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 2.696,
+            "connectStart": 2.456,
+            "dnsEnd": 2.456,
+            "dnsStart": 2.451,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 3.446,
+            "receiveHeadersStart": 3.359,
+            "requestTime": 1210847.301902,
+            "sendEnd": 2.79,
+            "sendStart": 2.733,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "timestamp": 1210847.311366,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 182,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 23,
+          "lineNumber": 0,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/main.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+        },
+        "requestId": "59144.57",
+        "timestamp": 1210847.312994,
+        "type": "Script",
+        "wallTime": 1794453849.72916
+      }
+    },
+    {
+      "sequence": 183,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 35,
+          "lineNumber": 1,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/main.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js"
+        },
+        "requestId": "59144.58",
+        "timestamp": 1210847.313033,
+        "type": "Script",
+        "wallTime": 1794453849.729193
+      }
+    },
+    {
+      "sequence": 184,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 151,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/main.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/level.js"
+        },
+        "requestId": "59144.59",
+        "timestamp": 1210847.313053,
+        "type": "Script",
+        "wallTime": 1794453849.729214
+      }
+    },
+    {
+      "sequence": 185,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 76,
+          "lineNumber": 3,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/main.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/i18n.js"
+        },
+        "requestId": "59144.60",
+        "timestamp": 1210847.313072,
+        "type": "Script",
+        "wallTime": 1794453849.72923
+      }
+    },
+    {
+      "sequence": 187,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.51",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546051,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849728.907,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 1.061,
+            "connectStart": 0.759,
+            "dnsEnd": 0.759,
+            "dnsStart": 0.753,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.953,
+            "receiveHeadersStart": 1.818,
+            "requestTime": 1210847.311402,
+            "sendEnd": 1.367,
+            "sendStart": 1.095,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/rosebud-game-defaults.js"
+        },
+        "timestamp": 1210847.314428,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 198,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.58",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546069,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849732.878,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 1.747,
+            "connectStart": 1.293,
+            "dnsEnd": 1.293,
+            "dnsStart": 1.29,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 3.047,
+            "receiveHeadersStart": 2.941,
+            "requestTime": 1210847.31425,
+            "sendEnd": 1.982,
+            "sendStart": 1.936,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js"
+        },
+        "timestamp": 1210847.318742,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 200,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.57",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546065,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849732.915,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 2.033,
+            "connectStart": 1.336,
+            "dnsEnd": 1.336,
+            "dnsStart": 1.33,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 3.392,
+            "receiveHeadersStart": 3.276,
+            "requestTime": 1210847.313952,
+            "sendEnd": 2.208,
+            "sendStart": 2.123,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+        },
+        "timestamp": 1210847.318891,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 202,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.59",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546073,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849733.007,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 1.527,
+            "connectStart": 1.261,
+            "dnsEnd": 1.261,
+            "dnsStart": 1.26,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.931,
+            "receiveHeadersStart": 2.841,
+            "requestTime": 1210847.314479,
+            "sendEnd": 1.839,
+            "sendStart": 1.782,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/level.js"
+        },
+        "timestamp": 1210847.318934,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 205,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.60",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546077,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849733.038,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 1.254,
+            "connectStart": 1.081,
+            "dnsEnd": 1.081,
+            "dnsStart": 1.08,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.685,
+            "receiveHeadersStart": 2.59,
+            "requestTime": 1210847.314761,
+            "sendEnd": 1.607,
+            "sendStart": 1.573,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/i18n.js"
+        },
+        "timestamp": 1210847.319031,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 207,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/b27e1bc27ef59d52/three.mjs.js"
+        },
+        "requestId": "59144.61",
+        "timestamp": 1210847.319089,
+        "type": "Script",
+        "wallTime": 1794453849.735253
+      }
+    },
+    {
+      "sequence": 208,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/c5daec8564995c4e/RoundedBoxGeometry.mjs.js"
+        },
+        "requestId": "59144.62",
+        "timestamp": 1210847.31913,
+        "type": "Script",
+        "wallTime": 1794453849.735289
+      }
+    },
+    {
+      "sequence": 211,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 7,
+          "lineNumber": 1,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+        },
+        "requestId": "59144.63",
+        "timestamp": 1210847.319231,
+        "type": "Script",
+        "wallTime": 1794453849.735391
+      }
+    },
+    {
+      "sequence": 219,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.61",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546087,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849737.786,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.963,
+            "connectStart": 0.424,
+            "dnsEnd": 0.424,
+            "dnsStart": 0.419,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.723,
+            "receiveHeadersStart": 1.64,
+            "requestTime": 1210847.320459,
+            "sendEnd": 1.062,
+            "sendStart": 1.014,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/b27e1bc27ef59d52/three.mjs.js"
+        },
+        "timestamp": 1210847.323319,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 222,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.62",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546091,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849737.894,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.902,
+            "connectStart": 0.617,
+            "dnsEnd": 0.617,
+            "dnsStart": 0.614,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.735,
+            "receiveHeadersStart": 1.675,
+            "requestTime": 1210847.320532,
+            "sendEnd": 1.043,
+            "sendStart": 1.003,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/c5daec8564995c4e/RoundedBoxGeometry.mjs.js"
+        },
+        "timestamp": 1210847.323451,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 225,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.63",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546095,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849737.997,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.797,
+            "connectStart": 0.638,
+            "dnsEnd": 0.638,
+            "dnsStart": 0.637,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.928,
+            "receiveHeadersStart": 1.665,
+            "requestTime": 1210847.320645,
+            "sendEnd": 0.967,
+            "sendStart": 0.941,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+        },
+        "timestamp": 1210847.323511,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 234,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "stack": {
+            "callFrames": [
+              {
+                "columnNumber": 37093,
+                "functionName": "load",
+                "lineNumber": 5,
+                "scriptId": "18",
+                "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+              },
+              {
+                "columnNumber": 38594,
+                "functionName": "load",
+                "lineNumber": 5,
+                "scriptId": "18",
+                "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+              },
+              {
+                "columnNumber": 19,
+                "functionName": "loadTiled",
+                "lineNumber": 61,
+                "scriptId": "9",
+                "url": "http://127.0.0.1:8897/main.js"
+              },
+              {
+                "columnNumber": 16,
+                "functionName": "",
+                "lineNumber": 66,
+                "scriptId": "9",
+                "url": "http://127.0.0.1:8897/main.js"
+              }
+            ]
+          },
+          "type": "script"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/asphalt-tile.webp"
+        },
+        "requestId": "59144.64",
+        "timestamp": 1210847.335114,
+        "type": "Image",
+        "wallTime": 1794453849.751329
+      }
+    },
+    {
+      "sequence": 235,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "stack": {
+            "callFrames": [
+              {
+                "columnNumber": 37093,
+                "functionName": "load",
+                "lineNumber": 5,
+                "scriptId": "18",
+                "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+              },
+              {
+                "columnNumber": 38594,
+                "functionName": "load",
+                "lineNumber": 5,
+                "scriptId": "18",
+                "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+              },
+              {
+                "columnNumber": 19,
+                "functionName": "loadTiled",
+                "lineNumber": 61,
+                "scriptId": "9",
+                "url": "http://127.0.0.1:8897/main.js"
+              },
+              {
+                "columnNumber": 20,
+                "functionName": "",
+                "lineNumber": 68,
+                "scriptId": "9",
+                "url": "http://127.0.0.1:8897/main.js"
+              }
+            ]
+          },
+          "type": "script"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/sidewalk-tile.webp"
+        },
+        "requestId": "59144.66",
+        "timestamp": 1210847.335279,
+        "type": "Image",
+        "wallTime": 1794453849.751444
+      }
+    },
+    {
+      "sequence": 236,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 1,
+          "lineNumber": 208,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/city-map-bg.webp"
+        },
+        "requestId": "59144.67",
+        "timestamp": 1210847.367266,
+        "type": "Image",
+        "wallTime": 1794453849.783438
+      }
+    },
+    {
+      "sequence": 240,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.64",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546103,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "image/webp",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849752.982,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.821,
+            "connectStart": 0.336,
+            "dnsEnd": 0.336,
+            "dnsStart": 0.33,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.653,
+            "receiveHeadersStart": 1.564,
+            "requestTime": 1210847.335731,
+            "sendEnd": 0.917,
+            "sendStart": 0.87,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/asphalt-tile.webp"
+        },
+        "timestamp": 1210847.372977,
+        "type": "Image"
+      }
+    },
+    {
+      "sequence": 243,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.66",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546107,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "image/webp",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849753.417,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.746,
+            "connectStart": 0.579,
+            "dnsEnd": 0.579,
+            "dnsStart": 0.576,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.98,
+            "receiveHeadersStart": 1.911,
+            "requestTime": 1210847.335819,
+            "sendEnd": 0.873,
+            "sendStart": 0.844,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/sidewalk-tile.webp"
+        },
+        "timestamp": 1210847.373047,
+        "type": "Image"
+      }
+    },
+    {
+      "sequence": 246,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.67",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546113,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "image/webp",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849784.833,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.654,
+            "connectStart": 0.304,
+            "dnsEnd": 0.304,
+            "dnsStart": 0.298,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.472,
+            "receiveHeadersStart": 1.397,
+            "requestTime": 1210847.367749,
+            "sendEnd": 0.743,
+            "sendStart": 0.693,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/city-map-bg.webp"
+        },
+        "timestamp": 1210847.373081,
+        "type": "Image"
+      }
+    },
+    {
+      "sequence": 249,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 1,
+          "lineNumber": 208,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Range": "bytes=0-",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/audio/city-rush-music.mp3"
+        },
+        "requestId": "59144.68",
+        "timestamp": 1210847.418601,
+        "type": "Media",
+        "wallTime": 1794453849.834779
+      }
+    },
+    {
+      "sequence": 250,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 1,
+          "lineNumber": 208,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Range": "bytes=0-",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/audio/taxi-go.mp3"
+        },
+        "requestId": "59144.69",
+        "timestamp": 1210847.418834,
+        "type": "Media",
+        "wallTime": 1794453849.835
+      }
+    },
+    {
+      "sequence": 251,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 1,
+          "lineNumber": 208,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Range": "bytes=0-",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/audio/coin-collect.mp3"
+        },
+        "requestId": "59144.70",
+        "timestamp": 1210847.418989,
+        "type": "Media",
+        "wallTime": 1794453849.835154
+      }
+    },
+    {
+      "sequence": 258,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.68",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546121,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "239953",
+            "Content-Range": "bytes 0-239952/239953",
+            "Content-type": "audio/mpeg",
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.1",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849837.88,
+          "securityState": "secure",
+          "status": 206,
+          "statusText": "Partial Content",
+          "timing": {
+            "connectEnd": 0.869,
+            "connectStart": 0.503,
+            "dnsEnd": 0.503,
+            "dnsStart": 0.497,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.881,
+            "receiveHeadersStart": 1.639,
+            "requestTime": 1210847.420555,
+            "sendEnd": 0.954,
+            "sendStart": 0.905,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/audio/city-rush-music.mp3"
+        },
+        "timestamp": 1210847.475326,
+        "type": "Media"
+      }
+    },
+    {
+      "sequence": 261,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.69",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546126,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "17180",
+            "Content-Range": "bytes 0-17179/17180",
+            "Content-type": "audio/mpeg",
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.1",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849874.18,
+          "securityState": "secure",
+          "status": 206,
+          "statusText": "Partial Content",
+          "timing": {
+            "connectEnd": 36.755,
+            "connectStart": 36.336,
+            "dnsEnd": 36.336,
+            "dnsStart": 36.329,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 38.166,
+            "receiveHeadersStart": 37.791,
+            "requestTime": 1210847.420703,
+            "sendEnd": 36.86,
+            "sendStart": 36.8,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/audio/taxi-go.mp3"
+        },
+        "timestamp": 1210847.475867,
+        "type": "Media"
+      }
+    },
+    {
+      "sequence": 264,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "D8C0B3020AC826216F1DA03D5A5DFCA4",
+        "requestId": "59144.70",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546131,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "10493",
+            "Content-Range": "bytes 0-10492/10493",
+            "Content-type": "audio/mpeg",
+            "Date": "Thu, 12 Nov 2026 03:24:09 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.1",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453849874.529,
+          "securityState": "secure",
+          "status": 206,
+          "statusText": "Partial Content",
+          "timing": {
+            "connectEnd": 15.068,
+            "connectStart": 14.752,
+            "dnsEnd": 14.752,
+            "dnsStart": 14.748,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 16.021,
+            "receiveHeadersStart": 15.78,
+            "requestTime": 1210847.443062,
+            "sendEnd": 15.241,
+            "sendStart": 15.13,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/audio/coin-collect.mp3"
+        },
+        "timestamp": 1210847.475976,
+        "type": "Media"
+      }
+    },
+    {
+      "sequence": 282,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "type": "other"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "requestId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "timestamp": 1210933.177047,
+        "type": "Document",
+        "wallTime": 1794453935.591588
+      }
+    },
+    {
+      "sequence": 286,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546434,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "13848",
+            "Content-type": "text/html",
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:20:15 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "text/html",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935594.803,
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.772,
+            "connectStart": 0.476,
+            "dnsEnd": 0.476,
+            "dnsStart": 0.332,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.189,
+            "receiveHeadersStart": 1.88,
+            "requestTime": 1210933.178046,
+            "sendEnd": 0.897,
+            "sendStart": 0.815,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/"
+        },
+        "timestamp": 1210933.191627,
+        "type": "Document"
+      }
+    },
+    {
+      "sequence": 299,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 66,
+          "lineNumber": 10,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "Blocking",
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/3a125e88c76c9347/css2"
+        },
+        "requestId": "59144.72",
+        "timestamp": 1210933.199158,
+        "type": "Stylesheet",
+        "wallTime": 1794453935.61371
+      }
+    },
+    {
+      "sequence": 300,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 64,
+          "lineNumber": 11,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "Blocking",
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/rosebud-game-defaults.css"
+        },
+        "requestId": "59144.73",
+        "timestamp": 1210933.199281,
+        "type": "Stylesheet",
+        "wallTime": 1794453935.61382
+      }
+    },
+    {
+      "sequence": 301,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 51,
+          "lineNumber": 12,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/rosebud-game-defaults.js"
+        },
+        "requestId": "59144.74",
+        "timestamp": 1210933.199308,
+        "type": "Script",
+        "wallTime": 1794453935.613847
+      }
+    },
+    {
+      "sequence": 302,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 42,
+          "lineNumber": 201,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "requestId": "59144.75",
+        "timestamp": 1210933.199331,
+        "type": "Script",
+        "wallTime": 1794453935.613869
+      }
+    },
+    {
+      "sequence": 309,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.72",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546444,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/octet-stream",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935621.592,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 4.189,
+            "connectStart": 3.543,
+            "dnsEnd": 3.543,
+            "dnsStart": 3.536,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 5.012,
+            "receiveHeadersStart": 4.891,
+            "requestTime": 1210933.201824,
+            "sendEnd": 4.316,
+            "sendStart": 4.259,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/3a125e88c76c9347/css2"
+        },
+        "timestamp": 1210933.212774,
+        "type": "Stylesheet"
+      }
+    },
+    {
+      "sequence": 312,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.73",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546448,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "text/css",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935622.35,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 4.116,
+            "connectStart": 3.814,
+            "dnsEnd": 3.814,
+            "dnsStart": 3.81,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 5.642,
+            "receiveHeadersStart": 5.561,
+            "requestTime": 1210933.201912,
+            "sendEnd": 4.277,
+            "sendStart": 4.247,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/rosebud-game-defaults.css"
+        },
+        "timestamp": 1210933.212839,
+        "type": "Stylesheet"
+      }
+    },
+    {
+      "sequence": 316,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.75",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546452,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935622.391,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.973,
+            "connectStart": 0.784,
+            "dnsEnd": 0.784,
+            "dnsStart": 0.783,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.515,
+            "receiveHeadersStart": 2.448,
+            "requestTime": 1210933.205066,
+            "sendEnd": 1.169,
+            "sendStart": 1.138,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "timestamp": 1210933.21364,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 320,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 23,
+          "lineNumber": 0,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/main.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+        },
+        "requestId": "59144.80",
+        "timestamp": 1210933.215507,
+        "type": "Script",
+        "wallTime": 1794453935.630056
+      }
+    },
+    {
+      "sequence": 321,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 35,
+          "lineNumber": 1,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/main.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js"
+        },
+        "requestId": "59144.81",
+        "timestamp": 1210933.215558,
+        "type": "Script",
+        "wallTime": 1794453935.630095
+      }
+    },
+    {
+      "sequence": 322,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 151,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/main.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/level.js"
+        },
+        "requestId": "59144.82",
+        "timestamp": 1210933.215588,
+        "type": "Script",
+        "wallTime": 1794453935.630127
+      }
+    },
+    {
+      "sequence": 323,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 76,
+          "lineNumber": 3,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/main.js"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/main.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/i18n.js"
+        },
+        "requestId": "59144.83",
+        "timestamp": 1210933.215612,
+        "type": "Script",
+        "wallTime": 1794453935.630149
+      }
+    },
+    {
+      "sequence": 327,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.74",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546458,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935631.369,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.737,
+            "connectStart": 0.351,
+            "dnsEnd": 0.351,
+            "dnsStart": 0.344,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.23,
+            "receiveHeadersStart": 2.059,
+            "requestTime": 1210933.214433,
+            "sendEnd": 0.835,
+            "sendStart": 0.781,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/rosebud-game-defaults.js"
+        },
+        "timestamp": 1210933.218687,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 334,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.80",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546467,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935632.908,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.995,
+            "connectStart": 0.678,
+            "dnsEnd": 0.678,
+            "dnsStart": 0.672,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.925,
+            "receiveHeadersStart": 1.811,
+            "requestTime": 1210933.21622,
+            "sendEnd": 1.078,
+            "sendStart": 1.032,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+        },
+        "timestamp": 1210933.219628,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 338,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.81",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546472,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935633.577,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 1.245,
+            "connectStart": 1,
+            "dnsEnd": 1,
+            "dnsStart": 0.997,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.044,
+            "receiveHeadersStart": 1.878,
+            "requestTime": 1210933.216822,
+            "sendEnd": 1.316,
+            "sendStart": 1.272,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js"
+        },
+        "timestamp": 1210933.219919,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 340,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 7,
+          "lineNumber": 1,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+        },
+        "requestId": "59144.84",
+        "timestamp": 1210933.219985,
+        "type": "Script",
+        "wallTime": 1794453935.634527
+      }
+    },
+    {
+      "sequence": 341,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/_remote/0d0e081c7ee3d520/three@0.184.0.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/b27e1bc27ef59d52/three.mjs.js"
+        },
+        "requestId": "59144.85",
+        "timestamp": 1210933.220024,
+        "type": "Script",
+        "wallTime": 1794453935.634562
+      }
+    },
+    {
+      "sequence": 344,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/_remote/c5daec8564995c4e/RoundedBoxGeometry.mjs.js"
+        },
+        "requestId": "59144.86",
+        "timestamp": 1210933.220464,
+        "type": "Script",
+        "wallTime": 1794453935.635006
+      }
+    },
+    {
+      "sequence": 345,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.82",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546480,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935634.243,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 1.13,
+            "connectStart": 0.777,
+            "dnsEnd": 0.777,
+            "dnsStart": 0.774,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.87,
+            "receiveHeadersStart": 1.761,
+            "requestTime": 1210933.217605,
+            "sendEnd": 1.211,
+            "sendStart": 1.166,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/level.js"
+        },
+        "timestamp": 1210933.220657,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 347,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.83",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546484,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935634.266,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 1.088,
+            "connectStart": 0.916,
+            "dnsEnd": 0.916,
+            "dnsStart": 0.914,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.904,
+            "receiveHeadersStart": 1.73,
+            "requestTime": 1210933.217659,
+            "sendEnd": 1.2,
+            "sendStart": 1.172,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/i18n.js"
+        },
+        "timestamp": 1210933.220739,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 357,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.84",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546494,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935637.621,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 1.077,
+            "connectStart": 0.596,
+            "dnsEnd": 0.596,
+            "dnsStart": 0.591,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.967,
+            "receiveHeadersStart": 1.843,
+            "requestTime": 1210933.220901,
+            "sendEnd": 1.18,
+            "sendStart": 1.13,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+        },
+        "timestamp": 1210933.223798,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 359,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.85",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546498,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935637.719,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.772,
+            "connectStart": 0.501,
+            "dnsEnd": 0.501,
+            "dnsStart": 0.499,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.749,
+            "receiveHeadersStart": 1.624,
+            "requestTime": 1210933.221218,
+            "sendEnd": 0.907,
+            "sendStart": 0.878,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/b27e1bc27ef59d52/three.mjs.js"
+        },
+        "timestamp": 1210933.223897,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 363,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.86",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546502,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935637.824,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.673,
+            "connectStart": 0.522,
+            "dnsEnd": 0.522,
+            "dnsStart": 0.521,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.929,
+            "receiveHeadersStart": 1.621,
+            "requestTime": 1210933.221326,
+            "sendEnd": 0.838,
+            "sendStart": 0.811,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/_remote/c5daec8564995c4e/RoundedBoxGeometry.mjs.js"
+        },
+        "timestamp": 1210933.224136,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 372,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "stack": {
+            "callFrames": [
+              {
+                "columnNumber": 37093,
+                "functionName": "load",
+                "lineNumber": 5,
+                "scriptId": "18",
+                "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+              },
+              {
+                "columnNumber": 38594,
+                "functionName": "load",
+                "lineNumber": 5,
+                "scriptId": "18",
+                "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+              },
+              {
+                "columnNumber": 19,
+                "functionName": "loadTiled",
+                "lineNumber": 61,
+                "scriptId": "9",
+                "url": "http://127.0.0.1:8897/main.js"
+              },
+              {
+                "columnNumber": 16,
+                "functionName": "",
+                "lineNumber": 66,
+                "scriptId": "9",
+                "url": "http://127.0.0.1:8897/main.js"
+              }
+            ]
+          },
+          "type": "script"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/asphalt-tile.webp"
+        },
+        "requestId": "59144.87",
+        "timestamp": 1210933.234309,
+        "type": "Image",
+        "wallTime": 1794453935.648869
+      }
+    },
+    {
+      "sequence": 373,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "stack": {
+            "callFrames": [
+              {
+                "columnNumber": 37093,
+                "functionName": "load",
+                "lineNumber": 5,
+                "scriptId": "18",
+                "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+              },
+              {
+                "columnNumber": 38594,
+                "functionName": "load",
+                "lineNumber": 5,
+                "scriptId": "18",
+                "url": "http://127.0.0.1:8897/_remote/777388bbfc7bc409/three.core.mjs.js"
+              },
+              {
+                "columnNumber": 19,
+                "functionName": "loadTiled",
+                "lineNumber": 61,
+                "scriptId": "9",
+                "url": "http://127.0.0.1:8897/main.js"
+              },
+              {
+                "columnNumber": 20,
+                "functionName": "",
+                "lineNumber": 68,
+                "scriptId": "9",
+                "url": "http://127.0.0.1:8897/main.js"
+              }
+            ]
+          },
+          "type": "script"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8897",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/sidewalk-tile.webp"
+        },
+        "requestId": "59144.89",
+        "timestamp": 1210933.234433,
+        "type": "Image",
+        "wallTime": 1794453935.648976
+      }
+    },
+    {
+      "sequence": 374,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 1,
+          "lineNumber": 208,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/city-map-bg.webp"
+        },
+        "requestId": "59144.90",
+        "timestamp": 1210933.25818,
+        "type": "Image",
+        "wallTime": 1794453935.672729
+      }
+    },
+    {
+      "sequence": 378,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.87",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546510,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "image/webp",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935651.385,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.763,
+            "connectStart": 0.308,
+            "dnsEnd": 0.308,
+            "dnsStart": 0.303,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.931,
+            "receiveHeadersStart": 1.726,
+            "requestTime": 1210933.234782,
+            "sendEnd": 0.86,
+            "sendStart": 0.81,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/asphalt-tile.webp"
+        },
+        "timestamp": 1210933.260791,
+        "type": "Image"
+      }
+    },
+    {
+      "sequence": 381,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.89",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546514,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "image/webp",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935651.555,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.685,
+            "connectStart": 0.513,
+            "dnsEnd": 0.513,
+            "dnsStart": 0.511,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.895,
+            "receiveHeadersStart": 1.806,
+            "requestTime": 1210933.234872,
+            "sendEnd": 0.811,
+            "sendStart": 0.784,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/sidewalk-tile.webp"
+        },
+        "timestamp": 1210933.260855,
+        "type": "Image"
+      }
+    },
+    {
+      "sequence": 384,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 1,
+          "lineNumber": 208,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Range": "bytes=0-",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/audio/city-rush-music.mp3"
+        },
+        "requestId": "59144.91",
+        "timestamp": 1210933.261087,
+        "type": "Media",
+        "wallTime": 1794453935.675637
+      }
+    },
+    {
+      "sequence": 385,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 1,
+          "lineNumber": 208,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Range": "bytes=0-",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/audio/taxi-go.mp3"
+        },
+        "requestId": "59144.92",
+        "timestamp": 1210933.261273,
+        "type": "Media",
+        "wallTime": 1794453935.675813
+      }
+    },
+    {
+      "sequence": 386,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8897/",
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 1,
+          "lineNumber": 208,
+          "type": "parser",
+          "url": "http://127.0.0.1:8897/"
+        },
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Range": "bytes=0-",
+            "Referer": "http://127.0.0.1:8897/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Low",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8897/assets/audio/coin-collect.mp3"
+        },
+        "requestId": "59144.93",
+        "timestamp": 1210933.261405,
+        "type": "Media",
+        "wallTime": 1794453935.675943
+      }
+    },
+    {
+      "sequence": 393,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.90",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546520,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "image/webp",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935675.199,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.618,
+            "connectStart": 0.282,
+            "dnsEnd": 0.282,
+            "dnsStart": 0.276,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.451,
+            "receiveHeadersStart": 1.369,
+            "requestTime": 1210933.258953,
+            "sendEnd": 0.715,
+            "sendStart": 0.663,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/city-map-bg.webp"
+        },
+        "timestamp": 1210933.306916,
+        "type": "Image"
+      }
+    },
+    {
+      "sequence": 396,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.91",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546530,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "239953",
+            "Content-Range": "bytes 0-239952/239953",
+            "Content-type": "audio/mpeg",
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.1",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935680.534,
+          "securityState": "secure",
+          "status": 206,
+          "statusText": "Partial Content",
+          "timing": {
+            "connectEnd": 2.2,
+            "connectStart": 1.563,
+            "dnsEnd": 1.563,
+            "dnsStart": 1.556,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 4.026,
+            "receiveHeadersStart": 3.307,
+            "requestTime": 1210933.26235,
+            "sendEnd": 2.323,
+            "sendStart": 2.264,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/audio/city-rush-music.mp3"
+        },
+        "timestamp": 1210933.307985,
+        "type": "Media"
+      }
+    },
+    {
+      "sequence": 399,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.92",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546534,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "17180",
+            "Content-Range": "bytes 0-17179/17180",
+            "Content-type": "audio/mpeg",
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.1",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935680.651,
+          "securityState": "secure",
+          "status": 206,
+          "statusText": "Partial Content",
+          "timing": {
+            "connectEnd": 2.147,
+            "connectStart": 1.833,
+            "dnsEnd": 1.833,
+            "dnsStart": 1.829,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 3.973,
+            "receiveHeadersStart": 3.356,
+            "requestTime": 1210933.262418,
+            "sendEnd": 2.301,
+            "sendStart": 2.271,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/audio/taxi-go.mp3"
+        },
+        "timestamp": 1210933.308429,
+        "type": "Media"
+      }
+    },
+    {
+      "sequence": 402,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "E2B35E6A9313E8ED675918CFAE8901B0",
+        "hasExtraInfo": true,
+        "loaderId": "2AAB2D075C982DEA3F8A901A320506DD",
+        "requestId": "59144.93",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 546538,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "10493",
+            "Content-Range": "bytes 0-10492/10493",
+            "Content-type": "audio/mpeg",
+            "Date": "Thu, 12 Nov 2026 03:25:35 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 03:17:31 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.1",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8897,
+          "responseTime": 1794453935681.23,
+          "securityState": "secure",
+          "status": 206,
+          "statusText": "Partial Content",
+          "timing": {
+            "connectEnd": 2.111,
+            "connectStart": 1.942,
+            "dnsEnd": 1.942,
+            "dnsStart": 1.94,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 4.067,
+            "receiveHeadersStart": 3.89,
+            "requestTime": 1210933.262463,
+            "sendEnd": 2.295,
+            "sendStart": 2.269,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8897/assets/audio/coin-collect.mp3"
+        },
+        "timestamp": 1210933.308523,
+        "type": "Media"
+      }
+    }
+  ],
+  "truncated": false,
+  "hasMore": false,
+  "scope": "Complete startup/timeoutloss/retry/blocked and free vehicles/passengerboarding/fulllevel1threebadgewin143/nextlevel2/reload143/shopinsufficient150/missions45+60claim/248coins/buychecker150/reload98checkeractive"
+}

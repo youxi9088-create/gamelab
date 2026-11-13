@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "missing": [],
+  "required_external": [],
+  "actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Originalmenu rendered with native rider/track."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "Plunge in",
+      "result": "SUMMIT LAUNCH, real speed/time HUD."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "key": "a",
+      "hold_ms": 600,
+      "result": "THE WALL; nativeWIPEOUT+3.0S observed."
+    },
+    {
+      "step": 4,
+      "type": "key",
+      "key": "Space",
+      "hold_ms": 160,
+      "result": "Jump input exercised; native recovery continued, airtime metric not measured."
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "page",
+      "result": "Originalmenu restored. No persistent score/position claim."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8923/",
+    "http://127.0.0.1:8923/main.js",
+    "http://127.0.0.1:8923/vendor/001-three-0.185.js",
+    "http://127.0.0.1:8923/vendor/003-EffectComposer.js",
+    "http://127.0.0.1:8923/vendor/005-RenderPass.js",
+    "http://127.0.0.1:8923/vendor/007-UnrealBloomPass.js",
+    "http://127.0.0.1:8923/vendor/009-OutputPass.js",
+    "http://127.0.0.1:8923/vendor/011-GLTFLoader.js",
+    "http://127.0.0.1:8923/vendor/002-three.js",
+    "http://127.0.0.1:8923/vendor/004-EffectComposer.js",
+    "http://127.0.0.1:8923/vendor/006-RenderPass.js",
+    "http://127.0.0.1:8923/vendor/008-UnrealBloomPass.js",
+    "http://127.0.0.1:8923/vendor/010-OutputPass.js",
+    "http://127.0.0.1:8923/vendor/012-GLTFLoader.js",
+    "http://127.0.0.1:8923/assets/020-modelsrider-avatar-074e2f68-503a-40bc-8e71-473383fd635c.gltf-bina",
+    "http://127.0.0.1:8923/assets/019-modelsparadise-support-tower-cf1869d9paradise-support-tower.gltf-",
+    "http://127.0.0.1:8923/assets/018-modelsparadise-royal-palm-03217fffparadise-royal-palm.gltf-binary",
+    "http://127.0.0.1:8923/assets/021-modelssummit-launch-platform-50024893-12f7-4020-8444-1132b5944a52-6Dre",
+    "http://127.0.0.1:8923/assets/022-modelstropical-waters-resort-0d44e555-5261-496e-8ea3-a7c3dfdee267-Yr9S",
+    "http://127.0.0.1:8923/assets/016-modelscliff-rock-formation-64d95cf1-8cec-4103-bace-3f00dd4db8e3.g",
+    "http://127.0.0.1:8923/assets/017-modelsinflatable-tube-cca9bcbc-cb67-4c69-abd1-0cace08e7c05.gltf-b",
+    "blob:http://127.0.0.1:8923/a394e109-7495-4c43-9f9b-c2bcebd4f04c",
+    "blob:http://127.0.0.1:8923/75cf1ad5-d827-4ae0-98bc-09f27cf5f946",
+    "blob:http://127.0.0.1:8923/2c41871c-abc7-45d3-8cbb-04c94cbd8762",
+    "blob:http://127.0.0.1:8923/4f92af82-5f0c-4666-b8b0-e1712f2b999c",
+    "blob:http://127.0.0.1:8923/c2104684-d01f-48bc-bf5b-2abbab53a371",
+    "blob:http://127.0.0.1:8923/444b0a24-56e4-4de2-bebf-7bc75c301798",
+    "blob:http://127.0.0.1:8923/6babe3e2-ef9c-4f80-b1a0-8d076a5075fb",
+    "blob:http://127.0.0.1:8923/1bd6697e-ceb1-4443-b7dc-8c1fc2784299",
+    "blob:http://127.0.0.1:8923/0f3c61c9-fc1b-421d-b3f0-a5a8c2c82067",
+    "blob:http://127.0.0.1:8923/e49300be-d33a-46a8-a4bd-36d80f3a60df",
+    "blob:http://127.0.0.1:8923/228d519a-2b2e-465d-bd72-8e23fe568843",
+    "blob:http://127.0.0.1:8923/bb9e6ffd-7749-43db-95ba-43a624e2ba77",
+    "blob:http://127.0.0.1:8923/7e92dfac-fcae-4a62-a359-2c3d650b8d30",
+    "http://127.0.0.1:8923/assets/014-billboardsparadise-plunge-brand.webp",
+    "http://127.0.0.1:8923/assets/015-billboardstropical-tube-rider.webp",
+    "http://127.0.0.1:8923/assets/013-billboardshigh-score-ad.webp"
+  ],
+  "scope": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+  "network_scope": "Observation begins after first menu loaded, covers steps2-5 including complete final reload; first startup before cursor not claimed.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

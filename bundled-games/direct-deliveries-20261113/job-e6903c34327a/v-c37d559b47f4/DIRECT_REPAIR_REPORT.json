@@ -1,0 +1,423 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "key",
+        "key": "WASD",
+        "result": "Actualnative movement/wallcollision/fog/light and3torches1ember pickup."
+      },
+      {
+        "type": "key",
+        "key": "WASD",
+        "result": "Originalexitfirststagecomplete3stars/total3."
+      },
+      {
+        "type": "key",
+        "key": "space",
+        "result": "NativeStage2unlocked, locked3refused andRrestartStage2."
+      },
+      {
+        "type": "reload",
+        "result": "OriginalStage2unlocked/Stage1three-star/total3 restored."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8902/",
+      "http://127.0.0.1:8902/_remote/3a125e88c76c9347/css2",
+      "http://127.0.0.1:8902/rosebud-game-defaults.css",
+      "http://127.0.0.1:8902/rosebud-game-defaults.js",
+      "http://127.0.0.1:8902/main.js",
+      "http://127.0.0.1:8902/assets/lantern-floor-pixel.webp",
+      "http://127.0.0.1:8902/assets/lantern-wall-pixel.webp",
+      "http://127.0.0.1:8902/assets/lantern-ruins-backdrop.webp",
+      "http://127.0.0.1:8902/assets/ember-spirit-cute-mage.webp",
+      "http://127.0.0.1:8902/assets/torch-icon.webp",
+      "http://127.0.0.1:8902/assets/ember-icon.webp",
+      "http://127.0.0.1:8902/assets/audio/chill-music.mp3",
+      "http://127.0.0.1:8902/assets/audio/torch-light-sfx.mp3",
+      "http://127.0.0.1:8902/assets/audio/ember-pickup-sfx.mp3",
+      "http://127.0.0.1:8902/assets/audio/maze-exit-sfx.mp3",
+      "http://127.0.0.1:8902/",
+      "http://127.0.0.1:8902/_remote/3a125e88c76c9347/css2",
+      "http://127.0.0.1:8902/rosebud-game-defaults.css",
+      "http://127.0.0.1:8902/rosebud-game-defaults.js",
+      "http://127.0.0.1:8902/main.js",
+      "http://127.0.0.1:8902/assets/lantern-floor-pixel.webp",
+      "http://127.0.0.1:8902/assets/lantern-wall-pixel.webp",
+      "http://127.0.0.1:8902/assets/lantern-ruins-backdrop.webp",
+      "http://127.0.0.1:8902/assets/ember-spirit-cute-mage.webp",
+      "http://127.0.0.1:8902/assets/torch-icon.webp",
+      "http://127.0.0.1:8902/assets/ember-icon.webp",
+      "http://127.0.0.1:8902/assets/audio/chill-music.mp3",
+      "http://127.0.0.1:8902/assets/audio/torch-light-sfx.mp3",
+      "http://127.0.0.1:8902/assets/audio/ember-pickup-sfx.mp3",
+      "http://127.0.0.1:8902/assets/audio/maze-exit-sfx.mp3"
+    ],
+    "scope": "Desktop1280x720 entire originalmain.js byteSHA unchanged. ActualnativeWASD mazewallcollision/light/trail, firststage3torches+ember collected thenoriginalexit fullthree-starwin, total3of60. NativeSpace nextstage2, key3lockedrefused, Rrestartoriginalstage2, refreshstage2unlocked/firststage3stars/total3 preserved. Entireoriginal20stagegen/rules/lighting/stars/unlock/save unchanged. Only unrelatedRosebudhosttools/resourceinterception retired,27exactfontrefs258956bytes localized. Complete30requestwindow startup/fullwin/next/restart/reload noexternal/failed/exception/truncation. Other19stages/alternatestaroutcomes/mobile/hearing notexhausted. Originalno midmazesave, no suchclaim.",
+    "network_scope": "OriginalfirststageWASD full3torches+ember+exit3starwin, originalnextStage2, locked3/restart/reloadStage2total3; no gamecodechanges.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "Entireoriginalmain.js singleplayer20stage maze/localstars-unlock only; no networkgame/globalleaderboard/ad/payment dependency. UnrelatedRosebudhosttools/interception retired, no fakeSDK/service/reward.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "Entireoriginalmain.js singleplayer20stage maze/localstars-unlock only; no networkgame/globalleaderboard/ad/payment dependency. UnrelatedRosebudhosttools/interception retired, no fakeSDK/service/reward.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "Entireoriginalmain.js singleplayer20stage maze/localstars-unlock only; no networkgame/globalleaderboard/ad/payment dependency. UnrelatedRosebudhosttools/interception retired, no fakeSDK/service/reward.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "Entireoriginalmain.js singleplayer20stage maze/localstars-unlock only; no networkgame/globalleaderboard/ad/payment dependency. UnrelatedRosebudhosttools/interception retired, no fakeSDK/service/reward.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "Actualfullnativefirststage3torch+ember+exitthree-starwin, nextStage2/restart/reload.",
+      "evidence": [
+        "evidence/direct-repair/stage1-three-stars.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "Originalmaze/player/icons/media exact retained,27fontrefs localized,30requestsclean.",
+      "evidence": [
+        "evidence/direct-repair/reload-stage2-total3.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Nativecaveruins/maze/fog/light/background displayed.",
+      "evidence": [
+        "evidence/direct-repair/all3torches-ember1.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "Originalwalls/torch/ember/exit withcollision andcollection feedback.",
+      "evidence": [
+        "evidence/direct-repair/all3torches-ember1.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "Originalember-spiritmage sprite unchanged anddirectional movement observed.",
+      "evidence": [
+        "evidence/direct-repair/all3torches-ember1.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Originalfire/motes/lighttrail/pickupburst andwin-star animation observed.",
+      "evidence": [
+        "evidence/direct-repair/stage1-three-stars.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "Original20stagepath/lockedstage/starHUD/complete/next/restart/reload.",
+      "evidence": [
+        "evidence/direct-repair/reload-stage2-total3.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "key",
+      "key": "WASD",
+      "result": "Actualnative movement/wallcollision/fog/light and3torches1ember pickup."
+    },
+    {
+      "type": "key",
+      "key": "WASD",
+      "result": "Originalexitfirststagecomplete3stars/total3."
+    },
+    {
+      "type": "key",
+      "key": "space",
+      "result": "NativeStage2unlocked, locked3refused andRrestartStage2."
+    },
+    {
+      "type": "reload",
+      "result": "OriginalStage2unlocked/Stage1three-star/total3 restored."
+    }
+  ],
+  "scope": "Desktop1280x720 entire originalmain.js byteSHA unchanged. ActualnativeWASD mazewallcollision/light/trail, firststage3torches+ember collected thenoriginalexit fullthree-starwin, total3of60. NativeSpace nextstage2, key3lockedrefused, Rrestartoriginalstage2, refreshstage2unlocked/firststage3stars/total3 preserved. Entireoriginal20stagegen/rules/lighting/stars/unlock/save unchanged. Only unrelatedRosebudhosttools/resourceinterception retired,27exactfontrefs258956bytes localized. Complete30requestwindow startup/fullwin/next/restart/reload noexternal/failed/exception/truncation. Other19stages/alternatestaroutcomes/mobile/hearing notexhausted. Originalno midmazesave, no suchclaim.",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "Entireoriginalmain.js byteSHAunchanged, nativefirststagefullwin/next/restart.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-stage2-total3.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "Originalsprite/wall/floor/audio assets unchanged,27fontrefs exactlocalized,30requestsclean.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-stage2-total3.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "Original20stagegeneration/rules/walls/pickups/star/unlock unchanged. Actualfirststage3stars only, notall20proof.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-stage2-total3.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "OriginallanternMaze localStorage stars/unlocked, actualStage2/3total reloadproved; no midmazesaveclaim.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-stage2-total3.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "UnrelatedRosebudhosttools/interception retired, nativeoriginalgame directlystarts.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-stage2-total3.png",
+        "next_action": ""
+      }
+    ],
+    "scope": "Desktop1280x720 entire originalmain.js byteSHA unchanged. ActualnativeWASD mazewallcollision/light/trail, firststage3torches+ember collected thenoriginalexit fullthree-starwin, total3of60. NativeSpace nextstage2, key3lockedrefused, Rrestartoriginalstage2, refreshstage2unlocked/firststage3stars/total3 preserved. Entireoriginal20stagegen/rules/lighting/stars/unlock/save unchanged. Only unrelatedRosebudhosttools/resourceinterception retired,27exactfontrefs258956bytes localized. Complete30requestwindow startup/fullwin/next/restart/reload noexternal/failed/exception/truncation. Other19stages/alternatestaroutcomes/mobile/hearing notexhausted. Originalno midmazesave, no suchclaim."
+  },
+  "dependency_review": {
+    "previous_revision": 5,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "本轮验证的启动与第1关流程完全使用本地代码、资源及localStorage，300次动作期间无任何外部请求；未覆盖的广告/排行/后续关卡已在边界中声明，仅就此流程不依赖后端。",
+          "evidence": "verification/59a9f0fc-884c-4edc-916a-e6a1fe000d34-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 5,
+      "updated_at": "2026-11-10T23:56:57+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "Entireoriginalmain.js byteSHAunchanged, nativefirststagefullwin/next/restart.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-stage2-total3.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "Originalsprite/wall/floor/audio assets unchanged,27fontrefs exactlocalized,30requestsclean.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-stage2-total3.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "Original20stagegeneration/rules/walls/pickups/star/unlock unchanged. Actualfirststage3stars only, notall20proof.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-stage2-total3.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "OriginallanternMaze localStorage stars/unlocked, actualStage2/3total reloadproved; no midmazesaveclaim.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-stage2-total3.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "UnrelatedRosebudhosttools/interception retired, nativeoriginalgame directlystarts.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-stage2-total3.png",
+          "next_action": ""
+        }
+      ],
+      "scope": "Desktop1280x720 entire originalmain.js byteSHA unchanged. ActualnativeWASD mazewallcollision/light/trail, firststage3torches+ember collected thenoriginalexit fullthree-starwin, total3of60. NativeSpace nextstage2, key3lockedrefused, Rrestartoriginalstage2, refreshstage2unlocked/firststage3stars/total3 preserved. Entireoriginal20stagegen/rules/lighting/stars/unlock/save unchanged. Only unrelatedRosebudhosttools/resourceinterception retired,27exactfontrefs258956bytes localized. Complete30requestwindow startup/fullwin/next/restart/reload noexternal/failed/exception/truncation. Other19stages/alternatestaroutcomes/mobile/hearing notexhausted. Originalno midmazesave, no suchclaim."
+    },
+    "basis": "Entireoriginalmain.js SHA + actualnative3starclear/unlock/restart/reload, normalrevisionedAPI."
+  },
+  "base_version_id": "v-142042f4ef0b",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "original_job": "job-e6903c34327a",
+    "at": "2026-11-12T04:18:19.601257+00:00"
+  },
+  "game_profile": {
+    "category": "2D · 灯光迷宫解谜",
+    "dimension": "2D",
+    "perspective": "俯视固定视角，局部光照视野",
+    "core_gameplay": "Original20mazes, walk fog/torchlight walls, collect3torches/ember andreach exit forstars. Actualstage1fullthree-starclear.",
+    "core_experience": "有限视野下的迷宫探索与路线记忆，火炬逐步扩大照明范围的渐进式揭示体验。",
+    "controls": "WASD/arrows move, Rrestart, Space nextafterwin, originalunlockedstagekeys/click, Mmute.",
+    "game_loop": "开始：加载关卡生成迷宫；操作：移动探索、点亮火炬、拾取余烬；结果：抵达出口结算1至3星；继续：解锁下一关并可重玩刷星。",
+    "content": "固定20个关卡定义，每关迷宫布局由种子程序化生成；含火炬、余烬、出口三类互动物件。",
+    "progression": "线性解锁20关，每关最高3星，总计60星；localStorage键lanternMaze保存星级与解锁进度。",
+    "save": "OriginallanternMaze stars/unlocked localStorage, actualStage2/firststage3stars/total3 refreshproved; no midmaze save.",
+    "rules": "目标：到达出口；计分：基础1星+全火炬点亮1星+拾取余烬1星；无失败死亡机制；无时间限制。",
+    "systems": "迷宫生成系统（DFS/Prim等算法按关卡配置）、光照视野系统（随火炬点亮扩大）、拾取判定系统（距离阈值触发）、粒子特效系统（萤火虫与点亮爆发）、星级评价系统。",
+    "ui_flow": "顶部HUD显示关卡、火炬0/3、余烬0/1、总星数与操作提示；关卡选择格显示1-20及星级；结算界面未实机到达。",
+    "level_design": "",
+    "verification": "Desktop1280x720 entire originalmain.js byteSHA unchanged. ActualnativeWASD mazewallcollision/light/trail, firststage3torches+ember collected thenoriginalexit fullthree-starwin, total3of60. NativeSpace nextstage2, key3lockedrefused, Rrestartoriginalstage2, refreshstage2unlocked/firststage3stars/total3 preserved. Entireoriginal20stagegen/rules/lighting/stars/unlock/save unchanged. Only unrelatedRosebudhosttools/resourceinterception retired,27exactfontrefs258956bytes localized. Complete30requestwindow startup/fullwin/next/restart/reload noexternal/failed/exception/truncation. Other19stages/alternatestaroutcomes/mobile/hearing notexhausted. Originalno midmazesave, no suchclaim.",
+    "evidence": "main.js（关卡定义STAGES、checkPickups、starsEarned、localStorage读写）；verification/8647b8a4-9694-4438-97f9-756016a7a27a-web-play.json（300次动作运行记录）。",
+    "gameplay_signature": "单画布俯视野心迷宫：HUD常驻顶部，玩家在小圆形视野内移动，点亮火炬扩展光照，UI实时显示火炬/余烬/星级计数，结算按收集完成度评星。",
+    "session_mechanism": "单局制：每关为独立会话，抵达出口即结束并结算；可随时重开；单局时长取决于迷宫规模与玩家路径，未确认具体数值。",
+    "replay_mechanism": "通关后可重玩任意已解锁关卡刷新星级；星级与解锁进度在重玩间保留（localStorage）。",
+    "drive_mechanism": "本地收集驱动：20关×3星共60星的完成度追求，以及后续关卡的逐步解锁。",
+    "goal_mechanism": "明确目标：每关抵达出口；进阶目标：点亮全部3支火炬并拾取余烬以获得满星。",
+    "achievement_mechanism": "操作→规则→目标：移动至火炬旁触发点亮（距离判定）、触碰余烬收集、抵达出口结算；星级即时反馈于HUD与关卡格。",
+    "feedback_mechanism": "实时反馈：火炬点亮粒子爆发与音效、HUD计数更新、视野随点亮扩大；结算星级展示；拾取音效经浏览器自动播放策略解锁。",
+    "continuation_mechanism": "通关后解锁下一关（unlocked+1），提供继续目标；20关全部解锁后以满星收集为延续目标。",
+    "motivation_mechanism": "推断：以探索解谜的挑战动机为主，辅以星级收集与关卡解锁的成长/成就动机；无外部排行或社交竞争。",
+    "core_goal_reachability": "本轮未实测达成：AI操作300次未抵达第1关出口，迷宫实时导航超出AI按键能力，已申报人工核对；未发现数值或死锁缺陷。",
+    "illustrations": [
+      {
+        "path": "screenshots/startup.png",
+        "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+      },
+      {
+        "path": "screenshots/current.png",
+        "caption": "本轮最终观察画面；仅证明已记录画面，验证范围见正文。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Entireoriginalreadablemain.js mazealgorithm/lighting/player/pickup/stars/UI/save retainedunchanged, originalsprite/audio/CSS local.",
+    "reuse": "Seededmazegeneration/fog/torchlight/collision/star-save/UI modules extractable withadaptation, notseparatelycertified.",
+    "dependencies": "NativeCanvas2D/HTMLAudio/localStorage andlocalfonts/assets.",
+    "preservation": "Entiremain.js SHA unchanged, no star/rules/unlock/difficulty/save modification."
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

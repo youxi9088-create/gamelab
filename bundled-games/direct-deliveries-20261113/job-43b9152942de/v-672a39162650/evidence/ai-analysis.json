@@ -1,0 +1,59 @@
+{
+  "summary": "本轮证据仅覆盖启动加载阶段：页面以 1 个 canvas 成功渲染、无运行时错误、无缺失资源、无外部请求被拦截。运行时未检测到任何按钮、文本标签或可交互元素，未执行任何交互回放，因此玩法、规则、控制、计分、存档全部处于未确认状态。资源层面可见 2 张生成图片与 3 个音频（主题音乐文件名含 memory 字样、jingle、hurt），暗示可能为记忆类休闲小游戏，但此仅为文件名推测，不构成玩法结论。index.html 存在一处补丁（仅有哈希前后值，补丁内容未提供）。3 个脚本完成了静态反混淆副本，editable_project_verified 为 false，即可编辑工程未经编辑器/构建验证。在无实际玩法断言的情况下，不得声称本包已通过完整验收。",
+  "game_profile": {
+    "category": "未确认。仅音频文件名 partyville-memory-theme.mp3 暗示可能为记忆配对类休闲小游戏，属于文件名层面推测，本轮无任何实机证据支持该分类，不能作为结论。",
+    "dimension": "未确认。运行时仅确认页面存在 1 个 canvas 且字体加载完成；该 canvas 是 2D 还是 3D 渲染未验证，无像素级或场景级证据。",
+    "perspective": "未确认。无截图内容分析、无场景描述证据，无法判断视角。",
+    "core_gameplay": "未确认。本轮仅验证启动渲染，无交互回放（replay_action_count 为 0），未观察到任何可操作对象、目标或反馈。",
+    "core_experience": "未确认。仅存在主题音乐与音效资源（jingle、hurt），暗示含奖励与受挫反馈的休闲体验，未实机验证。",
+    "controls": "以下均未实机验证，仅按运行时状态描述，不编造键位：\n1. 鼠标点击/触摸 canvas → 作用未确认 → 触发条件未确认（运行时焦点在 CANVAS，无指针锁定，但未执行点击回放）。\n2. 键盘输入 → 未观察到任何键位绑定证据 → 未验证。\n3. 页面按钮 → 运行时 buttons 列表为空 → 无可确认入口控件。",
+    "game_loop": "开始：仅确认页面加载后呈现 canvas（证据为 startup.png 与加载通过记录）。\n操作：未验证，本轮无任何输入回放。\n结果：未验证，未观察到得分、胜负或状态变化。\n继续：未验证，未观察到重开、下一关或结算流程。",
+    "content": "固定数量资源：2 张 JPEG 图片（文件名显示为生成图片）、3 个 MP3 音频（主题音乐、jingle、hurt）。\n程序生成内容：未确认，无法判断关卡、牌面或场景是否程序化生成。\n图片与音频在游戏内的具体用途未验证。",
+    "progression": "未确认。未观察到关卡、难度、解锁或任何进度指标；本地存储与 IndexedDB 均为空，无进度痕迹。",
+    "save": "保存内容：未确认。触发时机：未确认。恢复流程：未确认。\n本轮观测：localStorage、sessionStorage 条目为 0，IndexedDB 数据库为 0，未观察到任何写入行为。\n不保存项：未确认。\n限制：存储快照为只读副本，不能证明游戏进度曾被加载。",
+    "rules": "目标：未确认。成功/失败条件：未确认。计分公式：未确认。已查证阈值：无。本轮无任何规则层面证据。",
+    "systems": "仅源码/文件层面确认存在以下模块迹象：脚本加载器、聊天管理、图像生成、进度日志等远程脚本，疑似平台 SDK 集成而非游戏内系统。\n游戏内对象、状态、触发与系统交互：均未确认，main.js 仅有静态分析副本，未做可玩性验证。",
+    "ui_flow": "未确认。运行时 buttons 与 labels 均为空，页面 text 为空字符串，未观察到任何界面、按钮或界面间转移。是否有开始界面、结算界面均未验证。",
+    "level_design": "未确认。无关卡结构、布局或难度曲线证据。",
+    "verification": "实机验证：页面启动加载通过（约 1.9 秒）；canvas 数量为 1；字体状态 loaded；无运行时错误、无缺失资源、无外部请求被拦截；启动导航检查点通过。\n仅源码确认：main.js、ScriptsLoader-Universal.js、ChatManager.js 共 3 个脚本完成静态反混淆副本；index.html 存在一处哈希级补丁记录。\n未验证：全部玩法、交互、计分、规则、界面流转、存档读写、音频触发、关卡内容。",
+    "evidence": "本轮证据位置：运行时启动记录（passed=true、canvasCount=1、input_state 显示焦点在 CANVAS）；截图 screenshots/startup.png；存储快照（全部为空）。\n源码证据文件：main.js（sha256 f0c4e7c2…，静态副本）；_remote/92e1e3c6171d66a9/ScriptsLoader-Universal.js；_remote/deb467d4198f1f06/ChatManager.js；_remote/54d51111a998fc39/ImageGenerator.js；_remote/e57730bf0f3c819c/ProgressLogger.js；_remote/da8426dfa60b6b27/OGP.js；资源 assets/ 下 2 张图片与 3 个音频。\n补丁证据：index.html 补丁仅有 before/after 哈希，内容未提供。\n静态分析副本目录：source-analysis/ 下 3 项，状态均为 reused。"
+  },
+  "editable_logic": [
+    "当前包的二次开发边界：本地文件 main.js、index.html、rosebud-game-defaults.js/css 属于可编辑范围；index.html 已存在一处补丁，但补丁内容未提供，修改前需先取得补丁差异以免覆盖。",
+    "_remote/ 下 5 个脚本（脚本加载器、聊天、图像生成、进度日志、OGP）疑似平台 SDK 缓存文件，修改可能破坏平台集成，应视为只读依赖，除非确认可脱离平台运行。",
+    "editable_project_verified 为 false：静态反混淆副本不代表可在编辑器中重建工程，任何逻辑修改后必须重新跑运行时验证。",
+    "由于玩法全部未确认，当前不存在可安全修改的已验证玩法逻辑；任何针对玩法逻辑的编辑都属于对未确认行为的猜测性改动，需先完成 next_checks 中的交互取证。",
+    "没有实际玩法断言，不得声称本包已通过完整验收或已达到可交付状态。"
+  ],
+  "portable_modules": [
+    "assets/ 下 2 张 JPEG 图片与 3 个 MP3 音频：自包含资源，可直接移植。",
+    "rosebud-game-defaults.css 与 css2.css：样式文件，可移植但需确认是否含平台特定重置。",
+    "main.js：游戏主体逻辑，存在静态分析副本，理论上可移植，但未验证其对 _remote SDK 的依赖程度。",
+    "_remote/ 下 SDK 脚本：属于平台依赖而非游戏模块，移植时需替换或剥离。"
+  ],
+  "dependencies": [
+    "运行时未观察到外部网络请求（external、blocked_external、required_external 均为空），资源均随包加载。",
+    "潜在代码级依赖：_remote/ScriptsLoader-Universal.js、ChatManager.js、ImageGenerator.js、ProgressLogger.js、OGP.js 共 5 个平台脚本，疑似 Rosebud 平台 SDK；main.js 是否强依赖这些脚本未确认。",
+    "字体：状态为 loaded，具体字体来源未确认。",
+    "广告拦截（Ghostery）仅作用于网络广告/跟踪，本轮拦截数为 0，未对玩法注入任何 mock。"
+  ],
+  "verification_limits": [
+    "无交互回放：replay_action_count 为 0，未点击、未按键，canvas 内部行为完全未观测。",
+    "无界面文本：页面 text 为空、buttons 与 labels 为空，canvas 绘制内容无法从 DOM 提取，startup.png 之外无更多截图。",
+    "存储为空且快照为只读：不能证明存档机制存在或不存在。",
+    "index.html 补丁仅有哈希，补丁内容未知，无法评估其影响。",
+    "静态分析范围上限为 3 个不超过 1MB 的脚本，其余文件未分析；静态副本不构成运行行为证据。",
+    "导航检查点仅覆盖已观测的非回环运行时，不保证未观测计时器或部署配置的行为。",
+    "音频是否实际播放、图片在画面中的角色均未验证。"
+  ],
+  "next_checks": [
+    "执行交互回放：对 canvas 中心及边缘区域做点击/触摸序列，并采集逐帧截图，判断是否存在可交互对象与状态变化。",
+    "捕获启动后不同时刻的截图序列与 canvas 像素摘要，确认首屏实际呈现内容（标题、牌面、按钮等）。",
+    "读取 main.js 静态分析副本，定位游戏状态机、输入监听与计分相关逻辑，再对照实机回放验证。",
+    "验证 3 个音频的触发条件（主题音乐是否自动播放、jingle 与 hurt 分别对应何种事件）。",
+    "取得 index.html 补丁的实际差异内容，评估是否影响加载或注入行为。",
+    "确认 main.js 对 _remote 平台脚本的调用点，评估离线/脱离平台运行的可行性与所需 mock。",
+    "在交互后复查 localStorage/IndexedDB，确认是否存在进度存档及其结构。",
+    "完成以上取证前，不输出任何玩法验收结论。"
+  ]
+}

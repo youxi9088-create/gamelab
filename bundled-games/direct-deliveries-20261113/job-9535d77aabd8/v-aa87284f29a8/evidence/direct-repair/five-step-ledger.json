@@ -1,0 +1,49 @@
+{
+  "max_steps": 5,
+  "steps_used": 5,
+  "actual_steps": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8975/index.html",
+      "result": "Originaltitle/instructions."
+    },
+    {
+      "step": 2,
+      "type": "key",
+      "selector": "window",
+      "key": "Left",
+      "duration_ms": 450,
+      "result": "Native launch/leftmove/autobullets; passive naturalHP0/FINAL0."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "selector": "window",
+      "key": "Space",
+      "status": "not_verified",
+      "result": "Alreadygameover0; bombs unchanged, no bombsuccess claim."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "selector": "local-session result button",
+      "result": "Actualretry calls native restart, HP3/bombs2/playercenter; passive battle later324/CHAINX2 andnativegameover."
+    },
+    {
+      "step": 5,
+      "type": "key",
+      "selector": "window",
+      "key": "Space",
+      "status": "not_verified",
+      "result": "Alreadygameover324, bomb notverified; score notattributed tokey. No sixthaction/reload."
+    }
+  ],
+  "unverified": [
+    "bomb/charge",
+    "boss/wholegame",
+    "pause/guide/touch",
+    "reload/save"
+  ],
+  "stopped_at_limit": true
+}

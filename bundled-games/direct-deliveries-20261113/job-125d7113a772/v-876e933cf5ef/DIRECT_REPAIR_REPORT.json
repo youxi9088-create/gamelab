@@ -1,0 +1,549 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "non_game_http_findings": [],
+    "non_game_http_resolution": "",
+    "actions": [
+      {
+        "step": 1,
+        "type": "navigate",
+        "selector": "index.html",
+        "result": "Initial independent Classic menu loaded."
+      },
+      {
+        "step": 2,
+        "type": "click",
+        "selector": "START RUN",
+        "result": "FAILED initial build: assignment-only powerUps declaration omitted from closure. Fixed before step3; original failure preserved."
+      },
+      {
+        "step": 3,
+        "type": "reload",
+        "selector": "page",
+        "result": "Final corrected build loaded. This is before earned best, not a saved-score refresh test."
+      },
+      {
+        "step": 4,
+        "type": "click",
+        "selector": "START RUN",
+        "result": "Actual original Classic run: six red hazards, green player and timer."
+      },
+      {
+        "step": 5,
+        "type": "drag",
+        "from": [
+          640,
+          360
+        ],
+        "to": [
+          628,
+          535
+        ],
+        "result": "Native collision/death already produced3.5s/BEST3.5; drag selected results text, no movement claim."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8929/",
+      "http://127.0.0.1:8929/fonts/fonts.css",
+      "http://127.0.0.1:8929/main.js",
+      "http://127.0.0.1:8929/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "http://127.0.0.1:8929/fonts/yMJRMIlzdpvBhQQL_Qq7dy0.woff2",
+      "http://127.0.0.1:8929/assets/audio/tension-loop.mp3",
+      "http://127.0.0.1:8929/assets/audio/collision-impact.mp3",
+      "http://127.0.0.1:8929/assets/audio/difficulty-warning-soft.mp3",
+      "http://127.0.0.1:8929/assets/image-4.png",
+      "http://127.0.0.1:8929/favicon.svg"
+    ],
+    "scope": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+    "network_scope": "Final build full reload (step3), real classic start (step4) and native 3.5sec collision/death/best, step5 drag occurred on results text, so movement not independently proven. Earlier failed build preserved separately.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "removed",
+      "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "removed",
+      "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-04-native-run.jpg",
+        "screenshots/revision-05-drag.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-04-native-run.jpg",
+        "screenshots/revision-05-drag.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-04-native-run.jpg",
+        "screenshots/revision-05-drag.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-04-native-run.jpg",
+        "screenshots/revision-05-drag.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-04-native-run.jpg",
+        "screenshots/revision-05-drag.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-04-native-run.jpg",
+        "screenshots/revision-05-drag.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-04-native-run.jpg",
+        "screenshots/revision-05-drag.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Initial independent Classic menu loaded."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "START RUN",
+      "result": "FAILED initial build: assignment-only powerUps declaration omitted from closure. Fixed before step3; original failure preserved."
+    },
+    {
+      "step": 3,
+      "type": "reload",
+      "selector": "page",
+      "result": "Final corrected build loaded. This is before earned best, not a saved-score refresh test."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "selector": "START RUN",
+      "result": "Actual original Classic run: six red hazards, green player and timer."
+    },
+    {
+      "step": 5,
+      "type": "drag",
+      "from": [
+        640,
+        360
+      ],
+      "to": [
+        628,
+        535
+      ],
+      "result": "Native collision/death already produced3.5s/BEST3.5; drag selected results text, no movement claim."
+    }
+  ],
+  "scope": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      }
+    ],
+    "scope": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。"
+  },
+  "dependency_review": {
+    "previous_revision": 3,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "运行所需资源全部加载，无缺失；canvas与字体正常。",
+          "evidence": "verification/09fbb097-274b-4e77-89c9-c2ee9855a9e2-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "最高分通过localStorage键dontTouchBest保存，刷新后BEST 04.7完整恢复。",
+          "evidence": "verification/09fbb097-274b-4e77-89c9-c2ee9855a9e2-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "仅覆盖本轮经典模式闭环：该流程完全本地代码与localStorage完成；Supabase排行RPC被拦截时游戏优雅降级提示且不阻断玩法。账号登录与在线排行未验证。",
+          "evidence": "verification/09fbb097-274b-4e77-89c9-c2ee9855a9e2-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 3,
+      "updated_at": "2026-11-02T07:02:45+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。"
+    },
+    "basis": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。"
+  },
+  "base_version_id": "v-884146b5d241",
+  "manual_execution": {
+    "executor": "Codex direct repair / actual UI",
+    "automated_model_conversion": false,
+    "original_job": "job-125d7113a772",
+    "max_gameplay_steps": 5,
+    "at": "2026-11-12T19:28:18.135228+00:00"
+  },
+  "game_profile": {
+    "category": "动作 / 生存躲避",
+    "dimension": "2D",
+    "perspective": "单屏俯视竞技场，顶部时间/BEST、中央原菜单/结算覆盖层，底部难度提示、暂停与静音。",
+    "core_gameplay": "开局重置玩家与原随机障碍→指针目标带动绿点→红球在边界反弹并随时间升级→碰撞立即死亡→时间/BEST与原随机文案→重新挑战。",
+    "core_experience": "",
+    "controls": "鼠标在画布移动时原movePointer更新目标坐标；触控/拖动按原pointer捕获更新。START RUN或Enter/Space开局，TRY AGAIN或Enter/Space重开，P/Esc或暂停按钮切换暂停，音符切换静音。本次最终构建只实测开局与原碰撞结算；第5步已落在结算文本上，不声称移动/触控实际通过。",
+    "game_loop": "原标题→START RUN→生存局→YOU DIED与秒数/BEST→TRY AGAIN。本次实际到3.5秒原生死亡，未点击重开。",
+    "content": "一个固定方形生存竞技场，原随机障碍生成/死亡短句和无限计时难度阶段；不声称存在固定关卡总数。付费Power Mode及在线赛季不在当前独立包范围。",
+    "progression": "单局按时间触发障碍变形、加速及数量增加；跨局只有本地最佳秒数，不是有限关卡。",
+    "save": "原localStorage键dontTouchBest保留，碰撞后按原best.toFixed(2)写入，HUD显示一位小数。本次最终运行BEST由0.0变3.5；未再次刷新，不能宣称新成绩跨刷新恢复已实测。当前局时间/红球位置不保存。",
+    "rules": "玩家与红球圆形距离小于半径和即死亡。初始6球，10秒两球变形为四球；后续按原曲线加速/增加球数，最多14球并有速度上限。生存时间越长分数越高。",
+    "systems": "原玩家追随/指针输入、随机红球生成、速度/数量限制、变形、圆形碰撞、计时、拖尾与粒子、音频、暂停/静音、结算及原本地最佳。账号、排行榜、云端提交和支付依赖已拆除。",
+    "ui_flow": "原DON’T TOUCH菜单和Classic竞技场→原HUD→原YOU DIED/生存时间/BEST/TRY AGAIN。在线/账号/付费/关于联机入口实际删除，原CSS全文保持。死亡短句中的leaderboard玩笑仍是原随机文案，不提供排行榜功能。",
+    "level_design": "原随机红球初始布局、位置安全距离搜索、边界弹跳、10秒变形和后续难度曲线；未替换为固定种子或删除危险球。",
+    "verification": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+    "evidence": "当前main.js/source-preservation中12原函数及4原Classic投影、asset-preservation、最终network-final/console-final、早期失败记录与five-step-ledger；实际3.5秒原生结算截图。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "原生浏览器Canvas2D，无游戏引擎依赖。",
+    "programming_language": "JavaScript ES模块、HTML/CSS。",
+    "game_summary": "移动绿色圆点避开持续弹跳的红球，按生存秒数计分；碰撞死亡后查看本地最佳并继续挑战。",
+    "resource_types": "原Canvas程序绘制绿点、红球、拖尾、爆裂与闪屏；三份原MP3紧张音乐/碰撞/难度提示；原Inter和Orbitron字体、原favicon与图标图像。",
+    "engine_asset_system": "原Canvas2D逐帧绘制，Audio读取assets/audio同源MP3；字体用本地fonts.css。当前无外部框架、账号或CDN运行请求。",
+    "core_challenge_details": "随着红球数量与速度阶段性增加，连续调整绿点位置避免圆形碰撞，争取更长存活时间。",
+    "core_challenge_type": "操作执行",
+    "input_elements": "画布pointermove、pointerdown/捕获，按钮及键盘快捷键。",
+    "app_suitability": "",
+    "core_loop": "观察红球轨迹→移动绿点避开→时间增加/原难度阶段触发→继续生存或碰撞结算。",
+    "churn_risk": "",
+    "progression_loop": "挑战当前最佳→结算比较→再次挑战。",
+    "core_closure": "目标：当前局避开所有红球并延长存活时间。规则：原玩家追随目标、边界限制、球体移动/反弹、圆形距离碰撞和时间难度阶段决定死亡，不增加无敌或降低速度。反馈：绿色拖尾、红球、计时/BEST、难度提示、碰撞爆裂/闪屏和YOU DIED/秒数/随机文案；最终构建实际3.5秒死亡与BEST3.5。激励：本地最高生存秒数；TRY AGAIN路径代码保留，本轮未点击。",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "原800×800内部画布；玩家半径13×1.1=14.3，红球18×1.1=19.8。基础112、Classic起速112×1.72×1.2×1.04；速度上限为STARTING_SPEED×4.6，Classic球数上限14。10秒变形、20秒+25%/+2球、30秒+12%、40秒+10%/+1球、50秒+10%，60秒后按原每10秒阶段增长。玩家追随系数1-exp(-dt×18)，每帧dt上限0.033；均由原码保留。",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "原白底、黑红标题、红色START RUN、绿色玩家与红色障碍，保留原字体、边框及Canvas反馈。",
+    "theme_position": "极简颜色对比的短局生存挑战。",
+    "economy": "按实际生存秒数计分和本地最佳，无金币消费或充值。原付费Power Mode未解锁/未启用，不伪造订阅或每日授权。",
+    "roles": "玩家绿点、原红球障碍及粒子，无角色养成或账号身份。",
+    "roster_summary": "",
+    "monetization_details": "移除Supabase、账号UI、在线排行榜/赛季授权/云端提交、真实支付与Power购买入口及宿主脚本；当前只保留原免费Classic模式。音频字节与加载保留，未作实际听觉结论。",
+    "monetization": "当前独立Classic包无广告、购买、真实支付或联网榜单。",
+    "illustrations": [
+      {
+        "path": "screenshots/revision-03-fixed-startup.jpg",
+        "caption": "最终构建原Classic菜单；免费开局，无账号/支付/在线榜单。"
+      },
+      {
+        "path": "screenshots/revision-04-native-run.jpg",
+        "caption": "实际开局，6原红球、绿点、原计时与难度提示。"
+      },
+      {
+        "path": "screenshots/revision-05-drag.jpg",
+        "caption": "原生3.5秒死亡/BEST3.5；第5步拖动选中了结算文字，不作为移动通过证明。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Original free Classic native JavaScript/Canvas2D; 12 functions unchanged and4 with unchanged original Classic projection.",
+    "reuse": "Movement/hazard/collision/time/draw functions require extraction/adaptation; no certified independent module.",
+    "dependencies": "Browser Canvas2D/Audio/localStorage and localfonts; serve overHTTP.",
+    "preservation": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 8559.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 4911.126,
+      "calls": 40,
+      "known_input_tokens": 1752115,
+      "known_output_tokens": 149527,
+      "cached_input_tokens_known": 274432,
+      "unknown_usage_calls": 8,
+      "known_estimated_cost_subtotals": {
+        "CNY": 45.055223999999995
+      },
+      "unknown_cost_calls": 8,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 2,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 2,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 2,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:local-codex": {
+          "calls": 4,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 4,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 4,
+          "registered_price_bands": []
+        },
+        "api:kimi-k3": {
+          "calls": 34,
+          "input_tokens_known": 1752115,
+          "output_tokens_known": 149527,
+          "unknown_usage_calls": 2,
+          "known_cost_subtotals": {
+            "CNY": 45.055223999999995
+          },
+          "unknown_cost_calls": 2,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-11T15:34:49.079509+00:00",
+      "observed_until": "2026-11-12T19:28:51.736736+00:00",
+      "observed_wall_seconds": 100442.657227,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

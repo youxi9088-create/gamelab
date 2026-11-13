@@ -1,0 +1,66 @@
+{
+  "historical_platform_model_usage": {
+    "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+    "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+    "recorded_node_elapsed_wall_seconds": 2102.0,
+    "processing_seconds": null,
+    "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+    "recorded_inference_call_wall_seconds": 1744.324,
+    "calls": 13,
+    "known_input_tokens": 295993,
+    "known_output_tokens": 54333,
+    "cached_input_tokens_known": 91904,
+    "unknown_usage_calls": 4,
+    "known_estimated_cost_subtotals": {
+      "CNY": 9.698888
+    },
+    "unknown_cost_calls": 4,
+    "complete_estimated_cost_by_currency": null,
+    "models": {
+      "api:kimi-k2.7-code": {
+        "calls": 2,
+        "input_tokens_known": 0,
+        "output_tokens_known": 0,
+        "unknown_usage_calls": 2,
+        "known_cost_subtotals": {},
+        "unknown_cost_calls": 2,
+        "registered_price_bands": [
+          {
+            "currency": "CNY",
+            "input_per_million": 6.5,
+            "output_per_million": 27,
+            "cached_input_per_million": 1.3
+          }
+        ]
+      },
+      "api:kimi-k3": {
+        "calls": 11,
+        "input_tokens_known": 295993,
+        "output_tokens_known": 54333,
+        "unknown_usage_calls": 2,
+        "known_cost_subtotals": {
+          "CNY": 9.698888
+        },
+        "unknown_cost_calls": 2,
+        "registered_price_bands": [
+          {
+            "currency": "CNY",
+            "input_per_million": 20,
+            "output_per_million": 100,
+            "cached_input_per_million": 2
+          }
+        ]
+      }
+    }
+  },
+  "current_direct_repair": {
+    "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+    "observed_from": "2026-11-12T23:30:37.749135+00:00",
+    "observed_until": "2026-11-12T23:40:44.672121+00:00",
+    "observed_wall_seconds": 606.922986,
+    "codex_game_input_tokens": null,
+    "codex_game_output_tokens": null,
+    "codex_game_cost": null,
+    "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+  }
+}

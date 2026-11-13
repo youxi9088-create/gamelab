@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    
+    <meta charset="utf-8" />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="icon" href="data:,"><title>8-Ball Pool 3D</title>
+    
+    <link
+      href="./_remote/3a125e88c76c9347/css2"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --panel: rgba(16, 11, 8, 0.74);
+        --line: rgba(212, 176, 106, 0.28);
+        --brass: #d4b06a;
+        --ink: #efe6d6;
+        --mute: #a99c86;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #0a0807;
+        touch-action: none;
+        font-family: "Barlow", system-ui, sans-serif;
+        color: var(--ink);
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      canvas {
+        display: block;
+      }
+      #hud {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+        pointer-events: none;
+      }
+      .plate {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 8px 12px;
+        min-width: 150px;
+        position: relative;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s,
+          opacity 0.3s;
+        opacity: 0.62;
+      }
+      .plate.on {
+        border-color: var(--brass);
+        box-shadow:
+          0 0 0 1px var(--brass),
+          0 6px 24px rgba(0, 0, 0, 0.5);
+        opacity: 1;
+      }
+      .fr {
+        display: inline-block;
+        min-width: 22px;
+        margin-left: 6px;
+        padding: 0 6px;
+        border-radius: 5px;
+        background: rgba(212, 176, 106, 0.18);
+        color: var(--brass);
+        text-align: center;
+        font-variant-numeric: tabular-nums;
+      }
+      #p1 .fr {
+        margin: 0 6px 0 0;
+        float: left;
+      }
+      .sum {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 4px 0 18px;
+        font-size: 14px;
+      }
+      .sum th {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        color: var(--ink);
+        text-align: right;
+        padding: 4px 0;
+      }
+      .sum td {
+        color: var(--mute);
+        text-align: right;
+        padding: 5px 0;
+        border-top: 1px solid rgba(212, 176, 106, 0.12);
+        font-variant-numeric: tabular-nums;
+      }
+      .sum td:first-child {
+        text-align: left;
+      }
+      .sum td.w {
+        color: var(--brass);
+        font-weight: 500;
+      }
+      .card button.ghost {
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid var(--line);
+        margin-top: 8px;
+      }
+      .pts {
+        font-family: "Barlow", sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--mute);
+        margin-left: 4px;
+      }
+      .pname {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 600;
+        font-size: 19px;
+        letter-spacing: 0.3px;
+      }
+      .grp {
+        font-size: 13px;
+        color: var(--mute);
+        margin: 1px 0 5px;
+      }
+      .chips {
+        display: flex;
+        gap: 3px;
+        flex-wrap: wrap;
+        min-height: 16px;
+      }
+      .chip {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        box-shadow:
+          inset -2px -2px 3px rgba(0, 0, 0, 0.45),
+          inset 1px 1px 2px rgba(255, 255, 255, 0.35);
+      }
+      .chip.gone {
+        opacity: 0.16;
+      }
+      #p1 {
+        text-align: right;
+      }
+      #p1 .chips {
+        justify-content: flex-end;
+      }
+      .scorePop {
+        position: absolute;
+        top: 37px;
+        left: 10px;
+        z-index: 5;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(-4px) scale(0.96);
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        white-space: nowrap;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+        transition:
+          opacity 0.18s,
+          transform 0.18s;
+      }
+      #p1 .scorePop {
+        left: auto;
+        right: 10px;
+      }
+      .scorePop.show {
+        opacity: 1;
+        transform: translateY(2px) scale(1);
+      }
+      .scorePop.gain {
+        color: #79e69a;
+      }
+      .scorePop.loss {
+        color: #ff7770;
+      }
+      .scorePop.zero {
+        color: #d7cdbb;
+      }
+      #msg {
+        flex: 1;
+        text-align: center;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        text-shadow: 0 2px 8px #000;
+        padding-top: 6px;
+        line-height: 1.25;
+      }
+      #msg small {
+        display: block;
+        font-family: "Barlow", sans-serif;
+        font-size: 13px;
+        color: var(--mute);
+        font-weight: 400;
+      }
+      #power {
+        position: fixed;
+        right: 0;
+        top: 44%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+      #track {
+        width: 46px;
+        height: min(46vh, 320px);
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 23px;
+        position: relative;
+        overflow: hidden;
+        cursor: ns-resize;
+        touch-action: none;
+      }
+      #fill {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 0;
+        background: linear-gradient(#e7c878, #d0662a 70%, #a3171b);
+      }
+      #stick {
+        position: absolute;
+        left: 50%;
+        width: 10px;
+        margin-left: -5px;
+        top: 8px;
+        height: calc(100% - 16px);
+        border-radius: 5px;
+        background: linear-gradient(#2c5d98 0 4%, #f1ece0 4% 8%, #e4c58e 8% 55%, #c0c0c0 55% 57%, #23140c 57%);
+        pointer-events: none;
+        transition: transform 0.05s;
+      }
+      #power span {
+        font-size: 12px;
+        color: var(--mute);
+        text-align: center;
+        max-width: 70px;
+        line-height: 1.2;
+      }
+      #bar {
+        position: fixed;
+        left: 10px;
+        bottom: 12px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      button {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--ink);
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 9px 14px;
+        cursor: pointer;
+        backdrop-filter: blur(6px);
+        touch-action: none;
+      }
+      button:active {
+        border-color: var(--brass);
+        background: rgba(60, 42, 22, 0.85);
+      }
+      #spinBox {
+        position: fixed;
+        right: 10px;
+        bottom: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      #spinBox span {
+        font-size: 12px;
+        color: var(--mute);
+      }
+      #spin {
+        width: 78px;
+        height: 78px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #fffdf6, #e9e3d3 55%, #b9b1a0);
+        border: 1px solid var(--line);
+        position: relative;
+        cursor: crosshair;
+        touch-action: none;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+      }
+      #spin::before,
+      #spin::after {
+        content: "";
+        position: absolute;
+        background: rgba(0, 0, 0, 0.15);
+      }
+      #spin::before {
+        left: 50%;
+        top: 10%;
+        bottom: 10%;
+        width: 1px;
+      }
+      #spin::after {
+        top: 50%;
+        left: 10%;
+        right: 10%;
+        height: 1px;
+      }
+      #dot {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        margin: -7px 0 0 -7px;
+        border-radius: 50%;
+        background: #c8102e;
+        left: 50%;
+        top: 50%;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7);
+        pointer-events: none;
+      }
+      button.act {
+        border-color: var(--brass);
+        color: var(--brass);
+      }
+      #fine {
+        position: fixed;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+      }
+      #fine button {
+        width: 56px;
+        font-size: 20px;
+      }
+      #overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+        background: rgba(6, 4, 3, 0.62);
+        backdrop-filter: blur(3px);
+        overflow: hidden;
+      }
+      #overlay.hide {
+        display: none;
+      }
+      .card {
+        background: linear-gradient(160deg, #1d140d, #120c08);
+        border: 1px solid var(--brass);
+        border-radius: 14px;
+        padding: 26px 28px;
+        max-width: 430px;
+        width: min(430px, 100%);
+        max-height: calc(100vh - 24px);
+        max-height: calc(100dvh - 24px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-width: thin;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      }
+      .card h1 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 1;
+        letter-spacing: 0.5px;
+      }
+      .card h1 em {
+        font-style: normal;
+        color: var(--brass);
+      }
+      .card p {
+        color: var(--mute);
+        font-size: 15px;
+        line-height: 1.55;
+        margin: 12px 0;
+      }
+      .card ul {
+        list-style: none;
+        font-size: 14.5px;
+        line-height: 1.5;
+        margin: 6px 0 18px;
+      }
+      .card li {
+        display: flex;
+        gap: 10px;
+        padding: 7px 0;
+        border-bottom: 1px solid rgba(212, 176, 106, 0.12);
+      }
+      .card li b {
+        color: var(--ink);
+        font-weight: 500;
+        min-width: 62px;
+      }
+      .card li {
+        color: var(--mute);
+      }
+      .card button {
+        width: 100%;
+        background: var(--brass);
+        color: #1a110a;
+        border: none;
+        font-size: 20px;
+        padding: 12px;
+      }
+      .card .acts {
+        display: grid;
+        gap: 8px;
+      }
+      .card .acts button.ghost {
+        margin-top: 0;
+      }
+      .card button:disabled {
+        opacity: 0.45;
+      }
+      .card .seats {
+        list-style: none;
+        margin: 8px 0 14px;
+      }
+      .card .seats li {
+        justify-content: space-between;
+      }
+      .card .seats li span {
+        color: var(--brass);
+      }
+      .card .note {
+        font-size: 13.5px;
+        color: var(--mute);
+        min-height: 1.2em;
+        margin: 4px 0 8px;
+      }
+      #loading {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        background: radial-gradient(ellipse at 50% 38%, #17402b 0%, #0d2418 38%, #0a0807 75%);
+        transition: opacity 0.6s;
+      }
+      #loading.done {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #ldBall {
+        width: 74px;
+        height: 74px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 34% 30%, #555 0, #151515 38%, #000 72%);
+        position: relative;
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+        animation: roll 2.4s linear infinite;
+      }
+      #ldBall::after {
+        content: "8";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 32px;
+        height: 32px;
+        margin: -16px 0 0 -16px;
+        border-radius: 50%;
+        background: #f5f1e6;
+        color: #111;
+        font:
+          700 21px/32px Arial,
+          sans-serif;
+        text-align: center;
+      }
+      @keyframes roll {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      #ldTitle {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 34px;
+        letter-spacing: 0.5px;
+        color: var(--ink);
+      }
+      #ldTitle em {
+        font-style: normal;
+        color: var(--brass);
+      }
+      #ldBar {
+        width: min(320px, 70vw);
+        height: 6px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+      }
+      #ldFill {
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, #b8923f, #e7c878);
+        border-radius: 3px;
+        transition: width 0.25s;
+      }
+      #ldText {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 15px;
+        color: var(--mute);
+        min-height: 18px;
+        display: flex;
+        gap: 10px;
+      }
+      #ldPct {
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+      @media (max-width: 640px) {
+        .plate {
+          min-width: 0;
+          padding: 6px 8px;
+        }
+        .pname {
+          font-size: 16px;
+        }
+        .grp {
+          font-size: 11px;
+        }
+        .chip {
+          width: 11px;
+          height: 11px;
+        }
+        .scorePop {
+          top: 32px;
+          left: 8px;
+          font-size: 14px;
+        }
+        #p1 .scorePop {
+          left: auto;
+          right: 8px;
+        }
+        #msg {
+          font-size: 15px;
+        }
+        #msg small {
+          font-size: 11px;
+        }
+        button {
+          font-size: 15px;
+          padding: 8px 10px;
+        }
+        #fine {
+          bottom: 118px;
+          left: auto;
+          right: 100px;
+          transform: none;
+        }
+        #bar {
+          bottom: 12px;
+          right: 100px;
+        }
+        #spin {
+          width: 64px;
+          height: 64px;
+        }
+      }
+      @media (max-width: 360px), (max-height: 480px) {
+        #overlay {
+          padding: 6px;
+          align-items: center;
+        }
+        .card {
+          width: 100%;
+          max-height: calc(100vh - 12px);
+          max-height: calc(100dvh - 12px);
+          padding: 16px 14px;
+          border-radius: 11px;
+        }
+        .card h1 {
+          font-size: 30px;
+        }
+        .card p {
+          font-size: 13.5px;
+          line-height: 1.4;
+          margin: 8px 0;
+        }
+        .card ul {
+          font-size: 13.5px;
+          line-height: 1.35;
+          margin: 4px 0 10px;
+        }
+        .card li {
+          display: grid;
+          grid-template-columns: 56px minmax(0, 1fr);
+          gap: 6px;
+          padding: 6px 0;
+          align-items: start;
+        }
+        .card li b {
+          min-width: 0;
+        }
+        .card button {
+          font-size: 17px;
+          padding: 10px;
+          margin-top: 2px;
+        }
+        .card .acts {
+          position: sticky;
+          bottom: -16px;
+          margin: 0 -14px -16px;
+          padding: 8px 14px 12px;
+          background: #120c08;
+          box-shadow: 0 -8px 14px #120c08;
+          grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+          gap: 6px;
+        }
+        .card .acts button {
+          margin: 0;
+          padding: 8px 6px;
+          font-size: 16px;
+        }
+      }
+      @media (max-height: 480px) and (min-width: 520px) {
+        .card {
+          max-width: 640px;
+          width: min(640px, 100%);
+        }
+        .card ul {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          column-gap: 16px;
+        }
+        #fine {
+          bottom: 12px;
+          left: auto;
+          right: 104px;
+          transform: none;
+        }
+        #fine button {
+          width: 46px;
+        }
+        #bar {
+          right: 220px;
+        }
+      }
+    </style>
+    
+  </head>
+  <body>
+    <div id="loading">
+      <div id="ldBall"></div>
+      <div id="ldTitle">8-Ball <em>Pool</em></div>
+      <div id="ldBar"><div id="ldFill"></div></div>
+      <div id="ldText"><span id="ldLabel">Loading engine</span><span id="ldPct">0%</span></div>
+    </div>
+    <script>
+      // Runs before the 3D engine downloads, so the screen shows progress from the very first moment
+      window.__ld = {
+        p: 0,
+        set(p, label) {
+          this.p = Math.max(this.p, p);
+          document.getElementById("ldFill").style.width = this.p + "%";
+          document.getElementById("ldPct").textContent = Math.floor(this.p) + "%";
+          if (label) document.getElementById("ldLabel").textContent = label;
+        },
+      };
+      __ld.set(3, "Loading engine");
+      (function creep() {
+        if (__ld.p < 18 && !window.__engine) {
+          __ld.set(__ld.p + 0.4);
+          setTimeout(creep, 120);
+        }
+      })();
+      setTimeout(() => {
+        if (!window.__engine) __ld.set(__ld.p, "Slow connection, still loading…");
+      }, 12000);
+      setTimeout(() => {
+        if (!window.__engine) __ld.set(__ld.p, "Could not load the 3D engine. Check your connection and reload.");
+      }, 40000);
+    </script>
+    <div id="hud">
+      <div class="plate on" id="p0">
+        <div class="pname">Player 1</div>
+        <div class="scorePop" id="scorePop0"></div>
+        <div class="grp">Open table</div>
+        <div class="chips"></div>
+      </div>
+      <div id="msg"></div>
+      <div class="plate" id="p1">
+        <div class="pname">Player 2</div>
+        <div class="scorePop" id="scorePop1"></div>
+        <div class="grp">Open table</div>
+        <div class="chips"></div>
+      </div>
+    </div>
+    <div id="power">
+      <div id="track">
+        <div id="fill"></div>
+        <div id="stick"></div>
+      </div>
+      <span>Power</span>
+    </div>
+    <div id="bar">
+      <button id="bView">Top view</button>
+      <button id="bCam">Reset view</button>
+      <button id="bOrbit">Orbit: off</button>
+      <button id="bHelp">Help</button>
+    </div>
+    <div id="spinBox">
+      <div id="spin"><div id="dot"></div></div>
+      <span>Spin</span>
+    </div>
+    <div id="fine"><button id="bL">◀</button><button id="bR">▶</button></div>
+    <div id="overlay" class="hide">
+      <div class="card" id="card">
+        <h1>8-Ball <em>Pool</em></h1>
+        <ul id="helpList"></ul>
+        <div class="acts">
+          <button id="bStart">Play Classic 8-ball</button>
+          <button id="bMode">Play Ball numbers</button>
+          
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./game.js"></script>
+  </body>
+</html>

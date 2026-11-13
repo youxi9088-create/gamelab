@@ -1,0 +1,117 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "warnings": [
+    {
+      "level": "warn",
+      "message": "THREE.Material: parameter 'map' has value of undefined.",
+      "timestamp": "2026-11-13T02:51:33.356Z",
+      "url": "http://127.0.0.1:8975/vendor/002-three.js"
+    },
+    {
+      "level": "warn",
+      "message": "THREE.Material: parameter 'map' has value of undefined.",
+      "timestamp": "2026-11-13T02:51:33.357Z",
+      "url": "http://127.0.0.1:8975/vendor/002-three.js"
+    },
+    {
+      "level": "warn",
+      "message": "THREE.Material: parameter 'map' has value of undefined.",
+      "timestamp": "2026-11-13T02:51:33.357Z",
+      "url": "http://127.0.0.1:8975/vendor/002-three.js"
+    },
+    {
+      "level": "warn",
+      "message": "THREE.Material: parameter 'map' has value of undefined.",
+      "timestamp": "2026-11-13T02:51:33.357Z",
+      "url": "http://127.0.0.1:8975/vendor/002-three.js"
+    }
+  ],
+  "missing": [],
+  "required_external": [],
+  "non_game_http_findings": [],
+  "non_game_http_resolution": "",
+  "actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8975/index.html",
+      "result": "Originaltitle/instructions."
+    },
+    {
+      "step": 2,
+      "type": "key",
+      "selector": "window",
+      "key": "Left",
+      "duration_ms": 450,
+      "result": "Native launch/leftmove/autobullets; passive naturalHP0/FINAL0."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "selector": "window",
+      "key": "Space",
+      "status": "not_verified",
+      "result": "Alreadygameover0; bombs unchanged, no bombsuccess claim."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "selector": "local-session result button",
+      "result": "Actualretry calls native restart, HP3/bombs2/playercenter; passive battle later324/CHAINX2 andnativegameover."
+    },
+    {
+      "step": 5,
+      "type": "key",
+      "selector": "window",
+      "key": "Space",
+      "status": "not_verified",
+      "result": "Alreadygameover324, bomb notverified; score notattributed tokey. No sixthaction/reload."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed",
+      "scope": "Launch/move/autofire/failure/retry; Space unverified."
+    },
+    {
+      "name": "reload",
+      "status": "not_run",
+      "reason": "5UIactions used; no sixthaction."
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8975/index.html",
+    "http://127.0.0.1:8975/main.js",
+    "http://127.0.0.1:8975/vendor/006-three.js",
+    "http://127.0.0.1:8975/vendor/002-three.js",
+    "http://127.0.0.1:8975/local-session.js",
+    "http://127.0.0.1:8975/vendor/004-GLTFLoader.js",
+    "http://127.0.0.1:8975/vendor/005-SkeletonUtils.js",
+    "http://127.0.0.1:8975/assets/shot-zsWB.wav",
+    "http://127.0.0.1:8975/assets/hit-WASe.wav",
+    "http://127.0.0.1:8975/assets/boom-s-KUek.wav",
+    "http://127.0.0.1:8975/assets/boom-b-0JqX.wav",
+    "http://127.0.0.1:8975/assets/nova-gO9n.wav",
+    "http://127.0.0.1:8975/assets/pickup-Hfqb.wav",
+    "http://127.0.0.1:8975/assets/powerup-YYaN.wav",
+    "http://127.0.0.1:8975/assets/chain-oaGq.wav",
+    "http://127.0.0.1:8975/assets/player-hit-OCBf.wav",
+    "http://127.0.0.1:8975/assets/blast-charge-16Fq.wav",
+    "http://127.0.0.1:8975/assets/alarm-3w6L.wav",
+    "http://127.0.0.1:8975/assets/gameover-IYtT.wav",
+    "http://127.0.0.1:8975/assets/music-nL6s.wav",
+    "http://127.0.0.1:8975/assets/music-boss-IjB7.wav"
+  ],
+  "scope": "严格5步：1原标题与控制说明；2Left按住450ms真实启动并将机体从中央移到左侧，原自动子弹可见；自然耗尽3格HP后原SIGNAL LOST/FINAL SCORE0。3按Space时已结束，未观察到炸弹消耗，不记炸弹通过。4点实际本地再玩一次，调用原restart，机体回中央、HP3/炸弹2恢复，原自动战斗继续；期间原分数达到324/CHAIN X2并再次自然SIGNAL LOST。5再按Space时也已结束，未确认炸弹效果；324分不得归因这次Space。没有第6步或刷新。原356游戏函数语义及61原引擎函数保留，子弹/敌机/血量/炸弹/碰撞/分数/层级/首领/随机和美术原样；仅精确素材地址本地化、实际SDK等待se/桥ce及默认账号Te/Ie和外部包装脚本退役，内部真实本地结果/重玩事件衔接原restart，不注册假SDK或在线账号。14份原WAV精确HTTPS200/SHA齐备，42完整事件无外联/HTTP失败/loadingFailed/异常；4条原Aa材质map默认undefined警告保留，源函数未改，非缺音频或外部图像请求。原自动射击/移动/受伤失败/两局真实终态/重玩实测，炸弹/蓄力/首领/暂停/指南/触控/刷新或存档未验证。沿原任务正常入库待验收，不批准不供货。",
+  "network_scope": "Complete first startup, Leftlaunch450ms, firstnativegameover0, Spaceafterover, localretry/nativeHPreset, passiveauto battleto324/CHAINX2 and second Spaceafterover. No reload or extra UI actions.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

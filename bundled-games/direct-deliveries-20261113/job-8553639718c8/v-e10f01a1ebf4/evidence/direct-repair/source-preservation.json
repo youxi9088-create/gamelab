@@ -1,0 +1,134 @@
+{
+  "at": "2026-11-13T07:25:56.028Z",
+  "services": [
+    {
+      "file": "account-save-manager.js",
+      "original_sha256": "e3c530fcdffef24f908d22a97024f2e413a42d9cbe715fe1044c68f3afb298eb",
+      "final_sha256": "f2447084d0e979c81ae250532b7119634243561b22d13a7129c964095537e53a",
+      "original_functions": 92,
+      "final_functions": 72,
+      "preserved_functions": 65,
+      "removed": [
+        "firebase-config import",
+        "ActualFirebaseAccountProvider"
+      ],
+      "edited": [
+        "Retain exact native localrestore and notconfigured guest return; remove cloud restore tail",
+        "retired:completeLogin",
+        "retired:createAccount",
+        "retired:chooseAccountSave",
+        "retired:chooseDeviceSave",
+        "retired:sendPasswordReset",
+        "Explicit local-only default config",
+        "Set local-only config",
+        "No cloudconfigured claim",
+        "No SDK/provider object"
+      ]
+    },
+    {
+      "file": "social-manager.js",
+      "original_sha256": "351586752600d043bddb80a36be94dcae68240869ee11a441844d51dcf4e2bb6",
+      "final_sha256": "f052eeffb6bbbd41ffac4a0bba872792b4c93665a2e703581d0c2c78fbfbbed2",
+      "original_functions": 82,
+      "final_functions": 80,
+      "preserved_functions": 78,
+      "removed": [
+        "firebase-config import"
+      ],
+      "edited": [
+        "Retire actual Firebase initialize transport",
+        "Explicit local-only default config",
+        "Set local-only config"
+      ]
+    },
+    {
+      "file": "marketplace-manager.js",
+      "original_sha256": "b1d3752a3e771a862a9d1301c458eabb4d2636ef2b57e35636eb5e3cfcb64170",
+      "final_sha256": "e4c2039e246c9e20f892c9c7d4ff38d61ce1abed151071adef77cd4cbc787150",
+      "original_functions": 93,
+      "final_functions": 91,
+      "preserved_functions": 89,
+      "removed": [
+        "firebase-config import"
+      ],
+      "edited": [
+        "Retire actual Firebase initialize transport",
+        "Explicit local-only default config",
+        "Set local-only config"
+      ]
+    }
+  ],
+  "original_main_sha256": "4ca17b097bc082d12500f07920358738fe49810fd9f4f173c55410e8156389c0",
+  "final_main_sha256": "47a16b9160ea8bc179d283d5ace3f4c3928529387f260df3387030cd01aa7075",
+  "native_main_functions": 708,
+  "native_main_functions_unchanged": 708,
+  "explicit_local_consumers": [
+    "PlayerSaveManager",
+    "PocketwildSocial",
+    "PocketwildMarketplace"
+  ],
+  "unchanged_original_modules": [
+    "content-safety.js",
+    "economy-data.js",
+    "expedition-data.js",
+    "npc-behavior-manager.js",
+    "objective-data.js",
+    "objective-manager.js",
+    "offline-reward-manager.js",
+    "pet-dialogue-manager.js",
+    "potion-data.js",
+    "progression-data.js",
+    "rosebud-game-defaults.js",
+    "simulated-player-manager.js",
+    "social-player-service.js",
+    "ticket-manager.js"
+  ],
+  "scripts": [
+    {
+      "attrs": " src=\"runtime-resource-map.js\"",
+      "bytes": 0,
+      "kept": false
+    },
+    {
+      "attrs": " src=\"runtime-resource-bindings.js\"",
+      "bytes": 0,
+      "kept": false
+    },
+    {
+      "attrs": "",
+      "bytes": 18005,
+      "kept": false
+    },
+    {
+      "attrs": " src=\"./_remote/9c2ab15c10d0faf5/ScriptsLoader-Universal.js\"",
+      "bytes": 0,
+      "kept": false
+    },
+    {
+      "attrs": " src=\"./rosebud-game-defaults.js\" defer",
+      "bytes": 0,
+      "kept": true
+    },
+    {
+      "attrs": " type=\"importmap\"",
+      "bytes": 3573,
+      "kept": false
+    },
+    {
+      "attrs": "",
+      "bytes": 145,
+      "kept": false
+    },
+    {
+      "attrs": " type=\"module\" src=\"./main.js\"",
+      "bytes": 0,
+      "kept": true
+    },
+    {
+      "attrs": " src=\"./_remote/e57730bf0f3c819c/ProgressLogger.js\"",
+      "bytes": 0,
+      "kept": false
+    }
+  ],
+  "scope": "Real original guest/device restore and save preserved, no authenticated identity or cloudsuccess fabricated. ActualFirebase provider/imports/auth startup removed. Social/trade actualSDK initialization retired, original noaccount guards remain; original NPC/simulated accountType paths remain local and distinct from real accounts. Nativegame functions exactly fingerprint-identical;3top-level service configurations explicitly local. Originalart/rules/economy/dialogue/pet/expeditions/progression preserved."
+}

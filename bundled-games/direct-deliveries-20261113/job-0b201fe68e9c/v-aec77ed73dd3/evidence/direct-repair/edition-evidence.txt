@@ -1,0 +1,300 @@
+gml_Script_s_choose_mode_HC: yyInst(_inst, _other, YYASSET_REF(0x00000056)).gmlfr_mode = 1
+
+gml_Script_s_choose_mode_HC: yyInst(_inst, _other, YYASSET_REF(0x00000056)).gmlqb_mode = 0
+
+gml_Script_s_choose_mode_HC: yyInst(_inst, _other, YYASSET_REF(0x00000056)).gmlco_mode = 0
+
+gml_Script_s_choose_mode_QB: yyInst(_inst, _other, YYASSET_REF(0x00000056)).gmlfr_mode = 0
+
+gml_Script_s_choose_mode_QB: yyInst(_inst, _other, YYASSET_REF(0x00000056)).gmlqb_mode = 1
+
+gml_Script_s_choose_mode_QB: yyInst(_inst, _other, YYASSET_REF(0x00000056)).gmlco_mode = 0
+
+gml_Script_s_setup_for_mode_CO: __yy__v730.gmlfr_mode = 0
+
+gml_Script_s_setup_for_mode_CO: __yy__v730.gmlqb_mode = 0
+
+gml_Script_s_setup_for_mode_CO: __yy__v730.gmlco_mode = 1
+
+function gml_Script_s_is_co_mode(_inst, _other) {
+  {
+    return 0;
+  }
+}
+
+gml_Script_s_loadgame: __yy__v1626.gmlqb_mode = ini_read_real("savegame", "qb_mode", 0)
+
+gml_Script_s_loadgame: __yy__v1626.gmlco_mode = ini_read_real("savegame", "co_mode", 0)
+
+gml_Script_s_loadgame: __yy__v1626.gmlfr_mode = ini_read_real("savegame", "fr_mode", 1)
+
+gml_Script_s_update_ui_colours: yyInst(_inst, _other, YYASSET_REF(0x00000056)).gmlfr_mode = 1
+
+function gml_Script_s_set_up_globals(_inst, _other) {
+  {
+    gml_Script_slog(_inst, _other, "s_set_up_globals 1");
+    global.gmlurl_apple = "https://apps.apple.com/us/app/retro-bowl/id1478902583";
+    global.gmlurl_google = "https://play.google.com/store/apps/details?id=com.newstargames.retrobowl";
+    global.gmlurl_twitter = "https://twitter.com/retro_bowl";
+    global.gmlurl_discord = "https://t.co/39hMkwwqet";
+    global.gmlurl_reddit = "https://www.reddit.com/r/RetroBowl";
+    global.gmlurl_record_book = "https://www.reddit.com/r/RetroBowl/comments/qiinp5/retro_bowl_record_book_volume_v";
+    global.gmlurl_leagues = "https://retrobitcoach.com/?page_id=16";
+    global.gmlurl_apple_rg = "https://apple.co/3CtmZdv";
+    global.gmlurl_google_rg = "https://bit.ly/3Ey2KgC";
+    global.gmlurl_switch_us = "https://bit.ly/3B1aqqb";
+    global.gmlurl_apple_nss = "https://apple.co/3pHBbMP";
+    global.gmlurl_google_nss = "https://bit.ly/3bfcQW9";
+    global.gmlurl_apple_nsm = "https://apple.co/3bgpRyI";
+    global.gmlurl_google_nsm = "https://bit.ly/3vQAAcL";
+    global.gmlurl_apple_nsb = "https://apple.co/3nyyUSs";
+    global.gmlurl_google_nsb = "https://bit.ly/3qXwsHD";
+    global.gmlurl_apple_rb = "https://apps.apple.com/app/retro-bowl/id1478902583";
+    global.gmlurl_google_rb = "https://play.google.com/store/apps/details?id=com.newstargames.retrobowl";
+    global.gmlurl_apple_rbc = "https://apps.apple.com/app/retro-bowl-college/id1632904520";
+    global.gmlurl_google_rbc = "https://play.google.com/store/apps/details?id=com.newstargames.retrobowlcollege";
+    global.gmlurl_apple_nsgp = "https://store.steampowered.com/app/2217580/New_Star_GP/";
+    global.gmlurl_google_nsgp = "https://store.steampowered.com/app/2217580/New_Star_GP/";
+    global.gmlurl_all_nsgp = "https://www.newstargames.com/servlet/Content/en/text/releases/Releases/item/476/Releases-New-Star-GP";
+    global.gmlurl_merch_tshirts = "https://pixelpigskin.threadless.com";
+    global.gmlurl_heatley_bros = "https://www.youtube.com/watch?v=orQOPJMy9Ww";
+    global.gmlurl_jefe_zhai = "https://www.youtube.com/playlist?list=PLvoVcbkHypzIj1_9aIh6w_B2sIPnS3t6A";
+    global.gmlIAP_Enabled = false;
+    global.gmlmobile_device = yyGetBool(yyfequal(g_pBuiltIn.get_os_type(), 4)) || yyGetBool(yyfequal(g_pBuiltIn.get_os_type(), 3));
+    global.gmlmaster_ball = -4;
+    global.gmlbrowser = true;
+    if (yyfequal(g_pBuiltIn.get_os_browser(), -1)) {
+      global.gmlbrowser = false;
+    } else {
+      global.gmlmobile_device = false;
+    }
+    ;
+    global.gmlpoki = true;
+    if (!yyGetBool(global.gmlbrowser)) {
+      global.gmlpoki = false;
+    }
+    ;
+    global.gmlpoki_gameplay = false;
+    global.gmlbrowser_done_post_match_reward = false;
+    global.gmlcrazygames = false;
+    if (!yyGetBool(global.gmlbrowser)) {
+      global.gmlcrazygames = false;
+    }
+    ;
+    global.gmlcrazygames_init = false;
+    global.gmlcrazygames_gameplay = false;
+    global.gmlcrazygames_rewarded = false;
+    global.gmldebug = false;
+    if (yyGetBool(!yyGetBool(global.gmlbrowser)) && yyGetBool(yyGetBool(yyfequal(g_pBuiltIn.get_os_type(), 0)) || yyGetBool(yyfequal(g_pBuiltIn.get_os_type(), 1)))) {
+      global.gmldebug = true;
+    }
+    ;
+    global.gmlsouthland = false;
+    global.gmljefebuild = false;
+    if (yyfnotequal(g_pBuiltIn.get_os_type(), 3)) {
+      global.gmljefebuild = false;
+    }
+    ;
+    if (!yyGetBool(variable_global_exists("show_title"))) {
+      {
+        global.gmlshow_title = true;
+      }
+      ;
+    }
+    ;
+    global.gmldebug_co_overtime = 0;
+    global.gmldebug_force_skip_result = 0;
+    global.gmlto_news_from_dilemma = false;
+    global.gmldebug_aa_hide_ui = false;
+    global.gmllast_opt_music_change_time = 0;
+    gml_Script_slog(_inst, _other, "s_set_up_globals 2");
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    global.gmlg_version = 43;
+    global.gmlg_savedelay = 0;
+    global.gmlg_optionsave = "optiondata.dat";
+    global.gmlg_savename1 = "savedata.ini";
+    global.gmlg_savename2 = "savedata2.ini";
+    global.gmlg_savename3 = "savedata3.ini";
+    global.gmlg_savename4 = "savedata4.ini";
+    global.gmlg_savename5 = "savedata5.ini";
+    global.gmlg_savename_exh = "savedata_exh.ini";
+    global.gmlg_save_ini_section = "savegame";
+    global.gmlc_background = make_color_rgb(44, 104, 255);
+    global.gmlc_shadow = make_color_rgb(96, 96, 96);
+    gml_Script_slog(_inst, _other, "s_set_up_globals 3");
+    global.gmlc_primary = make_color_rgb(210, 210, 10);
+    global.gmlc_highlight = make_color_rgb(230, 230, 130);
+    global.gmlc_buttons = make_color_rgb(210, 210, 10);
+    global.gmlc_backfill = make_color_rgb(0, 0, 0);
+    global.gmlc_routes = make_color_rgb(86, 216, 86);
+    global.gmlc_routes_rb = make_color_rgb(116, 164, 255);
+    global.gmlc_headcoach = make_color_rgb(57, 180, 74);
+    global.gmlc_offense = make_color_rgb(92, 200, 255);
+    global.gmlc_defense = make_color_rgb(255, 64, 64);
+    global.gmlc_specialteams = make_color_rgb(228, 92, 16);
+    global.gmlc_toxic = make_color_rgb(60, 200, 120);
+    global.gmlui_skin = 0;
+    gml_Script_slog(_inst, _other, "s_set_up_globals 3.1");
+    if (yyGetBool(global.gmlpoki)) {
+      {
+        var ___sw1494___ = gml_Script_poki_get_team(_inst, _other);
+        var ___swc1495___ = -1;
+        if (yyCompareVal(___sw1494___, "0", g_GMLMathEpsilon, false) == 0) {
+          ___swc1495___ = 0;
+        } else if (yyCompareVal(___sw1494___, 0, g_GMLMathEpsilon, false) == 0) {
+          ___swc1495___ = 1;
+        } else if (yyCompareVal(___sw1494___, "1", g_GMLMathEpsilon, false) == 0) {
+          ___swc1495___ = 2;
+        } else if (yyCompareVal(___sw1494___, 1, g_GMLMathEpsilon, false) == 0) {
+          ___swc1495___ = 3;
+        } else if (yyCompareVal(___sw1494___, "2", g_GMLMathEpsilon, false) == 0) {
+          ___swc1495___ = 4;
+        } else if (yyCompareVal(___sw1494___, 2, g_GMLMathEpsilon, false) == 0) {
+          ___swc1495___ = 5;
+        }
+        switch (___swc1495___) {
+          case 0:
+            {
+              global.gmlui_skin = 0;
+              break;
+            }
+          case 1:
+            {
+              global.gmlui_skin = 0;
+              break;
+            }
+          case 2:
+            {
+              global.gmlui_skin = 1;
+              break;
+            }
+          case 3:
+            {
+              global.gmlui_skin = 1;
+              break;
+            }
+          case 4:
+            {
+              global.gmlui_skin = 2;
+              break;
+            }
+          case 5:
+            {
+              global.gmlui_skin = 2;
+              break;
+            }
+        }
+        ;
+      }
+      ;
+    }
+    ;
+    gml_Script_slog(_inst, _other, "s_set_up_globals 3.2");
+    _inst.gmlname_conf1 = "";
+    _inst.gmlname_conf2 = "";
+    _inst.gmlname_div1 = "";
+    _inst.gmlname_div2 = "";
+    _inst.gmlname_div3 = "";
+    _inst.gmlname_div4 = "";
+    _inst.gmlname_div1b = "";
+    _inst.gmlname_div2b = "";
+    _inst.gmlname_div3b = "";
+    _inst.gmlname_div4b = "";
+    global.gmlgamepad = false;
+    global.gmlgp = gml_Script_s_reset_gamepad(_inst, _other, 1);
+    global.gmlgp_select = 32769;
+    global.gmlgp_back = 32770;
+    gml_Script_slog(_inst, _other, "s_set_up_globals 4");
+    if (yyfequal(g_pBuiltIn.get_os_type(), 21)) {
+      {
+        global.gmlgp_select = 32770;
+        global.gmlgp_back = 32769;
+      }
+      ;
+    }
+    ;
+    global.gmlgp_handoff = global.gmlgp_back;
+    global.gmlgp_timeout = 32771;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    global.gmlcolorHelmet = shader_get_uniform(YYASSET_REF(0x08000000), "colorHelmet");
+    global.gmlcolorLogo = shader_get_uniform(YYASSET_REF(0x08000000), "colorLogo");
+    global.gmlcolorShirt = shader_get_uniform(YYASSET_REF(0x08000000), "colorShirt");
+    global.gmlcolorSleeve = shader_get_uniform(YYASSET_REF(0x08000000), "colorSleeve");
+    global.gmlcolorPants = shader_get_uniform(YYASSET_REF(0x08000000), "colorPants");
+    global.gmlcolorPants_b = shader_get_uniform(YYASSET_REF(0x08000000), "colorPants_b");
+    global.gmlcolorStripe = shader_get_uniform(YYASSET_REF(0x08000000), "colorStripe");
+    global.gmlcolorSocks = shader_get_uniform(YYASSET_REF(0x08000000), "colorSocks");
+    global.gmlcolorSocks_b = shader_get_uniform(YYASSET_REF(0x08000000), "colorSocks_b");
+    global.gmlcolorSkin = shader_get_uniform(YYASSET_REF(0x08000000), "colorSkin");
+    global.gmlcolorCleats = shader_get_uniform(YYASSET_REF(0x08000000), "colorCleats");
+    global.gmlreplaceHelmet = shader_get_uniform(YYASSET_REF(0x08000000), "replaceHelmet");
+    global.gmlreplaceLogo = shader_get_uniform(YYASSET_REF(0x08000000), "replaceLogo");
+    global.gmlreplaceShirt = shader_get_uniform(YYASSET_REF(0x08000000), "replaceShirt");
+    global.gmlreplaceSleeve = shader_get_uniform(YYASSET_REF(0x08000000), "replaceSleeve");
+    global.gmlreplacePants = shader_get_uniform(YYASSET_REF(0x08000000), "replacePants");
+    global.gmlreplacePants_b = shader_get_uniform(YYASSET_REF(0x08000000), "replacePants_b");
+    global.gmlreplaceStripe = shader_get_uniform(YYASSET_REF(0x08000000), "replaceStripe");
+    global.gmlreplaceSocks = shader_get_uniform(YYASSET_REF(0x08000000), "replaceSocks");
+    global.gmlreplaceSocks_b = shader_get_uniform(YYASSET_REF(0x08000000), "replaceSocks_b");
+    global.gmlreplaceSkin = shader_get_uniform(YYASSET_REF(0x08000000), "replaceSkin");
+    global.gmlreplaceCleats = shader_get_uniform(YYASSET_REF(0x08000000), "replaceCleats");
+    gml_Script_slog(_inst, _other, "s_set_up_globals 5");
+    random_set_seed(g_pBuiltIn.get_current_time());
+    global.gmlexhibition = false;
+    global.gmlexhibition_html_1save = yyfequal(global.gmlbrowser, true);
+    global.gmlexh_fix = gml_Script_s_create_exhibition_fixture(_inst, _other, irandom(15), yyfplus(16, __yy_gml_errCheck(irandom(15))));
+    global.gmlexh_choosing = 0;
+    global.gmldebug_track_str = "";
+    gml_Script_slog(_inst, _other, "s_set_up_globals 6");
+  }
+}
+
+gml_Script_s_startup: _inst.gmlfr_mode = 0
+
+gml_Script_s_startup: _inst.gmlqb_mode = 0
+
+gml_Script_s_startup: _inst.gmlco_mode = 0

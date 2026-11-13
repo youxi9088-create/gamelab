@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "missing": [],
+  "required_external": [],
+  "actions": [
+    {
+      "type": "click",
+      "target": "title start",
+      "result": "home opening dialogue"
+    },
+    {
+      "type": "key",
+      "key": "arrows/WASD + Z",
+      "result": "movement, main dialogue and portal to living room"
+    },
+    {
+      "type": "key",
+      "key": "arrows",
+      "result": "three matching baskets moved onto plates; gate opened"
+    },
+    {
+      "type": "click",
+      "target": "ACT / Offer Treat / MERCY / Spare",
+      "result": "pet encounter resolved; HP 18/20 after dodge round"
+    },
+    {
+      "type": "click",
+      "target": "unlocked chest",
+      "result": "PRESENTS 1/4; second interaction says chest empty, count unchanged"
+    },
+    {
+      "type": "key",
+      "key": "Tab",
+      "result": "journey map shows living room and PRESENTS FOUND 1/4"
+    },
+    {
+      "type": "key",
+      "key": "C",
+      "result": "pause controls visible"
+    },
+    {
+      "type": "reload",
+      "result": "returned to original title, new game launches; no persistent save feature in original game"
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8879/index.html",
+    "http://127.0.0.1:8879/rosebud-game-defaults.css",
+    "http://127.0.0.1:8879/rosebud-game-defaults.js",
+    "http://127.0.0.1:8879/main.js",
+    "http://127.0.0.1:8879/assets/gemini_generated_image_ib4or0ib4or0ib4o1.jpeg",
+    "http://127.0.0.1:8879/assets/gemini_generated_image_lbuy4clbuy4clbuy1.jpeg",
+    "http://127.0.0.1:8879/assets/audio/partyville-memory-theme.mp3",
+    "http://127.0.0.1:8879/assets/audio/hurt.mp3",
+    "http://127.0.0.1:8879/assets/audio/jingle.mp3"
+  ],
+  "network_responses": [
+    {
+      "url": "http://127.0.0.1:8879/index.html",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8879/rosebud-game-defaults.css",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8879/rosebud-game-defaults.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8879/main.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8879/assets/gemini_generated_image_ib4or0ib4or0ib4o1.jpeg",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8879/assets/gemini_generated_image_lbuy4clbuy4clbuy1.jpeg",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8879/assets/audio/partyville-memory-theme.mp3",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:8879/assets/audio/jingle.mp3",
+      "status": 206
+    },
+    {
+      "url": "http://127.0.0.1:8879/assets/audio/hurt.mp3",
+      "status": 206
+    }
+  ],
+  "evidence": "evidence/direct-repair/network.json",
+  "scope": "Agent-operated desktop IAB, 960x720. Core first-room puzzle/encounter/reward path visually verified before reload. Network capture covers final package reload/startup with every declared image/audio loaded locally; later three rooms and full ending are not verified. No claim of persistent save."
+}

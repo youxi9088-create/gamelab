@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "missing": [],
+  "required_external": [],
+  "actions": [
+    {
+      "type": "click",
+      "selector": "canvas",
+      "result": "Original PLAY/Ready, ordinary mouse drags shield; actual Level1BALLSAVED+50."
+    },
+    {
+      "type": "drag",
+      "selector": "canvas",
+      "result": "Three normal mouse strokes; same-level retry win NOCOINS."
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "result": "NextLevel2, Readywithoutshield STUNG, retry30s/menu; shop insufficient coin rejection, achievements."
+    },
+    {
+      "type": "reload",
+      "result": "Original Level2/50coins restored."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8892/index.html",
+    "http://127.0.0.1:8892/_remote/3a125e88c76c9347/css2",
+    "http://127.0.0.1:8892/rosebud-game-defaults.css",
+    "http://127.0.0.1:8892/rosebud-game-defaults.js",
+    "http://127.0.0.1:8892/main.js",
+    "http://127.0.0.1:8892/_remote/9e73b21cb6ba014a/phaser.esm.js",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX/AP804Oa6AAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg==",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ9JREFUeNq01ssOwyAMRFG46v//Mt1ESmgh+DFmE2GPOBARKb2NVjo+17PXLD8a1+pl5+A+wSgFygymWYHBb0FtsKhJDdZlncG2IzJ4ayoMDv20wTmSMzClEgbWYNTAkQ0Z+OJ+A/eWnAaR9+oxCF4Os0H8htsMUp+pwcgBBiMNnAwF8GqIgL2hAzaGFFgZauDPKABmowZ4GL369/0rwACp2yA/ttmvsQAAAABJRU5ErkJggg==",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABdJREFUeNpi/P//PwMMMDEgAdwcgAADAJZuAwXJYZOzAAAAAElFTkSuQmCC",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX//wCKxvRFAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+    "http://127.0.0.1:8892/assets/ball-face.webp",
+    "http://127.0.0.1:8892/assets/bee.webp",
+    "http://127.0.0.1:8892/assets/audio/menu-music.mp3",
+    "http://127.0.0.1:8892/assets/audio/win-jingle.mp3",
+    "http://127.0.0.1:8892/assets/audio/lose-sting.mp3",
+    "blob:http://127.0.0.1:8892/fa8b6e9b-3387-4bba-8959-82baadecca32",
+    "blob:http://127.0.0.1:8892/83944355-4e42-4516-a9a0-9fcd76d3c011",
+    "http://127.0.0.1:8892/index.html",
+    "http://127.0.0.1:8892/_remote/3a125e88c76c9347/css2",
+    "http://127.0.0.1:8892/rosebud-game-defaults.css",
+    "http://127.0.0.1:8892/rosebud-game-defaults.js",
+    "http://127.0.0.1:8892/main.js",
+    "http://127.0.0.1:8892/_remote/9e73b21cb6ba014a/phaser.esm.js",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX/AP804Oa6AAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg==",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ9JREFUeNq01ssOwyAMRFG46v//Mt1ESmgh+DFmE2GPOBARKb2NVjo+17PXLD8a1+pl5+A+wSgFygymWYHBb0FtsKhJDdZlncG2IzJ4ayoMDv20wTmSMzClEgbWYNTAkQ0Z+OJ+A/eWnAaR9+oxCF4Os0H8htsMUp+pwcgBBiMNnAwF8GqIgL2hAzaGFFgZauDPKABmowZ4GL369/0rwACp2yA/ttmvsQAAAABJRU5ErkJggg==",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABdJREFUeNpi/P//PwMMMDEgAdwcgAADAJZuAwXJYZOzAAAAAElFTkSuQmCC",
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX//wCKxvRFAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+    "http://127.0.0.1:8892/assets/ball-face.webp",
+    "http://127.0.0.1:8892/assets/bee.webp",
+    "http://127.0.0.1:8892/assets/audio/menu-music.mp3",
+    "http://127.0.0.1:8892/assets/audio/win-jingle.mp3",
+    "http://127.0.0.1:8892/assets/audio/lose-sting.mp3",
+    "blob:http://127.0.0.1:8892/9e59b9ae-1a36-409a-bf8a-201ca4e56502",
+    "blob:http://127.0.0.1:8892/34113043-4f92-4a4d-aded-36bc081cb4b8"
+  ],
+  "scope": "Desktop1280x720 portrait game405x720. Ordinary mouse drags create three original physics shield strokes, Ready, actual Level1BALLSAVED+50COINS. SameLevel1retry win LEVELCLEARED-NOCOINS proves reward dedup. NextLevel2withoutshield actualSTUNG; retry resets30s and normal menu. Original shop50coins/Blue250 rejects withYouNeed200More, remains50. Achievements1/10,39/300survival; reload Level2/50coins restored. Entire original main.js, Phaser3.80.1 and5original image/audio files byte unchanged. Complete original50-level generation/10themes/progression retained, levels3\u201350 not played; affordable skins/achievement claims and mobile/audio hearing not exhausted. Complete final reload/play/draw/win/retry/fail/shop/achievements/reload window no truncation/external/missing/errors.",
+  "network_scope": "Original unchanged main+Phaser, complete reload/start/draw shield/Ready/Level1win50/repeatLevel1winNOCOINS/Level2no-shieldSTUNG/retry/menu/shopinsufficient/achievements/reloadLevel2coins50. No hidden state.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

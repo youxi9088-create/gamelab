@@ -1,0 +1,5 @@
+# Word Search
+
+Desktop IAB 1280x720. English Fruits complete original 16-word round, original score 26 at 00:03:28; next/category selection, Vegetables new grid, pause/resume, invalid word, cancel/confirm exit and reload verified. Other five languages and all categories not exhaustively played. No persistent puzzle save exists in original game. Complete non-truncated network window covers final fresh startup and 3 representative finds; earlier long complete-round network window was truncated and retained only as diagnostic. Actual complete-round UI screenshots are separate evidence.
+
+Readable original CreateJS code and all dictionaries retained. CTL host ad/global-score/share hooks retired; local puzzle, timing and score rules unchanged.

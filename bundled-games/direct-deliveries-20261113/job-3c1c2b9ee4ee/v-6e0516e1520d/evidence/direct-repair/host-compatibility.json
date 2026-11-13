@@ -1,0 +1,13 @@
+{
+  "runtime_loaded_main_sha256": "e1f720d5d8186bbe6d01feff1b3b39ebafb3a6e1a5ec8c7a481e206dc2ea38ce",
+  "delivered_main_sha256": "c0d8c06c60a20973c8cf11653d445a8701386cb63ce0b4f7bf719c3c9692f2ab",
+  "native_whitelist_retained": true,
+  "added_exact_hosts": [
+    "127.0.0.1",
+    "gamelab.debug.ndaeweb.com",
+    "gamelab-play.debug.ndaeweb.com"
+  ],
+  "change": "Only append exact authorized GameLab local/deployment hosts to original literal host-list. Preserve original native rules and host predicate; no global spoof or browser security changes.",
+  "verification_scope": "After exactly5UIactions, explicit deployment-host source extension only. Localhost native core proved with retained original allowed host. Final extension not reloaded; source AST confirms sole allowlist expression modification. First127.0.0.1 startup failed/incomplete before host-extension and counted step1.",
+  "first_failed_network_available": false
+}

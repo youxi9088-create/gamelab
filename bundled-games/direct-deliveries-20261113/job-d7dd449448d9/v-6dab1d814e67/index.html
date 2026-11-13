@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	
+	
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trash Route</title>
+    <link href="./_remote/3a125e88c76c9347/css2" rel="stylesheet">
+    <link rel="stylesheet" href="./rosebud-game-defaults.css" />
+    <script src="./rosebud-game-defaults.js" defer></script>
+    
+    <style>
+      html, body, #game-container { width: 100%; height: 100%; margin: 0; padding: 0; background: #9cc8e8; overflow: hidden; }
+      body { touch-action: none; font-family: Inter, system-ui, sans-serif; color: #fff; }
+      canvas { display: block; }
+      #ui { position: fixed; inset: 0; pointer-events: none; }
+      #hud { position: absolute; top: 6%; transform: translateY(-34px); left: 4%; background: rgba(0,0,0,.58); padding: 8px 14px; border-radius: 10px; font-weight: 600; line-height: 1.5; }
+      #chips { display: none; position: absolute; top: calc(6% + 70px); left: 4%; gap: 6px; pointer-events: auto; }
+      #chips button { font: 700 12px Inter, sans-serif; color: #fff; background: rgba(0,0,0,.55); border: 1px solid rgba(255,255,255,.3); border-radius: 999px; padding: 6px 11px; }
+      #district-panel, #goals { display: none !important; }
+      #district-panel.open, #goals.open { display: block !important; top: calc(6% + 100px) !important; left: 4% !important; right: auto !important; opacity: .93; }
+      #finale { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 35%, rgba(60,30,110,.92), rgba(5,5,20,.97)); overflow: hidden; touch-action: auto; }
+      #finale > i { position: absolute; top: -20px; width: 9px; height: 15px; border-radius: 2px; animation: fin-fall linear infinite; }
+      @keyframes fin-fall { to { transform: translateY(110vh) rotate(720deg); } }
+      .fin-card { position: relative; max-width: min(440px, 88vw); max-height: 88vh; overflow-y: auto; text-align: center; padding: 22px; border-radius: 18px; background: rgba(0,0,0,.45); border: 2px solid #ffd23f; box-shadow: 0 0 40px rgba(255,210,63,.45); animation: fin-pop .9s ease-out; }
+      @keyframes fin-pop { from { transform: scale(.4); opacity: 0; } }
+      .fin-trophy { font-size: 64px; animation: fin-bob 1.6s ease-in-out infinite; }
+      @keyframes fin-bob { 50% { transform: translateY(-10px) rotate(6deg); } }
+      .fin-card h1 { margin: 4px 0; font-size: 40px; letter-spacing: .2em; color: #ffd23f; text-shadow: 0 0 18px #ff9f43; }
+      .fin-card h2 { margin: 6px 0 10px; font-size: 20px; } .fin-card h2 small { font-size: 13px; opacity: .8; letter-spacing: .12em; }
+      .fin-card p { font-size: 14px; line-height: 1.5; margin: 8px 0; }
+      .fin-stats { margin: 12px 0 6px; font-size: 14px; } .fin-credits { font-size: 11px; letter-spacing: .14em; opacity: .7; margin-bottom: 14px; }
+      #fin-close { font: 800 16px Inter, sans-serif; color: #222; background: #ffd23f; border: 0; border-radius: 12px; padding: 12px 22px; }
+      #exit { position: absolute; right: 4%; bottom: calc(5% + 100px); pointer-events: auto; font: 800 14px Inter, sans-serif; color: #fff; background: rgba(255,140,30,.55); border: 2px solid rgba(255,255,255,.6); border-radius: 12px; padding: 8px 12px; }
+      #district-panel { position: absolute; top: 14%; right: 4%; width: min(250px, 42vw); box-sizing: border-box; padding: 12px 14px; border: 1px solid rgba(255,255,255,.3); border-radius: 12px; background: rgba(15,28,24,.78); color: #fff; line-height: 1.3; }
+      #district-panel .eyebrow { font-size: 10px; letter-spacing: .16em; opacity: .74; font-weight: 800; }
+      #district-name { display: block; margin: 4px 0; font-size: 18px; font-weight: 800; }
+      #district-tip { font-size: 11px; opacity: .9; margin-bottom: 9px; }
+      .district-key { display: grid; grid-template-columns: 1fr; gap: 5px; font-size: 11px; }
+      .district-key div { opacity: .68; padding: 3px 5px; border-radius: 5px; }
+      .district-key div.active { opacity: 1; background: rgba(255,255,255,.15); font-weight: 800; }
+      .district-swatch { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 6px; }
+      #bar { width: 160px; height: 10px; background: #333; border-radius: 5px; overflow: hidden; }
+      @media (max-width: 520px) {
+        #district-panel { top: 18%; right: 3%; width: min(185px, 49vw); padding: 9px 10px; }
+        #district-name { font-size: 15px; }
+        #district-tip, .district-key { font-size: 10px; }
+        .district-key { gap: 3px; }
+      }
+      #fill { height: 100%; width: 0; background: #7c4; }
+      #goals { display: none; position: absolute; top: calc(6% + 72px); left: 4%; width: min(230px, 44vw); box-sizing: border-box; padding: 9px 12px; border-radius: 12px; background: rgba(15,28,24,.74); border: 1px solid rgba(255,255,255,.25); font-size: 11px; line-height: 1.55; }
+      #goals .eyebrow { font-size: 10px; letter-spacing: .16em; opacity: .74; font-weight: 800; margin-bottom: 2px; }
+      #goals span { opacity: .7; float: right; margin-left: 6px; }
+      #goals .done { color: #9e5; text-decoration: line-through; opacity: .85; }
+      #goals .extra { margin-top: 3px; opacity: .9; }
+      #goals .combo { color: #ff9f43; font-weight: 800; font-size: 13px; }
+      #goals .rush { color: #ffd23f; font-weight: 800; }
+      @media (max-width: 520px) { #goals { font-size: 10px; padding: 7px 9px; } }
+      #msg { position: absolute; top: 36%; width: 100%; text-align: center; font-size: 22px; font-weight: 800; text-shadow: 0 2px 4px #000; }
+      #mute { position: absolute; top: 6%; right: 4%; pointer-events: auto; font-size: 22px; background: rgba(0,0,0,.5); color: #fff; border: 0; border-radius: 10px; width: 50px; height: 50px; }
+      .pad { position: absolute; bottom: 5%; width: 86px; height: 86px; border-radius: 50%; background: rgba(255,255,255,.25); border: 3px solid rgba(255,255,255,.6); pointer-events: auto; font-size: 30px; display: flex; align-items: center; justify-content: center; font-weight: 800; }
+      .pad.on { background: rgba(255,255,255,.6); }
+      #left { left: 4%; } #right { left: calc(4% + 100px); }
+      #brake { right: calc(4% + 100px); background: rgba(220,60,60,.4); } #gas { right: 4%; background: rgba(60,200,60,.4); }
+      #overlay { position: absolute; inset: 0; background: rgba(10,20,10,.82); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8%; pointer-events: auto; }
+      #overlay h1 { font-size: 40px; margin: 0 0 10px; color: #9e5; }
+      #overlay p { max-width: 520px; line-height: 1.5; }
+      #overlay { overflow-y: auto; justify-content: flex-start; padding-top: 4%; }
+      #report { width: min(640px, 100%); text-align: left; margin-bottom: 14px; animation: r-in .45s ease-out; }
+      @keyframes r-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+      .r-head { display: flex; gap: 14px; align-items: center; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); border-radius: 16px; padding: 12px 14px; }
+      .r-grade { flex: 0 0 auto; width: 78px; height: 78px; border-radius: 50%; border: 4px solid var(--g); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 0 22px color-mix(in srgb, var(--g) 45%, transparent); animation: r-pop .6s .2s cubic-bezier(.3,1.6,.5,1) both; }
+      @keyframes r-pop { from { transform: scale(.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+      .r-grade b { font-size: 40px; line-height: 1; color: var(--g); }
+      .r-grade small { font-size: 11px; opacity: .8; }
+      .r-title { flex: 1; min-width: 0; }
+      .r-eyebrow { font-size: 10px; letter-spacing: .14em; opacity: .7; font-weight: 800; }
+      .r-verdict { font-size: 20px; font-weight: 800; margin: 2px 0; }
+      .r-verdict.good { color: #9e5; } .r-verdict.bad { color: #ffb347; }
+      .r-blurb { font-size: 13px; opacity: .85; margin-bottom: 6px; }
+      .r-quota { height: 8px; background: rgba(255,255,255,.15); border-radius: 5px; overflow: hidden; margin-bottom: 3px; }
+      .r-quota div { height: 100%; border-radius: 5px; transition: width .8s; }
+      .r-style { display: flex; gap: 12px; align-items: center; margin: 10px 0; padding: 10px 14px; border-radius: 14px; background: linear-gradient(90deg, rgba(158,229,85,.22), rgba(158,229,85,.05)); border: 1px solid rgba(158,229,85,.45); }
+      .r-style > span { font-size: 34px; }
+      .r-style small { display: block; font-size: 10px; letter-spacing: .14em; opacity: .75; font-weight: 800; }
+      .r-style b { display: block; font-size: 18px; color: #c8f59a; }
+      .r-style em { font-style: normal; font-size: 12px; opacity: .9; }
+      .r-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .r-card { background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 8px 12px; }
+      .r-card.wide { grid-column: 1 / -1; }
+      .r-card h4, .r-next h4 { margin: 0 0 4px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+      .r-row { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 2px 0; border-bottom: 1px dashed rgba(255,255,255,.08); }
+      .r-row:last-child { border-bottom: 0; }
+      .r-row.good b { color: #9e5; } .r-row.bad b { color: #ff7b7b; }
+      .r-row.total { border-top: 1px solid rgba(255,255,255,.4); border-bottom: 0; margin-top: 4px; padding-top: 5px; font-size: 15px; }
+      .r-row.total b { color: #ffd23f; }
+      .r-row.bank b { color: #7fd4ff; }
+      .r-story { margin: 10px 0 0; font-size: 14px; text-align: center; }
+      .r-next { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+      #overlay .r-choice { display: flex; align-items: center; gap: 12px; text-align: left; padding: 10px 14px; border-radius: 12px; background: rgba(255,255,255,.08); border: 2px solid rgba(255,255,255,.2); color: #fff; font-size: 14px; }
+      #overlay .r-choice > span { font-size: 26px; }
+      #overlay .r-choice b { display: block; font-size: 15px; }
+      #overlay .r-choice small { display: block; font-size: 12px; }
+      #overlay .r-choice.primary { background: #9e5; color: #123; border-color: #c8f59a; }
+      #overlay .r-choice:disabled { opacity: .5; }
+      @media (max-width: 520px) { .r-grid { grid-template-columns: 1fr; } .r-grade { width: 64px; height: 64px; } .r-grade b { font-size: 32px; } }
+      .pad { touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+      #paint { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 640px; margin-bottom: 10px; }
+      #overlay .swatch { width: 34px; height: 34px; padding: 0; border-radius: 50%; border: 3px solid rgba(255,255,255,.35); }
+      #overlay .swatch.sel { border-color: #fff; box-shadow: 0 0 0 3px #9e5; }
+      #cities, #shop, #difficulty { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; max-width: 640px; margin-bottom: 10px; }
+      .emp-head { width: 100%; font-size: 15px; margin-bottom: 4px; }
+      #overlay .city, #overlay .upg { font-size: 13px; padding: 7px 10px; border-radius: 9px; background: #2c3e2c; color: #fff; border: 2px solid #4a6a4a; display: flex; flex-direction: column; align-items: center; }
+      #overlay .city.sel { border-color: #9e5; background: #3d5a2d; }
+      #overlay .upg b { color: #ffd23f; }
+      #overlay .city:disabled, #overlay .upg:disabled { opacity: .45; }
+      #overlay small { font-weight: 400; opacity: .8; }
+      #overlay > button#start { font-size: 22px; font-weight: 800; padding: 14px 40px; border: 0; border-radius: 12px; background: #9e5; color: #123; }
+    </style>
+  </head>
+  <body>
+    <div id="game-container"></div>
+    <div id="ui">
+      <div id="hud"><div id="stats"></div><div id="bar"><div id="fill"></div></div></div>
+      <aside id="district-panel" aria-label="Pickup district guide">
+        <div class="eyebrow">NEAREST PICKUP ZONE</div>
+        <strong id="district-name">West Homes</strong>
+        <div id="district-tip">Bags &amp; cans · quiet curbside stops</div>
+        <div class="district-key">
+          <div id="key-homes"><span class="district-swatch" style="background:#a7f18f"></span>West Homes · bags + cans</div>
+          <div id="key-shops"><span class="district-swatch" style="background:#ffd276"></span>Market Row · dumpster clusters</div>
+          <div id="key-civic"><span class="district-swatch" style="background:#82e5dc"></span>Civic Green · mixed waste</div>
+          <div id="key-maple"><span class="district-swatch" style="background:#ffa8cf"></span>Maple Lane · long curbside run</div>
+        </div>
+      </aside>
+      <div id="goals"></div>
+      <div id="chips"><button id="goals-btn">🎯 0/6</button><button id="zone-btn">📍 West Homes</button></div>
+      <button id="exit">🚪 Exit</button>
+      <div id="msg"></div>
+      <button id="mute">🔊</button>
+      <div class="pad" id="left">◀</div><div class="pad" id="right">▶</div>
+      <div class="pad" id="brake">B</div><div class="pad" id="gas">▲</div>
+      <div id="overlay">
+        <h1>Trash Route</h1>
+        <p id="story">6 AM. Earl climbs into Truck 12 for another shift. Drive the town, stop next to bags, cans and dumpsters to load them, then haul full loads to the brown landfill in the north. Hit today's goals, chase ⭐ rush pickups, chain combos, and watch out for traffic and pedestrians!<br><small>Tap 🚪 Exit (or E) to walk and hand-carry bags &amp; cans back to the truck. Tap 🎯 / 📍 for goals and zones.</small></p>
+        <div id="report" style="display:none"></div>
+        <div id="cities"></div>
+        <div id="difficulty"></div>
+        <div id="paint"></div>
+        <div id="shop"></div>
+        <button id="start">Start Shift</button>
+      </div>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

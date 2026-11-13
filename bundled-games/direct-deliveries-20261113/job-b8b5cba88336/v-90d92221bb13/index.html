@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#120a08" />
+<title>Sir Falls-A-Lot</title>
+
+
+<link href="./_remote/3a125e88c76c9347/css2" rel="stylesheet">
+<!--STYLE-->
+<style>
+/* Dark-fantasy HUD: gilded type on soot-black stone, ember accents. Portrait first. */
+:root {
+  --ink: #0f0907;
+  --stone: rgba(20, 13, 10, 0.72);
+  --stone-solid: #1a110d;
+  --gold: #eab85c;
+  --gold-hi: #ffe2a0;
+  --gold-lo: #9a6a24;
+  --ember: #ff6a1f;
+  --blood: #c8281d;
+  --bone: #f0e4c9;
+  --frost: #7fe8ff;
+  --muted: #b8a78f;
+  --display: 'Cinzel Decorative', 'Cinzel', Georgia, 'Times New Roman', serif;
+  --ui: 'Cinzel', Georgia, 'Times New Roman', serif;
+  color-scheme: dark;
+}
+html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--ink); color: var(--bone); overflow: hidden; }
+body { touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; font-family: var(--ui); -webkit-tap-highlight-color: transparent; }
+#app { position: fixed; inset: 0; width: 100vw; width: 100dvw; height: 100vh; height: 100dvh; overflow: hidden; background: var(--ink); }
+#gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+button { font-family: var(--ui); color: inherit; }
+.hidden { display: none !important; }
+
+/* ---------- HUD ---------- */
+#hud { position: absolute; inset: 0; pointer-events: none; }
+.topbar {
+  position: absolute; left: 0; right: 0; top: 0;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) 14px 18px;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; gap: 10px;
+  background: linear-gradient(180deg, rgba(8,4,3,0.82) 0%, rgba(8,4,3,0.45) 60%, rgba(8,4,3,0) 100%);
+}
+.hud-label { font-size: 10px; letter-spacing: 0.22em; color: var(--muted); font-weight: 700; }
+#score { font-family: var(--ui); font-weight: 900; font-size: 26px; line-height: 1; color: var(--gold-hi); text-shadow: 0 2px 0 #3a2208, 0 0 14px rgba(255,170,60,0.35); font-variant-numeric: tabular-nums; }
+#level-tag { margin-top: 4px; font-size: 11px; letter-spacing: 0.18em; color: var(--gold); font-weight: 700; }
+.greed { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 104px; }
+.greed-bar { position: relative; width: 104px; height: 10px; border-radius: 6px; background: rgba(0,0,0,0.6); border: 1px solid rgba(234,184,92,0.55); overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.8); }
+#greed-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0%; background: linear-gradient(90deg, #ffd36e, #ff8a2a 55%, #ff3d12); box-shadow: 0 0 10px rgba(255,120,40,0.8); transition: width 0.25s ease-out; }
+#greed-pct { font-size: 12px; font-weight: 900; color: var(--ember); letter-spacing: 0.08em; font-variant-numeric: tabular-nums; }
+.greed.pulse #greed-pct { animation: pop 0.3s ease-out; }
+@keyframes pop { 0% { transform: scale(1.5); } 100% { transform: scale(1); } }
+.right-stats { justify-self: end; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; padding-right: 42px; }
+#hearts, #lives { display: flex; gap: 3px; }
+#hearts svg { width: 18px; height: 16px; filter: drop-shadow(0 1px 0 rgba(0,0,0,0.8)); }
+#hearts svg.lost { opacity: 0.25; filter: grayscale(1); }
+#hearts.hit { animation: shake 0.35s; }
+@keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+#lives svg { width: 15px; height: 15px; opacity: 0.95; }
+#key-slot { width: 22px; height: 22px; opacity: 0.28; filter: grayscale(1); transition: all 0.3s; }
+#key-slot.have { opacity: 1; filter: drop-shadow(0 0 6px rgba(255,200,80,0.9)); }
+.stat-row { display: flex; gap: 8px; align-items: center; }
+#pause-btn {
+  position: absolute; top: calc(env(safe-area-inset-top, 0px) + 10px); right: 12px; pointer-events: auto;
+  width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(234,184,92,0.6); background: rgba(10,6,4,0.6);
+  display: grid; place-items: center; cursor: pointer;
+}
+#pause-btn svg { width: 14px; height: 14px; }
+
+#meter { position: absolute; right: 10px; top: 28%; height: 40%; width: 8px; border-radius: 5px; background: rgba(0,0,0,0.55); border: 1px solid rgba(234,184,92,0.35); overflow: visible; }
+#meter-lava { position: absolute; left: 0; right: 0; bottom: 0; height: 0%; border-radius: 0 0 5px 5px; background: linear-gradient(0deg, #ff3a0e, #ffae42); box-shadow: 0 0 8px rgba(255,90,20,0.8); }
+#meter-knight { position: absolute; left: 50%; width: 18px; height: 18px; margin: 0 0 -9px -9px; bottom: 0%; border-radius: 50%; background: var(--bone); border: 2px solid var(--gold); box-shadow: 0 0 6px rgba(0,0,0,0.8); }
+#meter-gate { position: absolute; left: 50%; top: -12px; width: 12px; height: 12px; margin-left: -6px; }
+#meter-key { position: absolute; left: -16px; width: 12px; height: 12px; margin-bottom: -6px; }
+
+#center-msg { position: absolute; left: 0; right: 0; top: 38%; text-align: center; font-family: var(--display); font-weight: 900; font-size: 84px; color: var(--gold-hi); text-shadow: 0 4px 0 #3a1a06, 0 0 30px rgba(255,140,40,0.6); pointer-events: none; opacity: 0; transform: scale(0.6); transition: opacity 0.2s, transform 0.25s cubic-bezier(.2,1.6,.4,1); }
+#center-msg.show { opacity: 1; transform: scale(1); }
+#center-msg.small { font-size: 26px; letter-spacing: 0.08em; font-family: var(--ui); }
+#sub-msg { position: absolute; left: 16px; right: 16px; top: calc(38% + 70px); text-align: center; font-size: 16px; font-weight: 900; letter-spacing: 0.2em; color: var(--ember); text-shadow: 0 2px 6px #000; opacity: 0; transition: opacity 0.3s; }
+#sub-msg.show { opacity: 1; animation: breathe 1.4s ease-in-out infinite; }
+@keyframes breathe { 50% { opacity: 0.55; } }
+#toast { position: absolute; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 92px); transform: translate(-50%, -10px); max-width: min(88vw, 420px); padding: 9px 16px; border-radius: 8px; background: var(--stone); border: 1px solid rgba(234,184,92,0.5); font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-align: center; color: var(--bone); opacity: 0; transition: opacity 0.25s, transform 0.25s; }
+#toast.show { opacity: 1; transform: translate(-50%, 0); }
+#toast b { color: var(--gold-hi); }
+#vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
+#damage { position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 120px 40px rgba(220,30,10,0.0); transition: box-shadow 0.3s; }
+#damage.lava { box-shadow: inset 0 0 140px 50px rgba(255,80,10,0.55); }
+#damage.hit { box-shadow: inset 0 0 120px 40px rgba(220,20,10,0.7); transition: none; }
+#frost { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, rgba(120,230,255,0.0) 40%, rgba(120,230,255,0.35) 100%); opacity: 0; transition: opacity 0.4s; }
+#frost.on { opacity: 1; }
+#floaters { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.floater span { display: inline-block; animation: fpop 0.4s cubic-bezier(.2,1.9,.4,1); }
+@keyframes fpop { 0% { transform: scale(0.3); } 100% { transform: scale(1); } }
+.floater { position: absolute; font-weight: 900; font-size: 18px; letter-spacing: 0.04em; color: var(--gold-hi); text-shadow: 0 2px 0 #2a1406, 0 0 8px rgba(0,0,0,0.9); white-space: nowrap; transform: translate(-50%, -50%); }
+
+/* ---------- touch controls ---------- */
+#touch { --control-size: 90px; position: absolute; left: 0; right: 0; bottom: 0; height: 200px; pointer-events: none; padding-bottom: env(safe-area-inset-bottom, 0px); }
+.tbtn { position: absolute; pointer-events: auto; border-radius: 50%; border: 2px solid rgba(234,184,92,0.55); background: radial-gradient(circle at 50% 35%, rgba(60,40,28,0.55), rgba(10,6,4,0.65)); display: grid; place-items: center; touch-action: none; box-shadow: 0 4px 14px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,220,160,0.15); transition: transform 0.06s, background 0.1s; }
+.tbtn svg { width: 44%; height: 44%; pointer-events: none; }
+.tbtn.on { transform: scale(0.92); background: radial-gradient(circle at 50% 35%, rgba(234,184,92,0.55), rgba(90,50,20,0.7)); border-color: var(--gold-hi); }
+#joystick { position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); width: 104px; height: 104px; border-radius: 50%; border: 2px solid rgba(234,184,92,0.6); background: radial-gradient(circle, rgba(72,46,26,0.45), rgba(10,6,4,0.72)); box-shadow: 0 4px 18px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,225,165,0.12); pointer-events: auto; touch-action: none; box-sizing: border-box; }
+#joystick::before { content: ''; position: absolute; left: 50%; top: 50%; width: 76%; height: 1px; transform: translate(-50%, -50%); background: rgba(234,184,92,0.22); pointer-events: none; }
+#joystick-knob { position: absolute; left: 50%; top: 50%; width: 50px; height: 50px; margin: -25px 0 0 -25px; border-radius: 50%; border: 2px solid var(--gold); box-sizing: border-box; background: radial-gradient(circle at 38% 30%, #765536, #26160f 75%); box-shadow: 0 3px 9px #000, inset 0 1px 1px rgba(255,230,175,0.5); pointer-events: none; transform: translate(var(--stick-x, 0px), var(--stick-y, 0px)); }
+#joystick.active #joystick-knob { border-color: var(--gold-hi); box-shadow: 0 3px 9px #000, 0 0 14px rgba(255,180,60,0.5); }
+#btn-jump { right: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); width: var(--control-size); height: var(--control-size); border-color: var(--gold); }
+#btn-attack { right: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px + var(--control-size) + 12px); width: var(--control-size); height: var(--control-size); border-color: rgba(255,120,60,0.6); }
+#btn-attack.on { transform: scale(0.92); }
+#btn-dive.on { transform: translateX(-50%) scale(0.92); }
+#btn-enter { left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 148px); width: auto; height: auto; border-radius: 22px; padding: 10px 18px; font-weight: 900; font-size: 13px; letter-spacing: 0.14em; color: var(--gold-hi); display: flex; gap: 8px; align-items: center; animation: breathe 1.2s infinite; }
+#btn-enter svg { width: 16px; height: 16px; }
+#btn-enter.on { transform: translateX(-50%) scale(0.94); }
+#btn-attack.fire, #btn-attack.throw { border-color: #ffc04a; background: radial-gradient(circle at 50% 35%, rgba(255,160,60,0.6), rgba(120,40,8,0.8)); animation: actGlow 0.8s ease-in-out infinite alternate; }
+#btn-attack.fire svg, #btn-attack.throw svg { width: 58%; height: 58%; }
+@keyframes actGlow { from { box-shadow: 0 0 6px rgba(255,150,40,0.5), 0 4px 14px rgba(0,0,0,0.5); } to { box-shadow: 0 0 26px rgba(255,170,50,0.95), 0 4px 14px rgba(0,0,0,0.5); } }
+#act-prompt { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 58px); transform: translateX(-50%); padding: 7px 14px; border-radius: 999px; background: rgba(40,14,6,0.8); border: 1px solid rgba(255,190,90,0.7); color: #ffe2a0; font-size: 13px; font-weight: 900; letter-spacing: 0.14em; white-space: nowrap; opacity: 0; transition: opacity 0.2s; pointer-events: none; text-shadow: 0 2px 4px #000; }
+#act-prompt.show { opacity: 1; }
+#act-prompt.touch { left: 50%; right: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 136px); transform: translateX(-50%); font-size: 11px; padding: 5px 10px; letter-spacing: 0.12em; }
+.siege-arrow { position: absolute; top: 58%; width: 54px; height: 44px; display: flex; align-items: center; justify-content: center; gap: 2px; opacity: 0; transition: opacity 0.25s; pointer-events: none; filter: drop-shadow(0 2px 4px #000); }
+.siege-arrow.show { opacity: 1; animation: nudge 0.9s ease-in-out infinite; }
+.siege-arrow svg { width: 26px; height: 26px; }
+#siege-left { left: 6px; }
+#siege-right { right: 6px; flex-direction: row-reverse; }
+@keyframes nudge { 50% { transform: translateX(var(--nx, 0)); } }
+#siege-left { --nx: -5px; } #siege-right { --nx: 5px; }
+#act-prompt b { color: #fff; }
+#kb-hint { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); font-size: 11px; letter-spacing: 0.12em; color: rgba(240,228,201,0.55); white-space: nowrap; }
+
+/* ---------- screens ---------- */
+.screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: calc(env(safe-area-inset-top, 0px) + 24px) 20px calc(env(safe-area-inset-bottom, 0px) + 24px); text-align: center; }
+.screen.dim { background: radial-gradient(ellipse at center, rgba(10,5,3,0.55), rgba(5,2,1,0.88)); }
+#menu { justify-content: space-between; background: linear-gradient(180deg, rgba(8,4,3,0.7) 0%, rgba(8,4,3,0) 36%, rgba(8,4,3,0) 55%, rgba(8,4,3,0.85) 100%); }
+.logo { margin-top: 4vh; display: flex; flex-direction: column; align-items: center; }
+.logo .l1, .logo .l2 { font-family: var(--display); font-weight: 900; line-height: 0.92; letter-spacing: 0.02em; }
+.logo .l1 { font-size: clamp(48px, 17vw, 100px); text-transform: uppercase; background: linear-gradient(180deg, #fff1c6 0%, #f6c35c 45%, #b3701f 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 4px 0 #3b1d06) drop-shadow(0 0 22px rgba(255,150,40,0.35)); }
+.logo .l2 { font-size: clamp(30px, 10.5vw, 84px); white-space: nowrap; text-transform: uppercase; background: linear-gradient(180deg, #ffd2a0 0%, #ff7a2a 50%, #a81d08 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 4px 0 #2e0c03) drop-shadow(0 0 22px rgba(255,80,20,0.4)); }
+.logo .sub { margin-top: 12px; display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 900; letter-spacing: 0.36em; color: var(--gold); padding-left: 0.36em; white-space: nowrap; }
+.logo .sub::before, .logo .sub::after { content: ''; width: 36px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+.logo .sub::after { transform: scaleX(-1); }
+.tagline { margin-top: 12px; font-size: 12px; letter-spacing: 0.22em; color: var(--bone); opacity: 0.85; }
+.tagline em { font-style: normal; color: var(--ember); }
+.menu-actions { display: flex; flex-direction: column; align-items: center; gap: 12px; width: min(300px, 80vw); margin-bottom: 2vh; }
+.btn { pointer-events: auto; cursor: pointer; width: 100%; padding: 14px 18px; border-radius: 10px; border: 1px solid rgba(234,184,92,0.7); background: linear-gradient(180deg, rgba(58,36,22,0.92), rgba(24,14,9,0.92)); color: var(--gold-hi); font-weight: 900; font-size: 15px; letter-spacing: 0.24em; box-shadow: 0 6px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,220,160,0.18); transition: transform 0.08s, border-color 0.15s; }
+.btn:active { transform: scale(0.97); }
+.btn:hover, .btn:focus-visible { border-color: var(--gold-hi); outline: none; }
+.btn.primary { font-size: 18px; padding: 17px 18px; background: linear-gradient(180deg, #e3a142, #9d5a17); color: #1c0d04; border-color: #ffd990; text-shadow: 0 1px 0 rgba(255,230,180,0.5); box-shadow: 0 8px 26px rgba(255,120,30,0.3), inset 0 1px 0 rgba(255,245,210,0.6); }
+.btn.ghost { background: rgba(10,6,4,0.55); font-size: 13px; padding: 11px 16px; }
+.row { display: flex; gap: 10px; width: 100%; }
+.best { font-size: 12px; letter-spacing: 0.2em; color: var(--muted); }
+.best b { color: var(--gold-hi); font-variant-numeric: tabular-nums; }
+.panel { width: min(360px, 88vw); max-height: 80vh; overflow: auto; padding: 22px 20px; border-radius: 14px; background: linear-gradient(180deg, rgba(34,22,15,0.96), rgba(16,10,7,0.97)); border: 1px solid rgba(234,184,92,0.6); box-shadow: 0 20px 60px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,220,160,0.12); display: flex; flex-direction: column; gap: 14px; pointer-events: auto; }
+.panel h2 { margin: 0; font-family: var(--display); font-weight: 900; font-size: 26px; color: var(--gold-hi); letter-spacing: 0.04em; text-wrap: balance; }
+.panel p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--bone); }
+.panel .muted { color: var(--muted); font-size: 12px; letter-spacing: 0.1em; }
+.panel a { color: var(--gold-hi); }
+.howto { text-align: left; display: grid; gap: 10px; font-size: 13.5px; line-height: 1.45; }
+.howto div { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: start; }
+.howto svg { width: 22px; height: 22px; }
+.keys { font-size: 11.5px; color: var(--muted); letter-spacing: 0.06em; line-height: 1.6; }
+.stats { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; text-align: left; font-size: 14px; }
+.stats span:nth-child(even) { text-align: right; color: var(--gold-hi); font-weight: 900; font-variant-numeric: tabular-nums; }
+.stats .total { border-top: 1px solid rgba(234,184,92,0.35); padding-top: 8px; font-size: 16px; }
+.death-title { font-family: var(--display); font-weight: 900; font-size: clamp(28px, 8vw, 40px); color: #ff5a3a; text-shadow: 0 3px 0 #2a0703, 0 0 24px rgba(255,40,10,0.5); text-wrap: balance; }
+.icon-btn { pointer-events: auto; cursor: pointer; width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(234,184,92,0.55); background: rgba(10,6,4,0.55); display: grid; place-items: center; }
+.icon-btn svg { width: 18px; height: 18px; }
+#menu-top { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 12px; }
+#loading { background: var(--ink); z-index: 20; gap: 18px; }
+#loading .bar { width: 180px; height: 4px; border-radius: 2px; background: rgba(234,184,92,0.2); overflow: hidden; }
+#loading .bar i { display: block; height: 100%; width: 30%; background: var(--gold); animation: load 1s ease-in-out infinite alternate; }
+@keyframes load { from { transform: translateX(-100%); } to { transform: translateX(330%); } }
+#loading .t { font-family: var(--display); font-size: 22px; color: var(--gold); letter-spacing: 0.08em; }
+#error { z-index: 30; background: var(--ink); }
+/* ---------- guardian fight ---------- */
+#hud.boss .greed { visibility: hidden; }
+#hud.boss #meter { display: none; }
+#hud.boss #toast { top: calc(env(safe-area-inset-top, 0px) + 132px); }
+#bossbar { position: absolute; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top, 0px) + 78px); width: min(84vw, 440px); text-align: center; pointer-events: none; }
+#boss-name { font-family: var(--display); font-weight: 900; font-size: 15px; letter-spacing: 0.1em; color: #ffd6c2; text-shadow: 0 2px 0 #2a0703, 0 0 12px rgba(255,40,10,0.65); margin-bottom: 6px; }
+.bb-frame { position: relative; height: 14px; border-radius: 3px; background: rgba(12,2,2,0.85); border: 2px solid #120403; box-shadow: 0 0 0 1px rgba(234,184,92,0.65), 0 4px 16px rgba(0,0,0,0.7); overflow: hidden; }
+#boss-lag { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: #ffe7b0; transition: width 0.55s ease-in 0.3s; }
+#boss-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: linear-gradient(180deg, #ff6a44 0%, #c01a10 55%, #720905 100%); box-shadow: inset 0 1px 0 rgba(255,210,180,0.55); transition: width 0.1s; }
+.bb-notch { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(20,4,2,0.9); box-shadow: 0 0 0 1px rgba(255,226,160,0.35); }
+#bossbar.hit .bb-frame { animation: shake 0.25s; }
+#bossbar.rage #boss-fill { background: linear-gradient(180deg, #ffb04a 0%, #ee3a0e 55%, #8a1206 100%); animation: rage 0.45s infinite alternate; }
+#bossbar.rage #boss-name { color: #ffb08a; }
+@keyframes rage { to { filter: brightness(1.4); } }
+#boss-title { position: absolute; left: 12px; right: 12px; top: 26%; text-align: center; pointer-events: none; opacity: 0; }
+#boss-title .bt-name { font-family: var(--display); font-weight: 900; font-size: clamp(32px, 10vw, 62px); line-height: 1.02; color: #ffe0cf; text-shadow: 0 4px 0 #2a0703, 0 0 34px rgba(255,30,10,0.8); text-wrap: balance; }
+#boss-title .bt-sub { margin-top: 12px; font-size: 13px; letter-spacing: 0.28em; color: var(--ember); font-weight: 900; text-shadow: 0 2px 6px #000; }
+#boss-title.show { animation: titleIn 2.8s ease-out forwards; }
+@keyframes titleIn { 0% { opacity: 0; transform: scale(1.5); filter: blur(10px); } 10% { opacity: 1; transform: scale(1); filter: blur(0); } 82% { opacity: 1; transform: scale(1.03); } 100% { opacity: 0; transform: scale(1.06); } }
+#fader { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity 0.6s; z-index: 12; }
+#fader.on { opacity: 1; }
+#flash { position: absolute; inset: 0; pointer-events: none; opacity: 0; background: radial-gradient(ellipse at center, rgba(255,60,20,0.1) 30%, rgba(200,10,0,0.6) 100%); }
+#flash.white { background: radial-gradient(ellipse at center, rgba(255,255,240,0.9) 0%, rgba(255,200,150,0.5) 100%); }
+#flash.go { animation: flashGo 0.9s ease-out; }
+@keyframes flashGo { 0% { opacity: 1; } 100% { opacity: 0; } }
+/* ---------- ground-pound, combo, falls, intro ---------- */
+#falls-tag { margin-top: 3px; font-size: 10px; letter-spacing: 0.18em; color: var(--muted); font-weight: 700; }
+#falls-tag b { color: #ffb08a; font-variant-numeric: tabular-nums; }
+#falls-tag.bump b { display: inline-block; animation: pop 0.45s ease-out; }
+#combo { position: absolute; right: 28px; top: 31%; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; pointer-events: none; opacity: 0; transform: translateX(14px); transition: opacity 0.2s, transform 0.2s; }
+#combo.show { opacity: 1; transform: translateX(0); }
+#combo-mult { font-family: var(--display); font-weight: 900; font-size: 38px; line-height: 0.9; color: var(--gold-hi); text-shadow: 0 3px 0 #3a1a06, 0 0 18px rgba(255,140,40,0.7); }
+#combo-mult.hot { color: #ffe7a0; text-shadow: 0 3px 0 #5a1606, 0 0 22px rgba(255,80,20,0.95); }
+#combo-mult.bump { animation: comboBump 0.35s cubic-bezier(.2,1.8,.4,1); }
+@keyframes comboBump { 0% { transform: scale(1.7); } 100% { transform: scale(1); } }
+#combo-n { font-size: 10px; letter-spacing: 0.2em; font-weight: 900; color: var(--bone); text-shadow: 0 2px 4px #000; }
+.combo-bar { width: 64px; height: 5px; border-radius: 3px; background: rgba(0,0,0,0.6); border: 1px solid rgba(234,184,92,0.5); overflow: hidden; }
+#combo-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #ff6a1f, #ffd36e); }
+#pop { position: absolute; left: 10px; right: 10px; top: 21%; text-align: center; pointer-events: none; font-family: var(--display); font-weight: 900; font-size: clamp(28px, 8.5vw, 58px); line-height: 1.02; color: #fff1c6; text-shadow: 0 4px 0 #3a1406, 0 0 26px rgba(255,120,30,0.85); opacity: 0; text-wrap: balance; overflow-wrap: break-word; }
+#pop.go { opacity: 1; animation: popGo 1.05s ease-out forwards; }
+#pop.mega { font-size: clamp(32px, 10vw, 76px); color: #ffe07a; text-shadow: 0 5px 0 #4a1004, 0 0 34px rgba(255,70,10,0.95); }
+#pop.combo { font-size: clamp(24px, 7vw, 42px); color: #9ff0ff; text-shadow: 0 3px 0 #06243a, 0 0 22px rgba(80,200,255,0.8); top: 27%; }
+#pop.fall { font-size: clamp(26px, 8vw, 46px); color: #ffb08a; text-shadow: 0 3px 0 #3a0a04, 0 0 18px rgba(255,60,20,0.6); }
+@keyframes popGo { 0% { opacity: 0; transform: scale(2.4) rotate(-6deg); } 12% { opacity: 1; transform: scale(0.92) rotate(2deg); } 20% { transform: scale(1.04) rotate(-1deg); } 28% { transform: scale(1) rotate(0); } 75% { opacity: 1; transform: scale(1.03); } 100% { opacity: 0; transform: scale(1.1) translateY(-18px); } }
+#btn-dive { left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 88px); width: 56px; height: 56px; transform: translateX(-50%); border-color: rgba(160,210,255,0.5); }
+#btn-dive.ready { border-color: #bfe8ff; box-shadow: 0 0 18px rgba(140,210,255,0.8), 0 4px 14px rgba(0,0,0,0.5); }
+#dead-falls { font-size: 13px; font-weight: 900; letter-spacing: 0.12em; color: #ffb08a; text-shadow: 0 2px 6px #000; margin-top: -6px; }
+#intro-title { position: absolute; left: 0; right: 0; top: 16%; margin: 0; pointer-events: none; opacity: 0; z-index: 6; }
+#intro-title .sub { font-size: 16px; color: #ffd98a; text-shadow: 0 2px 4px #000, 0 0 14px #000, 0 0 24px rgba(0,0,0,0.9); }
+#intro-title.show { opacity: 1; animation: slamIn 0.55s cubic-bezier(.2,1.5,.35,1) forwards; }
+#intro-title.out { animation: slamOut 0.5s ease-in forwards; }
+@keyframes slamIn { 0% { opacity: 0; transform: scale(3.2); filter: blur(8px); } 45% { opacity: 1; transform: scale(0.9); filter: blur(0); } 70% { transform: scale(1.04); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes slamOut { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.12) translateY(-20px); } }
+#skip-hint { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); transform: translateX(-50%); font-size: 11px; font-weight: 900; letter-spacing: 0.26em; color: rgba(240,228,201,0.7); text-shadow: 0 2px 4px #000; pointer-events: none; animation: breathe 1.4s ease-in-out infinite; z-index: 6; }
+#letterbox::before, #letterbox::after { content: ''; position: absolute; left: 0; right: 0; height: 9vh; background: #000; transition: transform 0.6s ease; z-index: 5; }
+#letterbox::before { top: 0; transform: translateY(-100%); }
+#letterbox::after { bottom: 0; transform: translateY(100%); }
+#letterbox.on::before, #letterbox.on::after { transform: translateY(0); }
+#letterbox { position: absolute; inset: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+@media (min-aspect-ratio: 1/1) {
+  #touch .tbtn { opacity: 0.85; }
+}
+/* Narrow portrait screens (including 6:19): keep each control in its own lane. */
+@media (max-width: 360px), (max-aspect-ratio: 9/19) {
+  #touch { --control-size: clamp(60px, 31vw, 78px); }
+  #joystick { left: 6px; bottom: calc(env(safe-area-inset-bottom, 0px) + 18px); width: clamp(60px, 32vw, 82px); height: clamp(60px, 32vw, 82px); }
+  #joystick-knob { width: 48%; height: 48%; margin: 0; transform: translate(calc(-50% + var(--stick-x, 0px)), calc(-50% + var(--stick-y, 0px))); }
+  #btn-jump { right: 6px; bottom: calc(env(safe-area-inset-bottom, 0px) + 18px); }
+  #btn-attack { right: 6px; bottom: calc(env(safe-area-inset-bottom, 0px) + 18px + var(--control-size) + 10px); }
+  #btn-dive { width: clamp(40px, 20vw, 50px); height: clamp(40px, 20vw, 50px); bottom: calc(env(safe-area-inset-bottom, 0px) + 76px); }
+  #btn-enter { bottom: calc(env(safe-area-inset-bottom, 0px) + 140px); font-size: 11px; padding: 8px 12px; }
+  #act-prompt.touch { bottom: calc(env(safe-area-inset-bottom, 0px) + 136px); }
+  .topbar { grid-template-columns: minmax(0, 1fr) auto; gap: 3px; padding-left: 10px; padding-right: 8px; }
+  .topbar .greed { grid-column: 1 / -1; grid-row: 2; justify-self: center; }
+  .right-stats { grid-column: 2; grid-row: 1; padding-right: 36px; }
+  #score { font-size: 22px; }
+}
+</style>
+<!--/STYLE-->
+</head>
+<body>
+<!--BODY-->
+<div id="app">
+  <canvas id="gl"></canvas>
+
+  <div id="hud" class="hidden">
+    <div id="vignette"></div>
+    <div id="frost"></div>
+    <div id="damage"></div>
+    <div id="floaters"></div>
+    <div class="topbar">
+      <div>
+        <div class="hud-label">SCORE</div>
+        <div id="score">0</div>
+        <div id="level-tag">TOWER 1</div>
+        <div id="falls-tag">FALLS <b id="falls-n">0</b></div>
+      </div>
+      <div class="greed" id="greed">
+        <div class="hud-label">GREED</div>
+        <div class="greed-bar"><div id="greed-fill"></div></div>
+        <div id="greed-pct">0%</div>
+      </div>
+      <div class="right-stats">
+        <div id="hearts"></div>
+        <div class="stat-row"><div id="lives"></div><svg id="key-slot" viewBox="0 0 24 24"><circle cx="7" cy="8" r="4.5" fill="none" stroke="#f3c25e" stroke-width="2.6"/><path d="M10.5 10.5 L20 20 M16 16 l2.5-2.5 M18.5 18.5 l2-2" stroke="#f3c25e" stroke-width="2.6" stroke-linecap="round"/></svg></div>
+      </div>
+    </div>
+    <button id="pause-btn" aria-label="Pause"><svg viewBox="0 0 14 14"><rect x="2" y="1" width="3.5" height="12" rx="1" fill="#ffe2a0"/><rect x="8.5" y="1" width="3.5" height="12" rx="1" fill="#ffe2a0"/></svg></button>
+    <div id="meter">
+      <div id="meter-lava"></div>
+      <svg id="meter-key" class="hidden" viewBox="0 0 24 24"><circle cx="7" cy="8" r="4.5" fill="none" stroke="#f3c25e" stroke-width="3"/><path d="M10.5 10.5 L20 20" stroke="#f3c25e" stroke-width="3" stroke-linecap="round"/></svg>
+      <svg id="meter-gate" viewBox="0 0 12 12"><path d="M1 12 V5 A5 5 0 0 1 11 5 V12 Z" fill="#3a2410" stroke="#f3c25e" stroke-width="1.4"/></svg>
+      <div id="meter-knight"></div>
+    </div>
+    <div id="flash"></div>
+    <div id="bossbar" class="hidden">
+      <div id="boss-name">THE GUARDIAN</div>
+      <div class="bb-frame"><div id="boss-lag"></div><div id="boss-fill"></div><div class="bb-notch"></div></div>
+    </div>
+    <div id="boss-title"><div class="bt-name"></div><div class="bt-sub"></div></div>
+    <div id="center-msg"></div>
+    <div id="sub-msg"></div>
+    <div id="act-prompt"></div>
+    <div id="combo"><div id="combo-mult">x2</div><div id="combo-n">0 COMBO</div><div class="combo-bar"><div id="combo-fill"></div></div></div>
+    <div id="pop"></div>
+    <div class="siege-arrow" id="siege-left"><svg viewBox="0 0 24 24"><path d="M15 4 L7 12 L15 20" fill="none" stroke="#ffc04a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 24 24"><path d="M2.5 15.5 L13.5 8.5 L16.5 13 L5.5 20 Z" fill="#ffe2a0"/><circle cx="7.5" cy="18.5" r="3" fill="#6a3a1a" stroke="#ffe2a0" stroke-width="1.6"/></svg></div>
+    <div class="siege-arrow" id="siege-right"><svg viewBox="0 0 24 24"><path d="M9 4 L17 12 L9 20" fill="none" stroke="#ffc04a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 24 24" style="transform: scaleX(-1)"><path d="M2.5 15.5 L13.5 8.5 L16.5 13 L5.5 20 Z" fill="#ffe2a0"/><circle cx="7.5" cy="18.5" r="3" fill="#6a3a1a" stroke="#ffe2a0" stroke-width="1.6"/></svg></div>
+    <div id="toast"></div>
+  </div>
+
+  <div id="touch" class="hidden">
+    <div id="joystick" role="group" aria-label="Move left or right"><div id="joystick-knob"></div></div>
+    <div class="tbtn" id="btn-attack" aria-label="Sword"><svg viewBox="0 0 24 24"><path d="M19 3 L21 5 L10 16 L8 14 Z" fill="#ffe2a0"/><path d="M5 13 L11 19 M4 20 L7 17" stroke="#ffb070" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+    <div class="tbtn" id="btn-dive" aria-label="Ground-pound"><svg viewBox="0 0 24 24"><path d="M12 21 L4 12 H9 V3 H15 V12 H20 Z" fill="#cfeaff"/></svg></div>
+    <div class="tbtn" id="btn-jump" aria-label="Jump"><svg viewBox="0 0 24 24"><path d="M12 4 L20 13 H15 V20 H9 V13 H4 Z" fill="#ffe2a0"/></svg></div>
+    <div class="tbtn hidden" id="btn-enter" aria-label="Enter passage"><svg viewBox="0 0 24 24"><path d="M5 21 V10 A7 7 0 0 1 19 10 V21 Z" fill="none" stroke="#ffe2a0" stroke-width="2.5"/><path d="M12 17 V11 M9 14 L12 11 L15 14" stroke="#ffe2a0" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>ENTER PASSAGE</div>
+  </div>
+  <div id="letterbox"></div>
+  <div id="intro-title" class="logo"><div class="l1">SIR</div><div class="l2">FALLS-A-LOT</div><div class="sub">CASTLE CLIMBER</div></div>
+  <div id="skip-hint" class="hidden">TAP TO SKIP</div>
+  <div id="fader"></div>
+  <div id="kb-hint" class="hidden">A D MOVE · SPACE JUMP · S IN AIR SMASH · J SWORD / FIRE / THROW · E DOOR · ESC PAUSE</div>
+
+  <div id="menu" class="screen hidden">
+    <div id="menu-top"><button class="icon-btn" id="mute-btn" aria-label="Toggle sound"></button></div>
+    <div class="logo">
+      <div class="l1">SIR</div>
+      <div class="l2">FALLS-A-LOT</div>
+      <div class="sub">CASTLE CLIMBER</div>
+      <div class="tagline">CLIMB HIGH. RISK MORE. <em>GREED RISES.</em></div>
+    </div>
+    <div class="menu-actions">
+      <div class="best" id="best-line">BEST <b id="best">0</b></div>
+      <button class="btn primary" id="play-btn">PLAY</button>
+      <div class="row">
+        <button class="btn ghost" id="howto-btn">HOW TO PLAY</button>
+        <button class="btn ghost" id="credits-btn">CREDITS</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="howto" class="screen dim hidden">
+    <div class="panel">
+      <h2>How to climb</h2>
+      <div class="howto">
+        <div><svg viewBox="0 0 24 24"><circle cx="7" cy="8" r="4.5" fill="none" stroke="#f3c25e" stroke-width="2.6"/><path d="M10.5 10.5 L20 20 M16 16 l2.5-2.5" stroke="#f3c25e" stroke-width="2.6" stroke-linecap="round"/></svg><span>Find the <b>key</b> somewhere on the tower, then reach the <b>gate at the top</b>.</span></div>
+        <div><svg viewBox="0 0 24 24"><path d="M12 2 C14 7 19 9 19 15 A7 7 0 0 1 5 15 C5 11 8 9 9 5 C10 8 11 9 12 9 Z" fill="#ff6a1f"/></svg><span>Lava rises from below. Gold and chests fill your <b>greed</b>: more score, faster lava.</span></div>
+        <div><svg viewBox="0 0 24 24"><path d="M5 21 V10 A7 7 0 0 1 19 10 V21 Z" fill="none" stroke="#f3c25e" stroke-width="2.4"/></svg><span>Dark <b>doorways</b> lead through the tower to its far side. Treasure waits there.</span></div>
+        <div><svg viewBox="0 0 24 24"><path d="M19 3 L21 5 L10 16 L8 14 Z" fill="#f0e4c9"/><path d="M5 13 L11 19 M4 20 L7 17" stroke="#ffb070" stroke-width="2.4" stroke-linecap="round"/></svg><span>Slash skeletons, rats, bats and spiders. Dragons can't be slain, but your sword can <b>parry their fireballs</b>.</span></div>
+        <div><svg viewBox="0 0 24 24"><path d="M12 21 L4 12 H9 V3 H15 V12 H20 Z" fill="#cfeaff"/></svg><span>Press <b>down</b> in the air to <b>ground-pound</b>. The higher you fall, the bigger the blast: foes fly, gold sprays loose. Land it on a guardian's weak spot for <b>double damage</b>.</span></div>
+        <div><svg viewBox="0 0 24 24"><path d="M4 18 L9 6 L12 13 L15 8 L20 18" fill="none" stroke="#9ff0ff" stroke-width="2.4" stroke-linejoin="round"/></svg><span>Chain coins, kills and smashes into a <b>combo</b>. Staying in the air keeps it alive, and the multiplier boosts every point.</span></div>
+        <div><svg viewBox="0 0 24 24"><path d="M6 3 H18 L13 12 L18 21 H6 L11 12 Z" fill="none" stroke="#7fe8ff" stroke-width="2.2"/></svg><span>Hourglasses freeze the lava for a few seconds. Red crystal hearts heal.</span></div>
+        <div><svg viewBox="0 0 24 24"><path d="M12 2 C7 2 4 6 4 10 C4 13 6 14 6 16 V19 H9 V17 H11 V19 H13 V17 H15 V19 H18 V16 C18 14 20 13 20 10 C20 6 17 2 12 2 Z" fill="#f0e4c9"/><circle cx="9" cy="10" r="2" fill="#c8281d"/><circle cx="15" cy="10" r="2" fill="#c8281d"/></svg><span>Behind the gate a <b>guardian</b> waits. Dodge the glowing warnings, strike its <b>glowing weak spots</b> after it attacks, and parry its fireballs straight back at it.</span></div>
+        <div><svg viewBox="0 0 24 24"><circle cx="10" cy="14" r="7" fill="#f0e4c9"/><path d="M14 8 Q16 5 19 5" stroke="#ffb070" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M20 2 L20.8 4.2 L23 5 L20.8 5.8 L20 8 L19.2 5.8 L17 5 L19.2 4.2 Z" fill="#ff8a3a"/></svg><span>In the guardian's hall, stand at a <b>cannon</b> and press the sword button to fire it. Grab <b>bombs</b> from the crates and throw them. Jump on the floating platforms to dodge.</span></div>
+      </div>
+      <div class="keys">Keyboard: A/D or arrows to move, Space or W to jump, J or X to swing, S to drop down (in the air: ground-pound), E to enter a door, Esc to pause.</div>
+      <button class="btn" data-close="howto">BACK</button>
+    </div>
+  </div>
+
+  <div id="credits" class="screen dim hidden">
+    <div class="panel">
+      <h2>About the creator</h2>
+      <p>Created by <b>Oskari Olli</b></p>
+      <p>Indie game creator from Finland. Making retro-inspired games for players who crave nostalgia.</p>
+      <p class="muted">YOU CAN REACH ME ON</p>
+      <p><a href="https://www.linkedin.com/in/oskari-olli/" target="_blank" rel="noopener">LinkedIn: Oskari Olli</a></p>
+      <p class="muted">THANKS FOR PLAYING! IF YOU ENJOYED THIS GAME, FEEL FREE TO CHECK OUT MY OTHER PROJECTS.</p>
+      <p>🕹️ <a href="https://oskariolli.itch.io" target="_blank" rel="noopener noreferrer">Explore my games: itch.io — Oskari Olli</a></p>
+      <button class="btn" data-close="credits">CLOSE</button>
+    </div>
+  </div>
+
+  <div id="pause" class="screen dim hidden">
+    <div class="panel">
+      <h2>Paused</h2>
+      <button class="btn primary" id="resume-btn">RESUME</button>
+      <button class="btn ghost" id="pause-mute-btn">SOUND: ON</button>
+      <button class="btn ghost" id="exit-btn">EXIT TO MAIN MENU</button>
+    </div>
+  </div>
+
+  <div id="confirm" class="screen dim hidden">
+    <div class="panel">
+      <h2>Exit to main menu?</h2>
+      <p class="muted">YOUR CURRENT CLIMB WILL BE LOST.</p>
+      <div class="row">
+        <button class="btn primary" id="confirm-yes">YES</button>
+        <button class="btn" id="confirm-no">NO</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="dead" class="screen dim hidden">
+    <div class="death-title" id="dead-title">THE LAVA CONSUMED YOU</div>
+    <div id="dead-falls"></div>
+    <div class="panel">
+      <div class="stats" id="dead-stats"></div>
+      <button class="btn primary" id="retry-btn">TRY AGAIN</button>
+      <button class="btn ghost" id="dead-menu-btn">MAIN MENU</button>
+    </div>
+  </div>
+
+  <div id="win" class="screen dim hidden">
+    <div class="panel">
+      <h2 id="win-title">Tower conquered</h2>
+      <div class="stats" id="win-stats"></div>
+      <button class="btn primary" id="next-btn">NEXT TOWER</button>
+    </div>
+  </div>
+
+  <div id="loading" class="screen">
+    <div class="t">Raising the tower…</div>
+    <div class="bar"><i></i></div>
+  </div>
+  <div id="error" class="screen hidden">
+    <div class="panel"><h2>Can't start the game</h2><p id="error-text">This device doesn't support WebGL 2.</p></div>
+  </div>
+</div>
+<!--/BODY-->
+<!--SCRIPT-->
+<script type="module" src="./game.js"></script>
+<!--/SCRIPT-->
+</body>
+</html>

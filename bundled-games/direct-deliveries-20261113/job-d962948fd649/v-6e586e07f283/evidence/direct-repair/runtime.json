@@ -1,0 +1,131 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "missing": [],
+  "required_external": [],
+  "actions": [
+    {
+      "type": "click",
+      "target": "intro skip",
+      "result": "offline menu; online and leaderboard controls absent"
+    },
+    {
+      "type": "select",
+      "target": "LAPS/BOTS/track",
+      "result": "1 lap / Easy / Garage Gauntlet selected"
+    },
+    {
+      "type": "click",
+      "target": "START RACE",
+      "result": "countdown, 6 cars, single-player HUD"
+    },
+    {
+      "type": "key",
+      "key": "R",
+      "result": "recovery protection, returned to track"
+    },
+    {
+      "type": "key",
+      "key": "1",
+      "result": "Nitro activated, VFX and NITRO HUD, inventory changed"
+    },
+    {
+      "type": "key",
+      "key": "D/A/Shift/2",
+      "result": "steering, speed/collision feedback; Shockwave consumed; no positive drift-charge claim"
+    },
+    {
+      "type": "observe",
+      "result": "original race timeout, sixth place / DNF / +1, bots recorded actual finish times"
+    },
+    {
+      "type": "click",
+      "target": "REMATCH",
+      "result": "new race countdown and reset inventory"
+    },
+    {
+      "type": "click",
+      "target": "Pause then MAIN MENU",
+      "result": "native pause and return to menu"
+    },
+    {
+      "type": "reload",
+      "result": "Garage / 1 lap / Easy settings visibly preserved"
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8880/index.html",
+    "http://127.0.0.1:8880/game.js",
+    "http://127.0.0.1:8880/vendor/001-three-0.185.js",
+    "http://127.0.0.1:8880/vendor/002-three.js",
+    "http://127.0.0.1:8880/assets/003-music.mp3",
+    "http://127.0.0.1:8880/index.html",
+    "http://127.0.0.1:8880/game.js",
+    "http://127.0.0.1:8880/vendor/001-three-0.185.js",
+    "http://127.0.0.1:8880/vendor/002-three.js"
+  ],
+  "network_responses": [
+    {
+      "url": "http://127.0.0.1:8880/index.html",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8880/game.js",
+      "status": 304
+    },
+    {
+      "url": "http://127.0.0.1:8880/vendor/001-three-0.185.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8880/vendor/002-three.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8880/assets/003-music.mp3",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8880/index.html",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8880/game.js",
+      "status": 304
+    },
+    {
+      "url": "http://127.0.0.1:8880/vendor/001-three-0.185.js",
+      "status": 304
+    },
+    {
+      "url": "http://127.0.0.1:8880/vendor/002-three.js",
+      "status": 304
+    }
+  ],
+  "warnings": [
+    {
+      "level": "warn",
+      "message": "THREE.WebGLProgram: Program Info Log: (210,91-147): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,41-69): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,92-120): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(209,41-69): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(210,92-120): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision",
+      "timestamp": "2026-11-11T13:41:36.054Z",
+      "url": "http://127.0.0.1:8880/vendor/002-three.js"
+    }
+  ],
+  "scope": "Agent-operated desktop IAB, 1280x720. Garage single-lap Easy race tested through original timeout/DNF result and rematch; not a successful player finish or win. Other four tracks, split-screen, cup, drift charge and best/ghost recording not verified. Settings persistence observed. Original simulation and timeout remain unchanged."
+}

@@ -1,0 +1,509 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "key",
+        "key": "Enter/A/D/Space/J/K",
+        "result": "Originalintro/threejumps/solidcollision/shooting/swordswing/ammopickup100andactualguarddefeat500=>600; 8HPdamage andGameOver100then600."
+      },
+      {
+        "type": "key",
+        "key": "Enter",
+        "result": "Normalrestart0score8health12mag48reserve."
+      },
+      {
+        "type": "key",
+        "key": "J/R",
+        "result": "Threebulletsusedandmanualreloadfull12mag45reserve, originalammoaccounting."
+      },
+      {
+        "type": "reload",
+        "result": "Originaltitle returns, originalhasnopersistence/pause, no saveclaim."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8907/",
+      "http://127.0.0.1:8907/_remote/3a125e88c76c9347/css2",
+      "http://127.0.0.1:8907/rosebud-game-defaults.css",
+      "http://127.0.0.1:8907/rosebud-game-defaults.js",
+      "http://127.0.0.1:8907/main.js",
+      "http://127.0.0.1:8907/assets/viktor-v2.webp",
+      "http://127.0.0.1:8907/assets/thug-v2.webp",
+      "http://127.0.0.1:8907/assets/enforcer-v2.webp",
+      "http://127.0.0.1:8907/assets/crate.webp",
+      "http://127.0.0.1:8907/assets/warehouse-bg.webp",
+      "http://127.0.0.1:8907/assets/audio/music-hiphop.mp3",
+      "http://127.0.0.1:8907/assets/audio/gunshot.mp3",
+      "http://127.0.0.1:8907/assets/audio/gunshot.mp3",
+      "http://127.0.0.1:8907/assets/audio/gunshot.mp3",
+      "http://127.0.0.1:8907/assets/audio/gunshot.mp3",
+      "http://127.0.0.1:8907/assets/audio/hit.mp3",
+      "http://127.0.0.1:8907/assets/audio/hit.mp3",
+      "http://127.0.0.1:8907/assets/audio/hit.mp3",
+      "http://127.0.0.1:8907/assets/audio/hit.mp3",
+      "http://127.0.0.1:8907/assets/audio/shotgun.mp3",
+      "http://127.0.0.1:8907/assets/audio/shotgun.mp3",
+      "http://127.0.0.1:8907/assets/audio/shotgun.mp3",
+      "http://127.0.0.1:8907/assets/audio/shotgun.mp3",
+      "http://127.0.0.1:8907/assets/audio/crate-break.mp3",
+      "http://127.0.0.1:8907/assets/audio/crate-break.mp3",
+      "http://127.0.0.1:8907/assets/audio/crate-break.mp3",
+      "http://127.0.0.1:8907/assets/audio/crate-break.mp3",
+      "http://127.0.0.1:8907/",
+      "http://127.0.0.1:8907/_remote/3a125e88c76c9347/css2",
+      "http://127.0.0.1:8907/rosebud-game-defaults.css",
+      "http://127.0.0.1:8907/rosebud-game-defaults.js",
+      "http://127.0.0.1:8907/main.js",
+      "http://127.0.0.1:8907/assets/viktor-v2.webp",
+      "http://127.0.0.1:8907/assets/thug-v2.webp",
+      "http://127.0.0.1:8907/assets/enforcer-v2.webp",
+      "http://127.0.0.1:8907/assets/crate.webp",
+      "http://127.0.0.1:8907/assets/warehouse-bg.webp",
+      "http://127.0.0.1:8907/assets/audio/music-hiphop.mp3",
+      "http://127.0.0.1:8907/assets/audio/gunshot.mp3",
+      "http://127.0.0.1:8907/assets/audio/gunshot.mp3",
+      "http://127.0.0.1:8907/assets/audio/gunshot.mp3",
+      "http://127.0.0.1:8907/assets/audio/gunshot.mp3",
+      "http://127.0.0.1:8907/assets/audio/hit.mp3",
+      "http://127.0.0.1:8907/assets/audio/hit.mp3",
+      "http://127.0.0.1:8907/assets/audio/hit.mp3",
+      "http://127.0.0.1:8907/assets/audio/hit.mp3",
+      "http://127.0.0.1:8907/assets/audio/shotgun.mp3",
+      "http://127.0.0.1:8907/assets/audio/shotgun.mp3",
+      "http://127.0.0.1:8907/assets/audio/shotgun.mp3",
+      "http://127.0.0.1:8907/assets/audio/shotgun.mp3",
+      "http://127.0.0.1:8907/assets/audio/crate-break.mp3",
+      "http://127.0.0.1:8907/assets/audio/crate-break.mp3",
+      "http://127.0.0.1:8907/assets/audio/crate-break.mp3",
+      "http://127.0.0.1:8907/assets/audio/crate-break.mp3"
+    ],
+    "scope": "Originalsinglewarehouse2Dcinematicaction entiremain.js byteSHA unchanged. Hosttools/interception retired,23exactfontrefs230312byteslocalized. ActualnativeEnterintro/A-Dmove/threejumps/solidcrate+truckcollision/Jshoot/Kswordswing/ammo pickup+100, originalguardshotdead+500 =>600score, actual8healthdamage toGameOver100then600, Enterretry0score8HP12mag48reserve, Jthreebullets+Rreload12mag45reserve. Refreshoriginaltitle; originalnopersistentprogress/save/pause, noneadded. Ladderattempt endeddeath, notclaimedclimbcomplete. No StageClear/boss/2secrets/lockeddoors/conveyor/fullsection/mobile/hearing proof. Originalphysics/difficulty/ammo/damage/score/rewards/rules unchanged. Complete54requestwindow noexternal/HTTPerror/runtimeexception/consoleerror/truncation;13HTMLAudio cancels exactlyatintentionalreload, all4URLs localHTTP200 exactoriginalbytes checkedandreceiptretained. Notmissingmedia.",
+    "network_scope": "Startup/nativewarehouseintro/move+jump+shoot+melee+ammo pickup/score100then600actualguarddefeat/healthloss/GameOver100and600/Enterretryfull8HP0score12mag48reserve/Rreload12mag45reserve/refreshoriginaltitle. No stageclear/boss/2secrets/laddercompletion/mobile/hearing claim. Originalno persistent save/pause; none added.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "Entireoriginalsingleplayercanvaswarehousegame haslocalrunscoreonly, no networkboard/multiplayer/ad/payment/savebackend. UnrelatedRosebudhosttools/interception retired; no fakeSDK/service/rewards.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "Entireoriginalsingleplayercanvaswarehousegame haslocalrunscoreonly, no networkboard/multiplayer/ad/payment/savebackend. UnrelatedRosebudhosttools/interception retired; no fakeSDK/service/rewards.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "Entireoriginalsingleplayercanvaswarehousegame haslocalrunscoreonly, no networkboard/multiplayer/ad/payment/savebackend. UnrelatedRosebudhosttools/interception retired; no fakeSDK/service/rewards.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "Entireoriginalsingleplayercanvaswarehousegame haslocalrunscoreonly, no networkboard/multiplayer/ad/payment/savebackend. UnrelatedRosebudhosttools/interception retired; no fakeSDK/service/rewards.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "Actualnativejumps/ammo/guardshotdead600score/healthloss/GameOver/retry/reloadammo; notfullstageclear.",
+      "evidence": [
+        "evidence/direct-repair/native-guard-defeat-score600.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "Originalspriteart/music/sfx/fonts render/playrequests local;54requestwindow complete,13intentionalreloadcancels verifiedexactoriginalbytes.",
+      "evidence": [
+        "evidence/direct-repair/native-guard-defeat-score600.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Originalloadingdock/container/warehousebay2/ladders render.",
+      "evidence": [
+        "evidence/direct-repair/native-bay2-score100-hp1.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "Actualcrate/truckcollision/ammo pickup/bullets andnativeammoaccounting; no laddercompletionclaim.",
+      "evidence": [
+        "evidence/direct-repair/native-reload-fullmag-reserve45.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "ActualViktor movement/jump/hit/healthloss andguardshotdead original.",
+      "evidence": [
+        "evidence/direct-repair/native-guard-defeat-score600.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Originaljump/shoot/swordswing/guardfall/playerhurt/death observed.",
+      "evidence": [
+        "evidence/direct-repair/native-gameover600.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "OriginalHUDhealth/ammo/reserve/score/0of2secrets/GameOver/Enterrestart/title actual.",
+      "evidence": [
+        "evidence/direct-repair/native-retry0-full-health.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "key",
+      "key": "Enter/A/D/Space/J/K",
+      "result": "Originalintro/threejumps/solidcollision/shooting/swordswing/ammopickup100andactualguarddefeat500=>600; 8HPdamage andGameOver100then600."
+    },
+    {
+      "type": "key",
+      "key": "Enter",
+      "result": "Normalrestart0score8health12mag48reserve."
+    },
+    {
+      "type": "key",
+      "key": "J/R",
+      "result": "Threebulletsusedandmanualreloadfull12mag45reserve, originalammoaccounting."
+    },
+    {
+      "type": "reload",
+      "result": "Originaltitle returns, originalhasnopersistence/pause, no saveclaim."
+    }
+  ],
+  "scope": "Originalsinglewarehouse2Dcinematicaction entiremain.js byteSHA unchanged. Hosttools/interception retired,23exactfontrefs230312byteslocalized. ActualnativeEnterintro/A-Dmove/threejumps/solidcrate+truckcollision/Jshoot/Kswordswing/ammo pickup+100, originalguardshotdead+500 =>600score, actual8healthdamage toGameOver100then600, Enterretry0score8HP12mag48reserve, Jthreebullets+Rreload12mag45reserve. Refreshoriginaltitle; originalnopersistentprogress/save/pause, noneadded. Ladderattempt endeddeath, notclaimedclimbcomplete. No StageClear/boss/2secrets/lockeddoors/conveyor/fullsection/mobile/hearing proof. Originalphysics/difficulty/ammo/damage/score/rewards/rules unchanged. Complete54requestwindow noexternal/HTTPerror/runtimeexception/consoleerror/truncation;13HTMLAudio cancels exactlyatintentionalreload, all4URLs localHTTP200 exactoriginalbytes checkedandreceiptretained. Notmissingmedia.",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "Entireoriginalreadablemain.js SHAunchanged; nativeguarddefeat600/GameOver/retry/manualreload.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-original-title.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "Originalart/audio/CSS retained;23exactfontrefs230312byteslocalized;54completewindow13reloadcancelscheckedHTTP200/SHA.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-original-title.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "Originalwarehousephysics/guardAI/boss/2secrets/ammo/damage/rewards unchanged. Actualpartialcombatdefeat only.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-original-title.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "Originalgamehasno persistentprogress/save/backend. Refreshreturnstitle; no saveadded orclaimed.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-original-title.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "UnrelatedRosebudhosttools/interception retired; nativeoriginalmodule directlystarts, no fakeSDK/service.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-original-title.png",
+        "next_action": ""
+      }
+    ],
+    "scope": "Originalsinglewarehouse2Dcinematicaction entiremain.js byteSHA unchanged. Hosttools/interception retired,23exactfontrefs230312byteslocalized. ActualnativeEnterintro/A-Dmove/threejumps/solidcrate+truckcollision/Jshoot/Kswordswing/ammo pickup+100, originalguardshotdead+500 =>600score, actual8healthdamage toGameOver100then600, Enterretry0score8HP12mag48reserve, Jthreebullets+Rreload12mag45reserve. Refreshoriginaltitle; originalnopersistentprogress/save/pause, noneadded. Ladderattempt endeddeath, notclaimedclimbcomplete. No StageClear/boss/2secrets/lockeddoors/conveyor/fullsection/mobile/hearing proof. Originalphysics/difficulty/ammo/damage/score/rewards/rules unchanged. Complete54requestwindow noexternal/HTTPerror/runtimeexception/consoleerror/truncation;13HTMLAudio cancels exactlyatintentionalreload, all4URLs localHTTP200 exactoriginalbytes checkedandreceiptretained. Notmissingmedia."
+  },
+  "dependency_review": {
+    "previous_revision": 2,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "离线启动通过；广告过滤及被拒绝请求见 runtime_smoke，存档及结算尚未验证",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证保存恢复和阶段结果"
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 2,
+      "updated_at": "2026-10-30T14:37:59+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "Entireoriginalreadablemain.js SHAunchanged; nativeguarddefeat600/GameOver/retry/manualreload.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-original-title.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "Originalart/audio/CSS retained;23exactfontrefs230312byteslocalized;54completewindow13reloadcancelscheckedHTTP200/SHA.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-original-title.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "Originalwarehousephysics/guardAI/boss/2secrets/ammo/damage/rewards unchanged. Actualpartialcombatdefeat only.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-original-title.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "Originalgamehasno persistentprogress/save/backend. Refreshreturnstitle; no saveadded orclaimed.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-original-title.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "UnrelatedRosebudhosttools/interception retired; nativeoriginalmodule directlystarts, no fakeSDK/service.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-original-title.png",
+          "next_action": ""
+        }
+      ],
+      "scope": "Originalsinglewarehouse2Dcinematicaction entiremain.js byteSHA unchanged. Hosttools/interception retired,23exactfontrefs230312byteslocalized. ActualnativeEnterintro/A-Dmove/threejumps/solidcrate+truckcollision/Jshoot/Kswordswing/ammo pickup+100, originalguardshotdead+500 =>600score, actual8healthdamage toGameOver100then600, Enterretry0score8HP12mag48reserve, Jthreebullets+Rreload12mag45reserve. Refreshoriginaltitle; originalnopersistentprogress/save/pause, noneadded. Ladderattempt endeddeath, notclaimedclimbcomplete. No StageClear/boss/2secrets/lockeddoors/conveyor/fullsection/mobile/hearing proof. Originalphysics/difficulty/ammo/damage/score/rewards/rules unchanged. Complete54requestwindow noexternal/HTTPerror/runtimeexception/consoleerror/truncation;13HTMLAudio cancels exactlyatintentionalreload, all4URLs localHTTP200 exactoriginalbytes checkedandreceiptretained. Notmissingmedia."
+    },
+    "basis": "EntireoriginalsourceSHA andactualguarddefeat600/GameOver/retry/reloadammo, exactfontresources, normalrevisionedAPI."
+  },
+  "base_version_id": "v-1816762894c4",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "original_job": "job-1eb9f3109aa9",
+    "at": "2026-11-12T05:50:18.177353+00:00"
+  },
+  "game_profile": {
+    "category": "2D · 电影式动作射击",
+    "dimension": "",
+    "perspective": "",
+    "core_gameplay": "Originalsinglewarehouseactionshooting/platform/cover/sword/boss with2secrets. ActualLoadingDock/Bay2combat600score/guarddefeat/GameOver/retry only.",
+    "core_experience": "",
+    "controls": "A/Dmove, Shiftrun, Space/Wjump, W/Sladder, Scrouch/drop+jump, J/Zshoot,K/Xsword,Rreload,Mmute. Originalno pause.",
+    "game_loop": "",
+    "content": "",
+    "progression": "",
+    "save": "Originalhasno persistentprogress/save; refreshreturnstitle. No saveadded orclaimed.",
+    "rules": "",
+    "systems": "",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "Originalsinglewarehouse2Dcinematicaction entiremain.js byteSHA unchanged. Hosttools/interception retired,23exactfontrefs230312byteslocalized. ActualnativeEnterintro/A-Dmove/threejumps/solidcrate+truckcollision/Jshoot/Kswordswing/ammo pickup+100, originalguardshotdead+500 =>600score, actual8healthdamage toGameOver100then600, Enterretry0score8HP12mag48reserve, Jthreebullets+Rreload12mag45reserve. Refreshoriginaltitle; originalnopersistentprogress/save/pause, noneadded. Ladderattempt endeddeath, notclaimedclimbcomplete. No StageClear/boss/2secrets/lockeddoors/conveyor/fullsection/mobile/hearing proof. Originalphysics/difficulty/ammo/damage/score/rewards/rules unchanged. Complete54requestwindow noexternal/HTTPerror/runtimeexception/consoleerror/truncation;13HTMLAudio cancels exactlyatintentionalreload, all4URLs localHTTP200 exactoriginalbytes checkedandreceiptretained. Notmissingmedia.",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "illustrations": [
+      {
+        "path": "screenshots/startup.png",
+        "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Entireoriginalreadablemain.js withphysics/collision/AI/combat/warehousebuilder/boss/render/HUD/audio, no minifiedruntime-only substitute.",
+    "reuse": "Platformphysics/collision/cover/ladder/shooting/sword/guardAI/sectionbuilder/HUD modules extractablewithadaptations; notseparatelycertified.",
+    "dependencies": "Canvas2D/WebAudio/HTMLAudio/localfonts/staticart, no service orpersistentbackend.",
+    "preservation": "EntiremainJS byteSHAunchanged; onlyhosttools/interception retired and23exactfontrefs localized. No difficulty/score/ammo/damage/reward/rules changes."
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T05:47:38.088537+00:00",
+      "recorded_node_elapsed_wall_seconds": 31967.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 24718.283,
+      "calls": 251,
+      "known_input_tokens": 9256961,
+      "known_output_tokens": 719350,
+      "cached_input_tokens_known": 4637438,
+      "unknown_usage_calls": 29,
+      "known_estimated_cost_subtotals": {
+        "CNY": 173.60033600000006
+      },
+      "unknown_cost_calls": 29,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 8,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 8,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 8,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 243,
+          "input_tokens_known": 9256961,
+          "output_tokens_known": 719350,
+          "unknown_usage_calls": 21,
+          "known_cost_subtotals": {
+            "CNY": 173.60033600000006
+          },
+          "unknown_cost_calls": 21,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T05:35:05.563773+00:00",
+      "observed_until": "2026-11-12T05:52:04.441509+00:00",
+      "observed_wall_seconds": 1018.877736,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

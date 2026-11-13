@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "missing": [],
+  "required_external": [],
+  "actions": [
+    {
+      "type": "click",
+      "selector": "#sudoku-grid [role=gridcell]",
+      "result": "Select visible blank cell, wrong number red, clear, then correct digits using original rules"
+    },
+    {
+      "type": "keyboard",
+      "selector": "#sudoku-grid",
+      "result": "36 originally empty cells filled via normal UI, original full Easy victory1:15 and1438points"
+    },
+    {
+      "type": "click",
+      "selector": "#new-game",
+      "result": "New Medium puzzle42blanks, genuine different givens"
+    },
+    {
+      "type": "reload",
+      "result": "Score/highscore1438, solved1, PB1:15 and Medium restored, original new puzzle starts"
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8888/index.html",
+    "http://127.0.0.1:8888/_remote/d74a45c75f9e69b6/css2.css",
+    "http://127.0.0.1:8888/rosebud-game-defaults.css",
+    "http://127.0.0.1:8888/styles.css",
+    "http://127.0.0.1:8888/rosebud-game-defaults.js",
+    "http://127.0.0.1:8888/main.js",
+    "http://127.0.0.1:8888/_remote/fef19392d4838cf9/css2.css",
+    "http://127.0.0.1:8888/assets/tools.webp",
+    "http://127.0.0.1:8888/assets/pots.webp",
+    "http://127.0.0.1:8888/assets/lawnmower.webp",
+    "http://127.0.0.1:8888/assets/knott-shed-character.webp",
+    "http://127.0.0.1:8888/assets/step-sister-glam.webp",
+    "http://127.0.0.1:8888/assets/shed-bg.webp",
+    "http://127.0.0.1:8888/_remote/488e956feb1421c4/HTxwL3I-JCGChYJ8VI-L6OO_au7B47b1z3bWuQ.woff2",
+    "http://127.0.0.1:8888/assets/audio/shed-rave-loop.mp3",
+    "http://127.0.0.1:8888/assets/audio/shedoku-eurodance-lime-rave.mp3",
+    "http://127.0.0.1:8888/assets/audio/shedoku-eurodance-cheese-dream.mp3",
+    "http://127.0.0.1:8888/assets/audio/shedoku-eurodance-neon-kettle.mp3",
+    "http://127.0.0.1:8888/assets/audio/wrong.mp3",
+    "http://127.0.0.1:8888/assets/fonts/fd8b8aea8febbcde81438ec1.woff2",
+    "http://127.0.0.1:8888/assets/audio/shed-rave-loop.mp3",
+    "http://127.0.0.1:8888/assets/audio/shedoku-eurodance-lime-rave.mp3",
+    "http://127.0.0.1:8888/assets/audio/shedoku-eurodance-cheese-dream.mp3",
+    "http://127.0.0.1:8888/index.html",
+    "http://127.0.0.1:8888/_remote/d74a45c75f9e69b6/css2.css",
+    "http://127.0.0.1:8888/rosebud-game-defaults.css",
+    "http://127.0.0.1:8888/styles.css",
+    "http://127.0.0.1:8888/rosebud-game-defaults.js",
+    "http://127.0.0.1:8888/main.js",
+    "http://127.0.0.1:8888/_remote/fef19392d4838cf9/css2.css",
+    "http://127.0.0.1:8888/assets/tools.webp",
+    "http://127.0.0.1:8888/assets/pots.webp",
+    "http://127.0.0.1:8888/assets/lawnmower.webp",
+    "http://127.0.0.1:8888/assets/knott-shed-character.webp",
+    "http://127.0.0.1:8888/assets/step-sister-glam.webp",
+    "http://127.0.0.1:8888/assets/shed-bg.webp",
+    "http://127.0.0.1:8888/_remote/488e956feb1421c4/HTxwL3I-JCGChYJ8VI-L6OO_au7B47b1z3bWuQ.woff2",
+    "http://127.0.0.1:8888/assets/audio/shed-rave-loop.mp3",
+    "http://127.0.0.1:8888/assets/audio/shedoku-eurodance-lime-rave.mp3",
+    "http://127.0.0.1:8888/assets/audio/shedoku-eurodance-cheese-dream.mp3",
+    "http://127.0.0.1:8888/assets/audio/shedoku-eurodance-neon-kettle.mp3",
+    "http://127.0.0.1:8888/assets/audio/wrong.mp3",
+    "http://127.0.0.1:8888/assets/fonts/fd8b8aea8febbcde81438ec1.woff2"
+  ],
+  "scope": "Desktop1280x720 actual UI. Visible givens independently solved outside page; ordinary cell clicks/number keys only, no hidden solution or state manipulation. Original Easy36 blanks solved in1:15 score1438 bonus748. Wrong number red feedback and clear, new Medium42-blank puzzle, reload actual score/highscore1438 solved1 PB1:15 and Medium restored. Original design regenerates board on reload, does not save mid-puzzle. Medium/Hard/Expert full wins, mobile/touch and audio hearing not exhausted. Complete network window reload/full Easy win/new/reload with no truncation, external request, missing asset or console error.",
+  "network_scope": "Desktop1280x720 actual UI. Visible givens independently solved outside page; ordinary cell clicks/number keys only, no hidden solution or state manipulation. Original Easy36 blanks solved in1:15 score1438 bonus748. Wrong number red feedback and clear, new Medium42-blank puzzle, reload actual score/highscore1438 solved1 PB1:15 and Medium restored. Original design regenerates board on reload, does not save mid-puzzle. Medium/Hard/Expert full wins, mobile/touch and audio hearing not exhausted. Complete network window reload/full Easy win/new/reload with no truncation, external request, missing asset or console error.",
+  "evidence": "evidence/direct-repair/network-events.json"
+}

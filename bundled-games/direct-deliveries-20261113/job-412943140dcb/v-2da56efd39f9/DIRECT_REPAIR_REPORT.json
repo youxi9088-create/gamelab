@@ -1,0 +1,474 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "key",
+        "key": "ArrowLeft/ArrowRight",
+        "result": "OriginalMEDrunner rotating/accelerating/collision;420mGameOver."
+      },
+      {
+        "type": "click",
+        "selector": "canvas",
+        "result": "Native restart+immediateEscape protected, actualnew54.4m/61.7m/s; normalpause/home."
+      },
+      {
+        "type": "key",
+        "key": "a/ArrowRight",
+        "result": "Native local2P347m P1WINNER/P2LOSER."
+      },
+      {
+        "type": "reload",
+        "result": "Originalmute selection retained after reload."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8894/",
+      "http://127.0.0.1:8894/main.js",
+      "http://127.0.0.1:8894/audio/IntroLoop.mp3",
+      "http://127.0.0.1:8894/audio/GameLoop.mp3",
+      "http://127.0.0.1:8894/audio/Explosion.mp3",
+      "http://127.0.0.1:8894/audio/ButtonPress.mp3",
+      "http://127.0.0.1:8894/audio/Beep.mp3",
+      "http://127.0.0.1:8894/audio/Pause.mp3",
+      "http://127.0.0.1:8894/textures/Logo.png",
+      "http://127.0.0.1:8894/textures/ButtonSquare.png",
+      "http://127.0.0.1:8894/textures/ArrowOutline.png",
+      "http://127.0.0.1:8894/textures/VsOutline.png",
+      "http://127.0.0.1:8894/textures/ButtonRound.png",
+      "http://127.0.0.1:8894/textures/settings.png",
+      "http://127.0.0.1:8894/textures/levels.png",
+      "http://127.0.0.1:8894/textures/med.png",
+      "http://127.0.0.1:8894/textures/arrow.png",
+      "http://127.0.0.1:8894/textures/Window.png",
+      "http://127.0.0.1:8894/textures/vol_on.png",
+      "http://127.0.0.1:8894/textures/black.png",
+      "http://127.0.0.1:8894/textures/restart.png",
+      "http://127.0.0.1:8894/textures/ButtonRound2.png",
+      "http://127.0.0.1:8894/textures/home.png",
+      "http://127.0.0.1:8894/textures/pause.png",
+      "http://127.0.0.1:8894/textures/LevelProgress.png",
+      "http://127.0.0.1:8894/textures/info_panel.png",
+      "http://127.0.0.1:8894/textures/play.png",
+      "http://127.0.0.1:8894/textures/lock.png",
+      "http://127.0.0.1:8894/textures/StarEmpty.png",
+      "http://127.0.0.1:8894/textures/StarFull.png",
+      "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAuMTcgMjA4LjA0Ij48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6I2UwNjg0Yjt9LmNscy0ze2ZpbGw6I2JiNDY0Yjt9LmNscy00e2ZpbGw6I2UwZGVkODt9LmNscy01e2ZpbGw6I2Q1ZDJjYTt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPkJhYnlsb25Mb2dvPC90aXRsZT48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0iUGFnZV9FbGVtZW50cyIgZGF0YS1uYW1lPSJQYWdlIEVsZW1lbnRzIj48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik05MC4wOSwwLDAsNTJWMTU2bDkwLjA5LDUyLDkwLjA4LTUyVjUyWiIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxODAuMTcgNTIuMDEgMTUxLjk3IDM1LjczIDEyNC44NSA1MS4zOSAxNTMuMDUgNjcuNjcgMTgwLjE3IDUyLjAxIi8+PHBvbHlnb24gY2xhc3M9ImNscy0yIiBwb2ludHM9IjI3LjEyIDY3LjY3IDExNy4yMSAxNS42NiA5MC4wOCAwIDAgNTIuMDEgMjcuMTIgNjcuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iNjEuODkgMTIwLjMgOTAuMDggMTM2LjU4IDExOC4yOCAxMjAuMyA5MC4wOCAxMDQuMDIgNjEuODkgMTIwLjMiLz48cG9seWdvbiBjbGFzcz0iY2xzLTMiIHBvaW50cz0iMTUzLjA1IDY3LjY3IDE1My4wNSAxNDAuMzcgOTAuMDggMTc2LjcyIDI3LjEyIDE0MC4zNyAyNy4xMiA2Ny42NyAwIDUyLjAxIDAgMTU2LjAzIDkwLjA4IDIwOC4wNCAxODAuMTcgMTU2LjAzIDE4MC4xNyA1Mi4wMSAxNTMuMDUgNjcuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTMiIHBvaW50cz0iOTAuMDggNzEuNDYgNjEuODkgODcuNzQgNjEuODkgMTIwLjMgOTAuMDggMTA0LjAyIDExOC4yOCAxMjAuMyAxMTguMjggODcuNzQgOTAuMDggNzEuNDYiLz48cG9seWdvbiBjbGFzcz0iY2xzLTQiIHBvaW50cz0iMTUzLjA1IDY3LjY3IDExOC4yOCA4Ny43NCAxMTguMjggMTIwLjMgOTAuMDggMTM2LjU4IDkwLjA4IDE3Ni43MiAxNTMuMDUgMTQwLjM3IDE1My4wNSA2Ny42NyIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtNSIgcG9pbnRzPSIyNy4xMiA2Ny42NyA2MS44OSA4Ny43NCA2MS44OSAxMjAuMyA5MC4wOCAxMzYuNTggOTAuMDggMTc2LjcyIDI3LjEyIDE0MC4zNyAyNy4xMiA2Ny42NyIvPjwvZz48L2c+PC9zdmc+",
+      "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOTIgMzkyIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2UwNjg0Yjt9LmNscy0ye2ZpbGw6bm9uZTt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPlNwaW5uZXJJY29uPC90aXRsZT48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0iU3Bpbm5lciI+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNDAuMjEsMTI2LjQzYzMuNy03LjMxLDcuNjctMTQuNDQsMTItMjEuMzJsMy4zNi01LjEsMy41Mi01YzEuMjMtMS42MywyLjQxLTMuMjksMy42NS00LjkxczIuNTMtMy4yMSwzLjgyLTQuNzlBMTg1LjIsMTg1LjIsMCwwLDEsODMuNCw2Ny40M2EyMDgsMjA4LDAsMCwxLDE5LTE1LjY2YzMuMzUtMi40MSw2Ljc0LTQuNzgsMTAuMjUtN3M3LjExLTQuMjgsMTAuNzUtNi4zMmM3LjI5LTQsMTQuNzMtOCwyMi41My0xMS40OSwzLjktMS43Miw3Ljg4LTMuMywxMi00LjY0YTEwNC4yMiwxMDQuMjIsMCwwLDEsMTIuNDQtMy4yMyw2Mi40NCw2Mi40NCwwLDAsMSwxMi43OC0xLjM5QTI1LjkyLDI1LjkyLDAsMCwxLDE5NiwyMS40NGE2LjU1LDYuNTUsMCwwLDEsMi4wNSw5LDYuNjYsNi42NiwwLDAsMS0xLjY0LDEuNzhsLS40MS4yOWEyMi4wNywyMi4wNywwLDAsMS01Ljc4LDMsMzAuNDIsMzAuNDIsMCwwLDEtNS42NywxLjYyLDM3LjgyLDM3LjgyLDAsMCwxLTUuNjkuNzFjLTEsMC0xLjkuMTgtMi44NS4yNmwtMi44NS4yNHEtNS43Mi41MS0xMS40OCwxLjFjLTMuODQuNC03LjcxLjgyLTExLjU4LDEuNGExMTIuMzQsMTEyLjM0LDAsMCwwLTIyLjk0LDUuNjFjLTMuNzIsMS4zNS03LjM0LDMtMTAuOTQsNC42NHMtNy4xNCwzLjUxLTEwLjYsNS41MUExNTEuNiwxNTEuNiwwLDAsMCw2OC41Niw4N0M2Ny4yMyw4OC40OCw2Niw5MCw2NC42NCw5MS41NnMtMi41MSwzLjE1LTMuNzUsNC43M2wtMy41NCw0LjljLTEuMTMsMS42Ni0yLjIzLDMuMzUtMy4zMyw1YTEyNywxMjcsMCwwLDAtMTAuOTMsMjEuNDksMS41OCwxLjU4LDAsMSwxLTMtMS4xNVM0MC4xOSwxMjYuNDcsNDAuMjEsMTI2LjQzWiIvPjxyZWN0IGNsYXNzPSJjbHMtMiIgd2lkdGg9IjM5MiIgaGVpZ2h0PSIzOTIiLz48L2c+PC9nPjwvc3ZnPg==",
+      "http://127.0.0.1:8894/textures/ButtonRound_Highlight.png",
+      "http://127.0.0.1:8894/textures/ButtonSquare_Highlight.png",
+      "http://127.0.0.1:8894/textures/easy.png",
+      "http://127.0.0.1:8894/textures/tunnel.jpg",
+      "http://127.0.0.1:8894/textures/white.png",
+      "http://127.0.0.1:8894/textures/hard.png",
+      "http://127.0.0.1:8894/textures/watch.png",
+      "http://127.0.0.1:8894/textures/vol_off.png",
+      "http://127.0.0.1:8894/textures/ButtonRound2_Highlight.png",
+      "http://127.0.0.1:8894/textures/ButtonRound_Highlight.png",
+      "http://127.0.0.1:8894/textures/vol_off.png",
+      "http://127.0.0.1:8894/",
+      "http://127.0.0.1:8894/main.js",
+      "http://127.0.0.1:8894/audio/IntroLoop.mp3",
+      "http://127.0.0.1:8894/audio/GameLoop.mp3",
+      "http://127.0.0.1:8894/audio/Explosion.mp3",
+      "http://127.0.0.1:8894/audio/ButtonPress.mp3",
+      "http://127.0.0.1:8894/audio/Beep.mp3",
+      "http://127.0.0.1:8894/audio/Pause.mp3",
+      "http://127.0.0.1:8894/textures/Logo.png",
+      "http://127.0.0.1:8894/textures/ButtonSquare.png",
+      "http://127.0.0.1:8894/textures/ArrowOutline.png",
+      "http://127.0.0.1:8894/textures/VsOutline.png",
+      "http://127.0.0.1:8894/textures/ButtonRound.png",
+      "http://127.0.0.1:8894/textures/settings.png",
+      "http://127.0.0.1:8894/textures/levels.png",
+      "http://127.0.0.1:8894/textures/med.png",
+      "http://127.0.0.1:8894/textures/arrow.png",
+      "http://127.0.0.1:8894/textures/Window.png",
+      "http://127.0.0.1:8894/textures/vol_on.png",
+      "http://127.0.0.1:8894/textures/black.png",
+      "http://127.0.0.1:8894/textures/restart.png",
+      "http://127.0.0.1:8894/textures/ButtonRound2.png",
+      "http://127.0.0.1:8894/textures/home.png",
+      "http://127.0.0.1:8894/textures/pause.png",
+      "http://127.0.0.1:8894/textures/LevelProgress.png",
+      "http://127.0.0.1:8894/textures/info_panel.png",
+      "http://127.0.0.1:8894/textures/play.png",
+      "http://127.0.0.1:8894/textures/lock.png",
+      "http://127.0.0.1:8894/textures/StarEmpty.png",
+      "http://127.0.0.1:8894/textures/StarFull.png",
+      "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAuMTcgMjA4LjA0Ij48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6I2UwNjg0Yjt9LmNscy0ze2ZpbGw6I2JiNDY0Yjt9LmNscy00e2ZpbGw6I2UwZGVkODt9LmNscy01e2ZpbGw6I2Q1ZDJjYTt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPkJhYnlsb25Mb2dvPC90aXRsZT48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0iUGFnZV9FbGVtZW50cyIgZGF0YS1uYW1lPSJQYWdlIEVsZW1lbnRzIj48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik05MC4wOSwwLDAsNTJWMTU2bDkwLjA5LDUyLDkwLjA4LTUyVjUyWiIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxODAuMTcgNTIuMDEgMTUxLjk3IDM1LjczIDEyNC44NSA1MS4zOSAxNTMuMDUgNjcuNjcgMTgwLjE3IDUyLjAxIi8+PHBvbHlnb24gY2xhc3M9ImNscy0yIiBwb2ludHM9IjI3LjEyIDY3LjY3IDExNy4yMSAxNS42NiA5MC4wOCAwIDAgNTIuMDEgMjcuMTIgNjcuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iNjEuODkgMTIwLjMgOTAuMDggMTM2LjU4IDExOC4yOCAxMjAuMyA5MC4wOCAxMDQuMDIgNjEuODkgMTIwLjMiLz48cG9seWdvbiBjbGFzcz0iY2xzLTMiIHBvaW50cz0iMTUzLjA1IDY3LjY3IDE1My4wNSAxNDAuMzcgOTAuMDggMTc2LjcyIDI3LjEyIDE0MC4zNyAyNy4xMiA2Ny42NyAwIDUyLjAxIDAgMTU2LjAzIDkwLjA4IDIwOC4wNCAxODAuMTcgMTU2LjAzIDE4MC4xNyA1Mi4wMSAxNTMuMDUgNjcuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTMiIHBvaW50cz0iOTAuMDggNzEuNDYgNjEuODkgODcuNzQgNjEuODkgMTIwLjMgOTAuMDggMTA0LjAyIDExOC4yOCAxMjAuMyAxMTguMjggODcuNzQgOTAuMDggNzEuNDYiLz48cG9seWdvbiBjbGFzcz0iY2xzLTQiIHBvaW50cz0iMTUzLjA1IDY3LjY3IDExOC4yOCA4Ny43NCAxMTguMjggMTIwLjMgOTAuMDggMTM2LjU4IDkwLjA4IDE3Ni43MiAxNTMuMDUgMTQwLjM3IDE1My4wNSA2Ny42NyIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtNSIgcG9pbnRzPSIyNy4xMiA2Ny42NyA2MS44OSA4Ny43NCA2MS44OSAxMjAuMyA5MC4wOCAxMzYuNTggOTAuMDggMTc2LjcyIDI3LjEyIDE0MC4zNyAyNy4xMiA2Ny42NyIvPjwvZz48L2c+PC9zdmc+",
+      "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOTIgMzkyIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2UwNjg0Yjt9LmNscy0ye2ZpbGw6bm9uZTt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPlNwaW5uZXJJY29uPC90aXRsZT48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0iU3Bpbm5lciI+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNDAuMjEsMTI2LjQzYzMuNy03LjMxLDcuNjctMTQuNDQsMTItMjEuMzJsMy4zNi01LjEsMy41Mi01YzEuMjMtMS42MywyLjQxLTMuMjksMy42NS00LjkxczIuNTMtMy4yMSwzLjgyLTQuNzlBMTg1LjIsMTg1LjIsMCwwLDEsODMuNCw2Ny40M2EyMDgsMjA4LDAsMCwxLDE5LTE1LjY2YzMuMzUtMi40MSw2Ljc0LTQuNzgsMTAuMjUtN3M3LjExLTQuMjgsMTAuNzUtNi4zMmM3LjI5LTQsMTQuNzMtOCwyMi41My0xMS40OSwzLjktMS43Miw3Ljg4LTMuMywxMi00LjY0YTEwNC4yMiwxMDQuMjIsMCwwLDEsMTIuNDQtMy4yMyw2Mi40NCw2Mi40NCwwLDAsMSwxMi43OC0xLjM5QTI1LjkyLDI1LjkyLDAsMCwxLDE5NiwyMS40NGE2LjU1LDYuNTUsMCwwLDEsMi4wNSw5LDYuNjYsNi42NiwwLDAsMS0xLjY0LDEuNzhsLS40MS4yOWEyMi4wNywyMi4wNywwLDAsMS01Ljc4LDMsMzAuNDIsMzAuNDIsMCwwLDEtNS42NywxLjYyLDM3LjgyLDM3LjgyLDAsMCwxLTUuNjkuNzFjLTEsMC0xLjkuMTgtMi44NS4yNmwtMi44NS4yNHEtNS43Mi41MS0xMS40OCwxLjFjLTMuODQuNC03LjcxLjgyLTExLjU4LDEuNGExMTIuMzQsMTEyLjM0LDAsMCwwLTIyLjk0LDUuNjFjLTMuNzIsMS4zNS03LjM0LDMtMTAuOTQsNC42NHMtNy4xNCwzLjUxLTEwLjYsNS41MUExNTEuNiwxNTEuNiwwLDAsMCw2OC41Niw4N0M2Ny4yMyw4OC40OCw2Niw5MCw2NC42NCw5MS41NnMtMi41MSwzLjE1LTMuNzUsNC43M2wtMy41NCw0LjljLTEuMTMsMS42Ni0yLjIzLDMuMzUtMy4zMyw1YTEyNywxMjcsMCwwLDAtMTAuOTMsMjEuNDksMS41OCwxLjU4LDAsMSwxLTMtMS4xNVM0MC4xOSwxMjYuNDcsNDAuMjEsMTI2LjQzWiIvPjxyZWN0IGNsYXNzPSJjbHMtMiIgd2lkdGg9IjM5MiIgaGVpZ2h0PSIzOTIiLz48L2c+PC9nPjwvc3ZnPg==",
+      "http://127.0.0.1:8894/textures/ButtonRound_Highlight.png",
+      "http://127.0.0.1:8894/textures/ButtonSquare_Highlight.png",
+      "http://127.0.0.1:8894/textures/vol_off.png",
+      "http://127.0.0.1:8894/textures/easy.png",
+      "http://127.0.0.1:8894/textures/tunnel.jpg",
+      "http://127.0.0.1:8894/textures/white.png",
+      "http://127.0.0.1:8894/textures/hard.png",
+      "http://127.0.0.1:8894/textures/watch.png",
+      "http://127.0.0.1:8894/textures/ButtonRound_Highlight.png",
+      "http://127.0.0.1:8894/textures/vol_off.png"
+    ],
+    "scope": "Desktop1280x720 native Babylon tunnel runner. Original defaultMED and rules retained. Ordinary arrows rotate, native collision first346m defeat; latest-source classic420mGameOver, ordinary restart with immediateEscape guard actualnew54.4m/61.7m/s, later575.9m pause panel and native home. Same-device2P A/D and arrows separate viewports, actual347mGameOver P1WINNER/P2LOSER. Settings mute persisted after reload. SDKmanager/13calls and rewardedrevive method/button retired; four ordinary restart/menu native continuations direct. Causal fix: ignore pause while original menu fade inTransition to avoid menu-less pause, normal pause remains. Original8core declarations and37image/audio assets exactcanonical/byteSHA unchanged. No classic levelclear/progressunlock claimed; full100levels/all difficulties/mobile/hearing not exhausted. Final complete network no external/failed/missing/exception/truncation.",
+    "network_scope": "Latest transition-guard source startup/classic420mdefeat/restart-immediateEscape/newrun/pause/menu/local2P347mP1winP2loss/menu/mute/reload/settings restored",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "PokiSDK manager/import/lifecycle/commercial/display/rewarded API and rewarded-revive method/button removed at implementation/callers. Native restart/menu continuations direct; no fake SDK/ad success or free revive granted. Same-device2P native only, no network multiplayer/globalrank/payment.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-transform.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "PokiSDK manager/import/lifecycle/commercial/display/rewarded API and rewarded-revive method/button removed at implementation/callers. Native restart/menu continuations direct; no fake SDK/ad success or free revive granted. Same-device2P native only, no network multiplayer/globalrank/payment.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-transform.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "PokiSDK manager/import/lifecycle/commercial/display/rewarded API and rewarded-revive method/button removed at implementation/callers. Native restart/menu continuations direct; no fake SDK/ad success or free revive granted. Same-device2P native only, no network multiplayer/globalrank/payment.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-transform.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "PokiSDK manager/import/lifecycle/commercial/display/rewarded API and rewarded-revive method/button removed at implementation/callers. Native restart/menu continuations direct; no fake SDK/ad success or free revive granted. Same-device2P native only, no network multiplayer/globalrank/payment.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-transform.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "OriginalMEDrunner collision420m/restart, local2P347m P1win.",
+      "evidence": [
+        "evidence/direct-repair/final-gameover420.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "37originalimage/audio unchanged, engine bundled, final requests clean.",
+      "evidence": [
+        "evidence/direct-repair/reload-audio-off.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Original 3Dtunnel/obstacle geometry/shader/camera and splitview.",
+      "evidence": [
+        "evidence/direct-repair/local2p-result347.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "Original rotating blockers, collision and distance/speed.",
+      "evidence": [
+        "evidence/direct-repair/final-gameover420.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "Original player camera rig/runner model, separate2P rigs intact.",
+      "evidence": [
+        "evidence/direct-repair/local2p-result347.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Original shader scroll/camera rotation/impact/tween retained.",
+      "evidence": [
+        "evidence/direct-repair/restart-transition-guard.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "Native menus/HUD/pause/restart/home/local2Presult/settings reload.",
+      "evidence": [
+        "evidence/direct-repair/final-paused.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "key",
+      "key": "ArrowLeft/ArrowRight",
+      "result": "OriginalMEDrunner rotating/accelerating/collision;420mGameOver."
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "result": "Native restart+immediateEscape protected, actualnew54.4m/61.7m/s; normalpause/home."
+    },
+    {
+      "type": "key",
+      "key": "a/ArrowRight",
+      "result": "Native local2P347m P1WINNER/P2LOSER."
+    },
+    {
+      "type": "reload",
+      "result": "Originalmute selection retained after reload."
+    }
+  ],
+  "scope": "Desktop1280x720 native Babylon tunnel runner. Original defaultMED and rules retained. Ordinary arrows rotate, native collision first346m defeat; latest-source classic420mGameOver, ordinary restart with immediateEscape guard actualnew54.4m/61.7m/s, later575.9m pause panel and native home. Same-device2P A/D and arrows separate viewports, actual347mGameOver P1WINNER/P2LOSER. Settings mute persisted after reload. SDKmanager/13calls and rewardedrevive method/button retired; four ordinary restart/menu native continuations direct. Causal fix: ignore pause while original menu fade inTransition to avoid menu-less pause, normal pause remains. Original8core declarations and37image/audio assets exactcanonical/byteSHA unchanged. No classic levelclear/progressunlock claimed; full100levels/all difficulties/mobile/hearing not exhausted. Final complete network no external/failed/missing/exception/truncation.",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "Original8core declarations canonicalSHA same; SDKmanager and reward entry retired, pause-transition input guarded; actual collisions/restart/local2P.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-audio-off.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "37native image/audio byteSHAunchanged; engine bundled, final requests no external/missing.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-audio-off.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "Originallevels/speed/difficulty/collision/save definitions retained; defaultMED only, no unlock/levelclear claim.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-audio-off.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "Original SaveData localStorage, mute reload proved; no native server dependency.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-audio-off.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "PokiSDK import/manager/calls/rewardedrevive entry removed, ordinarynative continuations direct.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-audio-off.png",
+        "next_action": ""
+      }
+    ],
+    "scope": "Desktop1280x720 native Babylon tunnel runner. Original defaultMED and rules retained. Ordinary arrows rotate, native collision first346m defeat; latest-source classic420mGameOver, ordinary restart with immediateEscape guard actualnew54.4m/61.7m/s, later575.9m pause panel and native home. Same-device2P A/D and arrows separate viewports, actual347mGameOver P1WINNER/P2LOSER. Settings mute persisted after reload. SDKmanager/13calls and rewardedrevive method/button retired; four ordinary restart/menu native continuations direct. Causal fix: ignore pause while original menu fade inTransition to avoid menu-less pause, normal pause remains. Original8core declarations and37image/audio assets exactcanonical/byteSHA unchanged. No classic levelclear/progressunlock claimed; full100levels/all difficulties/mobile/hearing not exhausted. Final complete network no external/failed/missing/exception/truncation."
+  },
+  "dependency_review": {
+    "previous_revision": 2,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "离线启动通过；广告过滤及被拒绝请求见 runtime_smoke，存档及结算尚未验证",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证保存恢复和阶段结果"
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 2,
+      "updated_at": "2026-11-03T18:48:52+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "Original8core declarations canonicalSHA same; SDKmanager and reward entry retired, pause-transition input guarded; actual collisions/restart/local2P.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-audio-off.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "37native image/audio byteSHAunchanged; engine bundled, final requests no external/missing.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-audio-off.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "Originallevels/speed/difficulty/collision/save definitions retained; defaultMED only, no unlock/levelclear claim.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-audio-off.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "Original SaveData localStorage, mute reload proved; no native server dependency.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-audio-off.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "PokiSDK import/manager/calls/rewardedrevive entry removed, ordinarynative continuations direct.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-audio-off.png",
+          "next_action": ""
+        }
+      ],
+      "scope": "Desktop1280x720 native Babylon tunnel runner. Original defaultMED and rules retained. Ordinary arrows rotate, native collision first346m defeat; latest-source classic420mGameOver, ordinary restart with immediateEscape guard actualnew54.4m/61.7m/s, later575.9m pause panel and native home. Same-device2P A/D and arrows separate viewports, actual347mGameOver P1WINNER/P2LOSER. Settings mute persisted after reload. SDKmanager/13calls and rewardedrevive method/button retired; four ordinary restart/menu native continuations direct. Causal fix: ignore pause while original menu fade inTransition to avoid menu-less pause, normal pause remains. Original8core declarations and37image/audio assets exactcanonical/byteSHA unchanged. No classic levelclear/progressunlock claimed; full100levels/all difficulties/mobile/hearing not exhausted. Final complete network no external/failed/missing/exception/truncation."
+    },
+    "basis": "Original core/asset hashes plus realcollision/restart/pause/local2P/mute reload, normalrevisionedAPI."
+  },
+  "base_version_id": "v-c32d0a7a94fc",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "original_job": "job-412943140dcb",
+    "at": "2026-11-12T02:51:08.866032+00:00"
+  },
+  "game_profile": {
+    "category": "街机 · 隧道闪避",
+    "dimension": "3D",
+    "perspective": "",
+    "core_gameplay": "Original tunnel rotation/obstacles/acceleration/collision/distance/levels retained. Native classic loss and same-device2P winner/loser observed.",
+    "core_experience": "",
+    "controls": "Classic arrows; same-device2P A/D and arrows; P/Escape pause, native menus/settings.",
+    "game_loop": "",
+    "content": "固定数量：包含多个 UI 贴图（按钮、图标）和音频文件（ButtonPress.mp3, Explosion.mp3 等）。程序生成：未确认。",
+    "progression": "",
+    "save": "Original SaveData localStorage level/scores/difficulty/audio. Only mute persistence verified; no fabricated levelunlock or midrun save.",
+    "rules": "",
+    "systems": "对象：UI 按钮（ButtonSquare, ButtonRound）、音频播放器。状态：启动加载、菜单、游戏进行中、暂停。触发：点击按钮、键盘输入。系统交互：UI 系统与音频系统（按钮音效）、存储系统（SaveData）与游戏进度系统。",
+    "ui_flow": "",
+    "level_design": "仅源码确认：包含 textures/tunnel.jpg，暗示存在隧道或轨道类关卡设计。具体关卡布局和难度曲线未实机验证。",
+    "verification": "Desktop1280x720 native Babylon tunnel runner. Original defaultMED and rules retained. Ordinary arrows rotate, native collision first346m defeat; latest-source classic420mGameOver, ordinary restart with immediateEscape guard actualnew54.4m/61.7m/s, later575.9m pause panel and native home. Same-device2P A/D and arrows separate viewports, actual347mGameOver P1WINNER/P2LOSER. Settings mute persisted after reload. SDKmanager/13calls and rewardedrevive method/button retired; four ordinary restart/menu native continuations direct. Causal fix: ignore pause while original menu fade inTransition to avoid menu-less pause, normal pause remains. Original8core declarations and37image/audio assets exactcanonical/byteSHA unchanged. No classic levelclear/progressunlock claimed; full100levels/all difficulties/mobile/hearing not exhausted. Final complete network no external/failed/missing/exception/truncation.",
+    "evidence": "源码文件：main.js, _runtime_resources/d077b3a3ba7dfb87a0e1afd7.js。本轮证据：runtime.json (startup phase), localStorage 快照, 资源请求列表, Babylon.js 渲染诊断。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "illustrations": [
+      {
+        "path": "screenshots/startup.png",
+        "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Original bundled BabylonJS and readableAST-decomposable nativegame modules/assets retained.",
+    "reuse": "Nativelevels/shaders/runner/collision/menu/input/audio/save modules extractable with Babylon adaptation, not separately certified.",
+    "dependencies": "Bundled Babylon engine/WebGL/howler/localStorage and localimage/audio only.",
+    "preservation": "8nativecore declarations canonicalSHA +37assets byteSHA intact. SDK/rewardedrevive callers retired; only additionalpause-transition guard. No speed/collision/difficulty/reward changes."
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

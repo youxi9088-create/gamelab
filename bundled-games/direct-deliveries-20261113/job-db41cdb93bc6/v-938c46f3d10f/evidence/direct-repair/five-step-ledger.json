@@ -1,0 +1,51 @@
+{
+  "max_steps": 5,
+  "steps_used": 5,
+  "actual_steps": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Original title/menu."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "Take part in history",
+      "result": "Original sortie/faction/map configuration."
+    },
+    {
+      "step": 3,
+      "type": "scroll",
+      "direction": "down",
+      "pages": 1,
+      "result": "Original spawnmap visible; counted independently."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "coordinate": [
+        529,
+        618
+      ],
+      "result": "VertGalantField native ground spawn;15min/100tickets."
+    },
+    {
+      "step": 5,
+      "type": "key",
+      "key": "e",
+      "hold_ms": 120,
+      "result": "Nativeboard→3sec runway signal→passiveautotakeoff observed17m; nofurtherinput."
+    }
+  ],
+  "unverified": [
+    "steering/shooting/hit",
+    "wholebattle/result",
+    "respawn",
+    "current save/reload",
+    "othermaps/modes/planes",
+    "shop/upgrades",
+    "touch/audiooutput"
+  ],
+  "stopped_at_limit": true
+}

@@ -1,0 +1,34 @@
+{
+  "category": "街机 · 隧道闪避",
+  "dimension": "3D",
+  "perspective": "",
+  "core_gameplay": "Original tunnel rotation/obstacles/acceleration/collision/distance/levels retained. Native classic loss and same-device2P winner/loser observed.",
+  "core_experience": "",
+  "controls": "Classic arrows; same-device2P A/D and arrows; P/Escape pause, native menus/settings.",
+  "game_loop": "",
+  "content": "固定数量：包含多个 UI 贴图（按钮、图标）和音频文件（ButtonPress.mp3, Explosion.mp3 等）。程序生成：未确认。",
+  "progression": "",
+  "save": "Original SaveData localStorage level/scores/difficulty/audio. Only mute persistence verified; no fabricated levelunlock or midrun save.",
+  "rules": "",
+  "systems": "对象：UI 按钮（ButtonSquare, ButtonRound）、音频播放器。状态：启动加载、菜单、游戏进行中、暂停。触发：点击按钮、键盘输入。系统交互：UI 系统与音频系统（按钮音效）、存储系统（SaveData）与游戏进度系统。",
+  "ui_flow": "",
+  "level_design": "仅源码确认：包含 textures/tunnel.jpg，暗示存在隧道或轨道类关卡设计。具体关卡布局和难度曲线未实机验证。",
+  "verification": "Desktop1280x720 native Babylon tunnel runner. Original defaultMED and rules retained. Ordinary arrows rotate, native collision first346m defeat; latest-source classic420mGameOver, ordinary restart with immediateEscape guard actualnew54.4m/61.7m/s, later575.9m pause panel and native home. Same-device2P A/D and arrows separate viewports, actual347mGameOver P1WINNER/P2LOSER. Settings mute persisted after reload. SDKmanager/13calls and rewardedrevive method/button retired; four ordinary restart/menu native continuations direct. Causal fix: ignore pause while original menu fade inTransition to avoid menu-less pause, normal pause remains. Original8core declarations and37image/audio assets exactcanonical/byteSHA unchanged. No classic levelclear/progressunlock claimed; full100levels/all difficulties/mobile/hearing not exhausted. Final complete network no external/failed/missing/exception/truncation.",
+  "evidence": "源码文件：main.js, _runtime_resources/d077b3a3ba7dfb87a0e1afd7.js。本轮证据：runtime.json (startup phase), localStorage 快照, 资源请求列表, Babylon.js 渲染诊断。",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/startup.png",
+      "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+    }
+  ]
+}

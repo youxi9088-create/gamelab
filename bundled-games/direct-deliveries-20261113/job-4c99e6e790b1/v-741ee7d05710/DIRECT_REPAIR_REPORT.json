@@ -1,0 +1,449 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "keyboard",
+        "selector": "#GameCanvas",
+        "result": "Single-player original tutorial movement/jump/skill/super; real pause/home."
+      },
+      {
+        "type": "keyboard",
+        "selector": "#GameCanvas",
+        "result": "Native local2P three real P1roundwins and full match; normal keys only, no hidden state."
+      },
+      {
+        "type": "click",
+        "selector": "#GameCanvas ordinary50reward",
+        "result": "Original70gold becomes120, ad bonus control absent."
+      },
+      {
+        "type": "reload",
+        "result": "Final source native120gold restored; original skins and next local2P match movement/skill/pause."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8889/index.html",
+      "http://127.0.0.1:8889/style-mobile.25fc5.css",
+      "http://127.0.0.1:8889/src/settings.92c64.js",
+      "http://127.0.0.1:8889/main.ba2f8.js",
+      "http://127.0.0.1:8889/cocos2d-js-min.9eb31.js",
+      "http://127.0.0.1:8889/iload.png",
+      "http://127.0.0.1:8889/assets/internal/config.52d36.json",
+      "http://127.0.0.1:8889/assets/internal/index.52d36.js",
+      "http://127.0.0.1:8889/assets/resources/config.e6f5f.json",
+      "http://127.0.0.1:8889/assets/resources/index.e6f5f.js",
+      "http://127.0.0.1:8889/assets/main/config.fa0e5.json",
+      "http://127.0.0.1:8889/assets/main/index.fa0e5.js",
+      "http://127.0.0.1:8889/assets/internal/import/05/05464a930.3c4b0.json",
+      "http://127.0.0.1:8889/assets/internal/native/02/0275e94c-56a7-410f-bd1a-fc7483f7d14a.cea68.png",
+      "http://127.0.0.1:8889/assets/main/import/b9/b920a4e7-523b-4056-aabf-13c09bef438b.652d0.json",
+      "http://127.0.0.1:8889/assets/resources/import/08/08c99f998.09ce5.json",
+      "http://127.0.0.1:8889/assets/mainScenes/config.e439a.json",
+      "http://127.0.0.1:8889/assets/mainScenes/index.e439a.js",
+      "http://127.0.0.1:8889/assets/UI/config.a7d39.json",
+      "http://127.0.0.1:8889/assets/UI/index.a7d39.js",
+      "http://127.0.0.1:8889/assets/efffect/config.e3cbe.json",
+      "http://127.0.0.1:8889/assets/efffect/index.e3cbe.js",
+      "http://127.0.0.1:8889/assets/prefabs/config.f5de7.json",
+      "http://127.0.0.1:8889/assets/prefabs/index.f5de7.js",
+      "http://127.0.0.1:8889/assets/res/config.aa0dd.json",
+      "http://127.0.0.1:8889/assets/res/index.aa0dd.js",
+      "http://127.0.0.1:8889/assets/Map/config.819ed.json",
+      "http://127.0.0.1:8889/assets/Map/index.819ed.js",
+      "http://127.0.0.1:8889/assets/res/import/04/0407761d9.a4a86.json",
+      "http://127.0.0.1:8889/assets/UI/import/0a/0aa537e4d.c2711.json",
+      "http://127.0.0.1:8889/assets/prefabs/import/02/022fd6551.c6d5c.json",
+      "http://127.0.0.1:8889/assets/res/native/12/121750d5-c2fc-497e-9a7f-116c636a957a.02427.mp3",
+      "http://127.0.0.1:8889/assets/res/native/c2/c26cc004-46a9-4489-b093-58cfa8437d77.8ce49.mp3",
+      "http://127.0.0.1:8889/assets/res/native/08/0867cb0f-898c-4580-9abd-e3650c3cee3a.c3b71.mp3",
+      "http://127.0.0.1:8889/assets/res/native/15/15586268-8de1-4b7a-b55f-262aa85704b5.ef60e.mp3",
+      "http://127.0.0.1:8889/assets/UI/native/2b/2b14f11b-5499-4af8-b0d8-b1dabc0cc999.8375e.png",
+      "http://127.0.0.1:8889/assets/prefabs/native/12/12651b44e.b8a50.png",
+      "http://127.0.0.1:8889/assets/prefabs/native/2a/2aa1b954-b6dd-4e2d-9ab4-620bb4320bfb.378ea.plist",
+      "http://127.0.0.1:8889/assets/prefabs/native/4e/4ed979a3-1197-43b9-9c82-5c23e16b6ae1.23953.plist",
+      "http://127.0.0.1:8889/assets/prefabs/native/2d/2d2f469e-3114-48d9-9673-515fb301a144.ac9b9.plist",
+      "http://127.0.0.1:8889/assets/prefabs/native/b9/b9f89722-225b-4a2d-920a-91f8beb05725.88b1e.plist",
+      "http://127.0.0.1:8889/assets/prefabs/native/94/94eea8d4-a7e2-4117-9657-db1e077ed09e.6cf0b.plist",
+      "http://127.0.0.1:8889/assets/prefabs/native/80/80ddff16-3298-4815-9ca4-bdae47258742.f9eef.plist",
+      "http://127.0.0.1:8889/assets/prefabs/native/6a/6a465bfc-2098-411d-83b0-d10af94d17df.63385.plist",
+      "http://127.0.0.1:8889/assets/prefabs/native/1c/1c749f5a-d96d-4e46-b5c8-cf24bab2edea.d94c0.plist",
+      "http://127.0.0.1:8889/assets/prefabs/native/9e/9e8f9a02-e6be-4558-9804-47e24337133b.c4dbd.plist",
+      "http://127.0.0.1:8889/assets/prefabs/native/f7/f7073c58-1ada-4531-b4d8-dd53e7f173c8.cb9b8.png",
+      "http://127.0.0.1:8889/assets/prefabs/native/b2/b2e44cf2-1e94-4013-bf42-5d65d2c37ee4.9c351.png",
+      "http://127.0.0.1:8889/assets/prefabs/native/1f/1f4b49f78.0ef55.png",
+      "http://127.0.0.1:8889/assets/res/native/fc/fc6ac9fe-8d8f-4fb0-8319-57e951263b6e.5dbb9.mp3",
+      "http://127.0.0.1:8889/assets/res/native/cb/cb3ea8d9-fe27-4c7c-b32f-ff106867754b.94aa8.mp3",
+      "http://127.0.0.1:8889/assets/res/native/b9/b98f41c6-c1c9-4a63-a895-4f1acae21fa3.15ab0.mp3",
+      "http://127.0.0.1:8889/assets/res/native/a1/a17d8681-fc4e-4074-89d2-a5a315cf1b11.18d09.mp3",
+      "http://127.0.0.1:8889/assets/res/native/82/820e5c86-7900-47bb-b6d2-bf1d57620c9f.1aec6.mp3",
+      "http://127.0.0.1:8889/assets/res/native/6f/6f79b7fb-311d-441c-8780-44ec472d78be.04f03.mp3",
+      "http://127.0.0.1:8889/assets/res/native/68/685667f0-2ada-412f-9cbf-c3acc4085152.f5ade.mp3",
+      "http://127.0.0.1:8889/assets/res/native/38/3884c899-3455-4f6b-83fe-5d0e12115e79.e8229.mp3",
+      "http://127.0.0.1:8889/assets/res/native/1f/1f2ba7c8-62a5-4d1a-b9f4-862ba446a35f.89b44.mp3",
+      "http://127.0.0.1:8889/assets/mainScenes/import/0e/0ee84c2c4.9e92f.json",
+      "http://127.0.0.1:8889/assets/mainScenes/native/1e/1ec885562.fc3fc.png",
+      "http://127.0.0.1:8889/assets/mainScenes/native/1d/1d6ad1053.ab271.png",
+      "http://127.0.0.1:8889/assets/mainScenes/native/1f/1f8990fc1.b107c.png",
+      "http://127.0.0.1:8889/assets/mainScenes/native/11/119f18146.841cc.png",
+      "http://127.0.0.1:8889/assets/mainScenes/native/e3/e3aaadae-a640-433e-92b9-b280a534d4ef.19834.png",
+      "http://127.0.0.1:8889/assets/mainScenes/native/16/16125e577.6417d.png",
+      "http://127.0.0.1:8889/assets/mainScenes/native/bd/bd6421ea-1678-4424-87ee-7cda020e3a39.1b122/LilitaOne-Regular.ttf",
+      "http://127.0.0.1:8889/assets/mainScenes/native/1d/1d6ad1053.ab271.png",
+      "http://127.0.0.1:8889/assets/mainScenes/native/1e/1ec885562.fc3fc.png",
+      "http://127.0.0.1:8889/assets/mainScenes/native/7e/7e3b2425-9d40-4fae-a3f9-2b6d274a6057.093d1.plist",
+      "http://127.0.0.1:8889/assets/mainScenes/native/c7/c7678f33-7e14-4a13-938f-78039e1c55a7.31add.png"
+    ],
+    "scope": "Desktop1280x720 real original Cocos2.4.15 game. Native single-player tutorial movement/jump/skill/super/pause/home exercised, no AI/campaign victory claimed. Same-device2P agent controls P1 through normal keyboard while P2 uses unchanged native physics; three P1roundwins, full Player1Wins match, ordinary50reward claimed70to120gold. After removal of unused leaderboard methods/privacy navigation, final source reload restored120gold; original skins panel, native next match movement/skill/pause verified. Original AI/physics/weapons/levels/UserProfile/economy untouched. Complete final network window no truncation/missing/external/errors. Soccer/arena/fullmaps/weapons/mobile/audio hearing not exhausted. Latest source additionally retires the nested key-multiplier entry recursively; fresh reload120gold and native next match movement/skill/pause reverified. Prior fullmatch/earned-reward path unchanged.",
+    "network_scope": "Latest source also recursively retires nested key multiplier control. Final reload/current120gold restoration and native next local2P movement/skill/pause; earlier exact core rules full3round matchwin/ordinary50reward preserved. No hidden state or ad success.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "removed",
+      "reason": "Native same-device2P is local. Original SDK module and calls removed; original afterInter continuation called directly, no ad or host stub. Rewarded callers, implementations and ad-only bonus entries retired, no reward replacement. CSV leaderboard view/item and ranking methods retired; original earned rating retained as native progress, no fabricated ranking. Original earned gold/key purchases unchanged.",
+      "evidence": [
+        "assets/main/index.fa0e5.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "Native same-device2P is local. Original SDK module and calls removed; original afterInter continuation called directly, no ad or host stub. Rewarded callers, implementations and ad-only bonus entries retired, no reward replacement. CSV leaderboard view/item and ranking methods retired; original earned rating retained as native progress, no fabricated ranking. Original earned gold/key purchases unchanged.",
+      "evidence": [
+        "assets/main/index.fa0e5.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "Native same-device2P is local. Original SDK module and calls removed; original afterInter continuation called directly, no ad or host stub. Rewarded callers, implementations and ad-only bonus entries retired, no reward replacement. CSV leaderboard view/item and ranking methods retired; original earned rating retained as native progress, no fabricated ranking. Original earned gold/key purchases unchanged.",
+      "evidence": [
+        "assets/main/index.fa0e5.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "Native same-device2P is local. Original SDK module and calls removed; original afterInter continuation called directly, no ad or host stub. Rewarded callers, implementations and ad-only bonus entries retired, no reward replacement. CSV leaderboard view/item and ranking methods retired; original earned rating retained as native progress, no fabricated ranking. Original earned gold/key purchases unchanged.",
+      "evidence": [
+        "assets/main/index.fa0e5.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "Three native2Proundwins/fullmatch and original50claim; tutorial movement and skills.",
+      "evidence": [
+        "evidence/direct-repair/match-win-ordinary50.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "Original local Cocos/maps/sprites/audio retained; final no failed requests.",
+      "evidence": [
+        "evidence/direct-repair/next-pause-final.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Original multiple arena maps and tutorial render.",
+      "evidence": [
+        "evidence/direct-repair/local-player1-wins.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "Original physics platforms/weapons/health/damage and gold.",
+      "evidence": [
+        "evidence/direct-repair/local-player1-round2.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "Original blue/red ragdoll characters and nativeAI retained.",
+      "evidence": [
+        "evidence/direct-repair/local-player1-wins.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Original weapon swing/skill/ragdoll/transition and victory animation.",
+      "evidence": [
+        "evidence/direct-repair/match-win-ordinary50.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "Native pause/home, skins, ordinary reward and restored120gold.",
+      "evidence": [
+        "evidence/direct-repair/restored120-final.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "keyboard",
+      "selector": "#GameCanvas",
+      "result": "Single-player original tutorial movement/jump/skill/super; real pause/home."
+    },
+    {
+      "type": "keyboard",
+      "selector": "#GameCanvas",
+      "result": "Native local2P three real P1roundwins and full match; normal keys only, no hidden state."
+    },
+    {
+      "type": "click",
+      "selector": "#GameCanvas ordinary50reward",
+      "result": "Original70gold becomes120, ad bonus control absent."
+    },
+    {
+      "type": "reload",
+      "result": "Final source native120gold restored; original skins and next local2P match movement/skill/pause."
+    }
+  ],
+  "scope": "Desktop1280x720 real original Cocos2.4.15 game. Native single-player tutorial movement/jump/skill/super/pause/home exercised, no AI/campaign victory claimed. Same-device2P agent controls P1 through normal keyboard while P2 uses unchanged native physics; three P1roundwins, full Player1Wins match, ordinary50reward claimed70to120gold. After removal of unused leaderboard methods/privacy navigation, final source reload restored120gold; original skins panel, native next match movement/skill/pause verified. Original AI/physics/weapons/levels/UserProfile/economy untouched. Complete final network window no truncation/missing/external/errors. Soccer/arena/fullmaps/weapons/mobile/audio hearing not exhausted. Latest source additionally retires the nested key-multiplier entry recursively; fresh reload120gold and native next match movement/skill/pause reverified. Prior fullmatch/earned-reward path unchanged.",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "Original readable Cocos game source,10core modules unchanged canonical SHA; normal UI full local2P match.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/restored120-final.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "Original Cocos engine and bundled map/sprite/audio files retained; complete final network local and no failures.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/restored120-final.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "Original levels/weapons/AI/health/damage/reward definitions unchanged. Actual3round P1win and ordinary50claim.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/restored120-final.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "Original local UserProfile persistence, final120gold restored after reload. No online service in retained single-player/local2P.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/restored120-final.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "PokiSDK and ad module/callers/bonus routes retired. Direct original scene continuation, no fake host or free ad reward.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/restored120-final.png",
+        "next_action": ""
+      }
+    ],
+    "scope": "Desktop1280x720 real original Cocos2.4.15 game. Native single-player tutorial movement/jump/skill/super/pause/home exercised, no AI/campaign victory claimed. Same-device2P agent controls P1 through normal keyboard while P2 uses unchanged native physics; three P1roundwins, full Player1Wins match, ordinary50reward claimed70to120gold. After removal of unused leaderboard methods/privacy navigation, final source reload restored120gold; original skins panel, native next match movement/skill/pause verified. Original AI/physics/weapons/levels/UserProfile/economy untouched. Complete final network window no truncation/missing/external/errors. Soccer/arena/fullmaps/weapons/mobile/audio hearing not exhausted. Latest source additionally retires the nested key-multiplier entry recursively; fresh reload120gold and native next match movement/skill/pause reverified. Prior fullmatch/earned-reward path unchanged."
+  },
+  "dependency_review": {
+    "previous_revision": 2,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "离线启动通过；广告过滤及被拒绝请求见 runtime_smoke，存档及结算尚未验证",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证保存恢复和阶段结果"
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 2,
+      "updated_at": "2026-11-04T11:27:21+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "Original readable Cocos game source,10core modules unchanged canonical SHA; normal UI full local2P match.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/restored120-final.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "Original Cocos engine and bundled map/sprite/audio files retained; complete final network local and no failures.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/restored120-final.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "Original levels/weapons/AI/health/damage/reward definitions unchanged. Actual3round P1win and ordinary50claim.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/restored120-final.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "Original local UserProfile persistence, final120gold restored after reload. No online service in retained single-player/local2P.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/restored120-final.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "PokiSDK and ad module/callers/bonus routes retired. Direct original scene continuation, no fake host or free ad reward.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/restored120-final.png",
+          "next_action": ""
+        }
+      ],
+      "scope": "Desktop1280x720 real original Cocos2.4.15 game. Native single-player tutorial movement/jump/skill/super/pause/home exercised, no AI/campaign victory claimed. Same-device2P agent controls P1 through normal keyboard while P2 uses unchanged native physics; three P1roundwins, full Player1Wins match, ordinary50reward claimed70to120gold. After removal of unused leaderboard methods/privacy navigation, final source reload restored120gold; original skins panel, native next match movement/skill/pause verified. Original AI/physics/weapons/levels/UserProfile/economy untouched. Complete final network window no truncation/missing/external/errors. Soccer/arena/fullmaps/weapons/mobile/audio hearing not exhausted. Latest source additionally retires the nested key-multiplier entry recursively; fresh reload120gold and native next match movement/skill/pause reverified. Prior fullmatch/earned-reward path unchanged."
+    },
+    "basis": "Actual original source preserved, native local2P fullmatch and earned reward/reload proof, normal revisioned API."
+  },
+  "base_version_id": "v-62ad32b7f5e6",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "original_job": "job-4c99e6e790b1",
+    "at": "2026-11-12T01:46:05.404915+00:00"
+  },
+  "game_profile": {
+    "category": "动作 · 火柴人格斗",
+    "dimension": "2D",
+    "perspective": "未确认（推断为横版对战视角，仅由火柴人对战题材推断，无实机证据）",
+    "core_gameplay": "Original physics weapons/skill combat, native single-player and same-device2P; original maps, gold, skins and weapon progression.",
+    "core_experience": "未确认。标题与模式命名指向火柴人题材的单人闯关/双人同屏对战体验，但无实机游玩证据。",
+    "controls": "WASD, Space super,E skill; second player arrows/Enter/Shift; native pause/menus.",
+    "game_loop": "未确认。仅验证到：开始=加载后进入主菜单并显示模式选择；操作=选择 1 Player 或 2 Players；结果=模式选择后的战斗流程、胜负结算、得分展示均未观察；继续=是否返回菜单或进入下一局未知。",
+    "content": "固定内容（资源证据）：Map 资源目录存在（assets/Map），提示含地图/关卡数据；prefabs 目录含大量 plist 序列帧/粒子（约 15 组）与 UI 贴图；res 目录含 11 个 mp3 音效/音乐；mainScenes 含 LilitaOne 字体。关卡数量、角色种类、是否含程序生成内容：未确认。",
+    "progression": "未确认。localStorage 存在键 p27（2687 字符），可能保存进度/解锁/设置，但内容未解密验证；是否存在关卡推进、难度曲线、奖励体系均无证据。",
+    "save": "Original UserProfile local persistence, actual ordinary70+50=120gold restored after final reload.",
+    "rules": "未确认。目标、成功/失败条件、计分公式、血量/时间阈值均无实机或源码摘录证据，不编造。",
+    "systems": "仅可确认对象层级（来自运行时节点路径）：\n1. 主菜单 MainView：含 bgPve/pve（单人入口）、bgPvp/pvp（双人入口）、TopPanel/Setting（音频设置）、Title 文本。\n2. 场景：当前位于 main 场景；assets/mainScenes 存在，推断含独立战斗场景，未验证。\n3. 系统交互：按钮 → onBtnGameMode（模式分流）、Setting → showAudioView（音频面板）；战斗内对象、状态机、碰撞、AI 等均未验证。",
+    "ui_flow": "已验证主菜单界面：顶部标题\"Stickman Battle\"，左侧 PVE 区（1 Player），右侧 PVP 区（2 Players），右上角 Setting 按钮（打开音频设置面板）。按钮跳转目标界面（模式选择后的加载/战斗/结算界面）未点击验证；是否存在暂停、结算、失败界面未知。",
+    "level_design": "未确认。assets/Map 目录与地图 config（assets/Map/config.819ed.json）表明存在地图资源，但关卡数量、布局、难度设计均未解析验证。",
+    "verification": "Desktop1280x720 real original Cocos2.4.15 game. Native single-player tutorial movement/jump/skill/super/pause/home exercised, no AI/campaign victory claimed. Same-device2P agent controls P1 through normal keyboard while P2 uses unchanged native physics; three P1roundwins, full Player1Wins match, ordinary50reward claimed70to120gold. After removal of unused leaderboard methods/privacy navigation, final source reload restored120gold; original skins panel, native next match movement/skill/pause verified. Original AI/physics/weapons/levels/UserProfile/economy untouched. Complete final network window no truncation/missing/external/errors. Soccer/arena/fullmaps/weapons/mobile/audio hearing not exhausted. Latest source additionally retires the nested key-multiplier entry recursively; fresh reload120gold and native next match movement/skill/pause reverified. Prior fullmatch/earned-reward path unchanged.",
+    "evidence": "",
+    "illustrations": [
+      {
+        "path": "screenshots/startup.png",
+        "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Readable original main Cocos browserify modules; all original engine/bundles/scenes/assets retained.",
+    "reuse": "Physics character/weapon/AI/levels/UserProfile modules can be extracted with Cocos runtime and scene adaptations; no separate-module certification.",
+    "dependencies": "Local Cocos2.4.15 engine, scene bundles/assets and UserProfile localStorage only.",
+    "preservation": "10core modules exact canonical SHA including AI/physics/weapon/UserProfile/levels. Games module changes only SDK lifecycle removal, original match rewards retained."
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

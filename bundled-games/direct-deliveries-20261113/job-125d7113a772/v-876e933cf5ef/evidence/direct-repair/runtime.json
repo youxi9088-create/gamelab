@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "missing": [],
+  "required_external": [],
+  "non_game_http_findings": [],
+  "non_game_http_resolution": "",
+  "actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Initial independent Classic menu loaded."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "START RUN",
+      "result": "FAILED initial build: assignment-only powerUps declaration omitted from closure. Fixed before step3; original failure preserved."
+    },
+    {
+      "step": 3,
+      "type": "reload",
+      "selector": "page",
+      "result": "Final corrected build loaded. This is before earned best, not a saved-score refresh test."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "selector": "START RUN",
+      "result": "Actual original Classic run: six red hazards, green player and timer."
+    },
+    {
+      "step": 5,
+      "type": "drag",
+      "from": [
+        640,
+        360
+      ],
+      "to": [
+        628,
+        535
+      ],
+      "result": "Native collision/death already produced3.5s/BEST3.5; drag selected results text, no movement claim."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8929/",
+    "http://127.0.0.1:8929/fonts/fonts.css",
+    "http://127.0.0.1:8929/main.js",
+    "http://127.0.0.1:8929/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+    "http://127.0.0.1:8929/fonts/yMJRMIlzdpvBhQQL_Qq7dy0.woff2",
+    "http://127.0.0.1:8929/assets/audio/tension-loop.mp3",
+    "http://127.0.0.1:8929/assets/audio/collision-impact.mp3",
+    "http://127.0.0.1:8929/assets/audio/difficulty-warning-soft.mp3",
+    "http://127.0.0.1:8929/assets/image-4.png",
+    "http://127.0.0.1:8929/favicon.svg"
+  ],
+  "scope": "用户每款最多5步严格执行：第1步初始菜单，第2步首次开始遇powerUps声明缺失，修正本地闭包依赖选择对赋值变量的保留；第3步加载最终构建，第4步原START RUN，第5步拖动时已处原生3.5秒死亡结算，实际产生文字选中，不能冒充本次玩家移动验证。最终构建真实生成6个原红球并按原移动/碰撞更新，出现YOU DIED/生存3.5秒/BEST3.5；最终全启动至该结算20事件无截断、外联、HTTP失败或脚本异常，最终时间窗console空。早期失败网络与完整console全部留档，没有把旧错误隐藏为从未发生。原12函数语义SHA不变，4函数与相同Classic分支投影SHA一致，含update/draw、原移动/碰撞/难度/生成/帧循环；仅账号/在线赛季预检、云端提交、排行榜UI和遥测边界改变。原全部CSS文本、800画布、初始6障碍、速度倍率/14上限/难度阶段/碰撞半径/原随机死亡文案/本地最佳规则保留。Supabase/登录/在线榜单/支付/宿主代码真实移除，不拦截网络、不伪造账号或购买成功；原付费Power Mode不启用，当前交付为原免费Classic玩法。8份原字体、3音频及图标同源加载，资产HTTP/SHA核对。本轮未验证最终构建重开、成绩刷新恢复、实际移动响应、暂停/音量/听觉及10秒后难度阶段，五步已到不追加。正常原任务入库待人工验收，不批准不供货。",
+  "network_scope": "Final build full reload (step3), real classic start (step4) and native 3.5sec collision/death/best, step5 drag occurred on results text, so movement not independently proven. Earlier failed build preserved separately.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

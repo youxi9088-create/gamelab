@@ -1,0 +1,21 @@
+var TEXT_PRELOADER_CONTINUE = "START";
+var TEXT_SCORE = "SCORE";
+var TEXT_SCORE_GAMEOVER = "Total Score";
+var TEXT_PAUSE = "PAUSE";
+var TEXT_ARE_SURE = "ARE YOU SURE?";
+var TEXT_WIN = "YOU WON";
+var TEXT_TOTAL_SCORE = "TOTAL SCORE";
+var TEXT_SELECT_LANG = "SELECT LANGUAGE";
+var TEXT_SELECT_CATEGORY = "SELECT CATEGORY";
+var TEXT_CREDITS_DEVELOPED = "DEVELOPED BY";
+var TEXT_FAIL_GENERATION_MATRIX = "FAIL TO GENERATE MATRIX OF WORDS DECREASE THE NUMBER OF WORDS OR WORDS LETTER OR RETRY TO REGENERATE MATRIX";
+var TEXT_TIME = "TIME";
+var TEXT_SUMMARY = "HOW TO PLAY";
+var TEXT_HELP = "Search up, down, forward, backward, and on the diagonal to find the hidden words.";
+
+var TEXT_SHARE_IMAGE = "200x200.jpg";
+var TEXT_SHARE_TITLE = "Congratulations!";
+var TEXT_SHARE_MSG1 = "You collected <strong>";
+var TEXT_SHARE_MSG2 = " points</strong>!<br><br>Share your score with your friends!";
+var TEXT_SHARE_SHARE1 = "My score is ";
+var TEXT_SHARE_SHARE2 = " points! Can you do better";

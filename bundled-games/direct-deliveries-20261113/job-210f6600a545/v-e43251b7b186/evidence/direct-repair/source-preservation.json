@@ -1,0 +1,41 @@
+{
+  "unchanged_native_functions": {
+    "seededRandom": "e0be7b58abca902f93ab035adff7e1a434b5b2289e619b59237cf3be5b6e22b6",
+    "pseudoRandom": "c540138164e91d3da8d9ddfd42a5fee60b0eb4991d05396a6b8ceae5d13890b2",
+    "initAudio": "cf19910c7161bc4832d3de5712865640b06a83936b00c275b6130a655276ddaa",
+    "playImpactSound": "45611013368a8fbb37bcc419b2cc309ff488f0a25e09d0fd05c12b6ce2363f08",
+    "getDeterministicSequence": "4afe57d8d3c908fb6642958bad62ae255b4b167644d3f19129d2d766e76c5994",
+    "calculateExactLevelTime": "109fc43aae36b164d9f0de4fe863f7c2ce4a6769b21f14a99e5228cadd3874d8",
+    "hashSeed": "bf1ba7ebce66c00c27e5af49f4a7c1c586a51b50d2f284926c0f7ae4898abc21",
+    "createCrackedConcreteTexture": "7321951b9f6711b3b7f712e280b55a14f155482393fbe22ae9b8951fe4abf9ab",
+    "createSoccerTexture": "160e2f57e5c573d26c72d9a285697630e87c285cadc31397150361d1b8bdd852",
+    "createChampionTexture": "903619bdf84cf96e1cab0be7b1066576b24083b7fbabe5f60682d7a8873cb5b2",
+    "createBaseballTexture": "94ba32e9517885d97524b7f678a1eeeb638160a73a90f3cc0304fa5a480b0143",
+    "init": "4ea039e283d5112bac68d651228a8d76e45af38819d9da45e6bb893a397a1ce2",
+    "createClassicTexture": "9c5cdb5e31fc3d1a0ae090f4afb8c3b602eb966288bb78061c46f8c62673572c",
+    "createClassic2Texture": "62ce4692751d179e52533b38d6f203eaa2abefaad304f42d40ad8533955fa9b8",
+    "createMissingTexture": "4a3d8e965213ec44c6db84cde298f7d1ac446e1dbcf2304d26f5ebf0a270e7fc",
+    "createDiceFace": "9c13a4ce95661376a1e407812017e2112532c0c8d2e241477208efa4756bde20",
+    "createCarbonTexture": "715717986b5640fc29ad056fdf2ebb90caa029840fb5e4daee1dd6b86e842fc4",
+    "createWatermelonTexture": "d36af45144d39fc04f261914089194abba6abb06035b4ca325b5a2e61a779798",
+    "buildBallSkin": "91d06091ebfa3f9ac581fefa31e36ee6935740da7a8e479b08afe9ec086be1ff",
+    "createStartLine": "390d03413f7dfa3801fc87db85ccbc72c1e79ac269a6f74ae92b01c4279b9d0d",
+    "createTrackSegment": "d9342da387ee36b6e11048b07e5a771f4c50ce69eaeca26ef5e0198314a76362",
+    "createRopeSegment": "7ac10f557b9f9470636c1f6b367b8727275bc61b0d9a2d3996b6d4238552919c",
+    "spawnDynamicObstacle": "0600502e5c6631c11232e9708e99cdbd1fce2bcf1e5d1667342a67c6abc43788",
+    "spawnModule": "e85444efc5e631c1e15f328ba4fc3dfee5a8bfabc9698611c6214880d5a89855",
+    "updateUI": "456e3b3e6e5e504d7b69e0f2d57acc96eb5e206a6aeab86174cd5a498b87b61b",
+    "resetObstaclesForRespawn": "3367e9b89fc3831dc67c99a401f4dbe1840022ded6413aac588ae0f09a8e56cf",
+    "handlePlayerDeath": "bf8d781021074dc8deaf6fef15830f0ffd7f8a415f73abbc5f68680427e1ef82"
+  },
+  "changed_functions": [
+    "setupRemix",
+    "syncOwnedSkinsFromStore",
+    "applyPurchase",
+    "updateSkinUI",
+    "triggerGameOver",
+    "updateEnvironment",
+    "animate"
+  ],
+  "changes": "Retired SDK and paid skin routes; retain two originalfree skins only, no paid unlock. Native true death/finish branches show local result Retry/Menu and earned Next; actual win stars/progress only saved locally. Physics/levels/clock/star thresholds untouched."
+}

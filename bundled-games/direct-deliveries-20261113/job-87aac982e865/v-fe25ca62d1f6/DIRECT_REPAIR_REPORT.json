@@ -1,0 +1,624 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "warnings": [],
+    "missing": [],
+    "required_external": [],
+    "non_game_http_findings": [],
+    "non_game_http_resolution": "",
+    "actions": [
+      {
+        "step": 1,
+        "type": "navigate",
+        "selector": "http://127.0.0.1:8984/index.html",
+        "result": "原失败启动/修复重载和补图后该项定向复验均保留；最终205完整事件与icon_e.webp实际200，初始速度0。"
+      },
+      {
+        "step": 2,
+        "type": "key",
+        "selector": "canvas",
+        "key": "Up",
+        "duration_ms": 2200,
+        "result": "原矿车实际加速/轨道位置/进度变化；保存截图速度9，非峰值声明。"
+      },
+      {
+        "step": 3,
+        "type": "key",
+        "selector": "canvas",
+        "key": "Down",
+        "duration_ms": 1600,
+        "result": "原制动与轨道转向，保存截图速度5。"
+      },
+      {
+        "step": 4,
+        "type": "reload",
+        "selector": "document",
+        "result": "原第5次机械动作刷新回初始轨道速度0；未证明检查点或购买进度恢复。"
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed",
+        "scope": "Prior actualUp/Down; currentmain sameSHA."
+      },
+      {
+        "name": "reload",
+        "status": "passed",
+        "scope": "Prior originalspawnreset only, nocheckpoint/purchase persistence claim."
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8984/index.html",
+      "http://127.0.0.1:8984/assets/index-V3F3wFyT.js",
+      "http://127.0.0.1:8984/assets/icon-CRPZlS46.png",
+      "http://127.0.0.1:8984/assets/fonts/TikTokSans_18pt-Regular.json",
+      "http://127.0.0.1:8984/assets/fonts/TikTokSans_18pt-Regular.png",
+      "http://127.0.0.1:8984/assets/UI/icon_map_1.webp",
+      "http://127.0.0.1:8984/assets/UI/icon_map_4.webp",
+      "http://127.0.0.1:8984/assets/UI/icon_map_3.webp",
+      "http://127.0.0.1:8984/assets/UI/icon_map_2.webp",
+      "http://127.0.0.1:8984/assets/_import/maps/map_2/scene.json",
+      "http://127.0.0.1:8984/assets/_import/maps/map_1/scene.json",
+      "http://127.0.0.1:8984/assets/_import/maps/map_3/scene.json",
+      "http://127.0.0.1:8984/assets/_import/maps/map_4/scene.json",
+      "http://127.0.0.1:8984/assets/cubemaps/5/negx.jpg",
+      "http://127.0.0.1:8984/assets/cubemaps/5/negy.jpg",
+      "http://127.0.0.1:8984/assets/cubemaps/5/negz.jpg",
+      "http://127.0.0.1:8984/assets/cubemaps/5/posx.jpg",
+      "http://127.0.0.1:8984/assets/cubemaps/5/posy.jpg",
+      "http://127.0.0.1:8984/assets/cubemaps/5/posz.jpg",
+      "http://127.0.0.1:8984/assets/_import/textures/atlas.ktx2",
+      "http://127.0.0.1:8984/assets/_import/models/logicCube_circle.glb",
+      "http://127.0.0.1:8984/assets/_import/models/paperPlane.glb",
+      "http://127.0.0.1:8984/assets/UI/icon_e.webp",
+      "http://127.0.0.1:8984/assets/models/flag-red.glb",
+      "http://127.0.0.1:8984/assets/models/flag-green.glb",
+      "http://127.0.0.1:8984/assets/models/start-marker-arrow.glb",
+      "http://127.0.0.1:8984/assets/textures/black-green-tex.png",
+      "http://127.0.0.1:8984/assets/_import/textures/tiled_green.ktx2",
+      "http://127.0.0.1:8984/assets/_import/models/pipe-10.glb",
+      "http://127.0.0.1:8984/assets/_import/textures/signs_texture.ktx2",
+      "http://127.0.0.1:8984/assets/_import/models/sign_speed_25.glb",
+      "http://127.0.0.1:8984/assets/_import/models/sign_bumps.glb",
+      "http://127.0.0.1:8984/assets/_import/textures/tex-teleport.ktx2",
+      "http://127.0.0.1:8984/assets/_import/models/teleport-spiral.glb",
+      "http://127.0.0.1:8984/assets/_import/textures/box_profile_metal_sheet_ao_1k%20(1).ktx2",
+      "http://127.0.0.1:8984/assets/_import/models/station-roof.glb",
+      "http://127.0.0.1:8984/assets/_import/models/truss_4m.glb",
+      "http://127.0.0.1:8984/assets/_import/textures/studs_rect_cross.ktx2",
+      "http://127.0.0.1:8984/assets/_import/models/station-edge.glb",
+      "http://127.0.0.1:8984/assets/_import/textures/floor-tiles.ktx2",
+      "http://127.0.0.1:8984/assets/_import/models/Cube%202.glb",
+      "http://127.0.0.1:8984/assets/models/moving_arrows_start.glb",
+      "http://127.0.0.1:8984/assets/textures/moving_arrow_start.png",
+      "http://127.0.0.1:8984/assets/_import/models/logicCube_star.glb",
+      "http://127.0.0.1:8984/assets/_import/textures/rock_pitted.ktx2",
+      "http://127.0.0.1:8984/assets/_import/models/box-9-4-2.glb",
+      "http://127.0.0.1:8984/assets/_import/models/logicCube_moon.glb",
+      "http://127.0.0.1:8984/assets/_import/models/sign_controls_stop.glb",
+      "http://127.0.0.1:8984/assets/_import/models/sign_speed_50.glb",
+      "http://127.0.0.1:8984/assets/_import/models/sign_speed_70.glb",
+      "http://127.0.0.1:8984/assets/models/hummer.glb",
+      "http://127.0.0.1:8984/assets/_import/models/sign_danger.glb",
+      "http://127.0.0.1:8984/assets/_import/models/goose.glb",
+      "http://127.0.0.1:8984/assets/_import/textures/forest_leaves.ktx2",
+      "http://127.0.0.1:8984/assets/_import/models/box-40-40-2.glb",
+      "http://127.0.0.1:8984/assets/_import/models/cactusToy.glb",
+      "http://127.0.0.1:8984/assets/_import/models/rubik%60sCube.glb",
+      "http://127.0.0.1:8984/assets/_import/models/xelophone.glb",
+      "http://127.0.0.1:8984/assets/_import/models/buffer_stop.glb",
+      "http://127.0.0.1:8984/assets/_import/models/bucket.glb",
+      "http://127.0.0.1:8984/assets/_import/models/sign_stop.glb",
+      "http://127.0.0.1:8984/assets/_import/textures/tiled_yellow.ktx2",
+      "http://127.0.0.1:8984/assets/_import/models/logicCube_%D1%81ube.glb",
+      "http://127.0.0.1:8984/assets/_import/models/sign_slow.glb",
+      "http://127.0.0.1:8984/assets/_import/models/sign_speed_10.glb",
+      "http://127.0.0.1:8984/assets/_import/models/box-4-3-5.glb",
+      "http://127.0.0.1:8984/assets/_import/models/box-10-10-uv-pink.glb",
+      "http://127.0.0.1:8984/assets/_import/models/box-10-10-uv-yellow.glb",
+      "http://127.0.0.1:8984/assets/_import/models/box-10-10-uv-cyan.glb",
+      "http://127.0.0.1:8984/assets/_import/models/box-10-10-uv-3-multicolor-1.glb",
+      "http://127.0.0.1:8984/assets/_import/models/box-10-10-uv-3-color-v1.glb",
+      "http://127.0.0.1:8984/assets/models/boy-only.glb",
+      "http://127.0.0.1:8984/assets/textures/character_boy.jpg",
+      "http://127.0.0.1:8984/assets/textures/navigator.png",
+      "http://127.0.0.1:8984/assets/UI/icon-wasd.png",
+      "http://127.0.0.1:8984/assets/UI/icon-arrows-block.png",
+      "http://127.0.0.1:8984/assets/UI/icon-s.png",
+      "http://127.0.0.1:8984/assets/UI/icon-w.png",
+      "http://127.0.0.1:8984/assets/UI/icon-space.webp",
+      "http://127.0.0.1:8984/assets/UI/joystick_handle.webp",
+      "http://127.0.0.1:8984/assets/UI/joystick_back.webp",
+      "http://127.0.0.1:8984/assets/UI/icon-finger-touch.webp",
+      "http://127.0.0.1:8984/assets/UI/icon-back-or-rails.webp",
+      "http://127.0.0.1:8984/assets/UI/icon-watch-ad.webp",
+      "http://127.0.0.1:8984/assets/UI/progress-bar-background.png",
+      "http://127.0.0.1:8984/assets/UI/progress-bar-fill.png",
+      "http://127.0.0.1:8984/assets/UI/progress-bar-outline.png",
+      "http://127.0.0.1:8984/assets/models/cylinder_no_caps.glb",
+      "http://127.0.0.1:8984/assets/textures/grad_white_alpha_0_100.png",
+      "http://127.0.0.1:8984/assets/models/cart-shopping-cart.glb",
+      "http://127.0.0.1:8984/assets/UI/icons-cart-skin/cart-shopping-cart.webp",
+      "http://127.0.0.1:8984/assets/sounds/cart-sound-1.mp3",
+      "http://127.0.0.1:8984/assets/models/cart-pink.glb",
+      "http://127.0.0.1:8984/assets/UI/icons-cart-skin/cart-pink.webp",
+      "http://127.0.0.1:8984/assets/models/cart-rusty-green.glb",
+      "http://127.0.0.1:8984/assets/UI/icons-cart-skin/cart-rusty-green.webp",
+      "http://127.0.0.1:8984/assets/models/cart-default.glb",
+      "http://127.0.0.1:8984/assets/UI/icons-cart-skin/cart-default.webp",
+      "http://127.0.0.1:8984/assets/UI/speedometer-plate.webp",
+      "http://127.0.0.1:8984/wasm/basis/basis.wasm.js",
+      "http://127.0.0.1:8984/wasm/basis/basis.wasm.wasm",
+      "http://127.0.0.1:8984/assets/UI/progress-bar-finish.webp",
+      "blob:http://127.0.0.1:8984/b9ef07fc-be67-44fc-90c2-e438792604a0"
+    ],
+    "scope": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+    "network_scope": "Targeted startup resource revalidation after adding exact original icon_e.webp; originalcart/rail physics main SHA unchanged from prior acceleration/braking and nativeSpawnReset capture. Current205events clean with iconHTTP200. Prior215eventmissingiconhistory preserved separately; no new mapcompletion/persistence/menus claim.",
+    "evidence": "evidence/direct-repair/network-final.json",
+    "expected_media_cancellations": [],
+    "prior_gameplay_evidence": "evidence/direct-repair/network-gameplay-initial.json",
+    "source_binding": "evidence/direct-repair/targeted-revalidation-binding.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+      "evidence": [
+        "assets/index-V3F3wFyT.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+      "evidence": [
+        "assets/index-V3F3wFyT.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+      "evidence": [
+        "assets/index-V3F3wFyT.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+      "evidence": [
+        "assets/index-V3F3wFyT.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-03-accelerate.jpg",
+        "screenshots/revision-04-brake.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-03-accelerate.jpg",
+        "screenshots/revision-04-brake.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-03-accelerate.jpg",
+        "screenshots/revision-04-brake.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-03-accelerate.jpg",
+        "screenshots/revision-04-brake.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-03-accelerate.jpg",
+        "screenshots/revision-04-brake.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-03-accelerate.jpg",
+        "screenshots/revision-04-brake.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-03-accelerate.jpg",
+        "screenshots/revision-04-brake.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8984/index.html",
+      "result": "原失败启动/修复重载和补图后该项定向复验均保留；最终205完整事件与icon_e.webp实际200，初始速度0。"
+    },
+    {
+      "step": 2,
+      "type": "key",
+      "selector": "canvas",
+      "key": "Up",
+      "duration_ms": 2200,
+      "result": "原矿车实际加速/轨道位置/进度变化；保存截图速度9，非峰值声明。"
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "selector": "canvas",
+      "key": "Down",
+      "duration_ms": 1600,
+      "result": "原制动与轨道转向，保存截图速度5。"
+    },
+    {
+      "step": 4,
+      "type": "reload",
+      "selector": "document",
+      "result": "原第5次机械动作刷新回初始轨道速度0；未证明检查点或购买进度恢复。"
+    }
+  ],
+  "scope": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      }
+    ],
+    "scope": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。"
+  },
+  "dependency_review": {
+    "previous_revision": 2,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "离线启动通过；广告过滤及被拒绝请求见 runtime_smoke，存档及结算尚未验证",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证保存恢复和阶段结果"
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 2,
+      "updated_at": "2026-11-03T18:16:37+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。"
+    },
+    "basis": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。"
+  },
+  "base_version_id": "v-3065550a1a7d",
+  "manual_execution": {
+    "executor": "Codex direct repair / actual UI",
+    "automated_model_conversion": false,
+    "original_job": "job-87aac982e865",
+    "max_gameplay_steps": 5,
+    "at": "2026-11-13T05:49:01.818507+00:00",
+    "verification_key_items": 4,
+    "actual_mechanical_actions": 6,
+    "limit_scope": "Atmost5keyverificationitems; targetedstartuprepeat recorded, no lifetimeinputcap."
+  },
+  "game_profile": {
+    "category": "空中轨道矿车驾驶 / 速度控制",
+    "dimension": "3D",
+    "perspective": "第三人称跟随矿车与原人物，随轨道弯曲/坡度调整视野。",
+    "core_gameplay": "进入原初始轨道→Up加速→原矿车/人物随轨道移动→Down减速并观察弯道→进度与速度HUD反馈，原菜单/地图/矿车系统保留。",
+    "core_experience": "",
+    "controls": "↑加速、↓制动；原HUD显示Esc菜单、C矿车、M地图。已实际Up2200ms、Down1600ms与刷新复位；其余键/菜单/跳车未在本轮操作。",
+    "game_loop": "原加速与制动保存画面速度9/5、轨道朝向和进度条变化，原刷新回起点速度0。此次只复验缺图修复后的启动，不伪称新一轮地图通关。",
+    "content": "空中连续轨道、坡道/弯道/移动与旋转障碍、原人物木制矿车、天空/海面、地图/矿车菜单和进度HUD；全部地图/矿车数量未知，不编造关卡完成数。",
+    "progression": "原地图、检查点、矿车外观与本地数据保留；本轮未达终点或领取检查点奖励，总图/皮肤数未知留空。",
+    "save": "原本地地图、检查点、矿车/经济存储保留；实际刷新复位证明初始化可重复，但没有本轮检查点/购买写入与恢复证据，不把起点0当进度持久化通过。",
+    "rules": "原加速/制动/速度反馈、轨道跟随/碰撞、障碍时钟与检查点规则保持。未降低难度或自动越过障碍，不注入进度/货币/奖励。",
+    "systems": "PlayCanvas渲染、原实体/组件调度、矿车与轨道物理、人物/矿车模型、障碍时钟、速度/阶段进度HUD、地图/检查点/解锁、本地存储、输入与音频。",
+    "ui_flow": "原初始木制矿车→速度/进度HUD与Esc/C/M入口→Up/Down驾驶及弯道→原刷新回起点；终点/复活/商店与可选领取路径未测。",
+    "level_design": "原高低起伏的细轨、枕木与护轨、转弯与多类障碍组合，进度条指向终点；未重建或缩短原路线。",
+    "verification": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。",
+    "evidence": "源码保持7767函数/主码SHA固定、旧真实加速/制动/复位截图与完整失败网络、精确缺图回源200/SHA、当前205事件净启动和PlayCanvas DOM引擎标记。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "PlayCanvas2.19.7，实际最终canvas data-engine已核对；原合并编译ES模块。",
+    "programming_language": "JavaScript ES模块、HTML/CSS；编译后可修改代码，未恢复原作者TypeScript工程。",
+    "game_summary": "驾驶原木制矿车沿空中高低起伏轨道前进，控制加速与刹车，通过弯道和原障碍，按地图及检查点推进。",
+    "resource_types": "45GLB场景/角色/矿车/道具模型，18WebP与16PNG图标/图集、7JPG（含天空盒）、10KTX2材质、2MP3音频、5JSON字体/配置、原ES模块与HTML/CSS。",
+    "engine_asset_system": "PlayCanvas本地资产加载、GLB容器/贴图与KTX2、字体图集、场景实例/轨道构件；45GLB外部引用闭合，真实资源GET/SHA。",
+    "core_challenge_details": "根据前方弯道、坡道与原移动障碍调整速度，维持矿车沿轨道行进并推进地图进度；不改变物理或障碍周期。",
+    "core_challenge_type": "速度控制 / 障碍时机 / 轨道行进",
+    "input_elements": "画布键盘、原左侧Esc/C/M菜单按钮及矿车视角；真实触控、地图/矿车选择和奖励确认未测。",
+    "app_suitability": "",
+    "core_loop": "观察轨道/障碍→加速或制动→矿车位置/速度/地图进度变化→继续前进。",
+    "churn_risk": "",
+    "progression_loop": "沿原轨道推进→检查点/地图阶段→后续地图与矿车数据；仅有限短段实测。",
+    "core_closure": "原启动、矿车加速前进、制动和轨道位置变化、刷新复位已实测；最终主码与该实测完全同SHA，仅补原缺图并净启动复验。不是整图通关。",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "保存截图速度9与5，原刷新和当前最终启动均速度0；HUD按原velocity.length取整显示（无单位声明）。原主码7767处函数语义保持，资源45GLB/2MP3/10KTX2，缺图3942字节256×256。",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "原鲜亮低多边形空中轨道、木制矿车与深发红衣人物、漂浮彩色障碍、蓝色天空/海面和黑白终点进度条。",
+    "theme_position": "轻松彩色空中矿车障碍驾驶。",
+    "economy": "保留原地图/矿车与本地奖励解锁规则；可选本地奖励明确确认/取消，不冒称看广告成功；未购买或验证价格/奖励结算。",
+    "roles": "原单人矿车与原角色；远端玩家/房间/同步发送真实退役，不伪造真人对手。",
+    "roster_summary": "",
+    "monetization_details": "独立本地生命周期和可选确认不是SDK对象，取消不发奖。原SDK/Colyseus/WebSocket及外发系统登记退役；本轮无可选领取动作，不宣称其UI通过。",
+    "monetization": "原外部SDK广告/联机/遥测真实移除，保留普通游戏内经济；未发现需要保留的真实货币支付。",
+    "illustrations": [
+      {
+        "path": "screenshots/revision-final-resource.png",
+        "caption": "最终净启动原图资源齐备，真实PlayCanvas2.19.7画布，初始速度0。"
+      },
+      {
+        "path": "screenshots/revision-03-accelerate.jpg",
+        "caption": "原真实Up后轨道行进；此保存画面速度9，不把另一时点笔记28套到此帧。"
+      },
+      {
+        "path": "screenshots/revision-04-brake.jpg",
+        "caption": "原真实Down后制动画面速度5与轨道朝向变化；未声称整图完成。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "完整编译后ES模块，可修改原轨道/矿车/障碍/地图/物理/配置；未恢复原TypeScript作者工程。",
+    "reuse": "轨道跟随/矿车物理/障碍时钟/进度HUD/本地保存可拆解适配；尚无跨项目集成实证。",
+    "dependencies": "本地PlayCanvas2.19.7合并引擎、原模型/贴图/字体/音频与普通HTTP。",
+    "preservation": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 15252.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 10337.312,
+      "calls": 79,
+      "known_input_tokens": 2717508,
+      "known_output_tokens": 320580,
+      "cached_input_tokens_known": 595712,
+      "unknown_usage_calls": 9,
+      "known_estimated_cost_subtotals": {
+        "CNY": 75.685344
+      },
+      "unknown_cost_calls": 9,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 2,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 2,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 2,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 77,
+          "input_tokens_known": 2717508,
+          "output_tokens_known": 320580,
+          "unknown_usage_calls": 7,
+          "known_cost_subtotals": {
+            "CNY": 75.685344
+          },
+          "unknown_cost_calls": 7,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T10:05:36.466177+00:00",
+      "observed_until": "2026-11-13T05:54:21.296028+00:00",
+      "observed_wall_seconds": 71324.829851,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

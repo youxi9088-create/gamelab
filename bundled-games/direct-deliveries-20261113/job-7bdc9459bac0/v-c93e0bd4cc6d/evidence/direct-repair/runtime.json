@@ -1,0 +1,167 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "warnings": [],
+  "missing": [],
+  "required_external": [],
+  "non_game_http_findings": [
+    {
+      "sequence": 39,
+      "source": {
+        "tabId": 40
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "B7ECB8DB5E0D307D1C31EE347BEE94ED",
+        "hasExtraInfo": false,
+        "loaderId": "29C801111832F589608363DF5276CD2B",
+        "requestId": "49304.2",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "utf-8",
+          "connectionId": 721300,
+          "connectionReused": false,
+          "encodedDataLength": 185,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Connection": "close",
+            "Content-Length": "460",
+            "Content-Type": "text/html;charset=utf-8",
+            "Date": "Fri, 13 Nov 2026 02:03:18 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "text/html",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8972,
+          "responseTime": 1794535398780.74,
+          "securityState": "unknown",
+          "status": 404,
+          "statusText": "File not found",
+          "timing": {
+            "connectEnd": 1.128,
+            "connectStart": 0.724,
+            "dnsEnd": 0.724,
+            "dnsStart": 0.717,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 30.107,
+            "receiveHeadersStart": 30.019,
+            "requestTime": 1292396.856193,
+            "sendEnd": 1.245,
+            "sendStart": 1.174,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8972/favicon.ico"
+        },
+        "timestamp": 1292396.887036,
+        "type": "Other"
+      }
+    }
+  ],
+  "non_game_http_resolution": "",
+  "actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8972/index.html",
+      "result": "Original first level visible, MOVE TO BEGIN."
+    },
+    {
+      "step": 2,
+      "type": "key",
+      "selector": "window",
+      "key": "Right",
+      "duration_ms": 400,
+      "result": "Original rider moved from platform start to right side, timer began."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "selector": "window",
+      "key": "Space",
+      "duration_ms": 200,
+      "result": "Original rider visibly airborne above platform; screenshot observed in tool, not retained as a separate file."
+    },
+    {
+      "step": 4,
+      "type": "key",
+      "selector": "window",
+      "key": "Right",
+      "duration_ms": 1000,
+      "result": "Original death fragments and ATTEMPT02, then passive auto-respawn MOVE TO BEGIN."
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "http://127.0.0.1:8972/index.html",
+      "result": "Original first level00.00, MOVE TO BEGIN; no win/save-data created."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed",
+      "scope": "Initial scene reset only; no win/progression data created."
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8972/index.html",
+    "http://127.0.0.1:8972/main.js",
+    "http://127.0.0.1:8972/vendor/006-three.js",
+    "http://127.0.0.1:8972/vendor/002-three.js",
+    "http://127.0.0.1:8972/local-session.js",
+    "http://127.0.0.1:8972/vendor/004-GLTFLoader.js",
+    "http://127.0.0.1:8972/vendor/005-SkeletonUtils.js",
+    "http://127.0.0.1:8972/assets/jump-655S.wav",
+    "http://127.0.0.1:8972/assets/wall-jump-SG6e.wav",
+    "http://127.0.0.1:8972/assets/land-elA8.wav",
+    "http://127.0.0.1:8972/assets/slide-qIIz.wav",
+    "http://127.0.0.1:8972/assets/step-QlEN.wav",
+    "http://127.0.0.1:8972/assets/death-1hFI.wav",
+    "http://127.0.0.1:8972/assets/respawn-uH4H.wav",
+    "http://127.0.0.1:8972/assets/win-97cD.wav",
+    "http://127.0.0.1:8972/assets/select-vrMI.wav",
+    "http://127.0.0.1:8972/assets/castle-music-w1Zv.mpeg",
+    "http://127.0.0.1:8972/index.html",
+    "http://127.0.0.1:8972/main.js",
+    "http://127.0.0.1:8972/vendor/006-three.js",
+    "http://127.0.0.1:8972/vendor/002-three.js",
+    "http://127.0.0.1:8972/local-session.js",
+    "http://127.0.0.1:8972/vendor/004-GLTFLoader.js",
+    "http://127.0.0.1:8972/vendor/005-SkeletonUtils.js",
+    "http://127.0.0.1:8972/assets/jump-655S.wav",
+    "http://127.0.0.1:8972/assets/wall-jump-SG6e.wav",
+    "http://127.0.0.1:8972/assets/land-elA8.wav",
+    "http://127.0.0.1:8972/assets/slide-qIIz.wav",
+    "http://127.0.0.1:8972/assets/step-QlEN.wav",
+    "http://127.0.0.1:8972/assets/death-1hFI.wav",
+    "http://127.0.0.1:8972/assets/respawn-uH4H.wav",
+    "http://127.0.0.1:8972/assets/win-97cD.wav",
+    "http://127.0.0.1:8972/assets/select-vrMI.wav",
+    "http://127.0.0.1:8972/assets/castle-music-w1Zv.mpeg"
+  ],
+  "scope": "严格5步：原首关启动、Right按住400ms实际从起点移到平台右侧、Space按住200ms实际离地、Right按住1000ms走出平台/原死亡碎片并显示ATTEMPT02，随后仅观察自动重生至MOVE TO BEGIN；第5步刷新回首关00.00。原22关、几何/物理/碰撞/墙跳/锯片/熔岩/星级/计时/全部112函数语义保留（仅内部platform属性改名localSession及精确素材本地地址映射）；62个原引擎函数保持。原9音效/1音乐全部精确HTTPS200补齐，使用Windows已有代理单请求读取，不改全局设置，测试站仍直连；首次两份TLS中断和有界补取回执均保留。实际SDK提供者、等待/消息适配函数及包装脚本移出运行包；原界面/美术和Three库保持，内部真实本地存储接回castleTimes与实际关卡进度；本地下一关仅原胜利stars>0才可继续，未伪造账号、支付或星数。完整69事件无外联/游戏资源失败/异常/console警告，仅诊断页延迟favicon.ico404单独保留。未通关，未验证后21关、墙跳/冲刺、暂停/音乐开关、手柄、胜利后本地结果/下一关/最佳时间恢复；刷新仅证明原初始场景恢复，不称存档晋升已测。完整AST核对发现原关卡为22份，原UI的I至V罗马数字并非关卡总数；第5步后仅将本地关卡边界5修正为22，主游戏/引擎均未改，不追加第6步。该未测进度分支与实测首关严格分开。沿原任务正常入库到待验收，未批准未供货。",
+  "network_scope": "Full first startup through native move, jump, fall/death, passive respawn and fifth-action reload. No extra UI actions.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

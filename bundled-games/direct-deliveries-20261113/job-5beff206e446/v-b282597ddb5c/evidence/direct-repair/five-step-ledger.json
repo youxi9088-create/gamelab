@@ -1,0 +1,42 @@
+{
+  "max_steps": 5,
+  "steps_used": 5,
+  "actual_steps": [
+    {
+      "step": 1,
+      "type": "setup",
+      "result": "原Level1/Deckhand/本地Pirate，PLAY进入。",
+      "selector": "index.html / PLAY"
+    },
+    {
+      "step": 2,
+      "type": "original-cut",
+      "result": "原10/10平局正常重切，未重置牌局或注入RNG。",
+      "selector": "Face-down cut card1 and recut2"
+    },
+    {
+      "step": 3,
+      "type": "discard-and-pegging",
+      "result": "原六弃二、四张出牌、31限制及GO；每次输入见完整台账。",
+      "selector": "Original card buttons / Submit discard / CALL GO"
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "result": "玩家7/电脑14、Next Hand，不声称全场胜利。",
+      "selector": "COUNT HAND"
+    },
+    {
+      "step": 5,
+      "type": "reload-and-return",
+      "result": "真实刷新、ReturnToGame恢复同一牌面与7/14。",
+      "selector": "Document reload / RETURN TO GAME"
+    }
+  ],
+  "unverified": [
+    "full181-point-match/victory",
+    "Training/otherdifficulty/Level2/specialJokerrules",
+    "touch/audiohearing/cloudaccounts"
+  ],
+  "stopped_at_limit": true
+}

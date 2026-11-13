@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	
+	
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Champions of The Keep</title>
+    
+    
+    <link href="./_remote/3a125e88c76c9347/css2" rel="stylesheet">
+    <!--
+      Rosebud defaults disable accidental selection, context menus, tap highlights,
+      and native dragging during gameplay while preserving text editing. Most games
+      need no customization.
+    -->
+    <link rel="stylesheet" href="./rosebud-game-defaults.css" />
+    <script src="./rosebud-game-defaults.js" defer></script>
+    
+    <style>
+      html, body, #game-container { width: 100%; height: 100%; margin: 0; padding: 0; background: #050505; overflow: hidden; }
+      body { touch-action: none; font-family: Inter, system-ui, sans-serif; }
+      canvas { display: block; position: absolute; }
+      #game-container { display: flex; align-items: center; justify-content: center; }
+      .overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(5,8,20,.85); color: #eee; z-index: 5; text-align: center; }
+      .overlay h1 { font-family: Orbitron; font-size: 56px; margin: 0 0 8px; color: #f3c95c; }
+      .heroes { display: flex; gap: 16px; margin: 24px; flex-wrap: wrap; justify-content: center; }
+      .card { width: 180px; padding: 16px; border: 2px solid #445; border-radius: 12px; background: #111a2e; cursor: pointer; }
+      .card:hover { border-color: #f3c95c; transform: translateY(-4px); }
+      .card img { width: 140px; height: 140px; object-fit: contain; }
+      .rank { font-size: 22px; color: #9cf; }
+      button { font: 700 20px Inter; padding: 12px 30px; border-radius: 8px; border: 0; background: #f3c95c; cursor: pointer; margin-top: 16px; }
+      .pos { color: #6f6; } .neg { color: #f66; }
+      .lp-delta { font: 800 40px Orbitron; margin: 6px; }
+      .lp-table { margin: 8px auto; font-size: 17px; border-collapse: collapse; min-width: 320px; }
+      .lp-table td { padding: 3px 12px; text-align: left; border-bottom: 1px solid #334; }
+      .lp-table td:last-child { text-align: right; font-weight: 800; }
+      #end { box-sizing: border-box; justify-content: flex-start; overflow-y: auto; padding: 22px 14px; }
+      #end h1 { font-size: clamp(34px, 5vw, 56px); margin-top: 6px; }
+      #end .lp-table { width: min(440px, calc(100vw - 32px)); min-width: min(320px, calc(100vw - 32px)); }
+      #end .lpbar { width: min(360px, calc(100vw - 32px)); }
+      .result-recap { box-sizing: border-box; width: min(760px, calc(100vw - 32px)); margin: 12px auto 8px; padding: 14px; background: linear-gradient(145deg, #111b32f5, #090f1ef5); border: 1px solid #3b4d70; border-radius: 14px; text-align: left; box-shadow: 0 12px 36px #0008; }
+      .recap-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+      .recap-head small, .recap-spotlight span { color: #8fa8cf; font: 800 10px Inter; letter-spacing: 1.4px; }
+      .recap-head h2 { margin: 2px 0 0; color: #f4f6ff; font: 700 20px Orbitron; }
+      .role-chip { border: 1px solid #b9954a; border-radius: 999px; padding: 6px 10px; color: #f3d47a; font: 800 11px Inter; text-transform: uppercase; white-space: nowrap; }
+      .recap-spotlight { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 9px 11px; margin-bottom: 10px; border-left: 3px solid #f3c95c; border-radius: 5px; background: #f3c95c12; }
+      .recap-spotlight strong { color: #ffe6a0; font: 700 13px Inter; text-align: right; }
+      .recap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .recap-card { min-width: 0; padding: 10px 11px; background: #0a1121; border: 1px solid #273652; border-radius: 9px; }
+      .recap-card h3 { display: flex; align-items: center; gap: 7px; margin: 0 0 6px; color: #b9ccef; font: 800 12px Inter; text-transform: uppercase; letter-spacing: .55px; }
+      .recap-card h3 span { color: #f3c95c; font-size: 16px; }
+      .recap-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 4px 0; color: #aebbd1; font: 500 12px Inter; border-top: 1px solid #ffffff0b; }
+      .recap-row strong { color: #f2f5ff; font: 800 13px Inter; text-align: right; white-space: nowrap; }
+      @media (max-width: 560px) {
+        #end { padding: 14px 8px; }
+        .result-recap { padding: 10px; }
+        .recap-grid { grid-template-columns: 1fr; }
+        .recap-spotlight { align-items: flex-start; flex-direction: column; gap: 4px; }
+        .recap-spotlight strong { text-align: left; }
+      }
+      .promo { font: 800 30px Orbitron; margin: 8px; } .promo.up { color: #f3c95c; } .promo.down { color: #f66; }
+      .lpbar { position: relative; width: 360px; height: 18px; background: #223; border-radius: 9px; overflow: hidden; margin: 8px auto; }
+      .lpbar div { height: 100%; background: linear-gradient(90deg, #3a8, #9cf); }
+      .lpbar span { position: absolute; inset: 0; font-size: 12px; font-weight: 800; line-height: 18px; }
+      .history { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
+      .history span { background: #111a2e; padding: 4px 8px; border-radius: 6px; font-weight: 800; font-size: 14px; }
+      .counter { margin-top: 8px; font-size: 13px; font-weight: 800; color: #ffb020; }
+      .overlay button + button { margin-left: 10px; }
+      .lb-panel { position: absolute; right: 20px; top: 20px; width: 340px; max-height: calc(100% - 40px); overflow-y: auto; background: #0d1426ee; border: 2px solid #334; border-radius: 12px; padding: 12px; text-align: left; font-size: 14px; }
+      .lb-panel h3 { margin: 0 0 8px; color: #f3c95c; font-family: Orbitron; font-size: 16px; }
+      .lb-panel input { width: 140px; margin-left: 6px; padding: 4px 6px; border-radius: 6px; border: 1px solid #445; background: #111a2e; color: #fff; user-select: text; }
+      .lb-panel table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+      .lb-panel td { padding: 4px; border-bottom: 1px solid #223; }
+      .lb-panel tr.me td { color: #f3c95c; font-weight: 800; }
+      .shop-btn { position: absolute; right: 20px; bottom: 20px; z-index: 4; margin: 0; }
+      .shop { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 560px; max-height: 86vh; overflow-y: auto; z-index: 4; background: #0d1426f2; border: 2px solid #f3c95c; border-radius: 14px; padding: 14px; color: #eee; }
+      .shop-head { display: flex; align-items: center; gap: 12px; }
+      .shop-head h3 { margin: 0; font-family: Orbitron; color: #f3c95c; flex: 1; }
+      .shop-head span { font: 800 20px Orbitron; color: #ffd84d; }
+      .shop-head .shop-close { margin: 0; padding: 4px 12px; font-size: 16px; }
+      #shop-note { font-size: 13px; color: #9cf; margin: 6px 0 10px; }
+      .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .shop-grid button + button { margin-left: 0; }
+      .shop-item { margin: 0; padding: 8px; display: flex; flex-direction: column; align-items: center; gap: 3px; background: #1b2440; color: #eee; border: 2px solid #334; font: 600 12px Inter; }
+      .shop-item:hover { border-color: #f3c95c; }
+      .shop-item.disabled { opacity: .45; }
+      .shop-item.legendary { background: linear-gradient(145deg, #322744, #1b2440 70%); border-color: #c98cff; }
+      .shop-item.legendary:hover { border-color: #ffe087; box-shadow: 0 0 14px #c98cff66; }
+      .shop-subhead { grid-column: 1 / -1; padding: 4px 2px 2px; border-bottom: 1px solid #455; color: #9cf; font: 800 13px Orbitron; }
+      .si-icon { font-size: 28px; } .si-name { font-weight: 800; font-size: 14px; } .si-desc { color: #aab; min-height: 30px; } .si-recipe { color: #cfb6ff; font-size: 11px; } .si-cost { color: #ffd84d; font-weight: 800; }
+      .shop-inv-head { display: flex; justify-content: space-between; align-items: baseline; margin-top: 12px; color: #f3c95c; font-size: 13px; }
+      .shop-inv-head small { color: #aab; }
+      .shop-inv { display: flex; gap: 6px; margin-top: 6px; justify-content: center; }
+      .shop-slot { margin: 0; padding: 4px 2px; width: 74px; height: 58px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; background: #1b2440; color: #eee; border: 2px solid #445; border-radius: 8px; }
+      .shop-slot:hover:not(:disabled) { border-color: #f66; }
+      .shop-slot:disabled { opacity: .45; cursor: not-allowed; }
+      .shop-slot span { font-size: 23px; line-height: 27px; }
+      .shop-slot small { color: #ffd84d; font: 800 10px Inter; }
+      .shop-slot.empty { box-sizing: border-box; color: #556; font-size: 20px; }
+      .hidden { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <div id="game-container"></div>
+    <script type="module" src="./main.js"></script>
+    
+    
+    
+    
+  </body>
+</html>

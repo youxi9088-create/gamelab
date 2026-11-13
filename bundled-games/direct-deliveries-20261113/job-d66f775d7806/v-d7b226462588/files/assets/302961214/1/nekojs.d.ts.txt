@@ -1,0 +1,85 @@
+type InitParams = {
+    appId: string;
+    appVersion: string;
+    signatureMagic: string;
+    bugsnagKey: string;
+    skipStoreSDK?: boolean;
+};
+declare function init(params: InitParams): Promise<void>;
+/**
+ * Function notifies the SDK that the loading has been finished.
+ */
+declare function loadingFinished(): Promise<void>;
+/**
+ * Notifies the SDK gameplay has started/resumed.
+ */
+declare function gameplayStart(): Promise<void>;
+/**
+ * Notifies the SDK gameplay has stopped.
+ */
+declare function gameplayStop(): Promise<void>;
+/**
+ * Notifies the SDK there is an interstitial ad opportunity.
+ */
+declare function displayInterstitial(callback?: () => void): Promise<void>;
+/**
+ * Notifies the SDK a rewarded break should be displayed.
+ */
+declare function displayRewarded(callback?: () => void): Promise<boolean>;
+/**
+ * Synchronously sets user data to local storage or Cloud storage.
+ */
+declare function saveGameData<T>(value: T): void;
+/**
+ * Synchronously updates user data to local storage or Cloud storage.
+ */
+declare function updateGameData<T>(value: T): T;
+/**
+ * Synchronously retrieves user data from local storage or Cloud storage.
+ */
+declare function getGameData<T>(): T;
+/**
+ * Synchronously sets user data to local storage or Cloud storage.
+ */
+declare function saveData<T>(key: string, value: T): void;
+/**
+ * Synchronously updates user data to local storage.
+ */
+declare function updateData<T>(key: string, value: T): T;
+/**
+ * Synchronously retrieves user data from local storage.
+ */
+declare function getData<T>(key: string): T;
+/**
+ * Returns a store-specific shareable URL.
+ */
+declare function getShareableURL(params: unknown): Promise<string>;
+/**
+ * Performs platform login.
+ */
+declare function login(): Promise<boolean>;
+/**
+ * Returns logged-in platform user
+ */
+declare function getUser(): Promise<{
+    username: string;
+    avatarUrl: string;
+}>;
+/**
+ * Returns a specific URL param.
+ */
+declare function getUrlParam(param: string): Promise<string>;
+/**
+ * Returns device info.
+ */
+declare function getDeviceInfo(): Promise<{
+    category: string;
+}>;
+/**
+ * Moves the store pill.
+ */
+declare function movePill(x: number, y: number): Promise<void>;
+declare function getLeaderboardData(gameMode: string, leaderBoardTypeKey: string, limit: number): Promise<unknown>;
+declare function submitLeaderboardData(gameMode: string, leaderBoardTypeKey: string, scoreData: object, playerName: string): Promise<unknown>;
+declare function reportGameEvent(gid: string, eid: string, data?: object): Promise<unknown>;
+export { init, loadingFinished, gameplayStart, gameplayStop, displayInterstitial, displayRewarded, saveData, getData, updateData, getShareableURL, getUrlParam, login, getUser, getDeviceInfo, movePill, saveGameData, updateGameData, getGameData, getLeaderboardData, submitLeaderboardData, reportGameEvent };

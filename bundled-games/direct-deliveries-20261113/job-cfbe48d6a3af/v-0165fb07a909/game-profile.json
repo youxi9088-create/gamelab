@@ -1,0 +1,38 @@
+{
+  "category": "3D单人对四AI破坏竞技",
+  "dimension": "3D",
+  "perspective": "未验证",
+  "core_gameplay": "Original5issues/dragon/fire/destruction/growth/score/ranking/starunlock; actualfirstissue fifth205,no clear.",
+  "core_experience": "未验证",
+  "controls": "WASDmove,Spacefire,Qspin,Estomp,Ffly notverified; pause/retry/menu",
+  "game_loop": "未验证",
+  "content": "未验证",
+  "progression": "未验证",
+  "save": "Originaltinyterror_v1 shape personalstorage;actualBest205/zeroStars/MusicOffreloadverified.",
+  "rules": "未验证",
+  "systems": "未验证",
+  "ui_flow": "未验证",
+  "level_design": "未验证",
+  "verification": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+  "evidence": "源码：index.html（模型加载与菜单逻辑）；实机：verification/e011bdb1-093f-4b1e-a682-3401ccfe1a3a-web-play.json；当前截图显示Could not load the dragon。",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/startup.png",
+      "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+    },
+    {
+      "path": "screenshots/current.png",
+      "caption": "本轮最终观察画面；仅证明已记录画面，验证范围见正文。"
+    }
+  ]
+}

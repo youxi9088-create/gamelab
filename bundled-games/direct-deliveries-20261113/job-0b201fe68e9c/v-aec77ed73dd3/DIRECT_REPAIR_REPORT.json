@@ -1,0 +1,545 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "click",
+        "selector": "native canvas career / front office / roster",
+        "result": "Created Washington career, QB profile, training upgrade -2 credits."
+      },
+      {
+        "type": "drag",
+        "selector": "native tutorial QB",
+        "result": "First passing tutorial Excellent; remaining tutorial exited with native Esc, not fully passed."
+      },
+      {
+        "type": "click",
+        "selector": "native football field",
+        "result": "Manual runs/touchdowns/two-point conversion/field-goal attempts/punt through first3 quarters; original SIM enabled during third-quarter commentary and fourth-quarter SkipTime; actual final27:0."
+      },
+      {
+        "type": "click",
+        "selector": "native postmatch interview",
+        "result": "Quarter table8/6/6/7; playerXP and stats; original interview -1 credit; balance2."
+      },
+      {
+        "type": "reload",
+        "selector": "page",
+        "result": "SameY1W18/W27-0/3W14L/2credits/34%fans/74%morale; training2 restored."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8922/",
+      "http://127.0.0.1:8922/html5game/splash.png",
+      "http://127.0.0.1:8922/html5game/RetroBowl.js",
+      "http://127.0.0.1:8922/native-loader.js",
+      "http://127.0.0.1:8922/html5game/RetroBowl_texture_0.png",
+      "http://127.0.0.1:8922/html5game/RetroBowl_texture_1.png",
+      "http://127.0.0.1:8922/html5game/RetroBowl_texture_2.png",
+      "http://127.0.0.1:8922/html5game/RetroBowl_texture_3.png",
+      "http://127.0.0.1:8922/html5game/snd_audible.ogg",
+      "http://127.0.0.1:8922/html5game/snd_audience_dis.ogg",
+      "http://127.0.0.1:8922/html5game/snd_audience_fg.ogg",
+      "http://127.0.0.1:8922/html5game/snd_audience_idle.ogg",
+      "http://127.0.0.1:8922/html5game/snd_beep.ogg",
+      "http://127.0.0.1:8922/html5game/snd_beep2.ogg",
+      "http://127.0.0.1:8922/html5game/snd_bounce.ogg",
+      "http://127.0.0.1:8922/html5game/snd_click.ogg",
+      "http://127.0.0.1:8922/html5game/snd_co_brass1.ogg",
+      "http://127.0.0.1:8922/html5game/snd_co_brass2.ogg",
+      "http://127.0.0.1:8922/html5game/snd_co_brass3.ogg",
+      "http://127.0.0.1:8922/html5game/snd_co_brass4.ogg",
+      "http://127.0.0.1:8922/html5game/snd_drink.ogg",
+      "http://127.0.0.1:8922/html5game/snd_error.ogg",
+      "http://127.0.0.1:8922/html5game/snd_kick.ogg",
+      "http://127.0.0.1:8922/html5game/snd_oof1.ogg",
+      "http://127.0.0.1:8922/html5game/snd_oof2.ogg",
+      "http://127.0.0.1:8922/html5game/snd_oof3.ogg",
+      "http://127.0.0.1:8922/html5game/snd_post.ogg",
+      "http://127.0.0.1:8922/html5game/snd_purchase.ogg",
+      "http://127.0.0.1:8922/html5game/snd_starrating.ogg",
+      "http://127.0.0.1:8922/html5game/snd_success.ogg",
+      "http://127.0.0.1:8922/html5game/snd_tackle.ogg",
+      "http://127.0.0.1:8922/html5game/snd_throw.ogg",
+      "http://127.0.0.1:8922/html5game/snd_timeout.ogg",
+      "http://127.0.0.1:8922/html5game/LanguageUS.txt",
+      "http://127.0.0.1:8922/html5game/LanguageUS_FR.txt",
+      "http://127.0.0.1:8922/html5game/Achievements.txt",
+      "http://127.0.0.1:8922/html5game/PlayerRecords.txt",
+      "http://127.0.0.1:8922/html5game/Shopping.txt",
+      "http://127.0.0.1:8922/html5game/LanguageUS.txt",
+      "http://127.0.0.1:8922/html5game/LanguageUS_FR.txt",
+      "http://127.0.0.1:8922/html5game/uniforms_default.txt",
+      "http://127.0.0.1:8922/html5game/uniforms_default.txt"
+    ],
+    "scope": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+    "network_scope": "Full observed reload and restored management UI window. Earlier full match capture expired and is explicitly incomplete.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+      "evidence": [
+        "html5game/RetroBowl.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+      "evidence": [
+        "html5game/RetroBowl.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+      "evidence": [
+        "html5game/RetroBowl.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+      "evidence": [
+        "html5game/RetroBowl.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+      "evidence": [
+        "screenshots/revision-quarter-results.jpg",
+        "screenshots/revision-reload-restored.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+      "evidence": [
+        "screenshots/revision-quarter-results.jpg",
+        "screenshots/revision-reload-restored.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+      "evidence": [
+        "screenshots/revision-quarter-results.jpg",
+        "screenshots/revision-reload-restored.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+      "evidence": [
+        "screenshots/revision-quarter-results.jpg",
+        "screenshots/revision-reload-restored.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+      "evidence": [
+        "screenshots/revision-quarter-results.jpg",
+        "screenshots/revision-reload-restored.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+      "evidence": [
+        "screenshots/revision-quarter-results.jpg",
+        "screenshots/revision-reload-restored.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+      "evidence": [
+        "screenshots/revision-quarter-results.jpg",
+        "screenshots/revision-reload-restored.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "click",
+      "selector": "native canvas career / front office / roster",
+      "result": "Created Washington career, QB profile, training upgrade -2 credits."
+    },
+    {
+      "type": "drag",
+      "selector": "native tutorial QB",
+      "result": "First passing tutorial Excellent; remaining tutorial exited with native Esc, not fully passed."
+    },
+    {
+      "type": "click",
+      "selector": "native football field",
+      "result": "Manual runs/touchdowns/two-point conversion/field-goal attempts/punt through first3 quarters; original SIM enabled during third-quarter commentary and fourth-quarter SkipTime; actual final27:0."
+    },
+    {
+      "type": "click",
+      "selector": "native postmatch interview",
+      "result": "Quarter table8/6/6/7; playerXP and stats; original interview -1 credit; balance2."
+    },
+    {
+      "type": "reload",
+      "selector": "page",
+      "result": "SameY1W18/W27-0/3W14L/2credits/34%fans/74%morale; training2 restored."
+    }
+  ],
+  "scope": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      }
+    ],
+    "scope": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。"
+  },
+  "dependency_review": {
+    "previous_revision": 2,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "离线启动通过；广告过滤及被拒绝请求见 runtime_smoke，存档及结算尚未验证",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证保存恢复和阶段结果"
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 2,
+      "updated_at": "2026-11-04T11:46:26+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。"
+    },
+    "basis": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。"
+  },
+  "base_version_id": "v-e874bd51599f",
+  "manual_execution": {
+    "executor": "Codex direct repair / actual UI",
+    "automated_model_conversion": false,
+    "original_job": "job-0b201fe68e9c",
+    "at": "2026-11-12T16:06:23.546520+00:00"
+  },
+  "game_profile": {
+    "category": "体育 / 模拟",
+    "dimension": "2D",
+    "perspective": "横向球场侧俯视像素画面；顶部队伍得分、节次/倒计时、档位码数；场内路线、球员圈和成就反馈。管理界面为阵容/设施卡与赛程、战绩、士气栏。",
+    "core_gameplay": "查看档位/路线→跑球或拖拽传球→原碰撞/接球/擒抱判定→码数与档位更新→达到首攻继续，或达阵/射门/失误/弃踢交换球权→四节结算。",
+    "core_experience": "",
+    "controls": "界面点击按钮/球员卡；场上点击蓝圈跑卫交接跑球，拖拽四分卫瞄准传球并松开出手；跑球中可滑动控制。第四档选择继续进攻、弃踢或射门；射门按原力量条和方向流程。达阵后选择1分或2分。防守解说阶段可点击Activate SIM，经原确认后进入原生模拟，并可Skip Time。Esc可退出教程。实测桌面鼠标，真实触控未测。",
+    "game_loop": "启动读取个人生涯→查看球队与赛程→阵容/设施管理→比赛入口→四节进攻与原生防守模拟→比赛结果/战绩→采访/球员统计→下一周与赛季。新生涯含教学，本轮只完成第一传球阶段，随后原Esc退出。",
+    "content": "原32支职业球队及原赛程、名字、成就、编辑/记录模板和全部JSON_game游戏对象保留。学院版共享代码仍在，但该发布版s_is_co_mode原本固定0，6个学院专用静态资源原站404，不宣称可玩学院版。",
+    "progression": "比赛与赛后流程改变信用、球迷、士气、球员XP/体能及战绩；信用可升级训练、康复、球场或用于原阵容/职员功能。原季后赛和赛季数据保留，本轮未完成整个赛季循环。",
+    "save": "原GameMaker个人文件IO使用localStorage原键空间及INI/JSON格式；没有改成新存档系统。本轮刷新恢复Y1第18周W27-0、华盛顿3胜14负、信用2、球迷34%、士气74%和训练设施2格。未证明比赛局中断点、清数据后恢复或跨设备同步。",
+    "rules": "常规比赛四节，达阵6分，之后选择1分踢球或2分进攻；四档内争取首攻，第四档按位置提供继续、弃踢或射门。场上得分、失误和超时按原引擎判断，不注入分数。SIM启用及SkipTime使用原逻辑，结果如实标记模拟参与。",
+    "systems": "进攻输入、路线与碰撞、原防守模拟、原SIM、比分/档位/计时、赛程/战绩、阵容/体能/XP、球迷/士气、信用/设施、赛后采访与个人生涯存储。",
+    "ui_flow": "载入→生涯/球队主页→Front Office/Roster/比赛→球场与分支选择→Game Over→Result分节表→采访→End of Week球员统计→新闻→球队主页。",
+    "level_design": "以赛季周次和对手组织比赛，球场码线/红区/球权与进攻路线构成单场空间挑战。不是固定数量独立谜题关卡。实测Y1第18周，其他周次、难度和球队未逐一试玩。",
+    "verification": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+    "evidence": "html5game/RetroBowl.js及原JSON_game；evidence/direct-repair/source-preservation.json原生函数/数据SHA；resource-recovery/resource-http-verified/edition-resource-exclusions记录原资源和404边界；network-final是刷新/管理窗口，network-match-window记录整场游标过期。真实分节表、赛后统计和刷新截图。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "原生GameMaker HTML5运行时，游戏版本1.6.8.0。",
+    "programming_language": "GameMaker编译JavaScript、HTML；TXT/JSON数据。可编辑发布源码已取得，原作者GameMaker工程未取得。",
+    "game_summary": "在复古像素橄榄球比赛中控制进攻，同时管理球队阵容、设施和赛季生涯。",
+    "resource_types": "4张原PNG纹理页含角色、场景、UI与动画帧；27个原OGG音乐/音效；原TXT语言、球队、赛程、人名、成就与记录模板；GameMaker JSON_game内嵌对象/精灵/房间/脚本数据。",
+    "engine_asset_system": "原JSON_game纹理与声音声明、GameMaker房间和精灵系统；html5game下原数据路径与WebAudio worklet。发布采用OGG能力分支。59份精确恢复含2份仅审计旧平台扩展，交付不执行旧扩展。",
+    "core_challenge_details": "在防守压力和有限档数内选择跑球或传球，推进足够码数延续进攻并争取得分；根据阵容、体能和经济资源维持赛季表现。",
+    "core_challenge_type": "操作执行 / 策略规划",
+    "input_elements": "点击、持续指针按压、拖拽瞄准/释放；原生确认和取消；赛后采访二选一。",
+    "app_suitability": "",
+    "core_loop": "选择进攻→执行输入→码数/得分反馈→判断下一档→继续进攻或交换球权。",
+    "churn_risk": "",
+    "progression_loop": "参与比赛→得分/结果及XP/信用等结算→管理球员/设施→再进入赛程。统计和结算数值沿用原规则，未免费升级或补发原广告奖励。",
+    "core_closure": "目标：短期推进本档码数、获得首攻或达阵；中期完成比赛争取胜利；长期沿赛程管理球队。规则：原档位、码数、接球/碰撞、失误、计时与加分规则决定球权和比分，防守由原程序处理，SIM由玩家主动确认。反馈：路线/圈选、跑动/擒抱动画、比分和倒计时、档位码数、成就、赛后分节表/战绩/球迷及球员XP。激励：真实赛后原信用和XP、战绩变化；设施升级消耗信用并保留。下一目标：赛后采访、查看球员统计，回球队界面继续下一周。实测27:0和保存闭环；未证明所有赛季/难度或所有奖励分支。音频文件存在并加载，无听觉结论。",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "本轮默认每节2分钟，4节；实际分节得分8/6/6/7，总分27:0；第18周结束华盛顿3胜14负。原Teams.txt为标题+32队，不当作33关。训练设施升级确认消耗2信用、从1格到2格；赛后采访承担责任扣1信用，最终2。球迷34%、士气74%为本次存档实测值，不是固定初始值。",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "复古像素美式橄榄球，原球队名称、球员卡、看台、裁判、球场码线、新闻和采访。保留原资源和英文文本，没有中文翻译或替代美术。",
+    "theme_position": "职业橄榄球教练与球队管理。",
+    "economy": "原信用由比赛/成就等原结算产生，升级设施、职员/阵容相关入口按原数据消耗。本轮训练升级-2、采访承担责任-1，最终余额2；具体赛后多个奖励来源未拆账，不臆造统一每胜奖励。球迷、士气、体能与XP按原系统更新。广告CoinBoost退役，不免费补发。",
+    "roles": "原职业球队、场上攻防单位、教练/协调员。实际阵容5/10：QB K.Calais、RB D.Heck、WR E.Bannen、DL K.Glenn、K T.Holtz；球员卡含原技能/体能/士气/评级/经验，数值与生成未改。不是只有5名可用角色。",
+    "roster_summary": "",
+    "monetization_details": "当前交付退役Poki/CrazyGames宿主、网络广告/推广链接。原可选广告CoinBoost不再发起也不自动奖励；原浏览器版内购开关保留原值。原生SIM不依赖广告并保留确认、开关与SkipTime。没有新增真实支付或供货。",
+    "monetization": "当前独立交付不请求真实广告或支付；保留原信用经济。",
+    "illustrations": [
+      {
+        "path": "screenshots/revision-quarter-results.jpg",
+        "caption": "真实正式比赛分节8/6/6/7，总分27:0；前三节手动操作，第三节防守启用SIM，第四节原生模拟。"
+      },
+      {
+        "path": "screenshots/revision-week-stats.jpg",
+        "caption": "原赛后球员统计、XP/体能和Difficulty SIM1标记；余额2。"
+      },
+      {
+        "path": "screenshots/revision-reload-restored.jpg",
+        "caption": "刷新恢复原职业生涯：Y1第18周W27-0、3胜14负、信用2和球迷34%。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "GameMaker compiled JavaScript/HTML, native-loader.js and original TXT/JSON/assets. Originalauthorprojectnotrecovered.",
+    "reuse": "Nativefootball/management systems remain enginecoupled; no independentcomponentcertification.",
+    "dependencies": "LocalCanvas/WebGL/WebAudio/localStorage. ServeoverHTTP.",
+    "preservation": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 5530.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 5443.548,
+      "calls": 43,
+      "known_input_tokens": 1223939,
+      "known_output_tokens": 174851,
+      "cached_input_tokens_known": 402944,
+      "unknown_usage_calls": 7,
+      "known_estimated_cost_subtotals": {
+        "CNY": 34.710888
+      },
+      "unknown_cost_calls": 7,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 2,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 2,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 2,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 41,
+          "input_tokens_known": 1223939,
+          "output_tokens_known": 174851,
+          "unknown_usage_calls": 5,
+          "known_cost_subtotals": {
+            "CNY": 34.710888
+          },
+          "unknown_cost_calls": 5,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T03:05:12.090737+00:00",
+      "observed_until": "2026-11-12T16:07:24.834882+00:00",
+      "observed_wall_seconds": 46932.744145,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "warnings": [],
+  "missing": [],
+  "required_external": [],
+  "non_game_http_findings": [],
+  "non_game_http_resolution": "",
+  "actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8974/index.html",
+      "result": "Originalmenu andcitybackground."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "#game canvas",
+      "coordinate": [
+        1061,
+        362
+      ],
+      "result": "OriginalSTART transition toready."
+    },
+    {
+      "step": 3,
+      "type": "drag",
+      "selector": "#game canvas",
+      "from": [
+        490,
+        554
+      ],
+      "to": [
+        800,
+        554
+      ],
+      "result": "Native rotation/autojump31points3m; passive naturalRunOver59points5m/NewBest,0crystals."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "selector": "#game canvas",
+      "coordinate": [
+        546,
+        587
+      ],
+      "result": "OriginalTRYAGAIN returnsready scene."
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "http://127.0.0.1:8974/index.html",
+      "result": "Originalmenu restored; savedbest itself notverified afterreload."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed",
+      "scope": "Menu only; savedbest persistence notverified."
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8974/index.html",
+    "http://127.0.0.1:8974/main.js",
+    "http://127.0.0.1:8974/local-run-session.js",
+    "http://127.0.0.1:8974/assets/cylinder-jumper-zone-01-city-oEo1en11iQ-9A9OJqkdQ2uyFTwMkKSBGPCo9DIH9x.webp",
+    "http://127.0.0.1:8974/assets/cylinder-jumper-loop-f97jV6Y7bz-zYuzYSgRoLkLYzUUoTFeWPD8Bbuw7c.mp3",
+    "http://127.0.0.1:8974/index.html",
+    "http://127.0.0.1:8974/main.js",
+    "http://127.0.0.1:8974/local-run-session.js",
+    "http://127.0.0.1:8974/assets/cylinder-jumper-zone-01-city-oEo1en11iQ-9A9OJqkdQ2uyFTwMkKSBGPCo9DIH9x.webp"
+  ],
+  "scope": "严格5步：原菜单启动；点击原START，经过原过渡进入准备；一次连续横向拖拽490,554→800,554实际旋转并开跳，原HUD出现31分/3m；之后仅观察原自动跳跃自然RUN OVER，实际59分/5m、NEW BEST+59，晶体RUN+0/BAL0和每日0/2；第4步原TRY AGAIN进入原准备场景；第5步刷新回原菜单。保留原153个类、1978个方法、848个函数声明语义及原自动跳跃/塔生成/碰撞/高度分/晶体/每日目标/外观价格；P_体验构造器仅移除测试bridge instanceof和真实联机协调器创建，其他原方法不改。原测试购买桥R1、联机I1和实际SDK I_提供者移除，真正内部LocalRunSession保存原saveData，不注册全局SDK、账号、假购买或解锁；付费外观/续命不可用，原晶体购买规则保持。原4背景和音乐5项通过现有Windows用户代理精确HTTPS200/SHA补齐，未替换素材/未重发采集；运行时按原区域懒加载。18完整事件含首次及刷新，无外联/HTTP失败/异常/console警告。原最高分59结算已实测；刷新只证菜单恢复，存档读取诊断不受工具支持且未换通道，最高分刷新持久化不称通过。未验证其他区域、道具/晶体消费、付费/联机、长局高层、音量/暂停或移动触控。原任务正常入库待验收，不批准不供货。",
+  "network_scope": "Full first startup through START/one continuous drag/native automatic run-over59points5m/TRYAGAIN/fifthaction reloadmenu. Other3zone images lazy and notrequested inthis5m run; all4backgrounds andmusic independentlyGET/SHAchecked.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

@@ -1,0 +1,5 @@
+# The Spear Stickman
+
+Desktop IAB1280x720. Final source actual headshot kill then native defeat: score1/best1, headshot1/arrows1/100%,4coins. Replay starts score0 retaining4coins, pause/resume/back and insufficient-coins shop observed; reload menu restores best1/coins4. Earlier two rounds defeated score0. This is original endless combat, no campaign victory claimed. All enemy variants, high score difficulty, affordable helmet purchases, mobile touch and audible sound not exhausted. Complete non-truncated final network covers full path.
+
+{'editable_source': 'Readable c2runtime.js Construct2 engine and structured data.js original event sheets/layout/object rules.', 'reuse': 'Event-sheet combat/save and physics require extraction with Construct2 compatibility; not separately certified reusable modules.', 'dependencies': 'Local Construct2, jQuery, original sprites/media and localForage save; no host/backend.', 'preservation': 'Exact original engine SHA and11unchanged event sheets; original project objects/layouts/physics/scoring/save retained. No health/difficulty/score changes.'}

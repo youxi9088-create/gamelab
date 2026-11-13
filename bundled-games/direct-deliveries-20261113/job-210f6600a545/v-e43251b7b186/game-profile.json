@@ -1,0 +1,34 @@
+{
+  "category": "3D · 天空滚珠闯关",
+  "dimension": "3D",
+  "perspective": "Third-person original trailing camera, actuallevel1UI observed.",
+  "core_gameplay": "Original drag ball physics/ramp/obstacles/30levelgeneration and timer/star rules retained. Actuallevel1fall/Retry only; no winclaim.",
+  "core_experience": "单手拖拽即可转向的轻度反应类游戏；强调节奏判断、连续躲避与长距离冲刺的爽快感。",
+  "controls": "Original mouse/touchdrag, menu-free-skinselection, nativepause/menuconfirm; localfailureRetry/MainMenu tested.",
+  "game_loop": "Actual free skin→PLAY→Level1drag/ramp/poles→nativefallGAMEOVER→localRetry/Menu→confirm/reload. Nativewin branch wired to localstars/Next onlyisolatedhelpertested, no actualvictory claim.",
+  "content": "固定内容：标题文字、主菜单按钮、模式标签“CLASSIC”、加载提示与玩法提示文案；程序生成：赛道、障碍物与检查点排布方式未在提供的证据中确认，仅能根据类型推测为程序化生成。",
+  "progression": "目前仅观察到模式选择（CLASSIC）；是否有新赛道/角色/难度解锁、距离奖励、成就系统、等级提升等均未验证，未在本地存储中发现进度条目。",
+  "save": "Local earnedlevel/beststars via actualnativefinish,5isolatedhelper checks only. No actualwin/nextlevel/persistedstars UI proof; no midrun save.",
+  "rules": "目标：在赛道上尽可能前进，躲避障碍物并通过检查点。\n成功条件：到达检查点或刷新最远距离（具体阈值未确认）。\n失败条件：撞上障碍物或掉落赛道（触发条件未验证）。\n计分公式：未确认；可能基于距离、通过检查点数量、存活时间等，但无源码级证据。\n已查证阈值：无。",
+  "systems": "1. 玩家对象：可横向移动的角色，受拖拽输入控制；状态包括待机、滚动/前进、死亡等，状态切换未验证。\n2. 赛道系统：3D 天空轨道，持续向前延伸；生成与回收逻辑未确认。\n3. 障碍物系统：分布在赛道上的碰撞体，接触后可能导致失败；类型与碰撞盒未验证。\n4. 检查点系统：玩家通过时记录进度或加分；触发条件与效果未验证。\n5. 相机系统：第三人称尾随，保持玩家在画面中心；相机参数未确认。\n6. 物理/碰撞系统：基于 three.js 或 Cocos 内置碰撞，具体实现未在反编译输出中展示。\n7. UI 系统：主菜单、加载提示、HUD（未观察到）。\n8. 存储系统：本地匿名存储，当前无数据写入。",
+  "ui_flow": "启动页/主菜单：显示“SKYROLL APEX”、模式轮播“CLASSIC”、左右切换按钮 ❮ ❯、play-btn（当前文本“LOADING...”），以及玩法提示“DRAG TO STEER / DODGE OBSTACLES / REACH CHECKPOINTS”。\n按钮转移：❮/❯ 用于切换模式；play-btn 用于进入游戏，但因处于 LOADING 状态，点击后的界面转移未经验证。\n游戏中 HUD：未观察到。\n结束/结算界面：未观察到。",
+  "level_design": "天空悬浮赛道，玩家沿固定或半随机生成的轨道前进；障碍物与检查点沿赛道分布，视觉主题可能为高空/云端。具体轨道宽度、段长、障碍密度、检查点间隔均未确认。",
+  "verification": "Desktop1280x720. Native two originalfree skins CLASSIC/CLASSIC2 selection/wrap; PLAY no SDK wait, original level1/three-cannon physics/drag steering/ramp/poles/fall. Actual pause/resume, native fall/time-limited GAMEOVER localresult, retry and secondloss; resultMainMenu plus native confirmcancel/confirm return, reload fresh CLASSIC/PLAY/level1. No native victory/checkpoint/nextlevel/stars/progression UI proof. Added local result Next and earned localprogress are only bound to originaltrue finish branch;5isolated helper checks prove no loss reward, real-won input savesbeststars/adjacentnext/cap30/corruptfallback; these are NOT actual game victory evidence. 27originalnativefunctions canonicalSHA unchanged; removeSDK init/cloudscore/paid19-skin entries (retain2free, no grants), do not changephysics/30levelgeneration/timing/star thresholds. Otherlevels/wins/checkpoints/mobile/audio hearing unverified. Complete15networkrequests no external/missing/failure/exception/truncation.",
+  "evidence": "evidence/direct-repair/network-final.json; native-loss-result.png; paused.png; reload-intro.png; source-preservation.json; result-helper-contract.json",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/startup.png",
+      "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+    }
+  ]
+}

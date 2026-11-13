@@ -1,0 +1,606 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "warnings": [],
+    "missing": [],
+    "required_external": [],
+    "non_game_http_findings": [],
+    "non_game_http_resolution": "",
+    "actions": [
+      {
+        "step": 1,
+        "type": "navigate",
+        "selector": "http://127.0.0.1:8965/index.html",
+        "status": "failed",
+        "result": "Original host-list loop; initial window unavailable after toolkernelreset; no gameplay."
+      },
+      {
+        "step": 2,
+        "type": "navigate",
+        "selector": "http://localhost:8965/index.html",
+        "result": "Original allowedlocalhost title/menu,104eventwindowcomplete."
+      },
+      {
+        "step": 3,
+        "type": "click",
+        "coordinate": [
+          651,
+          555
+        ],
+        "result": "Play→original52-carddeal,13each.",
+        "selector": "#canvas"
+      },
+      {
+        "step": 4,
+        "type": "click",
+        "coordinate": [
+          644,
+          431
+        ],
+        "result": "OriginalBlindNil, nativeCPUbids and13visiblehand.",
+        "selector": "#canvas"
+      },
+      {
+        "step": 5,
+        "type": "click",
+        "coordinate": [
+          343,
+          571
+        ],
+        "result": "Diamond3played; nativeCPUcompletedtrick Kelly1/2, nextheart4lead;12playercards.",
+        "selector": "#canvas"
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed",
+        "scope": "Originalallowedlocalhost secondaction; initial127failed counted."
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "not_run",
+        "reason": "Exactly5totalactions including initialfailure; finalexacthostallowlist extension not reloaded."
+      }
+    ],
+    "network_requests": [
+      "http://localhost:8965/index.html",
+      "http://localhost:8965/game.css",
+      "http://localhost:8965/game.js",
+      "http://localhost:8965/media/graphics/orientate/landscape.jpg",
+      "http://localhost:8965/media/graphics/loading/ajax-loader.gif",
+      "http://localhost:8965/media/audio/opening/kittyopening.ogg",
+      "http://localhost:8965/media/audio/play/static.ogg",
+      "http://localhost:8965/media/audio/opening/opening.ogg",
+      "http://localhost:8965/media/audio/click.ogg",
+      "http://localhost:8965/media/audio/click2.ogg",
+      "http://localhost:8965/media/audio/cardplay1.ogg",
+      "http://localhost:8965/media/audio/cardplay2.ogg",
+      "http://localhost:8965/media/audio/cardplay3.ogg",
+      "http://localhost:8965/media/audio/cardplay4.ogg",
+      "http://localhost:8965/media/audio/cardshove.ogg",
+      "http://localhost:8965/media/audio/breaking.ogg",
+      "http://localhost:8965/media/audio/win.ogg",
+      "http://localhost:8965/media/audio/lose.ogg",
+      "http://localhost:8965/media/graphics/splash/desktop/cover.jpg",
+      "http://localhost:8965/media/graphics/splash/mobile/cover.jpg",
+      "http://localhost:8965/media/graphics/splash/loading-bar-empty.png",
+      "http://localhost:8965/media/graphics/splash/loading-bar-full.png",
+      "http://localhost:8965/branding/splash1.png",
+      "http://localhost:8965/branding/logo.png",
+      "http://localhost:8965/media/graphics/sprites/buttons/button-empty.png",
+      "http://localhost:8965/media/graphics/opening/shield.png",
+      "http://localhost:8965/media/graphics/opening/m_icon.png",
+      "http://localhost:8965/media/graphics/opening/title.png",
+      "http://localhost:8965/media/graphics/opening/kitty.png",
+      "http://localhost:8965/media/graphics/opening/kittytitle.png",
+      "http://localhost:8965/media/graphics/sprites/cards/spades.png",
+      "http://localhost:8965/media/graphics/sprites/cards/hearts.png",
+      "http://localhost:8965/media/graphics/sprites/cards/clubs.png",
+      "http://localhost:8965/media/graphics/sprites/cards/diamonds.png",
+      "http://localhost:8965/media/graphics/sprites/buttons/button-bid-number.png",
+      "http://localhost:8965/media/graphics/sprites/buttons/button-empty-black.png",
+      "http://localhost:8965/media/graphics/sprites/buttons/button-pause.png",
+      "http://localhost:8965/media/graphics/sprites/spade-icon.png",
+      "http://localhost:8965/media/graphics/sprites/card-black.png",
+      "http://localhost:8965/media/graphics/sprites/player.png",
+      "http://localhost:8965/media/graphics/sprites/board-score.png",
+      "http://localhost:8965/media/graphics/sprites/board-rules.png",
+      "http://localhost:8965/media/graphics/sprites/board-current-score.png",
+      "http://localhost:8965/media/graphics/sprites/board-message.png",
+      "http://localhost:8965/media/graphics/sprites/black-layer.png",
+      "http://localhost:8965/media/graphics/sprites/buttons/button-sound.png",
+      "http://localhost:8965/media/graphics/backgrounds/desktop/background.jpg",
+      "http://localhost:8965/media/graphics/backgrounds/mobile/background.jpg",
+      "http://localhost:8965/media/graphics/sprites/background/cover.png",
+      "http://localhost:8965/media/graphics/sprites/buttons/button-left.png",
+      "http://localhost:8965/media/graphics/sprites/background/background.png",
+      "http://localhost:8965/media/fonts/bpreplay.woff"
+    ],
+    "scope": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+    "network_scope": "Complete104events for successfullocalhost startup(secondUIaction) throughnativefirsttrick/nextlead. First127startup(action1) hung in original host-check and capture lost onkernelreset; not covered by thiswindow, not claimedpassed.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "game.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "game.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "game.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "game.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-04-blind-nil.jpg",
+        "screenshots/revision-05-play.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-04-blind-nil.jpg",
+        "screenshots/revision-05-play.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-04-blind-nil.jpg",
+        "screenshots/revision-05-play.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-04-blind-nil.jpg",
+        "screenshots/revision-05-play.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-04-blind-nil.jpg",
+        "screenshots/revision-05-play.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-04-blind-nil.jpg",
+        "screenshots/revision-05-play.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-04-blind-nil.jpg",
+        "screenshots/revision-05-play.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8965/index.html",
+      "status": "failed",
+      "result": "Original host-list loop; initial window unavailable after toolkernelreset; no gameplay."
+    },
+    {
+      "step": 2,
+      "type": "navigate",
+      "selector": "http://localhost:8965/index.html",
+      "result": "Original allowedlocalhost title/menu,104eventwindowcomplete."
+    },
+    {
+      "step": 3,
+      "type": "click",
+      "coordinate": [
+        651,
+        555
+      ],
+      "result": "Play→original52-carddeal,13each.",
+      "selector": "#canvas"
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "coordinate": [
+        644,
+        431
+      ],
+      "result": "OriginalBlindNil, nativeCPUbids and13visiblehand.",
+      "selector": "#canvas"
+    },
+    {
+      "step": 5,
+      "type": "click",
+      "coordinate": [
+        343,
+        571
+      ],
+      "result": "Diamond3played; nativeCPUcompletedtrick Kelly1/2, nextheart4lead;12playercards.",
+      "selector": "#canvas"
+    }
+  ],
+  "scope": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "网页游戏入口",
+        "kind": "code",
+        "status": "verified",
+        "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "网页游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "网页宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      }
+    ],
+    "scope": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。"
+  },
+  "dependency_review": {
+    "previous_revision": 1,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "网页游戏入口",
+          "kind": "code",
+          "status": "unknown",
+          "reason": "已保留页面、脚本和 iframe 线索",
+          "evidence": "D:\\GameLab\\app\\executors\\runs\\11de35cc-c464-41b1-8514-2553cf8e89aa\\acquisition\\collected.json",
+          "next_action": "解析实际运行入口并确认游戏代码"
+        },
+        {
+          "id": "web-assets",
+          "name": "网页游戏资源",
+          "kind": "resources",
+          "status": "unknown",
+          "reason": "尚未确认完整游戏资源包",
+          "evidence": "D:\\GameLab\\app\\executors\\runs\\11de35cc-c464-41b1-8514-2553cf8e89aa\\acquisition\\collected.json",
+          "next_action": "采集入口资源并核对引用闭合"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "unknown",
+          "reason": "尚未确认配置与运行代码对应关系",
+          "evidence": "D:\\GameLab\\app\\executors\\runs\\11de35cc-c464-41b1-8514-2553cf8e89aa\\acquisition\\collected.json",
+          "next_action": "从实际游戏运行包识别配置"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "尚未验证账号、存档与结算依赖",
+          "evidence": "D:\\GameLab\\app\\executors\\runs\\11de35cc-c464-41b1-8514-2553cf8e89aa\\acquisition\\collected.json",
+          "next_action": "分析实际运行请求及离线替代边界"
+        },
+        {
+          "id": "web-host",
+          "name": "网页宿主接口",
+          "kind": "platform",
+          "status": "unknown",
+          "reason": "未登记此来源的可验证适配方案",
+          "evidence": "D:\\GameLab\\app\\executors\\runs\\11de35cc-c464-41b1-8514-2553cf8e89aa\\acquisition\\collected.json",
+          "next_action": "实现宿主适配并运行玩法验证"
+        }
+      ],
+      "scope": "网页来源采集；网站脚本不视为游戏运行包，未验证资源与玩法不标记完成。",
+      "revision": 1,
+      "updated_at": "2026-10-30T12:57:24+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "网页游戏入口",
+          "kind": "code",
+          "status": "verified",
+          "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "网页游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "网页宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。"
+    },
+    "basis": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。"
+  },
+  "base_version_id": null,
+  "manual_execution": {
+    "executor": "Codex direct repair / actual UI",
+    "automated_model_conversion": false,
+    "original_job": "job-3c1c2b9ee4ee",
+    "max_gameplay_steps": 5,
+    "at": "2026-11-12T23:17:21.363778+00:00"
+  },
+  "game_profile": {
+    "category": "纸牌 / 黑桃搭档吃墩",
+    "dimension": "2D",
+    "perspective": "俯视四人牌桌，玩家手牌在下，三名CPU在上/左/右；各自Tricks与双方CurrentScore。",
+    "core_gameplay": "原洗牌发给四家→叫牌或BlindNil→按领出花色合法出牌→CPU跟牌→比较花色/黑桃和点数决定墩归属→原下一墩与回合计分。",
+    "core_experience": "",
+    "controls": "本轮点击Play、BlindNil、方块3；原Bid数字、BlindNil、牌选择/出牌、Pause/Resume/Rules/Home/Sound按钮保留，其他本轮未测。",
+    "game_loop": "原菜单Play→13张发牌→原BlindNil→实际方块3出牌→三CPU完成一墩，Kelly1/2→原红桃4领出下一墩；本轮停止，不声称回合/整局完成。",
+    "content": "保留全部原桌面/移动布局、四花色牌、原CPU算法/叫牌和计分规则；本作按轮发牌，不捏造固定关卡数。",
+    "progression": "原回合合约、双方分数、累计袋数与重置分数；无新养成或解锁。",
+    "save": "原Impact/IO本地Storage与原分数/袋数存储调用保持；本轮未刷新，不宣称本轮存档恢复通过。",
+    "rules": "原四人搭档、52牌/每家13，跟花合法性、黑桃将牌/破门、原Bid/Nil/BlindNil与CPU算法、合约/袋数计分未改。",
+    "systems": "原牌组/洗牌/发牌、实体动画、叫牌、合法牌/领花/黑桃、AI选择、吃墩归属、队伍积分/袋数、存储、原菜单和音效模块；退役外部广告和埋点。",
+    "ui_flow": "原绿色标题牌桌→Play→发牌→Bid或BlindNil→当前玩家Turn提示/13手牌→单击方块3→CPU回合/Tricks→下一墩。无替代UI或占位牌。",
+    "level_design": "原随机洗牌与回合/吃墩进展，不是有限闯关地图。",
+    "verification": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+    "evidence": "原素材49项SHA、1471函数/77模块、五步台账、104成功窗口事件和3张实际牌桌截图；初始失败窗口缺失及最终宿主列表补丁未重载明示。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "原ImpactJS与Canvas2D，原Howler/Jukebox音频和jQuery宿主；CrazyGames/MJS外部提供者退役。",
+    "programming_language": "JavaScript、HTML/CSS",
+    "game_summary": "玩家与原CPU Laura搭档，对抗原CPU Mark和Kelly；原生叫牌、跟随领出花色及黑桃将牌规则，按每轮合约、吃墩和袋数结算。",
+    "resource_types": "原四套花色牌图、牌背、绿色牌桌/面板、角色头像、按钮、Spades标题、原woff字体与音效；49文件逐字节保持。",
+    "engine_asset_system": "原ImpactImage/Animation/Entity/Director和原SoundHandler音频加载，单机包同源HTTP资源。",
+    "core_challenge_details": "依据手牌和搭档合约选择叫牌，跟花、黑桃破门及将牌判断，在合约目标与超额袋数之间权衡；本轮选择原BlindNil，不修改手牌/随机/难度。",
+    "core_challenge_type": "规则判断 / 策略选择",
+    "input_elements": "原Canvas按钮与卡牌命中、鼠标/触摸输入模块。",
+    "app_suitability": "",
+    "core_loop": "看手牌/领出牌与合约→选合法牌→原AI跟牌与判定→Tricks和手牌反馈→下一墩。",
+    "churn_risk": "",
+    "progression_loop": "原合约/吃墩→结算总分/袋数→下一轮/对局结束；只作源码确认，未整局试玩。",
+    "core_closure": "本轮达到真实发牌→原BlindNil叫牌→玩家方块3合法出牌→CPU完成一墩→KellyTricks由0/2变1/2并再次领牌。不是完整对局通关证据。",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "原两队各2人、4花色/52张/每家13张；原累计10袋扣100分。实测玩家BlindNil显示0/0，Laura0/1、Mark0/3、Kelly第一墩后1/2；双方当前总分仍0，不把Tricks当积分。",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "原绿色牌桌、四花色扑克牌、原Laura/Mark/Kelly头像、黑金按钮及Spades标题；未替换原美术/UI。",
+    "theme_position": "单机搭档黑桃纸牌桌。",
+    "economy": "原合约积分/累计袋数，不是现金交易；不添加货币奖励或充值。",
+    "roles": "玩家You与原CPU Laura同队，Mark/Kelly另一队；本地角色身份和AI保持。",
+    "roster_summary": "",
+    "monetization_details": "原CrazyGames SDK/GA提供者与MJS广告模块实际移除，12宿主调用删除；无假广告成功。",
+    "monetization": "外部广告/SDK/埋点退役；未提供账号/支付或联机。",
+    "illustrations": [
+      {
+        "path": "screenshots/revision-02-startup.jpg",
+        "caption": "第二次启动成功的原Spades菜单，第一次失败不计通过。"
+      },
+      {
+        "path": "screenshots/revision-04-blind-nil.jpg",
+        "caption": "原BlindNil后，13张真实手牌与CPU合约显示。"
+      },
+      {
+        "path": "screenshots/revision-05-play.jpg",
+        "caption": "第五步方块3出牌后原CPU完成首墩，Kelly1/2及红桃4下一墩领牌。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "OriginalImpactJS source/modules;1471functionsemantics and77modules retained; exacthost-list extension separated.",
+    "reuse": "Card/AI/score modules require extraction/adaptation; no independentreusecertification.",
+    "dependencies": "LocalImpact/jQuery/Howler/Jukebox/Canvas/assets,HTTP required.",
+    "preservation": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 3094.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 963.796,
+      "calls": 14,
+      "known_input_tokens": 131795,
+      "known_output_tokens": 22938,
+      "cached_input_tokens_known": 58880,
+      "unknown_usage_calls": 7,
+      "known_estimated_cost_subtotals": {
+        "CNY": 3.86986
+      },
+      "unknown_cost_calls": 7,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 4,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 4,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 4,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:local-codex": {
+          "calls": 2,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 2,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 2,
+          "registered_price_bands": []
+        },
+        "api:kimi-k3": {
+          "calls": 8,
+          "input_tokens_known": 131795,
+          "output_tokens_known": 22938,
+          "unknown_usage_calls": 1,
+          "known_cost_subtotals": {
+            "CNY": 3.86986
+          },
+          "unknown_cost_calls": 1,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T22:57:30.864630+00:00",
+      "observed_until": "2026-11-12T23:17:41.034065+00:00",
+      "observed_wall_seconds": 1210.169435,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

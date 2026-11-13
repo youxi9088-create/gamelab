@@ -1,0 +1,45 @@
+{
+  "max_steps": 5,
+  "steps_used": 5,
+  "actual_steps": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Original loading and titlemenu."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "New Campaign",
+      "result": "Original CampaignSeed dialog."
+    },
+    {
+      "step": 3,
+      "type": "click",
+      "selector": "Random Galaxy",
+      "result": "Original generatedworld and house selection."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "selector": "Lead The Hyperspacing Guild",
+      "result": "Original initialYear3001/900Credits and tutorial."
+    },
+    {
+      "step": 5,
+      "type": "click",
+      "selector": "Skip tutorial",
+      "result": "Native tutorial dismissal to command UI; no sixthaction/reload/turn."
+    }
+  ],
+  "unverified": [
+    "current turn/battle/result",
+    "current save/reload",
+    "same-devicehotseat",
+    "scenarioeditor",
+    "touch",
+    "audiooutput"
+  ],
+  "stopped_at_limit": true
+}

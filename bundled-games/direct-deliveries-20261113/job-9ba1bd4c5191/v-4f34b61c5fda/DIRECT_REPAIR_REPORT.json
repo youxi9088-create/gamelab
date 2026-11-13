@@ -1,0 +1,554 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "warnings": [],
+    "missing": [],
+    "required_external": [],
+    "non_game_http_findings": [],
+    "non_game_http_resolution": "",
+    "actions": [
+      {
+        "step": 1,
+        "type": "navigate",
+        "selector": "index.html",
+        "result": "NativeLevel1FirstGearstartup."
+      },
+      {
+        "step": 2,
+        "type": "key",
+        "key": "Right",
+        "hold_ms": 2200,
+        "result": "Originalcarphysicsoverbridge."
+      },
+      {
+        "step": 3,
+        "type": "key",
+        "key": "Right",
+        "hold_ms": 1700,
+        "result": "Nativestart-tofinish/Goldtime0:03.36."
+      },
+      {
+        "step": 4,
+        "type": "click",
+        "selector": "#canvas",
+        "coordinate": [
+          638,
+          661
+        ],
+        "result": "ShortNextlevelclick no transition."
+      },
+      {
+        "step": 5,
+        "type": "click",
+        "selector": "#canvas",
+        "coordinate": [
+          638,
+          659
+        ],
+        "hold_ms": 150,
+        "result": "NativeNextleveltransition; newrightsidecarspawnandleftarrow."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "not_run",
+        "reason": "Exactly5UIactions, no currentreload."
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8966/index.html",
+      "http://127.0.0.1:8966/webapp/fancade.css",
+      "http://127.0.0.1:8966/webapp/cover.jpg",
+      "http://127.0.0.1:8966/webapp/source_min.js",
+      "http://127.0.0.1:8966/webapp/index.js",
+      "http://127.0.0.1:8966/webapp/index.data",
+      "http://127.0.0.1:8966/webapp/index.wasm"
+    ],
+    "scope": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+    "network_scope": "Complete startup to original first-level Goldtime3.36 and nextscene after fifthinput. No fullgame/reload/claim/online testing.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "removed",
+      "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "webapp/source_min.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "webapp/source_min.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "webapp/source_min.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "webapp/source_min.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-01-startup.jpg",
+        "screenshots/revision-03-gold-result.jpg",
+        "screenshots/revision-05-next-level.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-01-startup.jpg",
+        "screenshots/revision-03-gold-result.jpg",
+        "screenshots/revision-05-next-level.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-01-startup.jpg",
+        "screenshots/revision-03-gold-result.jpg",
+        "screenshots/revision-05-next-level.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-01-startup.jpg",
+        "screenshots/revision-03-gold-result.jpg",
+        "screenshots/revision-05-next-level.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-01-startup.jpg",
+        "screenshots/revision-03-gold-result.jpg",
+        "screenshots/revision-05-next-level.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-01-startup.jpg",
+        "screenshots/revision-03-gold-result.jpg",
+        "screenshots/revision-05-next-level.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+      "evidence": [
+        "screenshots/revision-01-startup.jpg",
+        "screenshots/revision-03-gold-result.jpg",
+        "screenshots/revision-05-next-level.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "NativeLevel1FirstGearstartup."
+    },
+    {
+      "step": 2,
+      "type": "key",
+      "key": "Right",
+      "hold_ms": 2200,
+      "result": "Originalcarphysicsoverbridge."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "key": "Right",
+      "hold_ms": 1700,
+      "result": "Nativestart-tofinish/Goldtime0:03.36."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "selector": "#canvas",
+      "coordinate": [
+        638,
+        661
+      ],
+      "result": "ShortNextlevelclick no transition."
+    },
+    {
+      "step": 5,
+      "type": "click",
+      "selector": "#canvas",
+      "coordinate": [
+        638,
+        659
+      ],
+      "hold_ms": 150,
+      "result": "NativeNextleveltransition; newrightsidecarspawnandleftarrow."
+    }
+  ],
+  "scope": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "网页游戏入口",
+        "kind": "code",
+        "status": "verified",
+        "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "网页游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "网页宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      }
+    ],
+    "scope": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。"
+  },
+  "dependency_review": {
+    "previous_revision": 1,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "网页游戏入口",
+          "kind": "code",
+          "status": "unknown",
+          "reason": "已保留页面、脚本和 iframe 线索",
+          "evidence": "D:\\GameLab\\app\\executors\\runs\\bde2f1fb-5aa3-4b89-a726-fbec4ac07daf\\acquisition\\collected.json",
+          "next_action": "解析实际运行入口并确认游戏代码"
+        },
+        {
+          "id": "web-assets",
+          "name": "网页游戏资源",
+          "kind": "resources",
+          "status": "unknown",
+          "reason": "尚未确认完整游戏资源包",
+          "evidence": "D:\\GameLab\\app\\executors\\runs\\bde2f1fb-5aa3-4b89-a726-fbec4ac07daf\\acquisition\\collected.json",
+          "next_action": "采集入口资源并核对引用闭合"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "unknown",
+          "reason": "尚未确认配置与运行代码对应关系",
+          "evidence": "D:\\GameLab\\app\\executors\\runs\\bde2f1fb-5aa3-4b89-a726-fbec4ac07daf\\acquisition\\collected.json",
+          "next_action": "从实际游戏运行包识别配置"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "尚未验证账号、存档与结算依赖",
+          "evidence": "D:\\GameLab\\app\\executors\\runs\\bde2f1fb-5aa3-4b89-a726-fbec4ac07daf\\acquisition\\collected.json",
+          "next_action": "分析实际运行请求及离线替代边界"
+        },
+        {
+          "id": "web-host",
+          "name": "网页宿主接口",
+          "kind": "platform",
+          "status": "unknown",
+          "reason": "未登记此来源的可验证适配方案",
+          "evidence": "D:\\GameLab\\app\\executors\\runs\\bde2f1fb-5aa3-4b89-a726-fbec4ac07daf\\acquisition\\collected.json",
+          "next_action": "实现宿主适配并运行玩法验证"
+        }
+      ],
+      "scope": "网页来源采集；网站脚本不视为游戏运行包，未验证资源与玩法不标记完成。",
+      "revision": 1,
+      "updated_at": "2026-10-30T13:59:38+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "网页游戏入口",
+          "kind": "code",
+          "status": "verified",
+          "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "网页游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "网页宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。"
+    },
+    "basis": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。"
+  },
+  "base_version_id": null,
+  "manual_execution": {
+    "executor": "Codex direct repair / actual UI",
+    "automated_model_conversion": false,
+    "original_job": "job-9ba1bd4c5191",
+    "max_gameplay_steps": 5,
+    "at": "2026-11-12T23:29:26.259170+00:00"
+  },
+  "game_profile": {
+    "category": "物理驾驶 / 平台越障",
+    "dimension": "3D",
+    "perspective": "原斜视3D方块场景、跟随摄像机、顶部关名/进度和暂停控件、底部左右方向提示；首关完整通过后原Goldtime奖章和下关按钮。",
+    "core_gameplay": "原关卡起点→原方向输入使轮胎驱动车身→跨桥/坡保持平衡→触达终点→原奖章/用时结算→Nextlevel原转场。",
+    "core_experience": "",
+    "controls": "本轮Right持续2200ms和1700ms，车辆过桥到原终点；Nextlevel短点击未转场，150ms持续点击转场。原左右方向/鼠标触摸/键盘与上下文禁用规则保留，其他键位/触摸未测。",
+    "game_loop": "原Level1FirstGear→两次Right持续输入→实际0:03.36Goldtime→原Nextlevel转到反向出发场景。第二关未追加驾驶。",
+    "content": "原WASM2,193,391字节与完整index.data2,931,903字节全部保留，没有只截取首关/两关。包内原方块、游戏包/世界、图集/声音完整；具体关数未知，后续由专人上架后验证。",
+    "progression": "原关卡解锁/用时奖章/原本地数据存储，均保留二进制规则，不插入解锁或奖章。",
+    "save": "原Storage.PATH_VERSION=com.martinmagni.drivemad/version，PREFIX=com.martinmagni.drivemad/data/，二进制路径/数据Base64写入localStorage并在启动同步到原WASM；代码保留，本轮没有第六步刷新验证。",
+    "rules": "原WASM车辆/轮胎/碰撞/地形/终点/时间/奖章与完整数据包保持，未改变重力、加速、平衡、路面、起点或终点；原输入与音频存储宿主规则保留。",
+    "systems": "原WASM物理驾驶、碰撞、关卡/车辆、原渲染/镜头、方向输入、终点/奖章/用时、原虚拟文件系统、本地持久化与WebAudio。外部SDK/上报与HTTP业务发送退役；ABI的本地可选领取明确弹出领取/取消，不伪装广告。",
+    "ui_flow": "原关卡直接启动→方向提示/原Level1HUD→行驶/桥/终点→Goldtime奖章→Home/Nextlevel/Levels→原下一场景。保留原编译界面和美术；未宣称VS在线/其他入口可用。",
+    "level_design": "原方块道路、桥面、坡道/起终点与原车辆配置，首关由左向右，实际下一场景由右向左出发；其余形态未逐关观察。",
+    "verification": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+    "evidence": "原WASM/数据包/封面/CSS摘要、44命名原函数、5步台账和首关起点/Goldtime/下关截图；14完整事件/console无错误警告。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "原Fancade Emscripten/WebAssembly与WebGL，JavaScript宿主输入/存储/WebAudio。",
+    "programming_language": "编译后WebAssembly、可编辑JavaScript/HTML/CSS宿主；未恢复原C++工程。",
+    "game_summary": "驾驶原大轮越野车跨过桥面/坡道并抵达终点，利用加速与倒车控制车身平衡；原关卡、物理、车辆、终点和奖章时间判定来自完整原WASM和数据包。",
+    "resource_types": "原index.data中的方块/车辆/关卡游戏包、Atlas和字体、原声音；index.wasm物理/运行时，原封面/CSS。",
+    "engine_asset_system": "原Emscripten包元数据和虚拟文件系统加载完整index.data，WASM与包摘要均与采集原字节相同。数据包含原drive_mad_2与construction/cyber/medieval/monster_trucks/science/space/winter/menu等名称；目录存在不等于这些世界逐关验收。",
+    "core_challenge_details": "在原车辆轮胎和车身物理下控制行驶/倒车时机，跨越原桥/坡和地形，不翻车并到达原终点；本轮首关原Goldtime3.36，不调速度/关卡/时间。",
+    "core_challenge_type": "操作执行 / 物理平衡",
+    "input_elements": "原浏览器键盘事件keydown_browser、鼠标_mouse_updown/_mouse_move、触摸_touch_start/move/end、Canvas原控件和指针捕获。",
+    "app_suitability": "",
+    "core_loop": "观察车身/道路→方向输入→原物理/镜头/尘效反馈→调整或抵达终点→原下关。",
+    "churn_risk": "",
+    "progression_loop": "原过关用时/奖章→原Nextlevel或Levels入口→后续关卡；仅首关通关与下关场景实测。",
+    "core_closure": "本轮真实完成首关：从起点经桥上坡到棋盘终点，得到原Goldtime0:03.36；点原Nextlevel后进入车向左的新出发场景。未声称所有关卡或第二关通关。",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "原首关名称Level1:FirstGear；本轮Goldtime0:03.36。Right输入2200ms+1700ms是操作时长，不是关卡计时替代；总关数未从二进制可靠解析，不填猜值。",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "原亮蓝背景/3D方块山、绿草桥面、黄色大轮越野车、原白色指示箭头和Goldtime奖章。",
+    "theme_position": "原方块物理驾驶闯关。",
+    "economy": "原关卡奖章/用时进展；本轮无购买、货币注入或奖励修改。",
+    "roles": "原可驾驶车辆/轮胎、道路桥面地形/终点、原物理对象与镜头；不新增网络对手或角色。",
+    "roster_summary": "",
+    "monetization_details": "广告SDK/初始化/测量/榜单/分数上报提供者实际移除。原编译界面VS等仍保留图形，在线调用不向远端发送并回传原空失败，不伪造成功；未称这些功能已经可玩。",
+    "monetization": "Poki广告/SDK移除；原ABI可选奖励接明确本地领取/取消，未实测领取路径。",
+    "illustrations": [
+      {
+        "path": "screenshots/revision-01-startup.jpg",
+        "caption": "原Level1FirstGear与黄色大轮车起点。"
+      },
+      {
+        "path": "screenshots/revision-03-gold-result.jpg",
+        "caption": "两次Right输入完成原首关，Goldtime0:03.36。"
+      },
+      {
+        "path": "screenshots/revision-05-next-level.jpg",
+        "caption": "第五步原Nextlevel持续点击后转入反向出发场景；未继续驾驶。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "JavaScripthostinput/audio/storage/localbenefit bridge editable. OriginalWASMphysics/compiledgameplay not recoveredC++source.",
+    "reuse": "Hostbridge/assetmetadata adaptable, originalWASM runtime-only; not independentlyverifiedreusablegameplay source.",
+    "dependencies": "OriginallocalFancadeWASM/index.data/WebGL/WebAudio;HTTP required, external SDK/HTTPproviders removed.",
+    "preservation": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 1568.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 1119.969,
+      "calls": 10,
+      "known_input_tokens": 140162,
+      "known_output_tokens": 35637,
+      "cached_input_tokens_known": 50176,
+      "unknown_usage_calls": 3,
+      "known_estimated_cost_subtotals": {
+        "CNY": 5.463772
+      },
+      "unknown_cost_calls": 3,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 2,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 2,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 2,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 8,
+          "input_tokens_known": 140162,
+          "output_tokens_known": 35637,
+          "unknown_usage_calls": 1,
+          "known_cost_subtotals": {
+            "CNY": 5.463772
+          },
+          "unknown_cost_calls": 1,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T23:20:51.346856+00:00",
+      "observed_until": "2026-11-12T23:29:51.152422+00:00",
+      "observed_wall_seconds": 539.805566,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

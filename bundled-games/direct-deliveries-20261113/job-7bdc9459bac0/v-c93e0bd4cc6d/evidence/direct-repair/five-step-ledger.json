@@ -1,0 +1,51 @@
+{
+  "max_steps": 5,
+  "steps_used": 5,
+  "actual_steps": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8972/index.html",
+      "result": "Original first level visible, MOVE TO BEGIN."
+    },
+    {
+      "step": 2,
+      "type": "key",
+      "selector": "window",
+      "key": "Right",
+      "duration_ms": 400,
+      "result": "Original rider moved from platform start to right side, timer began."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "selector": "window",
+      "key": "Space",
+      "duration_ms": 200,
+      "result": "Original rider visibly airborne above platform; screenshot observed in tool, not retained as a separate file."
+    },
+    {
+      "step": 4,
+      "type": "key",
+      "selector": "window",
+      "key": "Right",
+      "duration_ms": 1000,
+      "result": "Original death fragments and ATTEMPT02, then passive auto-respawn MOVE TO BEGIN."
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "http://127.0.0.1:8972/index.html",
+      "result": "Original first level00.00, MOVE TO BEGIN; no win/save-data created."
+    }
+  ],
+  "unverified": [
+    "whole firstlevel/victory",
+    "other21levels",
+    "walljump/sprint",
+    "pause/music/controller",
+    "new local victorypanel/nextlevel",
+    "winningtime/progression save/reload"
+  ],
+  "stopped_at_limit": true
+}

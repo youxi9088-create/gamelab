@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "registry_revision": "2026-10-30.1",
+  "features": {
+    "script": true,
+    "ruffle": false,
+    "swf": false,
+    "ccsettings": false,
+    "cocos2": false,
+    "defold-loader": false,
+    "defold-call": false,
+    "remix-sdk": true,
+    "module": true,
+    "importmap": true,
+    "unity": false
+  },
+  "selected": [
+    {
+      "id": "loader.browser",
+      "version": 1,
+      "group": "loader",
+      "adapter": "browser",
+      "provides": [
+        "browser-observed-capture"
+      ],
+      "evidence": [
+        "script"
+      ]
+    },
+    {
+      "id": "host.remix",
+      "version": 1,
+      "group": "host",
+      "adapter": "remix-local",
+      "provides": [
+        "local-anonymous-host",
+        "local-storage"
+      ],
+      "evidence": [
+        "remix-sdk"
+      ]
+    }
+  ],
+  "ambiguous": [],
+  "rejected": [
+    {
+      "id": "loader.ruffle",
+      "missing": [
+        "ruffle",
+        "swf"
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "loader.cocos2",
+      "missing": [
+        "ccsettings",
+        "cocos2"
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "loader.defold",
+      "missing": [
+        "defold-loader",
+        "defold-call"
+      ],
+      "conflicts": []
+    }
+  ],
+  "engine": "browser",
+  "status": "matched",
+  "candidate": null,
+  "entry": "https://g-d32bd8fd-0d8a-46ff-adb2-ac64760137d1.games.remix.gg/versions/6dd5cf21-3730-4d40-804e-8e97fe168533?v=0.2.3&isolation=origin-1&doc=jfPGwa2_AeKBcfA_",
+  "source_sha256": "a712518ca5d0fc1075270401b1977740bf68e177e5497a6810863a6c55b3045c",
+  "stage": "runtime-verified",
+  "verification": "gameplay-pending",
+  "history": [
+    {
+      "stage": "entry-observed",
+      "registry_revision": "2026-10-30.1",
+      "source_sha256": "a712518ca5d0fc1075270401b1977740bf68e177e5497a6810863a6c55b3045c",
+      "selected": [
+        "loader.browser",
+        "host.remix"
+      ]
+    },
+    {
+      "stage": "captured",
+      "optimized_adapter": "standard-three",
+      "files": 4
+    },
+    {
+      "stage": "runtime-verified",
+      "passed": true,
+      "actions": 0,
+      "scope": "Offline startup and executed inputs; gameplay acceptance is independent"
+    },
+    {
+      "stage": "gameplay-reviewed",
+      "verification": "gameplay",
+      "evidence": "verification/6d7d661c-cd67-479a-b9a4-ce47dfeeb297-web-play.json"
+    },
+    {
+      "stage": "gameplay-reviewed",
+      "verification": "gameplay",
+      "evidence": "verification/38cc2e00-3685-44c4-8bd1-2f9d5e394fbe-web-play.json"
+    },
+    {
+      "stage": "gameplay-reviewed",
+      "verification": "gameplay-pending",
+      "evidence": "verification/e32f78d6-d5f5-42cf-b694-e8f90ed62807-web-play.json"
+    },
+    {
+      "stage": "gameplay-reviewed",
+      "verification": "gameplay-pending",
+      "evidence": "verification/de3cf86c-1af5-4e35-ab49-f81808e94675-web-play.json"
+    }
+  ]
+}

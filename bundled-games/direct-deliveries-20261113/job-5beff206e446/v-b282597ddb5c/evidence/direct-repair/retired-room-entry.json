@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-13T09:12:31.472Z",
+  "original_entry": "async joinRoom(roomId) {\n        const source = this.matchFound || this.gameSessionSource === 'quick' ? 'quick' : 'private';\n        return this.joinGameSession(roomId, {\n            source,\n            opponentId: this.matchmakingOpponentId || null\n        });\n    }",
+  "actual_operation_removed": true,
+  "caller_references_to_explicit_unavailable_notice": true,
+  "not_an_SDK_stub": true,
+  "UI_verified": false
+}

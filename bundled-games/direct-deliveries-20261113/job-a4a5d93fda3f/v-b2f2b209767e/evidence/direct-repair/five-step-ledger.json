@@ -1,0 +1,47 @@
+{
+  "max_steps": 5,
+  "steps_used": 5,
+  "actual_steps": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Original title/solo entry and models loaded."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "Fly solo",
+      "result": "Native mission 10:00/reserve4/wave0/throttle70%/speed64."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "key": "Space",
+      "hold_ms": 1200,
+      "result": "Original laser input issued during native wave1/hull damage; score0, no hit/kill claim."
+    },
+    {
+      "step": 4,
+      "type": "key",
+      "key": "Escape",
+      "result": "Original controls released and click-to-take-controls/abandon entry appeared; native reserve3."
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "page",
+      "result": "Original title and full scene loaded again; no midmission restoration."
+    }
+  ],
+  "unverified": [
+    "victory/defeat this build",
+    "kill/hit outcome",
+    "missile launch",
+    "throttle/steering interactions",
+    "gamepad preference restore",
+    "actual sound",
+    "full mission retry"
+  ],
+  "stopped_at_limit": true
+}

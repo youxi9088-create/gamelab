@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DON’T TOUCH — Survival Game</title>
+<link href="./favicon.svg" rel="icon" sizes="any" type="image/svg+xml"/>
+<link href="./assets/image-4.png" rel="icon" type="image/png"/>
+
+
+
+<!--
+      Rosebud defaults disable accidental selection, context menus, tap highlights,
+      and native dragging during gameplay while preserving text editing. Most games
+      need no customization.
+    -->
+
+<style>
+      :root { color-scheme: dark; --ink: #121310; --paper: #f1eadb; --green: #28e36f; --red: #ed3f48; }
+      * { box-sizing: border-box; }
+      html, body, #game-container { width: 100%; height: 100%; margin: 0; padding: 0; background: var(--ink); overflow: hidden; }
+      body { touch-action: none; font-family: Inter, system-ui, sans-serif; color: #f8f4e9; }
+      #game-container { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; padding: clamp(14px, 2.2vh, 28px); gap: clamp(10px, 1.7vh, 18px); }
+      .topbar, .footer { width: min(84vh, calc(100vw - 28px), 860px); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+      .brand { font-family: Orbitron, sans-serif; font-size: clamp(18px, 2.7vh, 31px); font-weight: 700; letter-spacing: .08em; white-space: nowrap; }
+      .brand em { color: var(--red); font-style: normal; }
+      .stats { display: flex; align-items: baseline; gap: clamp(14px, 3vw, 36px); }
+      .stat { text-align: right; }
+      .stat span { display: block; color: #8e9189; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+      .stat strong { font-family: Orbitron, monospace; font-size: clamp(15px, 2.2vh, 24px); font-variant-numeric: tabular-nums; }
+      .stage { position: relative; min-height: 0; display: flex; align-items: center; justify-content: center; }
+      .arena-shell { position: relative; height: min(100%, calc(100vw - 28px), 860px); aspect-ratio: 1; filter: drop-shadow(0 20px 40px #0008); }
+      canvas { display: block; width: 100%; height: 100%; background: var(--paper); border: 3px solid #050604; cursor: crosshair; touch-action: none; }
+      .overlay { position: absolute; inset: 3px; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(241,234,219,.89); color: var(--ink); text-align: center; backdrop-filter: blur(3px); transition: opacity .18s ease; }
+      .overlay.hidden { opacity: 0; pointer-events: none; }
+      .panel { max-width: 430px; }
+      .eyebrow { color: #76786f; font-size: 11px; font-weight: 800; letter-spacing: .24em; text-transform: uppercase; }
+      h1 { margin: 10px 0 8px; font-family: Orbitron, sans-serif; font-size: clamp(35px, 7vh, 72px); line-height: .95; letter-spacing: -.04em; }
+      h1 .red { color: var(--red); }
+      .death-message { min-height: 19px; margin: 2px auto 8px; color: var(--red); font-size: clamp(14px, 2vh, 18px); font-weight: 800; letter-spacing: -.02em; }
+      .panel p { margin: 14px auto 18px; color: #55574f; font-size: clamp(13px, 1.8vh, 17px); line-height: 1.5; }
+      button, input { border: 0; font: inherit; }
+      button { cursor: pointer; }
+      .name-label { display: block; margin-bottom: 6px; color: #76786f; font-size: 9px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+      .name-input { width: min(190px, 100%); margin: 0 auto 14px; padding: 9px 12px; border: 1px solid #c9c1b3; border-radius: 8px; background: rgba(255,255,255,.45); color: var(--ink); text-align: center; text-transform: uppercase; outline: none; }
+      .name-input:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(40,227,111,.25); }
+      .primary { min-width: 190px; padding: 14px 24px; border-radius: 999px; background: var(--ink); color: white; font-family: Orbitron, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .12em; box-shadow: 0 8px 0 #bdb6a9; }
+      .primary:active { transform: translateY(4px); box-shadow: 0 4px 0 #bdb6a9; }
+      .primary:disabled { opacity: .48; cursor: not-allowed; box-shadow: 0 5px 0 #bdb6a9; }
+      .mode-button { display: block; margin: 13px auto 0; padding: 8px 14px; border: 1px solid #aaa497; border-radius: 999px; background: transparent; color: #454840; font-size: 9px; font-weight: 800; letter-spacing: .1em; }
+      .mode-button:hover, .mode-button.active { border-color: #13733a; background: rgba(40,227,111,.13); color: #13733a; }
+      .mode-hint { margin: 8px auto 0 !important; color: #76786f !important; font-size: 10px !important; line-height: 1.35 !important; }
+      .power-plan { width: min(320px, 100%); margin: 11px auto 0; padding: 10px 12px; border: 1px solid rgba(19,115,58,.35); border-radius: 10px; background: rgba(255,255,255,.7); box-shadow: 0 6px 14px rgba(18,19,16,.06); }
+      .power-plan[hidden] { display: none; }
+      .power-plan-status { color: #13733a; font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+      .power-plan-description { margin: 5px auto 8px !important; color: #55574f !important; font-size: 10px !important; line-height: 1.4 !important; }
+      .power-plan-feedback { min-height: 0; margin: 4px auto 0 !important; color: #13733a !important; font-size: 9px !important; line-height: 1.35 !important; }
+      .power-plan-feedback:empty { display: none; }
+      .power-plan-feedback.error { color: var(--red) !important; font-weight: 700; }
+      .power-purchase { display: block; width: 100%; padding: 10px 12px; border: 0; border-radius: 999px; background: #13733a; color: white; font-size: 10px; font-weight: 800; letter-spacing: .035em; box-shadow: 0 4px 0 #0b4b25; }
+      .power-purchase[hidden] { display: none; }
+      .power-purchase:hover { background: #0f6030; }
+      .power-purchase:active { transform: translateY(2px); box-shadow: 0 2px 0 #0b4b25; }
+      .power-purchase:disabled { opacity: .55; cursor: wait; }
+      .panel { max-height: 100%; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; }
+      .leaderboard { width: min(290px, 100%); margin: 20px auto 0; padding: 13px 14px 11px; border: 1px solid #c9c1b3; border-radius: 10px; background: rgba(255,255,255,.72); box-shadow: 0 8px 18px rgba(18,19,16,.08); text-align: left; }
+      .leaderboard-title { display: flex; justify-content: space-between; color: #454840; font-size: 9px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+      .leaderboard-title span { color: #60645a; font-weight: 700; letter-spacing: .05em; }
+      .leaderboard-tabs { display: flex; gap: 7px; margin-top: 9px; }
+      .leaderboard-tab { flex: 1; padding: 6px 4px; border: 1px solid #aaa497; border-radius: 6px; background: #f8f4e9; color: #454840; font-size: 8px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+      .leaderboard-tab.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+      .leaderboard ol { margin: 8px 0 0; padding: 0; list-style: none; }
+      .leaderboard li { display: grid; grid-template-columns: 24px 1fr auto; gap: 6px; align-items: center; padding: 4px 0; color: #121310; font-size: 11px; }
+      .leaderboard li span:nth-child(2) { color: #121310; font-weight: 700; }
+      .leaderboard li strong { color: #121310; font-family: Orbitron, monospace; font-size: 10px; font-variant-numeric: tabular-nums; }
+      .leaderboard .rank { color: #65695f; font-family: Orbitron, monospace; font-size: 9px; }
+      .leaderboard .empty { display: block; color: #555950; font-size: 10px; font-style: italic; }
+      .leaderboard-self { margin: 2px -6px; padding: 5px 6px !important; border: 1px solid rgba(18,125,61,.46); border-radius: 7px; background: rgba(40,227,111,.2); }
+      .leaderboard-self .rank { color: #13733a; }
+      .leaderboard-you { display: inline-block; margin-left: 5px; padding: 2px 4px; border-radius: 4px; background: #28e36f; color: #092d18; font-size: 7px; font-weight: 800; letter-spacing: .08em; vertical-align: 1px; }
+      .leaderboard-personal { display: none; grid-template-columns: 44px 1fr auto; gap: 6px; align-items: center; margin-top: 9px; padding: 7px 8px; border: 1px solid rgba(18,125,61,.46); border-radius: 7px; background: rgba(40,227,111,.2); color: #121310; font-size: 10px; }
+      .leaderboard-personal.visible { display: grid; }
+      .leaderboard-personal .personal-rank { color: #13733a; font-family: Orbitron, monospace; font-size: 9px; font-weight: 800; }
+      .leaderboard-personal b { display: block; color: #13733a; font-size: 7px; letter-spacing: .1em; }
+      .leaderboard-personal strong { color: #121310; font-family: Orbitron, monospace; font-size: 10px; font-variant-numeric: tabular-nums; }
+      .footer { min-height: 30px; color: #858980; font-size: clamp(10px, 1.5vh, 13px); letter-spacing: .04em; }
+      .footer b { color: #d8d8d1; }
+      .footer-actions { display: flex; align-items: center; gap: 12px; }
+      .controls { position: relative; display: flex; gap: 8px; }
+      .icon-btn { width: 36px; height: 30px; border: 1px solid #3b3e38; border-radius: 8px; background: #1b1d19; color: #d8d8d1; font-size: 14px; }
+      .icon-btn:hover { border-color: #797d73; }
+      .leaderboard-btn { width: auto; padding: 0 10px; font-size: 9px; font-weight: 800; letter-spacing: .08em; }
+      .leaderboard-choice { position: absolute; right: 0; bottom: calc(100% + 8px); z-index: 5; display: none; min-width: 116px; padding: 6px; border: 1px solid #3b3e38; border-radius: 9px; background: #1b1d19; box-shadow: 0 8px 20px #0008; }
+      .leaderboard-choice.open { display: grid; gap: 4px; }
+      .leaderboard-choice button { padding: 7px 9px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: #d8d8d1; font-size: 9px; font-weight: 800; letter-spacing: .08em; text-align: left; }
+      .leaderboard-choice button:hover, .leaderboard-choice button.active { border-color: #596054; background: #30362d; color: #b7ffcc; }
+      .overlay.leaderboard-only .name-label,
+      .overlay.leaderboard-only .name-input,
+      .overlay.leaderboard-only .primary,
+      .overlay.leaderboard-only .death-message { display: none; }
+      .overlay.leaderboard-only .leaderboard { margin-top: 10px; }
+      .leaderboard-placeholder { opacity: .52; }
+      .power-leaderboard li { grid-template-columns: 24px 1fr auto; }
+      .power-leaderboard .score-date { display: block; margin-top: 2px; color: #76786f; font-size: 7px; font-weight: 600; letter-spacing: .03em; }
+      .power-leaderboard .power-score { color: #13733a; }
+      .overlay.power-menu .leaderboard-title span:first-child { color: #13733a; }
+      .overlay.leaderboard-only .mode-button,
+      .overlay.leaderboard-only .mode-hint,
+      .overlay.leaderboard-only .account-button { display: none; }
+      .overlay.hidden .account-button { pointer-events: none; }
+      .account-button { display: inline-flex; align-items: center; gap: 6px; margin: 10px auto 0; padding: 7px 13px; border: 1px dashed #aaa497; border-radius: 999px; background: transparent; color: #454840; font-size: 9px; font-weight: 800; letter-spacing: .1em; }
+      .account-button:hover { border-color: var(--ink); color: var(--ink); }
+      .account-button.signed-in { border-style: solid; border-color: rgba(18,125,61,.46); background: rgba(40,227,111,.13); color: #13733a; }
+      .account-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px rgba(40,227,111,.7); }
+      .account-modal { position: absolute; inset: 3px; z-index: 10; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(18,19,16,.55); backdrop-filter: blur(4px); transition: opacity .18s ease; }
+      .account-modal.hidden { opacity: 0; pointer-events: none; }
+      .account-card { position: relative; width: min(340px, 100%); max-height: 100%; overflow-y: auto; padding: 26px 24px 20px; border: 3px solid #050604; border-radius: 4px; background: var(--paper); color: var(--ink); text-align: center; box-shadow: 0 18px 40px #0009; }
+      .account-close { position: absolute; top: 8px; right: 10px; width: 28px; height: 28px; border-radius: 50%; background: transparent; color: #76786f; font-size: 20px; line-height: 1; }
+      .account-close:hover { color: var(--red); }
+      .account-title { margin: 8px 0 4px; font-family: Orbitron, sans-serif; font-size: clamp(26px, 4.6vh, 38px); line-height: .98; letter-spacing: -.03em; word-break: break-word; }
+      .account-title .red { color: var(--red); }
+      .account-msg { min-height: 16px; margin: 6px auto 10px; color: #55574f; font-size: 11px; line-height: 1.4; }
+      .account-msg.error { color: var(--red); font-weight: 700; }
+      .account-msg.ok { color: #13733a; font-weight: 700; }
+      .account-form { display: flex; flex-direction: column; align-items: center; }
+      .account-input { width: min(240px, 100%); margin: 0 auto 11px; padding: 9px 12px; border: 1px solid #c9c1b3; border-radius: 8px; background: rgba(255,255,255,.55); color: var(--ink); text-align: center; outline: none; }
+      .account-input:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(40,227,111,.25); }
+      .account-submit { margin-top: 4px; }
+      .account-links { display: flex; flex-direction: column; gap: 4px; margin-top: 14px; }
+      .account-links button { background: transparent; color: #55574f; font-size: 11px; }
+      .account-links button:hover, .account-links b { color: var(--ink); }
+      .account-email { color: #76786f; font-size: 11px; margin-bottom: 10px; word-break: break-all; }
+      .account-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 6px 0 0; text-align: left; }
+      .account-stats div { padding: 7px 9px; border: 1px solid #c9c1b3; border-radius: 7px; background: rgba(255,255,255,.55); }
+      .account-stats dt { color: #76786f; font-size: 7px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+      .account-stats dd { margin: 2px 0 0; color: #13733a; font-family: Orbitron, monospace; font-size: 12px; font-weight: 700; }
+      .account-logout { margin-top: 14px; }
+      .account-card { touch-action: pan-y; overscroll-behavior: contain; }
+      .account-tabs { display: flex; gap: 6px; margin: 0 26px 14px 0; }
+      .account-tabs button { flex: 1; padding: 8px 4px; border: 1px solid #aaa497; border-radius: 6px; background: #f8f4e9; color: #454840; font-family: Orbitron, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .1em; }
+      .account-tabs button.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+      .account-secondary { margin-top: 14px; padding: 10px 18px; border: 2px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); font-family: Orbitron, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .1em; }
+      .account-secondary:hover { background: rgba(40,227,111,.18); }
+      .account-notice-actions { margin: -4px 0 12px; }
+      .account-notice-actions button { padding: 7px 14px; border: 1px solid var(--red); border-radius: 999px; background: rgba(237,63,72,.08); color: var(--red); font-size: 10px; font-weight: 800; letter-spacing: .06em; }
+      .account-notice-actions button:hover { background: rgba(237,63,72,.16); }
+      @media (max-width: 600px) {
+        .footer { position: relative; align-items: center; flex-wrap: wrap; row-gap: 8px; }
+        .footer > span { flex: 1 1 100%; max-width: 100%; }
+        .footer-actions { position: relative; width: 100%; justify-content: center; gap: 8px; }
+        .controls { position: absolute; right: 0; }
+        .leaderboard-btn { padding: 0 8px; }
+      }
+      @media (max-width: 600px) {
+        #game-container { padding: 12px; gap: 8px; }
+        .topbar, .footer { width: 100%; }
+        .brand { font-size: 17px; }
+        .stats { gap: 13px; }
+        .stat strong { font-size: 14px; }
+        .arena-shell { height: auto; width: min(100%, calc(100vh - 142px)); }
+        .footer > span { max-width: 100%; }
+      }
+
+      /* Crisp, high-contrast paper-and-ink interface. */
+      :root { color-scheme: light; --ink: #121310; --paper: #f1eadb; --red: #bd2632; }
+      html, body { min-width: 320px; min-height: 100%; background: var(--paper); }
+      body { color: var(--ink); }
+      #game-container { height: 100dvh; min-height: 100svh; background: var(--paper); color: var(--ink); }
+      .topbar, .footer { min-width: 0; }
+      .brand { color: var(--ink); }
+      .stat span, .eyebrow, .name-label, .mode-hint,
+      .power-plan-description, .leaderboard-title, .leaderboard-title span,
+      .leaderboard .rank, .leaderboard .empty, .power-leaderboard .score-date,
+      .footer, .account-close, .account-msg, .account-email,
+      .account-stats dt, .account-links button { color: var(--ink); }
+      .stat strong { color: var(--ink); }
+      .overlay { color: var(--ink); }
+      .panel { width: min(100%, 430px); min-width: 0; }
+      .panel p { color: var(--ink); }
+      .name-input::placeholder, .account-input::placeholder { color: var(--ink); opacity: 1; }
+      .primary:disabled { opacity: 1; color: #fff; background: #35372f; }
+      .mode-button {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        max-width: 100%;
+        min-height: 40px;
+        margin-top: 14px;
+        padding: 9px 19px;
+        border: 1px solid #176638;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #176638 0%, #0c4728 100%);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .13em;
+        box-shadow: 0 4px 0 #082f1b, 0 7px 16px rgba(12,71,40,.18), inset 0 1px 0 rgba(255,255,255,.22);
+        transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+      }
+      .mode-button::before { content: '✦'; color: #b9f27a; font-size: 12px; }
+      .mode-button:hover { border-color: #0b4925; filter: brightness(1.08); transform: translateY(-2px); box-shadow: 0 6px 0 #082f1b, 0 10px 20px rgba(12,71,40,.22), inset 0 1px 0 rgba(255,255,255,.25); }
+      .mode-button:active { transform: translateY(2px); box-shadow: 0 2px 0 #082f1b, inset 0 1px 0 rgba(255,255,255,.18); }
+      .mode-button:focus-visible, .power-purchase:focus-visible, button:focus-visible { outline: 3px solid #176638; outline-offset: 3px; }
+      .mode-button.active { border-color: var(--ink); background: var(--ink); color: #fff; box-shadow: 0 4px 0 #000; }
+      .mode-button.active::before { color: #b9f27a; }
+      .mode-button:disabled { opacity: 1; cursor: wait; }
+      .mode-hint { max-width: 360px; color: var(--ink) !important; font-size: 11px !important; }
+      .power-plan { width: min(340px, 100%); margin-top: 13px; padding: 12px 14px; border-color: rgba(19,115,58,.5); background: rgba(255,255,255,.78); }
+      .power-plan-status, .power-plan-feedback { color: #105b2e !important; font-size: 10px !important; }
+      .power-plan-description { color: var(--ink) !important; font-size: 12px !important; }
+      .power-plan-feedback.error { color: var(--red) !important; }
+      .power-purchase { min-height: 40px; background: #13733a; color: #fff; font-size: 11px; }
+      .power-purchase:hover { background: #0f6030; }
+      .power-purchase:disabled { opacity: 1; background: #315b42; color: #fff; }
+      .leaderboard { width: min(320px, 100%); margin-top: 16px; padding: 14px 15px 12px; }
+      .leaderboard-title { font-size: 10px; }
+      .leaderboard-title span { color: var(--ink); }
+      .leaderboard-tabs { gap: 8px; margin-top: 10px; }
+      .leaderboard-tab { min-height: 32px; color: var(--ink); font-size: 9px; }
+      .leaderboard li { grid-template-columns: 28px minmax(0, 1fr) auto; gap: 8px; color: var(--ink); font-size: 12px; }
+      .leaderboard li span:nth-child(2), .leaderboard li strong { min-width: 0; color: var(--ink); overflow-wrap: anywhere; }
+      .leaderboard .rank { color: #105b2e; font-size: 10px; }
+      .leaderboard .empty { font-size: 11px; }
+      .leaderboard-placeholder { opacity: 1; }
+      .power-leaderboard .score-date { color: #121310; font-size: 9px; }
+      .leaderboard-self .rank, .leaderboard-personal .personal-rank,
+      .leaderboard-personal b { color: #105b2e; }
+      .leaderboard-personal { color: var(--ink); }
+      .leaderboard-personal strong { color: var(--ink); }
+      .footer { color: var(--ink); font-size: clamp(11px, 1.5vh, 13px); }
+      .footer b { color: var(--ink); }
+      .footer-actions { gap: 10px; }
+      .controls { gap: 8px; }
+      .icon-btn { border-color: #121310; background: var(--paper); color: var(--ink); }
+      .icon-btn:hover { border-color: #13733a; background: #fffaf0; }
+      .leaderboard-choice { border-color: #121310; background: var(--paper); }
+      .leaderboard-choice button { color: var(--ink); }
+      .leaderboard-choice button:hover, .leaderboard-choice button.active { border-color: #13733a; background: #d9edda; color: #0b4724; }
+      .account-button { border-color: #121310; color: var(--ink); }
+      .account-button:hover { border-color: #13733a; color: #105b2e; }
+      .account-button.signed-in { color: #105b2e; }
+      .account-close { color: var(--ink); }
+      .account-msg { color: var(--ink); font-size: 12px; }
+      .account-msg.error { color: var(--red); }
+      .account-msg.ok { color: #105b2e; }
+      .account-links button { color: var(--ink); font-size: 12px; }
+      .account-email { color: var(--ink); font-size: 12px; }
+      .account-stats dt { color: var(--ink); font-size: 8px; }
+      .account-stats dd { color: #105b2e; }
+      .account-tabs button { color: var(--ink); }
+      .account-notice-actions button { color: var(--red); }
+
+      @media (max-width: 600px) {
+        #game-container { padding: max(10px, env(safe-area-inset-top)) 12px max(10px, env(safe-area-inset-bottom)); gap: 8px; }
+        .topbar { gap: 8px; }
+        .footer-actions { justify-content: flex-start; }
+        .brand { font-size: clamp(14px, 4.6vw, 17px); letter-spacing: .06em; }
+        .stats { gap: clamp(8px, 3vw, 13px); }
+        .stat span { font-size: 9px; }
+        .stat strong { font-size: 14px; }
+        .arena-shell { width: min(100%, calc(100dvh - 150px)); max-height: 100%; }
+        .overlay { padding: clamp(10px, 3.5vw, 18px); }
+        .panel { max-height: 100%; }
+        .leaderboard { margin-top: 14px; }
+        .footer { row-gap: 8px; }
+      }
+      @media (max-width: 360px) {
+        #game-container { padding-left: 10px; padding-right: 10px; }
+        .brand { font-size: 14px; }
+        .stats { gap: 8px; }
+        .stat strong { font-size: 13px; }
+        .footer-actions { justify-content: flex-start; }
+        .controls { gap: 6px; }
+        .icon-btn { height: 32px; }
+        .leaderboard-btn { padding: 0 7px; }
+        h1 { font-size: clamp(32px, 10vw, 44px); }
+        .primary { min-width: min(190px, 100%); }
+      }
+      @media (max-height: 560px) {
+        #game-container { padding-top: 8px; padding-bottom: 8px; gap: 6px; }
+        .overlay { padding-top: 10px; padding-bottom: 10px; }
+        .leaderboard { margin-top: 10px; }
+        .mode-button { min-height: 36px; margin-top: 10px; }
+      }
+
+      /* Clean, contemporary white / red / black interface. */
+      :root {
+        color-scheme: light;
+        --ink: #111111;
+        --paper: #ffffff;
+        --red: #e32636;
+      }
+      html, body, #game-container { background: #ffffff; }
+      body { color: var(--ink); }
+      #game-container { color: var(--ink); }
+      .brand, h1, .primary, .account-title, .account-secondary, .account-tabs button {
+        font-family: Inter, system-ui, sans-serif;
+      }
+      .brand { color: var(--ink); font-weight: 800; letter-spacing: .035em; }
+      .brand em, h1 .red, .account-title .red { color: var(--red); }
+      .stat span, .eyebrow, .name-label, .mode-hint, .power-plan-description,
+      .leaderboard-title, .leaderboard-title span, .leaderboard .rank,
+      .leaderboard .empty, .power-leaderboard .score-date, .footer,
+      .account-close, .account-msg, .account-email, .account-stats dt,
+      .account-links button { color: #454545; }
+      .stat strong { color: var(--ink); }
+      .arena-shell { filter: drop-shadow(0 12px 26px rgba(0,0,0,.12)); }
+      canvas { background: #fff; border: 2px solid var(--ink); }
+      .overlay { background: rgba(255,255,255,.94); color: var(--ink); backdrop-filter: blur(5px); }
+      .panel { width: min(100%, 430px); }
+      .eyebrow { font-size: 10px; letter-spacing: .18em; }
+      h1 { font-weight: 800; letter-spacing: -.055em; }
+      .death-message { color: var(--red); }
+      .panel p { color: #252525; }
+      button, input { font-family: Inter, system-ui, sans-serif; }
+      .name-label { color: #454545; }
+      .name-input, .account-input {
+        border: 1px solid #b9b9b9;
+        border-radius: 7px;
+        background: #fff;
+        color: var(--ink);
+      }
+      .name-input:focus, .account-input:focus {
+        border-color: var(--red);
+        box-shadow: 0 0 0 3px rgba(227,38,54,.15);
+      }
+      .primary {
+        min-height: 46px;
+        border-radius: 8px;
+        background: var(--red);
+        color: #fff;
+        letter-spacing: .08em;
+        box-shadow: none;
+        transition: background .15s ease, transform .15s ease;
+      }
+      .primary:hover:not(:disabled) { background: #c81728; transform: translateY(-1px); }
+      .primary:active { transform: translateY(1px); box-shadow: none; }
+      .primary:disabled { background: #555; color: #fff; box-shadow: none; }
+      .mode-button {
+        min-height: 38px;
+        border: 1px solid var(--ink);
+        border-radius: 7px;
+        background: #fff;
+        color: var(--ink);
+        letter-spacing: .08em;
+        box-shadow: none;
+      }
+      .mode-button::before, .mode-button.active::before { color: var(--red); }
+      .mode-button:hover { border-color: var(--red); background: #fff; color: var(--red); filter: none; transform: translateY(-1px); box-shadow: none; }
+      .mode-button:active { transform: translateY(1px); box-shadow: none; }
+      .mode-button.active { border-color: var(--ink); background: var(--ink); color: #fff; box-shadow: none; }
+      button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+      .mode-hint { color: #454545 !important; }
+      .power-plan {
+        border-color: #d1d1d1;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 5px 18px rgba(0,0,0,.05);
+      }
+      .power-plan-status, .power-plan-feedback { color: var(--red) !important; }
+      .power-plan-description { color: #252525 !important; }
+      .power-purchase {
+        min-height: 40px;
+        border-radius: 7px;
+        background: var(--red);
+        color: #fff;
+        box-shadow: none;
+      }
+      .power-purchase:hover { background: #c81728; }
+      .power-purchase:active { transform: translateY(1px); box-shadow: none; }
+      .power-purchase:disabled { background: #555; color: #fff; opacity: 1; }
+      .leaderboard {
+        border-color: #d1d1d1;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 5px 18px rgba(0,0,0,.05);
+      }
+      .leaderboard-title, .leaderboard-title span { color: #333; }
+      .leaderboard-tab {
+        border-color: #b9b9b9;
+        border-radius: 5px;
+        background: #fff;
+        color: var(--ink);
+      }
+      .leaderboard-tab.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+      .leaderboard li, .leaderboard li span:nth-child(2), .leaderboard li strong,
+      .leaderboard-personal, .leaderboard-personal strong { color: var(--ink); }
+      .leaderboard .rank, .leaderboard-self .rank,
+      .leaderboard-personal .personal-rank, .leaderboard-personal b,
+      .power-leaderboard .power-score { color: var(--red); }
+      .leaderboard-self, .leaderboard-personal {
+        border-color: rgba(227,38,54,.42);
+        background: #fff4f5;
+      }
+      .leaderboard-you { background: var(--red); color: #fff; }
+      .power-leaderboard .score-date { color: #555; }
+      .footer { color: #454545; }
+      .footer b { color: var(--ink); }
+      .icon-btn {
+        border-color: #b9b9b9;
+        border-radius: 6px;
+        background: #fff;
+        color: var(--ink);
+      }
+      .icon-btn:hover { border-color: var(--red); color: var(--red); }
+      .leaderboard-choice {
+        border-color: #d1d1d1;
+        border-radius: 7px;
+        background: #fff;
+        box-shadow: 0 8px 22px rgba(0,0,0,.12);
+      }
+      .leaderboard-choice button { color: var(--ink); }
+      .leaderboard-choice button:hover, .leaderboard-choice button.active {
+        border-color: rgba(227,38,54,.3);
+        background: #fff4f5;
+        color: var(--red);
+      }
+      .account-button {
+        border-color: #8f8f8f;
+        color: var(--ink);
+      }
+      .account-button:hover { border-color: var(--red); color: var(--red); }
+      .account-button.signed-in { border-color: var(--red); background: #fff4f5; color: var(--red); }
+      .account-dot { background: var(--red); box-shadow: 0 0 6px rgba(227,38,54,.35); }
+      .account-modal { background: rgba(0,0,0,.48); }
+      html.auth-confirmation-callback #overlay { visibility: hidden; }
+      html.auth-confirmation-callback #account-modal { opacity: 1; pointer-events: auto; }
+      .account-card {
+        border: 1px solid var(--ink);
+        border-radius: 10px;
+        background: #fff;
+        color: var(--ink);
+        box-shadow: 0 18px 44px rgba(0,0,0,.2);
+      }
+      .account-close { color: #454545; }
+      .account-close:hover, .account-links button:hover, .account-links b { color: var(--red); }
+      .account-msg { color: #333; }
+      .account-msg.error, .account-notice-actions button { color: var(--red); }
+      .account-msg.ok, .account-stats dd { color: var(--ink); }
+      .account-links button, .account-email, .account-stats dt { color: #454545; }
+      .account-stats div { border-color: #d1d1d1; border-radius: 6px; background: #fff; }
+      .account-tabs button {
+        border-color: #b9b9b9;
+        border-radius: 5px;
+        background: #fff;
+        color: var(--ink);
+      }
+      .account-tabs button.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+      .account-secondary { border: 1px solid var(--ink); border-radius: 7px; }
+      .account-secondary:hover { background: #f3f3f3; }
+      .account-notice-actions button { border-color: var(--red); border-radius: 6px; background: #fff4f5; }
+      .account-notice-actions button:hover { background: #ffe8ea; }
+      .panel-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin: 12px auto 0;
+      }
+      .about-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 36px;
+        margin: 0;
+        padding: 8px 14px;
+        border: 1px solid #b9b9b9;
+        border-radius: 7px;
+        background: #fff;
+        color: var(--ink);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .08em;
+      }
+      .about-button:hover { border-color: var(--red); color: var(--red); }
+      .about-modal {
+        position: absolute;
+        inset: 3px;
+        z-index: 11;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(10px, 3vw, 22px);
+        background: rgba(0,0,0,.5);
+        backdrop-filter: blur(5px);
+        transition: opacity .18s ease;
+      }
+      .about-modal.hidden { opacity: 0; pointer-events: none; }
+      .about-card {
+        position: relative;
+        width: min(640px, 100%);
+        max-height: 100%;
+        overflow-y: auto;
+        padding: 30px clamp(18px, 4vw, 34px) 24px;
+        border: 1px solid var(--ink);
+        border-radius: 10px;
+        background: #fff;
+        color: var(--ink);
+        text-align: left;
+        box-shadow: 0 18px 44px rgba(0,0,0,.2);
+        touch-action: pan-y;
+        overscroll-behavior: contain;
+      }
+      .about-close {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: transparent;
+        color: #454545;
+        font-size: 22px;
+        line-height: 1;
+      }
+      .about-close:hover { color: var(--red); }
+      .contact-modal { z-index: 12; }
+      .contact-email { color: var(--red); font-weight: 800; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+      .contact-email:hover { color: #c81728; }
+      .about-eyebrow { margin: 0 0 6px; color: var(--red); font-size: 9px; font-weight: 800; letter-spacing: .18em; }
+      .about-title { margin: 0 32px 16px 0; font-size: clamp(23px, 4vw, 32px); font-weight: 800; letter-spacing: -.04em; }
+      .about-content h3 { margin: 19px 0 5px; font-size: 13px; font-weight: 800; letter-spacing: .01em; }
+      .about-content p { margin: 0 0 10px; color: #333; font-size: 12px; line-height: 1.6; }
+      .about-close:focus-visible, .about-button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+      .account-modal { padding: clamp(6px, 2.5vw, 20px); }
+      .account-card {
+        width: min(380px, 100%);
+        max-height: 100%;
+        padding: clamp(18px, 4vh, 28px) clamp(16px, 5vw, 28px) 18px;
+        border-width: 1px;
+        border-radius: 10px;
+      }
+      .account-title { margin: 5px 24px 8px 0; font-size: clamp(23px, 6vw, 34px); line-height: 1.02; overflow-wrap: anywhere; }
+      .account-tabs { gap: 7px; margin: 0 28px 12px 0; }
+      .account-tabs button { min-height: 36px; padding: 7px 8px; border-radius: 6px; font-family: Inter, system-ui, sans-serif; font-size: 10px; }
+      .account-form { gap: 8px; }
+      .account-field { width: min(100%, 300px); text-align: left; }
+      .account-field .name-label { margin: 0 0 4px; color: #303030; font-size: 10px; letter-spacing: .05em; text-align: left; }
+      .account-input-wrap { position: relative; width: 100%; }
+      .account-input { display: block; width: 100%; min-height: 40px; margin: 0; padding: 9px 12px; border-color: #b9b9b9; border-radius: 6px; text-align: left; }
+      .account-input-wrap .account-input[type="password"], .account-input-wrap .account-input[type="text"] { padding-right: 46px; }
+      .account-field:not(:has(.password-toggle)) .account-input { padding-right: 12px; }
+      .password-toggle { position: absolute; top: 50%; right: 5px; display: grid; width: 34px; height: 34px; place-items: center; transform: translateY(-50%); border-radius: 5px; background: transparent; color: #353535; }
+      .password-toggle:hover { color: var(--red); background: #fff4f5; }
+      .password-toggle svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+      .field-error { display: block; min-height: 0; margin: 0; color: var(--red); font-size: 10px; font-weight: 700; line-height: 1.25; }
+      .field-error:empty { display: none; }
+      .account-field.has-error .account-input { border-color: var(--red); }
+      .remember-row { display: flex; width: min(100%, 300px); align-items: center; gap: 8px; margin: 1px auto 2px; color: #333; font-size: 11px; text-align: left; cursor: pointer; }
+      .remember-row input { width: 15px; height: 15px; margin: 0; accent-color: var(--red); }
+      .account-submit { width: min(100%, 300px); min-height: 42px; margin: 4px auto 0; border-radius: 7px; font-size: 12px; }
+      .account-links { margin-top: 10px; }
+      .account-links button { padding: 6px 8px; font-size: 11px; }
+      .check-email-address { font-weight: 800; overflow-wrap: anywhere; }
+      .resend-button { margin-top: 5px; }
+      .account-toast {
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        z-index: 20;
+        width: max-content;
+        max-width: calc(100% - 28px);
+        padding: 11px 15px;
+        transform: translateX(-50%);
+        border: 1px solid var(--red);
+        border-radius: 8px;
+        background: #fff;
+        color: #111;
+        box-shadow: 0 8px 24px rgba(0,0,0,.16);
+        font-size: 12px;
+        font-weight: 800;
+        text-align: center;
+      }
+      .account-toast.hidden { display: none; }
+      .signed-player-name { margin: 0 auto 12px; color: #222; font-size: 12px; font-weight: 800; letter-spacing: .06em; }
+      .guest-score-prompt { width: min(320px, 100%); margin: 9px auto 0; padding: 10px 12px; border: 1px solid #e3b8bd; border-radius: 7px; background: #fff7f8; }
+      .guest-score-prompt[hidden] { display: none; }
+      .guest-score-prompt p { margin: 0 0 7px; color: #222; font-size: 11px; line-height: 1.35; }
+      .guest-score-prompt button { padding: 7px 13px; border: 0; border-radius: 5px; background: var(--red); color: #fff; font-size: 10px; font-weight: 800; letter-spacing: .06em; }
+      .guest-score-prompt button:hover { background: #c81728; }
+      @media (max-height: 520px) {
+        .account-card { padding-top: 18px; padding-bottom: 12px; }
+        .account-title { font-size: clamp(21px, 5vh, 28px); }
+        .account-tabs { margin-bottom: 8px; }
+        .account-form { gap: 5px; }
+        .account-input { min-height: 36px; padding-top: 7px; padding-bottom: 7px; }
+        .account-field .name-label { font-size: 9px; }
+        .account-submit { min-height: 38px; }
+      }
+      .season1-mode-tabs {
+        display: flex;
+        gap: 7px;
+        margin-top: 10px;
+      }
+      .season1-mode-tab, .season1-legends-btn {
+        min-height: 32px;
+        border: 1px solid #b9b9b9;
+        border-radius: 5px;
+        background: #fff;
+        color: var(--ink);
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .season1-mode-tab { flex: 1; }
+      .season1-mode-tab.active {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: #fff;
+      }
+      .season1-legends-btn {
+        width: 100%;
+        margin-top: 7px;
+        color: var(--red);
+        border-color: rgba(227,38,54,.36);
+        background: #fff4f5;
+      }
+      .season1-legends-btn:hover { background: #ffe8ea; }
+      .season1-mode-tabs[hidden], .season1-legends-btn[hidden],
+      .season1-podium[hidden], .season1-progress[hidden] { display: none; }
+      .season1-podium {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: end;
+        gap: 6px;
+        margin-top: 12px;
+      }
+      .podium-step {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 5px;
+        padding: 9px 4px 7px;
+        overflow: hidden;
+        border: 1px solid #dedede;
+        border-radius: 6px 6px 3px 3px;
+        background: #f8f8f8;
+        text-align: center;
+      }
+      .podium-place-1 { min-height: 105px; border-color: #e5c75f; background: linear-gradient(#fff8d9, #fff); }
+      .podium-place-2 { min-height: 84px; }
+      .podium-place-3 { min-height: 72px; }
+      .podium-step.is-empty { opacity: .68; }
+      .podium-rank { color: var(--red); font-size: 9px; font-weight: 800; letter-spacing: .08em; }
+      .podium-step strong { max-width: 100%; overflow: hidden; color: var(--ink); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+      .podium-score { color: #444; font-family: Orbitron, monospace; font-size: 8px; font-weight: 700; }
+      .gameover-progress {
+        width: min(340px, 100%);
+        margin: 8px auto 10px;
+        padding: 7px 12px;
+        border: 1.5px solid #888;
+        border-radius: 6px;
+        background: #f8f8f8;
+        color: #111;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .02em;
+        line-height: 1.35;
+        text-align: center;
+        white-space: normal;
+        box-shadow: 0 2px 6px rgba(0,0,0,.04);
+      }
+      .gameover-progress[hidden] { display: none; }
+      .gameover-progress.is-qualified {
+        border-color: #13733a;
+        background: #effff4;
+        color: #0b5428;
+      }
+      .gameover-progress.is-progress {
+        border-color: #c46d00;
+        background: #fff8eb;
+        color: #7d4400;
+      }
+      .gameover-progress.is-unavailable {
+        border-color: #ccc;
+        background: #f7f7f7;
+        color: #555;
+      }
+      .season1-progress {
+        margin-top: 8px;
+        padding: 6px 10px;
+        border: 1px solid rgba(227,38,54,.28);
+        border-radius: 5px;
+        background: #fff7f8;
+        color: var(--ink);
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1.35;
+        text-align: center;
+      }
+      .season1-progress[hidden] { display: none; }
+      .season1-mode-tab:focus-visible, .season1-legends-btn:focus-visible {
+        outline: 3px solid var(--red);
+        outline-offset: 2px;
+      }
+      /* ===== Season 1 weekly board ===== */
+      .leaderboard.weekly-board { width: min(380px, 100%); padding: 14px 14px 12px; border: 2px solid var(--ink); border-radius: 8px; background: #fff; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+      .leaderboard.weekly-board .leaderboard-title { align-items: baseline; gap: 8px; }
+      .leaderboard.weekly-board #leaderboard-count { color: var(--ink); font-family: Orbitron, monospace; font-size: 12px; font-weight: 900; letter-spacing: .1em; }
+      .leaderboard.weekly-board #leaderboard-period { max-width: 64%; color: #555; font-size: 8px; font-weight: 800; letter-spacing: .08em; line-height: 1.35; text-align: right; }
+      .leaderboard.gameover-board { margin-top: 14px; margin-bottom: 4px; }
+      .board-controls { display: flex; gap: 7px; align-items: stretch; margin-top: 10px; }
+      .board-controls .season1-mode-tabs { flex: 1; margin-top: 0; }
+      .board-controls .season1-legends-btn { width: auto; margin: 0 0 0 auto; padding: 0 10px; white-space: nowrap; }
+      .season1-mode-tabs[hidden] { display: none; }
+      .leaderboard.weekly-board ol { margin-top: 10px; }
+      .leaderboard.weekly-board li { grid-template-columns: 30px minmax(0, 1fr) auto; padding: 5px 6px; border-bottom: 1px solid #eee; font-size: 12px; }
+      .leaderboard.weekly-board li:last-child { border-bottom: 0; }
+      .leaderboard.weekly-board li.top-1 .rank { color: #b8860b; }
+      .leaderboard.weekly-board li.top-2 .rank { color: #7d8790; }
+      .leaderboard.weekly-board li.top-3 .rank { color: #a0522d; }
+      .leaderboard.weekly-board .board-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 800; }
+      .leaderboard.weekly-board .power-score { color: var(--ink); font-size: 11px; }
+      .leaderboard.weekly-board .leaderboard-self { margin: 2px 0; border: 1px solid var(--red); border-radius: 5px; background: #fff1f2; }
+      .leaderboard.weekly-board .leaderboard-personal { grid-template-columns: 46px 1fr auto; border-color: var(--ink); background: #f6f6f6; }
+      .season1-progress { font-size: 10px; text-align: center; color: var(--ink); }
+      .season1-podium { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+      .legends-block h3 { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px 7px; margin: 0 0 6px; color: var(--ink); font-family: Orbitron, monospace; font-size: 10px; letter-spacing: .14em; text-align: center; }
+      .legends-block h3 span { color: var(--red); }
+      .legends-player-count { color: #555; font-family: Inter, system-ui, sans-serif; font-size: 8px; font-weight: 800; letter-spacing: .06em; }
+      .podium-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 5px; }
+      .podium-loading { padding: 18px 0; color: #555; font-size: 10px; font-style: italic; text-align: center; }
+      .podium-step { position: relative; padding: 8px 4px 0; gap: 4px; border-width: 2px; border-bottom: 0; border-radius: 6px 6px 0 0; }
+      .podium-medal { display: grid; width: 26px; height: 26px; place-items: center; border-radius: 50%; color: #fff; font-family: Orbitron, monospace; font-size: 12px; font-weight: 900; box-shadow: inset 0 -2px 0 rgba(0,0,0,.2); }
+      .podium-base { align-self: stretch; margin-top: auto; padding: 4px 0; color: #fff; font-size: 7px; font-weight: 900; letter-spacing: .14em; }
+      .podium-place-1 { min-height: 118px; border-color: #d4a017; background: linear-gradient(#fff6d2, #fff); }
+      .podium-place-1 .podium-medal, .podium-place-1 .podium-base { background: #d4a017; }
+      .podium-place-2 { min-height: 98px; border-color: #9aa3ab; background: linear-gradient(#eef1f4, #fff); }
+      .podium-place-2 .podium-medal, .podium-place-2 .podium-base { background: #8b949c; }
+      .podium-place-3 { min-height: 86px; border-color: #b8733f; background: linear-gradient(#fbeadf, #fff); }
+      .podium-place-3 .podium-medal, .podium-place-3 .podium-base { background: #b0683a; }
+      .podium-step strong { font-size: 10px; }
+      .podium-score { font-size: 9px; color: var(--ink); }
+      @media (max-width: 600px) {
+        .gameover-progress { width: min(310px, 100%); margin: 6px auto 8px; padding: 6px 10px; font-size: 10px; }
+        .board-controls { flex-wrap: wrap; }
+        .board-controls .season1-mode-tabs { flex: 1 1 140px; }
+        .board-controls .season1-legends-btn { flex: 1 1 auto; }
+        .season1-mode-tab, .season1-legends-btn { min-height: 34px; font-size: 9px; }
+        .podium-step { padding-right: 2px; padding-left: 2px; }
+        .leaderboard.weekly-board li { font-size: 11px; }
+      }
+    </style>
+<link href="./fonts/fonts.css" rel="stylesheet"/></head>
+<body>
+<div id="game-container">
+<header class="topbar">
+<div class="brand">DON’T <em>TOUCH</em></div>
+<div class="stats">
+<div class="stat"><span>Time</span><strong id="timer">00.0</strong></div>
+<div class="stat"><span>Best</span><strong id="best">00.0</strong></div>
+</div>
+</header>
+<main class="stage">
+<div class="arena-shell">
+<canvas aria-label="Don't Touch game arena" height="800" id="game" width="800"></canvas>
+<div class="overlay" id="overlay">
+<div class="panel">
+<div class="eyebrow" id="eyebrow">A tiny survival game</div>
+<h1 id="headline">DON’T<br/><span class="red">TOUCH.</span></h1>
+<div aria-live="polite" class="death-message" id="death-message"></div>
+<p id="message">Move the green dot with your mouse.<br/>On mobile, drag anywhere in the arena.</p>
+<div aria-live="polite" class="gameover-progress" hidden="" id="gameover-progress" role="status"></div>
+
+
+
+<button class="primary" id="start-btn">START RUN</button>
+
+
+
+
+
+
+<div class="panel-actions">
+
+
+</div>
+</div>
+</div>
+
+<div aria-live="polite" class="account-toast hidden" id="account-toast" role="status"></div>
+
+
+</div>
+</main>
+<footer class="footer">
+<span id="status"><b>Move</b> mouse or drag · Avoid red</span>
+<div class="footer-actions">
+<div class="controls">
+
+
+<button aria-label="Pause game" class="icon-btn" id="pause-btn" title="Pause (P)">Ⅱ</button>
+<button aria-label="Mute audio" class="icon-btn" id="mute-btn" title="Mute audio">♪</button>
+</div>
+</div>
+</footer>
+</div>
+<script src="./main.js" type="module"></script></body>
+</html>

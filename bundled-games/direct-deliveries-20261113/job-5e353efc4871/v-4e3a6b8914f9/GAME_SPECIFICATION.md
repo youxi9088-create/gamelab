@@ -1,0 +1,5 @@
+# Tic Tac Toe Ultimate
+
+Desktop IAB1280x720 Chinese locale. Actual Classic easy AI diagonal win1-0/+1earned star, next, skins progress and4x4 mode; same-device2P complete draw. Final source after statistics-only online-tab retirement restored actual bot win1/streak1, local2P P1win and next board verified. Complete final network window reload/statistics/local2Pwin/next, no truncation/errors/external. Other modes full victories, medium/hardAI, full skins/languages and mobile touch/audio not exhausted. Original rules/AI, score and save preserved. No fabricated reward, hidden-state play or claim of all modes completed.
+
+{'editable_source': 'Readable game.js original board/rules/AI/profile/save and UI; index inline original CSS/fonts retained.', 'reuse': 'Board evaluation/state/AI can be extracted with adaptations; no separate-module certification.', 'dependencies': 'NativeDOM/SVG/WebAudio, embedded fonts, localStorage only; no host/network.', 'preservation': '6rules/AI functions Je/N/it/_t/vt/ht and15selected board/score/save methods exact canonical original SHA. No difficulty/reward inflation.'}

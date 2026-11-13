@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-13T06:54:34.104Z",
+  "previous_engine_sha256": "e3ef291eec7ebfc89dca51eca9b84da4781cd3e366c4a1a9ec05bc369d5768f0",
+  "final_engine_sha256": "3c977e453b246c495f2901fc3c2f2200f7c2e5230df1ef691af88fd4d9df45fd",
+  "changes": [
+    {
+      "line": 121723,
+      "guard": "gameanalytics",
+      "action": "Remove only telemetry guard and its progress-report body"
+    }
+  ],
+  "scope": "Only real residual gameanalytics call expressions in original loading screen removed, no global SDK stub. Original loading transition, asset completion and game functions preserved."
+}

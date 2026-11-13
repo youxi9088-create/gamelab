@@ -1,0 +1,62 @@
+{
+  "category": "益智 · 画线物理防护",
+  "dimension": "2D",
+  "perspective": "竖屏正面视角",
+  "core_gameplay": "Original50-level ball/bee survival, native physics drawing/ink/time/earned coins/skins/achievements retained; actual Level1win andLevel2fail/retry.",
+  "core_experience": "快速画线的物理防御解谜，每关约30秒画线+15秒生存",
+  "controls": "Mouse or original touch drawing, Ready, Next/Retry/Menu/Shop/Achievements; original controls retained.",
+  "game_loop": "开始：菜单选PLAY/CONTINUE进关；操作：限时画盾，READY或倒计时结束进入生存阶段，蜂群追踪攻击；结果：存活则BALL SAVED+50币，碰撞则STUNG可重试；继续：NEXT LEVEL/RETRY/MENU",
+  "content": "固定50关，10种主题背景每5关切换；6种球皮肤商店购买；6项成就",
+  "progression": "过关解锁下一关（localStorage stb_level），首过每关得50币，金币购皮肤，成就给额外金币",
+  "save": "Original stb_* localStorage, actual Level2/50coins and deduplicated Level1reward preserved after reload.",
+  "rules": "目标：保护球15秒内不被蜜蜂碰到；成功：倒计时结束存活，+50币（仅首过）；失败：蜂球碰撞即STUNG；墨量上限1400，画线限时30秒，画线不能穿过球体",
+  "systems": "画线系统（拖动采样点生成物理刚体）、蜂群AI（追踪+摆动）、碰撞判定、墨量限制、金币/皮肤/成就经济、主题轮换",
+  "ui_flow": "菜单（进度/金币/PLAY/商店/成就/重置）→ 关卡（等级/倒计时/墨量/READY）→ 结算（NEXT/RETRY/MENU）；商店购买装备皮肤；成就弹窗展示进度",
+  "level_design": "第1关3只蜂低速，关卡升高蜂数（2+关卡数）与速度递增、生成间隔缩短；蜂巢固定三处",
+  "verification": "Desktop1280x720 portrait game405x720. Ordinary mouse drags create three original physics shield strokes, Ready, actual Level1BALLSAVED+50COINS. SameLevel1retry win LEVELCLEARED-NOCOINS proves reward dedup. NextLevel2withoutshield actualSTUNG; retry resets30s and normal menu. Original shop50coins/Blue250 rejects withYouNeed200More, remains50. Achievements1/10,39/300survival; reload Level2/50coins restored. Entire original main.js, Phaser3.80.1 and5original image/audio files byte unchanged. Complete original50-level generation/10themes/progression retained, levels3–50 not played; affordable skins/achievement claims and mobile/audio hearing not exhausted. Complete final reload/play/draw/win/retry/fail/shop/achievements/reload window no truncation/external/missing/errors.",
+  "evidence": "main.js 菜单/商店/游戏场景源码；verification/f649a4be-…-web-play.json；screenshots/step-1至step-12",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/step-1.png",
+      "caption": "实际操作记录 1。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-3.png",
+      "caption": "实际操作记录 3。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-4.png",
+      "caption": "实际操作记录 4。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-6.png",
+      "caption": "实际操作记录 6。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-7.png",
+      "caption": "实际操作记录 7。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-9.png",
+      "caption": "实际操作记录 9。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-10.png",
+      "caption": "实际操作记录 10。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-12.png",
+      "caption": "实际操作记录 12。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    }
+  ]
+}

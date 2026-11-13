@@ -1,0 +1,52 @@
+{
+  "max_steps": 5,
+  "steps_used": 5,
+  "actual_steps": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "原首测349完整事件，加载屏gameanalytics残留guard阻断；真实失败保留，未计通过。"
+    },
+    {
+      "step": 2,
+      "type": "reload",
+      "selector": "document",
+      "result": "仅移除原遥测guard后原跑酷启动，实际PlayCanvas2.23.3、38分/3金条，未伪造SDK。"
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "selector": "canvas",
+      "key": "Up",
+      "duration_ms": 180,
+      "result": "实际腾空跳跃、跨过矮障碍，随后原Down教程64分/6金条。"
+    },
+    {
+      "step": 4,
+      "type": "key",
+      "selector": "canvas",
+      "key": "Down",
+      "duration_ms": 180,
+      "result": "实际通过原高栏/下滑教程并推进到Left提示，未改障碍或教程条件。"
+    },
+    {
+      "step": 5,
+      "type": "key",
+      "selector": "canvas",
+      "key": "Left",
+      "duration_ms": 180,
+      "result": "实际进入左道，保存帧82分/11金条，最终原Right提示100分/12金条；停止追加输入。"
+    }
+  ],
+  "unverified": [
+    "rightlane/fulltutorial",
+    "fullround/result/death/revive",
+    "build/shop/allworlds/allcharacters",
+    "localclaim/cancel",
+    "touch/audiohearing",
+    "save/reload afterprogress",
+    "nonWASMcompatibilityfallbacks"
+  ],
+  "stopped_at_limit": true
+}

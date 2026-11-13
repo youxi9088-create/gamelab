@@ -1,0 +1,5 @@
+# Ember Colosseum
+
+原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。
+
+{'editable_source': 'Original76nativegamefunctions preserved inreadablemain.js; localTHREE andportal-world engine.', 'reuse': 'Arena/enemyAI/wavecontroller/skillcooldown/resources/combatHUD modules extractablewithadaptation; notseparatelycertified.', 'dependencies': 'LocalTHREE/WebGL/WebAudio/originalpersonalStorage; noSDK/server required.', 'preservation': '原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。'}

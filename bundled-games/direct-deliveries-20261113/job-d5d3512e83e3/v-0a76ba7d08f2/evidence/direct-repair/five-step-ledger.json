@@ -1,0 +1,51 @@
+{
+  "max_steps": 5,
+  "steps_used": 5,
+  "actual_steps": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Original JAMBLE title and Play Solo."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "Play Solo",
+      "result": "Original countdown/shake then180sec match."
+    },
+    {
+      "step": 3,
+      "type": "type",
+      "text": "ONE",
+      "result": "AttemptedONE, actual UI onlyO; not a verified keyboard word."
+    },
+    {
+      "step": 4,
+      "type": "drag",
+      "from": [
+        694,
+        178
+      ],
+      "to": [
+        694,
+        375
+      ],
+      "result": "Continuous native O-N-E path and release submittedONE,1word/1point; natural time expiry observed separately without more input."
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "page",
+      "result": "Original title/menu restored; original single round is not persisted."
+    }
+  ],
+  "unverified": [
+    "full keyboard word/Enter",
+    "tray rotation",
+    "touch",
+    "audio output",
+    "additional rounds/replay"
+  ],
+  "stopped_at_limit": true
+}

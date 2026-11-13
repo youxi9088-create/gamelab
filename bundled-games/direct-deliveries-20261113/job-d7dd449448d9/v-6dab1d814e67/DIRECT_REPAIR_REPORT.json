@@ -1,0 +1,525 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "key",
+        "key": "WASD",
+        "result": "Originaltruckacceleration/steering/brake/reverse andautomaticpickupbag/can/dumpster."
+      },
+      {
+        "type": "result",
+        "result": "Native2unitlandfillunload24dollars/load0; firstcompletedreport1trip/12units/1dumpster/combox3,24+15-39=0normalquotaLOSS."
+      },
+      {
+        "type": "key",
+        "key": "E/W/S/E",
+        "result": "Originalexit/walk/reenteractual, no handcarryclaim."
+      },
+      {
+        "type": "click",
+        "selector": "RetryTrashville",
+        "result": "Actualoriginalretry/second24unload withoutcrashes/safe100 =>124bank."
+      },
+      {
+        "type": "reload",
+        "result": "Actualpersonalbank124 restored, Normal retained, other7citieslocked; noquotaWINclaim."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8909/",
+      "http://127.0.0.1:8909/_remote/3a125e88c76c9347/css2",
+      "http://127.0.0.1:8909/rosebud-game-defaults.css",
+      "http://127.0.0.1:8909/rosebud-game-defaults.js",
+      "http://127.0.0.1:8909/main.js",
+      "http://127.0.0.1:8909/_remote/0d0e081c7ee3d520/three@0.184.0.js",
+      "http://127.0.0.1:8909/_remote/3dd32535ca8fbea1/GLTFLoader.js",
+      "http://127.0.0.1:8909/town.js",
+      "http://127.0.0.1:8909/worlds.js",
+      "http://127.0.0.1:8909/traffic.js",
+      "http://127.0.0.1:8909/truck.js",
+      "http://127.0.0.1:8909/events.js",
+      "http://127.0.0.1:8909/weather.js",
+      "http://127.0.0.1:8909/report.js",
+      "http://127.0.0.1:8909/_remote/777388bbfc7bc409/three.core.mjs.js",
+      "http://127.0.0.1:8909/_remote/b27e1bc27ef59d52/three.mjs.js",
+      "http://127.0.0.1:8909/_remote/ba78ef0ad89aa67e/GLTFLoader.mjs.js",
+      "http://127.0.0.1:8909/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js",
+      "http://127.0.0.1:8909/_remote/c5daec8564995c4e/RoundedBoxGeometry.mjs.js",
+      "http://127.0.0.1:8909/assets/models/trash-bag.glb",
+      "http://127.0.0.1:8909/assets/audio/route-music.mp3",
+      "http://127.0.0.1:8909/assets/audio/pickup-clunk.mp3",
+      "http://127.0.0.1:8909/assets/audio/dump-rumble.mp3",
+      "blob:http://127.0.0.1:8909/1881a14a-f975-400b-9015-1a3c7050b00d",
+      "http://127.0.0.1:8909/assets/models/garbage-can.glb",
+      "blob:http://127.0.0.1:8909/90848efd-fe23-4f64-8bc3-804fe3a8ce68",
+      "blob:http://127.0.0.1:8909/1c9654dc-5d29-4a4c-9185-e3ae7414973e",
+      "http://127.0.0.1:8909/assets/models/dumpster.glb",
+      "blob:http://127.0.0.1:8909/28de812d-7bbf-4213-a541-39315acf7482",
+      "blob:http://127.0.0.1:8909/5d6ccc9d-6eb5-4d6e-961f-caddff1b0cfe",
+      "http://127.0.0.1:8909/assets/audio/dump-rumble.mp3",
+      "http://127.0.0.1:8909/assets/audio/dump-rumble.mp3",
+      "http://127.0.0.1:8909/",
+      "http://127.0.0.1:8909/_remote/3a125e88c76c9347/css2",
+      "http://127.0.0.1:8909/rosebud-game-defaults.css",
+      "http://127.0.0.1:8909/rosebud-game-defaults.js",
+      "http://127.0.0.1:8909/main.js",
+      "http://127.0.0.1:8909/_remote/0d0e081c7ee3d520/three@0.184.0.js",
+      "http://127.0.0.1:8909/_remote/3dd32535ca8fbea1/GLTFLoader.js",
+      "http://127.0.0.1:8909/town.js",
+      "http://127.0.0.1:8909/worlds.js",
+      "http://127.0.0.1:8909/traffic.js",
+      "http://127.0.0.1:8909/truck.js",
+      "http://127.0.0.1:8909/events.js",
+      "http://127.0.0.1:8909/weather.js",
+      "http://127.0.0.1:8909/report.js",
+      "http://127.0.0.1:8909/_remote/777388bbfc7bc409/three.core.mjs.js",
+      "http://127.0.0.1:8909/_remote/b27e1bc27ef59d52/three.mjs.js",
+      "http://127.0.0.1:8909/_remote/ba78ef0ad89aa67e/GLTFLoader.mjs.js",
+      "http://127.0.0.1:8909/_remote/df1cf3fb2a21416f/RoundedBoxGeometry.js",
+      "http://127.0.0.1:8909/_remote/c5daec8564995c4e/RoundedBoxGeometry.mjs.js",
+      "http://127.0.0.1:8909/assets/models/trash-bag.glb",
+      "http://127.0.0.1:8909/assets/audio/route-music.mp3",
+      "http://127.0.0.1:8909/assets/audio/pickup-clunk.mp3",
+      "http://127.0.0.1:8909/assets/audio/dump-rumble.mp3",
+      "blob:http://127.0.0.1:8909/ea591c6d-d613-4bd6-8c85-c0add4fd4e4b",
+      "http://127.0.0.1:8909/assets/models/garbage-can.glb",
+      "blob:http://127.0.0.1:8909/92033970-0080-471d-a3ba-5df504733c2f",
+      "blob:http://127.0.0.1:8909/d69567b6-39ae-42f8-8296-73831a95c109",
+      "http://127.0.0.1:8909/assets/models/dumpster.glb",
+      "blob:http://127.0.0.1:8909/4bbaa1dc-cb40-456c-93e2-b2c5a55db3c6",
+      "blob:http://127.0.0.1:8909/65df1b62-cc12-49ac-bd76-f480c1358c5e"
+    ],
+    "scope": "All8originalnativeJSmodules byteSHA unchanged; onlyunrelatedhosttools/interception retired and21exactfontreferences localized. ActualNormal450quota120secondshift: originaldriving/steering/brake/reverse/collision/damage/ticket, automaticbag/can/dumpsterpickup load2then10, native2secondlandfillunload2units24dollars/load0, actualendshiftreport1trip12units1dumpster/combox3 and24dump+15combo-39crash=0loss, noquotawinclaimed. OriginalRetry works. ThirdNormalshift exactsame2unit24unload withoutcrashes, originalsafe100bonus =>124bank, refreshpersonalbank124 andNormal/lockednextcities retained. OriginalEexit/walk/Enter works; nohandcarrydeliveryclaim. Original8cities/all3difficulty/economy/traffic/weather/events/physics/rewards/rules/save unchanged. No quota450win/other7cities/6goals/eventsuccess/upgradespurchase/mobile/hearing proof. Finalcompletecaptureincludesstartup/actualpickup/unload/loss/retry/reload, noexternal/failed/HTTPerror/exception/consoleerror/truncation.",
+    "network_scope": "Complete startup through threeNormalshiftattempts, nativepickup/landfillunload/reportloss/retry/24+100bank124/personalrefresh. Noquotawinclaim.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "Originalsingleplayersimulation: localtraffic/pedestrians/weather/events/citycontracts andpersonaltrashRouteEmpire/trashRouteBest only; no globalboard/servermatch/ad/paymentdependency orfakerewards. Hosttoolsretired.",
+      "evidence": [
+        "main.js",
+        "report.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "Originalsingleplayersimulation: localtraffic/pedestrians/weather/events/citycontracts andpersonaltrashRouteEmpire/trashRouteBest only; no globalboard/servermatch/ad/paymentdependency orfakerewards. Hosttoolsretired.",
+      "evidence": [
+        "main.js",
+        "report.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "Originalsingleplayersimulation: localtraffic/pedestrians/weather/events/citycontracts andpersonaltrashRouteEmpire/trashRouteBest only; no globalboard/servermatch/ad/paymentdependency orfakerewards. Hosttoolsretired.",
+      "evidence": [
+        "main.js",
+        "report.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "Originalsingleplayersimulation: localtraffic/pedestrians/weather/events/citycontracts andpersonaltrashRouteEmpire/trashRouteBest only; no globalboard/servermatch/ad/paymentdependency orfakerewards. Hosttoolsretired.",
+      "evidence": [
+        "main.js",
+        "report.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "ActualNormalpickup/load/unload24/reportloss/retry/save124, noquotaWINclaim.",
+      "evidence": [
+        "evidence/direct-repair/native-normal-report-one-dump.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "Originalmodels/textures/THREE/audio and21exactfontreferences local.",
+      "evidence": [
+        "evidence/direct-repair/native-normal-report-one-dump.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Originaltownstreets/houses/landfill/civicpark/traffic actualrendered.",
+      "evidence": [
+        "evidence/direct-repair/native-normal-report-one-dump.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "Actualtruck/automaticbags/cans/dumpster/landfill zone.",
+      "evidence": [
+        "evidence/direct-repair/native-normal-report-one-dump.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "NativeEarlactualexit/walk/reenter andtraffic/pedestrians visible.",
+      "evidence": [
+        "evidence/direct-repair/native-normal-report-one-dump.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Actualtruckdriving/garbagelift/2secondunload/cameraandEarlwalk.",
+      "evidence": [
+        "evidence/direct-repair/native-normal-report-one-dump.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "OriginalHUDload/time/money, normaldetailedreport/economy/lockedcities/retry/save.",
+      "evidence": [
+        "evidence/direct-repair/native-normal-report-one-dump.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "key",
+      "key": "WASD",
+      "result": "Originaltruckacceleration/steering/brake/reverse andautomaticpickupbag/can/dumpster."
+    },
+    {
+      "type": "result",
+      "result": "Native2unitlandfillunload24dollars/load0; firstcompletedreport1trip/12units/1dumpster/combox3,24+15-39=0normalquotaLOSS."
+    },
+    {
+      "type": "key",
+      "key": "E/W/S/E",
+      "result": "Originalexit/walk/reenteractual, no handcarryclaim."
+    },
+    {
+      "type": "click",
+      "selector": "RetryTrashville",
+      "result": "Actualoriginalretry/second24unload withoutcrashes/safe100 =>124bank."
+    },
+    {
+      "type": "reload",
+      "result": "Actualpersonalbank124 restored, Normal retained, other7citieslocked; noquotaWINclaim."
+    }
+  ],
+  "scope": "All8originalnativeJSmodules byteSHA unchanged; onlyunrelatedhosttools/interception retired and21exactfontreferences localized. ActualNormal450quota120secondshift: originaldriving/steering/brake/reverse/collision/damage/ticket, automaticbag/can/dumpsterpickup load2then10, native2secondlandfillunload2units24dollars/load0, actualendshiftreport1trip12units1dumpster/combox3 and24dump+15combo-39crash=0loss, noquotawinclaimed. OriginalRetry works. ThirdNormalshift exactsame2unit24unload withoutcrashes, originalsafe100bonus =>124bank, refreshpersonalbank124 andNormal/lockednextcities retained. OriginalEexit/walk/Enter works; nohandcarrydeliveryclaim. Original8cities/all3difficulty/economy/traffic/weather/events/physics/rewards/rules/save unchanged. No quota450win/other7cities/6goals/eventsuccess/upgradespurchase/mobile/hearing proof. Finalcompletecaptureincludesstartup/actualpickup/unload/loss/retry/reload, noexternal/failed/HTTPerror/exception/consoleerror/truncation.",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "All8nativeJS byteSHA unchanged andactualNormalpickup/unload/reportloss/retry.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-bank124.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "OriginalTHREE/models/audio and21exactfonts localized, fullruntimewindow.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-bank124.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "Original8cities/3difficulties/quota/timing/physics/economy/rewards unchanged; noquotaWINclaim.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-bank124.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "OriginaltrashRouteEmpire/trashRouteBest personalstorage; actualbank124refresh. No servermatch.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-bank124.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "Onlyunrelatedhosttools/interception retired; no fakeSDK/services/rewards.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-bank124.png",
+        "next_action": ""
+      }
+    ],
+    "scope": "All8originalnativeJSmodules byteSHA unchanged; onlyunrelatedhosttools/interception retired and21exactfontreferences localized. ActualNormal450quota120secondshift: originaldriving/steering/brake/reverse/collision/damage/ticket, automaticbag/can/dumpsterpickup load2then10, native2secondlandfillunload2units24dollars/load0, actualendshiftreport1trip12units1dumpster/combox3 and24dump+15combo-39crash=0loss, noquotawinclaimed. OriginalRetry works. ThirdNormalshift exactsame2unit24unload withoutcrashes, originalsafe100bonus =>124bank, refreshpersonalbank124 andNormal/lockednextcities retained. OriginalEexit/walk/Enter works; nohandcarrydeliveryclaim. Original8cities/all3difficulty/economy/traffic/weather/events/physics/rewards/rules/save unchanged. No quota450win/other7cities/6goals/eventsuccess/upgradespurchase/mobile/hearing proof. Finalcompletecaptureincludesstartup/actualpickup/unload/loss/retry/reload, noexternal/failed/HTTPerror/exception/consoleerror/truncation."
+  },
+  "dependency_review": {
+    "previous_revision": 2,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "离线启动通过；广告过滤及被拒绝请求见 runtime_smoke，存档及结算尚未验证",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证保存恢复和阶段结果"
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 2,
+      "updated_at": "2026-10-30T14:19:09+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "All8nativeJS byteSHA unchanged andactualNormalpickup/unload/reportloss/retry.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-bank124.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "OriginalTHREE/models/audio and21exactfonts localized, fullruntimewindow.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-bank124.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "Original8cities/3difficulties/quota/timing/physics/economy/rewards unchanged; noquotaWINclaim.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-bank124.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "OriginaltrashRouteEmpire/trashRouteBest personalstorage; actualbank124refresh. No servermatch.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-bank124.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "Onlyunrelatedhosttools/interception retired; no fakeSDK/services/rewards.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-bank124.png",
+          "next_action": ""
+        }
+      ],
+      "scope": "All8originalnativeJSmodules byteSHA unchanged; onlyunrelatedhosttools/interception retired and21exactfontreferences localized. ActualNormal450quota120secondshift: originaldriving/steering/brake/reverse/collision/damage/ticket, automaticbag/can/dumpsterpickup load2then10, native2secondlandfillunload2units24dollars/load0, actualendshiftreport1trip12units1dumpster/combox3 and24dump+15combo-39crash=0loss, noquotawinclaimed. OriginalRetry works. ThirdNormalshift exactsame2unit24unload withoutcrashes, originalsafe100bonus =>124bank, refreshpersonalbank124 andNormal/lockednextcities retained. OriginalEexit/walk/Enter works; nohandcarrydeliveryclaim. Original8cities/all3difficulty/economy/traffic/weather/events/physics/rewards/rules/save unchanged. No quota450win/other7cities/6goals/eventsuccess/upgradespurchase/mobile/hearing proof. Finalcompletecaptureincludesstartup/actualpickup/unload/loss/retry/reload, noexternal/failed/HTTPerror/exception/consoleerror/truncation."
+    },
+    "basis": "8originalnativeJS byteSHA andactualNormalpickup/unload/reportloss/retry/bank124refresh; normalrevisionedAPI."
+  },
+  "base_version_id": "v-03ff2588897c",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "original_job": "job-d7dd449448d9",
+    "at": "2026-11-12T06:48:48.630235+00:00"
+  },
+  "game_profile": {
+    "category": "3D · 垃圾收运驾驶经营",
+    "dimension": "",
+    "perspective": "",
+    "core_gameplay": "Original8citiestruckdriving/automatictrashpickup/landfillunload/earnings/quota/traffic/weather/events andcompanyupgrades. ActualNormalfirstcityloss/retry/unload/save124 only.",
+    "core_experience": "",
+    "controls": "WASD/arrowsdrive/steer/brake/reverse,Eexit/reenter,originaltouchpad,Mbuttonmute.",
+    "game_loop": "",
+    "content": "",
+    "progression": "",
+    "save": "OriginaltrashRouteEmpire/trashRouteBest personalstorage, bank124actualrefresh; no midshift saveclaim.",
+    "rules": "",
+    "systems": "",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "All8originalnativeJSmodules byteSHA unchanged; onlyunrelatedhosttools/interception retired and21exactfontreferences localized. ActualNormal450quota120secondshift: originaldriving/steering/brake/reverse/collision/damage/ticket, automaticbag/can/dumpsterpickup load2then10, native2secondlandfillunload2units24dollars/load0, actualendshiftreport1trip12units1dumpster/combox3 and24dump+15combo-39crash=0loss, noquotawinclaimed. OriginalRetry works. ThirdNormalshift exactsame2unit24unload withoutcrashes, originalsafe100bonus =>124bank, refreshpersonalbank124 andNormal/lockednextcities retained. OriginalEexit/walk/Enter works; nohandcarrydeliveryclaim. Original8cities/all3difficulty/economy/traffic/weather/events/physics/rewards/rules/save unchanged. No quota450win/other7cities/6goals/eventsuccess/upgradespurchase/mobile/hearing proof. Finalcompletecaptureincludesstartup/actualpickup/unload/loss/retry/reload, noexternal/failed/HTTPerror/exception/consoleerror/truncation.",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "illustrations": [
+      {
+        "path": "screenshots/startup.png",
+        "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Originalmain/town/worlds/traffic/truck/events/weather/report readablemodules retained unchanged.",
+    "reuse": "Truckphysics/roadtraffic/weather/events/pickup/unload/companyeconomy/reports modules extractablewithadaptation; not separatelycertified.",
+    "dependencies": "LocalTHREE/WebGL/WebAudio/localStorage/GLB/staticfonts/audio; no server or generatedsubstitution.",
+    "preservation": "All8nativeJS SHAunchanged. Originalcityquota/time/difficulty/rewards/save untouched."
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T06:26:01.292484+00:00",
+      "recorded_node_elapsed_wall_seconds": 11316.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 5973.685,
+      "calls": 70,
+      "known_input_tokens": 2586547,
+      "known_output_tokens": 209128,
+      "cached_input_tokens_known": 808704,
+      "unknown_usage_calls": 7,
+      "known_estimated_cost_subtotals": {
+        "CNY": 58.087067999999995
+      },
+      "unknown_cost_calls": 7,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 4,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 4,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 4,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 66,
+          "input_tokens_known": 2586547,
+          "output_tokens_known": 209128,
+          "unknown_usage_calls": 3,
+          "known_cost_subtotals": {
+            "CNY": 58.087067999999995
+          },
+          "unknown_cost_calls": 3,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T02:54:42.333029+00:00",
+      "observed_until": "2026-11-12T06:48:50.580529+00:00",
+      "observed_wall_seconds": 14048.2475,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

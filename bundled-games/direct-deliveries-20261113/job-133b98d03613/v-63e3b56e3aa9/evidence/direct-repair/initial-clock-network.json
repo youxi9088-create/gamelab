@@ -1,0 +1,1591 @@
+{
+  "cursor": 135,
+  "events": [
+    {
+      "sequence": 30,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "type": "other"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/"
+        },
+        "requestId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "timestamp": 1229143.439037,
+        "type": "Document",
+        "wallTime": 1794472145.717177
+      }
+    },
+    {
+      "sequence": 34,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": true,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608276,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "378",
+            "Content-type": "text/html",
+            "Date": "Thu, 12 Nov 2026 08:29:05 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:28:03 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "text/html",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472145719.407,
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.66,
+            "connectStart": 0.416,
+            "dnsEnd": 0.416,
+            "dnsStart": 0.3,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.654,
+            "receiveHeadersStart": 1.471,
+            "requestTime": 1229143.439936,
+            "sendEnd": 0.764,
+            "sendStart": 0.698,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/"
+        },
+        "timestamp": 1229143.455301,
+        "type": "Document"
+      }
+    },
+    {
+      "sequence": 43,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 40,
+          "lineNumber": 19,
+          "type": "parser",
+          "url": "http://127.0.0.1:8913/"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/main.js"
+        },
+        "requestId": "26676.20",
+        "timestamp": 1229143.465086,
+        "type": "Script",
+        "wallTime": 1794472145.743197
+      }
+    },
+    {
+      "sequence": 49,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": true,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.20",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608282,
+          "connectionReused": false,
+          "encodedDataLength": 104,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Date": "Thu, 12 Nov 2026 08:29:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472145749.955,
+          "securityState": "secure",
+          "status": 304,
+          "statusText": "Not Modified",
+          "timing": {
+            "connectEnd": 0.61,
+            "connectStart": 0.293,
+            "dnsEnd": 0.293,
+            "dnsStart": 0.287,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.436,
+            "receiveHeadersStart": 1.368,
+            "requestTime": 1229143.470587,
+            "sendEnd": 0.704,
+            "sendStart": 0.649,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/main.js"
+        },
+        "timestamp": 1229143.477265,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 52,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 19,
+          "lineNumber": 0,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/main.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/main.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/001-three-0.185.js"
+        },
+        "requestId": "26676.22",
+        "timestamp": 1229143.478353,
+        "type": "Script",
+        "wallTime": 1794472145.756466
+      }
+    },
+    {
+      "sequence": 54,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.22",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608050,
+          "connectionReused": false,
+          "encodedDataLength": 259,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "61",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119382.413,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.786,
+            "connectStart": 0.454,
+            "dnsEnd": 0.454,
+            "dnsStart": 0.449,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.49,
+            "receiveHeadersStart": 2.152,
+            "requestTime": 1229117.101987,
+            "sendEnd": 0.862,
+            "sendStart": 0.821,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/001-three-0.185.js"
+        },
+        "timestamp": 1229143.478395,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 57,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 41,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/main.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/main.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/003-RoundedBoxGeometry.js"
+        },
+        "requestId": "26676.23",
+        "timestamp": 1229143.478599,
+        "type": "Script",
+        "wallTime": 1794472145.756706
+      }
+    },
+    {
+      "sequence": 59,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.23",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608056,
+          "connectionReused": false,
+          "encodedDataLength": 341,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "142",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119382.726,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.31,
+            "connectStart": 0.977,
+            "dnsEnd": 0.977,
+            "dnsStart": 0.974,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.511,
+            "receiveHeadersStart": 2.354,
+            "requestTime": 1229117.102098,
+            "sendEnd": 1.372,
+            "sendStart": 1.341,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/003-RoundedBoxGeometry.js"
+        },
+        "timestamp": 1229143.478625,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 62,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 38,
+          "lineNumber": 3,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/main.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/main.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/005-BufferGeometryUtils.js"
+        },
+        "requestId": "26676.24",
+        "timestamp": 1229143.478685,
+        "type": "Script",
+        "wallTime": 1794472145.756788
+      }
+    },
+    {
+      "sequence": 64,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.24",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608060,
+          "connectionReused": false,
+          "encodedDataLength": 338,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "139",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119382.53,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.169,
+            "connectStart": 0.994,
+            "dnsEnd": 0.994,
+            "dnsStart": 0.993,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.338,
+            "receiveHeadersStart": 2.007,
+            "requestTime": 1229117.102249,
+            "sendEnd": 1.257,
+            "sendStart": 1.234,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/005-BufferGeometryUtils.js"
+        },
+        "timestamp": 1229143.478797,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 67,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 37,
+          "lineNumber": 1588,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/main.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/main.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/007-EffectComposer.js"
+        },
+        "requestId": "26676.25",
+        "timestamp": 1229143.478868,
+        "type": "Script",
+        "wallTime": 1794472145.756971
+      }
+    },
+    {
+      "sequence": 69,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.25",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608066,
+          "connectionReused": false,
+          "encodedDataLength": 337,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "138",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119385.18,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.517,
+            "connectStart": 1.252,
+            "dnsEnd": 1.252,
+            "dnsStart": 1.25,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 5.196,
+            "receiveHeadersStart": 4.54,
+            "requestTime": 1229117.102366,
+            "sendEnd": 1.566,
+            "sendStart": 1.537,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/007-EffectComposer.js"
+        },
+        "timestamp": 1229143.478889,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 72,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 33,
+          "lineNumber": 1589,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/main.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/main.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/009-RenderPass.js"
+        },
+        "requestId": "26676.26",
+        "timestamp": 1229143.478927,
+        "type": "Script",
+        "wallTime": 1794472145.757025
+      }
+    },
+    {
+      "sequence": 74,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.26",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608070,
+          "connectionReused": false,
+          "encodedDataLength": 329,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "130",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119385.587,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.062,
+            "connectStart": 0.862,
+            "dnsEnd": 0.862,
+            "dnsStart": 0.86,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 4.708,
+            "receiveHeadersStart": 4.411,
+            "requestTime": 1229117.102902,
+            "sendEnd": 1.097,
+            "sendStart": 1.074,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/009-RenderPass.js"
+        },
+        "timestamp": 1229143.478974,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 77,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 33,
+          "lineNumber": 1590,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/main.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/main.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/011-ShaderPass.js"
+        },
+        "requestId": "26676.27",
+        "timestamp": 1229143.479071,
+        "type": "Script",
+        "wallTime": 1794472145.757174
+      }
+    },
+    {
+      "sequence": 79,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.27",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608075,
+          "connectionReused": false,
+          "encodedDataLength": 329,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "130",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119386.139,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.183,
+            "connectStart": 1.028,
+            "dnsEnd": 1.028,
+            "dnsStart": 1.026,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 5.922,
+            "receiveHeadersStart": 4.878,
+            "requestTime": 1229117.102987,
+            "sendEnd": 1.257,
+            "sendStart": 1.197,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/011-ShaderPass.js"
+        },
+        "timestamp": 1229143.479093,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 82,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 38,
+          "lineNumber": 1591,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/main.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/main.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/013-UnrealBloomPass.js"
+        },
+        "requestId": "26676.28",
+        "timestamp": 1229143.479138,
+        "type": "Script",
+        "wallTime": 1794472145.757236
+      }
+    },
+    {
+      "sequence": 84,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.28",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608080,
+          "connectionReused": false,
+          "encodedDataLength": 339,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "140",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119386.334,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 3.767,
+            "connectStart": 3.138,
+            "dnsEnd": 3.138,
+            "dnsStart": 3.129,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 5.957,
+            "receiveHeadersStart": 5.032,
+            "requestTime": 1229117.103028,
+            "sendEnd": 3.867,
+            "sendStart": 3.811,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/013-UnrealBloomPass.js"
+        },
+        "timestamp": 1229143.479148,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 87,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 1,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/vendor/001-three-0.185.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/vendor/001-three-0.185.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/002-three.js"
+        },
+        "requestId": "26676.29",
+        "timestamp": 1229143.479344,
+        "type": "Script",
+        "wallTime": 1794472145.757442
+      }
+    },
+    {
+      "sequence": 89,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.29",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608089,
+          "connectionReused": false,
+          "encodedDataLength": 730149,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "729947",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119388.741,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.776,
+            "connectStart": 1.241,
+            "dnsEnd": 1.241,
+            "dnsStart": 1.236,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.437,
+            "receiveHeadersStart": 2.36,
+            "requestTime": 1229117.108107,
+            "sendEnd": 1.861,
+            "sendStart": 1.822,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/002-three.js"
+        },
+        "timestamp": 1229143.479358,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 92,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/vendor/003-RoundedBoxGeometry.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/vendor/003-RoundedBoxGeometry.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/004-RoundedBoxGeometry.js"
+        },
+        "requestId": "26676.30",
+        "timestamp": 1229143.479404,
+        "type": "Script",
+        "wallTime": 1794472145.757502
+      }
+    },
+    {
+      "sequence": 94,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.30",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608093,
+          "connectionReused": false,
+          "encodedDataLength": 2056,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "1856",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119389.085,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.309,
+            "connectStart": 0.967,
+            "dnsEnd": 0.967,
+            "dnsStart": 0.965,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.767,
+            "receiveHeadersStart": 2.225,
+            "requestTime": 1229117.108586,
+            "sendEnd": 1.424,
+            "sendStart": 1.395,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/004-RoundedBoxGeometry.js"
+        },
+        "timestamp": 1229143.479413,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 97,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/vendor/005-BufferGeometryUtils.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/vendor/005-BufferGeometryUtils.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/006-BufferGeometryUtils.js"
+        },
+        "requestId": "26676.31",
+        "timestamp": 1229143.47949,
+        "type": "Script",
+        "wallTime": 1794472145.757588
+      }
+    },
+    {
+      "sequence": 99,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.31",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608100,
+          "connectionReused": false,
+          "encodedDataLength": 13615,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "13414",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119389.61,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.333,
+            "connectStart": 1.175,
+            "dnsEnd": 1.175,
+            "dnsStart": 1.172,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.533,
+            "receiveHeadersStart": 2.381,
+            "requestTime": 1229117.108955,
+            "sendEnd": 1.383,
+            "sendStart": 1.352,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/006-BufferGeometryUtils.js"
+        },
+        "timestamp": 1229143.479501,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 102,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/vendor/007-EffectComposer.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/vendor/007-EffectComposer.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/008-EffectComposer.js"
+        },
+        "requestId": "26676.32",
+        "timestamp": 1229143.479827,
+        "type": "Script",
+        "wallTime": 1794472145.757929
+      }
+    },
+    {
+      "sequence": 104,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.32",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608106,
+          "connectionReused": false,
+          "encodedDataLength": 6136,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "5936",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119390.319,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.771,
+            "connectStart": 0.429,
+            "dnsEnd": 0.429,
+            "dnsStart": 0.426,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.976,
+            "receiveHeadersStart": 1.443,
+            "requestTime": 1229117.110602,
+            "sendEnd": 0.834,
+            "sendStart": 0.803,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/008-EffectComposer.js"
+        },
+        "timestamp": 1229143.479847,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 107,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/vendor/009-RenderPass.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/vendor/009-RenderPass.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/010-RenderPass.js"
+        },
+        "requestId": "26676.33",
+        "timestamp": 1229143.479904,
+        "type": "Script",
+        "wallTime": 1794472145.758002
+      }
+    },
+    {
+      "sequence": 109,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.33",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608110,
+          "connectionReused": false,
+          "encodedDataLength": 1874,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "1674",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119390.34,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.619,
+            "connectStart": 0.445,
+            "dnsEnd": 0.445,
+            "dnsStart": 0.443,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.953,
+            "receiveHeadersStart": 1.301,
+            "requestTime": 1229117.110765,
+            "sendEnd": 0.707,
+            "sendStart": 0.685,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/010-RenderPass.js"
+        },
+        "timestamp": 1229143.479916,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 112,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/vendor/011-ShaderPass.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/vendor/011-ShaderPass.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/012-ShaderPass.js"
+        },
+        "requestId": "26676.34",
+        "timestamp": 1229143.479958,
+        "type": "Script",
+        "wallTime": 1794472145.758055
+      }
+    },
+    {
+      "sequence": 114,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.34",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608118,
+          "connectionReused": false,
+          "encodedDataLength": 1918,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "1718",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119391.485,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.965,
+            "connectStart": 0.638,
+            "dnsEnd": 0.638,
+            "dnsStart": 0.635,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.542,
+            "receiveHeadersStart": 1.438,
+            "requestTime": 1229117.111773,
+            "sendEnd": 1.032,
+            "sendStart": 0.998,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/012-ShaderPass.js"
+        },
+        "timestamp": 1229143.479966,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 117,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8913/",
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 14,
+          "lineNumber": 2,
+          "type": "script",
+          "url": "http://127.0.0.1:8913/vendor/013-UnrealBloomPass.js"
+        },
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8913",
+            "Referer": "http://127.0.0.1:8913/vendor/013-UnrealBloomPass.js"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8913/vendor/014-UnrealBloomPass.js"
+        },
+        "requestId": "26676.35",
+        "timestamp": 1229143.480025,
+        "type": "Script",
+        "wallTime": 1794472145.75813
+      }
+    },
+    {
+      "sequence": 119,
+      "source": {
+        "tabId": 48
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "450931B362E01C63169C5EC5EE12C099",
+        "hasExtraInfo": false,
+        "loaderId": "CB76C84AAE0FB96FEE3BD9785B0A5902",
+        "requestId": "26676.35",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 608122,
+          "connectionReused": false,
+          "encodedDataLength": 10812,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "10611",
+            "Content-type": "application/javascript",
+            "Date": "Thu, 12 Nov 2026 08:28:39 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 08:19:05 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8913,
+          "responseTime": 1794472119391.631,
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.863,
+            "connectStart": 0.709,
+            "dnsEnd": 0.709,
+            "dnsStart": 0.707,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.648,
+            "receiveHeadersStart": 1.471,
+            "requestTime": 1229117.111886,
+            "sendEnd": 0.957,
+            "sendStart": 0.932,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8913/vendor/014-UnrealBloomPass.js"
+        },
+        "timestamp": 1229143.480051,
+        "type": "Script"
+      }
+    }
+  ],
+  "hasMore": false,
+  "truncated": false
+}

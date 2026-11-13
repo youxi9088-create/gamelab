@@ -1,0 +1,166 @@
+{
+  "passed": false,
+  "errors": [],
+  "missing": [
+    "/2554063.json",
+    "/2554063.json",
+    "/2554063.json",
+    "/2554063.json",
+    "/2554063.json",
+    "/2554063.json"
+  ],
+  "external": [],
+  "blocked_external": [],
+  "required_external": [],
+  "steps": [
+    {
+      "engine": "browser",
+      "viewport": {
+        "width": 1000,
+        "height": 760
+      },
+      "canvasCount": 1,
+      "fontStatus": "loaded",
+      "buttons": [],
+      "labels": [],
+      "loaded": true,
+      "text": "",
+      "input_state": {
+        "document_focused": true,
+        "focused_tag": "BODY",
+        "pointer_locked": false,
+        "pointer_lock_target": null
+      },
+      "storage": {
+        "scope": "isolated-page-web-storage",
+        "origin": "https://replica-runtime.invalid",
+        "observed_at": "2026-11-03T13:53:23.670Z",
+        "areas": {
+          "localStorage": {
+            "available": true,
+            "complete": true,
+            "entries": [
+              {
+                "key": "nekoUserData",
+                "key_sha256": "cc562f9113dd6082ea77e8385775f629b2edf2c40314c258c35dfe8357d14694",
+                "characters": 53,
+                "sha256": "c1880f8b911710a1d38d94bd586f3681de031e3a1e2cfe5751d327aa0f8f22f8"
+              }
+            ],
+            "total_entries": 1
+          },
+          "sessionStorage": {
+            "available": true,
+            "complete": true,
+            "entries": [],
+            "total_entries": 0
+          },
+          "indexedDB": {
+            "available": true,
+            "complete": true,
+            "databases": [],
+            "total_databases": 0
+          },
+          "wasmFS": {
+            "available": false,
+            "complete": false,
+            "root": "/data",
+            "entries": []
+          }
+        },
+        "limitation": "Storage hashes do not prove game progress was loaded. IndexedDB and exposed WASM /data files are read-only snapshots, not an atomic cross-store snapshot. Save bodies are never returned."
+      }
+    }
+  ],
+  "actions": [],
+  "renderDiagnostics": [],
+  "resource_requests": [],
+  "verifier_revision": "936f3eb340f02c018c624368dd7264b145caec3a02f21d24f5bdd5e7a14aef19",
+  "adblock": {
+    "enabled": true,
+    "engine": "Ghostery Adblocker",
+    "version": "2.20.1",
+    "rules": [
+      {
+        "file": "easylist.txt",
+        "sha256": "8eabbf3424d383fd5fcfb726208f9083a46d36aea6960483380a1e187f708149"
+      },
+      {
+        "file": "easyprivacy.txt",
+        "sha256": "c1485f955439a6eab1a96fa0ac0045ae642066ece6781d19e296842cf95c3ea9"
+      }
+    ],
+    "blocked_count": 1,
+    "blocked": [
+      {
+        "url": "https://download.gameanalytics.com/js/GameAnalytics-4.4.6.min.js",
+        "type": "script",
+        "method": "GET",
+        "rule": "||gameanalytics.com^$third-party"
+      }
+    ],
+    "exceptions": [],
+    "scope": "Network ads/tracking only; no cosmetic injection, redirects, fake SDK success or gameplay acceptance"
+  },
+  "optional_resources": [],
+  "environment": "deployment",
+  "diagnostic_only": false,
+  "runtime_origin": "https://replica-runtime.invalid",
+  "navigation": [
+    {
+      "url": "https://replica-runtime.invalid/",
+      "phase": "startup",
+      "allowed": true,
+      "elapsed_ms": 17580
+    }
+  ],
+  "navigation_attempts": [
+    {
+      "url": "https://replica-runtime.invalid/",
+      "phase": "startup",
+      "allowed": true,
+      "elapsed_ms": 17444
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "phase": "startup",
+      "elapsed_ms": 47010,
+      "status": "passed",
+      "scope": "Observed non-loopback runtime only; not a guarantee for unobserved timers or deployment configurations"
+    }
+  ],
+  "replay_action_count": 0,
+  "captured_screenshots": [
+    "screenshots/startup.png"
+  ],
+  "failure": "Offline check failed: {\"errors\":[],\"missing\":[\"/2554063.json\",\"/2554063.json\",\"/2554063.json\",\"/2554063.json\",\"/2554063.json\",\"/2554063.json\"],\"external\":[]}",
+  "issues": [
+    {
+      "code": "LOCAL_RESOURCE_MISSING",
+      "paths": [
+        "/2554063.json"
+      ],
+      "next_action": "沿原始来源补齐实际缺失文件并重新验证"
+    }
+  ],
+  "lastObserved": {
+    "engine": "browser",
+    "viewport": {
+      "width": 1000,
+      "height": 760
+    },
+    "canvasCount": 1,
+    "fontStatus": "loaded",
+    "buttons": [],
+    "labels": [],
+    "loaded": true,
+    "text": "",
+    "input_state": {
+      "document_focused": true,
+      "focused_tag": "BODY",
+      "pointer_locked": false,
+      "pointer_lock_target": null
+    }
+  }
+}

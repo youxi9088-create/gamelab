@@ -1,0 +1,453 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "click",
+        "selector": "canvas",
+        "result": "Original PLAY/Ready, ordinary mouse drags shield; actual Level1BALLSAVED+50."
+      },
+      {
+        "type": "drag",
+        "selector": "canvas",
+        "result": "Three normal mouse strokes; same-level retry win NOCOINS."
+      },
+      {
+        "type": "click",
+        "selector": "canvas",
+        "result": "NextLevel2, Readywithoutshield STUNG, retry30s/menu; shop insufficient coin rejection, achievements."
+      },
+      {
+        "type": "reload",
+        "result": "Original Level2/50coins restored."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8892/index.html",
+      "http://127.0.0.1:8892/_remote/3a125e88c76c9347/css2",
+      "http://127.0.0.1:8892/rosebud-game-defaults.css",
+      "http://127.0.0.1:8892/rosebud-game-defaults.js",
+      "http://127.0.0.1:8892/main.js",
+      "http://127.0.0.1:8892/_remote/9e73b21cb6ba014a/phaser.esm.js",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX/AP804Oa6AAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg==",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ9JREFUeNq01ssOwyAMRFG46v//Mt1ESmgh+DFmE2GPOBARKb2NVjo+17PXLD8a1+pl5+A+wSgFygymWYHBb0FtsKhJDdZlncG2IzJ4ayoMDv20wTmSMzClEgbWYNTAkQ0Z+OJ+A/eWnAaR9+oxCF4Os0H8htsMUp+pwcgBBiMNnAwF8GqIgL2hAzaGFFgZauDPKABmowZ4GL369/0rwACp2yA/ttmvsQAAAABJRU5ErkJggg==",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABdJREFUeNpi/P//PwMMMDEgAdwcgAADAJZuAwXJYZOzAAAAAElFTkSuQmCC",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX//wCKxvRFAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+      "http://127.0.0.1:8892/assets/ball-face.webp",
+      "http://127.0.0.1:8892/assets/bee.webp",
+      "http://127.0.0.1:8892/assets/audio/menu-music.mp3",
+      "http://127.0.0.1:8892/assets/audio/win-jingle.mp3",
+      "http://127.0.0.1:8892/assets/audio/lose-sting.mp3",
+      "blob:http://127.0.0.1:8892/fa8b6e9b-3387-4bba-8959-82baadecca32",
+      "blob:http://127.0.0.1:8892/83944355-4e42-4516-a9a0-9fcd76d3c011",
+      "http://127.0.0.1:8892/index.html",
+      "http://127.0.0.1:8892/_remote/3a125e88c76c9347/css2",
+      "http://127.0.0.1:8892/rosebud-game-defaults.css",
+      "http://127.0.0.1:8892/rosebud-game-defaults.js",
+      "http://127.0.0.1:8892/main.js",
+      "http://127.0.0.1:8892/_remote/9e73b21cb6ba014a/phaser.esm.js",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX/AP804Oa6AAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg==",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ9JREFUeNq01ssOwyAMRFG46v//Mt1ESmgh+DFmE2GPOBARKb2NVjo+17PXLD8a1+pl5+A+wSgFygymWYHBb0FtsKhJDdZlncG2IzJ4ayoMDv20wTmSMzClEgbWYNTAkQ0Z+OJ+A/eWnAaR9+oxCF4Os0H8htsMUp+pwcgBBiMNnAwF8GqIgL2hAzaGFFgZauDPKABmowZ4GL369/0rwACp2yA/ttmvsQAAAABJRU5ErkJggg==",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABdJREFUeNpi/P//PwMMMDEgAdwcgAADAJZuAwXJYZOzAAAAAElFTkSuQmCC",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX//wCKxvRFAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+      "http://127.0.0.1:8892/assets/ball-face.webp",
+      "http://127.0.0.1:8892/assets/bee.webp",
+      "http://127.0.0.1:8892/assets/audio/menu-music.mp3",
+      "http://127.0.0.1:8892/assets/audio/win-jingle.mp3",
+      "http://127.0.0.1:8892/assets/audio/lose-sting.mp3",
+      "blob:http://127.0.0.1:8892/9e59b9ae-1a36-409a-bf8a-201ca4e56502",
+      "blob:http://127.0.0.1:8892/34113043-4f92-4a4d-aded-36bc081cb4b8"
+    ],
+    "scope": "Desktop1280x720 portrait game405x720. Ordinary mouse drags create three original physics shield strokes, Ready, actual Level1BALLSAVED+50COINS. SameLevel1retry win LEVELCLEARED-NOCOINS proves reward dedup. NextLevel2withoutshield actualSTUNG; retry resets30s and normal menu. Original shop50coins/Blue250 rejects withYouNeed200More, remains50. Achievements1/10,39/300survival; reload Level2/50coins restored. Entire original main.js, Phaser3.80.1 and5original image/audio files byte unchanged. Complete original50-level generation/10themes/progression retained, levels3–50 not played; affordable skins/achievement claims and mobile/audio hearing not exhausted. Complete final reload/play/draw/win/retry/fail/shop/achievements/reload window no truncation/external/missing/errors.",
+    "network_scope": "Original unchanged main+Phaser, complete reload/start/draw shield/Ready/Level1win50/repeatLevel1winNOCOINS/Level2no-shieldSTUNG/retry/menu/shopinsufficient/achievements/reloadLevel2coins50. No hidden state.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "Original native single-player draw/physics/bee survival game, only earned coin local shop and personal achievements; no network leaderboard/ad/payment/multiplayer. Removed unrelated Rosebud loader/chat/image-generation/logger/host interception. Actual win reward dedup and insufficient coins preserved, no service/reward emulation. Exact declared font resources localized.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "Original native single-player draw/physics/bee survival game, only earned coin local shop and personal achievements; no network leaderboard/ad/payment/multiplayer. Removed unrelated Rosebud loader/chat/image-generation/logger/host interception. Actual win reward dedup and insufficient coins preserved, no service/reward emulation. Exact declared font resources localized.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "Original native single-player draw/physics/bee survival game, only earned coin local shop and personal achievements; no network leaderboard/ad/payment/multiplayer. Removed unrelated Rosebud loader/chat/image-generation/logger/host interception. Actual win reward dedup and insufficient coins preserved, no service/reward emulation. Exact declared font resources localized.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "Original native single-player draw/physics/bee survival game, only earned coin local shop and personal achievements; no network leaderboard/ad/payment/multiplayer. Removed unrelated Rosebud loader/chat/image-generation/logger/host interception. Actual win reward dedup and insufficient coins preserved, no service/reward emulation. Exact declared font resources localized.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "Actual Level1win and same-level repeat no reward, Level2failure/retry.",
+      "evidence": [
+        "evidence/direct-repair/level1-result.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "Original Phaser and5image/audio unchanged; precise fonts localized, final requests clean.",
+      "evidence": [
+        "evidence/direct-repair/reload-level2-coins50.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Original Meadow ground/hives/ball, original50level/10theme definitions retained.",
+      "evidence": [
+        "evidence/direct-repair/shield-survive-start.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "Original drawn compound bodies/Matter collision/shield ink/bee swarm interact.",
+      "evidence": [
+        "evidence/direct-repair/shield-survive-start.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "Original ball and bee sprites/physics/face reaction.",
+      "evidence": [
+        "evidence/direct-repair/level2-no-shield-result.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Original swarm/strokes/ballrotation/win shake/retry observed.",
+      "evidence": [
+        "evidence/direct-repair/level1-result.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "Original Next/Retry/Menu/shop/achievements/progress/coins restore.",
+      "evidence": [
+        "evidence/direct-repair/repeat-level1-result.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "click",
+      "selector": "canvas",
+      "result": "Original PLAY/Ready, ordinary mouse drags shield; actual Level1BALLSAVED+50."
+    },
+    {
+      "type": "drag",
+      "selector": "canvas",
+      "result": "Three normal mouse strokes; same-level retry win NOCOINS."
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "result": "NextLevel2, Readywithoutshield STUNG, retry30s/menu; shop insufficient coin rejection, achievements."
+    },
+    {
+      "type": "reload",
+      "result": "Original Level2/50coins restored."
+    }
+  ],
+  "scope": "Desktop1280x720 portrait game405x720. Ordinary mouse drags create three original physics shield strokes, Ready, actual Level1BALLSAVED+50COINS. SameLevel1retry win LEVELCLEARED-NOCOINS proves reward dedup. NextLevel2withoutshield actualSTUNG; retry resets30s and normal menu. Original shop50coins/Blue250 rejects withYouNeed200More, remains50. Achievements1/10,39/300survival; reload Level2/50coins restored. Entire original main.js, Phaser3.80.1 and5original image/audio files byte unchanged. Complete original50-level generation/10themes/progression retained, levels3–50 not played; affordable skins/achievement claims and mobile/audio hearing not exhausted. Complete final reload/play/draw/win/retry/fail/shop/achievements/reload window no truncation/external/missing/errors.",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "Entire original readable main.js and Phaser engine exactSHA unchanged; real shield/win/repeat/fail/retry.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-level2-coins50.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "Original5image/audio and Phaser bytes unchanged;23font references localized exact URL/SHA. Complete final runtime no missing/external.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-level2-coins50.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "Original50levels/10themes/ink/time/bee collision/reward50 and dedup unchanged. Actual Level1win/repeatNOCOINS, Level2fail/retry.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-level2-coins50.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "Original stb_* localStorage progress/coins/skins/achievement data; actual reloadLevel2/50coins; no backend.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-level2-coins50.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "Rosebud tools/host interception removed, native module/Phaser start directly. No ad, payment or server result fabricated.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-level2-coins50.png",
+        "next_action": ""
+      }
+    ],
+    "scope": "Desktop1280x720 portrait game405x720. Ordinary mouse drags create three original physics shield strokes, Ready, actual Level1BALLSAVED+50COINS. SameLevel1retry win LEVELCLEARED-NOCOINS proves reward dedup. NextLevel2withoutshield actualSTUNG; retry resets30s and normal menu. Original shop50coins/Blue250 rejects withYouNeed200More, remains50. Achievements1/10,39/300survival; reload Level2/50coins restored. Entire original main.js, Phaser3.80.1 and5original image/audio files byte unchanged. Complete original50-level generation/10themes/progression retained, levels3–50 not played; affordable skins/achievement claims and mobile/audio hearing not exhausted. Complete final reload/play/draw/win/retry/fail/shop/achievements/reload window no truncation/external/missing/errors."
+  },
+  "dependency_review": {
+    "previous_revision": 3,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "核心流程所需图片音频本地加载运行正常",
+          "evidence": "verification/4b398c44-a320-4908-8243-9c63225198b7-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "关卡进度、金币、奖励记录等localStorage配置读写恢复实测",
+          "evidence": "verification/4b398c44-a320-4908-8243-9c63225198b7-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "仅覆盖启动至第1关闭环与存档恢复；全程无外部请求，本地代码与localStorage完成；未覆盖商店购买、成就后续、50关通关",
+          "evidence": "verification/4b398c44-a320-4908-8243-9c63225198b7-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 3,
+      "updated_at": "2026-11-02T06:54:36+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "Entire original readable main.js and Phaser engine exactSHA unchanged; real shield/win/repeat/fail/retry.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-level2-coins50.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "Original5image/audio and Phaser bytes unchanged;23font references localized exact URL/SHA. Complete final runtime no missing/external.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-level2-coins50.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "Original50levels/10themes/ink/time/bee collision/reward50 and dedup unchanged. Actual Level1win/repeatNOCOINS, Level2fail/retry.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-level2-coins50.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "Original stb_* localStorage progress/coins/skins/achievement data; actual reloadLevel2/50coins; no backend.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-level2-coins50.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "Rosebud tools/host interception removed, native module/Phaser start directly. No ad, payment or server result fabricated.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-level2-coins50.png",
+          "next_action": ""
+        }
+      ],
+      "scope": "Desktop1280x720 portrait game405x720. Ordinary mouse drags create three original physics shield strokes, Ready, actual Level1BALLSAVED+50COINS. SameLevel1retry win LEVELCLEARED-NOCOINS proves reward dedup. NextLevel2withoutshield actualSTUNG; retry resets30s and normal menu. Original shop50coins/Blue250 rejects withYouNeed200More, remains50. Achievements1/10,39/300survival; reload Level2/50coins restored. Entire original main.js, Phaser3.80.1 and5original image/audio files byte unchanged. Complete original50-level generation/10themes/progression retained, levels3–50 not played; affordable skins/achievement claims and mobile/audio hearing not exhausted. Complete final reload/play/draw/win/retry/fail/shop/achievements/reload window no truncation/external/missing/errors."
+    },
+    "basis": "Unchanged original source/engine/resources and actual win/duplicate reward/fail/retry/local save evidence, normal revisioned API."
+  },
+  "base_version_id": "v-2acdc371d948",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "original_job": "job-5c9d6546e368",
+    "at": "2026-11-12T02:24:54.444124+00:00"
+  },
+  "game_profile": {
+    "category": "益智 · 画线物理防护",
+    "dimension": "2D",
+    "perspective": "竖屏正面视角",
+    "core_gameplay": "Original50-level ball/bee survival, native physics drawing/ink/time/earned coins/skins/achievements retained; actual Level1win andLevel2fail/retry.",
+    "core_experience": "快速画线的物理防御解谜，每关约30秒画线+15秒生存",
+    "controls": "Mouse or original touch drawing, Ready, Next/Retry/Menu/Shop/Achievements; original controls retained.",
+    "game_loop": "开始：菜单选PLAY/CONTINUE进关；操作：限时画盾，READY或倒计时结束进入生存阶段，蜂群追踪攻击；结果：存活则BALL SAVED+50币，碰撞则STUNG可重试；继续：NEXT LEVEL/RETRY/MENU",
+    "content": "固定50关，10种主题背景每5关切换；6种球皮肤商店购买；6项成就",
+    "progression": "过关解锁下一关（localStorage stb_level），首过每关得50币，金币购皮肤，成就给额外金币",
+    "save": "Original stb_* localStorage, actual Level2/50coins and deduplicated Level1reward preserved after reload.",
+    "rules": "目标：保护球15秒内不被蜜蜂碰到；成功：倒计时结束存活，+50币（仅首过）；失败：蜂球碰撞即STUNG；墨量上限1400，画线限时30秒，画线不能穿过球体",
+    "systems": "画线系统（拖动采样点生成物理刚体）、蜂群AI（追踪+摆动）、碰撞判定、墨量限制、金币/皮肤/成就经济、主题轮换",
+    "ui_flow": "菜单（进度/金币/PLAY/商店/成就/重置）→ 关卡（等级/倒计时/墨量/READY）→ 结算（NEXT/RETRY/MENU）；商店购买装备皮肤；成就弹窗展示进度",
+    "level_design": "第1关3只蜂低速，关卡升高蜂数（2+关卡数）与速度递增、生成间隔缩短；蜂巢固定三处",
+    "verification": "Desktop1280x720 portrait game405x720. Ordinary mouse drags create three original physics shield strokes, Ready, actual Level1BALLSAVED+50COINS. SameLevel1retry win LEVELCLEARED-NOCOINS proves reward dedup. NextLevel2withoutshield actualSTUNG; retry resets30s and normal menu. Original shop50coins/Blue250 rejects withYouNeed200More, remains50. Achievements1/10,39/300survival; reload Level2/50coins restored. Entire original main.js, Phaser3.80.1 and5original image/audio files byte unchanged. Complete original50-level generation/10themes/progression retained, levels3–50 not played; affordable skins/achievement claims and mobile/audio hearing not exhausted. Complete final reload/play/draw/win/retry/fail/shop/achievements/reload window no truncation/external/missing/errors.",
+    "evidence": "main.js 菜单/商店/游戏场景源码；verification/f649a4be-…-web-play.json；screenshots/step-1至step-12",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "illustrations": [
+      {
+        "path": "screenshots/step-1.png",
+        "caption": "实际操作记录 1。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      },
+      {
+        "path": "screenshots/step-3.png",
+        "caption": "实际操作记录 3。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      },
+      {
+        "path": "screenshots/step-4.png",
+        "caption": "实际操作记录 4。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      },
+      {
+        "path": "screenshots/step-6.png",
+        "caption": "实际操作记录 6。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      },
+      {
+        "path": "screenshots/step-7.png",
+        "caption": "实际操作记录 7。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      },
+      {
+        "path": "screenshots/step-9.png",
+        "caption": "实际操作记录 9。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      },
+      {
+        "path": "screenshots/step-10.png",
+        "caption": "实际操作记录 10。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      },
+      {
+        "path": "screenshots/step-12.png",
+        "caption": "实际操作记录 12。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Entire original readable main.js and original Phaser3.80.1 module, native assets retained.",
+    "reuse": "Level generator/Matter-shield/bee steering/coin dedup/shop/achievement/save components can be extracted with Phaser/scene adaptation; not separately certified.",
+    "dependencies": "Local Phaser/Matter/canvas/WebAudio, exact font/image/audio files and localStorage only.",
+    "preservation": "Entire main.js/Phaser/5originalassets byteSHA unchanged; no reward/time/difficulty/physics changes."
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

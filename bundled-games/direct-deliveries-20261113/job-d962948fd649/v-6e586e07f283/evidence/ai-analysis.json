@@ -1,0 +1,37 @@
+{
+  "summary": "本次运行包为基于 Three.js 的网页赛车游戏《TOYBOX RALLY》的启动画面，已通过本地静态资源引用修复成功运行，无 JS 报错，仅验证到主菜单、模式选择与选车/选关界面；未进入实际赛事，未验证玩法系统、网络对战、存档等。当前不能声称完整验收。",
+  "game_profile": {
+    "category": "休闲竞速 / 卡丁车式街机赛车（网页版）",
+    "dimension": "3D（主界面为 2D UI 覆盖在 WebGL 画布之上）",
+    "perspective": "比赛中为第三人称跟随视角（推测）；菜单与选关为 2D 平面界面",
+    "core_gameplay": "玩家从主菜单选择 SOLO（单人对抗五名机器人）、LOCAL CO-OP（2–4 人同屏）或 ONLINE 2V2（联机对战，未验证）后，进入选车与选关界面；可挑选赛车、涂装光泽、赛道、圈数、机器人难度、道具规则、行驶方向，并可开启 3-track cup 与 Auto throttle；比赛为玩具车主题的家庭场景竞速，赛道含捷径与道具箱，以冲线名次决定胜负。",
+    "core_experience": "轻松、快节奏、低门槛的小型赛车体验；强调本地多人同屏、键盘即插即用、道具干扰与主题化赛道（卧室、厨房、后院、浴室、车库）。",
+    "controls": "输入：键盘按键；条件：在比赛场景中按住/点击对应按键控制车辆加速、转向、刹车、使用道具；反馈：车辆运动、镜头跟随、道具释放特效与音效（实际手感未验证）。界面中显示的控制方案包括：WASD、方向键、IJKL、TFGH，可能分别对应 1–4 号玩家；另有 'Auto throttle' 开关，可在设置中启用。",
+    "game_loop": "1) 开始：浏览器加载 index.html、Three.js 库、音频与字体，初始化 WebGL 画布并显示主菜单；2) 选择：玩家选择模式，并在选车/选关界面调整赛车（CAR 1/4，当前显示 Comet GT）、PAINT SHOP GLOSS、赛道（5 条固定 + 随机）、圈数（1/2/3/4）、机器人难度（Easy/Normal/Hard）、道具规则（All 8 / Nitro only / Rockets only）、方向（Forward/Reverse）、是否 3-track cup、是否 Auto throttle；3) 比赛：玩具车在赛道上竞速，拾取道具、穿越捷径；4) 结果：根据到达终点顺序排名；5) 继续：返回菜单、重赛或进入杯赛下一场。",
+    "content": "固定内容：5 条命名赛道——Pillow Grand Prix（Bedroom · 1.98 km）、Countertop Clash（Kitchen · 2.01 km）、Garden Afterburn（Backyard · 1.70 km）、Bubble Bath Bash（Bathroom · 1.95 km）、Garage Gauntlet（Garage · 1.66 km），以及 1 条 'Random Track' 选项；至少 4 辆可选赛车（界面显示 CAR 1 / 4，车名 Comet GT）；音频资产 assets/003-music.mp3；Three.js 渲染库。程序生成/动态内容：随机赛道选择逻辑、AI 机器人行为、车辆物理、道具生成与 shortcuts 触发逻辑均未在运行时验证。",
+    "progression": "单场比赛以冲线名次结算；3-track cup 可能为连续 3 场比赛的杯赛积分制，具体积分规则未确认；本次运行未观察到长期解锁、等级、货币或成就系统。",
+    "save": "保存内容：本次运行中 localStorage、sessionStorage、IndexedDB 均为空，未观察到任何存档写入。触发条件、恢复逻辑与不保存项均未确认；当前启动包未持久化玩家进度、设置或排行榜。",
+    "rules": "目标：在设定圈数内完成赛道，取得最佳名次。成功/失败：SOLO 模式为与 5 名机器人竞速，按冲线顺序判定胜负（具体前几名算胜利未确认）；未完成比赛或名次低于目标视为失败。计分公式：未确认具体数值公式。已查证阈值/选项：赛道长度 1.66–2.01 km；圈数 1/2/3/4；SOLO 对手为 5 个机器人；机器人难度 Easy/Normal/Hard；道具为全部 8 种或仅 Nitro / 仅 Rockets；赛道可 Forward/Reverse；杯赛为 3-track cup；每赛道含 4 处 shortcuts（界面文字 '4 SHORTCUTS'，未验证实际触发）。",
+    "systems": "对象：玩家赛车、AI 赛车、赛道几何体、道具箱/道具效果、检查点/终点线、捷径区域、相机、灯光、UI 层。状态：主菜单、模式选择、选车/选关、比赛中、暂停、结算。触发：键盘输入、车辆与检查点/终点线/道具箱/捷径区域的碰撞、菜单按钮点击。系统交互：输入系统 → 车辆物理/动画；物理系统 → 相机跟随与碰撞反馈；检查点系统 → 圈数计数与方向校验；道具系统 → 车辆状态（如 Nitro 加速、Rockets 攻击）；音频系统 → 事件驱动播放；UI 状态机 → 菜单/比赛/结算切换。",
+    "ui_flow": "主菜单（TOYBOX RALLY / SMALL CARS. BIG TROUBLE.）→ 模式选择（SOLO / LOCAL CO-OP / ONLINE 2V2）→ 选车/选关界面（左侧：‹/› 切换 CAR 1/4、PAINT SHOP GLOSS；右侧：赛道列表、圈数、机器人难度、道具规则、方向、3-track cup、Auto throttle；底部：PILLOW GRAND PRIX START RACE）→ 比赛 HUD（未验证）→ 结算界面（未验证）。顶部常驻按钮：'?' 帮助、'⚙' 设置；底部有 CONTROLS 按钮。",
+    "level_design": "5 条主题赛道：卧室（1.98 km）、厨房（2.01 km）、后院（1.70 km）、浴室（1.95 km）、车库（1.66 km）；每条赛道据称含 4 处 shortcuts；赛道可正反向行驶；另有随机赛道选项从 5 条中任选。实际赛道几何、捷径位置与碰撞体未经验证。",
+    "verification": "实机验证：启动包成功运行，渲染主菜单与选关界面，canvasCount=1，无 JS 报错，Three.js 初始化成功，WebGL 程序警告不影响启动。仅源码确认：index.html 内联脚本与 vendor/001-three-0.185.js、vendor/002-three.js 已做静态分析，但 vendor 文件主要为 Three.js 库，未直接暴露游戏规则；editable_project_verified 为 false，未确认可编辑工程。未验证：实际赛车操控、物理、AI、圈数计数、道具效果、捷径、胜负结算、在线 2v2、音频播放、存档。",
+    "evidence": "源码/资产：index.html（含内联脚本 source-analysis/inputs/a712518ca5d0-inline-6.js）、vendor/001-three-0.185.js、vendor/002-three.js、assets/003-music.mp3；补丁记录：vendor/001-three-0.185.js 与 index.html 的 local-static-references 修改；运行时证据：runtime.steps[0] 截图 screenshots/startup.png，viewport 1000×760，buttons/labels 文本（SOLO/LOCAL CO-OP/ONLINE 2V2/START RACE/赛道列表/控制说明等），storage 各项为空。"
+  },
+  "editable_logic": "可在源码层面修改：主菜单与选关界面的文本、按钮顺序、可选择的圈数/机器人难度/道具规则/方向选项；赛道列表名称、顺序与长度显示；可选赛车数量、默认车名与涂装参数；键盘按键映射；Auto throttle 与 3-track cup 默认值；UI 主题色与布局。由于 editable_project_verified 为 false，目前尚未确认是否具备完整可编辑工程（如赛道模型、车辆物理材质、AI 行为树、粒子特效等），需要进一步反编译/源码级验证。",
+  "portable_modules": "可复用/移植模块：Three.js 渲染初始化与 WebGL 画布管理；本地静态资源加载器（HTML/CSS/JS/MP3）；菜单状态机与 2D UI 覆盖层；键盘输入映射模块（WASD / 方向键 / IJKL / TFGH）；赛道选择列表渲染与随机选择逻辑；车辆选择翻页与涂装光泽切换逻辑（需从源码提取确认）。",
+  "dependencies": "运行时依赖：现代浏览器、WebGL 上下文、Three.js r0.185（vendor/001-three-0.185.js）及附加 three.js（vendor/002-three.js）、HTML5 Audio / Web Audio API（assets/003-music.mp3）、DOM 事件与 requestAnimationFrame。网络依赖（未验证）：ONLINE 2V2 标注 'Remix game servers'，若启用需外部游戏服务器。存储依赖：localStorage/sessionStorage/IndexedDB API 存在但当前未使用。",
+  "verification_limits": "当前验证范围仅限启动与菜单静态 UI；未执行任何比赛；无法确认车辆物理、AI 行为、圈数判定、道具系统、捷径触发、胜负结算、控制响应、音效/音乐、多人网络同步、存档持久化。渲染诊断中的 WebGL 程序精度警告不影响菜单显示，但对比赛场景的影响未知。所有数值/公式以界面文字为准，未经运行时实测。",
+  "next_checks": [
+    "点击 START RACE 进入比赛，验证 3D 赛道、车辆、相机视角与帧率",
+    "测试键盘控制（WASD/方向键/IJKL/TFGH）与 Auto throttle 开关效果",
+    "完成至少一圈，验证检查点、圈数计数与反向行驶判定",
+    "完成整场比赛，验证名次排序与结算界面",
+    "测试道具拾取与使用（All 8 / Nitro / Rockets）",
+    "测试 LOCAL CO-OP 多玩家输入分屏/同屏表现",
+    "验证 ONLINE 2V2 是否发起网络请求及对外部服务器的依赖",
+    "播放并验证 assets/003-music.mp3 音频加载",
+    "深入分析 index.html 内联脚本，确认计分公式、AI 参数与 shortcuts 逻辑",
+    "验证设置/进度是否写入 storage 及恢复行为"
+  ]
+}

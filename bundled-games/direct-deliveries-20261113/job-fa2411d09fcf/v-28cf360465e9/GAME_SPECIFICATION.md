@@ -1,0 +1,5 @@
+# Shedoku
+
+Desktop1280x720 actual UI. Visible givens independently solved outside page; ordinary cell clicks/number keys only, no hidden solution or state manipulation. Original Easy36 blanks solved in1:15 score1438 bonus748. Wrong number red feedback and clear, new Medium42-blank puzzle, reload actual score/highscore1438 solved1 PB1:15 and Medium restored. Original design regenerates board on reload, does not save mid-puzzle. Medium/Hard/Expert full wins, mobile/touch and audio hearing not exhausted. Complete network window reload/full Easy win/new/reload with no truncation, external request, missing asset or console error.
+
+{'editable_source': 'Entire readable original main.js retained unchanged, CSS and original art/audio.', 'reuse': 'Sudoku candidates/generator/unique-solution solver, score/progress and DOM board can be extracted with adaptation.', 'dependencies': 'DOM/WebAudio/HTMLAudio/localStorage and local fonts/assets only.', 'preservation': 'Entire main.js byte SHA unchanged; no difficulty, scoring, bonus or victory change.'}

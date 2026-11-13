@@ -1,0 +1,637 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "warnings": [],
+    "missing": [],
+    "required_external": [],
+    "non_game_http_findings": [],
+    "non_game_http_resolution": "",
+    "actions": [
+      {
+        "step": 1,
+        "type": "setup",
+        "result": "原Level1/Deckhand/本地Pirate，PLAY进入。",
+        "selector": "index.html / PLAY"
+      },
+      {
+        "step": 2,
+        "type": "original-cut",
+        "result": "原10/10平局正常重切，未重置牌局或注入RNG。",
+        "selector": "Face-down cut card1 and recut2"
+      },
+      {
+        "step": 3,
+        "type": "discard-and-pegging",
+        "result": "原六弃二、四张出牌、31限制及GO；每次输入见完整台账。",
+        "selector": "Original card buttons / Submit discard / CALL GO"
+      },
+      {
+        "step": 4,
+        "type": "click",
+        "result": "玩家7/电脑14、Next Hand，不声称全场胜利。",
+        "selector": "COUNT HAND"
+      },
+      {
+        "step": 5,
+        "type": "reload-and-return",
+        "result": "真实刷新、ReturnToGame恢复同一牌面与7/14。",
+        "selector": "Document reload / RETURN TO GAME"
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:9010/index.html",
+      "http://127.0.0.1:9010/rosebud-game-defaults.css",
+      "http://127.0.0.1:9010/private-chat.css",
+      "http://127.0.0.1:9010/main.js",
+      "http://127.0.0.1:9010/_remote/662ad3731c0723a6/phaser.esm.js",
+      "http://127.0.0.1:9010/id.js",
+      "http://127.0.0.1:9010/cribbage-logic.js",
+      "http://127.0.0.1:9010/victory-results.js",
+      "http://127.0.0.1:9010/background-music.js",
+      "http://127.0.0.1:9010/assets/turbo-crib-dark-english-galleon-bg.webp",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX/AP804Oa6AAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+      "http://127.0.0.1:9010/assets/turbocrib-ship-logo-no-bg-no-text.png",
+      "http://127.0.0.1:9010/assets/golden-speaker-volume-icon-small.png",
+      "http://127.0.0.1:9010/assets/the-galleons-gambit.mp3",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX//wCKxvRFAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+      "http://127.0.0.1:9010/assets/cut-for-deal-dark-ocean.webp",
+      "http://127.0.0.1:9010/assets/turbocrib-card-back-compressed.jpg",
+      "http://127.0.0.1:9010/assets/weathered-driftwood-grain-small.png",
+      "http://127.0.0.1:9010/assets/galleon-simple-small-3d-2.png",
+      "http://127.0.0.1:9010/assets/anchor-simple-small-3d-brighter.png",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg==",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ9JREFUeNq01ssOwyAMRFG46v//Mt1ESmgh+DFmE2GPOBARKb2NVjo+17PXLD8a1+pl5+A+wSgFygymWYHBb0FtsKhJDdZlncG2IzJ4ayoMDv20wTmSMzClEgbWYNTAkQ0Z+OJ+A/eWnAaR9+oxCF4Os0H8htsMUp+pwcgBBiMNnAwF8GqIgL2hAzaGFFgZauDPKABmowZ4GL369/0rwACp2yA/ttmvsQAAAABJRU5ErkJggg==",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABdJREFUeNpi/P//PwMMMDEgAdwcgAADAJZuAwXJYZOzAAAAAElFTkSuQmCC",
+      "http://127.0.0.1:9010/assets/audio/card-shuffle-round-start.mp3",
+      "http://127.0.0.1:9010/assets/audio/your-turn-3-beeps.mp3",
+      "http://127.0.0.1:9010/assets/audio/peg-thunk.mp3",
+      "http://127.0.0.1:9010/assets/audio/peg-thunk.mp3",
+      "http://127.0.0.1:9010/assets/audio/your-turn-3-beeps.mp3",
+      "http://127.0.0.1:9010/assets/audio/peg-thunk.mp3",
+      "http://127.0.0.1:9010/assets/audio/your-turn-3-beeps.mp3",
+      "http://127.0.0.1:9010/assets/audio/peg-thunk.mp3",
+      "http://127.0.0.1:9010/assets/audio/peg-thunk.mp3",
+      "http://127.0.0.1:9010/index.html",
+      "http://127.0.0.1:9010/rosebud-game-defaults.css",
+      "http://127.0.0.1:9010/private-chat.css",
+      "http://127.0.0.1:9010/main.js",
+      "http://127.0.0.1:9010/_remote/662ad3731c0723a6/phaser.esm.js",
+      "http://127.0.0.1:9010/id.js",
+      "http://127.0.0.1:9010/cribbage-logic.js",
+      "http://127.0.0.1:9010/victory-results.js",
+      "http://127.0.0.1:9010/background-music.js",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX/AP804Oa6AAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+      "http://127.0.0.1:9010/assets/turbocrib-ship-logo-no-bg-no-text.png",
+      "http://127.0.0.1:9010/assets/golden-speaker-volume-icon-small.png",
+      "http://127.0.0.1:9010/assets/turbo-crib-dark-english-galleon-bg.webp",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABAQMAAADD8p2OAAAAA1BMVEX//wCKxvRFAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==",
+      "http://127.0.0.1:9010/assets/the-galleons-gambit.mp3",
+      "http://127.0.0.1:9010/assets/weathered-driftwood-grain-small.png",
+      "http://127.0.0.1:9010/assets/turbocrib-card-back-compressed.jpg",
+      "http://127.0.0.1:9010/assets/galleon-simple-small-3d-2.png",
+      "http://127.0.0.1:9010/assets/anchor-simple-small-3d-brighter.png"
+    ],
+    "scope": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+    "network_scope": "Complete startup through one native CPU hand, native scoring and actual reload/Return to Game; no second hand or match-victory claim.",
+    "evidence": "evidence/direct-repair/network-final.json",
+    "expected_media_cancellations": [
+      {
+        "event": {
+          "sequence": 190,
+          "source": {
+            "tabId": 61
+          },
+          "method": "Network.loadingFailed",
+          "params": {
+            "canceled": true,
+            "errorText": "net::ERR_ABORTED",
+            "requestId": "63776.22",
+            "timestamp": 1318438.814334,
+            "type": "Media"
+          }
+        },
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 813969,
+          "connectionReused": false,
+          "encodedDataLength": 191,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "1253300",
+            "Content-type": "audio/mpeg",
+            "Date": "Fri, 13 Nov 2026 09:17:05 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 22:17:18 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 9010,
+          "responseTime": 1794561425472.584,
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.777,
+            "connectStart": 0.396,
+            "dnsEnd": 0.396,
+            "dnsStart": 0.387,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 2.75,
+            "receiveHeadersStart": 2.677,
+            "requestTime": 1318423.764257,
+            "sendEnd": 0.909,
+            "sendStart": 0.821,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:9010/assets/the-galleons-gambit.mp3"
+        },
+        "reason": "原背景音乐HTTP200后浏览器Media canceled ERR_ABORTED，原字节及GET/SHA保留，不声明听觉验证。"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "removed",
+      "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+      "evidence": [
+        "screenshots/revision-06-first-hand-result.png",
+        "screenshots/revision-07-restored.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+      "evidence": [
+        "screenshots/revision-06-first-hand-result.png",
+        "screenshots/revision-07-restored.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+      "evidence": [
+        "screenshots/revision-06-first-hand-result.png",
+        "screenshots/revision-07-restored.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+      "evidence": [
+        "screenshots/revision-06-first-hand-result.png",
+        "screenshots/revision-07-restored.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+      "evidence": [
+        "screenshots/revision-06-first-hand-result.png",
+        "screenshots/revision-07-restored.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+      "evidence": [
+        "screenshots/revision-06-first-hand-result.png",
+        "screenshots/revision-07-restored.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+      "evidence": [
+        "screenshots/revision-06-first-hand-result.png",
+        "screenshots/revision-07-restored.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "step": 1,
+      "type": "setup",
+      "result": "原Level1/Deckhand/本地Pirate，PLAY进入。",
+      "selector": "index.html / PLAY"
+    },
+    {
+      "step": 2,
+      "type": "original-cut",
+      "result": "原10/10平局正常重切，未重置牌局或注入RNG。",
+      "selector": "Face-down cut card1 and recut2"
+    },
+    {
+      "step": 3,
+      "type": "discard-and-pegging",
+      "result": "原六弃二、四张出牌、31限制及GO；每次输入见完整台账。",
+      "selector": "Original card buttons / Submit discard / CALL GO"
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "result": "玩家7/电脑14、Next Hand，不声称全场胜利。",
+      "selector": "COUNT HAND"
+    },
+    {
+      "step": 5,
+      "type": "reload-and-return",
+      "result": "真实刷新、ReturnToGame恢复同一牌面与7/14。",
+      "selector": "Document reload / RETURN TO GAME"
+    }
+  ],
+  "scope": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      }
+    ],
+    "scope": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。"
+  },
+  "dependency_review": {
+    "previous_revision": 4,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "远端离线启动与真实交互已通过。",
+          "evidence": "verification/c0230f94-79bd-411f-9ff6-1e620205db0a-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "核心玩法与对局场景所需资源已实机加载并交互，缺失项全部补齐。",
+          "evidence": "verification/61af86c7-ab69-45cc-a1e7-b558fd5da27a-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "LEVEL 1 与标准双 Joker 规则在对局中实际生效。",
+          "evidence": "verification/c0230f94-79bd-411f-9ff6-1e620205db0a-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "本轮验证的单机流程由本地代码与本地存储完成；登录、排行、多人未纳入本轮验证范围。",
+          "evidence": "verification/c0230f94-79bd-411f-9ff6-1e620205db0a-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "宿主页面能稳定加载游戏并完成刷新恢复。",
+          "evidence": "verification/c0230f94-79bd-411f-9ff6-1e620205db0a-web-play.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 4,
+      "updated_at": "2026-11-05T06:21:10+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。"
+    },
+    "basis": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。"
+  },
+  "base_version_id": "v-99adb1aa885c",
+  "manual_execution": {
+    "executor": "Codex direct repair / actual UI",
+    "automated_model_conversion": false,
+    "original_job": "job-5beff206e446",
+    "max_gameplay_steps": 5,
+    "at": "2026-11-13T09:30:39.956286+00:00",
+    "actual_mechanical_actions": 16,
+    "key_verification_items": 5,
+    "actual_input_ledger": "evidence/direct-repair/verification-action-ledger.json"
+  },
+  "game_profile": {
+    "category": "纸牌 / Cribbage变体 / 电脑对局",
+    "dimension": "2D",
+    "perspective": "原固定桌面牌桌、双方轨道与手牌区域。",
+    "core_gameplay": "原Level1/Deckhand，切牌平局重切→六张弃二→7/6/2与GO→4→COUNT HAND，真实玩家7分/电脑14分。",
+    "core_experience": "",
+    "controls": "鼠标选择原卡牌、弃牌、CALL GO、COUNT HAND、菜单与返回游戏；输入本地显示名。触控未验证。",
+    "game_loop": "首手完成进入Next Hand，未开始第二手，未证明完整181目标比赛。",
+    "content": "原航海牌桌、双方标记、CPU难度、Training、原音效与胜利界面。胜利/特殊规则不作本轮通过声明。",
+    "progression": "原Level1/Level2、Deckhand/Midshipman/Admiral、Training、双标记轨道和Joker扩展保留；仅Level1/Deckhand首手实测。",
+    "save": "原设备存档真实恢复首手7/14、牌面和Next Hand；无云端或跨设备承诺。",
+    "rules": "原cribbage-logic.js SHA3378ef1443639f05438e3946420cc93b607fe56cc13a560ae47ce64280c14c8f不变，无改点值/概率/发牌/得分/目标。",
+    "systems": "原发牌/弃牌/pegging/GO/手牌与crib计分、CPU决策、本地存档、音频与胜利展示；真实云认证/房间/排行/定位/私聊退役。",
+    "ui_flow": "原设置→PLAY→Cut平局重切→弃二→轮流出牌→COUNT HAND→Next Hand→刷新设置→RETURN TO GAME恢复。",
+    "level_design": "保留原连续牌局与级别选择，未改造为短关或简化卡牌玩法。",
+    "verification": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。",
+    "evidence": "5关键项16输入台账、103完整网络事件、原首手与恢复DOM、真实截图、源指纹及材料SHA。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "原DOM界面与JavaScript模块，原Phaser本地依赖保留。",
+    "programming_language": "JavaScript ES模块、HTML/CSS。",
+    "game_summary": "选择航海主题的CPU对手，切牌决定发牌方，六张手牌弃二进入crib，通过原逐张pegging与手牌/crib计分推进双标记轨道。",
+    "resource_types": "原牌背/船舶/海洋背景/标记PNG与WebP/JPG、原MP3、规则与胜利展示模块。",
+    "engine_asset_system": "相对路径本地assets与Phaser依赖，四份同源原资产补齐，工程GET/SHA逐项核对。",
+    "core_challenge_details": "按原点值与31上限轮流出牌，无法出牌调用原GO，使用原手牌组合与crib计分。原特殊A/Joker数值选择规则保持。",
+    "core_challenge_type": "手牌组合 / 弃牌策略 / 逐张计分决策",
+    "input_elements": "原级别/CPU难度/模式选择、六选二弃牌、四张pegging、过牌、计分和下一手按钮。在线模式明确禁用。",
+    "app_suitability": "",
+    "core_loop": "切牌发牌→弃二入crib→双方轮流pegging→手牌和crib计分→下一手→原目标胜利；本轮只实测首手与恢复。",
+    "churn_risk": "",
+    "progression_loop": "原逐手累积分数与双标记推进目标；实际只玩家7/电脑14。",
+    "core_closure": "同一首手弃牌/轮流出牌/过牌/双方计分成立；刷新后原返回入口恢复同牌局与分数。",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "实测Level1目标181，标准2Jokers；本手玩家4♠/2♦/6♠/7♣，upcard8♥，手牌15(x2)+run3=7；电脑pegging2+hand10+crib2=14。",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "原航海船舱、暗海背景、金色轨道和木质计分面板，使用原素材。",
+    "theme_position": "海盗航海主题的策略纸牌。",
+    "economy": "原比赛分数与轨道，不新增货币、付费或资源注入。",
+    "roles": "本地Pirate对原CPU Deckhand；CPU不是远端玩家。",
+    "roster_summary": "",
+    "monetization_details": "移除实际Supabase provider/协议与宿主脚本，在线入口禁用并明确说明。",
+    "monetization": "未新增广告/支付；原联网账号与对局服务退役，不伪造服务成功。",
+    "illustrations": [
+      {
+        "path": "screenshots/revision-04-native-hand.png",
+        "caption": "原首手弃牌后进入实际CPU对局。"
+      },
+      {
+        "path": "screenshots/revision-06-first-hand-result.png",
+        "caption": "原首手结算，玩家7分/电脑14分。"
+      },
+      {
+        "path": "screenshots/revision-07-restored.png",
+        "caption": "真实刷新返回同一原牌局和计分。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "原完整875方法与JavaScript/HTML/CSS保留。",
+    "reuse": "原计分规则与牌桌模块可编辑；跨项目复用未验证。",
+    "dependencies": "普通HTTP浏览器、本地原素材与设备存储；无联网服务。",
+    "preservation": "保留TurboCrib原DOM/JavaScript与Phaser资源、875原类方法中841指纹不变，34处实际云认证/档案/房间/排行及其入口边界变更；joinRoom实际实现退役，另有明确不可用提示方法。cribbage-logic、背景音乐、ID及胜利展示四原模块字节不变。原CPU/Training与设备存档保留，不伪造在线账号、房间或排行榜。四份缺失原图/音效从同一原构建HTTPS200/SHA补齐。五关键验证项16次实际机械输入，另一次AX定位输入前失败留证：本地Pirate→原切牌平局重切→六张弃二→首手四张原生出牌及CALL GO→Count Hand原生玩家+7，电脑2pegging+10hand+2crib=14→真实刷新ReturnToGame恢复同一7/14与原牌。原Level1目标181与双Joker规则不变；没有第二手、全局胜利或RNG/分数/时钟注入。103完整网络事件无外联、无HTTP错误、无运行异常，控制台零错误零警告；一条原背景音乐已HTTP200后浏览器取消ERR_ABORTED留证，未宣称听觉通过。UI后仅修正误导的多人页脚文字，不改玩法。未验证Training/其他难度/Level2/Joker特殊规则/全部胜利/触控/听觉/云账号。准备时远端人工暂停；用户随后明确“仅接续TurboCrib”，仅授权本款沿原任务正常入库待验收，其他暂停保持。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 12229.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 9453.698,
+      "calls": 86,
+      "known_input_tokens": 4433497,
+      "known_output_tokens": 264135,
+      "cached_input_tokens_known": 1571584,
+      "unknown_usage_calls": 9,
+      "known_estimated_cost_subtotals": {
+        "CNY": 86.79492800000001
+      },
+      "unknown_cost_calls": 9,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 4,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 4,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 4,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 82,
+          "input_tokens_known": 4433497,
+          "output_tokens_known": 264135,
+          "unknown_usage_calls": 5,
+          "known_cost_subtotals": {
+            "CNY": 86.79492800000001
+          },
+          "unknown_cost_calls": 5,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T22:17:17.638475+00:00",
+      "observed_until": "2026-11-13T09:31:01.412454+00:00",
+      "observed_wall_seconds": 40423.773979,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

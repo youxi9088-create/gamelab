@@ -1,0 +1,77 @@
+{
+  "historical_platform_model_usage": {
+    "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+    "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+    "recorded_node_elapsed_wall_seconds": 2216.0,
+    "processing_seconds": null,
+    "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+    "recorded_inference_call_wall_seconds": 1587.141,
+    "calls": 24,
+    "known_input_tokens": 475599,
+    "known_output_tokens": 50637,
+    "cached_input_tokens_known": 229120,
+    "unknown_usage_calls": 5,
+    "known_estimated_cost_subtotals": {
+      "CNY": 7.6374237
+    },
+    "unknown_cost_calls": 5,
+    "complete_estimated_cost_by_currency": null,
+    "models": {
+      "api:kimi-k2.7-code": {
+        "calls": 12,
+        "input_tokens_known": 242349,
+        "output_tokens_known": 17028,
+        "unknown_usage_calls": 2,
+        "known_cost_subtotals": {
+          "CNY": 1.3441317
+        },
+        "unknown_cost_calls": 2,
+        "registered_price_bands": [
+          {
+            "currency": "CNY",
+            "input_per_million": 6.5,
+            "output_per_million": 27,
+            "cached_input_per_million": 1.3
+          }
+        ]
+      },
+      "api:local-codex": {
+        "calls": 2,
+        "input_tokens_known": 0,
+        "output_tokens_known": 0,
+        "unknown_usage_calls": 2,
+        "known_cost_subtotals": {},
+        "unknown_cost_calls": 2,
+        "registered_price_bands": []
+      },
+      "api:kimi-k3": {
+        "calls": 10,
+        "input_tokens_known": 233250,
+        "output_tokens_known": 33609,
+        "unknown_usage_calls": 1,
+        "known_cost_subtotals": {
+          "CNY": 6.293292000000001
+        },
+        "unknown_cost_calls": 1,
+        "registered_price_bands": [
+          {
+            "currency": "CNY",
+            "input_per_million": 20,
+            "output_per_million": 100,
+            "cached_input_per_million": 2
+          }
+        ]
+      }
+    }
+  },
+  "current_direct_repair": {
+    "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+    "observed_from": "2026-11-13T01:54:33.103404+00:00",
+    "observed_until": "2026-11-13T02:09:27.074045+00:00",
+    "observed_wall_seconds": 893.970641,
+    "codex_game_input_tokens": null,
+    "codex_game_output_tokens": null,
+    "codex_game_cost": null,
+    "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+  }
+}

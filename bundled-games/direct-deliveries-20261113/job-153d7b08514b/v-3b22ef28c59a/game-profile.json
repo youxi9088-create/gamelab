@@ -1,0 +1,62 @@
+{
+  "category": "3D · 竞技场动作生存",
+  "dimension": "3D",
+  "perspective": "固定高角度俯视跟随视角，镜头居中跟随主角",
+  "core_gameplay": "Originalrubberbandpumpkin charge/kick/pullback arena against enemies/graves, candy/upgrade/fivebossdefinitions retained. Actualdefeat only, no dawnwin.",
+  "core_experience": "快节奏走位与弹道清怪的生存体验，追求更高击杀数、得分与存活时间",
+  "controls": "WASD/arrows move, mouseholdcharge/releasekick/clickpullback, Escpause.",
+  "game_loop": "开始：主菜单点PLAY进入LEVEL 1；操作：WASD走位、按住蓄力踢出南瓜、点击拉回回击，击杀敌人累计击杀数与得分，被击中扣血；结果：生命归零进入死亡结算，展示存活时间/击杀/得分并刷新最佳纪录；继续：TRY AGAIN立即重开或Menu回主菜单",
+  "content": "已验证LEVEL 1单个竞技场场景（圆形石砖场地、南瓜与烛火装饰、敌人波次出现）；界面提示存在多夜生存目标，但后续关卡与完整夜时长未验证，关卡总数未确认",
+  "progression": "局内以击杀数、得分、存活时间推进，HUD显示LEVEL 1与RUTABAGA COMBO五格连击槽；升级与连击槽具体机制未验证",
+  "save": "Originalsral_ personalbest/settings, actualBEST233/22:37 andsoundOff reload. No midrunsaveclaim.",
+  "rules": "目标：存活至黎明并尽量获得高分；失败：生命归零（实机确认初始100/100，受击扣血）；计分：击杀敌人得分，实机4杀对应46分，具体计分公式与阈值未确认；结算展示TIME/KILLS/RUTABAGA JAMS/RUTABAGAMAGEDDONS/SCORE",
+  "systems": "玩家骑士：生命值、移动、蓄力踢与拉回；南瓜弹：蓄力发射、指向光标、可拉回回击；敌人：南瓜怪等，出现并围攻，可被击杀计数；连击槽：五格RUTABAGA COMBO显示，充能机制未验证；HUD：血条、时间（22:00起向黎明推进）、分数、等级、操作提示条",
+  "ui_flow": "主菜单：标题、副标题、PLAY、How to play、Credits、Sound开关、Best成绩行；战斗HUD：左上血条、顶部时间与分数、右上南瓜计数与暂停、左下LEVEL、底部提示条与连击槽；死亡结算：Sir has fallen!、存活时间、NEW BEST、五项统计、TRY AGAIN与Menu按钮；How to play与Credits面板未打开验证",
+  "level_design": "已验证场景为圆形石砖竞技场，中央出生圆盘，四周散布南瓜、烛火与装饰物，敌人自边缘出现；仅单一场景实机确认，更多关卡布局未验证",
+  "verification": "Desktop1280x720 nativecastle arena survival. Entire originalgame.js identical after reversing20exactaudioURLliteral replacements; all functions/config/AI/physics/score/lives/upgrades/save unchanged.23exactfontrefs190608bytes,20originaldeclaredaudio1207105bytes localized withSHA. Actualnativecharge/release/pullback/movement/combos/healthloss, firstdefeat233score15kills at22:37, pause172/10kills/resume/soundOff; TryAgain0/100health. ReloadBEST233/22:37 andsoundOff restored. Fullreobservedrun79score6kills defeat22:35, lowerresult preservesBEST233, retry/pause/resume/menu. Firststartupbufferpartial preserved; separatecomplete312requestwindow no external/failure/exception/truncation. One originalTHREEshaderX4122floatingprecision warning retained, no consoleerrors. No dawnwin/levelupchoice/full5boss/rutabagaJam/otherlanguages/mobile/audiohearing proof. No game difficulty/reward changes.",
+  "evidence": "verification/d59f96fc-3d81-416f-8f74-eed35e8a2011-web-play.json；screenshots/step-15.png至step-32.png；localStorage键sral_best刷新前后哈希一致且菜单展示对应成绩",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/step-15.png",
+      "caption": "实际操作记录 1。画面文字：100 / 100\n22:00\n0\nLEVEL 1\n0\nWASD walks. Hold the mouse button to charge a kick, let go to shoot!\nRUTABAGA COMBO\n22:00\nPumpkin Night at the Castle"
+    },
+    {
+      "path": "screenshots/step-17.png",
+      "caption": "实际操作记录 3。画面文字：100 / 100\n22:02\n0\nLEVEL 1\n0\nWASD walks. Hold the mouse button to charge a kick, let go to shoot!\nRUTABAGA COMBO\n22:00\nPumpkin Night at the Castle"
+    },
+    {
+      "path": "screenshots/step-20.png",
+      "caption": "实际操作记录 6。画面文字：64 / 100\n22:22\n23\nLEVEL 1\n2\nClick to pull the pumpkin back for a return strike!\nRUTABAGA COMBO\n22:00\nPumpkin Night at the Castle"
+    },
+    {
+      "path": "screenshots/step-22.png",
+      "caption": "实际操作记录 8。画面文字：54 / 100\n22:24\n46\nLEVEL 1\n4\nWalk with WASD or the arrow keys!\nRUTABAGA COMBO\n22:00\nPumpkin Night at the Castle"
+    },
+    {
+      "path": "screenshots/step-25.png",
+      "caption": "实际操作记录 11。画面文字：22:00\nPumpkin Night at the Castle\nSir has fallen!\n\nYou lasted until 22:34\n\nNEW BEST!\nTIME\n22:34\nKILLS\n4\nRUTABAGA JAMS\n0\nRUTABAGAMAGEDDONS\n0\nSCORE\n46\n\nBest: 46 · 22:34\n\nTRY AGAIN\nMenu"
+    },
+    {
+      "path": "screenshots/step-27.png",
+      "caption": "实际操作记录 13。画面文字：100 / 100\n22:01\n0\nLEVEL 1\n0\nWASD walks. Hold the mouse button to charge a kick, let go to shoot!\nRUTABAGA COMBO\n22:00\nPumpkin Night at the Castle"
+    },
+    {
+      "path": "screenshots/step-30.png",
+      "caption": "实际操作记录 16。画面文字：100 / 100\n22:04\n0\nLEVEL 1\n0\nClick to pull the pumpkin back for a return strike!\nRUTABAGA COMBO\n22:00\nPumpkin Night at the Castle"
+    },
+    {
+      "path": "screenshots/step-32.png",
+      "caption": "实际操作记录 18。画面文字：Sir\nRolls-A-Lot\n\nPUMPKIN NIGHT AT THE CASTLE\n\nSurvive until dawn. Walk, kick, swing and pull back.\n\nPLAY\nHow to play\nCredits\nSound: on\n\nBest: 46 · 22:34"
+    }
+  ]
+}

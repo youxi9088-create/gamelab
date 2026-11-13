@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="remix:server" content="aa9f3a4dca3e499ca514032d7fd80f2ff4efe226ee371100cac3f09319efce68" />
+    <meta charset="utf-8" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/001-three-0.185.js",
+          "@remix-gg/three": "./vendor/003-three-0.21.js",
+          "@remix-gg/three/three": "./vendor/007-three.js"
+        }
+      }
+    </script>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+    />
+    <title>Jamble</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #101418;
+      }
+      /* Loading screen: static markup so it paints before the game bundle arrives. Removed by src/ui/loading.ts. */
+      #jm-loading {
+        --u: min(0.078125vw, 0.1388vh);
+        position: fixed;
+        inset: 0;
+        z-index: 2147483000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(ellipse 70% 60% at 50% 45%, #1a2a3a 0%, #101418 70%);
+        font-family: "Outfit", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+        color: #efe6cf;
+        user-select: none;
+        -webkit-user-select: none;
+        transition: opacity 450ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      #jm-loading.done {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #jm-loading .tiles {
+        display: flex;
+        gap: calc(12 * var(--u));
+        margin-bottom: calc(46 * var(--u));
+      }
+      #jm-loading .t {
+        width: calc(84 * var(--u));
+        height: calc(84 * var(--u));
+        border-radius: calc(16 * var(--u));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: calc(52 * var(--u));
+        font-weight: 800;
+        color: #1c5d8a;
+        background: linear-gradient(165deg, #fbf5e6 0%, #efe6cf 60%, #d9cfb2 100%);
+        box-shadow:
+          0 calc(14 * var(--u)) calc(26 * var(--u)) rgba(0, 0, 0, 0.45),
+          0 calc(2 * var(--u)) 0 #cbbf9e,
+          inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        animation: jm-load-bob 1.4s ease-in-out infinite;
+        animation-delay: calc(var(--i) * 110ms);
+      }
+      #jm-loading .t.a {
+        color: #f6f1e4;
+        background: linear-gradient(165deg, #3aa0dc 0%, #1d6fa8 55%, #145a8c 100%);
+        box-shadow:
+          0 calc(14 * var(--u)) calc(26 * var(--u)) rgba(0, 0, 0, 0.45),
+          0 calc(2 * var(--u)) 0 #0f4470,
+          inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      }
+      #jm-loading .t u {
+        text-decoration: none;
+        border-bottom: calc(4 * var(--u)) solid currentColor;
+        line-height: 1;
+      }
+      @keyframes jm-load-bob {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        25% {
+          transform: translateY(calc(-18 * var(--u))) rotate(-6deg);
+        }
+        40% {
+          transform: translateY(0) rotate(3deg);
+        }
+      }
+      #jm-loading .bar {
+        width: calc(320 * var(--u));
+        height: calc(8 * var(--u));
+        border-radius: 999px;
+        background: rgba(239, 230, 207, 0.12);
+        overflow: hidden;
+      }
+      #jm-loading .fill {
+        height: 100%;
+        width: 4%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #1d6fa8, #3aa0dc);
+        transition: width 300ms ease-out;
+      }
+      #jm-loading .label {
+        margin-top: calc(18 * var(--u));
+        font-size: calc(15 * var(--u));
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(239, 230, 207, 0.6);
+      }
+    </style>
+    
+  <link rel="icon" href="data:,"></head>
+  <body>
+    <div id="jm-loading" role="status" aria-label="Loading Jamble">
+      <div class="tiles">
+        <div class="t a" style="--i: 0">J</div>
+        <div class="t" style="--i: 1">A</div>
+        <div class="t" style="--i: 2"><u>M</u></div>
+        <div class="t" style="--i: 3">B</div>
+        <div class="t" style="--i: 4">L</div>
+        <div class="t" style="--i: 5">E</div>
+      </div>
+      <div class="bar"><div class="fill"></div></div>
+      <div class="label">Shaking the cubes…</div>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+{
+  "category": "3D · 过山车特技竞速",
+  "dimension": "3D",
+  "perspective": "第三人称追尾视角",
+  "core_gameplay": "Originalfour-maprocketcoffin/trackdriving/airflip/combo/orb/solo and3AIrace. ActualSnowycomplete69.3s37631fourth only.",
+  "core_experience": "卡通哥特风格的快节奏特技竞速，强调速度感、连续特技得分、赛道起伏与隧道翻转带来的视觉冲击",
+  "controls": "W/Sthrottlebrake,A/Dsteer,Spacehop,ShiftNitro,Rcheckpoint; airborneWSflip/ADspin/QEroll; Escpause; titlemaps/riders.",
+  "game_loop": "开始：主菜单选择地图/载具/模式 → 操作：驾驶穿越赛道，收集ORB、触发加速垫、完成特技 → 结果：根据时间、得分、收集物生成本局成绩 → 继续：返回菜单或再玩一次",
+  "content": "已验证：Haunted Carnival地图、Bones/Rocket Coffin载具、RIDE SOLO模式、RACE THE DEAD模式入口；完整关卡数量、可解锁内容、商店项目未验证",
+  "progression": "单局内通过收集光球和特技动作累积分数与连击倍率；跨局高分记录由本地存储保存，具体排行榜或成就系统未验证",
+  "save": "Originalpersonalstate shape localStorage, actualmapSnowy/riderPumpkin/music25/sfx35refresh. No midrace orhighscorepersistenceclaim.",
+  "rules": "目标：在赛道中获得尽可能高的分数并尽量收集全部ORB；成功：完成赛道或超越PAR时间获得好成绩；失败：坠毁或速度过低可通过R重生；得分公式=基础分×连击倍率，具体阈值未验证；PAR 1:50为实机观察",
+  "systems": "物理驾驶系统：载具受重力、加速度和赛道曲率影响；氮气系统：Shift触发加速，NITRO HUD显示余量；连击倍率系统：连续特技维持倍率条，中断则重置；收集系统：ORB计数与分数加成；检查点系统：R重生至最近检查点；UI HUD系统：实时显示分数、时间、速度、倍率、收集进度",
+  "ui_flow": "主菜单：显示标题、当前地图Haunted Carnival、当前载具Bones Rocket Coffin、模式选择按钮RIDE SOLO/RACE THE DEAD、帮助按钮？；玩法HUD：顶部SCORE/TIME/PAR、左侧倍率条、右侧ORB进度、底部速度/氮气/暂停；结算：local-host.js提供gameOver覆盖层显示得分与再玩一次按钮（源码确认）",
+  "level_design": "过山车式起伏木质轨道，包含陡坡、环形/翻转隧道（Topsy-Turvy Tunnel）、Boost Pad加速区、可收集光球、黄昏天空与摩天轮背景",
+  "verification": "退役RemixSDK、联机房间/匹配/模拟器/全局成绩提交和宿主服务，不伪造SDK或奖励；原个人状态形状适配localStorage，原结算继续回原标题，延后一任务避免同一Enter穿透。保留2251个函数/方法语义SHA（含内置THREE及原物理/赛道/计分/AI/输入/结算），仅六个SDK边界/个人存储方法变动。实际Haunted Carnival单人驾驶/翻转/光球14of50/12905分/R检查点/暂停/EndGame，雪地图Pumpkin三AI原完整完赛1:09.3、37598原基础+33时间=37631、第四名、19of35、0碰撞、1完美落地、4of4加速垫/1of1螺旋和翻转隧道，三AI真实成绩可见；不宣称冠军或全光球。该自然完赛发生于继续键延后修复之前，2251保留方法包括物理计分结算未变，旧网络/截图保留。最终包独立完整启动/雪图三AI/15260分12of35/手动EndGame回原标题/重载，25与35音量、Snowy地图与Pumpkin角色刷新恢复；不宣称最终回调版本重新自然完赛或本地高分持久化。未验证其余两图/全部角色/全特技/移动听觉。原四图/原AI/物理/计分/奖励保持，无服务器联机、无伪榜单。最终6请求无外部/失败/HTTP错误/异常/控制台错误/截断。",
+  "evidence": "runtime steps 0-8与对应screenshots/step-*.png、local-host.js（SDK与本地存储实现）、index.html（Three.js运行时与网络守卫）",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/step-0.png",
+      "caption": "实际操作记录 1。画面文字：SCORE\n0\n0\nx1\n0:00.000\nPAR 1:50\nORBS 0/50\n58\nKM/H\nNITRO\nHOLD W TO ACCELERATE · AD STEER\nW/S throttle/brake   A/D steer   SPACE hop\nW/S/A/D/Q/E flip, spin, roll in air   SHIFT nitro   R respawn"
+    },
+    {
+      "path": "screenshots/step-1.png",
+      "caption": "实际操作记录 2。画面文字：SCORE\n3,675\n3,675\nx3.5\nBoost Pad\n0:22.749\nPAR 1:50\nORBS 5/50\n29\nKM/H\nNITRO\nCHAIN TRICKS BEFORE THE BAR RUNS OUT FOR A BIGGER MULTIPLIER\nW/S throttle/brake   A/D steer   SPACE hop\nW/S/A/D/Q/E flip, spin, roll in air   SHIFT nitro   R respawn"
+    },
+    {
+      "path": "screenshots/step-2.png",
+      "caption": "实际操作记录 3。画面文字：SCORE\n3,675\n300\nx1\nBoost Pad\n0:27.882\nPAR 1:50\nORBS 5/50\n141\nKM/H\nNITRO\nKEEP YOUR SPEED UP FOR THE LOOP\nW/S throttle/brake   A/D steer   SPACE hop\nW/S/A/D/Q/E flip, spin, roll in air   SHIFT nitro   R respawn"
+    },
+    {
+      "path": "screenshots/step-3.png",
+      "caption": "实际操作记录 4。画面文字：SCORE\n25,891\n4,200\nx1.5\nBoost Pad\nTopsy-Turvy\n1:29.796\nPAR 1:50\nORBS 5/50\n108\nKM/H\nNITRO\nTOPSY-TURVY TUNNEL — HOLD ON!\nW/S throttle/brake   A/D steer   SPACE hop\nW/S/A/D/Q/E flip, spin, roll in air   SHIFT nitro   R respawn\nCOMBO BANKED+4,200"
+    },
+    {
+      "path": "screenshots/step-5.png",
+      "caption": "实际操作记录 6。画面文字：SCORE\n25,891\n900\nx2\n1:33.664\nPAR 1:50\nORBS 8/50\n159\nKM/H\nNITRO\nTOPSY-TURVY TUNNEL — HOLD ON!\nW/S throttle/brake   A/D steer   SPACE hop\nW/S/A/D/Q/E flip, spin, roll in air   SHIFT nitro   R respawn"
+    },
+    {
+      "path": "screenshots/step-6.png",
+      "caption": "实际操作记录 7。画面文字：SCORE\n25,891\n900\nx2\n1:35.480\nPAR 1:50\nORBS 8/50\n93\nKM/H\nNITRO\nR RESPAWN AT CHECKPOINT · LAND LEVEL TO AVOID CRASHES\nW/S throttle/brake   A/D steer   SPACE hop\nW/S/A/D/Q/E flip, spin, roll in air   SHIFT nitro   R respawn"
+    },
+    {
+      "path": "screenshots/step-7.png",
+      "caption": "实际操作记录 8。画面文字：SCORE\n0\n0\nx1\n0:00.000\nPAR 1:50\nORBS 0/50\n0\nKM/H\nNITRO\nW/S throttle/brake   A/D steer   SPACE hop\nW/S/A/D/Q/E flip, spin, roll in air   SHIFT nitro   R respawn\nCOFFIN\nCOASTER\nRIDE THE ROCKET COFFIN. SURVIVE THE TOPSY-TURVY TUNNEL.\nMAP\nHAUNTED CARNIVAL\nStriped tents, ferris wheels and a purple dusk.\nBONES\nROCKET COFFIN\nRIDE SOLO\nCHASE THE HIGH SCORE\nRACE THE DEAD\n3 AI RIVALS\nQ/E MAP  ·  A/D RIDER\nW/S CHOOSE  ·  ENTER RIDE\n?"
+    },
+    {
+      "path": "screenshots/step-8.png",
+      "caption": "实际操作记录 9。画面文字：SCORE\n0\n0\nx1\n0:00.000\nPAR 1:50\nORBS 0/50\n0\nKM/H\nNITRO\nW/S throttle/brake   A/D steer   SPACE hop\nW/S/A/D/Q/E flip, spin, roll in air   SHIFT nitro   R respawn\nCOFFIN\nCOASTER\nRIDE THE ROCKET COFFIN. SURVIVE THE TOPSY-TURVY TUNNEL.\nMAP\nHAUNTED CARNIVAL\nStriped tents, ferris wheels and a purple dusk.\nBONES\nROCKET COFFIN\nRIDE SOLO\nCHASE THE HIGH SCORE\nRACE THE DEAD\n3 AI RIVALS\nQ/E MAP  ·  A/D RIDER\nW/S CHOOSE  ·  ENTER RIDE\n?"
+    }
+  ]
+}

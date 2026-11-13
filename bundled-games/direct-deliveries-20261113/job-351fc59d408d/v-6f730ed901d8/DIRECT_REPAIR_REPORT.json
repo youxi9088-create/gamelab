@@ -1,0 +1,639 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warn",
+        "message": "THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead.",
+        "timestamp": "2026-11-13T02:20:29.623Z",
+        "url": "http://127.0.0.1:8973/vendor/002-three.js"
+      },
+      {
+        "level": "warn",
+        "message": "THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead.",
+        "timestamp": "2026-11-13T02:22:56.417Z",
+        "url": "http://127.0.0.1:8973/vendor/002-three.js"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "non_game_http_findings": [],
+    "non_game_http_resolution": "",
+    "actions": [
+      {
+        "step": 1,
+        "type": "navigate",
+        "selector": "http://127.0.0.1:8973/index.html",
+        "result": "Originalcitymenu loaded."
+      },
+      {
+        "step": 2,
+        "type": "click",
+        "selector": "#go",
+        "result": "CLOCKIN original8minute shift,07:59/0-10/$0."
+      },
+      {
+        "step": 3,
+        "type": "key",
+        "selector": "window",
+        "key": "w",
+        "duration_ms": 1400,
+        "result": "Actualvehicle movement andnativeGOTIT pickup; destination256FiddleAve199m/0:40."
+      },
+      {
+        "step": 4,
+        "type": "key",
+        "selector": "window",
+        "key": "r",
+        "result": "Originalrecover input; vehicle onroad, packagefailure/headback andchaos73 observed. Failure not attributed solely toR."
+      },
+      {
+        "step": 5,
+        "type": "reload",
+        "selector": "http://127.0.0.1:8973/index.html",
+        "result": "Original newcitymenu/seed65273. No whole-shift/bestpersistence claim."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed",
+        "scope": "Originalnewcitymenu; no active-shift save claimed."
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8973/index.html",
+      "http://127.0.0.1:8973/main.js",
+      "http://127.0.0.1:8973/vendor/001-three-0.185.js",
+      "http://127.0.0.1:8973/vendor/003-EffectComposer.js",
+      "http://127.0.0.1:8973/vendor/005-RenderPass.js",
+      "http://127.0.0.1:8973/vendor/007-ShaderPass.js",
+      "http://127.0.0.1:8973/vendor/009-OutputPass.js",
+      "http://127.0.0.1:8973/vendor/011-HorizontalTiltShiftShader.js",
+      "http://127.0.0.1:8973/vendor/013-VerticalTiltShiftShader.js",
+      "http://127.0.0.1:8973/vendor/015-GLTFLoader.js",
+      "http://127.0.0.1:8973/vendor/017-BufferGeometryUtils.js",
+      "http://127.0.0.1:8973/vendor/002-three.js",
+      "http://127.0.0.1:8973/vendor/004-EffectComposer.js",
+      "http://127.0.0.1:8973/vendor/008-ShaderPass.js",
+      "http://127.0.0.1:8973/vendor/012-HorizontalTiltShiftShader.js",
+      "http://127.0.0.1:8973/vendor/016-GLTFLoader.js",
+      "http://127.0.0.1:8973/vendor/014-VerticalTiltShiftShader.js",
+      "http://127.0.0.1:8973/vendor/010-OutputPass.js",
+      "http://127.0.0.1:8973/vendor/006-RenderPass.js",
+      "http://127.0.0.1:8973/vendor/018-BufferGeometryUtils.js",
+      "http://127.0.0.1:8973/_runtime_resources/68ef3a96773293146adbbcc0.glb",
+      "http://127.0.0.1:8973/_runtime_resources/7781bfbb579ac5c41c58e138.glb",
+      "http://127.0.0.1:8973/_runtime_resources/66d01f753d833de4314910e1.glb",
+      "http://127.0.0.1:8973/_runtime_resources/2f50ab59210f15360a5fbf9f.glb",
+      "http://127.0.0.1:8973/_runtime_resources/f4261b8fc76cb745273fceee.glb",
+      "http://127.0.0.1:8973/_runtime_resources/157a88b6b156af86d567d63d.glb",
+      "http://127.0.0.1:8973/_runtime_resources/897628b65a5b5963801edbca.glb",
+      "http://127.0.0.1:8973/_runtime_resources/ccb3bd04483dca8a380eef98.glb",
+      "http://127.0.0.1:8973/_runtime_resources/85d107a3a4c18e198e8c4b3f.glb",
+      "http://127.0.0.1:8973/_runtime_resources/4d983b06bdfb391322648eda.mpeg",
+      "http://127.0.0.1:8973/_runtime_resources/26fc1ad38f09df9450ffb0df.mpeg",
+      "http://127.0.0.1:8973/_runtime_resources/e93c31642efe33832a4632a7.mpeg",
+      "http://127.0.0.1:8973/assets-original/audiomusic-476b6d1c-c729-486f-9e5c-351527377352-sBxD.mpeg",
+      "blob:http://127.0.0.1:8973/eda596ae-6911-440e-b196-49717c3c04dc",
+      "blob:http://127.0.0.1:8973/7c819459-e25b-4a2d-8d82-761d448da1df",
+      "blob:http://127.0.0.1:8973/315416ee-1107-4e6a-81a5-acd4fe7c7501",
+      "blob:http://127.0.0.1:8973/2d91f35b-833e-4157-a103-ff9ef22dd51d",
+      "blob:http://127.0.0.1:8973/f092de6a-411c-4232-84ff-1ddb32caf7cb",
+      "blob:http://127.0.0.1:8973/60258dfe-d10d-4e69-b454-bbd3b19187ee",
+      "blob:http://127.0.0.1:8973/86d613ce-11d5-4c71-93fe-65b33deda59b",
+      "blob:http://127.0.0.1:8973/286a7dd5-bf59-403f-b903-a7665f667312",
+      "blob:http://127.0.0.1:8973/a377d28e-052b-4fbb-b808-816daa70bce7",
+      "blob:http://127.0.0.1:8973/93ae7b96-c1ad-4a51-9e7e-dadcd492a1d6",
+      "blob:http://127.0.0.1:8973/5a73215b-14f8-4e9f-ab85-cd05e6629e30",
+      "blob:http://127.0.0.1:8973/91b4640b-dfcb-433d-af92-d212e5e1ed60",
+      "blob:http://127.0.0.1:8973/2b1037d4-5ee1-467c-8ef8-9b8bcf1ed77e",
+      "blob:http://127.0.0.1:8973/8a1169e1-1d63-4451-8bc9-280926fc14db",
+      "blob:http://127.0.0.1:8973/0573fc71-db8d-47d1-8eba-bd22ce0f7dad",
+      "blob:http://127.0.0.1:8973/62761d01-9989-4051-8954-3c86c46fe723",
+      "blob:http://127.0.0.1:8973/5630cb83-b6fb-4857-b5df-7dc7f0c6fece",
+      "http://127.0.0.1:8973/index.html",
+      "http://127.0.0.1:8973/main.js",
+      "http://127.0.0.1:8973/vendor/001-three-0.185.js",
+      "http://127.0.0.1:8973/vendor/003-EffectComposer.js",
+      "http://127.0.0.1:8973/vendor/005-RenderPass.js",
+      "http://127.0.0.1:8973/vendor/007-ShaderPass.js",
+      "http://127.0.0.1:8973/vendor/009-OutputPass.js",
+      "http://127.0.0.1:8973/vendor/011-HorizontalTiltShiftShader.js",
+      "http://127.0.0.1:8973/vendor/013-VerticalTiltShiftShader.js",
+      "http://127.0.0.1:8973/vendor/015-GLTFLoader.js",
+      "http://127.0.0.1:8973/vendor/017-BufferGeometryUtils.js",
+      "http://127.0.0.1:8973/vendor/002-three.js",
+      "http://127.0.0.1:8973/vendor/004-EffectComposer.js",
+      "http://127.0.0.1:8973/vendor/006-RenderPass.js",
+      "http://127.0.0.1:8973/vendor/008-ShaderPass.js",
+      "http://127.0.0.1:8973/vendor/010-OutputPass.js",
+      "http://127.0.0.1:8973/vendor/012-HorizontalTiltShiftShader.js",
+      "http://127.0.0.1:8973/vendor/014-VerticalTiltShiftShader.js",
+      "http://127.0.0.1:8973/vendor/016-GLTFLoader.js",
+      "http://127.0.0.1:8973/vendor/018-BufferGeometryUtils.js",
+      "http://127.0.0.1:8973/_runtime_resources/68ef3a96773293146adbbcc0.glb",
+      "http://127.0.0.1:8973/_runtime_resources/7781bfbb579ac5c41c58e138.glb",
+      "http://127.0.0.1:8973/_runtime_resources/66d01f753d833de4314910e1.glb",
+      "http://127.0.0.1:8973/_runtime_resources/2f50ab59210f15360a5fbf9f.glb",
+      "http://127.0.0.1:8973/_runtime_resources/f4261b8fc76cb745273fceee.glb",
+      "http://127.0.0.1:8973/_runtime_resources/157a88b6b156af86d567d63d.glb",
+      "http://127.0.0.1:8973/_runtime_resources/897628b65a5b5963801edbca.glb",
+      "http://127.0.0.1:8973/_runtime_resources/ccb3bd04483dca8a380eef98.glb",
+      "http://127.0.0.1:8973/_runtime_resources/85d107a3a4c18e198e8c4b3f.glb",
+      "http://127.0.0.1:8973/_runtime_resources/4d983b06bdfb391322648eda.mpeg",
+      "http://127.0.0.1:8973/_runtime_resources/26fc1ad38f09df9450ffb0df.mpeg",
+      "http://127.0.0.1:8973/_runtime_resources/e93c31642efe33832a4632a7.mpeg",
+      "http://127.0.0.1:8973/assets-original/audiomusic-476b6d1c-c729-486f-9e5c-351527377352-sBxD.mpeg",
+      "blob:http://127.0.0.1:8973/39139da3-296c-460c-8e29-7a6ac4e888bf",
+      "blob:http://127.0.0.1:8973/82399612-2410-461e-b8ad-3a3e0758c4e1",
+      "blob:http://127.0.0.1:8973/c72646c0-a060-4529-8e3c-3074dc2a0dc4",
+      "blob:http://127.0.0.1:8973/b70b6bad-6f34-4ce6-8218-f0750f16025e",
+      "blob:http://127.0.0.1:8973/bf320b33-e0bf-4f8c-9bd9-50ebfb606800",
+      "blob:http://127.0.0.1:8973/05109789-57d9-451d-b0a8-3527c3082f2e",
+      "blob:http://127.0.0.1:8973/ab340189-b385-42d5-8aee-560e42a9972b",
+      "blob:http://127.0.0.1:8973/07d422ac-6d24-4679-9dc8-68322bc1f26f",
+      "blob:http://127.0.0.1:8973/5e3ab895-8d8e-4f8a-b71f-75d61ed24c6b",
+      "blob:http://127.0.0.1:8973/0cf35ce1-6c0b-449e-81bf-0027e6c007e2",
+      "blob:http://127.0.0.1:8973/0ebb4eee-dd90-494c-9b07-34384b781cca",
+      "blob:http://127.0.0.1:8973/b8779603-bab1-4763-9657-20ba773e6352",
+      "blob:http://127.0.0.1:8973/c87da53e-6154-4b47-a918-aaabe405038b",
+      "blob:http://127.0.0.1:8973/202b13a2-fea1-40ed-8345-cd5fbafb319b",
+      "blob:http://127.0.0.1:8973/cf6b824c-175b-4cbd-8ea0-d1a968854315",
+      "blob:http://127.0.0.1:8973/0aa4d5f2-d830-43ac-9db0-c184d72a06d1",
+      "blob:http://127.0.0.1:8973/d56f2ba0-b6fe-4927-92f9-46a38ff666d5"
+    ],
+    "scope": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+    "network_scope": "Complete firststartup through actual ClockIn/W driving andpickup/R recovery and fifthaction reload tooriginalnewcitymenu.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-drive.jpg",
+        "screenshots/revision-04-recover.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-drive.jpg",
+        "screenshots/revision-04-recover.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-drive.jpg",
+        "screenshots/revision-04-recover.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-drive.jpg",
+        "screenshots/revision-04-recover.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-drive.jpg",
+        "screenshots/revision-04-recover.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-drive.jpg",
+        "screenshots/revision-04-recover.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-drive.jpg",
+        "screenshots/revision-04-recover.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8973/index.html",
+      "result": "Originalcitymenu loaded."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "#go",
+      "result": "CLOCKIN original8minute shift,07:59/0-10/$0."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "selector": "window",
+      "key": "w",
+      "duration_ms": 1400,
+      "result": "Actualvehicle movement andnativeGOTIT pickup; destination256FiddleAve199m/0:40."
+    },
+    {
+      "step": 4,
+      "type": "key",
+      "selector": "window",
+      "key": "r",
+      "result": "Originalrecover input; vehicle onroad, packagefailure/headback andchaos73 observed. Failure not attributed solely toR."
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "http://127.0.0.1:8973/index.html",
+      "result": "Original newcitymenu/seed65273. No whole-shift/bestpersistence claim."
+    }
+  ],
+  "scope": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      }
+    ],
+    "scope": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。"
+  },
+  "dependency_review": {
+    "previous_revision": 3,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "Three.js 引擎与原游戏代码在隔离浏览器中离线启动成功，无语法错误。",
+          "evidence": "verification/def07931-e999-4e4f-aa37-3f8ea92a1b2b-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "核心资源可通过程序化回退运行；外部资源请求被阻止但未阻断代表性流程。",
+          "evidence": "verification/def07931-e999-4e4f-aa37-3f8ea92a1b2b-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "配置常量（8分钟班次、10单配额、灾害/变异器表）与进度保存路径（localStorage chaos-courier-best）已在源码与运行中验证。",
+          "evidence": "verification/def07931-e999-4e4f-aa37-3f8ea92a1b2b-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "本流程中未产生必须后端请求；保存/恢复通过本地 localStorage 与 local-host.js SDK 适配器完成。未覆盖的排行榜/账户/广告等不在本验证范围内。",
+          "evidence": "verification/def07931-e999-4e4f-aa37-3f8ea92a1b2b-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地 Remix/Farcade SDK 适配器提供 ready/onGameInfo/saveGameState/gameOver 等接口，游戏可正常调用。",
+          "evidence": "verification/def07931-e999-4e4f-aa37-3f8ea92a1b2b-web-play.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 3,
+      "updated_at": "2026-10-29T10:00:35+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。"
+    },
+    "basis": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。"
+  },
+  "base_version_id": "v-954b18c26daa",
+  "manual_execution": {
+    "executor": "Codex direct repair / actual UI",
+    "automated_model_conversion": false,
+    "original_job": "job-351fc59d408d",
+    "max_gameplay_steps": 5,
+    "at": "2026-11-13T02:25:43.855416+00:00"
+  },
+  "game_profile": {
+    "category": "城市驾驶 / 快递与物理破坏",
+    "dimension": "3D",
+    "perspective": "原3D第三人称跟车/鼠标环绕视角，菜单显示程序城市全景，右下原小地图。",
+    "core_gameplay": "原随机城市/班次→ClockIn→驾驶接近原橙色仓库自动取件→蓝色目的地/倒计时→送件或包裹损毁→新取件；本轮取件后包裹损毁，未成功送达。",
+    "core_experience": "",
+    "controls": "WASD/方向键驾驶，Space手刹，Shift加速，Click/E按准星投包，鼠标环绕镜头，R翻正/脱困；本轮实际ClockIn、W与R，投掷等未测。",
+    "game_loop": "原城市菜单→ClockIn07:59→W触发GOT IT、DELIVER目标256FiddleAve199m→原损毁/回仓提示→R后道路车体恢复→刷新原新城市菜单。",
+    "content": "原程序生成城市、建筑/道路/交通/取件仓库/配送点/坡道，以及原事件和车辆变异组合；无编造固定关卡数。",
+    "progression": "原班次包裹计数、现金/混乱值、随机城市种子与原本地最高分；没有新增关卡或养成。",
+    "save": "保留原chaos-courier-best真实localStorage；本轮没有完整班次结算，不称最高分存档恢复已测。刷新是原新班次菜单，不恢复正在进行的班次。",
+    "rules": "原8分钟班次、配送目标/包裹完整度/小费/混乱值、交通和随机事件、原碰撞/物理/驾驶参数与城市种子保持。",
+    "systems": "原车辆物理/交通AI/模型/碰撞/破坏、取件/投掷/目的地/包裹损坏、班次与计分、事件、程序城市、镜头/准星/小地图、输入/音频/后处理及best本地记录。",
+    "ui_flow": "原城市全景菜单及控制说明→CLOCK IN→时间/0-10/现金/混乱HUD、橙色取件点→GOT IT与蓝色配送目标→PACKAGE DESTROYED/回仓→刷新回原菜单。",
+    "level_design": "原城市道路网络、仓库/配送点与地形障碍，原种子控制布局；本轮初始种子55631，刷新65273，不改随机源。",
+    "verification": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。",
+    "evidence": "Pe整类/71函数类语义SHA、30原资源字节保持、3原模型/音乐HTTPS/SHA和GLB闭合、43模块导入闭合、5步实机截图与200完整事件。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "原Three.js0.185、原EffectComposer与景深/后处理；原ES模块与程序城市/物理。",
+    "programming_language": "JavaScript ES模块、HTML/CSS",
+    "game_summary": "驾驶原快递面包车在程序城市中取件、送件，并应对交通、碰撞和随机事件；班次8分钟，按原速度小费和混乱奖励结算，包裹会受损。",
+    "resource_types": "原程序城市、建筑/道路/车/包裹网格，原交通车和坡道GLB、原音乐；30份既有原vendor/运行资源，新增3份原模型/音乐有HTTP/SHA。",
+    "engine_asset_system": "原Three网格/材质/GLTFLoader与原本地资源清单，两个原GLB均自包含无外部URI；不替代原模型或依赖缺资源的fallback冒充完成。",
+    "core_challenge_details": "驾驶到橙色取件点并向蓝色目的地送件，选择路线、控制速度与碰撞，权衡配送时间、包裹完整度及混乱奖励。",
+    "core_challenge_type": "空间驾驶 / 时机控制 / 风险管理",
+    "input_elements": "原画布、CLOCK IN/New City按钮、window键盘及原指针/触控控制模块。",
+    "app_suitability": "",
+    "core_loop": "看小地图和任务目标→驾驶/避障/取件→观察完整度、距离与倒计时→实际损毁或投递反馈→下一次取件。",
+    "churn_risk": "",
+    "progression_loop": "8分钟原班次取送/破坏→原班次统计与best→新班次；整班结算及best恢复本轮未测。",
+    "core_closure": "实际班次进入→原货车移动→原取件成功并出现真实配送目标→原包裹损毁失败/回仓反馈→原R脱困及刷新菜单。不是整班或成功送件证明。",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "原8分钟班次，HUD显示目标0/10；实测取件时07:21、目标199m/0:40，后显示chaos73、包裹损毁和回仓60m，现金仍$0，未注入分数。",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "原暖色低多边形城市、蓝白快递车、彩色快递/混乱HUD、后处理/日光场景与原标牌。",
+    "theme_position": "轻松夸张的快递驾驶与城市物理混乱主题。",
+    "economy": "班次现金、小费和混乱计分为游戏内数值，无新增付费或现实收益。",
+    "roles": "玩家原快递车、原本地交通车辆与城市NPC；没有伪造在线玩家。",
+    "roster_summary": "",
+    "monetization_details": "SDK发现js/Ro/Hs、原sdk访问与gameOver/save外发移除；内部实际本地布局/输入/音频继续工作，原人工默认账号Rs/Ss移除。",
+    "monetization": "真实SDK/消息/上报提供者退役，无账号、广告、支付、联机或排行。",
+    "illustrations": [
+      {
+        "path": "screenshots/revision-01-city-menu.jpg",
+        "caption": "原程序城市菜单、8分钟规则、ClockIn入口与键盘说明。"
+      },
+      {
+        "path": "screenshots/revision-03-drive.jpg",
+        "caption": "W驾驶后原GOT IT取件和实际配送目标/距离，未称成功送达。"
+      },
+      {
+        "path": "screenshots/revision-04-recover.jpg",
+        "caption": "R后道路上的原货车及原包裹损毁/回仓失败反馈，chaos73非注入。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "OriginalnativePe gameclass and71functions/classes retained, readableJS/ESmodules; exactassetURLmapping only.",
+    "reuse": "Vehicle/city/delivery/physics/traffic modules extractable with Three/material/input adaptation; no separate integration test.",
+    "dependencies": "LocalThree0.185/postprocess/vendor/assets/audio, HTTP required.",
+    "preservation": "严格5步：1原城市菜单启动；2点CLOCK IN进入原8分钟班次；3W按住1400ms实际货车移动并触发原GOT IT取件，目标为256 Fiddle Ave、距离199m；4R原脱困/翻正输入后货车位于道路，期间原PACKAGE DESTROYED与返回仓库指引、chaos73实测出现，不把包裹损毁归因于R、也不把0/10和$0称成功配送；5刷新返回另一个原种子城市菜单。原Pe整份玩法类及71个函数/类语义保持，物理/碰撞/交通/取件/投掷/损毁/计分/8分钟班次/城市种子不改。原交通车GLB1243592字节、原坡道GLB1236700字节、原音乐719770字节按精确公开HTTPS补齐，GLB内部无额外外链；显式使用已有Windows用户代理并用Schannel完成原坡道下载，不改全局设置，测试站直连。真实SDK探测/消息/上报发送及原人工默认账号移出运行包，内部真实本地音频/输入/布局与原chaos-courier-best存档保留，无假SDK或游戏结果。200完整事件无外联/HTTP失败/loadingFailed/异常，原Three阴影弃用警告两条保留。未验证成功配送/投掷、8分钟整班结算、其他事件或最高分恢复，原任务正常入库待验收，不批准不供货。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 9375.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 7595.063,
+      "calls": 66,
+      "known_input_tokens": 2456382,
+      "known_output_tokens": 275141,
+      "cached_input_tokens_known": 944384,
+      "unknown_usage_calls": 2,
+      "known_estimated_cost_subtotals": {
+        "CNY": 46.337620699999995
+      },
+      "unknown_cost_calls": 6,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 23,
+          "input_tokens_known": 1234081,
+          "output_tokens_known": 46250,
+          "unknown_usage_calls": 0,
+          "known_cost_subtotals": {
+            "CNY": 5.3154607
+          },
+          "unknown_cost_calls": 4,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 43,
+          "input_tokens_known": 1222301,
+          "output_tokens_known": 228891,
+          "unknown_usage_calls": 2,
+          "known_cost_subtotals": {
+            "CNY": 41.02215999999999
+          },
+          "unknown_cost_calls": 2,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T22:12:43.877832+00:00",
+      "observed_until": "2026-11-13T02:26:24.970254+00:00",
+      "observed_wall_seconds": 15221.092422,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

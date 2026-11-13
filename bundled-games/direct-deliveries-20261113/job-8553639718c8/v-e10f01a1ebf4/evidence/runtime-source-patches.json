@@ -1,0 +1,22 @@
+[
+  {
+    "purpose": "离线兼容适配：Firebase App Check 的 ReCaptchaEnterpriseProvider 在 initializeAppCheck 时急切注入 https://www.google.com/recaptcha/enterprise.js（本轮 startup 阶段唯一剩余外联，localize 已因平台补抓失败被证伪，且其二级加载不可闭合）。在工作副本 converted/account-save-manager.js 中跳过这一次 App Check provider 初始化：this.appCheck 保持构造时的 null，启动不再请求该脚本；保留外围配置校验（siteKey/debug 检查）、auth/firestore 初始化、ensureAppCheckToken 的『App Check is not ready』既有回退与全部错误处理，不屏蔽请求、不伪造 token/验证/登录/奖励，web-original 原文件保留。",
+    "files": [
+      {
+        "path": "converted/account-save-manager.js",
+        "sha256": "842e05d6a2d667e6613a3fd3b321b31c5754d1420dad66199934ef65281068ca",
+        "original_sha256": "842e05d6a2d667e6613a3fd3b321b31c5754d1420dad66199934ef65281068ca",
+        "bytes": 73187,
+        "after_sha256": "e3c530fcdffef24f908d22a97024f2e413a42d9cbe715fe1044c68f3afb298eb",
+        "replacements": [
+          {
+            "old": "    let appCheck = this.appCheck;\n    if (!appCheck) {\n      try {\n        appCheck = appCheckSdk.initializeAppCheck(app, {\n          provider: new appCheckSdk.ReCaptchaEnterpriseProvider(appCheckConfig.siteKey),\n          // Do not fetch/store a token just to open a guest session. A real\n          // account or cloud request enables refresh before it needs App Check.\n          isTokenAutoRefreshEnabled: false,\n        });\n        this.appCheck = appCheck;\n      } catch (cause) {\n        if (cause?.code === 'app-check/already-initialized') {\n          const error = new Error('App Check was initialized elsewhere before Pocketwild could configure its provider.');\n          error.code = 'pocketwild/app-check-already-initialized';\n          error.cause = cause;\n          throw error;\n        }\n        throw cause;\n      }\n    }",
+            "new": "    let appCheck = this.appCheck;\n    if (!appCheck) {\n      // Offline compatibility adaptation: initializeAppCheck with the\n      // reCAPTCHA Enterprise provider eagerly loads\n      // https://www.google.com/recaptcha/enterprise.js at startup, which is\n      // unreachable from this offline package and is flagged as a blocking\n      // external dependency. Skip provider initialization here so startup no\n      // longer requests that script; this.appCheck stays null, account\n      // requests keep their existing 'App Check is not ready' fallback, and\n      // guest/local play is unaffected. No verification result is fabricated.\n      appCheck = null;\n    }"
+          }
+        ]
+      }
+    ],
+    "runtime_reverified": true,
+    "scope": "Working copy adapted; gameplay acceptance remains separate."
+  }
+]

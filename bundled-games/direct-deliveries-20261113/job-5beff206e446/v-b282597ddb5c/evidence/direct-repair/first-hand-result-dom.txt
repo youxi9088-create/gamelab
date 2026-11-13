@@ -1,0 +1,144 @@
+- main "TurboCrib game":
+  - main:
+    - generic "OPPONENT'S CRIB reveal":
+      - generic "OPPONENT'S CRIB"
+      - group "King of hearts in the opponent's crib":
+        - generic: K
+        - generic: ♥
+        - generic: "Card value: 10."
+      - group "10 of clubs in the opponent's crib":
+        - generic: "10"
+        - generic: ♣
+        - generic: "Card value: 10."
+      - group "6 of hearts in the opponent's crib":
+        - generic: "6"
+        - generic: ♥
+        - generic: "Card value: 6."
+      - group "King of spades in the opponent's crib":
+        - generic: K
+        - generic: ♠
+        - generic: "Card value: 10."
+    - generic: TurboCrib
+    - button "MENU"
+    - generic "Scoring marker guide":
+      - generic: Galleon
+      - generic: Anchor
+    - generic "Pirate (you), shared track position 7; Galleon 7; Anchor 0":
+      - generic: ⚓
+      - generic: Pirate
+      - generic: (YOU)
+      - strong: "7"
+      - generic: "7"
+      - generic: "0"
+    - generic "The Deckhand, shared track position 14; Galleon 12; Anchor 14":
+      - generic: 🧭
+      - generic: The Deckhand
+      - strong: "14"
+      - generic: "12"
+      - generic: "14"
+    - generic: First Peg to 181 Wins!
+    - region "Compact voyage course":
+      - generic: ⚓
+      - generic: Pirate
+      - generic "Galleon marker at 7"
+      - generic "Anchor marker at 0"
+      - generic: WICKET
+      - img "Peg hole 181":
+        - generic: "181"
+      - strong: "7"
+      - generic: 🧭
+      - generic: The Deckhand
+      - generic "Galleon marker at 12"
+      - generic "Anchor marker at 14"
+      - img "Peg hole 181":
+        - generic: "181"
+      - strong: "14"
+    - complementary "Deal scoring activity":
+      - region "Scoring events":
+        - generic: SCORING LOG
+        - list:
+          - generic: Crib · Pair
+          - strong: "+2"
+          - generic: Hand · 15 (x4), Pair
+          - strong: "+10"
+          - generic: Hand · 15 (x2), Run of 3
+          - strong: "+7"
+          - generic: Last card
+          - strong: "+1"
+          - generic: Go / last card
+          - strong: "+1"
+    - generic: UPCARD
+    - group "8 of hearts in the upcard":
+      - generic: "8"
+      - generic: ♥
+      - generic: "Card value: 8."
+    - generic "Pegging lanes"
+    - complementary:
+      - region "Opponent card peek":
+        - generic: OPPONENT'S HAND
+        - strong:
+          - generic: 🧭
+          - generic: The Deckhand
+        - generic "Opponent cards":
+          - img "5 of hearts in the opponent's hand · revealed":
+            - group "5 of hearts in the table":
+              - generic: "5"
+              - generic: ♥
+              - generic: "Card value: 5."
+          - img "10 of hearts in the opponent's hand · revealed":
+            - group "10 of hearts in the table":
+              - generic: "10"
+              - generic: ♥
+              - generic: "Card value: 10."
+          - img "Ace of clubs in the opponent's hand · revealed":
+            - group "Ace of clubs in the table":
+              - generic: A
+              - generic "Card value 0": "0"
+              - generic: ♣
+              - generic: "Selected value: 0."
+          - img "10 of spades in the opponent's hand · revealed":
+            - group "10 of spades in the table":
+              - generic: "10"
+              - generic: ♠
+              - generic: "Card value: 10."
+      - generic "Deal score summaries":
+        - region "Opponent score summary":
+          - strong:
+            - generic: 🧭
+            - generic: The Deckhand
+          - generic: PEGGING
+          - strong: "2"
+          - generic: MAIN HAND
+          - strong: "10"
+          - generic: CRIB
+          - strong: "2"
+        - region "Your score summary":
+          - strong:
+            - generic: ⚓
+            - generic: Pirate
+          - generic: PEGGING
+          - strong: "0"
+          - generic: MAIN HAND
+          - strong: "7"
+          - generic: CRIB
+          - strong: —
+    - status: Next Hand
+    - group "4 of spades in your hand":
+      - generic: "4"
+      - generic: ♠
+      - generic: "Card value: 4."
+    - group "2 of diamonds in your hand":
+      - generic: "2"
+      - generic: ♦
+      - generic: "Card value: 2."
+    - group "6 of spades in your hand":
+      - generic: "6"
+      - generic: ♠
+      - generic: "Card value: 6."
+    - group "7 of clubs in your hand":
+      - generic: "7"
+      - generic: ♣
+      - generic: "Card value: 7."
+    - generic "Game actions":
+      - button "Next Hand":
+        - generic: NEXT HAND

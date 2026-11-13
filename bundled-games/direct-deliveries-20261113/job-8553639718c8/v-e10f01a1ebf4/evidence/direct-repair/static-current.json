@@ -1,0 +1,111 @@
+{
+  "offline": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "pending",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [
+      "leaderboard",
+      "multiplayer",
+      "advertising",
+      "payments"
+    ],
+    "runtime_observed": false,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "preflight": {
+    "schema_version": 1,
+    "status": "needs_attention",
+    "findings": [
+      {
+        "code": "ACCEPTANCE_STEPS_REQUIRED",
+        "file": "index.html"
+      }
+    ],
+    "finding_count": 1,
+    "scope": "转换交付前静态提示；不提交供货、不修改验收状态。需在整理后的最终交付包中复验，动态资源与完整玩法另行验证。"
+  },
+  "imports": [
+    {
+      "file": "main.js",
+      "specifier": "./expedition-data.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./ticket-manager.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./objective-data.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./objective-manager.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./offline-reward-manager.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./account-save-manager.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./social-manager.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./marketplace-manager.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./economy-data.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./potion-data.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./progression-data.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./simulated-player-manager.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./social-player-service.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./pet-dialogue-manager.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./npc-behavior-manager.js"
+    },
+    {
+      "file": "main.js",
+      "specifier": "./content-safety.js"
+    },
+    {
+      "file": "marketplace-manager.js",
+      "specifier": "./economy-data.js"
+    },
+    {
+      "file": "objective-manager.js",
+      "specifier": "./objective-data.js"
+    },
+    {
+      "file": "social-manager.js",
+      "specifier": "./content-safety.js"
+    },
+    {
+      "file": "social-manager.js",
+      "specifier": "./progression-data.js"
+    }
+  ],
+  "missing_relative_imports": []
+}

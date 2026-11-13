@@ -1,0 +1,544 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "step": 1,
+        "type": "navigate",
+        "selector": "index.html",
+        "result": "Originaltitle/175gold/stage1/1500HP rendered."
+      },
+      {
+        "step": 2,
+        "type": "click",
+        "selector": "canvas start",
+        "result": "Originalbattle started."
+      },
+      {
+        "step": 3,
+        "type": "key",
+        "key": "1",
+        "result": "NativeMelee training queue1/5, nativeunits spawned. Cost15 in code; passiveincome makes net screenshotdelta unsuitable."
+      },
+      {
+        "step": 4,
+        "type": "key",
+        "key": "q",
+        "result": "METEOR SHOWER and45sec cooldown, nativecombat/XP92 observed."
+      },
+      {
+        "step": 5,
+        "type": "reload",
+        "selector": "page",
+        "result": "Originaltitle/175gold/stage1/XP0/1500HP restored; battleisnotpersisted."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8925/assets/audio/hit.mp3",
+      "http://127.0.0.1:8925/assets/audio/hit.mp3",
+      "http://127.0.0.1:8925/assets/audio/boom.mp3",
+      "http://127.0.0.1:8925/",
+      "http://127.0.0.1:8925/_remote/3a125e88c76c9347/fonts.css",
+      "http://127.0.0.1:8925/rosebud-game-defaults.css",
+      "http://127.0.0.1:8925/rosebud-game-defaults.js",
+      "http://127.0.0.1:8925/main.js",
+      "http://127.0.0.1:8925/assets/fonts/e3237528af752eed937e7103.woff2",
+      "http://127.0.0.1:8925/assets/fonts/4a440f59a6bae9d20acc986b.woff2",
+      "http://127.0.0.1:8925/assets/battlefield.webp",
+      "http://127.0.0.1:8925/assets/fortress.webp",
+      "http://127.0.0.1:8925/assets/caveman.webp",
+      "http://127.0.0.1:8925/assets/bronze-warrior.webp",
+      "http://127.0.0.1:8925/assets/knight.webp",
+      "http://127.0.0.1:8925/assets/renaissance-musketeer.webp",
+      "http://127.0.0.1:8925/assets/industrial-infantry.webp",
+      "http://127.0.0.1:8925/assets/soldier.webp",
+      "http://127.0.0.1:8925/assets/cyber-soldier.webp",
+      "http://127.0.0.1:8925/assets/cyborg.webp",
+      "http://127.0.0.1:8925/assets/audio/battle-music.mp3"
+    ],
+    "scope": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+    "network_scope": "Steps2-5 including complete reload; initial menu loaded before observation cursor.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-troop.jpg",
+        "screenshots/revision-04-special.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-troop.jpg",
+        "screenshots/revision-04-special.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-troop.jpg",
+        "screenshots/revision-04-special.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-troop.jpg",
+        "screenshots/revision-04-special.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-troop.jpg",
+        "screenshots/revision-04-special.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-troop.jpg",
+        "screenshots/revision-04-special.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+      "evidence": [
+        "screenshots/revision-03-troop.jpg",
+        "screenshots/revision-04-special.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Originaltitle/175gold/stage1/1500HP rendered."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "canvas start",
+      "result": "Originalbattle started."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "key": "1",
+      "result": "NativeMelee training queue1/5, nativeunits spawned. Cost15 in code; passiveincome makes net screenshotdelta unsuitable."
+    },
+    {
+      "step": 4,
+      "type": "key",
+      "key": "q",
+      "result": "METEOR SHOWER and45sec cooldown, nativecombat/XP92 observed."
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "page",
+      "result": "Originaltitle/175gold/stage1/XP0/1500HP restored; battleisnotpersisted."
+    }
+  ],
+  "scope": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      }
+    ],
+    "scope": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。"
+  },
+  "dependency_review": {
+    "previous_revision": 2,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "离线启动通过；广告过滤及被拒绝请求见 runtime_smoke，存档及结算尚未验证",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证保存恢复和阶段结果"
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 2,
+      "updated_at": "2026-11-02T03:57:28+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。"
+    },
+    "basis": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。"
+  },
+  "base_version_id": "v-3d4ae237b8f1",
+  "manual_execution": {
+    "executor": "Codex direct repair / actual UI",
+    "automated_model_conversion": false,
+    "original_job": "job-485bb3393085",
+    "max_gameplay_steps": 5,
+    "at": "2026-11-12T18:27:38.752664+00:00"
+  },
+  "game_profile": {
+    "category": "策略 / 塔防",
+    "dimension": "2D",
+    "perspective": "固定横向战场，双方基地在两侧；顶部金币、时代/XP、兵种、技能和队列，下方塔设计与建造位。",
+    "core_gameplay": "收入增长→消耗金币将兵种入训练队列→单位自动前进/索敌/攻击→击杀获取经验与经济→使用技能/塔防→达到经验阈值进化时代并选升级卡→基地生命决定胜负。",
+    "core_experience": "",
+    "controls": "点击画布或任意键开始；1/2/3训练近战/远程/重兵，Q时代技能，4/5/6选择当前时代塔设计后点击空建造位；时代升级卡用1/2/3或点击选择。M音量，原终局点击或R重开。此次五步只实测开始、1、Q与刷新，未实测建塔/升级卡/终局R。",
+    "game_loop": "标题覆盖层→开始战斗→出兵/自动战斗/建塔/技能→时代进化与升级卡→某基地生命耗尽后原结果→点击或R重开。此次限五步验证核心操作与刷新，未观察胜负终局。",
+    "content": "8时代，每时代三类兵种和三种塔设计，8个基地自动防御武器；原完整配置和资源保留，不将24项塔设计称24关。",
+    "progression": "8时代按经验推进：石器、青铜、中世纪、文艺复兴、工业、现代、赛博、未来；时代影响单位/基地/技能/塔，进化时原升级卡三选一。无跨局持久成长。",
+    "save": "原main.js无localStorage/持久化调用；所有战斗状态在内存。刷新恢复175金、Stage1/8、XP0/250、双方1500生命与READY；不是中局恢复。未新增个人存档。",
+    "rules": "原双方基地初始1500生命，训练队列最多5项；近战/远程/重兵初始成本15/25/60金，时代与升级会改变成本或属性；Q技能按原冷却。胜负由原基地生命条件决定，不修改AI、伤害或自动判胜。",
+    "systems": "被动收入/击杀收益、训练队列、三类单位索敌与攻击、基地防御、玩家/AI塔、时代/经验/升级卡、技能冷却与特效、音量、标题和原胜负重开。",
+    "ui_flow": "原标题→战斗HUD→升级选择覆盖层→战斗→胜负覆盖层。实测主HUD、队列、Q技能冷却，刷新回标题。",
+    "level_design": "一条横向战线和两侧基地，时代进化改变战斗属性；塔位为原六处可选位置，建塔仍受上限与金币约束。原AI双方升级与难度不变。",
+    "verification": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+    "evidence": "原main.js完整SHA、ERAS/UNIT_TYPES/TOWER_OPTIONS/DEFENSE_WEAPONS与技能/训练/战斗函数；source-preservation、asset-recovery、resource-http-verified、five-step-ledger和network-final。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "浏览器原生Canvas2D；原版可编辑main.js。",
+    "programming_language": "JavaScript、HTML/CSS。",
+    "game_summary": "训练近战、远程和重兵，配合基地火力、建塔与时代技能对抗原生AI，通过经验进化时代并争取消灭敌方基地。",
+    "resource_types": "原WebP背景、城堡、8时代单位、地面/光效等图像；原MP3音乐和战斗音效；23份原字体声明所用WOFF2。战斗单位、投射物、特效和HUD由Canvas绘制。",
+    "engine_asset_system": "原Image/Audio按assets相对路径载入，ctx绘制场景/单位/HUD；字体通过本地CSS加载，运行无外部资源请求。",
+    "core_challenge_details": "在被动收入和击杀收益约束下选择出兵、塔位与技能时机；对抗原AI自动出兵和进化，保护己方基地并摧毁敌方基地。",
+    "core_challenge_type": "策略规划 / 操作执行",
+    "input_elements": "键盘快捷键、画布点击、升级卡三选一、选择塔设计后点击原建造位。",
+    "app_suitability": "",
+    "core_loop": "观察战线/资源→出兵或技能→原AI/物理交战→金币与经验变化→继续决策。",
+    "churn_risk": "",
+    "progression_loop": "战斗经验→时代进化/升级卡→单位和防御增强→继续战斗。",
+    "core_closure": "目标：短期组织训练队列抵挡敌军；中期积累经验进化并配置防御；单局目标摧毁敌方基地且保护己方。规则：按原金币消耗、队列容量、训练时长、射程/伤害/攻速、基地与塔火力判定战斗。反馈：金币、队列、XP/时代、血条、单位前进/投射物和技能特效、冷却数字；原终局覆盖层和重开代码保留但本次未触达。激励：收入/击杀收益、时代成长与升级卡；下一目标是持续出兵或进化。五步实测仅证明局内核心操作与重置，不宣称胜利或整局闭环已经试玩。",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "原画布1920×1080。初始175金、时代1、XP0/250；近战HP60/伤害12/射程40/速度70/冷却0.8，远程40/9/260/60/1.0，重兵180/28/50/45/1.3，受时代倍率及升级影响。原技能基础冷却45秒；队列上限5；玩家塔上限4、6个候选塔位。",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "从石器到未来的时代战场，保留原山地、城堡、时代单位贴图、色条与Canvas特效。游戏内标题AGE OF BATTLE，任务名Agefront。",
+    "theme_position": "时代进化战争与基地攻防。",
+    "economy": "原金币被动增长并可从击杀获得，出兵与建塔消耗；经验用于时代进化。升级卡会改变折扣、队列、塔伤害或技能冷却等，保留原上限；没有充值、跨局钱包或云存档。",
+    "roles": "玩家与原生AI双方基地、三类单位（近战/远程/重兵）、时代塔和技能投射物。时代单位图像和属性由原数组驱动；保留原完整阵容。",
+    "roster_summary": "",
+    "monetization_details": "当前独立交付退役Rosebud宿主工具，不加载广告/账号/排行榜/支付或网络对战。原音乐/音效保留，本轮只核对字节与加载，不作听觉结论。",
+    "monetization": "当前无真实广告或支付接口。",
+    "illustrations": [
+      {
+        "path": "screenshots/revision-01-startup.jpg",
+        "caption": "原版标题与初始175金、Stage1/8。"
+      },
+      {
+        "path": "screenshots/revision-03-troop.jpg",
+        "caption": "按1后训练队列1/5；金币在被动增长，不将截图差额冒充净扣费。"
+      },
+      {
+        "path": "screenshots/revision-04-special.jpg",
+        "caption": "Q陨石技能、45秒冷却及原生交战；不是胜负终局。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Entireoriginalmain.js unchanged; editableHTML/CSS/nativeCanvasJavaScript.",
+    "reuse": "BattleAI/economy/render/era modules needextractionandadaptation; no independentcomponentcertification.",
+    "dependencies": "Canvas2D/Image/Audio/localfonts. ServeoverHTTP.",
+    "preservation": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 10487.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 6846.8279999999995,
+      "calls": 82,
+      "known_input_tokens": 1827514,
+      "known_output_tokens": 217030,
+      "cached_input_tokens_known": 615680,
+      "unknown_usage_calls": 10,
+      "known_estimated_cost_subtotals": {
+        "CNY": 46.06283999999998
+      },
+      "unknown_cost_calls": 12,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 2,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 2,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 2,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:local-codex": {
+          "calls": 8,
+          "input_tokens_known": 45390,
+          "output_tokens_known": 2004,
+          "unknown_usage_calls": 6,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 8,
+          "registered_price_bands": []
+        },
+        "api:kimi-k3": {
+          "calls": 72,
+          "input_tokens_known": 1782124,
+          "output_tokens_known": 215026,
+          "unknown_usage_calls": 2,
+          "known_cost_subtotals": {
+            "CNY": 46.06283999999998
+          },
+          "unknown_cost_calls": 2,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T04:20:19.542056+00:00",
+      "observed_until": "2026-11-12T18:28:20.271878+00:00",
+      "observed_wall_seconds": 50880.729822,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

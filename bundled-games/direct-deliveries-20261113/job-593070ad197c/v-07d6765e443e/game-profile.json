@@ -1,0 +1,24 @@
+{
+  "category": "离线国际象棋",
+  "dimension": "2D",
+  "perspective": "俯视正对棋盘（由启动界面出现的 a–h、1–8 坐标标签推断为单面棋盘视角；未验证是否支持翻转视角）",
+  "core_gameplay": "Original10bots, same-devicechess, puzzlecorpus,daily,review,achievements,originalstarwallet; actualsame-devicecheckmateandbotresponse.",
+  "core_experience": "面向单人的象棋对弈体验，核心卖点疑为可调强度的拟人机器人（名为 Pebble）。实际对局手感、节奏、难度曲线未验证。",
+  "controls": "Mouseclick/drag chesspieces; nativeUI local/bot/puzzles/daily/review; localclaimconfirm/cancel",
+  "game_loop": "开始：启动后进入开局配置界面（实机验证）。操作：选择强度/执子方/开局后点击“挑战 Pebble”进入对局（进入对局本身未验证）。结果：对局胜负判定、结算界面未观察。继续：是否支持再开一局、返回配置界面未验证。",
+  "content": "固定数量：机器人强度档位 12 档（400 至 2200，间隔 200，实机验证按钮存在）；执子方选项 3 项、开局选项 2 项（实机验证）。程序生成：“随机”开局局面疑为程序生成（如 Chess960 类摆法，具体规则未验证）；AI 走法为运行时计算（具体引擎未确认）。棋局数量、残局关卡、教学等内容未观察到。",
+  "progression": "未验证。未见等级、解锁、成就系统的实机证据；ELO 档位为开局选择项而非进度。localStorage 存在 gambit-chess-v1 记录（317 字符），疑含对局/设置持久化，内容未知。",
+  "save": "Nativepersonalstorage; local e4 andbot e4d5 reloadverified.",
+  "rules": "目标：疑为标准国际象棋目标（将杀对方王），未实机验证。成功/失败：胜负、和棋（逼和、三次重复、50 步等）判定未验证。计分公式：未观察到计分系统；ELO 400–2200 为机器人强度档（已查证界面数值），是否影响玩家评分未确认。已查证阈值：ELO 档位 12 档，区间 400–2200；其余阈值未确认，不编造。",
+  "systems": "对象（按证据强弱分级）：棋盘与棋子（由坐标标签与品类推断，未观察棋子渲染）；机器人 Pebble（界面文案，12 档强度）；开局配置器（实机验证）。状态：界面处于开局配置态（实机验证）；对局态、结算态未观察。触发：按钮点击为已确认输入方式。系统交互：配置→开局→AI 应答走子的链路为合理推断，未实机验证；与 Poki SDK 的交互（广告、游戏事件）仅见 SDK 初始化， gameplay 集成点未验证。",
+  "ui_flow": "已实机观察界面：启动后直接进入开局配置界面——左侧纵向 7 个无图标文本按钮 + 设置按钮；中部棋盘坐标（a–h、1–8）；右侧“挑战机器人”标题、12 个 ELO 按钮（带★★★显示，星级含义未确认）、执子方三选、开局二选、“挑战 Pebble”开始按钮。按钮转移：各按钮点击后的跳转均未验证。对局界面、结算界面、设置界面内容均未观察。",
+  "level_design": "未发现关卡结构。内容为单局自由对弈 + 12 档强度选择；随机开局提供局面变化。是否含谜题/残局/教学模式未观察到，不编造。",
+  "verification": "保留原国际象棋引擎逐字节SHA、10机器人难度、开局库、完整谜题数据、机器人/谜题/每日控制器、个人存档与原钱包奖励额度的语义SHA；只退役真实Poki SDK/广告调用、Netlib/联网控制器与邀请入口、云端排行及遥测，无假SDK/房间/服务器结果。原广告可选项目改主动本地领取，取消不发放，不改星数/额度。实际非法f2f5不改变棋盘；同机普通点击f2f3/e7e5/g2g4/d8h4，原生黑方将死、成就、棋谱；复盘取消仍锁定、确认后原生47%/100%分析；再下一局复位，e4刷新回同机仍为黑方走；机器人Pebble400实际回应d5，刷新仍保留e4/d5。完整最终窗口111事件无截断/外联/请求失败/HTTP错误/脚本异常，控制台错误警告为空。未声称所有谜题/10机器人全胜/全部特殊棋步/日关/真实触控/听觉已测。",
+  "evidence": "运行时证据：runtime.steps[0]（viewport 1000×760、buttons/labels/text/input_state/storage，截图 screenshots/startup.png）；runtime.passed=true；replay_action_count=0。源码证据：_remote/e78ef3f525f6bf79/poki-sdk.js（webcrack 分析输出 source-analysis/js-2.16.0-3bf06b…）；_runtime_resources/67f98c18c8a5dcc731af2ab5.js（webcrack 分析输出 source-analysis/js-2.16.0-754e6a…，含游戏逻辑与 SDK core，压缩混淆）。资源请求记录：resource-1 至 resource-5 均为 SDK 外联，非游戏素材。存储证据：localStorage 键 gambit-chess-v1（317 字符，仅哈希可见）。版本文本 v0.6.0 来自启动界面文本。",
+  "illustrations": [
+    {
+      "path": "screenshots/startup.png",
+      "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+    }
+  ]
+}

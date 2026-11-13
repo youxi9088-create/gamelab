@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "status": "static_pass",
+  "files": [
+    {
+      "file": "assets/003-music.mp3",
+      "bytes": 3275128,
+      "sha256": "6b7e74df9a09c70ebc0636a4e99b64efe377b48b9196faa9e94dacf8d0a1ba39"
+    },
+    {
+      "file": "CONVERSION_DELIVERY_CHECKS.json",
+      "bytes": 1198,
+      "sha256": "d09b0abbc6bec0c668269da40bc6cf128efbe753bae3de74a9b8e7266ee040ef"
+    },
+    {
+      "file": "game-profile.json",
+      "bytes": 4287,
+      "sha256": "80aa8cdb64874c777be89fdd1ecd4ba1d23220f63cd155a7a0c9f48336ace37f"
+    },
+    {
+      "file": "GAME_SPECIFICATION.md",
+      "bytes": 4497,
+      "sha256": "52f1f81c5ba33e1c801763cd6db107cfb336b2a18ab8ebda84eab8fa4ef3a7c0"
+    },
+    {
+      "file": "index.html",
+      "bytes": 626404,
+      "sha256": "9e7f192401584e42bdfed4d6d801e6e9af53c81e547dd06b55a75ffdd1c9e6d7"
+    },
+    {
+      "file": "local-host.js",
+      "bytes": 2030,
+      "sha256": "a3ac79c865a18880d43554d72e4dc3efe23fc56be019bad709480f2953858b1e"
+    },
+    {
+      "file": "OFFLINE_DELIVERY_CHECKS.json",
+      "bytes": 1291,
+      "sha256": "3866d83d095881a12c8efdda8948734300b030902bfae2343fd842f4975a4414"
+    },
+    {
+      "file": "RESTORATION_REPORT.txt",
+      "bytes": 508,
+      "sha256": "b05cbc8a3c673b95caeffd044b8e1fa7298ac7325057fc2bfd63284c9100d63d"
+    },
+    {
+      "file": "runtime-resource-bindings.js",
+      "bytes": 3298,
+      "sha256": "5818eefe73bcd5eabce929fb6a85c4f603fc644bec86b7c4210b679f505eb059"
+    },
+    {
+      "file": "runtime-resource-map.js",
+      "bytes": 479,
+      "sha256": "f4df5ad028887f1079bd40fd295753b870c3ee75affd8324aa9f993b80426ab6"
+    },
+    {
+      "file": "vendor/001-three-0.185.js",
+      "bytes": 61,
+      "sha256": "71a9356926ed1f35bd95d6bfde01bfc3b70b43df2e460a38db577a723ae82fe1"
+    },
+    {
+      "file": "vendor/002-three.js",
+      "bytes": 729947,
+      "sha256": "9e0962a23caa7df24e9aa531d9d9c363e11e6f45557a430884f9ffebfa622a73"
+    },
+    {
+      "file": "verification/38cc2e00-3685-44c4-8bd1-2f9d5e394fbe-web-play.json",
+      "bytes": 198047,
+      "sha256": "449b8495ac2aac12fea7f86893e38bd26084f6aec29f7be9ea2c08ec2e35c832"
+    },
+    {
+      "file": "verification/6d7d661c-cd67-479a-b9a4-ce47dfeeb297-web-play.json",
+      "bytes": 296845,
+      "sha256": "a6e667f5ae6901dee8290dc4004e4858581fc710eba07baa5a8958f06658c6bf"
+    },
+    {
+      "file": "verification/de3cf86c-1af5-4e35-ab49-f81808e94675-web-play.json",
+      "bytes": 521771,
+      "sha256": "56e4487710aba9bb8645ce0bdad9717b696fe61056043da23da78eb4661b1a81"
+    },
+    {
+      "file": "verification/e32f78d6-d5f5-42cf-b694-e8f90ed62807-web-play.json",
+      "bytes": 485409,
+      "sha256": "a86abb36ff4970996981a447bb588a6e7c55bd4cbfaa044706bb05f0d4ca25a5"
+    }
+  ],
+  "references": [
+    {
+      "file": "index.html",
+      "reference": "runtime-resource-map.js"
+    },
+    {
+      "file": "index.html",
+      "reference": "runtime-resource-bindings.js"
+    },
+    {
+      "file": "index.html",
+      "reference": "./local-host.js"
+    },
+    {
+      "file": "index.html",
+      "reference": "./vendor/001-three-0.185.js"
+    },
+    {
+      "file": "index.html",
+      "reference": "./vendor/001-three-0.185.js"
+    },
+    {
+      "file": "index.html",
+      "reference": "./vendor/001-three-0.185.js"
+    },
+    {
+      "file": "index.html",
+      "reference": "./vendor/001-three-0.185.js"
+    },
+    {
+      "file": "index.html",
+      "reference": "./vendor/001-three-0.185.js"
+    },
+    {
+      "file": "index.html",
+      "reference": "./vendor/001-three-0.185.js"
+    },
+    {
+      "file": "index.html",
+      "reference": "./vendor/001-three-0.185.js"
+    },
+    {
+      "file": "index.html",
+      "reference": "./vendor/001-three-0.185.js"
+    },
+    {
+      "file": "index.html",
+      "reference": "./vendor/001-three-0.185.js"
+    },
+    {
+      "file": "vendor/001-three-0.185.js",
+      "reference": "./002-three.js"
+    }
+  ],
+  "missing": [],
+  "external": [],
+  "backend_endpoints": [],
+  "dynamic_files": [
+    "vendor/002-three.js"
+  ],
+  "scope": "HTML/CSS、全局 fetch/import 字面量及 assets 路径线索；API 路由单独登记，不视为静态文件。动态拼接、引擎加载、后端依赖和全关卡必须另做运行验证"
+}

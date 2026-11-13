@@ -1,0 +1,308 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "click",
+        "target": "intro skip",
+        "result": "offline menu; online and leaderboard controls absent"
+      },
+      {
+        "type": "select",
+        "target": "LAPS/BOTS/track",
+        "result": "1 lap / Easy / Garage Gauntlet selected"
+      },
+      {
+        "type": "click",
+        "target": "START RACE",
+        "result": "countdown, 6 cars, single-player HUD"
+      },
+      {
+        "type": "key",
+        "key": "R",
+        "result": "recovery protection, returned to track"
+      },
+      {
+        "type": "key",
+        "key": "1",
+        "result": "Nitro activated, VFX and NITRO HUD, inventory changed"
+      },
+      {
+        "type": "key",
+        "key": "D/A/Shift/2",
+        "result": "steering, speed/collision feedback; Shockwave consumed; no positive drift-charge claim"
+      },
+      {
+        "type": "observe",
+        "result": "original race timeout, sixth place / DNF / +1, bots recorded actual finish times"
+      },
+      {
+        "type": "click",
+        "target": "REMATCH",
+        "result": "new race countdown and reset inventory"
+      },
+      {
+        "type": "click",
+        "target": "Pause then MAIN MENU",
+        "result": "native pause and return to menu"
+      },
+      {
+        "type": "reload",
+        "result": "Garage / 1 lap / Easy settings visibly preserved"
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8880/index.html",
+      "http://127.0.0.1:8880/game.js",
+      "http://127.0.0.1:8880/vendor/001-three-0.185.js",
+      "http://127.0.0.1:8880/vendor/002-three.js",
+      "http://127.0.0.1:8880/assets/003-music.mp3",
+      "http://127.0.0.1:8880/index.html",
+      "http://127.0.0.1:8880/game.js",
+      "http://127.0.0.1:8880/vendor/001-three-0.185.js",
+      "http://127.0.0.1:8880/vendor/002-three.js"
+    ],
+    "network_responses": [
+      {
+        "url": "http://127.0.0.1:8880/index.html",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8880/game.js",
+        "status": 304
+      },
+      {
+        "url": "http://127.0.0.1:8880/vendor/001-three-0.185.js",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8880/vendor/002-three.js",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8880/assets/003-music.mp3",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8880/index.html",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8880/game.js",
+        "status": 304
+      },
+      {
+        "url": "http://127.0.0.1:8880/vendor/001-three-0.185.js",
+        "status": 304
+      },
+      {
+        "url": "http://127.0.0.1:8880/vendor/002-three.js",
+        "status": 304
+      }
+    ],
+    "warnings": [
+      {
+        "level": "warn",
+        "message": "THREE.WebGLProgram: Program Info Log: (210,91-147): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,41-69): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,92-120): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(209,41-69): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(210,92-120): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision",
+        "timestamp": "2026-11-11T13:41:36.054Z",
+        "url": "http://127.0.0.1:8880/vendor/002-three.js"
+      }
+    ],
+    "scope": "Agent-operated desktop IAB, 1280x720. Garage single-lap Easy race tested through original timeout/DNF result and rematch; not a successful player finish or win. Other four tracks, split-screen, cup, drift charge and best/ghost recording not verified. Settings persistence observed. Original simulation and timeout remain unchanged."
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "removed",
+      "reason": "Removed leaderboard toolbar/control, UI method, score submission/read functions and SDK binding. Local best/ghost implementation retained. Actual menu and DNF/results/rematch have no leaderboard control.",
+      "evidence": [
+        "index.html",
+        "game.js",
+        "evidence/direct-repair/menu.png",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "Removed online mode control, persisted online-mode acceptance, room transport class and instance, create/invite/join callbacks, server meta and SDK room hooks. Same-computer split-screen remains native offline functionality, untested. No server or network matchmaking remains.",
+      "evidence": [
+        "index.html",
+        "game.js",
+        "evidence/direct-repair/menu.png",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "Read final game source and native layout/audio module; no advertising SDK/init/call or ad reward UI. Real local power pickups only.",
+      "evidence": [
+        "index.html",
+        "game.js",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "Removed unused host shim including purchase placeholder; final game has no payment initialization/call/control. Native paint shop selects colors without money.",
+      "evidence": [
+        "index.html",
+        "game.js",
+        "evidence/direct-repair/network.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "Menu/rules -> real input and powers -> original timeout/DNF results -> rematch -> menu; does not claim player lap finish.",
+      "evidence": [
+        "evidence/direct-repair/results-dnf.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "Local Three modules and original music loaded; procedural track/cars/scene render.",
+      "evidence": [
+        "evidence/direct-repair/racing.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Garage track, obstacles, ramps, minimap and podium render.",
+      "evidence": [
+        "evidence/direct-repair/racing.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "Cars, track walls, power pickups and power use visually react during real race.",
+      "evidence": [
+        "evidence/direct-repair/racing.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "Player and five bots render and participate; bots finish with real times.",
+      "evidence": [
+        "evidence/direct-repair/results-dnf.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Car motion, nitro trails/VFX, camera follow and animated podium observed.",
+      "evidence": [
+        "evidence/direct-repair/racing.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "Offline menu, rules, countdown, speed, position, inventory, pause, results, rematch and restored settings inspected.",
+      "evidence": [
+        "evidence/direct-repair/reload-settings.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "click",
+      "target": "intro skip",
+      "result": "offline menu; online and leaderboard controls absent"
+    },
+    {
+      "type": "select",
+      "target": "LAPS/BOTS/track",
+      "result": "1 lap / Easy / Garage Gauntlet selected"
+    },
+    {
+      "type": "click",
+      "target": "START RACE",
+      "result": "countdown, 6 cars, single-player HUD"
+    },
+    {
+      "type": "key",
+      "key": "R",
+      "result": "recovery protection, returned to track"
+    },
+    {
+      "type": "key",
+      "key": "1",
+      "result": "Nitro activated, VFX and NITRO HUD, inventory changed"
+    },
+    {
+      "type": "key",
+      "key": "D/A/Shift/2",
+      "result": "steering, speed/collision feedback; Shockwave consumed; no positive drift-charge claim"
+    },
+    {
+      "type": "observe",
+      "result": "original race timeout, sixth place / DNF / +1, bots recorded actual finish times"
+    },
+    {
+      "type": "click",
+      "target": "REMATCH",
+      "result": "new race countdown and reset inventory"
+    },
+    {
+      "type": "click",
+      "target": "Pause then MAIN MENU",
+      "result": "native pause and return to menu"
+    },
+    {
+      "type": "reload",
+      "result": "Garage / 1 lap / Easy settings visibly preserved"
+    }
+  ],
+  "scope": "Agent-operated desktop IAB, 1280x720. Garage single-lap Easy race tested through original timeout/DNF result and rematch; not a successful player finish or win. Other four tracks, split-screen, cup, drift charge and best/ghost recording not verified. Settings persistence observed. Original simulation and timeout remain unchanged.",
+  "implementation": {
+    "editable_source": "game.js: original readable car/track/rules/power/race/HUD code extracted from HTML, no bundling obstruction.",
+    "reuse": "Track, car physics, bot and power functions can be extracted with adaptation; separate reusable-module validation not performed.",
+    "preservation": "evidence/direct-repair/simulation-preserved.json verifies unchanged canonical AST for race creation/tick, bot AI, physics, power actions, recovery and results.",
+    "dependencies": "Local Three.js modules and music; native Audio/Canvas/WebGL/localStorage; no external host SDK."
+  },
+  "manual_execution": {
+    "executor": "Codex direct source repair and actual UI play",
+    "automated_model_conversion": false,
+    "base_version": "v-477cdc9b18e5",
+    "original_job": "job-d962948fd649",
+    "at": "2026-11-11T13:50:08.589927+00:00"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

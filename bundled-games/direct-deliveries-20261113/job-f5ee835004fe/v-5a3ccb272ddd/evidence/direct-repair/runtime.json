@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "missing": [],
+  "required_external": [],
+  "actions": [
+    {
+      "type": "key",
+      "key": "Space",
+      "result": "Original forward throw/catch, score increases from 0 to 1 and 2"
+    },
+    {
+      "type": "drag",
+      "result": "Prior presentation build demonstrated curved throw and score to 8 with original combo and new walls; physics unchanged in final build"
+    },
+    {
+      "type": "key",
+      "key": "Space",
+      "result": "Final build three real obstacle collisions, lives 3 to 0; final score 3"
+    },
+    {
+      "type": "click",
+      "target": "PLAY AGAIN",
+      "result": "Original de reset, score 0 and 3 lives, native result hidden"
+    },
+    {
+      "type": "reload",
+      "result": "Fresh game score 0, prior best 8 restored to original hidden best-value DOM label"
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8882/index.html",
+    "http://127.0.0.1:8882/_remote/56c4fdab00adf668/css2.css",
+    "http://127.0.0.1:8882/_remote/25023b521d7747c7/three.min.js",
+    "http://127.0.0.1:8882/game.js",
+    "http://127.0.0.1:8882/_remote/571f63e52f8bedde/music1-rTr7oTZyHa-wWvN1d7TczfkXTFX3G3KelKgp1qZsO.mp3",
+    "http://127.0.0.1:8882/_remote/64f9b3159b470f16/FeVQS0BTqb0h60ACH55Q2A.woff2",
+    "http://127.0.0.1:8882/_remote/e3237528af752eed/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+    "http://127.0.0.1:8882/_remote/c94973c845238843/logo-tWUf4VMivC-LsnBT6yvPuSv2dGwErmc3NtKVz4DVw.webp",
+    "http://127.0.0.1:8882/fonts/f68f7fa97d7cca14.woff2",
+    "http://127.0.0.1:8882/index.html",
+    "http://127.0.0.1:8882/_remote/56c4fdab00adf668/css2.css",
+    "http://127.0.0.1:8882/_remote/25023b521d7747c7/three.min.js",
+    "http://127.0.0.1:8882/game.js",
+    "http://127.0.0.1:8882/_remote/571f63e52f8bedde/music1-rTr7oTZyHa-wWvN1d7TczfkXTFX3G3KelKgp1qZsO.mp3",
+    "http://127.0.0.1:8882/fonts/f68f7fa97d7cca14.woff2",
+    "http://127.0.0.1:8882/_remote/64f9b3159b470f16/FeVQS0BTqb0h60ACH55Q2A.woff2",
+    "http://127.0.0.1:8882/_remote/e3237528af752eed/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+    "http://127.0.0.1:8882/_remote/c94973c845238843/logo-tWUf4VMivC-LsnBT6yvPuSv2dGwErmc3NtKVz4DVw.webp"
+  ],
+  "scope": "Final build: score 0 to 3, three actual collisions, native game-over 3 and PLAY AGAIN reset to 0/three lives. Prior build before visibility-class correction reached score 8 and saved it; final build restores best=8 in original hidden DOM label. Hidden best label is functional DOM evidence, not visible HUD verification. Original 49 functions including throw/flight remain unchanged. No cosmetic unlock/mobile interaction verification. Desktop IAB 1280x720; infinite game has no full campaign ending. Original hidden best label checked as DOM state, not claimed visible HUD. Original native procedural scene and music retained; no fabricated cloud asset or leaderboard.",
+  "evidence": "evidence/direct-repair/network.json"
+}

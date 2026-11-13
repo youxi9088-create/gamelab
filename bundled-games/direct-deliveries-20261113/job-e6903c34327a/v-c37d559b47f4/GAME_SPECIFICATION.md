@@ -1,0 +1,5 @@
+# Lantern Maze
+
+Desktop1280x720 entire originalmain.js byteSHA unchanged. ActualnativeWASD mazewallcollision/light/trail, firststage3torches+ember collected thenoriginalexit fullthree-starwin, total3of60. NativeSpace nextstage2, key3lockedrefused, Rrestartoriginalstage2, refreshstage2unlocked/firststage3stars/total3 preserved. Entireoriginal20stagegen/rules/lighting/stars/unlock/save unchanged. Only unrelatedRosebudhosttools/resourceinterception retired,27exactfontrefs258956bytes localized. Complete30requestwindow startup/fullwin/next/restart/reload noexternal/failed/exception/truncation. Other19stages/alternatestaroutcomes/mobile/hearing notexhausted. Originalno midmazesave, no suchclaim.
+
+{'editable_source': 'Entireoriginalreadablemain.js mazealgorithm/lighting/player/pickup/stars/UI/save retainedunchanged, originalsprite/audio/CSS local.', 'reuse': 'Seededmazegeneration/fog/torchlight/collision/star-save/UI modules extractable withadaptation, notseparatelycertified.', 'dependencies': 'NativeCanvas2D/HTMLAudio/localStorage andlocalfonts/assets.', 'preservation': 'Entiremain.js SHA unchanged, no star/rules/unlock/difficulty/save modification.'}

@@ -1,0 +1,24 @@
+{
+  "category": "动作 · 火柴人格斗",
+  "dimension": "2D",
+  "perspective": "未确认（推断为横版对战视角，仅由火柴人对战题材推断，无实机证据）",
+  "core_gameplay": "Original physics weapons/skill combat, native single-player and same-device2P; original maps, gold, skins and weapon progression.",
+  "core_experience": "未确认。标题与模式命名指向火柴人题材的单人闯关/双人同屏对战体验，但无实机游玩证据。",
+  "controls": "WASD, Space super,E skill; second player arrows/Enter/Shift; native pause/menus.",
+  "game_loop": "未确认。仅验证到：开始=加载后进入主菜单并显示模式选择；操作=选择 1 Player 或 2 Players；结果=模式选择后的战斗流程、胜负结算、得分展示均未观察；继续=是否返回菜单或进入下一局未知。",
+  "content": "固定内容（资源证据）：Map 资源目录存在（assets/Map），提示含地图/关卡数据；prefabs 目录含大量 plist 序列帧/粒子（约 15 组）与 UI 贴图；res 目录含 11 个 mp3 音效/音乐；mainScenes 含 LilitaOne 字体。关卡数量、角色种类、是否含程序生成内容：未确认。",
+  "progression": "未确认。localStorage 存在键 p27（2687 字符），可能保存进度/解锁/设置，但内容未解密验证；是否存在关卡推进、难度曲线、奖励体系均无证据。",
+  "save": "Original UserProfile local persistence, actual ordinary70+50=120gold restored after final reload.",
+  "rules": "未确认。目标、成功/失败条件、计分公式、血量/时间阈值均无实机或源码摘录证据，不编造。",
+  "systems": "仅可确认对象层级（来自运行时节点路径）：\n1. 主菜单 MainView：含 bgPve/pve（单人入口）、bgPvp/pvp（双人入口）、TopPanel/Setting（音频设置）、Title 文本。\n2. 场景：当前位于 main 场景；assets/mainScenes 存在，推断含独立战斗场景，未验证。\n3. 系统交互：按钮 → onBtnGameMode（模式分流）、Setting → showAudioView（音频面板）；战斗内对象、状态机、碰撞、AI 等均未验证。",
+  "ui_flow": "已验证主菜单界面：顶部标题\"Stickman Battle\"，左侧 PVE 区（1 Player），右侧 PVP 区（2 Players），右上角 Setting 按钮（打开音频设置面板）。按钮跳转目标界面（模式选择后的加载/战斗/结算界面）未点击验证；是否存在暂停、结算、失败界面未知。",
+  "level_design": "未确认。assets/Map 目录与地图 config（assets/Map/config.819ed.json）表明存在地图资源，但关卡数量、布局、难度设计均未解析验证。",
+  "verification": "Desktop1280x720 real original Cocos2.4.15 game. Native single-player tutorial movement/jump/skill/super/pause/home exercised, no AI/campaign victory claimed. Same-device2P agent controls P1 through normal keyboard while P2 uses unchanged native physics; three P1roundwins, full Player1Wins match, ordinary50reward claimed70to120gold. After removal of unused leaderboard methods/privacy navigation, final source reload restored120gold; original skins panel, native next match movement/skill/pause verified. Original AI/physics/weapons/levels/UserProfile/economy untouched. Complete final network window no truncation/missing/external/errors. Soccer/arena/fullmaps/weapons/mobile/audio hearing not exhausted. Latest source additionally retires the nested key-multiplier entry recursively; fresh reload120gold and native next match movement/skill/pause reverified. Prior fullmatch/earned-reward path unchanged.",
+  "evidence": "",
+  "illustrations": [
+    {
+      "path": "screenshots/startup.png",
+      "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+    }
+  ]
+}

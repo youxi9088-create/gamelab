@@ -1,0 +1,53 @@
+{
+  "at": "2026-11-13T06:36:42.056Z",
+  "original_main_sha256": "2c603bbfa32960e84e46495af7d951169074c777d77857f904deb1a6d1c2a279",
+  "final_main_sha256": "efe0fad981f2273520e5572b0cf2a63d445ec146813e7be9316a46eae1923589",
+  "original_engine_sha256": "5467188908479cb215615b0de0e2c7406065b0fb4e533b0cc729f7ed86d7dbb3",
+  "final_engine_sha256": "3c977e453b246c495f2901fc3c2f2200f7c2e5230df1ef691af88fd4d9df45fd",
+  "original_main_functions": 4454,
+  "preserved_main_function_fingerprints": 3725,
+  "final_main_functions": 3770,
+  "original_engine_functions": 9875,
+  "preserved_engine_functions": 9869,
+  "final_engine_functions": 9872,
+  "changed_service_boundaries": [
+    "local-bootstrap",
+    "loading-host-telemetry",
+    "gameplay-host-telemetry",
+    "host-overlay-position",
+    "host-overlay-position",
+    "host-overlay-position",
+    "host-overlay-position",
+    "host-overlay-position",
+    "host-overlay-position",
+    "host-overlay-position",
+    "native-event-telemetry",
+    "LocalRunSession",
+    "retired:LeaderboardGateway",
+    "retired:LeaderboardService",
+    "rankings-service-registration",
+    "retired:LeaderboardController",
+    "telemetry-component",
+    "retired:LeaderboardScreenManager"
+  ],
+  "removed_engine": [
+    "analytics-init-variable",
+    "analytics-init-call"
+  ],
+  "sdk_library_removed_bytes": 66205,
+  "scope": "Original PlayCanvas runner/physics/levels/gold/building/progression/art preserved. External Neko/Poki/CrazyGames/auth/Bugsnag/analytics provider physically removed; local progress uses identical original SDK localStorage read/write algorithms and keys. Native local highscore retained; online rankings removed and entry buttons retired. Optional local reward requires real confirm/cancel, ordinary flow continues without claiming an ad. No fake SDK, account, remote players or payment. One subsequent exact loading-screen gameanalytics guard physically removed after actual firststartup blocked; no fake global introduced. Firsterror receipt preserved.",
+  "initial_engine_repair_sha256": "e3ef291eec7ebfc89dca51eca9b84da4781cd3e366c4a1a9ec05bc369d5768f0",
+  "loading_telemetry_correction": {
+    "at": "2026-11-13T06:54:34.104Z",
+    "previous_engine_sha256": "e3ef291eec7ebfc89dca51eca9b84da4781cd3e366c4a1a9ec05bc369d5768f0",
+    "final_engine_sha256": "3c977e453b246c495f2901fc3c2f2200f7c2e5230df1ef691af88fd4d9df45fd",
+    "changes": [
+      {
+        "line": 121723,
+        "guard": "gameanalytics",
+        "action": "Remove only telemetry guard and its progress-report body"
+      }
+    ],
+    "scope": "Only real residual gameanalytics call expressions in original loading screen removed, no global SDK stub. Original loading transition, asset completion and game functions preserved."
+  }
+}

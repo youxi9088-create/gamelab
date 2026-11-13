@@ -1,0 +1,298 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "click",
+        "target": "Play Ball numbers",
+        "result": "Original practice mode starts at zero points and zero shots"
+      },
+      {
+        "type": "key",
+        "key": "Space",
+        "result": "Original break and ball collisions; no pot in first shot"
+      },
+      {
+        "type": "click",
+        "target": "top-right pocket then Space",
+        "result": "Scratch -5, ball in hand"
+      },
+      {
+        "type": "drag",
+        "target": "cue ball",
+        "result": "Legal native ball-in-hand placement behind the 8"
+      },
+      {
+        "type": "key",
+        "key": "Space",
+        "result": "8 potted on shot 3, original final score 46 = -5 scratch +51 time bonus; native result panel"
+      },
+      {
+        "type": "click",
+        "target": "Play again",
+        "result": "Original Rt reset: full rack, score 0, shots 0"
+      },
+      {
+        "type": "reload",
+        "result": "Original menu returns; no persistent match save in source"
+      },
+      {
+        "type": "click",
+        "target": "Play Classic 8-ball then weak Space shot",
+        "result": "No ball hit, Player 1 -5; Player 2 has ball in hand"
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8881/index.html",
+      "http://127.0.0.1:8881/_remote/3a125e88c76c9347/css2",
+      "http://127.0.0.1:8881/game.js",
+      "http://127.0.0.1:8881/_remote/8a1b82acd9dbb73f/three@0.186.0.js",
+      "http://127.0.0.1:8881/_remote/ba20a7fb9a5bf09b/RoomEnvironment.js",
+      "http://127.0.0.1:8881/_remote/faa9389fa69a1c42/three.mjs.js",
+      "http://127.0.0.1:8881/_remote/be60a0d932dc16a4/RoomEnvironment.mjs.js",
+      "http://127.0.0.1:8881/_runtime_resources/a86bfaeb027f7c938fed5a8f.mp3",
+      "http://127.0.0.1:8881/_runtime_resources/ffe43922c43145eab219d60b.mp3",
+      "http://127.0.0.1:8881/_runtime_resources/d73744cf192fc26087a775cd.mp3",
+      "http://127.0.0.1:8881/_runtime_resources/996c6c06b7db87c0024b3d3c.mp3",
+      "http://127.0.0.1:8881/_runtime_resources/031657bcb15005ca3d47c74b.mp3",
+      "http://127.0.0.1:8881/index.html",
+      "http://127.0.0.1:8881/_remote/3a125e88c76c9347/css2",
+      "http://127.0.0.1:8881/game.js",
+      "http://127.0.0.1:8881/_remote/8a1b82acd9dbb73f/three@0.186.0.js",
+      "http://127.0.0.1:8881/_remote/ba20a7fb9a5bf09b/RoomEnvironment.js",
+      "http://127.0.0.1:8881/_remote/faa9389fa69a1c42/three.mjs.js",
+      "http://127.0.0.1:8881/_remote/be60a0d932dc16a4/RoomEnvironment.mjs.js",
+      "http://127.0.0.1:8881/_runtime_resources/a86bfaeb027f7c938fed5a8f.mp3",
+      "http://127.0.0.1:8881/_runtime_resources/ffe43922c43145eab219d60b.mp3",
+      "http://127.0.0.1:8881/_runtime_resources/d73744cf192fc26087a775cd.mp3",
+      "http://127.0.0.1:8881/_runtime_resources/996c6c06b7db87c0024b3d3c.mp3",
+      "http://127.0.0.1:8881/_runtime_resources/031657bcb15005ca3d47c74b.mp3"
+    ],
+    "scope": "Desktop IAB 1280x720: Numbers practice completed under original scoring, 3 shots / score 46 (-5 scratch +51 original speed bonus), replay resets score and rack. Classic same-device two-player startup and foul/turn change verified; complete Classic win/loss, called pocket, spin effects, mobile touch and result Main menu button not independently verified. No persistent game save in original. No Bot or online play claimed.",
+    "evidence": "evidence/direct-repair/network.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "Final standalone source and complete real network window contain no leaderboard SDK, controls, initialization or calls.",
+      "evidence": [
+        "index.html",
+        "game.js",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "Final standalone source and complete real network window contain no advertising SDK, controls, initialization or calls.",
+      "evidence": [
+        "index.html",
+        "game.js",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "Final standalone source and complete real network window contain no payments SDK, controls, initialization or calls.",
+      "evidence": [
+        "index.html",
+        "game.js",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "Removed online room/lobby/createRoom/wss transport and friend control; retained original same-device Classic two-player and single-player Numbers practice. Classic Player 2 receives ball in hand after real foul.",
+      "evidence": [
+        "index.html",
+        "game.js",
+        "evidence/direct-repair/classic-turn.png",
+        "evidence/direct-repair/network.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "Numbers start/break/scratch/placement/eight/final score/replay; Classic real foul and turn change.",
+      "evidence": [
+        "evidence/direct-repair/results.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "Local Three modules, all 5 original audio files and declared fonts load; no external requests or failures.",
+      "evidence": [
+        "evidence/direct-repair/reload-menu.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Original 3D table, hall, pockets and audience visible in both views.",
+      "evidence": [
+        "evidence/direct-repair/classic-turn.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "Cue, balls, rails and pockets react to original physics; 55 original function hashes unchanged.",
+      "evidence": [
+        "evidence/direct-repair/scratch.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "Original procedural audience rendered; no Bot invented.",
+      "evidence": [
+        "evidence/direct-repair/classic-turn.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Ball rolling/collision/falling, cue charge, camera view change and audience animation observed.",
+      "evidence": [
+        "evidence/direct-repair/classic-turn.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "Menus, power, scores, fouls, final result and newly standalone replay inspected.",
+      "evidence": [
+        "evidence/direct-repair/results.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "click",
+      "target": "Play Ball numbers",
+      "result": "Original practice mode starts at zero points and zero shots"
+    },
+    {
+      "type": "key",
+      "key": "Space",
+      "result": "Original break and ball collisions; no pot in first shot"
+    },
+    {
+      "type": "click",
+      "target": "top-right pocket then Space",
+      "result": "Scratch -5, ball in hand"
+    },
+    {
+      "type": "drag",
+      "target": "cue ball",
+      "result": "Legal native ball-in-hand placement behind the 8"
+    },
+    {
+      "type": "key",
+      "key": "Space",
+      "result": "8 potted on shot 3, original final score 46 = -5 scratch +51 time bonus; native result panel"
+    },
+    {
+      "type": "click",
+      "target": "Play again",
+      "result": "Original Rt reset: full rack, score 0, shots 0"
+    },
+    {
+      "type": "reload",
+      "result": "Original menu returns; no persistent match save in source"
+    },
+    {
+      "type": "click",
+      "target": "Play Classic 8-ball then weak Space shot",
+      "result": "No ball hit, Player 1 -5; Player 2 has ball in hand"
+    }
+  ],
+  "scope": "Desktop IAB 1280x720: Numbers practice completed under original scoring, 3 shots / score 46 (-5 scratch +51 original speed bonus), replay resets score and rack. Classic same-device two-player startup and foul/turn change verified; complete Classic win/loss, called pocket, spin effects, mobile touch and result Main menu button not independently verified. No persistent game save in original. No Bot or online play claimed.",
+  "base_version_id": "v-c2fb776d8aa4",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "base_version": "v-c2fb776d8aa4",
+    "original_job": "job-dec739375e51",
+    "at": "2026-11-11T15:31:25.079765+00:00"
+  },
+  "implementation": {
+    "editable_source": "game.js readable native original physics/rules/scene/HUD; extracted from original HTML.",
+    "reuse": "Physics, ball placement, procedural table, audience and local audio can be extracted with adaptation; not independently certified reusable modules.",
+    "dependencies": "Local Three.js modules, original MP3 and real WOFF2 fonts; native WebGL/Audio. No host SDK/backend.",
+    "preservation": "55 original function hashes rechecked; scoring constants unchanged. Native local result/replay replaces removed SDK game-over UI, using original Rt reset."
+  },
+  "game_profile": {
+    "category": "体育竞技 · 3D台球（8-Ball Pool）",
+    "dimension": "3D",
+    "perspective": "第三人称跟随视角与俯视视角可切换",
+    "core_gameplay": "玩家在标准美式台球桌上进行8球对战：通过瞄准、调整力度与旋转，将己方球组全部击入袋口后打进8号球获胜；亦提供“Ball numbers”计分模式。",
+    "core_experience": "拟真3D台球体验，结合物理滚动、碰撞、旋转与落袋动画，支持同设备双人对战或单人练习。",
+    "controls": "1. 拖动/点击球台空白处 → 调整瞄准方向（源码确认；桌面端实机验证）。\n2. 按住 Space / 拖动球杆向后 / 拖动右侧力度条 → 蓄力；松开/释放后击球（实机验证）。\n3. 方向键 ←/→ 或 A/D → 微调瞄准（仅源码确认，未在实机单独验证）。\n4. V → 切换球员视角/俯视视角（实机验证标签存在）。\n5. C → 重置视角（实机验证标签存在）。\n6. 右侧小球 → 调整击球点（上下/左右旋转，源码确认）。\n7. 滚轮 → 缩放（源码确认）。\n8. 触屏映射：单指瞄准、双指 orbit/缩放、点击球体选择目标（仅源码确认，未在触屏实机验证）。",
+    "game_loop": "开始：选择“Play Classic 8-ball”或“Play Ball numbers”。操作：玩家轮流击球，先击中并击入己方球组，再击入8号球。结果：犯规扣分/换对手球权，合法进球继续击球，正确打进8号球获胜。继续：单局结束后显示本局结束面板，可点击“再玩一次”重开；刷新页面返回主菜单。",
+    "content": "固定内容：一张台球桌、16颗球、1根球杆、程序化观众；无传统关卡。程序生成：每局球的排列通过随机洗牌生成；观众外观、服装与动作随机。",
+    "progression": "单局制，无跨局角色成长或关卡解锁。本地“Classic”模式以胜负结算，“Ball numbers”模式以单局累计得分结算。",
+    "save": "No persistent match save exists in original; refresh returns to title with original fresh table.",
+    "rules": "目标：Classic 模式先将自己的球组（1–7 实心或 9–15 花色）全部击入袋口，再合法击入 8 号球获胜；Ball numbers 模式按球号累加得分，8 号球结束游戏。犯规：未击中目标球、先击中对方球、白球入袋等判犯规，罚 -5 分（foul）或 -10 分（wrong first），并交换球权。计分：合法进球每颗 +10 分，连续进同一回合额外 +5 分；8 号球 +30 分，胜利再 +20 分；误击入对方球每颗 -5 分。速度奖励：根据开局后 300 秒内剩余时间按比例加成（源码阈值）。",
+    "systems": "物理系统：球体刚体运动、摩擦衰减、库边与袋口碰撞、球间弹性碰撞及旋转传递。状态系统：当前玩家、球组分配（open table）、球权/手中球、叫袋、游戏结束。判定系统：首颗命中球决定犯规/分组，落袋后更新分数与回合。反馈系统：击球声、进球欢呼/叹息、观众鼓掌动画、分数弹出提示。",
+    "ui_flow": "Title -> Numbers practice or same-device Classic -> original play -> native local result -> Play again reset. Online friend/lobby removed.",
+    "level_design": "单一标准 8 球台球桌，固定尺寸与袋口布局；每局通过脚本随机摆球；无多关卡设计。",
+    "verification": "Desktop IAB 1280x720: Numbers practice completed under original scoring, 3 shots / score 46 (-5 scratch +51 original speed bonus), replay resets score and rack. Classic same-device two-player startup and foul/turn change verified; complete Classic win/loss, called pocket, spin effects, mobile touch and result Main menu button not independently verified. No persistent game save in original. No Bot or online play claimed.",
+    "evidence": "源码：source-analysis/js-2.16.0-e5c6ab341460f61446764d74109d8407da47c2700f9dae532abb7641caebc02b/readable.js（游戏逻辑、物理、计分、UI 控制），local-host.js（RemixSDK 本地宿主存根）；运行报告：verification/7e3674f2-194b-423b-8e86-3eb879418643-web-play.json（含 14 步动作与状态），runtime.json；当前实机截图显示球台、球体、球杆、观众与 UI 面板。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "illustrations": [
+      {
+        "path": "screenshots/startup.png",
+        "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+      },
+      {
+        "path": "screenshots/current.png",
+        "caption": "本轮最终观察画面；仅证明已记录画面，验证范围见正文。"
+      }
+    ]
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

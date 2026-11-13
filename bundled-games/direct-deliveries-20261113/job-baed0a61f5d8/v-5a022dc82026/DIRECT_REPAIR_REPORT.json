@@ -1,0 +1,489 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "key",
+        "key": "W/Q/E/F/rightclick/1/2/3/5",
+        "result": "Originalblade/Fwave1/skills/5kills50/health60/+32heal; nativewave2fallen160."
+      },
+      {
+        "type": "key",
+        "key": "F",
+        "result": "NativeFightAgain100HPcountdown."
+      },
+      {
+        "type": "reload",
+        "result": "Reloadsamepackage andsecondnativewave1fallen0stillBest160."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8916/",
+      "http://127.0.0.1:8916/vendor/004-15e95a6cf14fc9ae2003f48bcdf1568e475cd15dd14a1a41fc1d3eb29a6ce294.js",
+      "http://127.0.0.1:8916/vendor/001-three-a973dc20bf0957e55145ef9e6b9c97d50275b224b1d81a57603249dd6750ab96.js",
+      "http://127.0.0.1:8916/vendor/002-BufferGeometryUtils.js",
+      "http://127.0.0.1:8916/main.js",
+      "http://127.0.0.1:8916/vendor/003-BufferGeometryUtils.js",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADK0lEQVR4AbxUbUgTcRh/7m7ON5wbKTN8yz7MT/VB51v7YNhS3MDwZdKbUeKsEKkw+hAphiYUFhT0xRAk/KAzxGDLMi1RK4MSiqKVheRWbM2yrem6ud313Ci5wdSNVcfvd/97/v/n+f3uuf/dkfCPj/9vwLJs8t9sit8B4XQ6pWgw63a7j6EJgQwbfAOYn58XeTxeAQBx1W637wcAv3WMQwZfgEADIXZADN42CKOjY7qtVms5KvJzMAwN/GLC4XD44mvXu6Cnty9SLJbctFgsRSjpm8cxZAQsZLxeaO/ohD7dYDSaDJrN5jxUDpiL8+vCr4gkSQKA9RWQBAmtbZ2EXj8SK5Fs0s/NzW3HBVzHcwjwM+DqGAaAIoUQJYyHmEgxtJy/Qo6OTcUnJiYNG41GGeYQyKBB8jMZhiK9HoCoCBFkJMuhMKce0jdnQ0vLZWpycjohJSX1/szMTBrWBG3iZ0Ax0T4DSVw6VJdcgtxtGtCUXASxKBVOnW4WTD99LpXJZCMTExNJwZqsGmg0GsAtIFiWAElcGhDcdqAK7gskiLeC2+2BuqMNwlev32zJysq6i4cElzfsZNVgYGAAaIZmCZKFT7YXsOyyYz3g+B0+mp+Bx0PD0tIyVO89JHz77r1MoVDodTpdLCata7JqgIkI/IwjABYdZrihq4H+O2fA+LkLKip3gbbuIDQ21ON4GKYePY6iKCpfrVb3YFHwBgIBw1IUgOvnN7AsfICdygxoaz/hLVUXzqpLi16qSpXTxcqih4qC3CGTydSN/66hkAwYhmEJvJ8VNw3nzp6ExsbalQdj95rz8wpUCsUOtTw7uyIvL2efXC7XZmZmNkml0n40wBcbz2uA5M/jhqI8QMeFVqg9UuMeHR1pKq/c00XTDpPL5bJirg35FbmIdCLxpf79ZWIQCH4GAoHA9xnvVhYtGwyG42VlZb1YxO22G8cVJCfI0YvX3J378vF6TfANWJvN9oWm6Sfj4+MHqqqqbmHVDyQntqEQ5gWEn4FWq10QiUTFKpVqGLOXkGGJYz34GeAE1zaNI/dIwhZHHT8DLuYexR9ycdjkdxC2WCCBXwAAAP//AzhvoQAAAAZJREFUAwCbkhdAUeukUwAAAABJRU5ErkJggg==",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACs0lEQVR4AbxSTWgTURCe97J/Sdu0trVgCFVqU6mCIIoXi+jNHzyJ9FC1IFKQ/hwED4LgQQgSvQkevCi1eKhULFKT1kipJehRRbBSBANeVLSGWDfZ7Gb93hZhE7Y2MdowX97Mm5nvezMJp//8WX8BVVU7/+VQ7gmYLPv3ElcWFa3+CkQYULO5BcjmvFEwMsYuqWrdefglecRVm5uA2WTLgmFTWzcR59dltX4AsbsGYXXmbmZoFaATR2K0o+sQMUY3FaWuF/fuOoSVW3mjI0DMRwO9YxTZ0kOY5K5PDRwGZXktrta28ibmtBRt8Cp0rm+CtYd2cYlLDyRN24/cSh5OpVYu4PSB3zllKUBDJydZW2tE9jF1SpYDu5GoSsRTACRULBIFNxBpWhONnI6z5mBY47KcVBRlO/IVi3gK2CA/cNSi42cKdPCYSfWBjTTcn+ANgdYGLvlnSVU7KhXxFEAzhTugAqe90yaCNQXDNHwqzjUl2KJxiJA/hPSak3gKiPW8eOqj9CKj1LTPWZcQaW2O0GDfFJckNaz65VkItAB/FPEUQBMtvOI0MyHRndExSsxHKT4XpcSzKL1+94i2bu4BqR3RAo1x1MLH9yrmKWBjJTb+SuOPR+h+fIim569aM6lr+pNULJNMxT4vvE+mMdEbyzLnwFuVAKixcpCPTvbT85e3CSQxI5fdlte/d+V+Zrp1PbMzr2f25HPZfYX88kUIrPxYcLysfALnNePxQaziIXZvXjYNPYbGj8An4AvwFVgCfgAm4DwKp6fxslun+FsmXbSK5gXTyN1APgMYQAEQhAIWfPFypx7+quYWsH22+QEdS7ZVOGvm9VvoygKCDNfw/sJKBAzDeGvo2VChkLsHrmWgJnL0U4kALsTYeZxiJTWTg6dEQMRiFb8h4prhnqBmMi+CXwAAAP//DqBKTQAAAAZJREFUAwBkxdUxONNu8QAAAABJRU5ErkJggg==",
+      "data:image/png;base64,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",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAFCklEQVR4AbyUCWwUVRjHvzl2e9nt1naBpgVKtdsYRCs3wdhyWKANJRwFohI5uhUkiEZDDNq6G5DEBjCoKFSucBjaxQ1ou0BpoRfItSU9aVK0pS6l2y1H957ZmXl+u8TNLmmMjcfk++bNe+/7/r95Jw3/8fP/Awghif/moIJHQDkcjpEI6OR5fj1CKPR/bMEA6OnpUQiCyAJQewYHB98AgJB+rA/bggUoBMhxBJThTIU8IiLyoMViWYyKwTFYHZ4FJ1M2m81f/2pvCRw5fjJMqYw92tfXNxsl/e1YDtuGTJREEbbv2AknywwRCDGYzeZpqDxkLLb/pYUk0TRNARB/Ak3RoN22kyovr4yKjY0r7+rqegk7sB/fw7AQgC9PkgAYWg7h8hiIDFNCkW43XVXdEKNSjTrb0dGhxhgK/W8bHRwpSQwtCgDhMgWMS5wMGVMKYGzCJCgq2sXU11+NT0oafaGxsXEM5gQgvk3hc2wb0kIAjBThB8RGj4Xl84ph6oQ8yJv3BSgVo+GDjwrZq9dMI9VqdWVdXd0orZbQl7SE1etA9vV7d+T79xNZWRlhnoYFAHl5eYBLQBFCQWz0GKB8y4H/hOsC8coU4HkB8t/ZKG9tu52cnv7KOZWqMtHYXxNf0bI39URD4cKmev3Y9utX4nQ6U0QwKADQ6/XASRyhaAL3rE3gcg+iPGD5GO6ab4IgcOB0umDFytXy5qYOdVwsVFfWflnb3dvaPEL1nL6l81z7mcpiQ9PlM1MaL1UoUI72jSYA8KsBHmMZwCObGb4vWwWlxi3Q0VsCS5bOAU3+W7BxgwbWrH4bDhw4GX78cG3qupUH1GuWf0cvXbAd1q08KFuRUzzzgb3PWHO9LNdoPBKt0+FEPBF+8mZZiTAMgNvzEPoGfoXMueNg2/bN4oKcjM7s+bOaX587+7pSoWrp6nRIi7KKQPGMCqwPu6Gr5yY4XA9h1Ag1LJmvi+S99p0DPe0pg236sJARSJJEKNwfXp6DT7e+D5s2rfVerD5fOH3ajOyZM+csfDf/s/Ul+35wZ05fR8vYMGi4cRQMxkLn+bo9t0vLP/Z2m2+BMiYBJk9YEt99vzX/jqc9KgSAC4ryADs+18LaNav4qqrKDxcvXVTCcbbfx49/dUAVn+ahaDZlZLwaPB47tHVWS3nLs06Unip2pKYmnL7Veto/FYkJL2JJ0onbHRkCYFmWYA/gVLgqKio25ObmHse6b7X5lJRJAsP491aUjA0Hr8gDIaI7Z2GmckxywpR58zMcHOfAcDxHYdEgSdKzxMOxwQBitVr7OY77paam5s1ly5adwmg7uojuB3MepyhJosXm6IfIMAVER6miCjTa8E+27C/59puyl9Oen4WhuEkGzXjhkLtO4bEUAtBoNAMKhSIrOzv7LEY60QPiVitIdv6RSyRClanFAAwrg6zXNkNy4rTc+2ZZwawZBRPTX8gBQeDhRtOPEkuxP7sJ5w4BoCDeRMBhyaMHxPEbMjNBEh9YbXIm/Nittp+6628cgWcVSYDCkDF1LSQnTQROcMHZ2t3Qa2m9yNBUg9v9wBEM8On4puJP99UDrtVqCRNndxLe0YV/ubXu2qHbRw0bofbqQTC1nIaLV/bBoVKN1NxurAYiFTt4+720tBjP04CA4BAfxGQyCR6qt19wO6+IXs+m38ymXXXXDhvO1ey6cPnmsVKLpbNIEj1Fbq+rJSbG9RhvB+kPAAAA//9vLqveAAAABklEQVQDAFzkPlJd8oitAAAAAElFTkSuQmCC",
+      "http://127.0.0.1:8916/",
+      "http://127.0.0.1:8916/vendor/004-15e95a6cf14fc9ae2003f48bcdf1568e475cd15dd14a1a41fc1d3eb29a6ce294.js",
+      "http://127.0.0.1:8916/vendor/001-three-a973dc20bf0957e55145ef9e6b9c97d50275b224b1d81a57603249dd6750ab96.js",
+      "http://127.0.0.1:8916/vendor/002-BufferGeometryUtils.js",
+      "http://127.0.0.1:8916/main.js",
+      "http://127.0.0.1:8916/vendor/003-BufferGeometryUtils.js",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADK0lEQVR4AbxUbUgTcRh/7m7ON5wbKTN8yz7MT/VB51v7YNhS3MDwZdKbUeKsEKkw+hAphiYUFhT0xRAk/KAzxGDLMi1RK4MSiqKVheRWbM2yrem6ud313Ci5wdSNVcfvd/97/v/n+f3uuf/dkfCPj/9vwLJs8t9sit8B4XQ6pWgw63a7j6EJgQwbfAOYn58XeTxeAQBx1W637wcAv3WMQwZfgEADIXZADN42CKOjY7qtVms5KvJzMAwN/GLC4XD44mvXu6Cnty9SLJbctFgsRSjpm8cxZAQsZLxeaO/ohD7dYDSaDJrN5jxUDpiL8+vCr4gkSQKA9RWQBAmtbZ2EXj8SK5Fs0s/NzW3HBVzHcwjwM+DqGAaAIoUQJYyHmEgxtJy/Qo6OTcUnJiYNG41GGeYQyKBB8jMZhiK9HoCoCBFkJMuhMKce0jdnQ0vLZWpycjohJSX1/szMTBrWBG3iZ0Ax0T4DSVw6VJdcgtxtGtCUXASxKBVOnW4WTD99LpXJZCMTExNJwZqsGmg0GsAtIFiWAElcGhDcdqAK7gskiLeC2+2BuqMNwlev32zJysq6i4cElzfsZNVgYGAAaIZmCZKFT7YXsOyyYz3g+B0+mp+Bx0PD0tIyVO89JHz77r1MoVDodTpdLCata7JqgIkI/IwjABYdZrihq4H+O2fA+LkLKip3gbbuIDQ21ON4GKYePY6iKCpfrVb3YFHwBgIBw1IUgOvnN7AsfICdygxoaz/hLVUXzqpLi16qSpXTxcqih4qC3CGTydSN/66hkAwYhmEJvJ8VNw3nzp6ExsbalQdj95rz8wpUCsUOtTw7uyIvL2efXC7XZmZmNkml0n40wBcbz2uA5M/jhqI8QMeFVqg9UuMeHR1pKq/c00XTDpPL5bJirg35FbmIdCLxpf79ZWIQCH4GAoHA9xnvVhYtGwyG42VlZb1YxO22G8cVJCfI0YvX3J378vF6TfANWJvN9oWm6Sfj4+MHqqqqbmHVDyQntqEQ5gWEn4FWq10QiUTFKpVqGLOXkGGJYz34GeAE1zaNI/dIwhZHHT8DLuYexR9ycdjkdxC2WCCBXwAAAP//AzhvoQAAAAZJREFUAwCbkhdAUeukUwAAAABJRU5ErkJggg==",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACs0lEQVR4AbxSTWgTURCe97J/Sdu0trVgCFVqU6mCIIoXi+jNHzyJ9FC1IFKQ/hwED4LgQQgSvQkevCi1eKhULFKT1kipJehRRbBSBANeVLSGWDfZ7Gb93hZhE7Y2MdowX97Mm5nvezMJp//8WX8BVVU7/+VQ7gmYLPv3ElcWFa3+CkQYULO5BcjmvFEwMsYuqWrdefglecRVm5uA2WTLgmFTWzcR59dltX4AsbsGYXXmbmZoFaATR2K0o+sQMUY3FaWuF/fuOoSVW3mjI0DMRwO9YxTZ0kOY5K5PDRwGZXktrta28ibmtBRt8Cp0rm+CtYd2cYlLDyRN24/cSh5OpVYu4PSB3zllKUBDJydZW2tE9jF1SpYDu5GoSsRTACRULBIFNxBpWhONnI6z5mBY47KcVBRlO/IVi3gK2CA/cNSi42cKdPCYSfWBjTTcn+ANgdYGLvlnSVU7KhXxFEAzhTugAqe90yaCNQXDNHwqzjUl2KJxiJA/hPSak3gKiPW8eOqj9CKj1LTPWZcQaW2O0GDfFJckNaz65VkItAB/FPEUQBMtvOI0MyHRndExSsxHKT4XpcSzKL1+94i2bu4BqR3RAo1x1MLH9yrmKWBjJTb+SuOPR+h+fIim569aM6lr+pNULJNMxT4vvE+mMdEbyzLnwFuVAKixcpCPTvbT85e3CSQxI5fdlte/d+V+Zrp1PbMzr2f25HPZfYX88kUIrPxYcLysfALnNePxQaziIXZvXjYNPYbGj8An4AvwFVgCfgAm4DwKp6fxslun+FsmXbSK5gXTyN1APgMYQAEQhAIWfPFypx7+quYWsH22+QEdS7ZVOGvm9VvoygKCDNfw/sJKBAzDeGvo2VChkLsHrmWgJnL0U4kALsTYeZxiJTWTg6dEQMRiFb8h4prhnqBmMi+CXwAAAP//DqBKTQAAAAZJREFUAwBkxdUxONNu8QAAAABJRU5ErkJggg=="
+    ],
+    "scope": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+    "network_scope": "Finalpackage startup, nativefivekills/50/health60+32heal, wave2fallen160, retry100HP, reloadandsecondfallen0Best160.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "removed",
+      "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+      "evidence": [
+        "evidence/direct-repair/native-fallen-wave2-160.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+      "evidence": [
+        "evidence/direct-repair/native-fallen-wave2-160.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+      "evidence": [
+        "evidence/direct-repair/native-fallen-wave2-160.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+      "evidence": [
+        "evidence/direct-repair/native-fallen-wave2-160.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+      "evidence": [
+        "evidence/direct-repair/native-fallen-wave2-160.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+      "evidence": [
+        "evidence/direct-repair/native-fallen-wave2-160.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+      "evidence": [
+        "evidence/direct-repair/native-fallen-wave2-160.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "key",
+      "key": "W/Q/E/F/rightclick/1/2/3/5",
+      "result": "Originalblade/Fwave1/skills/5kills50/health60/+32heal; nativewave2fallen160."
+    },
+    {
+      "type": "key",
+      "key": "F",
+      "result": "NativeFightAgain100HPcountdown."
+    },
+    {
+      "type": "reload",
+      "result": "Reloadsamepackage andsecondnativewave1fallen0stillBest160."
+    }
+  ],
+  "scope": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best160.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best160.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best160.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best160.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best160.png",
+        "next_action": ""
+      }
+    ],
+    "scope": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。"
+  },
+  "dependency_review": {
+    "previous_revision": 4,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "Three.js引擎与原游戏代码离线启动成功",
+          "evidence": "verification/0952ea3f-2fea-4d5c-845e-61b5707a9bff-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "Hub所需3D资源加载并渲染正常；竞技场资源在源码中存在，待入口开放后验证",
+          "evidence": "verification/0952ea3f-2fea-4d5c-845e-61b5707a9bff-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "本轮实测覆盖流程（启动、战斗、再战、存档刷新）完全使用本地代码与localStorage完成，runtime记录external为空、无同源API请求；未覆盖的传送门联机为平台功能且离线不可用，已记边界",
+          "evidence": "verification/2dbe9ba3-ca11-4c20-8756-9111156af658-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地宿主接口使游戏离线启动；未伪造奖励或门户成功",
+          "evidence": "verification/0952ea3f-2fea-4d5c-845e-61b5707a9bff-web-play.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 4,
+      "updated_at": "2026-11-05T05:46:18+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best160.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best160.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best160.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best160.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best160.png",
+          "next_action": ""
+        }
+      ],
+      "scope": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。"
+    },
+    "basis": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。"
+  },
+  "base_version_id": "v-470d7062f81f",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "original_job": "job-baed0a61f5d8",
+    "at": "2026-11-12T09:58:42.761727+00:00"
+  },
+  "game_profile": {
+    "category": "3D单人波次竞技场",
+    "dimension": "3D",
+    "perspective": "第三人称跟随视角，镜头位于角色后上方",
+    "core_gameplay": "Originalbladecombat/enemyAI/skillresources/health/waves/score. Actualwave2fallen160.",
+    "core_experience": "波次生存战斗，躲避敌方冲刺与火球、跳过火圈，管理技能冷却并提升等级",
+    "controls": "WASDmove/turn,QEstrafe,Fblade/retry,rightclicktargetattack,1-5nativeabilities",
+    "game_loop": "开始：大厅走向中央剑按F开战；操作：WAVE倒计时后敌人出现，移动躲避并右键攻击、放技能；结果：清波进入下一波或战败显示FALLEN与击杀数；继续：按F再战重新开始",
+    "content": "竞技场为固定场景；敌人类型含史莱姆、幽灵、小鬼等，按波次程序生成数量与强度，无尽波次；大厅含多个传送门（离线不可用）",
+    "progression": "击杀提升等级（Lv显示），波次递增提高难度；等级与击杀数在HUD实时更新",
+    "save": "Originalenginepersonalrecords; reloadsecondfallen0Best160verified.",
+    "rules": "目标：尽可能通过更多波次；失败：生命值归零战败；计分：击杀数与等级，具体计分公式未确认；敌方攻击含近战冲刺、火球与火圈，火圈需跳跃躲避",
+    "systems": "玩家：位置/生命/等级/技能冷却；敌人：状态机（休眠/移动/蓄力/攻击/恢复），精英变体；战斗系统：攻击判定、伤害数值飘字、击杀计数；波次系统：清波后进入下一波；保存系统：战败触发本地存档",
+    "ui_flow": "大厅：Portal标签与提示；战斗：顶部WAVE与提示语、左上击杀/等级、右下血条、底部1-5技能栏、交互提示[F]；战败：FALLEN · WAVE N与Fight again提示，按F回到战斗",
+    "level_design": "单一圆形竞技场，带阶梯、火盆与旗帜装饰；大厅为传送门广场；无多关卡，波次无尽",
+    "verification": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+    "evidence": "源码：converted/index.html内游戏主模块、converted/local-host.js本地宿主；实机：verification/ffae5cc3-9a4d-4fbd-abab-1d9f9251ed5d-web-play.json及screenshots/step-60至78",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "illustrations": [
+      {
+        "path": "screenshots/step-44.png",
+        "caption": "实际操作记录 1。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      },
+      {
+        "path": "screenshots/step-49.png",
+        "caption": "实际操作记录 6。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      },
+      {
+        "path": "screenshots/step-54.png",
+        "caption": "实际操作记录 11。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      },
+      {
+        "path": "screenshots/step-59.png",
+        "caption": "实际操作记录 16。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      },
+      {
+        "path": "screenshots/step-63.png",
+        "caption": "实际操作记录 20。画面文字：−6\n−6\n−6\n−6\nFALLEN · WAVE 1\n0\nEndless waves\nF\nFight again"
+      },
+      {
+        "path": "screenshots/step-68.png",
+        "caption": "实际操作记录 25。画面文字：−6\n−6\n−6\n−6\nWAVE 1\n0\nLv 1 · 0 kills\n100 / 100\n1\n2\n20\n3\n30\n4\n15\n5\n25\nF\nFight again"
+      },
+      {
+        "path": "screenshots/step-73.png",
+        "caption": "实际操作记录 30。画面文字：−6\n−6\n−6\n−6\nWAVE 1\n0\nLv 1 · 0 kills\n100 / 100\n1\n2\n20\n3\n30\n4\n15\n5\n25\nF\nFight again"
+      },
+      {
+        "path": "screenshots/step-78.png",
+        "caption": "实际操作记录 35。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Original76nativegamefunctions preserved inreadablemain.js; localTHREE andportal-world engine.",
+    "reuse": "Arena/enemyAI/wavecontroller/skillcooldown/resources/combatHUD modules extractablewithadaptation; notseparatelycertified.",
+    "dependencies": "LocalTHREE/WebGL/WebAudio/originalpersonalStorage; noSDK/server required.",
+    "preservation": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 14284.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 9869.534,
+      "calls": 84,
+      "known_input_tokens": 5844973,
+      "known_output_tokens": 282693,
+      "cached_input_tokens_known": 2497329,
+      "unknown_usage_calls": 8,
+      "known_estimated_cost_subtotals": {
+        "CNY": 68.8606056
+      },
+      "unknown_cost_calls": 9,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 34,
+          "input_tokens_known": 2278647,
+          "output_tokens_known": 100558,
+          "unknown_usage_calls": 2,
+          "known_cost_subtotals": {
+            "CNY": 14.604041599999999
+          },
+          "unknown_cost_calls": 3,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 50,
+          "input_tokens_known": 3566326,
+          "output_tokens_known": 182135,
+          "unknown_usage_calls": 6,
+          "known_cost_subtotals": {
+            "CNY": 54.256564000000004
+          },
+          "unknown_cost_calls": 6,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T09:47:29.282043+00:00",
+      "observed_until": "2026-11-12T09:59:07.260470+00:00",
+      "observed_wall_seconds": 697.978427,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

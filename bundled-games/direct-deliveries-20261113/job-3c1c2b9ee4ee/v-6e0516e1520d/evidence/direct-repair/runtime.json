@@ -1,0 +1,130 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "warnings": [],
+  "missing": [],
+  "required_external": [],
+  "non_game_http_findings": [],
+  "non_game_http_resolution": "",
+  "actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8965/index.html",
+      "status": "failed",
+      "result": "Original host-list loop; initial window unavailable after toolkernelreset; no gameplay."
+    },
+    {
+      "step": 2,
+      "type": "navigate",
+      "selector": "http://localhost:8965/index.html",
+      "result": "Original allowedlocalhost title/menu,104eventwindowcomplete."
+    },
+    {
+      "step": 3,
+      "type": "click",
+      "coordinate": [
+        651,
+        555
+      ],
+      "result": "Play→original52-carddeal,13each.",
+      "selector": "#canvas"
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "coordinate": [
+        644,
+        431
+      ],
+      "result": "OriginalBlindNil, nativeCPUbids and13visiblehand.",
+      "selector": "#canvas"
+    },
+    {
+      "step": 5,
+      "type": "click",
+      "coordinate": [
+        343,
+        571
+      ],
+      "result": "Diamond3played; nativeCPUcompletedtrick Kelly1/2, nextheart4lead;12playercards.",
+      "selector": "#canvas"
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed",
+      "scope": "Originalallowedlocalhost secondaction; initial127failed counted."
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "not_run",
+      "reason": "Exactly5totalactions including initialfailure; finalexacthostallowlist extension not reloaded."
+    }
+  ],
+  "network_requests": [
+    "http://localhost:8965/index.html",
+    "http://localhost:8965/game.css",
+    "http://localhost:8965/game.js",
+    "http://localhost:8965/media/graphics/orientate/landscape.jpg",
+    "http://localhost:8965/media/graphics/loading/ajax-loader.gif",
+    "http://localhost:8965/media/audio/opening/kittyopening.ogg",
+    "http://localhost:8965/media/audio/play/static.ogg",
+    "http://localhost:8965/media/audio/opening/opening.ogg",
+    "http://localhost:8965/media/audio/click.ogg",
+    "http://localhost:8965/media/audio/click2.ogg",
+    "http://localhost:8965/media/audio/cardplay1.ogg",
+    "http://localhost:8965/media/audio/cardplay2.ogg",
+    "http://localhost:8965/media/audio/cardplay3.ogg",
+    "http://localhost:8965/media/audio/cardplay4.ogg",
+    "http://localhost:8965/media/audio/cardshove.ogg",
+    "http://localhost:8965/media/audio/breaking.ogg",
+    "http://localhost:8965/media/audio/win.ogg",
+    "http://localhost:8965/media/audio/lose.ogg",
+    "http://localhost:8965/media/graphics/splash/desktop/cover.jpg",
+    "http://localhost:8965/media/graphics/splash/mobile/cover.jpg",
+    "http://localhost:8965/media/graphics/splash/loading-bar-empty.png",
+    "http://localhost:8965/media/graphics/splash/loading-bar-full.png",
+    "http://localhost:8965/branding/splash1.png",
+    "http://localhost:8965/branding/logo.png",
+    "http://localhost:8965/media/graphics/sprites/buttons/button-empty.png",
+    "http://localhost:8965/media/graphics/opening/shield.png",
+    "http://localhost:8965/media/graphics/opening/m_icon.png",
+    "http://localhost:8965/media/graphics/opening/title.png",
+    "http://localhost:8965/media/graphics/opening/kitty.png",
+    "http://localhost:8965/media/graphics/opening/kittytitle.png",
+    "http://localhost:8965/media/graphics/sprites/cards/spades.png",
+    "http://localhost:8965/media/graphics/sprites/cards/hearts.png",
+    "http://localhost:8965/media/graphics/sprites/cards/clubs.png",
+    "http://localhost:8965/media/graphics/sprites/cards/diamonds.png",
+    "http://localhost:8965/media/graphics/sprites/buttons/button-bid-number.png",
+    "http://localhost:8965/media/graphics/sprites/buttons/button-empty-black.png",
+    "http://localhost:8965/media/graphics/sprites/buttons/button-pause.png",
+    "http://localhost:8965/media/graphics/sprites/spade-icon.png",
+    "http://localhost:8965/media/graphics/sprites/card-black.png",
+    "http://localhost:8965/media/graphics/sprites/player.png",
+    "http://localhost:8965/media/graphics/sprites/board-score.png",
+    "http://localhost:8965/media/graphics/sprites/board-rules.png",
+    "http://localhost:8965/media/graphics/sprites/board-current-score.png",
+    "http://localhost:8965/media/graphics/sprites/board-message.png",
+    "http://localhost:8965/media/graphics/sprites/black-layer.png",
+    "http://localhost:8965/media/graphics/sprites/buttons/button-sound.png",
+    "http://localhost:8965/media/graphics/backgrounds/desktop/background.jpg",
+    "http://localhost:8965/media/graphics/backgrounds/mobile/background.jpg",
+    "http://localhost:8965/media/graphics/sprites/background/cover.png",
+    "http://localhost:8965/media/graphics/sprites/buttons/button-left.png",
+    "http://localhost:8965/media/graphics/sprites/background/background.png",
+    "http://localhost:8965/media/fonts/bpreplay.woff"
+  ],
+  "scope": "累计严格5步：1原127启动陷入原域名限制循环，失败窗口因工具重置未完整保存；2改用原预设localhost启动成功；3Play发牌；4原BlindNil；5打出方块3，随后只观察原3名CPU完成一墩、Kelly1/2Tricks并以红桃4领下一墩，玩家手牌13到12，自己0/0Tricks。原52张牌/四花色、发牌/叫牌/跟花/黑桃将牌/AI/合约与袋数计分/存档保留，49原资源字节一致，1471函数语义与77模块SHA保留。真正退役CrazyGames SDK/GA与MJS广告提供模块及12调用，无SDK假对象/账号/联网玩家；原本地CPU头像姓名不冒称真人。原JJ尾段用有限白名单AST仅解出屏蔽console和冻结画布，不执行源字符串；该段实际移除。保留原宿主域名检查，五步后仅将127及两个授权GameLab部署域名追加到原列表；没有修改浏览器安全机制，也未第六步重载；实测加载SHA和最终源SHA分别列明，不冒称最终域名扩展已在浏览器重载。成功窗口104事件完整无外联/HTTP失败/异常、console无错误警告；第一失败启动不算通过。不把一墩当整局胜负，不冒称其他叫牌/触控/存档恢复/音频听觉已测。原任务沿正常入库到待验收，未批准未供货。",
+  "network_scope": "Complete104events for successfullocalhost startup(secondUIaction) throughnativefirsttrick/nextlead. First127startup(action1) hung in original host-check and capture lost onkernelreset; not covered by thiswindow, not claimedpassed.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

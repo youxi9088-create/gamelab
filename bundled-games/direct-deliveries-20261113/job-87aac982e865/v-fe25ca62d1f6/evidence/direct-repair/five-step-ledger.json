@@ -1,0 +1,44 @@
+{
+  "max_steps": 5,
+  "steps_used": 4,
+  "actual_steps": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8984/index.html",
+      "result": "原失败启动/修复重载和补图后该项定向复验均保留；最终205完整事件与icon_e.webp实际200，初始速度0。"
+    },
+    {
+      "step": 2,
+      "type": "key",
+      "selector": "canvas",
+      "key": "Up",
+      "duration_ms": 2200,
+      "result": "原矿车实际加速/轨道位置/进度变化；保存截图速度9，非峰值声明。"
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "selector": "canvas",
+      "key": "Down",
+      "duration_ms": 1600,
+      "result": "原制动与轨道转向，保存截图速度5。"
+    },
+    {
+      "step": 4,
+      "type": "reload",
+      "selector": "document",
+      "result": "原第5次机械动作刷新回初始轨道速度0；未证明检查点或购买进度恢复。"
+    }
+  ],
+  "unverified": [
+    "wholemap/allmaps",
+    "checkpointreward/skip",
+    "othercarts/economy",
+    "localclaim/cancel",
+    "death/revive",
+    "pause/touch/audiohearing",
+    "checkpoint/purchase persistence"
+  ],
+  "stopped_at_limit": false
+}

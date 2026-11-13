@@ -1,0 +1,62 @@
+{
+  "category": "休闲体育投掷（飞盘/踢球式弹射）",
+  "dimension": "3D",
+  "perspective": "第三人称尾随视角，镜头位于发球台后上方俯瞰球道",
+  "core_gameplay": "按住飞盘向后拖动蓄力瞄准，松手掷出，击中旗帜目标得分并避开紫色柱状障碍，连续命中触发连击",
+  "core_experience": "单手拖拽即可进行的快节奏投掷挑战，追求连击与高分",
+  "controls": "鼠标/触摸按住飞盘 → 拖动蓄力并瞄准方向 → 松开掷出；拖动距离决定力度，方向决定轨迹（实机验证）\n再玩一次按钮 → 结算后点击重新开始（实机验证）\n键盘操作未验证，未发现键位提示",
+  "game_loop": "开始：飞盘置于发球台，3条生命，计分0；操作：拖拽掷出飞盘命中目标或撞障碍/失误；结果：命中加分并显示连击评语，失误扣1条生命；继续：生命耗尽弹出“本局结束+得分”面板，可点再玩一次开启新局",
+  "content": "单一循环球道场景：绿色球场、双侧看台彩色观众、树木与旗帜装饰；障碍为紫色层叠柱，随进度前压；关卡数量为程序循环未设独立关卡（实机范围）",
+  "progression": "得分随命中递增，连击显示×2 COMBO等评语（BOOM/BULLSEYE/NICE CATCH/SAVAGE/ON FIRE等）；生命3条，失误递减；未验证分数上限与难度递增规则",
+  "save": "Native localStorage key frisbee-loop-state retains original bestScore and selectedFrisbee format. Best 8 restored in hidden DOM; active match does not persist.",
+  "rules": "目标：掷出飞盘击中旗杆目标得分；成功：命中加分并触发连击评语；失败：未命中或撞障碍扣1生命，3条耗尽本局结束；计分公式具体数值未确认",
+  "systems": "投掷系统：拖拽向量映射力度与方向；碰撞系统：飞盘与目标/障碍判定；计分与连击系统：命中计数与评语弹出；生命系统：3星递减；结算系统：生命归零弹出宿主结算面板并可重开",
+  "ui_flow": "Original native stadium -> swipe or Space throws -> catches/combo or collision/life loss -> local GAME OVER -> PLAY AGAIN reset. Global leaderboard removed.",
+  "level_design": "单条纵深球道，障碍位置随投掷轮次前移增加压迫感；固定场景+程序排布障碍，无独立关卡切换（实机范围）",
+  "verification": "Final build: score 0 to 3, three actual collisions, native game-over 3 and PLAY AGAIN reset to 0/three lives. Prior build before visibility-class correction reached score 8 and saved it; final build restores best=8 in original hidden DOM label. Hidden best label is functional DOM evidence, not visible HUD verification. Original 49 functions including throw/flight remain unchanged. No cosmetic unlock/mobile interaction verification. Desktop IAB 1280x720; infinite game has no full campaign ending. Original hidden best label checked as DOM state, not claimed visible HUD. Original native procedural scene and music retained; no fabricated cloud asset or leaderboard.",
+  "evidence": "本轮截图screenshots/step-0至step-18及startup/current；运行报告steps含计分文本与结算labels；storage记录frisbee-loop-state刷新前后哈希一致；源码index.html内联游戏逻辑与local-host.js宿主保存接口",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/step-0.png",
+      "caption": "实际操作记录 1。画面文字：0\n×2 COMBO!"
+    },
+    {
+      "path": "screenshots/step-3.png",
+      "caption": "实际操作记录 4。画面文字：3\nNICE CATCH!"
+    },
+    {
+      "path": "screenshots/step-5.png",
+      "caption": "实际操作记录 6。画面文字：3\nWIPEOUT!"
+    },
+    {
+      "path": "screenshots/step-8.png",
+      "caption": "实际操作记录 9。画面文字：3\nCRASH!"
+    },
+    {
+      "path": "screenshots/step-10.png",
+      "caption": "实际操作记录 11。画面文字：4\nSAVAGE!"
+    },
+    {
+      "path": "screenshots/step-13.png",
+      "caption": "实际操作记录 14。画面文字：0\nCRASH!"
+    },
+    {
+      "path": "screenshots/step-15.png",
+      "caption": "实际操作记录 16。画面文字：0\n×2 COMBO!"
+    },
+    {
+      "path": "screenshots/step-18.png",
+      "caption": "实际操作记录 19。画面文字：1\nON FIRE!"
+    }
+  ]
+}

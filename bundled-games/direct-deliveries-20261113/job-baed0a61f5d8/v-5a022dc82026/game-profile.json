@@ -1,0 +1,62 @@
+{
+  "category": "3D单人波次竞技场",
+  "dimension": "3D",
+  "perspective": "第三人称跟随视角，镜头位于角色后上方",
+  "core_gameplay": "Originalbladecombat/enemyAI/skillresources/health/waves/score. Actualwave2fallen160.",
+  "core_experience": "波次生存战斗，躲避敌方冲刺与火球、跳过火圈，管理技能冷却并提升等级",
+  "controls": "WASDmove/turn,QEstrafe,Fblade/retry,rightclicktargetattack,1-5nativeabilities",
+  "game_loop": "开始：大厅走向中央剑按F开战；操作：WAVE倒计时后敌人出现，移动躲避并右键攻击、放技能；结果：清波进入下一波或战败显示FALLEN与击杀数；继续：按F再战重新开始",
+  "content": "竞技场为固定场景；敌人类型含史莱姆、幽灵、小鬼等，按波次程序生成数量与强度，无尽波次；大厅含多个传送门（离线不可用）",
+  "progression": "击杀提升等级（Lv显示），波次递增提高难度；等级与击杀数在HUD实时更新",
+  "save": "Originalenginepersonalrecords; reloadsecondfallen0Best160verified.",
+  "rules": "目标：尽可能通过更多波次；失败：生命值归零战败；计分：击杀数与等级，具体计分公式未确认；敌方攻击含近战冲刺、火球与火圈，火圈需跳跃躲避",
+  "systems": "玩家：位置/生命/等级/技能冷却；敌人：状态机（休眠/移动/蓄力/攻击/恢复），精英变体；战斗系统：攻击判定、伤害数值飘字、击杀计数；波次系统：清波后进入下一波；保存系统：战败触发本地存档",
+  "ui_flow": "大厅：Portal标签与提示；战斗：顶部WAVE与提示语、左上击杀/等级、右下血条、底部1-5技能栏、交互提示[F]；战败：FALLEN · WAVE N与Fight again提示，按F回到战斗",
+  "level_design": "单一圆形竞技场，带阶梯、火盆与旗帜装饰；大厅为传送门广场；无多关卡，波次无尽",
+  "verification": "原主游戏76个函数/方法语义SHA全部相同，无删除或修改，保留原竞技场/敌人AI/波次/计分/技能伤害消耗冷却/治疗/难度。仅清空跨游戏传送门列表Wt，原场景与战斗保留。引擎边界移除真实SDK绑定/云端保存/宿主音量订阅，使用引擎原I.standalone与localStorage个人纪录；保留原THREE三角形数学兼容补丁。没有假SDK/房间/奖励。实际取剑F、进入波次1、右键和1/2/3技能、5原治疗+32，5击杀50分/生命60；后续原第2波失败160分，F重试100生命。刷新后第二局原第1波0分失败仍显示Best160，证明原最高分持久化。无冠军/高波次/全部技能升级/真实触控/听觉证明。完整最终窗口18请求无外部/加载失败/HTTP错误/脚本异常/截断；原软件WebGL编译精度警告另存，不冒称零警告。",
+  "evidence": "源码：converted/index.html内游戏主模块、converted/local-host.js本地宿主；实机：verification/ffae5cc3-9a4d-4fbd-abab-1d9f9251ed5d-web-play.json及screenshots/step-60至78",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/step-44.png",
+      "caption": "实际操作记录 1。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-49.png",
+      "caption": "实际操作记录 6。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-54.png",
+      "caption": "实际操作记录 11。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-59.png",
+      "caption": "实际操作记录 16。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-63.png",
+      "caption": "实际操作记录 20。画面文字：−6\n−6\n−6\n−6\nFALLEN · WAVE 1\n0\nEndless waves\nF\nFight again"
+    },
+    {
+      "path": "screenshots/step-68.png",
+      "caption": "实际操作记录 25。画面文字：−6\n−6\n−6\n−6\nWAVE 1\n0\nLv 1 · 0 kills\n100 / 100\n1\n2\n20\n3\n30\n4\n15\n5\n25\nF\nFight again"
+    },
+    {
+      "path": "screenshots/step-73.png",
+      "caption": "实际操作记录 30。画面文字：−6\n−6\n−6\n−6\nWAVE 1\n0\nLv 1 · 0 kills\n100 / 100\n1\n2\n20\n3\n30\n4\n15\n5\n25\nF\nFight again"
+    },
+    {
+      "path": "screenshots/step-78.png",
+      "caption": "实际操作记录 35。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    }
+  ]
+}

@@ -1,0 +1,556 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "key",
+        "key": "WASD/E/holdE",
+        "result": "Nativeingredients/chop/plate/7secondoven/servetwopizzas28+26tips."
+      },
+      {
+        "type": "key",
+        "key": "Tab/Space",
+        "result": "Originalcamera/jingle/doortrainingactualcompleted; holddoorandsurviveto6AM."
+      },
+      {
+        "type": "result",
+        "result": "ActualNight1two-starwin49of35tips,2served1missed. No full5nightclaim."
+      },
+      {
+        "type": "click",
+        "selector": "NIGHT2",
+        "result": "OriginalNight2actualstarted45quota/burgerandpizzaorders/managercall; failedn2voicesrestoredall3GET200 atsameNight2node."
+      },
+      {
+        "type": "reload",
+        "result": "OriginalNight1two-stars andNight2unlockedpersist;3-5locked. No midshift saveclaim."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8905/",
+      "http://127.0.0.1:8905/rosebud-game-defaults.css",
+      "http://127.0.0.1:8905/rosebud-game-defaults.js",
+      "http://127.0.0.1:8905/main.js",
+      "http://127.0.0.1:8905/assets/fonts/IBMPlexMono-500.woff2",
+      "http://127.0.0.1:8905/assets/fonts/IBMPlexMono-700.woff2",
+      "http://127.0.0.1:8905/assets/fonts/SpecialElite-400.woff2",
+      "http://127.0.0.1:8905/assets/fonts/VT323-400.woff2",
+      "http://127.0.0.1:8905/lib/three/build/three.module.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/postprocessing/EffectComposer.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/postprocessing/RenderPass.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/postprocessing/UnrealBloomPass.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/postprocessing/ShaderPass.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/postprocessing/OutputPass.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/loaders/GLTFLoader.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/utils/SkeletonUtils.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/controls/OrbitControls.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/shaders/CopyShader.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/postprocessing/MaskPass.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/postprocessing/Pass.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/shaders/LuminosityHighPassShader.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/shaders/OutputShader.js",
+      "http://127.0.0.1:8905/lib/three/examples/jsm/utils/BufferGeometryUtils.js",
+      "http://127.0.0.1:8905/assets/models/pepper.glb",
+      "http://127.0.0.1:8905/assets/models/cook.glb",
+      "data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA",
+      "blob:http://127.0.0.1:8905/397ecbae-a2dd-4631-b8fb-e72100a241c4",
+      "blob:http://127.0.0.1:8905/01811352-479c-4a63-a009-702b1df09020",
+      "blob:http://127.0.0.1:8905/ae517b2f-39df-4518-af7a-ca1754ed132b",
+      "blob:http://127.0.0.1:8905/4237ae9d-276c-4a36-9032-3a25b23e3e6d",
+      "blob:http://127.0.0.1:8905/1da54ea9-789e-4ebd-9c35-5d2ff267aa79",
+      "blob:http://127.0.0.1:8905/45ba72e9-3c74-4be2-b17d-0c7506e248fc",
+      "http://127.0.0.1:8905/assets/models/props.glb",
+      "blob:http://127.0.0.1:8905/208640e3-3687-4a24-a4fa-ce7a2bf735a6",
+      "blob:http://127.0.0.1:8905/0ee73997-836f-4a3f-8101-5b2a968de5f4",
+      "blob:http://127.0.0.1:8905/861f533a-f700-4879-96b3-c512c29546a5",
+      "blob:http://127.0.0.1:8905/9eebdef6-6774-48e8-98e2-70970655fffc",
+      "blob:http://127.0.0.1:8905/15c94f04-7cd2-4dba-9c80-79a75671a0ed",
+      "blob:http://127.0.0.1:8905/aeb81485-7910-4a98-83e8-74de974c734a",
+      "blob:http://127.0.0.1:8905/538cb92c-91f3-4da4-9202-011cfae1171d",
+      "blob:http://127.0.0.1:8905/588a85d1-1c75-40a2-86aa-1c714fb43125",
+      "blob:http://127.0.0.1:8905/2e568bbb-641f-40c5-802e-1d0e42192839",
+      "blob:http://127.0.0.1:8905/cfb154c4-1664-4f5f-8c38-96c142603a65",
+      "blob:http://127.0.0.1:8905/d9c5a27a-86c2-4d64-94e7-edf5a68ee979",
+      "blob:http://127.0.0.1:8905/383c6b3f-326e-4005-a227-26232b712856",
+      "blob:http://127.0.0.1:8905/be3d2436-5e7b-4d89-9829-26b64a01c72d",
+      "blob:http://127.0.0.1:8905/9cb6df19-3968-4b1b-a0fa-a4838b61740e",
+      "blob:http://127.0.0.1:8905/703e5b88-bfe3-4e60-aa69-5db14d49b5da",
+      "blob:http://127.0.0.1:8905/dfa89a3f-69a3-430a-a0a2-3ca5ede6ff90",
+      "blob:http://127.0.0.1:8905/9e6d6a8a-0182-4cbb-b513-74686da876a0",
+      "blob:http://127.0.0.1:8905/039a0fb4-018d-472f-877a-47cf857ebfa6",
+      "blob:http://127.0.0.1:8905/ccbc0b2f-7696-421d-b5eb-642ec854393a",
+      "blob:http://127.0.0.1:8905/4c07f38a-a946-42ab-ba3a-7c998b8eb3b4",
+      "blob:http://127.0.0.1:8905/9df5c9e4-d486-4cba-822f-4d0a0d823ad9",
+      "blob:http://127.0.0.1:8905/ea86b4be-49eb-4602-ae94-4b202436c693",
+      "blob:http://127.0.0.1:8905/0ec1f8b4-ef6e-463b-b029-3a39a7900030",
+      "blob:http://127.0.0.1:8905/6d613a75-3059-4d41-a13b-85ef26e8834c",
+      "blob:http://127.0.0.1:8905/9b941be5-6cdb-4851-8bd1-be4b188f1ead",
+      "blob:http://127.0.0.1:8905/6f2a5dd5-929c-4c19-87ec-84cf6eb07313",
+      "blob:http://127.0.0.1:8905/08e634c7-fc21-482a-a9e7-4d1d55ed9156",
+      "blob:http://127.0.0.1:8905/bb3219a7-1825-4a8a-bb06-0293061431d1",
+      "blob:http://127.0.0.1:8905/9f6997fc-a782-40bb-9fe0-2e5ec8b596f0",
+      "blob:http://127.0.0.1:8905/2cc9496d-a1a0-45c1-801f-2c23206ab583",
+      "blob:http://127.0.0.1:8905/0deeb240-1dab-4835-83ed-80cb98581e87",
+      "blob:http://127.0.0.1:8905/190d1e60-d45e-41a1-bdca-d60153b92355",
+      "blob:http://127.0.0.1:8905/0a3fb394-e250-42ef-8182-53d4a931e7b6",
+      "blob:http://127.0.0.1:8905/380ac3ec-9b94-4ec2-a25e-a0afe458420a",
+      "blob:http://127.0.0.1:8905/caadd637-6759-487f-8805-6c3451e9cbc4",
+      "blob:http://127.0.0.1:8905/1ababbd4-be05-4272-b373-bac9b5ac4416",
+      "blob:http://127.0.0.1:8905/69ce6d37-3e5a-495b-a2fd-67eec0d5d1f2",
+      "blob:http://127.0.0.1:8905/ddf27af9-4a7c-4a8f-b500-05760d9b0119",
+      "blob:http://127.0.0.1:8905/4a488c25-90ff-4b80-8bf2-3847680be2cc",
+      "blob:http://127.0.0.1:8905/4fb2e884-90dd-4be0-9b3f-4cf76cbe52fb",
+      "blob:http://127.0.0.1:8905/5ac9acea-d46b-4d75-b274-cdc3f6387cf2",
+      "blob:http://127.0.0.1:8905/a6a6d2bb-bbe7-401a-86ae-7b241eaa8762",
+      "blob:http://127.0.0.1:8905/d6ff2a34-726f-4ba5-b62b-88737bea4f25",
+      "blob:http://127.0.0.1:8905/8dea3ec9-61cd-451b-ab61-9ac0a7ab0cec",
+      "blob:http://127.0.0.1:8905/39bb6f39-a960-4640-ac40-d94b77a29289",
+      "blob:http://127.0.0.1:8905/0c33b500-0f42-4071-8d30-ada2ac6efb6b",
+      "blob:http://127.0.0.1:8905/208e4db6-3ef0-4d04-8c4a-86a2fcbc638e",
+      "blob:http://127.0.0.1:8905/4381000e-5568-499e-9d42-bbd39ffe55f5",
+      "blob:http://127.0.0.1:8905/a9577c92-9236-471d-806b-7ee28e3e93f7",
+      "blob:http://127.0.0.1:8905/b7ae66bd-5d9e-4646-affc-851719bd18cd",
+      "blob:http://127.0.0.1:8905/8047a0e7-1fde-404c-aef9-4dcdee15f8af",
+      "blob:http://127.0.0.1:8905/7dcd8097-cf77-41cf-926c-498c702b3f8d",
+      "blob:http://127.0.0.1:8905/ffe40142-d3b2-4457-8a9f-4a0d1404c8b1",
+      "blob:http://127.0.0.1:8905/e39fbb8b-6d6a-4ebc-994f-63ba15f5787f",
+      "blob:http://127.0.0.1:8905/6f98e023-7d5d-4f7d-bd2e-d21107e27080",
+      "blob:http://127.0.0.1:8905/3fc160c6-1705-4a41-a96f-4e35ac7c4e6f",
+      "blob:http://127.0.0.1:8905/b4f4f812-6fad-44ab-a99d-99adee670bc0",
+      "http://127.0.0.1:8905/assets/voice/n2_0.mp3",
+      "http://127.0.0.1:8905/assets/voice/n2_1.mp3",
+      "http://127.0.0.1:8905/assets/voice/n2_2.mp3"
+    ],
+    "scope": "Entireoriginalmain.js byteSHA unchanged, originalfontbootstrap/4nativefonts retained, unrelatedhosttools/interception retired. ActualfullNight1training move/tomatochop/plate/dough/cheese/7secondoven/serve28then26tips, cameras/jingle/doorhold, firstquota54of35 andsurvive6AM, 2served1missed =>49of35, nativetwo-starwin. OriginalNextNight2burger/pizzaorders andcall/45quota actualstart; reloadNight1twostars/Night2unlocked/3-5locked persist. Nativepause/resume; no midshift save. Original16missingn2..n5/endvoicefiles1041012bytes exactoriginalpublicstaticURLs recovered,5n1voicefiles unchanged, all21STORY/ENDINGpathscovered. Historical6n2voice404diagnostic retained; final93requeststartup/Night2call/all3n2voiceGET200 window noexternal/failed/HTTPerror/exception/consoleerror/truncation. OriginalNight1win beforevoiceaddition, mainJS/n1voices identical. No remaining4nightclear/burgercooking/fullweekending/otherstars/mobile/hearing proof. Original5nights/quotas/timers/bearAI/recipe/score/stars/save/rules retained.",
+    "network_scope": "Finalbuildstartupafterexact16missingvoicesrecovery; originalnight1twostars/nextnightunlock retained, actualNight2start/call andall3n2voiceGET200. OriginalNight1full49tips/2served/1missed/twostarsandrefreshrecordedbeforevoiceaddition, mainJSandn1voices unchanged. Noother4nightclear/burgercooking/mobile/hearing proof.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "Originalsingleplayerfive-nightcooking/survival andpersonalunlocked/stars save, no globalboard/networkmatch/ad/paymentdependency. AllvoicesstaticlocalGET, no ElevenLabs generation/API call. Hosttools/interception retired, no fakeSDK/service/rewards.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "Originalsingleplayerfive-nightcooking/survival andpersonalunlocked/stars save, no globalboard/networkmatch/ad/paymentdependency. AllvoicesstaticlocalGET, no ElevenLabs generation/API call. Hosttools/interception retired, no fakeSDK/service/rewards.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "Originalsingleplayerfive-nightcooking/survival andpersonalunlocked/stars save, no globalboard/networkmatch/ad/paymentdependency. AllvoicesstaticlocalGET, no ElevenLabs generation/API call. Hosttools/interception retired, no fakeSDK/service/rewards.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "Originalsingleplayerfive-nightcooking/survival andpersonalunlocked/stars save, no globalboard/networkmatch/ad/paymentdependency. AllvoicesstaticlocalGET, no ElevenLabs generation/API call. Hosttools/interception retired, no fakeSDK/service/rewards.",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "ActualfullNight1two-starwin49of35/2served1missed, nativeNight2start andunlockrefresh.",
+      "evidence": [
+        "evidence/direct-repair/native-night1-survived-49-two-stars.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "Originalkitchen/characters/food/THREE/audio/4fonts retained;16exactmissingvoices restored; final93requestwindow clean.",
+      "evidence": [
+        "evidence/direct-repair/after-recovery-night2-call.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Original3Dkitchen/monitor/hall/cameras/door/oven/first6AMtimecard actual.",
+      "evidence": [
+        "evidence/direct-repair/native-night1-survived-49-two-stars.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "Actualingredientcrates/cuttingboard/plate/oven/servicewindow/door interactive.",
+      "evidence": [
+        "evidence/direct-repair/native-quota54-of35.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "Actualchef move/carry/chop/oven andPepper camera/lure/door defense.",
+      "evidence": [
+        "evidence/direct-repair/native-door-training-complete.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Originalcooking/oven/pickup/managercall/camera/bear/door/6AMstarcard observed.",
+      "evidence": [
+        "evidence/direct-repair/native-night1-survived-49-two-stars.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "ActualHUDquota/time/PAUSED/2stars/NextNight2/unlockrefresh.",
+      "evidence": [
+        "evidence/direct-repair/reload-night1-two-stars-night2-unlocked.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "key",
+      "key": "WASD/E/holdE",
+      "result": "Nativeingredients/chop/plate/7secondoven/servetwopizzas28+26tips."
+    },
+    {
+      "type": "key",
+      "key": "Tab/Space",
+      "result": "Originalcamera/jingle/doortrainingactualcompleted; holddoorandsurviveto6AM."
+    },
+    {
+      "type": "result",
+      "result": "ActualNight1two-starwin49of35tips,2served1missed. No full5nightclaim."
+    },
+    {
+      "type": "click",
+      "selector": "NIGHT2",
+      "result": "OriginalNight2actualstarted45quota/burgerandpizzaorders/managercall; failedn2voicesrestoredall3GET200 atsameNight2node."
+    },
+    {
+      "type": "reload",
+      "result": "OriginalNight1two-stars andNight2unlockedpersist;3-5locked. No midshift saveclaim."
+    }
+  ],
+  "scope": "Entireoriginalmain.js byteSHA unchanged, originalfontbootstrap/4nativefonts retained, unrelatedhosttools/interception retired. ActualfullNight1training move/tomatochop/plate/dough/cheese/7secondoven/serve28then26tips, cameras/jingle/doorhold, firstquota54of35 andsurvive6AM, 2served1missed =>49of35, nativetwo-starwin. OriginalNextNight2burger/pizzaorders andcall/45quota actualstart; reloadNight1twostars/Night2unlocked/3-5locked persist. Nativepause/resume; no midshift save. Original16missingn2..n5/endvoicefiles1041012bytes exactoriginalpublicstaticURLs recovered,5n1voicefiles unchanged, all21STORY/ENDINGpathscovered. Historical6n2voice404diagnostic retained; final93requeststartup/Night2call/all3n2voiceGET200 window noexternal/failed/HTTPerror/exception/consoleerror/truncation. OriginalNight1win beforevoiceaddition, mainJS/n1voices identical. No remaining4nightclear/burgercooking/fullweekending/otherstars/mobile/hearing proof. Original5nights/quotas/timers/bearAI/recipe/score/stars/save/rules retained.",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "EntireoriginalmainJS SHAunchanged; actualfullNight1win/twostars/Night2unlock.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-night1-two-stars-night2-unlocked.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "Originalart/audio/4nativefonts/bootstrap preserved;16missingvoices1041012bytes exactrecovered;93requestfinalwindow clean.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-night1-two-stars-night2-unlocked.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "Original5nights/quotas/timers/recipes/bearAI/stars/difficulty unchanged. ActualNight1winonly.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-night1-two-stars-night2-unlocked.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "Originalnightshift-save. ActualrefreshNight1two-stars/Night2unlocked; no midshift saveclaim. No cloud backend.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-night1-two-stars-night2-unlocked.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "UnrelatedRosebudhosttools/interception retired; nativeoriginalmodule directlystarts, no fakeSDK/service.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-night1-two-stars-night2-unlocked.png",
+        "next_action": ""
+      }
+    ],
+    "scope": "Entireoriginalmain.js byteSHA unchanged, originalfontbootstrap/4nativefonts retained, unrelatedhosttools/interception retired. ActualfullNight1training move/tomatochop/plate/dough/cheese/7secondoven/serve28then26tips, cameras/jingle/doorhold, firstquota54of35 andsurvive6AM, 2served1missed =>49of35, nativetwo-starwin. OriginalNextNight2burger/pizzaorders andcall/45quota actualstart; reloadNight1twostars/Night2unlocked/3-5locked persist. Nativepause/resume; no midshift save. Original16missingn2..n5/endvoicefiles1041012bytes exactoriginalpublicstaticURLs recovered,5n1voicefiles unchanged, all21STORY/ENDINGpathscovered. Historical6n2voice404diagnostic retained; final93requeststartup/Night2call/all3n2voiceGET200 window noexternal/failed/HTTPerror/exception/consoleerror/truncation. OriginalNight1win beforevoiceaddition, mainJS/n1voices identical. No remaining4nightclear/burgercooking/fullweekending/otherstars/mobile/hearing proof. Original5nights/quotas/timers/bearAI/recipe/score/stars/save/rules retained."
+  },
+  "dependency_review": {
+    "previous_revision": 2,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "离线启动通过；广告过滤及被拒绝请求见 runtime_smoke，存档及结算尚未验证",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证保存恢复和阶段结果"
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 2,
+      "updated_at": "2026-11-03T10:00:48+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "EntireoriginalmainJS SHAunchanged; actualfullNight1win/twostars/Night2unlock.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-night1-two-stars-night2-unlocked.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "Originalart/audio/4nativefonts/bootstrap preserved;16missingvoices1041012bytes exactrecovered;93requestfinalwindow clean.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-night1-two-stars-night2-unlocked.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "Original5nights/quotas/timers/recipes/bearAI/stars/difficulty unchanged. ActualNight1winonly.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-night1-two-stars-night2-unlocked.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "Originalnightshift-save. ActualrefreshNight1two-stars/Night2unlocked; no midshift saveclaim. No cloud backend.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-night1-two-stars-night2-unlocked.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "UnrelatedRosebudhosttools/interception retired; nativeoriginalmodule directlystarts, no fakeSDK/service.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-night1-two-stars-night2-unlocked.png",
+          "next_action": ""
+        }
+      ],
+      "scope": "Entireoriginalmain.js byteSHA unchanged, originalfontbootstrap/4nativefonts retained, unrelatedhosttools/interception retired. ActualfullNight1training move/tomatochop/plate/dough/cheese/7secondoven/serve28then26tips, cameras/jingle/doorhold, firstquota54of35 andsurvive6AM, 2served1missed =>49of35, nativetwo-starwin. OriginalNextNight2burger/pizzaorders andcall/45quota actualstart; reloadNight1twostars/Night2unlocked/3-5locked persist. Nativepause/resume; no midshift save. Original16missingn2..n5/endvoicefiles1041012bytes exactoriginalpublicstaticURLs recovered,5n1voicefiles unchanged, all21STORY/ENDINGpathscovered. Historical6n2voice404diagnostic retained; final93requeststartup/Night2call/all3n2voiceGET200 window noexternal/failed/HTTPerror/exception/consoleerror/truncation. OriginalNight1win beforevoiceaddition, mainJS/n1voices identical. No remaining4nightclear/burgercooking/fullweekending/otherstars/mobile/hearing proof. Original5nights/quotas/timers/bearAI/recipe/score/stars/save/rules retained."
+    },
+    "basis": "EntireoriginalmainJS SHA andactualNight1win/twostars/refreshunlock, exactvoicesandNight2nodecleanretest. NormalrevisionedAPI."
+  },
+  "base_version_id": "v-e3ab334f6e99",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "original_job": "job-bcf3e72b258e",
+    "at": "2026-11-12T06:18:12.222626+00:00"
+  },
+  "game_profile": {
+    "category": "3D · 烹饪与夜班生存",
+    "dimension": "",
+    "perspective": "",
+    "core_gameplay": "Originalfive-nightpizzaburgercooking/quotas/cameras/jingle/door/bearsurvival. ActualfullNight1two-starwin49of35 andNight2start only.",
+    "core_experience": "",
+    "controls": "WASD/arrowsmove,Epick/put,holdEchop,Tab/Qcameras,1-3switchcamera,Spacelureorholddoor,Escpause/hangup.",
+    "game_loop": "",
+    "content": "",
+    "progression": "",
+    "save": "Originalnightshift-save unlocked/stars. ActualNight1two-stars/Night2unlockedrefreshpersist; no midshiftsave.",
+    "rules": "",
+    "systems": "",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "Entireoriginalmain.js byteSHA unchanged, originalfontbootstrap/4nativefonts retained, unrelatedhosttools/interception retired. ActualfullNight1training move/tomatochop/plate/dough/cheese/7secondoven/serve28then26tips, cameras/jingle/doorhold, firstquota54of35 andsurvive6AM, 2served1missed =>49of35, nativetwo-starwin. OriginalNextNight2burger/pizzaorders andcall/45quota actualstart; reloadNight1twostars/Night2unlocked/3-5locked persist. Nativepause/resume; no midshift save. Original16missingn2..n5/endvoicefiles1041012bytes exactoriginalpublicstaticURLs recovered,5n1voicefiles unchanged, all21STORY/ENDINGpathscovered. Historical6n2voice404diagnostic retained; final93requeststartup/Night2call/all3n2voiceGET200 window noexternal/failed/HTTPerror/exception/consoleerror/truncation. OriginalNight1win beforevoiceaddition, mainJS/n1voices identical. No remaining4nightclear/burgercooking/fullweekending/otherstars/mobile/hearing proof. Original5nights/quotas/timers/bearAI/recipe/score/stars/save/rules retained.",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "illustrations": [
+      {
+        "path": "screenshots/startup.png",
+        "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Entireoriginalreadablemain.js withkitchen/cooking/recipe/bearAI/phone/camera/render/input/5night/save, localTHREE/art/audio/nativefontbootstrap retained.",
+    "reuse": "Cooking/recipe/order/timing/survivalAI/monitor/door/voice/subtitle/personalstars modules extractablewithadaptation; not separatelycertified.",
+    "dependencies": "LocalTHREE/WebGL/WebAudio/localStorage/nativefonts/staticGLB/audio only; voicefilesfromoriginalSTORY/ENDING factory, no generation/backend calls.",
+    "preservation": "EntiremainJS byteSHAunchanged and5originaln1voiceSHAunchanged; onlyhosttools/interception retired and16exactmissingvoicefiles restored. No difficulty/quota/AI/rule/reward/save changes."
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T05:54:09.739555+00:00",
+      "recorded_node_elapsed_wall_seconds": 16434.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 8157.3150000000005,
+      "calls": 97,
+      "known_input_tokens": 2976802,
+      "known_output_tokens": 273666,
+      "cached_input_tokens_known": 1169664,
+      "unknown_usage_calls": 7,
+      "known_estimated_cost_subtotals": {
+        "CNY": 65.848688
+      },
+      "unknown_cost_calls": 7,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 4,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 4,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 4,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 93,
+          "input_tokens_known": 2976802,
+          "output_tokens_known": 273666,
+          "unknown_usage_calls": 3,
+          "known_cost_subtotals": {
+            "CNY": 65.848688
+          },
+          "unknown_cost_calls": 3,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T04:50:48.133924+00:00",
+      "observed_until": "2026-11-12T06:23:55.694899+00:00",
+      "observed_wall_seconds": 5587.560975,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "max_steps": 5,
+  "steps_used": 5,
+  "actual_steps": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Initial independent Classic menu loaded."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "START RUN",
+      "result": "FAILED initial build: assignment-only powerUps declaration omitted from closure. Fixed before step3; original failure preserved."
+    },
+    {
+      "step": 3,
+      "type": "reload",
+      "selector": "page",
+      "result": "Final corrected build loaded. This is before earned best, not a saved-score refresh test."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "selector": "START RUN",
+      "result": "Actual original Classic run: six red hazards, green player and timer."
+    },
+    {
+      "step": 5,
+      "type": "drag",
+      "from": [
+        640,
+        360
+      ],
+      "to": [
+        628,
+        535
+      ],
+      "result": "Native collision/death already produced3.5s/BEST3.5; drag selected results text, no movement claim."
+    }
+  ],
+  "unverified": [
+    "actual movement response in final build",
+    "TRY AGAIN",
+    "new BEST after refresh",
+    "pause/mute",
+    "audio output",
+    "10second/later difficulty stages",
+    "real touch"
+  ],
+  "stopped_at_limit": true
+}

@@ -1,0 +1,38 @@
+{
+  "category": "2D · 灯光迷宫解谜",
+  "dimension": "2D",
+  "perspective": "俯视固定视角，局部光照视野",
+  "core_gameplay": "Original20mazes, walk fog/torchlight walls, collect3torches/ember andreach exit forstars. Actualstage1fullthree-starclear.",
+  "core_experience": "有限视野下的迷宫探索与路线记忆，火炬逐步扩大照明范围的渐进式揭示体验。",
+  "controls": "WASD/arrows move, Rrestart, Space nextafterwin, originalunlockedstagekeys/click, Mmute.",
+  "game_loop": "开始：加载关卡生成迷宫；操作：移动探索、点亮火炬、拾取余烬；结果：抵达出口结算1至3星；继续：解锁下一关并可重玩刷星。",
+  "content": "固定20个关卡定义，每关迷宫布局由种子程序化生成；含火炬、余烬、出口三类互动物件。",
+  "progression": "线性解锁20关，每关最高3星，总计60星；localStorage键lanternMaze保存星级与解锁进度。",
+  "save": "OriginallanternMaze stars/unlocked localStorage, actualStage2/firststage3stars/total3 refreshproved; no midmaze save.",
+  "rules": "目标：到达出口；计分：基础1星+全火炬点亮1星+拾取余烬1星；无失败死亡机制；无时间限制。",
+  "systems": "迷宫生成系统（DFS/Prim等算法按关卡配置）、光照视野系统（随火炬点亮扩大）、拾取判定系统（距离阈值触发）、粒子特效系统（萤火虫与点亮爆发）、星级评价系统。",
+  "ui_flow": "顶部HUD显示关卡、火炬0/3、余烬0/1、总星数与操作提示；关卡选择格显示1-20及星级；结算界面未实机到达。",
+  "level_design": "",
+  "verification": "Desktop1280x720 entire originalmain.js byteSHA unchanged. ActualnativeWASD mazewallcollision/light/trail, firststage3torches+ember collected thenoriginalexit fullthree-starwin, total3of60. NativeSpace nextstage2, key3lockedrefused, Rrestartoriginalstage2, refreshstage2unlocked/firststage3stars/total3 preserved. Entireoriginal20stagegen/rules/lighting/stars/unlock/save unchanged. Only unrelatedRosebudhosttools/resourceinterception retired,27exactfontrefs258956bytes localized. Complete30requestwindow startup/fullwin/next/restart/reload noexternal/failed/exception/truncation. Other19stages/alternatestaroutcomes/mobile/hearing notexhausted. Originalno midmazesave, no suchclaim.",
+  "evidence": "main.js（关卡定义STAGES、checkPickups、starsEarned、localStorage读写）；verification/8647b8a4-9694-4438-97f9-756016a7a27a-web-play.json（300次动作运行记录）。",
+  "gameplay_signature": "单画布俯视野心迷宫：HUD常驻顶部，玩家在小圆形视野内移动，点亮火炬扩展光照，UI实时显示火炬/余烬/星级计数，结算按收集完成度评星。",
+  "session_mechanism": "单局制：每关为独立会话，抵达出口即结束并结算；可随时重开；单局时长取决于迷宫规模与玩家路径，未确认具体数值。",
+  "replay_mechanism": "通关后可重玩任意已解锁关卡刷新星级；星级与解锁进度在重玩间保留（localStorage）。",
+  "drive_mechanism": "本地收集驱动：20关×3星共60星的完成度追求，以及后续关卡的逐步解锁。",
+  "goal_mechanism": "明确目标：每关抵达出口；进阶目标：点亮全部3支火炬并拾取余烬以获得满星。",
+  "achievement_mechanism": "操作→规则→目标：移动至火炬旁触发点亮（距离判定）、触碰余烬收集、抵达出口结算；星级即时反馈于HUD与关卡格。",
+  "feedback_mechanism": "实时反馈：火炬点亮粒子爆发与音效、HUD计数更新、视野随点亮扩大；结算星级展示；拾取音效经浏览器自动播放策略解锁。",
+  "continuation_mechanism": "通关后解锁下一关（unlocked+1），提供继续目标；20关全部解锁后以满星收集为延续目标。",
+  "motivation_mechanism": "推断：以探索解谜的挑战动机为主，辅以星级收集与关卡解锁的成长/成就动机；无外部排行或社交竞争。",
+  "core_goal_reachability": "本轮未实测达成：AI操作300次未抵达第1关出口，迷宫实时导航超出AI按键能力，已申报人工核对；未发现数值或死锁缺陷。",
+  "illustrations": [
+    {
+      "path": "screenshots/startup.png",
+      "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+    },
+    {
+      "path": "screenshots/current.png",
+      "caption": "本轮最终观察画面；仅证明已记录画面，验证范围见正文。"
+    }
+  ]
+}

@@ -1,0 +1,469 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "key",
+        "key": "WASD/Space/Q/E",
+        "result": "Actualmovement/fire/spin/stomp anddestruction. NativefullMapleGrove fifth205/54percentglobaldestruction/player0KOs/zeroStars."
+      },
+      {
+        "type": "reload",
+        "result": "Best205/zeroStars/skinslockedpersisted; secondplay233thenpause/menu,nohigherbestbeforenaturalend."
+      },
+      {
+        "type": "click",
+        "selector": "Music off",
+        "result": "ActualMusicOff andreloadrestored."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8917/",
+      "http://127.0.0.1:8917/_remote/3a125e88c76c9347/css2",
+      "http://127.0.0.1:8917/native-support-7.js",
+      "http://127.0.0.1:8917/native-support-8.js",
+      "http://127.0.0.1:8917/native-support-10.js",
+      "http://127.0.0.1:8917/main.js",
+      "http://127.0.0.1:8917/_runtime_resources/0b5ee88709d8d8818a3b3374.glb",
+      "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 140'><polygon points='100,4 116,34 150,10 144,46 196,40 160,66 198,92 150,92 162,132 120,104 100,138 82,104 38,132 50,92 2,94 40,66 6,40 56,46 50,10 84,34' fill='%23FFD23F' stroke='%23161020' stroke-width='6' stroke-linejoin='round'/></svg>",
+      "http://127.0.0.1:8917/_runtime_resources/2c629018fd252b97d6f99c9a.webp",
+      "http://127.0.0.1:8917/_runtime_resources/db061d125f8ebb1e415836aa.webp",
+      "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 140'><polygon points='100,4 116,34 150,10 144,46 196,40 160,66 198,92 150,92 162,132 120,104 100,138 82,104 38,132 50,92 2,94 40,66 6,40 56,46 50,10 84,34' fill='%23FFFFFF' stroke='%23161020' stroke-width='6' stroke-linejoin='round'/></svg>",
+      "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 140'><polygon points='100,4 116,34 150,10 144,46 196,40 160,66 198,92 150,92 162,132 120,104 100,138 82,104 38,132 50,92 2,94 40,66 6,40 56,46 50,10 84,34' fill='%23EE3B2F' stroke='%23161020' stroke-width='6' stroke-linejoin='round'/></svg>",
+      "http://127.0.0.1:8917/",
+      "http://127.0.0.1:8917/_remote/3a125e88c76c9347/css2",
+      "http://127.0.0.1:8917/native-support-7.js",
+      "http://127.0.0.1:8917/native-support-8.js",
+      "http://127.0.0.1:8917/native-support-10.js",
+      "http://127.0.0.1:8917/main.js",
+      "http://127.0.0.1:8917/_runtime_resources/0b5ee88709d8d8818a3b3374.glb",
+      "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 140'><polygon points='100,4 116,34 150,10 144,46 196,40 160,66 198,92 150,92 162,132 120,104 100,138 82,104 38,132 50,92 2,94 40,66 6,40 56,46 50,10 84,34' fill='%23FFD23F' stroke='%23161020' stroke-width='6' stroke-linejoin='round'/></svg>",
+      "http://127.0.0.1:8917/_runtime_resources/2c629018fd252b97d6f99c9a.webp",
+      "http://127.0.0.1:8917/_runtime_resources/db061d125f8ebb1e415836aa.webp"
+    ],
+    "scope": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+    "network_scope": "Finalunchangedpackage refreshBest205/zeroStars/lockedskins, secondoriginalgameplay233, pause/menu, musicOffandrefresh. Earlierfullfirstissuefifth205 terminalsamecode separateproof, no fullnetworkclaim forthat earlierwindow.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "removed",
+      "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+      "evidence": [
+        "evidence/direct-repair/native-fifth205-no-stars.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+      "evidence": [
+        "evidence/direct-repair/native-fifth205-no-stars.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+      "evidence": [
+        "evidence/direct-repair/native-fifth205-no-stars.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+      "evidence": [
+        "evidence/direct-repair/native-fifth205-no-stars.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+      "evidence": [
+        "evidence/direct-repair/native-fifth205-no-stars.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+      "evidence": [
+        "evidence/direct-repair/native-fifth205-no-stars.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+      "evidence": [
+        "evidence/direct-repair/native-fifth205-no-stars.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "key",
+      "key": "WASD/Space/Q/E",
+      "result": "Actualmovement/fire/spin/stomp anddestruction. NativefullMapleGrove fifth205/54percentglobaldestruction/player0KOs/zeroStars."
+    },
+    {
+      "type": "reload",
+      "result": "Best205/zeroStars/skinslockedpersisted; secondplay233thenpause/menu,nohigherbestbeforenaturalend."
+    },
+    {
+      "type": "click",
+      "selector": "Music off",
+      "result": "ActualMusicOff andreloadrestored."
+    }
+  ],
+  "scope": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best205-music-off.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best205-music-off.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best205-music-off.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best205-music-off.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best205-music-off.png",
+        "next_action": ""
+      }
+    ],
+    "scope": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。"
+  },
+  "dependency_review": {
+    "previous_revision": 2,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "离线启动通过；广告过滤及被拒绝请求见 runtime_smoke，存档及结算尚未验证",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证保存恢复和阶段结果"
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 2,
+      "updated_at": "2026-10-30T06:13:13+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best205-music-off.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best205-music-off.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best205-music-off.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best205-music-off.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-best205-music-off.png",
+          "next_action": ""
+        }
+      ],
+      "scope": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。"
+    },
+    "basis": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。"
+  },
+  "base_version_id": "v-edf4eb512187",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "original_job": "job-cfbe48d6a3af",
+    "at": "2026-11-12T10:29:15.388670+00:00"
+  },
+  "game_profile": {
+    "category": "3D单人对四AI破坏竞技",
+    "dimension": "3D",
+    "perspective": "未验证",
+    "core_gameplay": "Original5issues/dragon/fire/destruction/growth/score/ranking/starunlock; actualfirstissue fifth205,no clear.",
+    "core_experience": "未验证",
+    "controls": "WASDmove,Spacefire,Qspin,Estomp,Ffly notverified; pause/retry/menu",
+    "game_loop": "未验证",
+    "content": "未验证",
+    "progression": "未验证",
+    "save": "Originaltinyterror_v1 shape personalstorage;actualBest205/zeroStars/MusicOffreloadverified.",
+    "rules": "未验证",
+    "systems": "未验证",
+    "ui_flow": "未验证",
+    "level_design": "未验证",
+    "verification": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。",
+    "evidence": "源码：index.html（模型加载与菜单逻辑）；实机：verification/e011bdb1-093f-4b1e-a682-3401ccfe1a3a-web-play.json；当前截图显示Could not load the dragon。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "illustrations": [
+      {
+        "path": "screenshots/startup.png",
+        "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+      },
+      {
+        "path": "screenshots/current.png",
+        "caption": "本轮最终观察画面；仅证明已记录画面，验证范围见正文。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Readableoriginalnativegame main.js; originalTHREE/GLTFloader separated unchanged.",
+    "reuse": "Dragon/riganimation/destructiblecity/AI/gameflow/score/result/UI modules extractablewithadaptation, notseparatelycertified.",
+    "dependencies": "LocalTHREE/GLTF/originaldragonGLB/textures/WebAudio/personalStorage.",
+    "preservation": "退役原SDK联机房间/好友入口/宿主协议/云端保存，保留原五关、龙模型、四个原生AI对手、物理破坏/喷火/旋转/踩踏/成长/计分/名次星数规则，不伪造房间或对手奖励。149个唯一命名函数语义SHA保留、3份原THREE/GLTF/龙资源引导逐字节相同；22边界函数变化为去掉联网权限/同步分支及个人存档：loadSave/persist将原tinyterror_v1的stars/best与原偏好一起本地保存，仍由原endGame按真实名次写入。spawnEnemy删除的NET.nextEid仅原网络复制编号，不用于本地碰撞AI计分。初次转换的网络编号自增false++语法错误已修正，旧错误留在console-history，不计最终错误。实际第一关Maple Grove完整自然结算第5名205分、场景整体54%破坏、玩家0击倒、0星，必须前三才算通关，不声称胜利或解锁。刷新Best205/0星/原皮肤锁定保留；第二局实际233分/喷火破坏、暂停/菜单，未结算不替换Best205。Music off刷新恢复。最终22请求完整观察范围是新启动、第二局交互/暂停/退出和刷新；早先第一局完整结算与同代码证据单列，不伪称其全程有网络记录。未验证前三通关/第2—5关/星解锁/飞行/真实触控/听觉。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 7120.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 6425.318,
+      "calls": 80,
+      "known_input_tokens": 1894639,
+      "known_output_tokens": 215420,
+      "cached_input_tokens_known": 627771,
+      "unknown_usage_calls": 4,
+      "known_estimated_cost_subtotals": {
+        "CNY": 25.0313305
+      },
+      "unknown_cost_calls": 9,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 52,
+          "input_tokens_known": 1400632,
+          "output_tokens_known": 117251,
+          "unknown_usage_calls": 3,
+          "known_cost_subtotals": {
+            "CNY": 9.3939385
+          },
+          "unknown_cost_calls": 8,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 28,
+          "input_tokens_known": 494007,
+          "output_tokens_known": 98169,
+          "unknown_usage_calls": 1,
+          "known_cost_subtotals": {
+            "CNY": 15.637392000000004
+          },
+          "unknown_cost_calls": 1,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-11T15:32:48.822690+00:00",
+      "observed_until": "2026-11-12T10:29:51.500803+00:00",
+      "observed_wall_seconds": 68222.678113,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

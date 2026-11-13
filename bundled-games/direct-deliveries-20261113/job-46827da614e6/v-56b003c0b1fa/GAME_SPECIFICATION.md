@@ -1,0 +1,5 @@
+# Stickman Hook
+
+Desktop IAB 1280x720. Three actual consecutive Classic levels cleared. Final source after shop retirement cleared level3, native progress60%, title/reload restored Classic4/5. Pause/back and Classic shop inspected. Other levels, Grapple unlock30, all skins, touch and audible sound not exhaustively tested. First two clears precede cosmetic-only final shop retirement; original level/physics/storage functions unchanged. Complete final network observation includes reload/shop/level3 clear/reload, no truncation.
+
+{'editable_source': 'Readable bundle.js, original Pixi game, gy physics/level scene and nS/uS level definitions.', 'reuse': 'Physics/scene and level generation require extraction and adaptation; not certified as separate reusable module.', 'dependencies': 'Local Pixi/Preact bundle, original local fonts and sprites. Native localStorage, no host or backend.', 'preservation': 'Nine selected core function/declaration canonical SHAs exact original, including gy/QS/hb/Ab/sb/cb/ub/nS/uS. No difficulty or victory change.'}

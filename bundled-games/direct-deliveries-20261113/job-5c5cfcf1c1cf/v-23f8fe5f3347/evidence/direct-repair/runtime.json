@@ -1,0 +1,163 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "warnings": [],
+  "missing": [],
+  "required_external": [],
+  "non_game_http_findings": [],
+  "non_game_http_resolution": "",
+  "actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8979/index.html",
+      "result": "实际菜单与本地原提取资源就绪。"
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "#start",
+      "result": "2米真实奔跑，随后原碰撞逻辑自然25米0币结束。"
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "selector": "window",
+      "key": "Right",
+      "status": "not_verified",
+      "result": "已在25米终态，不算换道成功。"
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "selector": "#start",
+      "result": "真实重新出发，初始距离清零后2米、角色回中央。"
+    },
+    {
+      "step": 5,
+      "type": "key",
+      "selector": "window",
+      "key": "Right",
+      "result": "运行中实际右移，随后自然拾取5币，77米碰撞结算；停止追加试玩。"
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "not_run",
+      "reason": "5steps exhausted; no current reload claim"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8979/index.html",
+    "http://127.0.0.1:8979/style.css",
+    "http://127.0.0.1:8979/assets/ui/cover.png",
+    "http://127.0.0.1:8979/game.js",
+    "http://127.0.0.1:8979/assets/ui/atlas.png",
+    "http://127.0.0.1:8979/vendor/three.module.js",
+    "http://127.0.0.1:8979/vendor/three.core.js",
+    "http://127.0.0.1:8979/assets/game-assets.json",
+    "http://127.0.0.1:8979/assets/audio/4_1468199407134043205_music_luoyang_music_luoyang.m4a",
+    "http://127.0.0.1:8979/assets/audio/4_5701420766982499548_Hr_H_crash_Hr_H_crash.m4a",
+    "http://127.0.0.1:8979/assets/meshes/14_5428396281817977130_jake_Mesh.json",
+    "http://127.0.0.1:8979/assets/textures/9_130001134351505729_jake_tex_low.png",
+    "http://127.0.0.1:8979/assets/jake-skeleton.json",
+    "http://127.0.0.1:8979/assets/jake-clips.json",
+    "http://127.0.0.1:8979/assets/meshes/4_2061558046453292778_train_standard_LOD0.json",
+    "http://127.0.0.1:8979/assets/textures/2_-6131116581919049601_Luoyang_environment.png",
+    "http://127.0.0.1:8979/assets/meshes/2_-7185562361706514671_currency_coin.json",
+    "http://127.0.0.1:8979/assets/textures/2_-7204417583319942860_props_tex.png",
+    "http://127.0.0.1:8979/assets/runner-scenery/building.json",
+    "http://127.0.0.1:8979/assets/runner-scenery/nha.jpg",
+    "http://127.0.0.1:8979/assets/runner-scenery/track.json",
+    "http://127.0.0.1:8979/assets/runner-scenery/duong%20ray.jpg",
+    "http://127.0.0.1:8979/assets/runner-scenery/ground.json",
+    "http://127.0.0.1:8979/assets/runner-scenery/barrier.json",
+    "http://127.0.0.1:8979/assets/runner-scenery/mapchan.jpg",
+    "http://127.0.0.1:8979/assets/runner-scenery/overhead.json",
+    "http://127.0.0.1:8979/assets/runner-scenery/mapchan1.jpg",
+    "http://127.0.0.1:8979/assets/audio/4_1468199407134043205_music_luoyang_music_luoyang.m4a",
+    "http://127.0.0.1:8979/assets/audio/4_1468199407134043205_music_luoyang_music_luoyang.m4a"
+  ],
+  "scope": "现有原任务的Three.js单机学习适配，不宣称完整原Unity地铁跑酷。保留现有game.js全文SHA bac84e962026107e6caaf61698f519cf2ae8eb61155bedb54901795771d8fb14、原提取Jake网格/骨架/跑跳滚动画、列车/金币/低高栏/街区/轨道/音频和规则；只补data favicon与当次交付报告。严格5步：1启动菜单；2点开始，真实奔跑至自然25米/0币碰撞终态；3Right在该终态发送，不记换道通过；4点重新出发，距离清零后2米；5运行中Right，角色真实到右车道，随后自然收集5币，77米碰撞结算。没有第6步/刷新，不注入状态、不降低难度。59条完整网络事件无截断/外联/HTTP失败/脚本异常、console空；音频重开时49800.34返回206后浏览器canceled ERR_ABORTED，完整保留并绑定同URL此前200与资源GET/SHA，不记缺失资源，也不宣称零取消。三车道、速度min(25,10+distance/250)、金币与分数、碰撞/重开保持；本版无持久存档或账号/排行/联机/广告/支付。跳跃/滑行/声音切换/触控/长局未在本轮验证。首次按真实依赖0→1完成五类清单，沿原版本/检查点正常入库待验收，不批准、不供货。",
+  "network_scope": "Complete startup, start, Right after first natural crash, actual restart, Right during running, passive coin pickup and natural second collision. Five player actions; no reload/jump/slide trial.",
+  "evidence": "evidence/direct-repair/network-final.json",
+  "expected_media_cancellations": [
+    {
+      "event": {
+        "sequence": 324,
+        "source": {
+          "tabId": 47
+        },
+        "method": "Network.loadingFailed",
+        "params": {
+          "canceled": true,
+          "errorText": "net::ERR_ABORTED",
+          "requestId": "49800.34",
+          "timestamp": 1298248.288937,
+          "type": "Media"
+        }
+      },
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 729327,
+        "connectionReused": false,
+        "encodedDataLength": 104,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Content-Length": "1680825",
+          "Content-Range": "bytes 0-1680824/1680825",
+          "Content-type": "audio/mp4",
+          "Date": "Fri, 13 Nov 2026 03:40:50 GMT",
+          "Last-Modified": "Fri, 13 Nov 2026 03:37:27 GMT",
+          "Server": "SimpleHTTP/0.6 Python/3.14.4"
+        },
+        "mimeType": "audio/mp4",
+        "protocol": "http/1.1",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8979,
+        "responseTime": 1794541250157.638,
+        "securityState": "secure",
+        "status": 206,
+        "statusText": "Partial Content",
+        "timing": {
+          "connectEnd": 0.603,
+          "connectStart": 0.282,
+          "dnsEnd": 0.282,
+          "dnsStart": 0.277,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 2.724,
+          "receiveHeadersStart": 2.504,
+          "requestTime": 1298248.285479,
+          "sendEnd": 0.704,
+          "sendStart": 0.645,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8979/assets/audio/4_1468199407134043205_music_luoyang_music_luoyang.m4a"
+      },
+      "reason": "Same original audio returned200 at initial load and206 on this Range request, canceled:true ERR_ABORTED during native restart seek bgm.currentTime=0. Original event retained; engineering GET/SHA independently verifies entire local file. Not a missing/external asset and no full listening claim."
+    }
+  ]
+}

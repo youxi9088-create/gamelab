@@ -1,0 +1,1 @@
+require('src/scripts/resources/index.js');

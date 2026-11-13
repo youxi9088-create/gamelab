@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "version_id": "v-2d79ced708aa",
+  "routing": {
+    "schema_version": 1,
+    "recorded": true,
+    "route": "revision",
+    "label": "沿已有版本续作",
+    "source_kind": "web",
+    "evidence": [
+      "平台已绑定不可变基线版本"
+    ],
+    "missing": [
+      "游戏资源：验证核心玩法及后续场景",
+      "游戏配置：核对关卡及进度",
+      "后端依赖：验证保存恢复和阶段结果"
+    ],
+    "next_action": "按所选路径执行资源校验、宿主适配和规格测试",
+    "scope": "登记方案、Cocos 2 / Ruffle / Defold 原包、显式 Remix Three 模块契约及通用浏览器探测；引擎能力和资源闭合仍需实际执行，分析不是验收"
+  },
+  "resource_status": "blocked",
+  "spec_digest": null,
+  "verification_gaps": [
+    "尚未登记固定玩法规格与验收用例"
+  ],
+  "missing_profile_fields": [
+    "场景、关卡与难度设计"
+  ],
+  "limitations": [
+    "通用浏览器运行包：保留实际捕获的原始代码与资源；宿主可修改，核心逻辑的可编辑性和可移植模块须依据实际文件进一步验证，不宣称恢复原作者工程。",
+    "启动验证不代表完整玩法验收"
+  ],
+  "reuse": {
+    "level": "需拆解适配",
+    "editable_files": [
+      "_remote/54d51111a998fc39/ImageGenerator.js",
+      "_remote/92e1e3c6171d66a9/ScriptsLoader-Universal.js",
+      "_remote/d74a45c75f9e69b6/css2.css",
+      "_remote/da8426dfa60b6b27/OGP.js",
+      "_remote/deb467d4198f1f06/ChatManager.js",
+      "_remote/e57730bf0f3c819c/ProgressLogger.js",
+      "CONVERSION_DELIVERY_CHECKS.json",
+      "game-profile.json",
+      "main.js",
+      "rosebud-game-defaults.css",
+      "rosebud-game-defaults.js",
+      "runtime-resource-bindings.js",
+      "runtime-resource-map.js",
+      "verification/8370cb93-13ed-4aac-839c-d82e5d240bc3-web-play.json"
+    ],
+    "portable_modules": [],
+    "cross_game_verified": false
+  }
+}

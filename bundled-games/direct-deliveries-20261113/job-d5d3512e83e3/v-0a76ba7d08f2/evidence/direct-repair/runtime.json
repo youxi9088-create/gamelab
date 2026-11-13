@@ -1,0 +1,155 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "warnings": [
+    {
+      "level": "warn",
+      "message": "THREE.WebGLProgram: Program Info Log: (210,91-147): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,41-69): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,92-120): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(209,41-69): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(210,92-120): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision",
+      "timestamp": "2026-11-12T21:50:05.415Z",
+      "url": "http://127.0.0.1:8961/vendor/002-three.js"
+    }
+  ],
+  "missing": [],
+  "required_external": [],
+  "non_game_http_findings": [],
+  "non_game_http_resolution": "",
+  "actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Original JAMBLE title and Play Solo."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "Play Solo",
+      "result": "Original countdown/shake then180sec match."
+    },
+    {
+      "step": 3,
+      "type": "type",
+      "text": "ONE",
+      "result": "AttemptedONE, actual UI onlyO; not a verified keyboard word."
+    },
+    {
+      "step": 4,
+      "type": "drag",
+      "from": [
+        694,
+        178
+      ],
+      "to": [
+        694,
+        375
+      ],
+      "result": "Continuous native O-N-E path and release submittedONE,1word/1point; natural time expiry observed separately without more input."
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "page",
+      "result": "Original title/menu restored; original single round is not persisted."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8961/index.html",
+    "http://127.0.0.1:8961/main.js",
+    "http://127.0.0.1:8961/vendor/003-three-0.21.js",
+    "http://127.0.0.1:8961/vendor/007-three.js",
+    "http://127.0.0.1:8961/vendor/004-GLTFLoader.js",
+    "http://127.0.0.1:8961/vendor/005-SkeletonUtils.js",
+    "http://127.0.0.1:8961/vendor/002-three.js",
+    "http://127.0.0.1:8961/vendor/006-three.js",
+    "http://127.0.0.1:8961/vendor/008-__three.js",
+    "http://127.0.0.1:8961/_runtime_resources/0a0dc449de170e805bd54fcd.json",
+    "http://127.0.0.1:8961/_runtime_resources/2c1dc774afe61c979c7cabf8.json",
+    "http://127.0.0.1:8961/_runtime_resources/6361e36b732e021ebe636796.json",
+    "http://127.0.0.1:8961/_runtime_resources/64120127cb35264f2250119b.json",
+    "http://127.0.0.1:8961/assets/029-sfxui-hover.wav",
+    "http://127.0.0.1:8961/assets/028-sfxui-click.wav",
+    "http://127.0.0.1:8961/assets/027-sfxui-back.wav",
+    "http://127.0.0.1:8961/assets/014-sfxjoin.wav",
+    "http://127.0.0.1:8961/assets/015-sfxleave.wav",
+    "http://127.0.0.1:8961/assets/009-sfxcountdown.wav",
+    "http://127.0.0.1:8961/assets/012-sfxgo.wav",
+    "http://127.0.0.1:8961/assets/018-sfxshake-rattle.wav",
+    "http://127.0.0.1:8961/assets/010-sfxcube-land.wav",
+    "http://127.0.0.1:8961/assets/011-sfxcube-settle.wav",
+    "http://127.0.0.1:8961/assets/025-sfxtrace-tick.wav",
+    "http://127.0.0.1:8961/assets/024-sfxtrace-cancel.wav",
+    "http://127.0.0.1:8961/assets/026-sfxtype.wav",
+    "http://127.0.0.1:8961/assets/034-sfxword-ok.wav",
+    "http://127.0.0.1:8961/assets/032-sfxword-big.wav",
+    "http://127.0.0.1:8961/assets/033-sfxword-dup.wav",
+    "http://127.0.0.1:8961/assets/031-sfxword-bad.wav",
+    "http://127.0.0.1:8961/assets/021-sfxtick.wav",
+    "http://127.0.0.1:8961/assets/022-sfxtick-urgent.wav",
+    "http://127.0.0.1:8961/assets/023-sfxtimeup.wav",
+    "http://127.0.0.1:8961/assets/013-sfxhourglass-flip.wav",
+    "http://127.0.0.1:8961/assets/020-sfxtally-line.wav",
+    "http://127.0.0.1:8961/assets/019-sfxtally-cancel.wav",
+    "http://127.0.0.1:8961/assets/017-sfxresults-in.wav",
+    "http://127.0.0.1:8961/assets/030-sfxwin.wav",
+    "http://127.0.0.1:8961/assets/016-sfxlose.wav",
+    "http://127.0.0.1:8961/index.html",
+    "http://127.0.0.1:8961/main.js",
+    "http://127.0.0.1:8961/vendor/003-three-0.21.js",
+    "http://127.0.0.1:8961/vendor/007-three.js",
+    "http://127.0.0.1:8961/vendor/002-three.js",
+    "http://127.0.0.1:8961/vendor/008-__three.js",
+    "http://127.0.0.1:8961/vendor/004-GLTFLoader.js",
+    "http://127.0.0.1:8961/vendor/005-SkeletonUtils.js",
+    "http://127.0.0.1:8961/vendor/006-three.js",
+    "http://127.0.0.1:8961/_runtime_resources/0a0dc449de170e805bd54fcd.json",
+    "http://127.0.0.1:8961/_runtime_resources/2c1dc774afe61c979c7cabf8.json",
+    "http://127.0.0.1:8961/_runtime_resources/6361e36b732e021ebe636796.json",
+    "http://127.0.0.1:8961/_runtime_resources/64120127cb35264f2250119b.json",
+    "http://127.0.0.1:8961/assets/029-sfxui-hover.wav",
+    "http://127.0.0.1:8961/assets/028-sfxui-click.wav",
+    "http://127.0.0.1:8961/assets/027-sfxui-back.wav",
+    "http://127.0.0.1:8961/assets/014-sfxjoin.wav",
+    "http://127.0.0.1:8961/assets/015-sfxleave.wav",
+    "http://127.0.0.1:8961/assets/009-sfxcountdown.wav",
+    "http://127.0.0.1:8961/assets/012-sfxgo.wav",
+    "http://127.0.0.1:8961/assets/018-sfxshake-rattle.wav",
+    "http://127.0.0.1:8961/assets/010-sfxcube-land.wav",
+    "http://127.0.0.1:8961/assets/011-sfxcube-settle.wav",
+    "http://127.0.0.1:8961/assets/025-sfxtrace-tick.wav",
+    "http://127.0.0.1:8961/assets/024-sfxtrace-cancel.wav",
+    "http://127.0.0.1:8961/assets/026-sfxtype.wav",
+    "http://127.0.0.1:8961/assets/034-sfxword-ok.wav",
+    "http://127.0.0.1:8961/assets/032-sfxword-big.wav",
+    "http://127.0.0.1:8961/assets/033-sfxword-dup.wav",
+    "http://127.0.0.1:8961/assets/031-sfxword-bad.wav",
+    "http://127.0.0.1:8961/assets/021-sfxtick.wav",
+    "http://127.0.0.1:8961/assets/022-sfxtick-urgent.wav",
+    "http://127.0.0.1:8961/assets/023-sfxtimeup.wav",
+    "http://127.0.0.1:8961/assets/013-sfxhourglass-flip.wav",
+    "http://127.0.0.1:8961/assets/020-sfxtally-line.wav",
+    "http://127.0.0.1:8961/assets/019-sfxtally-cancel.wav",
+    "http://127.0.0.1:8961/assets/017-sfxresults-in.wav",
+    "http://127.0.0.1:8961/assets/030-sfxwin.wav",
+    "http://127.0.0.1:8961/assets/016-sfxlose.wav"
+  ],
+  "scope": "严格五步：启动原菜单、点Play Solo、尝试键入ONE但实际只收到O、连续拖拽原盘O→N→E并松开实际提交ONE得1分、自然180秒结束观察原结果后刷新回原菜单。输入尝试不计键盘完整提交通过；拖拽为一次连续手势，不注入盘面/单词/得分/时间。原16骰面、邻接/不重复路径、4份压缩词库、180秒与3字母起计分规则、原Fe单人会话、结果/遗漏词及Three场景/动画/音频保留；149原函数/方法语义SHA相同，原beginSoloRound/applyRoundStart/finishSoloRound/applyResults等关键方法相同。实际删除We远端房间类/协议解析、send/sync/receive、Host Game及大厅构造/回调、SDK发现/provider和在线排行/购买/存储接口，原引擎改用明确本地生命周期；无SDK全局或假账号。原单人不持久保存局中盘面/分数，刷新回菜单，不额外添加存档。原shader精度兼容警告原样保留，非零警告；完整网络窗口与真实结果见证据。不测试多人/触控/键盘Enter完整提交、托盘旋转、音频听觉或更多新局。正常原任务入库到待验收，未批准、未供货。",
+  "network_scope": "Continuous paged capture from diagnostic-before-first-navigation through native solo/ONEdrag/natural180sec result and fullreload; no test state injection.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

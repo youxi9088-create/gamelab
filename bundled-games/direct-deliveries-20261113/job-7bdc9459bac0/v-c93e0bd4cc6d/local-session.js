@@ -1,0 +1,33 @@
+// Actual single-device storage and native run lifecycle. No SDK or network identity.
+const KEY='gamelab:castle:4560852f-9ea2-4764-bbff-b0bba5904e37:v1';
+const safeArea={top:0,right:0,bottom:0,left:0};
+export function createLocalSession(){
+ let data=null,progress={currentLevelIndex:1,stars:{}},over=false,panel=null;
+ const again=new Set(),mute=new Set(),info=new Set();
+ try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&typeof saved==='object'){data=saved.data??null;const p=saved.progress;if(p&&Number.isInteger(p.currentLevelIndex)&&p.currentLevelIndex>=1&&p.currentLevelIndex<=22)progress={currentLevelIndex:p.currentLevelIndex,stars:p.stars&&typeof p.stars==='object'?p.stars:{}};}}catch{}
+ const persist=()=>localStorage.setItem(KEY,JSON.stringify({data,progress}));
+ const on=(set,fn)=>{set.add(fn);return()=>set.delete(fn);};
+ const view=()=>({contentSafeAreaInset:safeArea,levelBased:{progress:{currentLevelIndex:progress.currentLevelIndex}}});
+ const restart=levelIndex=>{progress.currentLevelIndex=levelIndex;persist();panel?.remove();panel=null;for(const fn of again)fn({levelIndex});};
+ return {
+  get state(){return data;},get info(){return view();},get safeArea(){return safeArea;},get isOver(){return over;},
+  async ready(){return view();},saveState(value){data=value;persist();},
+  rearm(){over=false;panel?.remove();panel=null;},
+  onPlayAgain:fn=>on(again,fn),onToggleMute:fn=>on(mute,fn),onGameInfo:fn=>on(info,fn),
+  haptic(kind){if(navigator.vibrate)navigator.vibrate(kind==='hard'?25:12);},
+  gameOver(_score,attempt){
+   if(over)return;over=true;
+   const level=attempt?.levelIndex??progress.currentLevelIndex,stars=attempt?.stars??0;
+   if(!Number.isInteger(level)||level<1||level>22||!Number.isInteger(stars)||stars<0||stars>3)throw Error('Invalid native level result');
+   if(stars>0)progress.stars[level]=Math.max(progress.stars[level]||0,stars);persist();
+   panel=document.createElement('section');panel.style.cssText='position:fixed;inset:0;display:grid;place-items:center;background:#101d18ce;z-index:1000;color:#e6e6ce';
+   const box=document.createElement('div');box.className='cc-panel';
+   const title=document.createElement('h2');title.textContent=stars>0?'Castle cleared.':'Try again.';
+   const result=document.createElement('p');result.textContent=`Level ${level} · ${'★'.repeat(stars)}${'☆'.repeat(3-stars)} · Saved on this device`;
+   const buttons=document.createElement('div');buttons.className='cc-panel-actions';
+   const retry=document.createElement('button');retry.textContent='Retry this level';retry.onclick=()=>restart(level);buttons.append(retry);
+   if(stars>0&&level<22){const next=document.createElement('button');next.textContent='Next level';next.onclick=()=>restart(level+1);buttons.append(next);}
+   box.append(title,result,buttons);panel.append(box);document.body.append(panel);
+  }
+ };
+}

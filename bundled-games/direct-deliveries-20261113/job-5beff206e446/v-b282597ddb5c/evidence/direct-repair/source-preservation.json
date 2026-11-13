@@ -1,0 +1,76 @@
+{
+  "at": "2026-11-13T09:28:34.781Z",
+  "original_methods": 875,
+  "unchanged_methods": 841,
+  "changed_methods": [
+    "constructor",
+    "detectCountryFromLocation",
+    "fetchProfileRow",
+    "upsertProfileRow",
+    "loadAccountProfile",
+    "saveAccountProfile",
+    "loadPublicProfiles",
+    "saveAccountGameSettings",
+    "waitForAuthenticatedSession",
+    "initializeAccount",
+    "signOutAccount",
+    "showAuthModal",
+    "showPasswordRecoveryModal",
+    "subscribeToRankings",
+    "renderAccountDock",
+    "renderRankingsModalContent",
+    "recordCompletedMatch",
+    "returnToGame",
+    "readPrivateRoomInviteCode",
+    "joinPrivateRoomByCode",
+    "setupLobby",
+    "ensurePrivateRoomCode",
+    "endPrivateRoomSession",
+    "createPrivateRoom",
+    "subscribeMatchmakingRoom",
+    "cleanupStaleMatchmakingListings",
+    "loadMatchmakingListings",
+    "persistMatchmakingListing",
+    "removeMatchmakingListing",
+    "joinRoom",
+    "unsubscribeRoomHandle",
+    "attachRoomObservation",
+    "loadRoomState",
+    "persistAndBroadcastGameState"
+  ],
+  "added_methods": [
+    "showOfflineRoomUnavailable"
+  ],
+  "rules": [
+    {
+      "name": "cribbage-logic.js",
+      "sha256": "3378ef1443639f05438e3946420cc93b607fe56cc13a560ae47ce64280c14c8f",
+      "same_as_original": true
+    },
+    {
+      "name": "background-music.js",
+      "sha256": "c2411916dc583b039b18364fcbc97737e03c379986be846abf9f62f6ec584d75",
+      "same_as_original": true
+    },
+    {
+      "name": "id.js",
+      "sha256": "5db97283ac9eae5ab4f573d4eebdf03febd473bea9b495936ed9963e707dc664",
+      "same_as_original": true
+    },
+    {
+      "name": "victory-results.js",
+      "sha256": "f60a2abe38b36acb1511305e365dd0072839624526e3cf07ca586a4cc3c06ee2",
+      "same_as_original": true
+    }
+  ],
+  "main_sha256": "9f82a4fe5048db10daccb94e3a9349b36208e1a3b0a1d2b04d1100bb70398079",
+  "footer_only_after_UI": {
+    "before_sha256": "a801e1320dd04f03c45cc1178e08504f4533a71bb1f0aa40efe7b60fbaf25586",
+    "after_sha256": "9f82a4fe5048db10daccb94e3a9349b36208e1a3b0a1d2b04d1100bb70398079",
+    "old": "Solo or multiplayer · 2 jokers standard · quick game: Joker Up",
+    "new": "Local CPU or training · 2 jokers standard · quick game: Joker Up",
+    "scope": "One UI footer literal only; no game code, rules, assets or state changed after UI verification."
+  },
+  "scope": "Original class-method AST fingerprints; service boundary changes and native single-device modes retained. No score/RNG/rule edits.",
+  "remote_job_changed": false
+}

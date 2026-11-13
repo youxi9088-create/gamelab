@@ -1,0 +1,2 @@
+Hyper Strike
+Serve index.html overHTTP. Originalgameplay/parameters/proceduralassets retained,14originalaudio exactHTTPS/SHA. Real local runresult/retry, no SDK/account/network. Exactly5actions verify launch/leftmove/autofire/naturalFINAL0/retry/FINAL324chain2. Space aftergameover is notbombverification. Reload/charge/boss/pause/mobile nottested. FouroriginalAa mapundefinedwarnings retained. Normalreview only, noapproval/supply.

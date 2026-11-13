@@ -1,0 +1,477 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "key",
+        "key": "WASD/P",
+        "result": "OriginalGP8pods drive/pause; nativeCoastline full3checkpoints finish1:19.72 score1820 withoutmedal."
+      },
+      {
+        "type": "reload",
+        "result": "Originalroute HallofFame1:19.72 Zenith-X persisted."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8913/",
+      "http://127.0.0.1:8913/main.js",
+      "http://127.0.0.1:8913/vendor/001-three-0.185.js",
+      "http://127.0.0.1:8913/vendor/003-RoundedBoxGeometry.js",
+      "http://127.0.0.1:8913/vendor/005-BufferGeometryUtils.js",
+      "http://127.0.0.1:8913/vendor/007-EffectComposer.js",
+      "http://127.0.0.1:8913/vendor/009-RenderPass.js",
+      "http://127.0.0.1:8913/vendor/011-ShaderPass.js",
+      "http://127.0.0.1:8913/vendor/013-UnrealBloomPass.js",
+      "http://127.0.0.1:8913/vendor/002-three.js",
+      "http://127.0.0.1:8913/vendor/004-RoundedBoxGeometry.js",
+      "http://127.0.0.1:8913/vendor/006-BufferGeometryUtils.js",
+      "http://127.0.0.1:8913/vendor/008-EffectComposer.js",
+      "http://127.0.0.1:8913/vendor/010-RenderPass.js",
+      "http://127.0.0.1:8913/vendor/012-ShaderPass.js",
+      "http://127.0.0.1:8913/vendor/014-UnrealBloomPass.js"
+    ],
+    "scope": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+    "network_scope": "Finalunchangedpackage startup andGrandPrixdrive/pause. SeparateearliersamepackagefullCoastlineroute/reloadrecordevidence.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "removed",
+      "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+      "evidence": [
+        "evidence/direct-repair/native-route-complete1820.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+      "evidence": [
+        "evidence/direct-repair/native-route-complete1820.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+      "evidence": [
+        "evidence/direct-repair/native-route-complete1820.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+      "evidence": [
+        "evidence/direct-repair/native-route-complete1820.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+      "evidence": [
+        "evidence/direct-repair/native-route-complete1820.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+      "evidence": [
+        "evidence/direct-repair/native-route-complete1820.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+      "evidence": [
+        "evidence/direct-repair/native-route-complete1820.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "key",
+      "key": "WASD/P",
+      "result": "OriginalGP8pods drive/pause; nativeCoastline full3checkpoints finish1:19.72 score1820 withoutmedal."
+    },
+    {
+      "type": "reload",
+      "result": "Originalroute HallofFame1:19.72 Zenith-X persisted."
+    }
+  ],
+  "scope": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-record11972.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-record11972.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-record11972.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-record11972.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-record11972.png",
+        "next_action": ""
+      }
+    ],
+    "scope": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。"
+  },
+  "dependency_review": {
+    "previous_revision": 4,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "Three.js引擎与原包离线启动，无加载错误。",
+          "evidence": "verification/367a3c26-8744-4058-b550-6ba78e4c02f0-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "核心玩法资源已加载并通过运行验证。",
+          "evidence": "verification/367a3c26-8744-4058-b550-6ba78e4c02f0-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "赛道、飞船、奖牌配置已验证。",
+          "evidence": "verification/367a3c26-8744-4058-b550-6ba78e4c02f0-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "单人Time Attack流程完全本地运行，未产生外部请求；在线模式未验证。",
+          "evidence": "verification/367a3c26-8744-4058-b550-6ba78e4c02f0-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地宿主接口正常，保存与再玩一次功能可用，无伪造奖励。",
+          "evidence": "verification/367a3c26-8744-4058-b550-6ba78e4c02f0-web-play.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 4,
+      "updated_at": "2026-10-30T11:06:22+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-record11972.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-record11972.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-record11972.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-record11972.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/reload-record11972.png",
+          "next_action": ""
+        }
+      ],
+      "scope": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。"
+    },
+    "basis": "1254preservedfunction/methodhashes plus11controllerreview/rendercaps, actualGardenfullresult/retry/Desert/reload; normalrevisionedAPI."
+  },
+  "base_version_id": "v-2d90bbc7f807",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "original_job": "job-133b98d03613",
+    "at": "2026-11-12T08:55:43.503308+00:00"
+  },
+  "game_profile": {
+    "category": "3D反重力竞速",
+    "dimension": "3D",
+    "perspective": "第三人称追尾动态相机；菜单为全屏UI叠加",
+    "core_gameplay": "OriginalGP8pods3circuits3laps and3soloTimeAttackroutes; actualCoastlinefullfinish1820.",
+    "core_experience": "霓虹都市、海滨日落与云端高塔主题下的快速街机竞速，强调速度感、跳跃、漂移连击与刷新最佳记录。",
+    "controls": "WASDsteerthrottle,Shift drift,E turbo,R checkpoint,P/Escpause",
+    "game_loop": "1. 标题页选择 PLAY SOLO / PLAY WITH FRIENDS\n2. 模式页选择 Grand Prix 或 Time Attack\n3. 选择赛道/路线与飞船\n4. 倒计时发车，操控飞船通过检查点并冲线\n5. 结算界面显示成绩、奖牌、Hall of Fame 与分数\n6. 可返回菜单或重试",
+    "content": "固定内容：3 条 Grand Prix 赛道（Sunset Harbor、Chrome Canyon、Sky Citadel），每条 3 圈；3 条 Time Attack 路线（Coastline Rush、Neon Freefall、Skyline Ascent），点对点单圈。8 艘可切换飞船，每艘四项属性条。奖牌分金/银/铜，Time Attack 有固定阈值。",
+    "progression": "无角色等级或解锁系统；通过刷新最佳时间进入 Hall of Fame，每条赛道/路线保存前 3 名记录。Grand Prix 以名次结算，前 3 名上领奖台。",
+    "save": "Originalpersonalroute records localStorage;1:19.72reloadverified.",
+    "rules": "目标：Time Attack 以最短用时从起点抵达终点；Grand Prix 完成规定圈数并争取前三名。成功/失败：Time Attack 完成即显示成绩与奖牌；Grand Prix 完成圈数后按名次显示胜利/领奖台/失败。计分：Time Attack 分数 = 时间奖励 + 干净线路奖励（根据擦墙与 glitch 次数）。奖牌阈值（Time Attack）：Coastline Rush 金 28.5s/银 31s/铜 34.5s；Neon Freefall 金 26s/银 28s/铜 31s；Skyline Ascent 金 27.5s/银 30s/铜 33.5s。",
+    "systems": "物理与移动：沿样条赛道的前进/横向/垂直速度，支持跳跃、落地、擦墙、掉出赛道复位。车辆系统：属性影响加速、极速、操控与重量；漂移等级提升可触发漂移涡轮。检查点系统：按 cpNext 递增，掉出赛道回到上一检查点。AI 系统：CPU 对手使用 rubber-banding 与技能参数，非玩家时自动转向。特效系统：尾焰、跳跃尘土、glitch 爆裂、屏幕震动与 UI 消息。",
+    "ui_flow": "标题页 → 模式选择 → 赛道/路线选择（含 Hall of Fame）→ 飞船选择 → 比赛 HUD → 暂停菜单（继续/重赛/返回菜单）→ 结算页（成绩/奖牌/Hall of Fame/分数/返回主菜单）。",
+    "level_design": "赛道由控制点与样条插值生成，包含隧道、跳板（kickers）、加速带（boosts）、移动障碍物（sliders）与静态路障（blocks）。每条赛道拥有独立主题配色、天空盒、建筑与广告牌，营造城市/海滨/云端氛围。",
+    "verification": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。",
+    "evidence": "source-analysis/js-2.16.0-274a27916de0710733493eafff5b2ed4d9549c597cec3da1774e59b615eed2d8/readable.js\nlocal-host.js\nverification/b51e72fe-1497-4559-bd05-46d8ffb3556c-web-play.json\nscreenshots/step-39.png, step-40.png, step-46.png",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "illustrations": [
+      {
+        "path": "screenshots/step-39.png",
+        "caption": "实际操作记录 1。画面文字：NEW RECORD!\n1:40.25\n♪\nNOW PLAYING\nCOASTLINE DASH\nTIME ATTACK · COASTLINE RUSH\nROUTE COMPLETE\n✓\nYOUR TIME\n1:40.25\nFirst run on this route\n🏆 NEW ROUTE RECORD\nGOLD\n0:28.50\nSILVER\n0:31.00\nBRONZE\n0:34.50\nHALL OF FAME\n1\tZENITH-X\t2026-10-30\t1:40.25\n2\tOpen spot\t\t--:--.--\n3\tOpen spot\t\t--:--.--\nFINISH\n1400\nTIME BONUS\n+0\nCLEAN LINE\n+440\n9 scrapes · 2 glitches\nSCORE\n1840"
+      },
+      {
+        "path": "screenshots/step-40.png",
+        "caption": "实际操作记录 2。画面文字：NEW RECORD!\n1:40.25\n♪\nNOW PLAYING\nCOASTLINE DASH\nTIME ATTACK · COASTLINE RUSH\nROUTE COMPLETE\n✓\nYOUR TIME\n1:40.25\nFirst run on this route\n🏆 NEW ROUTE RECORD\nGOLD\n0:28.50\nSILVER\n0:31.00\nBRONZE\n0:34.50\nHALL OF FAME\n1\tZENITH-X\t2026-10-30\t1:40.25\n2\tOpen spot\t\t--:--.--\n3\tOpen spot\t\t--:--.--\nFINISH\n1400\nTIME BONUS\n+0\nCLEAN LINE\n+440\n9 scrapes · 2 glitches\nSCORE\n1840\n本局结束\n\n得分：1840\n\n再玩一次"
+      },
+      {
+        "path": "screenshots/step-41.png",
+        "caption": "实际操作记录 3。画面文字：NEW RECORD!\n1:40.25\n♪\nNOW PLAYING\nCOASTLINE DASH\nTIME ATTACK · COASTLINE RUSH\nROUTE COMPLETE\n✓\nYOUR TIME\n1:40.25\nFirst run on this route\n🏆 NEW ROUTE RECORD\nGOLD\n0:28.50\nSILVER\n0:31.00\nBRONZE\n0:34.50\nHALL OF FAME\n1\tZENITH-X\t2026-10-30\t1:40.25\n2\tOpen spot\t\t--:--.--\n3\tOpen spot\t\t--:--.--\nFINISH\n1400\nTIME BONUS\n+0\nCLEAN LINE\n+440\n9 scrapes · 2 glitches\nSCORE\n1840\n本局结束\n\n得分：1840\n\n再玩一次"
+      },
+      {
+        "path": "screenshots/step-42.png",
+        "caption": "实际操作记录 4。画面文字：NEW RECORD!\n1:40.25\n♪\nNOW PLAYING\nCOASTLINE DASH\nTIME ATTACK · COASTLINE RUSH\nROUTE COMPLETE\n✓\nYOUR TIME\n1:40.25\nFirst run on this route\n🏆 NEW ROUTE RECORD\nGOLD\n0:28.50\nSILVER\n0:31.00\nBRONZE\n0:34.50\nHALL OF FAME\n1\tZENITH-X\t2026-10-30\t1:40.25\n2\tOpen spot\t\t--:--.--\n3\tOpen spot\t\t--:--.--\nFINISH\n1400\nTIME BONUS\n+0\nCLEAN LINE\n+440\n9 scrapes · 2 glitches\nSCORE\n1840\n本局结束\n\n得分：1840\n\n再玩一次"
+      },
+      {
+        "path": "screenshots/step-43.png",
+        "caption": "实际操作记录 5。画面文字：GLITCH\nRIDERS\nANTI-GRAVITY STREET GRAND PRIX\nPLAY SOLO\nPLAY WITH FRIENDS"
+      },
+      {
+        "path": "screenshots/step-44.png",
+        "caption": "实际操作记录 6。画面文字：GLITCH\nRIDERS\nANTI-GRAVITY STREET GRAND PRIX\nPLAY SOLO\nPLAY WITH FRIENDS"
+      },
+      {
+        "path": "screenshots/step-45.png",
+        "caption": "实际操作记录 7。画面文字：CHOOSE YOUR MODE\nGRAND PRIX\n\nThree laps of a circuit against seven rival pilots. Finish on the podium.\n\n3 CIRCUITS\n8 PODS\n3 LAPS\nTIME ATTACK\n\nPoint-to-point routes with no laps and no rivals: just you, the road and the clock.\n\n3 ROUTES\nSOLO\nA → B\n◀\nBACK"
+      },
+      {
+        "path": "screenshots/step-46.png",
+        "caption": "实际操作记录 8。画面文字：CHOOSE YOUR ROUTE\nOCEAN · SUNSET\nCOASTLINE RUSH\n\nBlast down the neon shore: a tunnel, two jumps and nobody in your way\n\nEASY\n3.4 KM\n★ GOLD 0:28.50\n🏆\nHALL OF FAME\n1\n1:40.25\nZENITH-X\n2\n1:40.25\nZENITH-X\n3\n--:--.--\nopen spot\nMEGACITY · MIDNIGHT RAIN\nNEON FREEFALL\n\nDive from the rooftops to street level through rain, drops and glitches\n\nMEDIUM\n3.1 KM\n★ GOLD 0:26.00\nABOVE THE CLOUDS · NEON DUSK\nSKYLINE ASCENT\n\nClimb a staircase of ramps and jumps up to the crown of the clouds\n\nHARD\n3.2 KM\n★ GOLD 0:27.50\n◀\nBACK\nNEXT\n▶"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "Readableoriginalapplicationseparatedmain.js andlocalTHREEvendor.",
+    "reuse": "Nativevehiclephysics/AI/parametriccourses/checkpoints/medals/localrecords/UI reusablewithadaptation; notseparatelycertified.",
+    "dependencies": "LocalTHREE/WebGL/WebAudio/localStorage; noonlineSDK.",
+    "preservation": "退役RemixSDK、全局成绩提交、好友房间控制器与UI，无假SDK或房间桩。保留206个原函数方法语义SHA，含原_t全部赛车物理/AI/检查点/计分、赛道数据、渲染及本地纪录；10处边界函数仅移除在线分支或SDK提交。首次边界折叠遗漏更新调用导致0秒，已保留旧诊断截图并恢复原R.update副作用，最终实际计时驾驶。大奖赛原8车开局/驾驶/暂停；海岸计时赛完整三检查点、1:19.72、FINISH1400+时间0+干净路线420=1820，7刮擦3故障，无奖牌；原菜单返回及刷新纪录1:19.72仍在。未验证大奖赛全3圈/其他两路线/奖牌/真实触控/听觉，不改变原难度/物理/AI/奖励。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 10041.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 7004.401,
+      "calls": 74,
+      "known_input_tokens": 2534367,
+      "known_output_tokens": 255243,
+      "cached_input_tokens_known": 860928,
+      "unknown_usage_calls": 1,
+      "known_estimated_cost_subtotals": {
+        "CNY": 46.84084940000002
+      },
+      "unknown_cost_calls": 2,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 21,
+          "input_tokens_known": 1311010,
+          "output_tokens_known": 42727,
+          "unknown_usage_calls": 0,
+          "known_cost_subtotals": {
+            "CNY": 6.7208294
+          },
+          "unknown_cost_calls": 1,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 53,
+          "input_tokens_known": 1223357,
+          "output_tokens_known": 212516,
+          "unknown_usage_calls": 1,
+          "known_cost_subtotals": {
+            "CNY": 40.120020000000004
+          },
+          "unknown_cost_calls": 1,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T08:19:05.463196+00:00",
+      "observed_until": "2026-11-12T08:56:48.830226+00:00",
+      "observed_wall_seconds": 2263.36703,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

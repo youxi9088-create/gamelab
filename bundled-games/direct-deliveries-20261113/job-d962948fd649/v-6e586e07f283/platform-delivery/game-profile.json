@@ -1,0 +1,38 @@
+{
+  "category": "休闲竞速 / 玩具车大乱斗",
+  "dimension": "3D",
+  "perspective": "第三人称跟随摄像机",
+  "core_gameplay": "选择赛道与规则后驾驶玩具赛车，在自动/手动油门下转向、漂移、拾取道具、抄近路并率先冲线。",
+  "core_experience": "轻松快节奏的家庭竞速，支持单人对战Bot、本地分屏合作及在线2V2。",
+  "controls": "1) WASD/方向键：转向（A/D或←/→）与前进（W/↑，Auto throttle开启时仅转向）。\n2) Shift：漂移 → 集气后松开后获得短暂加速（实机验证）。\n3) 数字键1/2/3：使用对应道具槽道具（实机验证）。\n4) E：向附近队友共享Nitro/Shield（源码确认，SOLO中未触发）。\n5) R：恢复/重回赛道（实机验证）。\n6) X（按住）：比赛中重新开始（源码确认）。\n7) Esc：暂停（源码确认）。\n8) 触屏：左右转向 + DRIFT/BRAKE/RECOVER按钮（源码确认）。",
+  "game_loop": "开始：从菜单选择SOLO/LOCAL/ONLINE、赛道、圈数、难度与道具规则。操作：倒计时后驾驶赛车，拾取道具、漂移、避障、抄近路。结果：按名次计分，团队模式比较总分，结算界面展示名次与数据。继续：REMATCH或返回主菜单，刷新后保留设置。",
+  "content": "固定5条赛道（Pillow Grand Prix、Countertop Clash、Garden Afterburn、Bubble Bath Bash、Garage Gauntlet）+ 随机赛道；4种车款风格；8种道具；可自定义车身/装饰/轮毂颜色与漆面。",
+  "progression": "本地SOLO最佳单圈时间会保存并生成幽灵车（ghost）用于下次同赛道/同圈数比赛；杯赛模式为3轮赛道组合；排行榜/购买未验证。",
+  "save": "localStorage保存：1) toybox-rally-settings-v2（设置、涂装、键位、画质等）；2) toybox-rally-best-v2（各赛道最佳时间）；3) toybox-rally-ghost-v2-{map}-{laps}（幽灵车轨迹）。比赛过程中不保存进度，刷新后回到主菜单。",
+  "rules": "目标：在设定圈数内取得最好名次。计分：按完赛名次递减给分（具体分值源码未精确定位）；团队模式下两队总分高者胜，1-2名包揽额外+2分奖励。成功/失败：完成比赛即进入结算；超时或被撞停可R恢复。",
+  "systems": "车辆系统：速度、侧滑、血量、护盾、加速、漂移蓄力、道具槽。道具系统：Nitro/Shock/Shield/Repair/Mine/Oil/Pulse/Tracker，赛道随机生成。Bot系统：根据难度控制速度与路线，会躲避和抄近路。场景系统：赛道包含加速垫、捷径、坡道与猫爪/水果等动态障碍。",
+  "ui_flow": "主菜单 → 模式选择（SOLO/LOCAL/ONLINE）→ 赛道/规则/涂装调整 → 开始比赛 → 倒计时HUD → 比赛中HUD（名次/圈数/道具/速度/提示）→ 结算界面（名次/数据/REMATCH/MAIN MENU）→ 主菜单。",
+  "level_design": "5条主题赛道分别对应卧室、厨房、后院、浴室、车库，每条长度约1.6-2.0km，含4条捷径；赛道配置通过源码Ye数组固化。",
+  "verification": "实机验证：启动、菜单导航、SOLO比赛完整闭环、刷新后设置保留、localStorage写入。仅源码确认：在线2V2、本地分屏、全部道具数值、排行榜、购买。未验证：在线联机流程、完整杯赛多轮、所有赛道闭环、全部键位组合。",
+  "evidence": "verification/6d7d661c-cd67-479a-b9a4-ce47dfeeb297-web-play.json；source-analysis/js-2.16.0-54f1a94b57afd8631806fee7af6a4d7df1942ecfb9c0b00a840f5a54219164d6/readable.js（ns、As、Al、ns初始化、l0提示、Xe SDK封装等）。",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/startup.png",
+      "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+    },
+    {
+      "path": "screenshots/current.png",
+      "caption": "本轮最终观察画面；仅证明已记录画面，验证范围见正文。"
+    }
+  ]
+}

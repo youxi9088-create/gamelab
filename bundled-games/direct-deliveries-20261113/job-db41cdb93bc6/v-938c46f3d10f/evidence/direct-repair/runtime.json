@@ -1,0 +1,171 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "warnings": [],
+  "missing": [],
+  "required_external": [],
+  "non_game_http_findings": [
+    {
+      "sequence": 250,
+      "source": {
+        "tabId": 29
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "A287E294A011DFCD4CE80BE291E624B4",
+        "hasExtraInfo": true,
+        "loaderId": "A7E7376DEF32507D13562D3C4DDEB411",
+        "requestId": "21136.40",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "utf-8",
+          "connectionId": 701480,
+          "connectionReused": false,
+          "encodedDataLength": 185,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Connection": "close",
+            "Content-Length": "460",
+            "Content-Type": "text/html;charset=utf-8",
+            "Date": "Thu, 12 Nov 2026 22:26:59 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "text/html",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8963,
+          "responseTime": 1794522419860.085,
+          "securityState": "secure",
+          "status": 404,
+          "statusText": "File not found",
+          "timing": {
+            "connectEnd": 0.553,
+            "connectStart": 0.231,
+            "dnsEnd": 0.231,
+            "dnsStart": 0.225,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1.384,
+            "receiveHeadersStart": 1.322,
+            "requestTime": 1279417.886521,
+            "sendEnd": 0.656,
+            "sendStart": 0.591,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8963/favicon.ico"
+        },
+        "timestamp": 1279417.888646,
+        "type": "Other"
+      }
+    }
+  ],
+  "non_game_http_resolution": "Original automaticfavicon404 preserved; explicitdataicon added after5UIsteps; no sixthnavigation or claim of finalHTML reload. Playerassets HTTP/SHA checked separately.",
+  "actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Original title/menu."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "Take part in history",
+      "result": "Original sortie/faction/map configuration."
+    },
+    {
+      "step": 3,
+      "type": "scroll",
+      "direction": "down",
+      "pages": 1,
+      "result": "Original spawnmap visible; counted independently."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "coordinate": [
+        529,
+        618
+      ],
+      "result": "VertGalantField native ground spawn;15min/100tickets."
+    },
+    {
+      "step": 5,
+      "type": "key",
+      "key": "e",
+      "hold_ms": 120,
+      "result": "Nativeboard→3sec runway signal→passiveautotakeoff observed17m; nofurtherinput."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "not_run",
+      "reason": "Exactly5actions; no currentreload."
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8963/index.html",
+    "http://127.0.0.1:8963/rosebud-game-defaults.css",
+    "http://127.0.0.1:8963/rosebud-game-defaults.js",
+    "http://127.0.0.1:8963/main.js",
+    "http://127.0.0.1:8963/_remote/0d0e081c7ee3d520/three@0.184.0.js",
+    "http://127.0.0.1:8963/bedroom-map.js",
+    "http://127.0.0.1:8963/_remote/777388bbfc7bc409/three.core.mjs.js",
+    "http://127.0.0.1:8963/_remote/b27e1bc27ef59d52/three.mjs.js",
+    "http://127.0.0.1:8963/assets/ground-tile.webp",
+    "http://127.0.0.1:8963/assets/fjord-alpine-terrain.webp",
+    "http://127.0.0.1:8963/assets/rail-ballast-gravel.webp",
+    "http://127.0.0.1:8963/assets/audio/engine-loop.mp3",
+    "http://127.0.0.1:8963/assets/audio/damaged-engine-sputter.mp3",
+    "http://127.0.0.1:8963/assets/audio/rotary-engine-start.mp3",
+    "http://127.0.0.1:8963/assets/audio/pilot-footsteps.mp3",
+    "http://127.0.0.1:8963/assets/audio/blue-english-military-drums-loop.mp3",
+    "http://127.0.0.1:8963/assets/audio/red-german-field-march.mp3",
+    "http://127.0.0.1:8963/assets/audio/welcome-battle-drums-long-loop-v125.mp3",
+    "http://127.0.0.1:8963/assets/audio/welcome-low-wwi-battlefield-bed.mp3",
+    "http://127.0.0.1:8963/assets/audio/engine-loop.mp3",
+    "http://127.0.0.1:8963/assets/audio/engine-loop.mp3",
+    "http://127.0.0.1:8963/assets/audio/engine-loop.mp3",
+    "http://127.0.0.1:8963/assets/audio/engine-loop.mp3",
+    "http://127.0.0.1:8963/assets/audio/rounded-vickers-gun-burst.mp3",
+    "http://127.0.0.1:8963/assets/audio/rounded-vickers-gun-burst.mp3",
+    "http://127.0.0.1:8963/assets/audio/rounded-vickers-gun-burst.mp3",
+    "http://127.0.0.1:8963/assets/audio/rounded-vickers-gun-burst.mp3",
+    "http://127.0.0.1:8963/assets/audio/rounded-vickers-gun-burst.mp3",
+    "http://127.0.0.1:8963/assets/audio/rounded-vickers-gun-burst.mp3",
+    "http://127.0.0.1:8963/assets/audio/rounded-vickers-gun-burst.mp3",
+    "http://127.0.0.1:8963/assets/audio/rounded-vickers-gun-burst.mp3",
+    "http://127.0.0.1:8963/assets/audio/rounded-vickers-gun-burst.mp3",
+    "http://127.0.0.1:8963/assets/audio/rounded-vickers-gun-burst.mp3",
+    "http://127.0.0.1:8963/assets/audio/truck-idle-loop.mp3",
+    "http://127.0.0.1:8963/assets/audio/old-wooden-door.mp3",
+    "http://127.0.0.1:8963/favicon.ico",
+    "http://127.0.0.1:8963/assets/audio/blue-english-military-drums-loop.mp3",
+    "http://127.0.0.1:8963/assets/audio/engine-loop.mp3",
+    "http://127.0.0.1:8963/assets/audio/engine-loop.mp3"
+  ],
+  "scope": "严格五步：原开场→Take part in history→滚动一次到原出生地图→点Vert Galant Field蓝色机场→E持续120ms原生登机；随后只观察原3秒起飞倒计时和自动离地，没有新增输入。实际原双翼机在场景前进，HUD Ammo1000/1000、Hull8/8、Alt17m，计时14:14、Blue100/Red99；Josef Immelmann crashed是NPC消息，不冒称玩家击杀或完赛。294原函数及ROUND_DURATION/SPAWN_LIMIT/MAX_SQUAD_SIZE/PLANES/FIELDS语义SHA保留，bedroom-map和原资源/Three字节不变。真正移除25个PeerJS房间host/join/send/receive/update及在线简报/菜单/每日任务接线；其余network读取仅投影为原启动时确切offline默认值，删除只针对传输状态的写入，原单人经济/本地生涯不切换在线war-chest。保留原存档aces、本地生涯/地图/飞机/数值、CPU模拟与飞行规则，不安装假Peer/SDK/账号或改难度。原作者在线Beta历史字段保留但无活动联机；原单人实时队伍排名是本局本地统计而非联网榜单。78完整网络事件无截断/外联/加载失败/异常，console无警告或错误。未重测本轮刷新/存档恢复、转向/射击/命中、坠毁/重生、整场胜负、其余模式/地图/机型/商店/任务；原历史报告存在起飞/坠毁/E重生/刷新证据，明确不当本轮重测。正常原任务入库到待验收，未批准未供货。首次自动/favicon.ico产生1条非游戏404，完整原记录保留；第五步后只加data图标声明防止该默认请求，未追加第六步重载，不冒称最终HTML已重载或本窗口全部HTTP200。播放器资源另逐项GET/SHA核对。",
+  "network_scope": "Pagedstartup/title/HQ/menu scroll/nativeairfieldclick/Eboarding/countdown andpassiveflightobservation. Fiveactions only; no sixthkey/reload orstateinjection.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

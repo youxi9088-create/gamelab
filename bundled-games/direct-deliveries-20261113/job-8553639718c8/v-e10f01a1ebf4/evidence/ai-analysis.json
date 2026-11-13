@@ -1,0 +1,67 @@
+{
+  "summary": "Pocketwild（浏览器游戏，疑似 Rosebud 平台作品）：本轮仅实机验证启动界面成功加载（标题、副文案、3个按钮、1个canvas、localStorage 1键、无运行错误），未执行任何交互动作（replay_action_count=0），因此全部玩法、控制、数值均未验证，不得声称完整验收。文件名清单提示存在宠物陪伴、房间布置、远征、票券、目标、离线奖励、经济/市场、社交/模拟玩家、进度等系统，但均仅为文件名级别证据。运行包 runtime_modified=false、editable_project_verified=false，二次开发边界限于静态资源与脚本副本层面，工程级可编辑性未验证。",
+  "game_profile": {
+    "category": "休闲养成/收集类（宠物陪伴＋房间布置＋远征收集）。依据：开始界面文案与模块文件名推测；细分类型未实机验证。",
+    "dimension": "未实机确认。实机仅确认存在1个canvas；资源文件名含 isometric（pocketwild-isometric-cottage），推测为2D等距（伪2.5D观感）渲染，未经运行画面断言。",
+    "perspective": "推测为等距（isometric）固定俯视视角，依据仅为资源文件名 pocketwild-isometric-cottage.webp/portrait；未实机验证。",
+    "core_gameplay": "开始界面文案实机确认：'Meet your companion, make a little room, and see what catches their eye.'（结识伙伴、布置小房间、观察什么吸引它们）。文件名提示的玩法模块：远征（expedition-data）、票券（ticket-manager）、目标（objective-data/manager）、药水（potion-data）、市场（marketplace-manager）、经济（economy-data）、宠物对话（pet-dialogue-manager）、NPC行为（npc-behavior-manager）；以上均未经实机或源码内容验证。",
+    "core_experience": "温馨治愈的小世界陪伴体验。佐证：标题 POCKETWILD、副标 'A little room for the wild.'、lofi 音频资源（cozy-theme、windowlight-lofi、mossy-afternoon-lofi）与宠物音效资源存在；资源存在已验证，实际播放与体验未验证。",
+    "controls": "1. 点击『New Game →』→ 进入新游戏（推测）→ 开始界面按钮可见（存在已实机验证，后果未验证）\n2. 点击『♪ sound』→ 推测切换声音开关 → 开始界面右上角（存在已验证，功能未验证）\n3. 点击『♙』→ 功能未确认，疑为设置/关于 → 开始界面右上角（仅存在性验证）\n4. 键盘按键 → 无任何已确认键位 → 未验证，不编造\n5. 指针锁定 → 未启用 → pointer_locked=false（实机验证）\n6. 文档焦点 → 在 BODY 上 → document_focused=true（实机验证）",
+    "game_loop": "开始：页面加载后进入标题界面，显示 POCKETWILD 与『New Game →』按钮（实机验证）。操作：本轮未执行任何操作；推测点击 New Game 进入伙伴/房间流程（未验证）。结果：无任何已观测结果状态。继续：无证据。文件名提示的可能循环（派遣远征→获得票券/奖励→完成目标→布置房间→离线收益结算）仅为推测，全部未验证。",
+    "content": "固定数量资源（文件清单级别验证）：宠物形象4个（trash-raccoon、mango-frog、beans-cat、luna-moth，均为 chunky 版）、展品/遗物图5个（world-relic、ancient-cauldron、moonstone-lantern、master-collectors-relic、explorer-compass）、音频7个（主题曲1、lofi2、宠物音效3、到达音效1）、房间背景与小屋等距图。程序生成：expedition-data.js、objective-data.js 等数据文件提示数据驱动内容；是否含随机/程序生成未确认。",
+    "progression": "progression-data.js 文件名提示存在进度/成长数据定义；等级、解锁条件、数值曲线全部未确认，无任何已查证数值。",
+    "save": "实机观测：localStorage 写入键 pocketwild-simulated-device-v1（22字符，正文未返回、未解读）；IndexedDB 存在 firebase-heartbeat-database（1条心跳）与 firebaseLocalStorageDb（空库）。account-save-manager.js 提示账号级存档模块。保存内容、触发时机、恢复流程、不保存项：均未确认；按运行限制，存储哈希不证明游戏进度被加载。",
+    "rules": "目标：界面文案支持'养育伙伴、布置房间、观察收集'的推测目标。成功/失败条件：未确认。计分公式：未确认。已查证阈值：无（本轮没有任何数值经过实机或源码内容断言，不编造）。",
+    "systems": "以下分解仅达文件名级别，系统交互未验证：1) 对象：伙伴宠物（pet-dialogue-manager、npc-behavior-manager）、展品遗物（5张展示图）、房间场景；2) 状态：进度（progression-data）、经济（economy-data）、票券（ticket-manager）、目标（objective-data/objective-manager）；3) 触发：远征（expedition-data）、离线收益（offline-reward-manager）；4) 外部/服务：社交（social-manager、social-player-service）、模拟玩家（simulated-player-manager）、市场（marketplace-manager）、内容安全（content-safety）、Firebase（firebase-config）。各系统间调用关系、状态机、触发条件均未确认。",
+    "ui_flow": "已实机验证的开始界面：H1 'POCKETWILD'、副标 'A little room for the wild.'、装饰行 'A NEW LITTLE LIFE AWAITS'、H2 'Come on in.'、说明文 'Meet your companion, make a little room, and see what catches their eye.'；按钮：『New Game →』(x≈500,y≈662)、『♙』(x≈890,y≈33)、『♪ sound』(x≈950,y≈33)。按钮转移：未执行任何点击，所有去向未验证。房间、远征、市场、背包等后续界面是否存在未确认。",
+    "level_design": "已确认（资源级别）：单房间/小屋场景资源 room-bg.webp、pocketwild-isometric-cottage.webp 及竖构图版本。未确认：关卡/场景数量、布局规则、解锁顺序、难度曲线。",
+    "verification": "实机验证：页面加载成功（passed=true、errors为空）、canvas×1、字体loaded、开始界面全部文案与3个按钮、localStorage 1键、IndexedDB 2库、无外部请求被阻断（blocked_count=0）。仅源码确认：webcrack 对 main.js 及2个 _runtime_resources 脚本生成反混淆静态副本（仅工具产物事实，内容未在本轮证据中给出审阅结论）；editable_project_verified=false。未验证：全部玩法、控制键位、数值、UI转移、存档读写、音频播放、网络依赖、后续界面。",
+    "evidence": "源码文件证据：main.js（webcrack 副本，sha256 4ca17b09…6389c0）、_runtime_resources/5f1bbd2677dfaf76e63f4a00.js（7ce152a0…）、9bc60622655377e0d76eec4b.js（5eea4f1c…）；系统线索文件名：expedition-data.js、ticket-manager.js、objective-data.js、objective-manager.js、offline-reward-manager.js、account-save-manager.js、social-manager.js、social-player-service.js、simulated-player-manager.js、marketplace-manager.js、economy-data.js、potion-data.js、progression-data.js、pet-dialogue-manager.js、npc-behavior-manager.js、content-safety.js、firebase-config.js（均仅文件名级别）。本轮实机证据位置：runtime.steps[0]（buttons/labels/text/input_state/storage 快照）、captured_screenshots: screenshots/startup.png、localStorage 键 pocketwild-simulated-device-v1、IndexedDB firebase-heartbeat-database 记录。补丁证据：index.html 哈希 97c943a4…→1ffe9d38…；静态资源绑定 host 哈希 e949556d…→27543779…（4个 _runtime_resources 脚本，注明未执行源码）。navigation/checkpoint：startup 阶段通过（约26.7s）。"
+  },
+  "editable_logic": [
+    "边界声明：runtime_modified=false 且 editable_project_verified=false，当前运行包未获工程级可编辑验证；二次开发只能在静态资源与脚本副本层面进行，改动后需重新运行验证。",
+    "推测的调参入口：expedition-data.js、economy-data.js、potion-data.js、progression-data.js、objective-data.js（命名提示为数据表），但内容未审阅，改动前必须做源码确认，不得假设字段结构。",
+    "推测的逻辑层：ticket-manager、objective-manager、offline-reward-manager、account-save-manager、social-manager、marketplace-manager、simulated-player-manager、pet-dialogue-manager、npc-behavior-manager（命名提示封装玩法逻辑），修改前需先反混淆并梳理依赖。",
+    "main.js 已有 webcrack 反混淆副本（静态分析产物），是理解主循环与模块装配的入口，但本轮未提供内容结论。",
+    "firebase-config.js 关联外部服务，改动可能影响存档/社交；注意本轮 required_external 为空，仅说明本次启动未强制外部依赖。",
+    "平台适配层 rosebud-game-defaults.css/js 与 _remote 平台脚本属于宿主环境，二次开发如需脱离平台需替换加载层。",
+    "补丁边界：index.html 与静态资源 host 绑定已发生受控变更（哈希记录见 evidence），二次开发须保持资源绑定一致；范围说明提及的 Cocos 类构建产物需编辑器/构建链验证，本包引擎标记为 browser，是否含此类产物未确认。"
+  ],
+  "portable_modules": [
+    "静态资源可直接移植：7个音频（mp3）、宠物形象4图、展品5图、房间/小屋背景图（webp）。",
+    "数据文件（expedition/economy/potion/progression/objective 各 data.js）按命名为独立数据模块，但实际耦合度未确认，移植性仅为文件名推测。",
+    "manager 类模块（ticket/objective/offline-reward/pet-dialogue/npc-behavior 等）命名独立，是否可剥离移植未确认。",
+    "_remote/ScriptsLoader-Universal.js 与 _remote/ProgressLogger.js 为 Rosebud 平台远程脚本，移植出该平台时需替换加载与日志层。",
+    "rosebud-game-defaults.css/js 为平台默认层，跨平台移植需适配或移除。",
+    "_runtime_resources 下4个哈希命名 js 为构建产物并与 host 绑定（补丁记录），直接移植需重新绑定来源。",
+    "Firebase 相关（firebase-config.js + IndexedDB 心跳库）属外部服务依赖，移植时需替换或禁用。"
+  ],
+  "dependencies": [
+    "Firebase：firebase-config.js；实机观测到 firebase-heartbeat-database（1条记录）与 firebaseLocalStorageDb（空）。",
+    "Rosebud 平台远程脚本：_remote/9c2ab15c…/ScriptsLoader-Universal.js、_remote/e57730bf…/ProgressLogger.js。",
+    "平台默认层：rosebud-game-defaults.css、rosebud-game-defaults.js。",
+    "本轮 runtime.external、blocked_external、required_external 均为空：启动阶段未观测到外部网络请求，adblock（Ghostery 2.20.1）拦截0条。",
+    "字体状态 loaded（字体来源未确认）。",
+    "运行时来源为隔离源 https://replica-runtime.invalid（复制品环境），生产环境依赖可能不同。"
+  ],
+  "verification_limits": [
+    "replay_action_count=0：未执行任何交互，没有 New Game 之后的任何证据，不能声称玩法验收。",
+    "仅一张启动截图（screenshots/startup.png），无玩法画面，维度/视角仅为资源名推测。",
+    "存储为只读哈希快照，存档正文从不返回，不证明游戏进度被保存或加载。",
+    "源码分析范围受限：最多3个≤1MB脚本的静态副本，且本轮证据未包含对其内容的审阅结论。",
+    "checkpoint 范围声明：仅观测到非 loopback 运行时，不保证未观测的计时器或部署配置行为。",
+    "隔离 origin（replica-runtime.invalid）下的存储与网络行为可能不同于生产环境。",
+    "patches 中静态资源绑定注明 'no source code is executed'，不代表这些脚本功能被验证。"
+  ],
+  "next_checks": [
+    "点击『New Game →』并录制后续 UI 流、场景切换与输入映射。",
+    "在房间/游戏场景验证键盘与指针交互（当前无任何已确认键位，禁止编造）。",
+    "审阅 webcrack 反混淆副本 main.js，确认主循环、场景管理与各 manager 的真实职责与调用关系。",
+    "验证远征/票券/目标/离线奖励系统是否随时间或操作实际触发，并记录数值与阈值。",
+    "触发一次存档写入并验证恢复路径（account-save-manager 与 localStorage 键 pocketwild-simulated-device-v1）。",
+    "确认 Firebase/社交/市场是否为核心必需：当前启动未强制外部请求，需测离线可玩边界。",
+    "验证『♪ sound』按钮行为与7个音频资源的实际播放。",
+    "通过实际画面断言确认维度与视角（2D 等距推测待证），并确认 canvas 渲染内容。",
+    "核对4个宠物、5个展品、远征/目标数据是否在游戏中真实出现及获取方式。"
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "schema": 1,
+  "registry_revision": "2026-10-30.1",
+  "features": {
+    "script": true,
+    "ruffle": false,
+    "swf": false,
+    "ccsettings": false,
+    "cocos2": false,
+    "defold-loader": false,
+    "defold-call": false,
+    "remix-sdk": false,
+    "module": true,
+    "importmap": true,
+    "unity": false
+  },
+  "selected": [
+    {
+      "id": "loader.browser",
+      "version": 1,
+      "group": "loader",
+      "adapter": "browser",
+      "provides": [
+        "browser-observed-capture"
+      ],
+      "evidence": [
+        "script"
+      ]
+    }
+  ],
+  "ambiguous": [],
+  "rejected": [
+    {
+      "id": "loader.ruffle",
+      "missing": [
+        "ruffle",
+        "swf"
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "loader.cocos2",
+      "missing": [
+        "ccsettings",
+        "cocos2"
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "loader.defold",
+      "missing": [
+        "defold-loader",
+        "defold-call"
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "host.remix",
+      "missing": [
+        "remix-sdk"
+      ],
+      "conflicts": []
+    }
+  ],
+  "engine": "browser",
+  "status": "matched",
+  "candidate": null,
+  "entry": "https://8c68f477-6c9a-4245-a0c0-f4000563c1f7.gdn.poki.com/e6b24f69-71b4-4eb8-bc56-31ef6702f5b3/index.html?country=CN&ccpaApplies=0&url_referrer=https%3A%2F%2Fpoki.com%2F&tag=pg-90e7254bfc9f53e9f70013d7118f52d6d9df1b5a&site_id=73&iso_lang=zh&poki_url=https%3A%2F%2Fpoki.com%2Fzh%2Fg%2Ftalking-tom-gold-run&hoist=yes&nonPersonalized=n&cloudsavegames=n&familyFriendly=n&device=desktop&categories=6%2C9%2C93%2C903%2C1190&ab=dd7beaa7ad7a5817c0daf4a131b0249768c2adda&experiment=b-7ac23bad&special_condition=landing&bot=1&domain=poki.com&game_id=8c68f477-6c9a-4245-a0c0-f4000563c1f7&game_version_id=e6b24f69-71b4-4eb8-bc56-31ef6702f5b3&inspector=0&csp=1",
+  "source_sha256": "aa1194568813d3f6942dbb9da198465212a37a1109a1367f9a8280d1c933ce93",
+  "stage": "runtime-verified",
+  "verification": "gameplay-pending",
+  "history": [
+    {
+      "stage": "entry-observed",
+      "registry_revision": "2026-10-30.1",
+      "source_sha256": "aa1194568813d3f6942dbb9da198465212a37a1109a1367f9a8280d1c933ce93",
+      "selected": [
+        "loader.browser"
+      ]
+    },
+    {
+      "stage": "captured",
+      "engine": "browser",
+      "files": 12
+    },
+    {
+      "stage": "runtime-failed",
+      "errors": 0,
+      "missing": 6,
+      "required_external": 0
+    },
+    {
+      "stage": "runtime-failed",
+      "errors": 0,
+      "missing": 137,
+      "required_external": 0
+    },
+    {
+      "stage": "runtime-failed",
+      "errors": 0,
+      "missing": 60,
+      "required_external": 0
+    },
+    {
+      "stage": "runtime-failed",
+      "errors": 0,
+      "missing": 48,
+      "required_external": 0
+    },
+    {
+      "stage": "runtime-failed",
+      "errors": 0,
+      "missing": 48,
+      "required_external": 0
+    },
+    {
+      "stage": "runtime-failed",
+      "errors": 0,
+      "missing": 36,
+      "required_external": 0
+    },
+    {
+      "stage": "runtime-failed",
+      "errors": 0,
+      "missing": 152,
+      "required_external": 0
+    },
+    {
+      "stage": "runtime-failed",
+      "errors": 0,
+      "missing": 39,
+      "required_external": 0
+    },
+    {
+      "stage": "runtime-failed",
+      "errors": 0,
+      "missing": 58,
+      "required_external": 0
+    },
+    {
+      "stage": "runtime-verified",
+      "passed": true,
+      "actions": 0,
+      "scope": "Offline startup and executed inputs; gameplay acceptance is independent"
+    },
+    {
+      "stage": "gameplay-reviewed",
+      "verification": "gameplay",
+      "evidence": "verification/55f5c1ea-8a20-49b7-857a-9fb51de86ce9-web-play.json"
+    },
+    {
+      "stage": "gameplay-reviewed",
+      "verification": "gameplay-pending",
+      "evidence": "verification/6d7774b2-d202-46e8-a43c-cb5af389029d-web-play.json"
+    },
+    {
+      "stage": "gameplay-reviewed",
+      "verification": "gameplay-pending",
+      "evidence": "verification/2d3e2372-fa26-4f47-96e3-cb6fd752e9ac-web-play.json"
+    }
+  ]
+}

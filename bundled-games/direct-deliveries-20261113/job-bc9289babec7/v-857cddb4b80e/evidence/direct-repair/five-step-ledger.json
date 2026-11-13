@@ -1,0 +1,60 @@
+{
+  "max_steps": 5,
+  "steps_used": 5,
+  "actual_steps": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8974/index.html",
+      "result": "Originalmenu andcitybackground."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "#game canvas",
+      "coordinate": [
+        1061,
+        362
+      ],
+      "result": "OriginalSTART transition toready."
+    },
+    {
+      "step": 3,
+      "type": "drag",
+      "selector": "#game canvas",
+      "from": [
+        490,
+        554
+      ],
+      "to": [
+        800,
+        554
+      ],
+      "result": "Native rotation/autojump31points3m; passive naturalRunOver59points5m/NewBest,0crystals."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "selector": "#game canvas",
+      "coordinate": [
+        546,
+        587
+      ],
+      "result": "OriginalTRYAGAIN returnsready scene."
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "http://127.0.0.1:8974/index.html",
+      "result": "Originalmenu restored; savedbest itself notverified afterreload."
+    }
+  ],
+  "unverified": [
+    "other3regions/highaltitude",
+    "crystal spending/dailyrewards/collection",
+    "bestscore persistenceafterreload",
+    "pause/audio/touch",
+    "paid/network removed"
+  ],
+  "stopped_at_limit": true
+}

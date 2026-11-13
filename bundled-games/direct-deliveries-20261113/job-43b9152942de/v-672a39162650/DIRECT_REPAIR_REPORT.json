@@ -1,0 +1,286 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "click",
+        "target": "title start",
+        "result": "home opening dialogue"
+      },
+      {
+        "type": "key",
+        "key": "arrows/WASD + Z",
+        "result": "movement, main dialogue and portal to living room"
+      },
+      {
+        "type": "key",
+        "key": "arrows",
+        "result": "three matching baskets moved onto plates; gate opened"
+      },
+      {
+        "type": "click",
+        "target": "ACT / Offer Treat / MERCY / Spare",
+        "result": "pet encounter resolved; HP 18/20 after dodge round"
+      },
+      {
+        "type": "click",
+        "target": "unlocked chest",
+        "result": "PRESENTS 1/4; second interaction says chest empty, count unchanged"
+      },
+      {
+        "type": "key",
+        "key": "Tab",
+        "result": "journey map shows living room and PRESENTS FOUND 1/4"
+      },
+      {
+        "type": "key",
+        "key": "C",
+        "result": "pause controls visible"
+      },
+      {
+        "type": "reload",
+        "result": "returned to original title, new game launches; no persistent save feature in original game"
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8879/index.html",
+      "http://127.0.0.1:8879/rosebud-game-defaults.css",
+      "http://127.0.0.1:8879/rosebud-game-defaults.js",
+      "http://127.0.0.1:8879/main.js",
+      "http://127.0.0.1:8879/assets/gemini_generated_image_ib4or0ib4or0ib4o1.jpeg",
+      "http://127.0.0.1:8879/assets/gemini_generated_image_lbuy4clbuy4clbuy1.jpeg",
+      "http://127.0.0.1:8879/assets/audio/partyville-memory-theme.mp3",
+      "http://127.0.0.1:8879/assets/audio/hurt.mp3",
+      "http://127.0.0.1:8879/assets/audio/jingle.mp3"
+    ],
+    "network_responses": [
+      {
+        "url": "http://127.0.0.1:8879/index.html",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8879/rosebud-game-defaults.css",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8879/rosebud-game-defaults.js",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8879/main.js",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8879/assets/gemini_generated_image_ib4or0ib4or0ib4o1.jpeg",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8879/assets/gemini_generated_image_lbuy4clbuy4clbuy1.jpeg",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:8879/assets/audio/partyville-memory-theme.mp3",
+        "status": 206
+      },
+      {
+        "url": "http://127.0.0.1:8879/assets/audio/jingle.mp3",
+        "status": 206
+      },
+      {
+        "url": "http://127.0.0.1:8879/assets/audio/hurt.mp3",
+        "status": 206
+      }
+    ],
+    "evidence": "evidence/direct-repair/network.json",
+    "scope": "Agent-operated desktop IAB, 960x720. Core first-room puzzle/encounter/reward path visually verified before reload. Network capture covers final package reload/startup with every declared image/audio loaded locally; later three rooms and full ending are not verified. No claim of persistent save."
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "Read complete local main.js and final index.html. No leaderboard/multiplayer/ad/payment entry, initialization, SDK or request. Removed unused host tools from package; observed reward is original puzzle/encounter reward, not an ad reward.",
+      "evidence": [
+        "index.html",
+        "main.js",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "Read complete local main.js and final index.html. No leaderboard/multiplayer/ad/payment entry, initialization, SDK or request. Removed unused host tools from package; observed reward is original puzzle/encounter reward, not an ad reward.",
+      "evidence": [
+        "index.html",
+        "main.js",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "Read complete local main.js and final index.html. No leaderboard/multiplayer/ad/payment entry, initialization, SDK or request. Removed unused host tools from package; observed reward is original puzzle/encounter reward, not an ad reward.",
+      "evidence": [
+        "index.html",
+        "main.js",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "Read complete local main.js and final index.html. No leaderboard/multiplayer/ad/payment entry, initialization, SDK or request. Removed unused host tools from package; observed reward is original puzzle/encounter reward, not an ad reward.",
+      "evidence": [
+        "index.html",
+        "main.js",
+        "evidence/direct-repair/network.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "Puzzle -> gate -> pet ACT/dodge/MERCY -> gift 1/4 -> repeat chest cannot duplicate reward.",
+      "evidence": [
+        "evidence/direct-repair/gift-1.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "Original two character sheets and three audio files load locally, HTTP success, no external requests.",
+      "evidence": [
+        "evidence/direct-repair/reload-title.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Original home and living room render, portal transitions and journey map inspected.",
+      "evidence": [
+        "evidence/direct-repair/map.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "Three baskets, matching plates, locked/open gate and chest react to real inputs.",
+      "evidence": [
+        "evidence/direct-repair/gift-1.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "Original player, companion and pet display and respond during movement/dialogue/encounter.",
+      "evidence": [
+        "evidence/direct-repair/gift-1.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Walk cycles, dialogue typing, battle projectiles, damage, companion hearts observed during actual play.",
+      "evidence": [
+        "evidence/direct-repair/gift-1.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "Title, dialogue, HP, gift counter, map, pause controls visually inspected at 960x720.",
+      "evidence": [
+        "evidence/direct-repair/pause.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "click",
+      "target": "title start",
+      "result": "home opening dialogue"
+    },
+    {
+      "type": "key",
+      "key": "arrows/WASD + Z",
+      "result": "movement, main dialogue and portal to living room"
+    },
+    {
+      "type": "key",
+      "key": "arrows",
+      "result": "three matching baskets moved onto plates; gate opened"
+    },
+    {
+      "type": "click",
+      "target": "ACT / Offer Treat / MERCY / Spare",
+      "result": "pet encounter resolved; HP 18/20 after dodge round"
+    },
+    {
+      "type": "click",
+      "target": "unlocked chest",
+      "result": "PRESENTS 1/4; second interaction says chest empty, count unchanged"
+    },
+    {
+      "type": "key",
+      "key": "Tab",
+      "result": "journey map shows living room and PRESENTS FOUND 1/4"
+    },
+    {
+      "type": "key",
+      "key": "C",
+      "result": "pause controls visible"
+    },
+    {
+      "type": "reload",
+      "result": "returned to original title, new game launches; no persistent save feature in original game"
+    }
+  ],
+  "scope": "Agent-operated desktop IAB, 960x720. Core first-room puzzle/encounter/reward path visually verified before reload. Network capture covers final package reload/startup with every declared image/audio loaded locally; later three rooms and full ending are not verified. No claim of persistent save.",
+  "implementation": {
+    "main_logic": "main.js: editable RPG state, collision, baskets, encounters and reward logic; preserved unchanged.",
+    "reuse": "Canvas, dialogue, collision, puzzle, battle and map are readable modules within one file; extraction/adaptation required, not independently certified reusable modules.",
+    "dependencies": "Native Canvas/WebAudio, local original images/audio, no server or external runtime SDK.",
+    "not_verified": [
+      "remaining three rooms",
+      "full ending",
+      "mobile touch movement",
+      "persistent save not implemented in original"
+    ]
+  },
+  "manual_execution": {
+    "executor": "Codex direct repair and real UI interaction",
+    "automated_model_conversion": false,
+    "base_version": "v-2d79ced708aa",
+    "original_job": "job-43b9152942de",
+    "at": "2026-11-11T13:29:01.909821+00:00"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

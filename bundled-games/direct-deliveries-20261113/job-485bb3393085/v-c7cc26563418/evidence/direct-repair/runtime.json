@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "missing": [],
+  "required_external": [],
+  "actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Originaltitle/175gold/stage1/1500HP rendered."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "canvas start",
+      "result": "Originalbattle started."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "key": "1",
+      "result": "NativeMelee training queue1/5, nativeunits spawned. Cost15 in code; passiveincome makes net screenshotdelta unsuitable."
+    },
+    {
+      "step": 4,
+      "type": "key",
+      "key": "q",
+      "result": "METEOR SHOWER and45sec cooldown, nativecombat/XP92 observed."
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "page",
+      "result": "Originaltitle/175gold/stage1/XP0/1500HP restored; battleisnotpersisted."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8925/assets/audio/hit.mp3",
+    "http://127.0.0.1:8925/assets/audio/hit.mp3",
+    "http://127.0.0.1:8925/assets/audio/boom.mp3",
+    "http://127.0.0.1:8925/",
+    "http://127.0.0.1:8925/_remote/3a125e88c76c9347/fonts.css",
+    "http://127.0.0.1:8925/rosebud-game-defaults.css",
+    "http://127.0.0.1:8925/rosebud-game-defaults.js",
+    "http://127.0.0.1:8925/main.js",
+    "http://127.0.0.1:8925/assets/fonts/e3237528af752eed937e7103.woff2",
+    "http://127.0.0.1:8925/assets/fonts/4a440f59a6bae9d20acc986b.woff2",
+    "http://127.0.0.1:8925/assets/battlefield.webp",
+    "http://127.0.0.1:8925/assets/fortress.webp",
+    "http://127.0.0.1:8925/assets/caveman.webp",
+    "http://127.0.0.1:8925/assets/bronze-warrior.webp",
+    "http://127.0.0.1:8925/assets/knight.webp",
+    "http://127.0.0.1:8925/assets/renaissance-musketeer.webp",
+    "http://127.0.0.1:8925/assets/industrial-infantry.webp",
+    "http://127.0.0.1:8925/assets/soldier.webp",
+    "http://127.0.0.1:8925/assets/cyber-soldier.webp",
+    "http://127.0.0.1:8925/assets/cyborg.webp",
+    "http://127.0.0.1:8925/assets/audio/battle-music.mp3"
+  ],
+  "scope": "遵守用户每款最多5步：启动→点击开始→按1近战出兵→按Q陨石技能→刷新。实际出兵进入1/5训练队列，原单位生成并进入交战；Q显示METEOR SHOWER及45秒冷却，玩家基地1449、XP92/250；刷新恢复初始175金、Stage1/8、XP0/250、双方1500生命及技能READY。整份main.js与原包逐字节一致，不改8时代/兵种/AI/伤害/经济/升级/胜负和难度。退役Rosebud加载器/聊天/图生/进度与OGP及网络拦截包装；23份原字体声明本地化，修正扩展名CSS MIME。保留原8时代、三类兵、基地自动防御、各时代三塔、升级卡、技能、原UI和图像/音频。原玩法无localStorage调用，旧审计swarmHi说法错误已纠正；刷新是重置而非中局恢复。42条完整事件覆盖第2—5步及末次完整加载，无截断/外联/失败/脚本异常/console警告错误。未等待胜负、未验证本次后续时代/升级卡/建塔/重开或真实触控听觉；此前Stage8观察保留为历史，不冒充本次完成。正常沿原任务交付待人工验收，不批准不供货。",
+  "network_scope": "Steps2-5 including complete reload; initial menu loaded before observation cursor.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

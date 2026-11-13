@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "missing": [],
+  "required_external": [],
+  "actions": [
+    {
+      "type": "key",
+      "selector": "canvas",
+      "result": "Normal walking to existing InsertCoin station and F: original countdown0score/3lives."
+    },
+    {
+      "type": "key",
+      "selector": "canvas",
+      "result": "Original steering eats dots, actual190then600points, collisions lose lives3to2to1; later native lobby-high600, no victory claim."
+    },
+    {
+      "type": "key",
+      "selector": "canvas",
+      "result": "Original F restart0/3lives retains600."
+    },
+    {
+      "type": "reload",
+      "result": "Final standalone local records restore600; actual190score then F exits and returns native InsertCoin-high600."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8890/index.html",
+    "http://127.0.0.1:8890/vendor/004-15e95a6cf14fc9ae2003f48bcdf1568e475cd15dd14a1a41fc1d3eb29a6ce294.js",
+    "http://127.0.0.1:8890/vendor/001-three-a973dc20bf0957e55145ef9e6b9c97d50275b224b1d81a57603249dd6750ab96.js",
+    "http://127.0.0.1:8890/vendor/002-BufferGeometryUtils.js",
+    "http://127.0.0.1:8890/game.js",
+    "http://127.0.0.1:8890/vendor/003-BufferGeometryUtils.js",
+    "data:image/png;base64,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",
+    "data:image/png;base64,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"
+  ],
+  "scope": "Desktop1280x720 actual original GlowMaze. Ordinary walking to InsertCoin and F starts original3-life countdown; actual scoring190 then600, ghost collisions lives3to2to1, later native lobby High600 (GameOver label transition not screenshot-captured; no victory claimed). Original restart resets0/3lives retaining600. Latest source removes inert host menu entry; final reload restored600, actual steering/countdown/190score and F exit returned InsertCoin-high600. All53 original game functions canonical SHA unchanged, only inter-game portal placement list retired. Original maze/pellets/ghostAI/lives/scoring/level data retained. Complete final reload/play/exit network window no truncation/external/missing/errors. Full-maze victory/later levels, power/ghost-eating/gem bonuses, achievements, mobile/controller/audio hearing not exhausted.",
+  "network_scope": "Final source reload/arrival, ordinary walking and F insertion, high600 restored, original countdown/lives/190score, native F exit and return to InsertCoin-high600. No all-level or victory claim.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

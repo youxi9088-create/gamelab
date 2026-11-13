@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "missing": [],
+  "required_external": [],
+  "actions": [
+    {
+      "type": "click",
+      "selector": "canvas",
+      "result": "Ordinary hold-to-fire and mouse steering, original formation/dive/hits/score/lives."
+    },
+    {
+      "type": "key",
+      "key": "p",
+      "result": "Original PAUSED overlay, P resumes."
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "result": "Actual explicit Stage1GameOver2540; normal restart0/3reserve icons retainsHI2540."
+    },
+    {
+      "type": "reload",
+      "result": "Original title nativeHI2540 restored."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8891/index.html",
+    "http://127.0.0.1:8891/_remote/3a125e88c76c9347/css2",
+    "http://127.0.0.1:8891/rosebud-game-defaults.css",
+    "http://127.0.0.1:8891/rosebud-game-defaults.js",
+    "http://127.0.0.1:8891/main.js",
+    "http://127.0.0.1:8891/assets/player-ship.webp",
+    "http://127.0.0.1:8891/assets/alien-bee.webp",
+    "http://127.0.0.1:8891/assets/alien-butterfly.webp",
+    "http://127.0.0.1:8891/assets/alien-boss.webp",
+    "http://127.0.0.1:8891/assets/space-bg.webp",
+    "http://127.0.0.1:8891/assets/audio/arcade-music.mp3",
+    "http://127.0.0.1:8891/assets/audio/laser-shot.mp3",
+    "http://127.0.0.1:8891/assets/audio/alien-explode.mp3",
+    "http://127.0.0.1:8891/assets/audio/arcade-music.mp3",
+    "http://127.0.0.1:8891/index.html",
+    "http://127.0.0.1:8891/_remote/3a125e88c76c9347/css2",
+    "http://127.0.0.1:8891/rosebud-game-defaults.css",
+    "http://127.0.0.1:8891/rosebud-game-defaults.js",
+    "http://127.0.0.1:8891/main.js",
+    "http://127.0.0.1:8891/assets/player-ship.webp",
+    "http://127.0.0.1:8891/assets/alien-bee.webp",
+    "http://127.0.0.1:8891/assets/alien-butterfly.webp",
+    "http://127.0.0.1:8891/assets/alien-boss.webp",
+    "http://127.0.0.1:8891/assets/space-bg.webp",
+    "http://127.0.0.1:8891/assets/audio/arcade-music.mp3",
+    "http://127.0.0.1:8891/assets/audio/laser-shot.mp3",
+    "http://127.0.0.1:8891/assets/audio/alien-explode.mp3"
+  ],
+  "scope": "Desktop1280x720 actual unchanged original StarWing main.js. Ordinary mouse steering and hold-to-fire, formation/dive/hit/score/life-loss feedback, actual Ppause/resume overlay. Intermediate run transitions not all captured, only explicit final Stage1 GAMEOVER2540 claimed. Original click restart score0/3reserve-life icons/HI2540, reload titleHI2540 restored. No stage-clear/victory claim. Original rules/difficulty/score/weapons/capture/rescue/boss/stages/local score preserved. Boss capture-rescue/dual-fighter, challenging/later stages, mobile touch and audio hearing not exhausted. Complete final window startup/shooting/pause/resume/GameOver/restart/reload27requests local, no truncation/missing/external/errors.",
+  "network_scope": "Final unchanged original main.js: reload/start/mouse-held shooting/pause-resume/native GameOver2540/restart0-with3reserve icons/reload titleHI2540. Earlier run not all transitions screenshot-captured; only explicit final GameOver2540 claimed.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

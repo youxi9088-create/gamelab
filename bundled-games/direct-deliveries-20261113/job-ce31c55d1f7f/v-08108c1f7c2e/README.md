@@ -1,0 +1,2 @@
+Football Cup: Soccer Game
+Serve index.html over HTTP. Original Cocos/Spine/full bundles/config and native gameplay preserved; native real local storage. Exactly5 UIactions including one initial failure and one no-move keyboard attempt. Original screen D/A buttons completed two native movement targets. Jump/shots/skills/fullmatch/post-play reload/reward/purchases not tested. Original source project not recovered; JS gameplay editable. External SDK/backend/cloud/rank/payments removed. No fake account/ad/payment success. No approval/supply.

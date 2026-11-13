@@ -1,0 +1,284 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "key",
+        "key": "Space",
+        "result": "Original forward throw/catch, score increases from 0 to 1 and 2"
+      },
+      {
+        "type": "drag",
+        "result": "Prior presentation build demonstrated curved throw and score to 8 with original combo and new walls; physics unchanged in final build"
+      },
+      {
+        "type": "key",
+        "key": "Space",
+        "result": "Final build three real obstacle collisions, lives 3 to 0; final score 3"
+      },
+      {
+        "type": "click",
+        "target": "PLAY AGAIN",
+        "result": "Original de reset, score 0 and 3 lives, native result hidden"
+      },
+      {
+        "type": "reload",
+        "result": "Fresh game score 0, prior best 8 restored to original hidden best-value DOM label"
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8882/index.html",
+      "http://127.0.0.1:8882/_remote/56c4fdab00adf668/css2.css",
+      "http://127.0.0.1:8882/_remote/25023b521d7747c7/three.min.js",
+      "http://127.0.0.1:8882/game.js",
+      "http://127.0.0.1:8882/_remote/571f63e52f8bedde/music1-rTr7oTZyHa-wWvN1d7TczfkXTFX3G3KelKgp1qZsO.mp3",
+      "http://127.0.0.1:8882/_remote/64f9b3159b470f16/FeVQS0BTqb0h60ACH55Q2A.woff2",
+      "http://127.0.0.1:8882/_remote/e3237528af752eed/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "http://127.0.0.1:8882/_remote/c94973c845238843/logo-tWUf4VMivC-LsnBT6yvPuSv2dGwErmc3NtKVz4DVw.webp",
+      "http://127.0.0.1:8882/fonts/f68f7fa97d7cca14.woff2",
+      "http://127.0.0.1:8882/index.html",
+      "http://127.0.0.1:8882/_remote/56c4fdab00adf668/css2.css",
+      "http://127.0.0.1:8882/_remote/25023b521d7747c7/three.min.js",
+      "http://127.0.0.1:8882/game.js",
+      "http://127.0.0.1:8882/_remote/571f63e52f8bedde/music1-rTr7oTZyHa-wWvN1d7TczfkXTFX3G3KelKgp1qZsO.mp3",
+      "http://127.0.0.1:8882/fonts/f68f7fa97d7cca14.woff2",
+      "http://127.0.0.1:8882/_remote/64f9b3159b470f16/FeVQS0BTqb0h60ACH55Q2A.woff2",
+      "http://127.0.0.1:8882/_remote/e3237528af752eed/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "http://127.0.0.1:8882/_remote/c94973c845238843/logo-tWUf4VMivC-LsnBT6yvPuSv2dGwErmc3NtKVz4DVw.webp"
+    ],
+    "scope": "Final build: score 0 to 3, three actual collisions, native game-over 3 and PLAY AGAIN reset to 0/three lives. Prior build before visibility-class correction reached score 8 and saved it; final build restores best=8 in original hidden DOM label. Hidden best label is functional DOM evidence, not visible HUD verification. Original 49 functions including throw/flight remain unchanged. No cosmetic unlock/mobile interaction verification. Desktop IAB 1280x720; infinite game has no full campaign ending. Original hidden best label checked as DOM state, not claimed visible HUD. Original native procedural scene and music retained; no fabricated cloud asset or leaderboard.",
+    "evidence": "evidence/direct-repair/network.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "multiplayer": {
+      "status": "absent",
+      "reason": "Read final source, entry and complete real network window; no multiplayer SDK, initialization, controls or calls. Local play only.",
+      "evidence": [
+        "index.html",
+        "game.js",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "Read final source, entry and complete real network window; no advertising SDK, initialization, controls or calls. Local play only.",
+      "evidence": [
+        "index.html",
+        "game.js",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "Removed global TOP 10 DOM, Pt score submission/fetch function and call; no fabricated entries. Original local best remains stored under original localStorage key.",
+      "evidence": [
+        "index.html",
+        "game.js",
+        "evidence/direct-repair/results-score3.png",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "payments": {
+      "status": "removed",
+      "reason": "Removed Farcade ownership lookup and purchase_complete SDK hook. No purchase API or purchase control remains. Existing score-based local cosmetic rules retained; unlocks not tested.",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/direct-repair/network.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "Real catches, scores/combo, obstacle collisions and lives, native result, replay and reload.",
+      "evidence": [
+        "evidence/direct-repair/results-score3.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "Original local music, Three.js, real WOFF2 fonts and procedural scene; no failed/external requests.",
+      "evidence": [
+        "evidence/direct-repair/reload.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Stadium, trees, field, crowd, flags, moving posts and walls render.",
+      "evidence": [
+        "evidence/direct-repair/combo-score4.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "Frisbee curves, obstacle collision and receiver catch operate on original rules.",
+      "evidence": [
+        "evidence/direct-repair/catch-score1.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "Original thrower/receiver/base, crowd and moving obstacle figures render; no new character art substituted.",
+      "evidence": [
+        "evidence/direct-repair/reload.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Disc rotation/rainbow trail, moving obstacles, hit shake and camera progression observed.",
+      "evidence": [
+        "evidence/direct-repair/collision-life2.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "Score, combo, three lives, collision messages, final score and actual PLAY AGAIN interaction inspected.",
+      "evidence": [
+        "evidence/direct-repair/results-score3.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "key",
+      "key": "Space",
+      "result": "Original forward throw/catch, score increases from 0 to 1 and 2"
+    },
+    {
+      "type": "drag",
+      "result": "Prior presentation build demonstrated curved throw and score to 8 with original combo and new walls; physics unchanged in final build"
+    },
+    {
+      "type": "key",
+      "key": "Space",
+      "result": "Final build three real obstacle collisions, lives 3 to 0; final score 3"
+    },
+    {
+      "type": "click",
+      "target": "PLAY AGAIN",
+      "result": "Original de reset, score 0 and 3 lives, native result hidden"
+    },
+    {
+      "type": "reload",
+      "result": "Fresh game score 0, prior best 8 restored to original hidden best-value DOM label"
+    }
+  ],
+  "scope": "Final build: score 0 to 3, three actual collisions, native game-over 3 and PLAY AGAIN reset to 0/three lives. Prior build before visibility-class correction reached score 8 and saved it; final build restores best=8 in original hidden DOM label. Hidden best label is functional DOM evidence, not visible HUD verification. Original 49 functions including throw/flight remain unchanged. No cosmetic unlock/mobile interaction verification. Desktop IAB 1280x720; infinite game has no full campaign ending. Original hidden best label checked as DOM state, not claimed visible HUD. Original native procedural scene and music retained; no fabricated cloud asset or leaderboard.",
+  "base_version_id": "v-d35da90babcf",
+  "manual_execution": {
+    "executor": "Codex direct repair and actual UI play",
+    "automated_model_conversion": false,
+    "base_version": "v-d35da90babcf",
+    "original_job": "job-f5ee835004fe",
+    "at": "2026-11-11T15:54:24.465908+00:00"
+  },
+  "implementation": {
+    "editable_source": "game.js original readable procedural scene, curve throw, collision, difficulty, score and HUD extracted from HTML.",
+    "reuse": "Throw curve, collision, procedural stadium and audio functions can be extracted with adaptation; reusable module certification not performed.",
+    "dependencies": "Local Three.js, original local MP3 and real WOFF2 fonts; native WebGL/Audio/localStorage; no backend SDK.",
+    "preservation": "49 original functions unchanged including pe throw and Mt flight. Original state key preserved; local result/replay replaces host game-over and 1200ms auto reset."
+  },
+  "game_profile": {
+    "category": "休闲体育投掷（飞盘/踢球式弹射）",
+    "dimension": "3D",
+    "perspective": "第三人称尾随视角，镜头位于发球台后上方俯瞰球道",
+    "core_gameplay": "按住飞盘向后拖动蓄力瞄准，松手掷出，击中旗帜目标得分并避开紫色柱状障碍，连续命中触发连击",
+    "core_experience": "单手拖拽即可进行的快节奏投掷挑战，追求连击与高分",
+    "controls": "鼠标/触摸按住飞盘 → 拖动蓄力并瞄准方向 → 松开掷出；拖动距离决定力度，方向决定轨迹（实机验证）\n再玩一次按钮 → 结算后点击重新开始（实机验证）\n键盘操作未验证，未发现键位提示",
+    "game_loop": "开始：飞盘置于发球台，3条生命，计分0；操作：拖拽掷出飞盘命中目标或撞障碍/失误；结果：命中加分并显示连击评语，失误扣1条生命；继续：生命耗尽弹出“本局结束+得分”面板，可点再玩一次开启新局",
+    "content": "单一循环球道场景：绿色球场、双侧看台彩色观众、树木与旗帜装饰；障碍为紫色层叠柱，随进度前压；关卡数量为程序循环未设独立关卡（实机范围）",
+    "progression": "得分随命中递增，连击显示×2 COMBO等评语（BOOM/BULLSEYE/NICE CATCH/SAVAGE/ON FIRE等）；生命3条，失误递减；未验证分数上限与难度递增规则",
+    "save": "Native localStorage key frisbee-loop-state retains original bestScore and selectedFrisbee format. Best 8 restored in hidden DOM; active match does not persist.",
+    "rules": "目标：掷出飞盘击中旗杆目标得分；成功：命中加分并触发连击评语；失败：未命中或撞障碍扣1生命，3条耗尽本局结束；计分公式具体数值未确认",
+    "systems": "投掷系统：拖拽向量映射力度与方向；碰撞系统：飞盘与目标/障碍判定；计分与连击系统：命中计数与评语弹出；生命系统：3星递减；结算系统：生命归零弹出宿主结算面板并可重开",
+    "ui_flow": "Original native stadium -> swipe or Space throws -> catches/combo or collision/life loss -> local GAME OVER -> PLAY AGAIN reset. Global leaderboard removed.",
+    "level_design": "单条纵深球道，障碍位置随投掷轮次前移增加压迫感；固定场景+程序排布障碍，无独立关卡切换（实机范围）",
+    "verification": "Final build: score 0 to 3, three actual collisions, native game-over 3 and PLAY AGAIN reset to 0/three lives. Prior build before visibility-class correction reached score 8 and saved it; final build restores best=8 in original hidden DOM label. Hidden best label is functional DOM evidence, not visible HUD verification. Original 49 functions including throw/flight remain unchanged. No cosmetic unlock/mobile interaction verification. Desktop IAB 1280x720; infinite game has no full campaign ending. Original hidden best label checked as DOM state, not claimed visible HUD. Original native procedural scene and music retained; no fabricated cloud asset or leaderboard.",
+    "evidence": "本轮截图screenshots/step-0至step-18及startup/current；运行报告steps含计分文本与结算labels；storage记录frisbee-loop-state刷新前后哈希一致；源码index.html内联游戏逻辑与local-host.js宿主保存接口",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "illustrations": [
+      {
+        "path": "screenshots/step-0.png",
+        "caption": "实际操作记录 1。画面文字：0\n×2 COMBO!"
+      },
+      {
+        "path": "screenshots/step-3.png",
+        "caption": "实际操作记录 4。画面文字：3\nNICE CATCH!"
+      },
+      {
+        "path": "screenshots/step-5.png",
+        "caption": "实际操作记录 6。画面文字：3\nWIPEOUT!"
+      },
+      {
+        "path": "screenshots/step-8.png",
+        "caption": "实际操作记录 9。画面文字：3\nCRASH!"
+      },
+      {
+        "path": "screenshots/step-10.png",
+        "caption": "实际操作记录 11。画面文字：4\nSAVAGE!"
+      },
+      {
+        "path": "screenshots/step-13.png",
+        "caption": "实际操作记录 14。画面文字：0\nCRASH!"
+      },
+      {
+        "path": "screenshots/step-15.png",
+        "caption": "实际操作记录 16。画面文字：0\n×2 COMBO!"
+      },
+      {
+        "path": "screenshots/step-18.png",
+        "caption": "实际操作记录 19。画面文字：1\nON FIRE!"
+      }
+    ]
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

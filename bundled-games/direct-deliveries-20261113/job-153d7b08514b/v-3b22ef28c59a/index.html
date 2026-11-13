@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+<head>
+	
+	
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Sir Rolls-A-Lot</title>
+<meta name="theme-color" content="#0e0918">
+
+
+<link rel="stylesheet" href="./_remote/3a125e88c76c9347/css2">
+<style>
+/* Layout: full-screen WebGL canvas with a thin HUD frame and centred modal panels */
+:root {
+  --night: #0e0918; --night-2: #1a1029; --panel: rgba(24, 14, 38, 0.9); --panel-2: rgba(38, 22, 58, 0.92);
+  --edge: rgba(255, 170, 80, 0.3); --ink: #f8efe1; --muted: #c6b7da; --pumpkin: #ff8a1c; --pumpkin-2: #ffb347;
+  --ember: #e0601a; --gold: #ffd24a; --hp: #ff5a5f; --hp-2: #b81d3a; --xp-a: #ff8a1c; --xp-b: #a066ff; --ghost: #a6ecff;
+  --font-display: 'Creepster', 'Impact', 'Haettenschweiler', fantasy;
+  --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-toon: 'Luckiest Guy', 'Nunito', system-ui, sans-serif; --line: #1d0f1c;
+  --safe-t: env(safe-area-inset-top, 0px); --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px); --safe-r: env(safe-area-inset-right, 0px);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; background: var(--night); color: var(--ink); font-family: var(--font-body); }
+body { touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; overscroll-behavior: none; -webkit-tap-highlight-color: transparent; }
+#game, #overlay { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; display: block; }
+#game { outline: none; cursor: crosshair; }
+#overlay, #floaters, #vignette, #flash, #mood, #banner { pointer-events: none; }
+#mood { position: fixed; inset: 0; background: radial-gradient(ellipse 75% 70% at 50% 52%, transparent 58%, rgba(8, 3, 14, 0.55) 100%); }
+#vignette { position: fixed; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, transparent 50%, rgba(210, 20, 45, 0.7) 100%); }
+#flash { position: fixed; inset: 0; opacity: 0; background: #fff3d0; mix-blend-mode: screen; }
+#floaters { position: fixed; inset: 0; overflow: hidden; }
+.floater { position: absolute; left: 0; top: 0; font-family: var(--font-display); font-size: 30px; letter-spacing: 1px; white-space: nowrap; color: #fff; will-change: transform, opacity;
+  text-shadow: 0 2px 0 #3a1408, 0 0 2px #3a1408, 2px 0 0 #3a1408, -2px 0 0 #3a1408, 0 -2px 0 #3a1408, 0 4px 12px rgba(0,0,0,0.6); }
+.floater.pop { color: #fff4d6; }
+.floater.combo { color: var(--gold); font-size: 34px; }
+.floater.chain { color: var(--gold); font-size: 38px; text-shadow: 0 0 14px rgba(255, 200, 60, 0.9), 0 2px 0 #4a2a00, 2px 0 0 #4a2a00, -2px 0 0 #4a2a00; }
+.floater.power { color: #ffb070; font-size: 26px; }
+.floater.heal { color: #8dff9a; font-family: var(--font-body); font-weight: 900; font-size: 22px; }
+.floater.whoa { color: #ffe36a; font-size: 34px; }
+.floater.big { color: #ff7a5a; font-size: 46px; }
+
+/* ---------- HUD ---------- */
+#hud { position: fixed; inset: 0; pointer-events: none; }
+.topbar { position: absolute; left: 0; right: 0; top: 0; padding: calc(var(--safe-t) + 10px) calc(var(--safe-r) + 12px) 0 calc(var(--safe-l) + 12px);
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; }
+.ico { width: 20px; height: 20px; flex: none; }
+.hp { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.hp .ico { color: var(--hp); filter: drop-shadow(0 0 6px rgba(255, 70, 90, 0.6)); }
+.bar { position: relative; height: 18px; border-radius: 9px; background: rgba(10, 5, 18, 0.72); border: 1px solid rgba(255, 255, 255, 0.14); overflow: hidden; }
+.hp .bar { width: min(34vw, 230px); }
+.bar .fill { position: absolute; inset: 0; transform-origin: left center; transition: transform 0.15s ease-out; }
+#hp-fill { background: linear-gradient(180deg, var(--hp), var(--hp-2)); }
+#hp-text { position: absolute; inset: 0; display: grid; place-items: center; font-size: 11px; font-weight: 900; letter-spacing: 0.5px; text-shadow: 0 1px 2px #000; font-variant-numeric: tabular-nums; }
+.pill { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 999px; background: var(--panel); border: 1px solid var(--edge); box-shadow: 0 4px 18px rgba(0,0,0,0.35); }
+.clock { font-weight: 900; font-size: 20px; font-variant-numeric: tabular-nums; letter-spacing: 1px; color: #ffe9c9; }
+.clock .ico { color: #fff3c4; }
+.clock.tick { animation: tick 0.9s ease-out; }
+@keyframes tick { 0% { transform: scale(1.35); box-shadow: 0 0 30px rgba(255, 170, 80, 0.8); } 100% { transform: scale(1); } }
+.right { display: flex; justify-content: flex-end; align-items: center; gap: 8px; }
+.score { font-weight: 900; font-size: 16px; font-variant-numeric: tabular-nums; }
+.score .ico { color: var(--pumpkin); }
+.icon-btn { pointer-events: auto; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--edge); background: var(--panel); color: var(--ink); display: grid; place-items: center; cursor: pointer; padding: 0; }
+.icon-btn svg { width: 18px; height: 18px; }
+.icon-btn:focus-visible, .btn:focus-visible, .card:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.xprow { position: absolute; left: 0; right: 0; top: calc(var(--safe-t) + 60px); padding: 0 calc(var(--safe-r) + 12px) 0 calc(var(--safe-l) + 12px); display: flex; align-items: center; gap: 10px; }
+.level { font-weight: 900; font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--gold); white-space: nowrap; }
+.xpbar { flex: 1; height: 8px; border-radius: 4px; background: rgba(10, 5, 18, 0.7); border: 1px solid rgba(255,255,255,0.1); overflow: hidden; position: relative; }
+#xp-fill { position: absolute; inset: 0; transform-origin: left; background: repeating-linear-gradient(115deg, var(--xp-a) 0 10px, #ffd18a 10px 14px, var(--xp-b) 14px 24px, #f6efe6 24px 28px); transition: transform 0.2s; }
+.kills { display: inline-flex; align-items: center; gap: 5px; font-weight: 800; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.kills .ico { width: 16px; height: 16px; }
+#bossbar { position: absolute; left: 50%; top: calc(var(--safe-t) + 80px); transform: translateX(-50%); width: min(80vw, 460px); text-align: center; }
+#boss-name { font-family: var(--font-display); font-size: 22px; letter-spacing: 1.5px; color: #e7b8ff; text-shadow: 0 0 10px rgba(170, 80, 255, 0.8), 0 2px 0 #2a0a3a; }
+#bossbar .bar { height: 14px; margin-top: 2px; }
+/* active power-ups: round chips on the right, the ring shows the time left */
+#pu-chips { position: absolute; right: calc(var(--safe-r) + 12px); top: calc(var(--safe-t) + 128px); display: flex; flex-direction: column; gap: 8px; }
+.pu-chip { width: 50px; height: 50px; border-radius: 50%; padding: 4px; box-sizing: border-box; background: conic-gradient(#ffd45a calc(var(--p, 1) * 360deg), rgba(24, 14, 38, 0.8) 0); box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35), 0 0 14px rgba(255, 200, 80, 0.35); }
+.pu-chip svg { display: block; width: 100%; height: 100%; padding: 4px; box-sizing: border-box; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #4a2a6a, #1e1030); }
+.pu-chip.ending { animation: chipBlink 0.32s steps(2) infinite; }
+@keyframes chipBlink { 50% { opacity: 0.35; } }
+#pu-toast { position: absolute; left: 50%; top: calc(var(--safe-t) + 128px); display: flex; align-items: center; gap: 10px; padding: 7px 16px 7px 8px; max-width: min(88vw, 380px);
+  background: var(--panel-2); border: 2px solid rgba(255, 212, 90, 0.55); border-radius: 18px; box-shadow: 0 6px 0 rgba(0, 0, 0, 0.3); opacity: 0; transform: translate(-50%, -12px) scale(0.85); transition: opacity 0.25s, transform 0.35s cubic-bezier(0.2, 1.5, 0.4, 1); }
+#pu-toast.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
+#pu-toast svg { width: 52px; height: 52px; flex: none; }
+#pu-toast b { display: block; font-family: var(--font-display); font-size: 22px; letter-spacing: 1px; color: #ffd45a; text-shadow: 0 2px 0 #2a0a3a; }
+#pu-toast span { display: block; font-size: 13.5px; font-weight: 800; line-height: 1.25; color: #fbeeff; }
+#boss-fill { background: linear-gradient(90deg, #6a1fb0, #c23a8a, #ff6a3a); }
+#hint { position: absolute; left: 50%; bottom: calc(var(--safe-b) + 92px); transform: translate(-50%, 12px); max-width: min(92vw, 520px); text-align: center;
+  padding: 10px 18px; border-radius: 14px; background: var(--panel-2); border: 1px solid var(--edge); font-weight: 800; font-size: 15px; line-height: 1.35; opacity: 0; transition: opacity 0.3s, transform 0.3s; }
+#hint.show { opacity: 1; transform: translate(-50%, 0); }
+.combo { position: absolute; left: 50%; bottom: calc(var(--safe-b) + 14px); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 4px; }
+#chain { display: flex; gap: 8px; }
+.slot { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: rgba(20, 12, 30, 0.75); border: 2px solid rgba(255, 210, 74, 0.22); transition: all 0.2s; }
+.slot svg { width: 30px; height: 30px; opacity: 0.25; filter: grayscale(1); transition: all 0.2s; }
+.slot.on { border-color: var(--gold); background: radial-gradient(circle, rgba(255, 210, 74, 0.45), rgba(60, 30, 10, 0.8)); box-shadow: 0 0 18px rgba(255, 200, 60, 0.75); }
+.slot.on svg { opacity: 1; filter: none; }
+.slot.on.hot { border-color: #fff2b0; background: radial-gradient(circle, rgba(255, 240, 160, 0.75), rgba(120, 50, 10, 0.85)); box-shadow: 0 0 22px rgba(255, 220, 90, 1), 0 0 6px #fff inset; }
+.slot.pop { animation: slotpop 0.45s ease-out; }
+@keyframes slotpop { 0% { transform: scale(1.6); } 60% { transform: scale(0.9); } 100% { transform: scale(1); } }
+.combo-label { font-size: 10px; font-weight: 900; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255, 220, 140, 0.75); text-shadow: 0 1px 2px #000; }
+
+/* ---------- Banner ---------- */
+#banner { position: fixed; left: 50%; top: 34%; transform: translate(-50%, -50%) scale(0.6); text-align: center; opacity: 0; width: 96vw; }
+#banner.show { animation: bannerIn 2.6s ease-out forwards; }
+#banner.kind-hour.show { animation-duration: 1.8s; }
+#banner-title { font-family: var(--font-display); font-size: clamp(44px, 11vw, 96px); line-height: 1; letter-spacing: 2px; color: var(--pumpkin);
+  text-shadow: 0 0 24px rgba(255, 120, 30, 0.7), 0 4px 0 #3a1206, 3px 0 0 #3a1206, -3px 0 0 #3a1206, 0 -3px 0 #3a1206; }
+#banner-sub { margin-top: 6px; font-weight: 900; font-size: clamp(15px, 3.6vw, 22px); letter-spacing: 1px; color: #ffe9c9; text-shadow: 0 2px 6px #000; }
+#banner.kind-hour #banner-title { font-family: var(--font-body); font-weight: 900; font-size: clamp(36px, 9vw, 64px); color: #ffe9c9; letter-spacing: 4px; }
+#banner.kind-boss #banner-title { color: #d58bff; text-shadow: 0 0 26px rgba(170, 70, 255, 0.85), 0 4px 0 #22052e, 3px 0 0 #22052e, -3px 0 0 #22052e; }
+#banner.kind-blast #banner-title { color: var(--gold); text-shadow: 0 0 34px rgba(255, 210, 74, 0.95), 0 4px 0 #4a2600, 3px 0 0 #4a2600, -3px 0 0 #4a2600; }
+@keyframes bannerIn { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) rotate(-4deg); } 10% { opacity: 1; transform: translate(-50%, -50%) scale(1.12) rotate(1deg); }
+  18% { transform: translate(-50%, -50%) scale(1) rotate(0); } 80% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -60%) scale(0.96); } }
+
+/* ---------- Screens ---------- */
+.screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; padding: calc(var(--safe-t) + 16px) calc(var(--safe-r) + 16px) calc(var(--safe-b) + 16px) calc(var(--safe-l) + 16px);
+  background: radial-gradient(ellipse at 50% 40%, rgba(14, 9, 24, 0.25), rgba(8, 4, 14, 0.82)); overflow-y: auto; touch-action: pan-y; }
+.screen[hidden] { display: none; }
+.screen > * { margin-block: auto; flex: none; }
+.panel { width: min(100%, 560px); background: var(--panel); border: 1px solid var(--edge); border-radius: 22px; padding: 26px 24px 24px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255,255,255,0.06); }
+.panel h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(36px, 8vw, 54px); line-height: 1; margin: 0 0 6px; text-align: center; letter-spacing: 1.5px; color: var(--pumpkin); text-shadow: 0 0 18px rgba(255, 120, 30, 0.45), 0 3px 0 #3a1206; text-wrap: balance; }
+.panel .lead { margin: 0 0 18px; text-align: center; color: var(--muted); font-weight: 700; }
+.btn { pointer-events: auto; font-family: var(--font-body); font-weight: 900; font-size: 16px; letter-spacing: 0.5px; color: var(--ink); background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 14px; padding: 12px 18px; cursor: pointer; transition: transform 0.12s, background 0.2s; }
+.btn:hover { background: rgba(255, 255, 255, 0.12); }
+.btn:active { transform: scale(0.97); }
+.btn.primary { font-size: 22px; padding: 16px 44px; text-transform: uppercase; letter-spacing: 2px; color: #2a0f02; border: none;
+  background: linear-gradient(180deg, #ffbf5a, var(--pumpkin) 55%, var(--ember)); box-shadow: 0 6px 0 #8a3208, 0 10px 30px rgba(255, 120, 30, 0.45); }
+.btn.primary:active { transform: translateY(3px); box-shadow: 0 3px 0 #8a3208, 0 6px 20px rgba(255, 120, 30, 0.45); }
+.row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.stack { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
+
+/* Title */
+.title-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; max-width: 640px; }
+.logo { display: flex; flex-direction: column; align-items: center; line-height: 0.82; transform: rotate(-3deg); }
+.logo-sir { font-family: var(--font-display); font-size: clamp(34px, 8vw, 56px); color: var(--gold); letter-spacing: 6px; text-shadow: 0 3px 0 #3a2200, 0 0 18px rgba(255, 200, 60, 0.6); }
+.logo-main { font-family: var(--font-display); font-size: clamp(58px, 15vw, 128px); color: var(--pumpkin); letter-spacing: 2px;
+  text-shadow: 0 0 34px rgba(255, 110, 20, 0.65), 0 6px 0 #3a1206, 4px 0 0 #3a1206, -4px 0 0 #3a1206, 0 -4px 0 #3a1206, 0 12px 30px rgba(0,0,0,0.7); }
+.subtitle { margin: 0; font-weight: 900; font-size: clamp(16px, 4vw, 22px); letter-spacing: 1.5px; text-transform: uppercase; color: #ffe0b8; text-shadow: 0 2px 8px #000; }
+.tagline { margin: -4px 0 6px; font-weight: 700; color: var(--muted); text-shadow: 0 2px 6px #000; }
+.best { margin: 0; font-weight: 800; font-size: 13px; color: rgba(255, 220, 160, 0.8); font-variant-numeric: tabular-nums; min-height: 1em; }
+.ready .logo { animation: logoIn 1.2s cubic-bezier(.2,1.4,.4,1) both; }
+@keyframes logoIn { from { opacity: 0; transform: rotate(-3deg) translateY(-30px) scale(0.85); } to { opacity: 1; transform: rotate(-3deg); } }
+
+/* How to play */
+.gestures { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+.gestures th { text-align: left; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--gold); padding: 0 10px; }
+.gestures td { background: rgba(255, 255, 255, 0.05); padding: 10px; vertical-align: middle; font-weight: 700; line-height: 1.35; font-size: 14px; }
+.gestures td:first-child { border-radius: 12px 0 0 12px; width: 46%; }
+.gestures td:last-child { border-radius: 0 12px 12px 0; color: #f1e4d4; font-weight: 600; }
+.g-cell { display: flex; align-items: center; gap: 10px; }
+.g-cell svg { width: 44px; height: 44px; flex: none; }
+/* on-screen touch controls: only shown on touch devices (toggled from game.js) */
+#touch-ui { position: fixed; inset: 0; pointer-events: none; display: none; }
+#touch-ui.show { display: block; }
+.t-pad { position: absolute; left: 0; top: 0; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; transition: opacity 0.2s; }
+#t-stick { background: radial-gradient(circle, rgba(20, 10, 30, 0.25), rgba(20, 10, 30, 0.5)); border: 2px solid rgba(255, 210, 160, 0.35); opacity: 0.55; }
+#t-stick.active { opacity: 1; border-color: rgba(255, 210, 74, 0.8); box-shadow: 0 0 18px rgba(255, 170, 60, 0.35); }
+#t-knob { position: absolute; left: 50%; top: 50%; width: 52px; height: 52px; margin: -26px 0 0 -26px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #ffcf8a, #ff8a1c 55%, #b24a08); box-shadow: 0 3px 0 rgba(0,0,0,0.35), 0 0 12px rgba(255, 140, 40, 0.5); }
+#t-kick { background: conic-gradient(rgba(255, 90, 40, 0.9) calc(var(--c, 0) * 360deg), rgba(20, 10, 30, 0.45) 0); opacity: 0.5;
+  -webkit-mask: radial-gradient(circle, transparent 46px, #000 47px); mask: radial-gradient(circle, transparent 46px, #000 47px); }
+#t-kick.active { opacity: 1; }
+#t-kick.steer { background: rgba(140, 200, 255, 0.6); opacity: 0.9; }
+#t-kick-ico { position: absolute; left: 0; top: 0; width: 44px; height: 44px; margin: -22px 0 0 -22px; color: #ff8a1c; opacity: 0.6; filter: drop-shadow(0 2px 2px #000); }
+.t-label { position: absolute; left: 0; top: 0; transform: translate(-50%, 0); font-size: 10px; font-weight: 900; letter-spacing: 1.4px; text-transform: uppercase; color: rgba(255, 225, 170, 0.7); text-shadow: 0 1px 2px #000; white-space: nowrap; }
+.touch-only { display: none; }
+@media (pointer: coarse) { .mouse-only { display: none; } .touch-only { display: table-row; } }
+.tips { margin: 14px 0 18px; padding: 0; list-style: none; display: grid; gap: 8px; }
+.tips li { padding: 10px 12px 10px 38px; position: relative; background: rgba(255, 210, 74, 0.07); border-radius: 12px; font-weight: 700; font-size: 14px; line-height: 1.4; }
+.tips li::before { content: ''; position: absolute; left: 12px; top: 12px; width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff2b0, var(--gold) 45%, #a8640a); }
+.tips li:first-child { background: rgba(255, 210, 74, 0.16); border: 1px solid rgba(255, 210, 74, 0.35); }
+
+/* Credits */
+#screen-credits .panel { width: min(100%, 600px); }
+.credits-kicker { margin: 0 0 10px; text-align: center; color: var(--gold); font-weight: 900; letter-spacing: 1.4px; text-transform: uppercase; }
+.credits-section { margin-top: 14px; padding: 14px 16px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 15px; background: rgba(255, 255, 255, 0.045); }
+.credits-section h3 { margin: 0 0 8px; color: var(--gold); font-size: 14px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+.credits-section p { margin: 4px 0; color: var(--muted); font-weight: 700; line-height: 1.45; }
+.credits-section strong { color: var(--ink); }
+.credits-link { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 8px; padding: 11px 13px; border-radius: 12px; color: var(--ink); text-decoration: none; font-weight: 900;
+  background: rgba(255, 138, 28, 0.11); border: 1px solid rgba(255, 170, 80, 0.24); transition: background 0.18s, transform 0.18s, border-color 0.18s; pointer-events: auto; }
+.credits-link:hover { background: rgba(255, 138, 28, 0.2); border-color: rgba(255, 170, 80, 0.55); transform: translateY(-1px); }
+.credits-link:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.credits-link .credit-arrow { color: var(--gold); font-size: 20px; }
+.credits-thanks { text-align: center; }
+.credits-thanks h3 { color: var(--pumpkin-2); }
+#btn-credits-back { margin-top: 16px; }
+
+/* Level up: cartoon power-up cards (ink outlines, sticker badges, bouncy) */
+#screen-levelup .panel { width: min(100%, 1060px); background: none; border: 0; box-shadow: none; padding: 6px 4px 14px; }
+#screen-levelup h2 { font-size: clamp(46px, 10vw, 78px); color: #ffb021; transform: rotate(-2deg); animation: luTitle 0.6s cubic-bezier(.2,1.6,.4,1) both;
+  text-shadow: 0 0 24px rgba(255, 140, 30, 0.55), 0 6px 0 var(--line), 3px 0 0 var(--line), -3px 0 0 var(--line), 0 -3px 0 var(--line), 3px 3px 0 var(--line), -3px 3px 0 var(--line), 3px -3px 0 var(--line), -3px -3px 0 var(--line); }
+#screen-levelup .lead { font-family: var(--font-toon); font-weight: 400; font-size: clamp(18px, 3.6vw, 25px); letter-spacing: 1px; text-transform: uppercase; color: #fff3dc; margin: 4px 0 20px;
+  text-shadow: 0 3px 0 var(--line), 2px 0 0 var(--line), -2px 0 0 var(--line), 0 -2px 0 var(--line); }
+@keyframes luTitle { from { opacity: 0; transform: rotate(-9deg) scale(0.35); } to { opacity: 1; transform: rotate(-2deg) scale(1); } }
+#cards { display: grid; gap: 18px; margin-top: 4px; }
+/* the game HUD steps back while choosing */
+#hud { transition: opacity 0.25s; }
+body:has(#screen-levelup:not([hidden])) #hud { opacity: 0.3; }
+body:has(#screen-levelup:not([hidden])) #hint { opacity: 0; }
+.card { --c1: #ffe0a8; --c2: #ff8a1c; --badge: 94px;
+  position: relative; pointer-events: auto; display: grid; grid-template-columns: var(--badge) 1fr; align-items: center; gap: 14px; width: 100%; text-align: left;
+  padding: 14px 18px 14px 14px; border-radius: 26px; border: 3.5px solid var(--line);
+  background: radial-gradient(circle at 18% 10%, #fffdf6, #fff1d8 55%, #ffe1b0);
+  box-shadow: 0 7px 0 var(--line), 0 18px 36px rgba(0, 0, 0, 0.5);
+  color: #3b1452; font-family: var(--font-body); cursor: pointer; transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.18s cubic-bezier(.3,1.6,.5,1), box-shadow 0.18s;
+  animation: cardPop 0.55s cubic-bezier(.2,1.5,.4,1) both; animation-delay: calc(var(--i, 0) * 0.09s + 0.12s); }
+@keyframes cardPop { 0% { opacity: 0; transform: translateY(48px) scale(0.5) rotate(calc(var(--tilt, 0deg) - 12deg)); } 100% { opacity: 1; transform: rotate(var(--tilt, 0deg)); } }
+.card:active { transform: rotate(var(--tilt, 0deg)) translateY(5px) scale(0.98); box-shadow: 0 2px 0 var(--line), 0 10px 20px rgba(0, 0, 0, 0.45); transition-duration: 0.06s; }
+.card:focus-visible { outline: none; box-shadow: 0 7px 0 var(--line), 0 0 0 6px rgba(255, 210, 74, 0.8), 0 18px 36px rgba(0, 0, 0, 0.5); }
+@media (hover: hover) {
+  .card:hover { transform: rotate(0deg) translateY(-7px) scale(1.035); box-shadow: 0 12px 0 var(--line), 0 0 0 6px rgba(255, 210, 74, 0.55), 0 26px 46px rgba(0, 0, 0, 0.55); }
+  .card:hover .card-art { animation: artWiggle 0.7s ease-in-out infinite; }
+  .card:hover .card-rays { animation-duration: 3s; }
+}
+.card-badge { position: relative; width: var(--badge); height: var(--badge); border-radius: 50%; overflow: hidden; display: grid; place-items: center; flex: none;
+  background: radial-gradient(circle at 50% 28%, var(--c1), var(--c2) 78%); border: 3.5px solid var(--line); box-shadow: inset 0 -7px 0 rgba(0, 0, 0, 0.16), 0 4px 0 var(--line); }
+.card-rays { position: absolute; inset: -30%; background: repeating-conic-gradient(rgba(255, 255, 255, 0.42) 0deg 9deg, transparent 9deg 22.5deg); animation: spin 14s linear infinite; }
+.card-art { position: relative; width: 76%; height: 76%; filter: drop-shadow(0 3px 0 rgba(29, 15, 28, 0.35)); }
+.card-emoji { position: relative; font-size: calc(var(--badge) * 0.5); line-height: 1; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes artWiggle { 0%, 100% { transform: rotate(0) scale(1); } 30% { transform: rotate(-9deg) scale(1.1); } 65% { transform: rotate(7deg) scale(1.05); } }
+.card-text { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.card-name { font-family: var(--font-toon); font-size: 23px; line-height: 1.05; letter-spacing: 0.5px; text-transform: uppercase; color: #3b1452; }
+.card-desc { font-size: 15.5px; font-weight: 800; color: #5f3c66; line-height: 1.3; }
+.pips { display: inline-flex; gap: 5px; }
+.pips i { width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid var(--line); background: #fff8ea; }
+.pips i.got { background: var(--c2); }
+.pips i.next { background: #ffd24a; animation: pipPulse 0.9s ease-in-out infinite; }
+@keyframes pipPulse { 50% { transform: scale(1.35); } }
+.card-new { position: absolute; top: -16px; right: 14px; z-index: 2; font-family: var(--font-toon); font-size: 16px; letter-spacing: 1px; text-transform: uppercase; color: #3a1206;
+  background: #ffd24a; border: 3px solid var(--line); border-radius: 12px; padding: 5px 10px 2px; box-shadow: 0 3px 0 var(--line); animation: newWobble 1.6s ease-in-out infinite; }
+@keyframes newWobble { 0%, 100% { transform: rotate(10deg) scale(1); } 50% { transform: rotate(4deg) scale(1.12); } }
+.card-key { position: absolute; top: -13px; left: -11px; z-index: 2; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; padding-top: 3px;
+  font-family: var(--font-toon); font-size: 18px; color: #3b1452; background: #fff3dc; border: 3px solid var(--line); box-shadow: 0 3px 0 var(--line); }
+@media (pointer: coarse) { .card-key { display: none; } }
+.t-purple { --c1: #e6ceff; --c2: #8a46d6; }
+.t-orange { --c1: #ffe2ad; --c2: #ff8a1c; }
+.t-blue { --c1: #e6f8ff; --c2: #55b4ea; }
+.t-gold { --c1: #fff4bd; --c2: #ffbb1f; }
+.t-pink { --c1: #ffdcec; --c2: #ff64a2; }
+/* three cards side by side when there is room */
+@media (min-width: 640px) {
+  #cards { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card { --badge: 126px; grid-template-columns: 1fr; justify-items: center; align-content: start; text-align: center; padding: 24px 16px 22px; min-height: 304px; }
+  .card-text { align-items: center; }
+  .card-name { font-size: 27px; }
+  .card-desc { font-size: 16px; }
+}
+/* low screens (phones sideways): smaller badges and text */
+@media (min-width: 640px) and (max-height: 560px) {
+  #screen-levelup .panel { padding-top: 0; }
+  #screen-levelup h2 { font-size: 38px; }
+  #screen-levelup .lead { font-size: 16px; margin-bottom: 14px; }
+  #cards { gap: 18px; }
+  .card { --badge: 80px; min-height: 0; padding: 14px 12px 14px; gap: 8px; }
+  .card-name { font-size: 20px; }
+  .card-desc { font-size: 13.5px; }
+}
+
+/* Game over / victory */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 6px 0 10px; }
+@media (max-width: 520px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+.best-line { text-align: center; margin: 0 0 16px; font-weight: 800; color: var(--muted); font-variant-numeric: tabular-nums; }
+.stats div { background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 10px 12px; }
+.stats dt { font-size: 11px; font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); }
+.stats dd { margin: 2px 0 0; font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; }
+.newbest { display: block; width: fit-content; margin: 0 auto 12px; padding: 4px 12px; border-radius: 999px; background: var(--gold); color: #2a1200; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; font-size: 12px; }
+#screen-over.win h2 { color: var(--gold); }
+
+/* Loading */
+.loading { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.loadbar { width: min(70vw, 320px); height: 10px; border-radius: 5px; background: rgba(255,255,255,0.1); overflow: hidden; }
+#loading-fill { height: 100%; background: linear-gradient(90deg, var(--ember), var(--gold)); transform-origin: left; transform: scaleX(0); transition: transform 0.2s; }
+#loading-text { font-weight: 800; color: var(--muted); }
+
+@media (max-width: 520px) {
+  .clock { font-size: 17px; padding: 5px 11px; }
+  .score { font-size: 14px; padding: 5px 10px; }
+  .hp .bar { width: 28vw; }
+  .panel { padding: 22px 16px 18px; border-radius: 18px; }
+  .gestures td { font-size: 13px; }
+  .g-cell svg { width: 36px; height: 36px; }
+  .slot { width: 42px; height: 42px; }
+}
+@media (max-height: 460px) { .xprow { top: calc(var(--safe-t) + 54px); } #hint { bottom: calc(var(--safe-b) + 80px); } }
+/* Mobile gameplay text stays level and compact, keeping the middle of the arena clear. */
+@media (pointer: coarse) {
+  .floater, .floater.combo, .floater.chain, .floater.power, .floater.heal, .floater.whoa, .floater.big { --tilt: 0deg; }
+  .floater { font-size: 22px; }
+  .floater.combo { font-size: 25px; }
+  .floater.chain { font-size: 28px; }
+  .floater.power { font-size: 20px; }
+  .floater.heal { font-size: 18px; }
+  .floater.whoa { font-size: 25px; }
+  .floater.big { font-size: 32px; }
+  #banner { top: 24%; width: calc(100vw - 28px); display: flex; flex-direction: row; justify-content: center; align-items: baseline; gap: 8px; white-space: nowrap; }
+  #banner-title { font-size: clamp(22px, 5.5vw, 40px); letter-spacing: 1px; }
+  #banner-sub { margin: 0; font-size: clamp(11px, 2.6vw, 15px); letter-spacing: 0.2px; }
+  #banner.kind-hour #banner-title { font-size: clamp(20px, 5vw, 36px); letter-spacing: 1px; }
+  #banner.show { animation-name: bannerMobileIn; }
+  @keyframes bannerMobileIn {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+    12% { opacity: 1; transform: translate(-50%, -50%) scale(1.04); }
+    20% { transform: translate(-50%, -50%) scale(1); }
+    80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -58%) scale(0.96); }
+  }
+  #hint { left: 50%; bottom: calc(var(--safe-b) + 98px); max-width: min(58vw, 260px); padding: 6px 10px; border-radius: 999px; font-size: 12px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #pu-toast { max-width: min(82vw, 320px); gap: 7px; padding: 5px 11px 5px 6px; }
+  #pu-toast svg { width: 38px; height: 38px; }
+  #pu-toast b { font-size: 17px; }
+  #pu-toast span { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { #banner.show { animation-duration: 0.01s; opacity: 1; } .ready .logo, .card, .card-rays, .card-new, .pips i.next, #screen-levelup h2 { animation: none; } }
+</style>
+</head>
+<body>
+<canvas id="game" tabindex="0"></canvas>
+<div id="mood"></div>
+<canvas id="overlay"></canvas>
+<div id="floaters"></div>
+<div id="vignette"></div>
+<div id="flash"></div>
+
+<div id="hud" hidden>
+  <div class="topbar">
+    <div class="hp"><svg class="ico" aria-hidden="true"><use href="#ico-heart"/></svg><div class="bar"><div id="hp-fill" class="fill"></div><span id="hp-text">100 / 100</span></div></div>
+    <div id="clock-pill" class="pill clock"><svg class="ico" aria-hidden="true"><use href="#ico-moon"/></svg><span id="clock">22:00</span></div>
+    <div class="right">
+      <div class="pill score"><svg class="ico" aria-hidden="true"><use href="#ico-pumpkin"/></svg><span id="score">0</span></div>
+      <button id="btn-pause" class="icon-btn" type="button" aria-label="Pause"><svg aria-hidden="true"><use href="#ico-pause"/></svg></button>
+    </div>
+  </div>
+  <div class="xprow"><span id="level" class="level">Taso 1</span><div class="xpbar"><div id="xp-fill" class="fill"></div></div><span class="kills"><svg class="ico" aria-hidden="true"><use href="#ico-skull"/></svg><span id="kills">0</span></span></div>
+  <div id="bossbar" hidden><div id="boss-name"></div><div class="bar"><div id="boss-fill" class="fill"></div></div></div>
+  <div id="pu-chips"></div>
+  <div id="pu-toast"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#pu-bomb"></use></svg><div><b></b><span></span></div></div>
+  <div id="touch-ui" aria-hidden="true">
+    <div id="t-stick" class="t-pad"><div id="t-knob"></div></div>
+    <div id="t-kick" class="t-pad"></div>
+    <svg id="t-kick-ico"><use href="#ico-pumpkin"/></svg>
+    <span id="t-stick-label" class="t-label">Move</span>
+    <span id="t-kick-label" class="t-label">Kick</span>
+  </div>
+  <div id="hint"></div>
+  <div class="combo">
+    <div id="chain">
+      <span class="slot"><svg aria-hidden="true"><use href="#ico-rutabaga"/></svg></span>
+      <span class="slot"><svg aria-hidden="true"><use href="#ico-rutabaga"/></svg></span>
+      <span class="slot"><svg aria-hidden="true"><use href="#ico-rutabaga"/></svg></span>
+      <span class="slot"><svg aria-hidden="true"><use href="#ico-rutabaga"/></svg></span>
+      <span class="slot"><svg aria-hidden="true"><use href="#ico-rutabaga"/></svg></span>
+    </div>
+    <span class="combo-label" data-t="combo"></span>
+  </div>
+</div>
+<div id="banner"><div id="banner-title"></div><div id="banner-sub"></div></div>
+
+<section id="screen-loading" class="screen">
+  <div class="loading">
+    <div class="logo"><span class="logo-sir">Sir</span><span class="logo-main">Rolls-A-Lot</span></div>
+    <div class="loadbar"><div id="loading-fill"></div></div>
+    <div id="loading-text" data-t="loading"></div>
+  </div>
+</section>
+
+<section id="screen-title" class="screen" hidden>
+  <div class="title-wrap">
+    <div class="logo"><span class="logo-sir">Sir</span><span class="logo-main">Rolls-A-Lot</span></div>
+    <p class="subtitle" data-t="subtitle"></p>
+    <p class="tagline" data-t="tagline"></p>
+    <button id="btn-play" class="btn primary" type="button" data-t="play"></button>
+    <div class="row">
+      <button id="btn-howto" class="btn" type="button" data-t="howto"></button>
+      <button id="btn-credits" class="btn" type="button" data-t="credits"></button>
+      <button id="btn-sound" class="btn" type="button"></button>
+    </div>
+    <p id="title-best" class="best"></p>
+  </div>
+</section>
+
+<section id="screen-howto" class="screen" hidden>
+  <div class="panel">
+    <h2 data-t="howtoTitle"></h2>
+    <table class="gestures">
+      <thead><tr><th data-t="gestureCol"></th><th data-t="actionCol"></th></tr></thead>
+      <tbody>
+        <tr class="mouse-only"><td><div class="g-cell"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="17" y="5" width="14" height="13" rx="3" fill="#2a1b3d" stroke="#ffd24a" stroke-width="2"/><rect x="2" y="21" width="14" height="13" rx="3" fill="#2a1b3d" stroke="#ffd24a" stroke-width="2"/><rect x="17" y="21" width="14" height="13" rx="3" fill="#2a1b3d" stroke="#ffd24a" stroke-width="2"/><rect x="32" y="21" width="14" height="13" rx="3" fill="#2a1b3d" stroke="#ffd24a" stroke-width="2"/><path d="M20.4 9 l1.6 5.2 2-3.6 2 3.6 1.6-5.2 M6 30.6 l3-6.2 3 6.2 M7.1 28.4 h3.8 M26.4 25.3 C25.6 24.2 21.7 24.2 21.7 26.1 C21.7 28.1 26.4 27.1 26.4 29.2 C26.4 31.1 22.4 31.1 21.5 29.7 M36.6 24.4 v6.2 h1.8 a3.1 3.1 0 0 0 0-6.2 z" fill="none" stroke="#fff3d6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="42" r="4" fill="#c9ced8"/></svg><span data-t="hk1"></span></div></td><td data-t="ak1"></td></tr>
+        <tr class="mouse-only"><td><div class="g-cell"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="10" cy="38" r="6" fill="#c9ced8"/><path d="M15 33 L33 15" stroke="#ffb347" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="2 5"/><circle cx="37" cy="11" r="7" fill="none" stroke="#ffd24a" stroke-width="2.5"/><path d="M37 2 v5 M37 15 v5 M28 11 h5 M41 11 h5" stroke="#ffd24a" stroke-width="2.5" stroke-linecap="round"/></svg><span data-t="hm1"></span></div></td><td data-t="am1"></td></tr>
+        <tr class="mouse-only"><td><div class="g-cell"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="12" cy="36" r="7" fill="#c9ced8"/><circle cx="34" cy="14" r="8" fill="#ff8a1c"/><path d="M8 22 L4 18 M14 20 L14 14 M20 22 L24 18" stroke="#ffe36a" stroke-width="3" stroke-linecap="round"/></svg><span data-t="hm2"></span></div></td><td data-t="am2"></td></tr>
+        <tr class="mouse-only"><td><div class="g-cell"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="30" r="6" fill="#c9ced8"/><circle cx="24" cy="30" r="15" fill="none" stroke="#ffd24a" stroke-width="3" stroke-dasharray="4 5"/><path d="M33 8 l9 9 -4 1 3 6 -3 1 -3 -6 -3 3 z" fill="#fff" stroke="#1d0f1c" stroke-width="1.5" stroke-linejoin="round"/><circle cx="11" cy="19" r="5" fill="#ff8a1c"/></svg><span data-t="hm3"></span></div></td><td data-t="am3"></td></tr>
+        <tr class="mouse-only"><td><div class="g-cell"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="14" y="8" width="20" height="32" rx="10" fill="#e8e1f2" stroke="#1d0f1c" stroke-width="2"/><path d="M24 8 v12 M14 20 h20" stroke="#1d0f1c" stroke-width="2"/><path d="M15 19 v-1 a9 9 0 0 1 9 -9 v11 z" fill="#ff8a1c"/><path d="M6 10 l4 3 M4 18 h5 M38 13 l4 -3" stroke="#ffd24a" stroke-width="2.5" stroke-linecap="round"/></svg><span data-t="hm4"></span></div></td><td data-t="am4"></td></tr>
+        <tr class="touch-only"><td><div class="g-cell"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="26" r="17" fill="rgba(20,10,30,0.4)" stroke="#ffd2a0" stroke-width="2.5"/><circle cx="30" cy="20" r="7.5" fill="#ff8a1c"/><path d="M8 26 h-4 M44 26 h-4 M24 10 v-4 M24 42 v4" stroke="#ffd24a" stroke-width="2.5" stroke-linecap="round"/></svg><span data-t="ht1"></span></div></td><td data-t="at1"></td></tr>
+        <tr class="touch-only"><td><div class="g-cell"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="14" cy="34" r="7" fill="#c9ced8"/><path d="M18 30 L36 12" stroke="#ffb347" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="2 5"/><path d="M30 10 L38 10 L38 18" fill="none" stroke="#ffb347" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="ht2"></span></div></td><td data-t="at2"></td></tr>
+        <tr class="touch-only"><td><div class="g-cell"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="12" r="7" fill="#ff8a1c"/><path d="M6 32 H42" stroke="#ffd24a" stroke-width="3.5" stroke-linecap="round"/><path d="M12 26 L6 32 L12 38 M36 26 L42 32 L36 38" fill="none" stroke="#ffd24a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="ht3"></span></div></td><td data-t="at3"></td></tr>
+        <tr class="touch-only"><td><div class="g-cell"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="40" r="7" fill="#c9ced8"/><circle cx="24" cy="9" r="6" fill="#ff8a1c"/><path d="M24 17 V30" stroke="#ff6a3a" stroke-width="3.5" stroke-linecap="round"/><path d="M18 25 L24 31 L30 25" fill="none" stroke="#ff6a3a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="ht4"></span></div></td><td data-t="at4"></td></tr>
+      </tbody>
+    </table>
+    <ul class="tips"><li data-t="tip1"></li><li data-t="tip2"></li><li data-t="tip3"></li><li data-t="tip4"></li><li data-t="tip5"></li><li data-t="tip8"></li><li data-t="tip7"></li><li data-t="tip9"></li><li data-t="tip6"></li></ul>
+    <div class="row"><button id="btn-howto-back" class="btn" type="button" data-t="back"></button></div>
+  </div>
+</section>
+
+<section id="screen-credits" class="screen" hidden>
+  <div class="panel credits-panel">
+    <h2 data-t="creditsTitle"></h2>
+    <section class="credits-section">
+      <h3>🎮 About the creator</h3>
+      <p>Created by <strong>Oskari Olli</strong></p>
+      <p>Indie game creator from Finland.<br>Making retro-inspired games for players who crave nostalgia.</p>
+    </section>
+    <section class="credits-section">
+      <h3>🔗 You can reach me on</h3>
+      <a class="credits-link" href="https://www.linkedin.com/in/oskari-olli/" target="_blank" rel="noopener noreferrer">
+        <span>LinkedIn <span aria-hidden="true">—</span> Oskari Olli</span><span class="credit-arrow" aria-hidden="true">↗</span>
+      </a>
+    </section>
+    <section class="credits-section">
+      <h3>🕹️ Explore my games</h3>
+      <a class="credits-link" href="https://oskariolli.itch.io" target="_blank" rel="noopener noreferrer">
+        <span>itch.io <span aria-hidden="true">—</span> Oskari Olli</span><span class="credit-arrow" aria-hidden="true">↗</span>
+      </a>
+    </section>
+    <section class="credits-section credits-thanks">
+      <h3>❤️ Thank you</h3>
+      <p><strong>Thanks for playing!</strong></p>
+      <p>If you enjoyed this game, feel free to check out my other projects.</p>
+    </section>
+    <div class="row"><button id="btn-credits-back" class="btn" type="button" data-t="back"></button></div>
+  </div>
+</section>
+
+<section id="screen-levelup" class="screen" hidden>
+  <div class="panel">
+    <h2 data-t="levelUp"></h2>
+    <p class="lead" data-t="chooseUpgrade"></p>
+    <div id="cards"></div>
+  </div>
+</section>
+
+<section id="screen-pause" class="screen" hidden>
+  <div class="panel" style="width:min(100%,380px)">
+    <h2 data-t="pause"></h2>
+    <div class="stack" style="margin-top:14px">
+      <button id="btn-resume" class="btn primary" type="button" data-t="resume"></button>
+      <button id="btn-pause-howto" class="btn" type="button" data-t="howto"></button>
+      <button id="btn-sound2" class="btn" type="button"></button>
+      <button id="btn-quit" class="btn" type="button" data-t="quit"></button>
+    </div>
+  </div>
+</section>
+
+<section id="screen-over" class="screen" hidden>
+  <div class="panel">
+    <h2 id="over-title"></h2>
+    <p id="over-sub" class="lead"></p>
+    <span id="over-best" class="newbest" data-t="newBest" hidden></span>
+    <dl id="over-stats" class="stats"></dl>
+    <p id="over-bestline" class="best-line"></p>
+    <div class="row"><button id="btn-retry" class="btn primary" type="button" data-t="retry"></button><button id="btn-menu" class="btn" type="button" data-t="menu"></button></div>
+  </div>
+</section>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ico-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.6.7-1.4 2.2-2.6 4.3-2.6 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></symbol>
+  <symbol id="ico-moon" viewBox="0 0 24 24"><path fill="currentColor" d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z"/></symbol>
+  <symbol id="ico-pumpkin" viewBox="0 0 24 24"><path fill="#4f7a2a" d="M11 2.5c1.4-.4 2.6.2 3 1.2-.9.1-1.6.6-1.9 1.3h-1.4c0-1 .1-1.9.3-2.5z"/><path fill="currentColor" d="M12 5.6c-1.5-.9-4-.9-5.8.4C3.6 7.8 3 11.5 4 14.8c1 3.2 3.7 5.2 8 5.2s7-2 8-5.2c1-3.3.4-7-2.2-8.8-1.8-1.3-4.3-1.3-5.8-.4z"/><path fill="#3a1206" d="M8.2 11.2l2-1.3.4 2.3zm7.6 0l-2-1.3-.4 2.3zM8 15c2.6 1.7 5.4 1.7 8 0-.6 1.9-2.2 3-4 3s-3.4-1.1-4-3z"/></symbol>
+  <symbol id="ico-skull" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5c-4.7 0-8 3.2-8 7.4 0 2.4 1.1 4.2 2.8 5.3V18c0 .9.7 1.6 1.6 1.6h.9v1.6h1.6v-1.6h2.2v1.6h1.6v-1.6h.9c.9 0 1.6-.7 1.6-1.6v-2.8c1.7-1.1 2.8-2.9 2.8-5.3 0-4.2-3.3-7.4-8-7.4zm-3.4 9.9a1.9 1.9 0 1 1 0-3.8 1.9 1.9 0 0 1 0 3.8zm6.8 0a1.9 1.9 0 1 1 0-3.8 1.9 1.9 0 0 1 0 3.8z"/></symbol>
+  <symbol id="ico-pause" viewBox="0 0 24 24"><rect x="6" y="4.5" width="4" height="15" rx="1.2" fill="currentColor"/><rect x="14" y="4.5" width="4" height="15" rx="1.2" fill="currentColor"/></symbol>
+  <!-- Power-up icons: cartoon style with ink outlines, 64 x 64 -->
+  <symbol id="up-giant" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M33 16c0-4 2-7 6-9" fill="none"/>
+      <path d="M28 11h8l-1 8h-6z" fill="#4f8a2a"/>
+      <ellipse cx="32" cy="38" rx="25" ry="19" fill="#ff8a1c"/>
+      <path d="M23 21c-5 6-5 28 0 34M41 21c5 6 5 28 0 34" fill="none" stroke-width="2.2" opacity=".4"/>
+      <path d="M16 35l7-9 6 9zM35 35l6-9 7 9z" fill="#ffd45a"/>
+      <path d="M15 42c6 10 28 10 34 0l-5 2-4-3-4 4-4-4-4 4-4-4-4 3z" fill="#ffd45a"/>
+    </g>
+    <g fill="#fff" stroke="#1d0f1c" stroke-width="2.5" stroke-linejoin="round"><path d="M4 15l5-7 5 7h-3v5h-4v-5z"/><path d="M50 15l5-7 5 7h-3v5h-4v-5z"/></g>
+  </symbol>
+  <symbol id="up-boot" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M3 25h8M2 34h9M4 43h7" fill="none"/>
+      <path d="M19 9h19v21l14 5c6 2 9 6 9 11v4H19c-3 0-5-2-5-5V31l5-5z" fill="#cdd6ec"/>
+      <path d="M14 46h47v5c0 2-1 3-3 3H18c-2 0-4-2-4-4z" fill="#5a63a6"/>
+      <path d="M19 9h19v7H19z" fill="#8e9ad0"/>
+      <path d="M41 32l-3 6M48 35l-3 6" fill="none" stroke-width="2.4"/>
+    </g>
+    <g fill="#1d0f1c"><circle cx="24" cy="23" r="2"/><circle cx="32" cy="23" r="2"/><circle cx="24" cy="31" r="2"/></g>
+  </symbol>
+  <symbol id="up-long" viewBox="0 0 64 64">
+    <path d="M15 34h34" stroke="#1d0f1c" stroke-width="15" stroke-linecap="round"/>
+    <path d="M15 34h34" stroke="#ff7a1a" stroke-width="9" stroke-linecap="round"/>
+    <path d="M17 34h30" stroke="#2a1420" stroke-width="9" stroke-dasharray="4 5"/>
+    <g fill="#ffd45a" stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round"><path d="M2 34l10-10v20z"/><path d="M62 34l-10-10v20z"/></g>
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linecap="round"><path d="M14 15v8M50 15v8M32 13v8"/></g>
+  </symbol>
+  <symbol id="up-snappy" viewBox="0 0 64 64">
+    <path d="M6 44l9-16 9 16 9-16 9 16 9-16 7 12" fill="none" stroke="#1d0f1c" stroke-width="13" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M6 44l9-16 9 16 9-16 9 16 9-16 7 12" fill="none" stroke="#ff7a1a" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linecap="round"><path d="M52 15l3-8M58 21l5-4M45 13l-2-7"/></g>
+    <path d="M6 44l9-16" fill="none" stroke="#ffd09a" stroke-width="2.5" stroke-linecap="round" opacity=".8"/>
+  </symbol>
+  <symbol id="up-boomer" viewBox="0 0 64 64">
+    <path d="M14 52Q15 30 22 18Q38 15 54 25" fill="none" stroke="#1d0f1c" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M14 52Q15 30 22 18Q38 15 54 25" fill="none" stroke="#d98a3a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M12.5 46Q14 28 20 17" fill="none" stroke="#ffd09a" stroke-width="2.6" stroke-linecap="round" opacity=".85"/>
+    <path d="M24 32l4 4M33 26l3 4M28 44l3 3" fill="none" stroke="#8a4a1a" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M58 38c-1 10-9 18-19 19" fill="none" stroke="#1d0f1c" stroke-width="3" stroke-linecap="round"/>
+    <path d="M33 51l7 2-5 6z" fill="#ffd45a" stroke="#1d0f1c" stroke-width="2.8" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="up-flame" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M32 3c3 8 15 11 13 24-1 6-6 9-13 9s-12-3-13-9c-1-7 4-10 6-15 2 4 4 5 6 5-2-6 1-10 1-14z" fill="#ff7a1a"/>
+      <path d="M32 16c2 5 8 7 7 13-1 3-3 5-7 5s-6-2-7-5c0-4 3-5 4-8 1 2 2 3 3 3-1-3 0-6 0-8z" fill="#ffd45a" stroke-width="2.5"/>
+      <ellipse cx="32" cy="46" rx="24" ry="14" fill="#ff8a1c"/>
+      <path d="M24 33c-4 4-4 22 0 26M40 33c4 4 4 22 0 26" fill="none" stroke-width="2.2" opacity=".4"/>
+      <path d="M19 45l5-6 5 6zM35 45l5-6 5 6z" fill="#ffd45a"/>
+      <path d="M21 51c5 5 17 5 22 0l-4 1-3-2-4 3-4-3-3 2z" fill="#ffd45a" stroke-width="2.5"/>
+    </g>
+  </symbol>
+  <symbol id="up-spectral" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M17 55V29c0-11 7-19 15-19s15 8 15 19v26l-5-4-5 4-5-4-5 4-5-4z" fill="#effcff"/>
+      <ellipse cx="26" cy="29" rx="3" ry="4.5" fill="#1d0f1c"/><ellipse cx="38" cy="29" rx="3" ry="4.5" fill="#1d0f1c"/>
+      <path d="M28 38c2 2 6 2 8 0" fill="none" stroke-width="2.5"/>
+    </g>
+    <path d="M3 45c7-7 13 4 20-2s14-7 20-1 12 3 18-2" fill="none" stroke="#1d0f1c" stroke-width="10" stroke-linecap="round"/>
+    <path d="M3 45c7-7 13 4 20-2s14-7 20-1 12 3 18-2" fill="none" stroke="#7fe3ff" stroke-width="4.5" stroke-linecap="round"/>
+    <g fill="#fff"><circle cx="23" cy="27" r="1.2"/><circle cx="35" cy="27" r="1.2"/></g>
+  </symbol>
+  <symbol id="up-seeds" viewBox="0 0 64 64">
+    <path d="M30 6l4 10 10-5-3 11 11 2-9 7 7 9-11-1-1 11-7-8-8 7-1-11-11 2 6-9-9-7 11-2-3-11 10 5z" fill="#ffd45a" stroke="#1d0f1c" stroke-width="2.8" stroke-linejoin="round"/>
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <ellipse cx="18" cy="44" rx="6" ry="10" transform="rotate(-35 18 44)" fill="#fff1c8"/>
+      <ellipse cx="44" cy="46" rx="6" ry="10" transform="rotate(30 44 46)" fill="#fff1c8"/>
+      <ellipse cx="32" cy="24" rx="5.5" ry="9" transform="rotate(5 32 24)" fill="#fff1c8"/>
+      <path d="M5 58l6-5M57 59l-5-5M32 3v3" fill="none" stroke-width="2.5"/>
+    </g>
+  </symbol>
+  <symbol id="up-armor" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round">
+      <path d="M32 5l23 8v15c0 16-10 27-23 32C19 55 9 44 9 28V13z" fill="#ffc23a"/>
+      <path d="M32 11l17 6v11c0 12-7 21-17 25-10-4-17-13-17-25V17z" fill="#8a46d6"/>
+      <path d="M28 20h8v8h8v8h-8v8h-8v-8h-8v-8h8z" fill="#fff" stroke-width="2.6"/>
+    </g>
+  </symbol>
+  <symbol id="up-steady" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M3 56h58" fill="none"/>
+      <path d="M9 12h13v22l8 4c3 2 4 4 4 7v6H9c-2 0-3-1-3-3V18z" fill="#cdd6ec"/>
+      <path d="M6 46h28v5H9c-2 0-3-1-3-3z" fill="#5a63a6"/>
+      <path d="M36 12h13v22l8 4c3 2 4 4 4 7v6H36c-2 0-3-1-3-3V18z" fill="#cdd6ec"/>
+      <path d="M33 46h28v5H36c-2 0-3-1-3-3z" fill="#5a63a6"/>
+      <path d="M9 12h13v6H9zM36 12h13v6H36z" fill="#8e9ad0"/>
+    </g>
+    <g stroke="#1d0f1c" stroke-width="2.5" stroke-linecap="round"><path d="M8 61l3-3M20 61l3-3M32 61l3-3M44 61l3-3M56 61l3-3"/></g>
+  </symbol>
+  <symbol id="up-magnet" viewBox="0 0 64 64">
+    <g transform="rotate(-40 30 36)" stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round">
+      <path d="M12 14v22c0 10 8 18 18 18s18-8 18-18V14H37v22c0 4-3 7-7 7s-7-3-7-7V14z" fill="#e8392c"/>
+      <path d="M12 14h11v8H12zM37 14h11v8H37z" fill="#e6ecf6"/>
+    </g>
+    <g stroke="#1d0f1c" stroke-width="2.8" stroke-linejoin="round">
+      <path d="M44 9l-4-3-1 5zM60 20l4 2-5 2z" fill="#ff5f9e"/>
+      <ellipse cx="51" cy="15" rx="9" ry="6" transform="rotate(30 51 15)" fill="#ff5f9e"/>
+      <path d="M47 11l7 9" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+    <g stroke="#1d0f1c" stroke-width="2.5" stroke-linecap="round" fill="none"><path d="M36 22c2-2 3-4 4-7M41 28c3-1 5-2 8-4"/></g>
+  </symbol>
+  <symbol id="up-sense" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M30 20c-6-6-6-12-3-15 4 3 5 9 5 14zm4 0c3-7 8-11 12-10 0 5-5 9-10 11zm-6 1c-7-3-12-2-14 1 3 3 9 3 13 1z" fill="#4f9a3a"/>
+      <path d="M32 19c-10 0-17 7-17 16 0 3 .7 5.6 2 7.8h30c1.3-2.2 2-4.8 2-7.8 0-9-7-16-17-16z" fill="#a15fd0"/>
+      <path d="M17 42.8c2.8 5 8.4 8.6 13.5 13.8.8.8 2.2.8 3 0C38.6 51.4 44.2 47.8 47 42.8z" fill="#ffe08a"/>
+      <path d="M32 56v6" fill="none"/>
+    </g>
+    <g fill="#fff6c8" stroke="#1d0f1c" stroke-width="2" stroke-linejoin="round">
+      <path d="M8 22l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/><path d="M55 30l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/><path d="M50 6l1.5 3.5 3.5 1.5-3.5 1.5-1.5 3.5-1.5-3.5-3.5-1.5 3.5-1.5z"/>
+    </g>
+  </symbol>
+  <symbol id="up-sweet" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M20 9c-8 0-12 7-10 15 1 5 3 8 3 14 0 9 2 18 8 18 5 0 4-12 9-12h4c5 0 4 12 9 12 6 0 8-9 8-18 0-6 2-9 3-14 2-8-2-15-10-15-6 0-8 3-12 3s-6-3-12-3z" fill="#fffaf0"/>
+      <path d="M32 37c-6-4-10-7-10-11 0-3 2-5 5-5 2 0 4 1 5 3 1-2 3-3 5-3 3 0 5 2 5 5 0 4-4 7-10 11z" fill="#ff5f9e" stroke-width="2.6"/>
+    </g>
+    <path d="M16 18c1-3 3-5 6-5" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="up-spikes" viewBox="0 0 64 64">
+    <g fill="#5bb04a" stroke="#1d0f1c" stroke-width="2.6" stroke-linejoin="round">
+      <path d="M32 3l5 10H27zM58 22l-6 9-4-9zM56 50l-11-1 6-8zM8 50l5-9 6 8zM6 22l10 0-4 9zM32 61l-5-9h10z"/>
+    </g>
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <ellipse cx="32" cy="34" rx="21" ry="17" fill="#ff8a1c"/>
+      <path d="M24 19c-4 5-4 25 0 30M40 19c4 5 4 25 0 30" fill="none" stroke-width="2.2" opacity=".4"/>
+      <path d="M19 32l5-7 6 7zM34 32l6-7 5 7z" fill="#ffd45a"/>
+      <path d="M21 39c5 7 17 7 22 0l-4 2-3-3-4 3-4-3-3 3z" fill="#ffd45a" stroke-width="2.5"/>
+    </g>
+  </symbol>
+  <symbol id="up-feast" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M14 58l12-20" fill="none" stroke="#1d0f1c" stroke-width="8"/>
+      <path d="M14 58l12-20" fill="none" stroke="#fff6ea" stroke-width="3.5"/>
+      <circle cx="30" cy="24" r="18" fill="#ff5f9e"/>
+      <path d="M30 24c0-3 4-3 4 0 0 5-8 6-9 0-1-8 11-10 14-2 3 9-9 16-17 9" fill="none" stroke="#fff6ea" stroke-width="3.5"/>
+      <path d="M47 38l12 22H35z" fill="#ffd45a"/>
+      <path d="M41 49h12l6 11H35z" fill="#ff8a1c"/>
+      <path d="M44 55h9l3 5H41z" fill="#fff6ea" stroke-width="2.5"/>
+    </g>
+  </symbol>
+  <!-- Power-up pickups (the chips in the HUD) -->
+  <symbol id="pu-hellfire" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M32 2c-5 6 2 8-3 14 7-1 9-7 8-11 3 4 4 9 1 14h-12c-4-6 1-12 6-17z" fill="#ffd45a"/>
+      <path d="M26 18h12v8h-12z" fill="#e8d0b0"/>
+      <circle cx="32" cy="42" r="18" fill="#ff6a1a"/>
+      <path d="M15 40c6 3 28 3 34 0" fill="none" stroke-width="2.2" opacity=".5"/>
+      <path d="M26 41c0-4 3-7 6-7s6 3 6 7c0 3-2 4-3 5v3h-6v-3c-1-1-3-2-3-5z" fill="#fff4e0"/>
+    </g>
+    <g fill="#1d0f1c"><circle cx="29.5" cy="41.5" r="1.8"/><circle cx="34.5" cy="41.5" r="1.8"/></g>
+  </symbol>
+  <symbol id="pu-frost" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M14 18l4-12 5 10M27 13l5-11 5 11M41 16l5-10 4 12" fill="#cfefff"/>
+      <path d="M12 34c0-13 9-20 20-20s20 7 20 20c0 7-4 11-7 13v8H19v-8c-3-2-7-6-7-13z" fill="#9ad8ff"/>
+      <path d="M26 55v-6M32 55v-6M38 55v-6" fill="none" stroke-width="2.4"/>
+    </g>
+    <g fill="#1d4a7a"><ellipse cx="24" cy="35" rx="5.5" ry="6.5"/><ellipse cx="40" cy="35" rx="5.5" ry="6.5"/><path d="M32 40l-3 5h6z"/></g>
+    <g fill="#fff"><circle cx="25.5" cy="33.5" r="1.8"/><circle cx="41.5" cy="33.5" r="1.8"/><path d="M18 24c3-4 7-6 11-6" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>
+  </symbol>
+  <symbol id="pu-garlic" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M32 4c-1 6 0 9 1 12" fill="none"/>
+      <path d="M32 15c-14 5-21 15-21 26 0 10 9 16 21 16s21-6 21-16c0-11-7-21-21-26z" fill="#fbf6ee"/>
+      <path d="M32 16c-6 8-8 20-6 40M32 16c6 8 8 20 6 40M24 20c-7 8-9 20-5 34M40 20c7 8 9 20 5 34" fill="none" stroke-width="2.2" opacity=".55"/>
+      <path d="M24 57l-3 4M32 58v4M40 57l3 4" fill="none" stroke-width="2.4"/>
+    </g>
+    <path d="M14 44c2 6 7 9 12 10" fill="none" stroke="#c8a0d0" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="pu-bats" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round">
+      <path d="M32 26c-4-1-6 1-7 4-5-6-14-8-22-4 5 2 7 6 6 10 4-2 8-1 10 3 3-3 7-3 9 0l4 6 4-6c2-3 6-3 9 0 2-4 6-5 10-3-1-4 1-8 6-10-8-4-17-2-22 4-1-3-3-5-7-4z" fill="#6a3a8a"/>
+      <path d="M27 24l2-8 3 7 3-7 2 8" fill="#6a3a8a"/>
+    </g>
+    <g fill="#ffd45a" stroke="#1d0f1c" stroke-width="1.5"><circle cx="29" cy="30" r="2.6"/><circle cx="35" cy="30" r="2.6"/></g>
+    <path d="M30 35l1 3 1-3M33 35l1 3 1-3" fill="#fff" stroke="#1d0f1c" stroke-width="1"/>
+  </symbol>
+  <symbol id="pu-mega" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M20 20l3-12 6 8 3-10 3 10 6-8 3 12z" fill="#ffe07a"/>
+      <ellipse cx="32" cy="40" rx="26" ry="19" fill="#ffc83a"/>
+      <path d="M22 23c-6 6-6 28 0 34M42 23c6 6 6 28 0 34M32 22v36" fill="none" stroke-width="2.2" opacity=".45"/>
+    </g>
+    <g fill="#fff" opacity=".85"><path d="M12 32c2-5 6-8 10-9-3 3-5 6-6 10z"/></g>
+    <g fill="#ff4a7a" stroke="#1d0f1c" stroke-width="1.5"><circle cx="32" cy="15" r="2.5"/></g>
+  </symbol>
+  <symbol id="pu-bomb" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M38 14c4-6 10-7 14-4" fill="none" stroke="#c8a060" stroke-width="4"/>
+      <path d="M33 13h10v8H33z" fill="#5a5664"/>
+      <circle cx="30" cy="38" r="21" fill="#2e2a36"/>
+      <path d="M22 37c0-6 4-10 8-10s8 4 8 10c0 4-2 5-3 6v4h-10v-4c-1-1-3-2-3-6z" fill="#f4ecd8" stroke-width="2.4"/>
+    </g>
+    <g fill="#1d0f1c"><ellipse cx="26.5" cy="37" rx="2.4" ry="2.8"/><ellipse cx="33.5" cy="37" rx="2.4" ry="2.8"/></g>
+    <g fill="#ffd45a" stroke="#1d0f1c" stroke-width="2" stroke-linejoin="round"><path d="M54 4l2 5 5 1-4 3 1 5-4-3-4 3 1-5-4-3 5-1z"/></g>
+    <path d="M14 30c2-5 6-8 10-9" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+  </symbol>
+  <symbol id="pu-bucket" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M12 26c0-14 40-14 40 0" fill="none" stroke-width="3.4"/>
+      <path d="M17 24l6-7 5 6 6-8 5 8 6-5 3 6z" fill="#ff4a7a"/>
+      <path d="M10 27h44l-4 24c-1 5-5 8-10 8H24c-5 0-9-3-10-8z" fill="#ff8a1c"/>
+      <path d="M20 35l5-6 5 6zM34 35l5-6 5 6zM19 42c5 8 21 8 26 0l-4 2-3-2-3 3-3-3-3 3-3-3-3 2z" fill="#1d0f1c" stroke-width="2"/>
+    </g>
+    <g fill="#ffd45a" stroke="#1d0f1c" stroke-width="1.5"><path d="M27 21l3-6 3 6z"/></g>
+  </symbol>
+  <symbol id="pu-triple" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M30 14c0-4 2-7 4-8" fill="none" stroke="#3f8a32" stroke-width="3.6"/>
+      <ellipse cx="18" cy="46" rx="12" ry="10" fill="#ff8a1c"/><ellipse cx="46" cy="46" rx="12" ry="10" fill="#ff8a1c"/>
+      <ellipse cx="32" cy="27" rx="13" ry="11" fill="#ff9a2c"/>
+      <path d="M14 40v12M22 40v12M42 40v12M50 40v12M27 19v16M37 19v16" fill="none" stroke="#c2540e" stroke-width="2" opacity=".7"/>
+      <path d="M26 25l3 3-3 3zM38 25l-3 3 3 3zM27 32c3 3 7 3 10 0" fill="#ffe36a" stroke-width="2"/>
+      <path d="M13 45l2 2-2 2zM23 45l-2 2 2 2zM41 45l2 2-2 2zM51 45l-2 2 2 2z" fill="#ffe36a" stroke-width="1.6"/>
+    </g>
+  </symbol>
+  <symbol id="pu-ghost" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <ellipse cx="32" cy="40" rx="14" ry="12" fill="#ff8a1c" opacity=".9"/>
+      <path d="M14 56V30c0-11 8-19 18-19s18 8 18 19v26l-5-4-4 4-5-4-4 4-5-4-4 4-4-4z" fill="#eaf4ff" opacity=".88"/>
+      <ellipse cx="25" cy="31" rx="3.4" ry="4.4" fill="#1d0f1c" stroke="none"/><ellipse cx="39" cy="31" rx="3.4" ry="4.4" fill="#1d0f1c" stroke="none"/>
+      <ellipse cx="32" cy="41" rx="3" ry="2.2" fill="#1d0f1c" stroke="none"/>
+      <path d="M20 22c3-5 8-7 12-7" fill="none" stroke="#9ec8ff" stroke-width="2.4"/>
+    </g>
+  </symbol>
+  <symbol id="pu-lightning" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M14 30a9 9 0 0 1 4-17 11 11 0 0 1 21-3 9 9 0 0 1 14 9 8 8 0 0 1-3 11z" fill="#8a7aa8"/>
+      <ellipse cx="24" cy="22" rx="2.2" ry="2.6" fill="#fff" stroke="none"/><ellipse cx="36" cy="22" rx="2.2" ry="2.6" fill="#fff" stroke="none"/>
+      <path d="M20 17l6 2M40 17l-6 2" fill="none" stroke-width="2.4"/>
+      <path d="M36 30l-12 16h9l-4 14 15-19h-9l5-11z" fill="#ffe34a"/>
+    </g>
+  </symbol>
+  <symbol id="pu-fangs" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M10 26c0-9 10-13 22-13s22 4 22 13c0 6-4 9-8 9H18c-4 0-8-3-8-9z" fill="#e8304f"/>
+      <path d="M12 44c0 7 9 10 20 10s20-3 20-10c0-4-3-7-7-7H19c-4 0-7 3-7 7z" fill="#c01f3e"/>
+      <path d="M18 35h28v4H18z" fill="#fff6e8" stroke-width="2"/>
+      <path d="M21 35l3 14 3-14zM37 35l3 14 3-14z" fill="#fffdf4" stroke-width="2.4"/>
+      <path d="M28 35v4M32 35v4M36 35v4" stroke-width="1.6" opacity=".6"/>
+      <path d="M54 30h6m0-4v8" stroke="#c8c8d0" stroke-width="3"/>
+    </g>
+  </symbol>
+  <symbol id="pu-jam" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M32 6c0 6 6 9 6 15 0 4-3 7-6 7s-6-3-6-7c0-6 6-9 6-15z" fill="#ff9a2a"/>
+      <path d="M32 12c0 4 3 6 3 9 0 2-1 4-3 4s-3-2-3-4c0-3 3-5 3-9z" fill="#ffe36a" stroke="none"/>
+      <path d="M22 30c-8 0-14 6-14 13 0 3 1 6 2 8h44c1-2 2-5 2-8 0-7-6-13-14-13z" fill="#9a5bc0"/>
+      <path d="M12 51c3 5 10 7 20 7s17-2 20-7z" fill="#ffe08a"/>
+      <path d="M12 14l-4 8M52 14l4 8M18 10l-2 6M46 10l2 6" stroke="#ff9a2a" stroke-width="3.4"/>
+    </g>
+  </symbol>
+  <symbol id="pu-mageddon" viewBox="0 0 64 64">
+    <g stroke="#1d0f1c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M16 24c0-6 7-10 16-10s16 4 16 10v6H16z" fill="#c8923a"/>
+      <path d="M12 30h40v4H12zM10 22c-3-5-3-10 0-14 3 2 5 6 5 10zM54 22c3-5 3-10 0-14-3 2-5 6-5 10z" fill="#f2c24a"/>
+      <path d="M18 34c0 10 6 18 14 22 8-4 14-12 14-22z" fill="#d070c0"/>
+      <path d="M20 44c3 6 7 10 12 12 5-2 9-6 12-12z" fill="#ffe08a"/>
+      <ellipse cx="26" cy="39" rx="2.6" ry="3" fill="#fff6c0" stroke="none"/><ellipse cx="38" cy="39" rx="2.6" ry="3" fill="#fff6c0" stroke="none"/>
+      <path d="M24 46c3 3 13 3 16 0" fill="none" stroke-width="2.6"/>
+      <path d="M52 40l6 8-6 8M50 48h10" fill="none" stroke="#8a5a2a" stroke-width="3.4"/>
+    </g>
+  </symbol>
+  <symbol id="ico-rutabaga" viewBox="0 0 64 64"><path fill="#3f8a32" d="M30 18c-6-6-6-12-3-15 4 3 5 9 5 14zm4 0c3-7 8-11 12-10 0 5-5 9-10 11zm-6 1c-7-3-12-2-14 1 3 3 9 3 13 1z"/><path fill="#9a5bc0" d="M32 17c-10 0-17 7-17 16 0 3 .7 5.6 2 7.8h30c1.3-2.2 2-4.8 2-7.8 0-9-7-16-17-16z"/><path fill="#ffe08a" d="M17 40.8c2.8 5 8.4 8.6 13.5 13.8.8.8 2.2.8 3 0C38.6 49.4 44.2 45.8 47 40.8z"/><path fill="#ffe08a" d="M31 54h2l-.4 7h-1.2z"/><path fill="#fff6c8" opacity=".55" d="M22 29c1-4 4-7 8-8-2 3-4 6-4.5 9.5z"/></symbol>
+</svg>
+
+<script type="module" src="./game.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+require('subpackages/scripts/game.js');
+window.installLocalFeatures();
+window.replicaIntegrationErrors=[];window.replicaLocalEvents=[];
+const baseURL=new URL('./',location.href).href;
+window.replicaLocalCampaignReady=Promise.all([fetch(new URL('local-config.json',baseURL)).then(r=>{if(!r.ok)throw Error('Local configuration unavailable');return r.json();}),fetch(new URL('local-player-template.json',baseURL)).then(r=>{if(!r.ok)throw Error('Local profile template unavailable');return r.json();})]).then(([config,template])=>createLocalCampaign({config,template,storage:localStorage}));
+let sequence=Promise.resolve();
+window.replicaLocalRequest=function(route,data,success,failure){sequence=sequence.then(async()=>{const service=await window.replicaLocalCampaignReady;const args=new URLSearchParams(data||'');const token=__require('GameData').GameData.PlayerData?.token;if(token)args.set('local_session',token);const result=service.dispatch(route,args.toString(),baseURL.replace(/\/$/,''));window.replicaLocalEvents.push({route,code:result.errcode,time:Date.now()});__require('ViewManager').ViewManager._ins.hideHttpLoading();if(result.errcode===0)success?.(result.data);else{__require('Toast').default.show(result.errmsg);failure?.(result);}}).catch(error=>{window.replicaIntegrationErrors.push({route,message:error.message});console.error(error);failure?.(error);});return sequence;};
+__require('Global').default.isEncryp=false;
+const platform=__require('Platform').platform;platform._instance=window.createBrowserPlatform();
+platform._instance.triggerGC=function(){window.replicaPlatformEvidence.push({api:'triggerGC',status:'not_applicable',reason:'Browser manages collection.'});};

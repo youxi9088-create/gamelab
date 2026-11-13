@@ -1,0 +1,52 @@
+{
+  "category": "像素风剧情冒险RPG",
+  "dimension": "2D",
+  "perspective": "俯视角",
+  "core_gameplay": "在屋内探索、与NPC对话、寻找失踪的生日礼物",
+  "core_experience": "黑白像素氛围下的叙事探索",
+  "controls": "方向键/WASD → 移动 → 无对话时（实机验证）；Z → 对话/推进对话 → 有对话目标或文本时（实机验证）；X → 奔跑/快进文字 → 移动或文本显示时（界面提示）；Tab → 打开/关闭地图 → 探索时（实机验证）；Enter → 确认/开始 → 标题页与对话（实机验证）",
+  "game_loop": "开始：标题页按Z/Enter进入；操作：移动探索、与NPC对话推进剧情；结果：获取线索寻找礼物；继续：对话与探索循环推进",
+  "content": "已见区域：卧室/HOME与地图中LIVING ROOM；礼物目标4件；完整关卡数量未验证",
+  "progression": "以收集礼物计数推进，教程对话引导基本操作",
+  "save": "教程阶段storage刷新前后均为空，未发现存档记录；后续保存点未验证",
+  "rules": "目标：找回4件失踪的生日礼物（HUD显示PRESENTS 0/4）；HP 20/20，失败条件未验证",
+  "systems": "对话系统（旁白与NPC对话逐字显示）、地图系统（Tab查看区域）、探索交互系统（家具调查触发旁白）；战斗系统未验证",
+  "ui_flow": "标题页（PRESS Z/ENTER）→ 开场旁白对话 → 屋内场景（HUD：HP、PRESENTS计数、Tab地图提示）→ 地图界面（区域标记）",
+  "level_design": "",
+  "verification": "实机验证：启动、标题进入、移动、对话、地图、reload重进；仅界面提示确认：X奔跑；未验证：礼物获取、后续场景、战斗与存档恢复",
+  "evidence": "本轮截图step-50至step-129；runtime.json导航检查点startup/interaction/reload均passed",
+  "illustrations": [
+    {
+      "path": "screenshots/step-50.png",
+      "caption": "实际操作记录 1。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-61.png",
+      "caption": "实际操作记录 12。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-73.png",
+      "caption": "实际操作记录 24。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-84.png",
+      "caption": "实际操作记录 35。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-95.png",
+      "caption": "实际操作记录 46。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-106.png",
+      "caption": "实际操作记录 57。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-118.png",
+      "caption": "实际操作记录 69。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-129.png",
+      "caption": "实际操作记录 80。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    }
+  ]
+}

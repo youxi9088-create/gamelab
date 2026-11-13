@@ -1,0 +1,371 @@
+{
+  "events": [
+    {
+      "sequence": 22,
+      "source": {
+        "tabId": 38
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8970/index.html",
+        "frameId": "830A3CE1857C65D3AD40988A5640216D",
+        "hasUserGesture": false,
+        "initiator": {
+          "type": "other"
+        },
+        "loaderId": "AFEBB254F6E8790BFD726540DA342DB6",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8970/index.html"
+        },
+        "requestId": "AFEBB254F6E8790BFD726540DA342DB6",
+        "timestamp": 1287470.302162,
+        "type": "Document",
+        "wallTime": 1794530472.221092
+      }
+    },
+    {
+      "sequence": 26,
+      "source": {
+        "tabId": 38
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "830A3CE1857C65D3AD40988A5640216D",
+        "hasExtraInfo": true,
+        "loaderId": "AFEBB254F6E8790BFD726540DA342DB6",
+        "requestId": "AFEBB254F6E8790BFD726540DA342DB6",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 714992,
+          "connectionReused": false,
+          "encodedDataLength": 187,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "3184",
+            "Content-type": "text/html",
+            "Date": "Fri, 13 Nov 2026 00:41:12 GMT",
+            "Last-Modified": "Fri, 13 Nov 2026 00:40:54 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "text/html",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8970,
+          "responseTime": 1794530472242.845,
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.864,
+            "connectStart": 0.232,
+            "dnsEnd": 0.232,
+            "dnsStart": 0.225,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 20.882,
+            "receiveHeadersStart": 20.808,
+            "requestTime": 1287470.303038,
+            "sendEnd": 0.995,
+            "sendStart": 0.911,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8970/index.html"
+        },
+        "timestamp": 1287470.325365,
+        "type": "Document"
+      }
+    },
+    {
+      "sequence": 35,
+      "source": {
+        "tabId": 38
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8970/index.html",
+        "frameId": "830A3CE1857C65D3AD40988A5640216D",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 73,
+          "lineNumber": 73,
+          "type": "parser",
+          "url": "http://127.0.0.1:8970/index.html"
+        },
+        "loaderId": "AFEBB254F6E8790BFD726540DA342DB6",
+        "redirectHasExtraInfo": false,
+        "renderBlockingBehavior": "NonBlocking",
+        "request": {
+          "headers": {
+            "Origin": "http://127.0.0.1:8970",
+            "Referer": "http://127.0.0.1:8970/index.html",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8970/assets/index-V3F3wFyT.js"
+        },
+        "requestId": "56832.3",
+        "timestamp": 1287470.328395,
+        "type": "Script",
+        "wallTime": 1794530472.247102
+      }
+    },
+    {
+      "sequence": 36,
+      "source": {
+        "tabId": 38
+      },
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "http://127.0.0.1:8970/index.html",
+        "frameId": "830A3CE1857C65D3AD40988A5640216D",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 89,
+          "lineNumber": 77,
+          "type": "parser",
+          "url": "http://127.0.0.1:8970/index.html"
+        },
+        "loaderId": "AFEBB254F6E8790BFD726540DA342DB6",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Referer": "http://127.0.0.1:8970/index.html",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\""
+          },
+          "initialPriority": "Medium",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "http://127.0.0.1:8970/assets/icon-CRPZlS46.png"
+        },
+        "requestId": "56832.4",
+        "timestamp": 1287470.328531,
+        "type": "Image",
+        "wallTime": 1794530472.247226
+      }
+    },
+    {
+      "sequence": 44,
+      "source": {
+        "tabId": 38
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "830A3CE1857C65D3AD40988A5640216D",
+        "hasExtraInfo": true,
+        "loaderId": "AFEBB254F6E8790BFD726540DA342DB6",
+        "requestId": "56832.4",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 715004,
+          "connectionReused": false,
+          "encodedDataLength": 188,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "93594",
+            "Content-type": "image/png",
+            "Date": "Fri, 13 Nov 2026 00:41:12 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 10:05:36 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "image/png",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8970,
+          "responseTime": 1794530472284.558,
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.838,
+            "connectStart": 0.573,
+            "dnsEnd": 0.573,
+            "dnsStart": 0.57,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 32.412,
+            "receiveHeadersStart": 32.261,
+            "requestTime": 1287470.333298,
+            "sendEnd": 0.885,
+            "sendStart": 0.852,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8970/assets/icon-CRPZlS46.png"
+        },
+        "timestamp": 1287470.367342,
+        "type": "Image"
+      }
+    },
+    {
+      "sequence": 51,
+      "source": {
+        "tabId": 38
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "830A3CE1857C65D3AD40988A5640216D",
+        "hasExtraInfo": true,
+        "loaderId": "AFEBB254F6E8790BFD726540DA342DB6",
+        "requestId": "56832.3",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 715000,
+          "connectionReused": false,
+          "encodedDataLength": 203,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "2370575",
+            "Content-type": "application/javascript",
+            "Date": "Fri, 13 Nov 2026 00:41:12 GMT",
+            "Last-Modified": "Fri, 13 Nov 2026 00:40:54 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "application/javascript",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8970,
+          "responseTime": 1794530472267.501,
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 0.834,
+            "connectStart": 0.405,
+            "dnsEnd": 0.405,
+            "dnsStart": 0.398,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 15.447,
+            "receiveHeadersStart": 15.31,
+            "requestTime": 1287470.333192,
+            "sendEnd": 0.928,
+            "sendStart": 0.873,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8970/assets/index-V3F3wFyT.js"
+        },
+        "timestamp": 1287470.382757,
+        "type": "Script"
+      }
+    },
+    {
+      "sequence": 59,
+      "source": {
+        "tabId": 38
+      },
+      "method": "Runtime.exceptionThrown",
+      "params": {
+        "exceptionDetails": {
+          "columnNumber": 166,
+          "exception": {
+            "className": "ReferenceError",
+            "description": "ReferenceError: dW is not defined\n    at http://127.0.0.1:8970/assets/index-V3F3wFyT.js:62499:167",
+            "objectId": "63048661122120509.6.1",
+            "preview": {
+              "description": "ReferenceError: dW is not defined\n    at http://127.0.0.1:8970/assets/index-V3F3wFyT.js:62499:167",
+              "overflow": false,
+              "properties": [
+                {
+                  "name": "stack",
+                  "type": "string",
+                  "value": "ReferenceError: dW is not defined\n    at http://127.0.0.1:8970/assets/index-V3F3wFyT.js:62499:167"
+                },
+                {
+                  "name": "message",
+                  "type": "string",
+                  "value": "dW is not defined"
+                }
+              ],
+              "subtype": "error",
+              "type": "object"
+            },
+            "subtype": "error",
+            "type": "object"
+          },
+          "exceptionId": 1,
+          "executionContextId": 6,
+          "lineNumber": 62498,
+          "scriptId": "17",
+          "stackTrace": {
+            "callFrames": [
+              {
+                "columnNumber": 166,
+                "functionName": "",
+                "lineNumber": 62498,
+                "scriptId": "17",
+                "url": "http://127.0.0.1:8970/assets/index-V3F3wFyT.js"
+              }
+            ]
+          },
+          "text": "Uncaught",
+          "url": "http://127.0.0.1:8970/assets/index-V3F3wFyT.js"
+        },
+        "timestamp": 1794530472334.958
+      }
+    }
+  ],
+  "truncated": false,
+  "console": [
+    {
+      "level": "error",
+      "message": "ReferenceError: dW is not defined\n    at http://127.0.0.1:8970/assets/index-V3F3wFyT.js:62499:167",
+      "timestamp": "2026-11-13T00:41:12.335Z",
+      "url": "http://127.0.0.1:8970/assets/index-V3F3wFyT.js"
+    }
+  ],
+  "steps": 1
+}

@@ -1,0 +1,382 @@
+<!doctype html>
+
+
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#4bc8ef" />
+    <meta name="description" content="Cylinder Jumper — rotate a 3D tower and climb through a fast vertical run." />
+    <title>Cylinder Jumper</title>
+    
+    
+    <style>
+      :root {
+        --lightningcss-light: ;
+        --lightningcss-dark: initial;
+        color-scheme: dark;
+        font-synthesis: none;
+        -webkit-tap-highlight-color: transparent;
+        background: #142b67;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        overscroll-behavior: none;
+        background: radial-gradient(circle at 50% 42%, #58dbf46b, #0000 52%), #142b67;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+      body {
+        place-items: center;
+        display: grid;
+      }
+      #game {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        touch-action: none;
+        background: #58cbed;
+        width: min(100vw, 56.25dvh);
+        min-width: 1px;
+        height: min(100dvh, 177.778vw);
+        min-height: 1px;
+        position: relative;
+        overflow: hidden;
+        box-shadow:
+          0 0 0 1px #dcfcff47,
+          0 18px 90px #0d215b80;
+      }
+      body.remix-game #game,
+      body.astrocade-game #game,
+      body.pogglo-game #game {
+        width: 100vw;
+        height: 100dvh;
+        box-shadow: none;
+      }
+      @media (aspect-ratio<=2/3) {
+        #game {
+          width: 100vw;
+          height: 100dvh;
+          box-shadow: none;
+        }
+      }
+      #game .lab-canvas {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        touch-action: none;
+        cursor: grab;
+        outline: none;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      #game-status {
+        z-index: 2;
+        color: #f8feff;
+        background: #192154;
+        border: 1px solid #ff75ad;
+        width: min(86vw, 36rem);
+        padding: 1rem 1.2rem;
+        position: fixed;
+        inset: 50% auto auto 50%;
+        transform: translate(-50%, -50%);
+      }
+      #game .lab-canvas:active {
+        cursor: grabbing;
+      }
+      @media (pointer: coarse) {
+        #game .lab-canvas {
+          cursor: default;
+        }
+      }
+      .game-tuning {
+        z-index: 8;
+        top: max(10px, env(safe-area-inset-top));
+        right: max(10px, env(safe-area-inset-right));
+        bottom: max(10px, env(safe-area-inset-bottom));
+        color: #e9fbff;
+        pointer-events: none;
+        align-items: stretch;
+        width: min(328px, 100vw - 20px);
+        transition: width 0.18s;
+        display: flex;
+        position: fixed;
+      }
+      .game-tuning[data-state="collapsed"] {
+        width: 34px;
+      }
+      .game-tuning__rail,
+      .game-tuning__body {
+        pointer-events: auto;
+      }
+      .game-tuning__rail {
+        color: #122354;
+        cursor: pointer;
+        background: linear-gradient(#76f5ef, #50c6ef);
+        border: 1px solid #defdffd9;
+        border-right: 0;
+        border-radius: 10px 0 0 10px;
+        align-self: flex-start;
+        width: 34px;
+        height: 112px;
+        padding: 0;
+        box-shadow: -8px 12px 32px #0c1b4d47;
+      }
+      .game-tuning__rail span {
+        letter-spacing: 0.18em;
+        font-size: 0.68rem;
+        font-weight: 900;
+        display: inline-block;
+        transform: rotate(-90deg);
+      }
+      .game-tuning[data-state="collapsed"] .game-tuning__rail {
+        border-right: 1px solid #defdffd9;
+        border-radius: 10px;
+      }
+      .game-tuning__body {
+        -webkit-backdrop-filter: blur(18px);
+        backdrop-filter: blur(18px);
+        transform-origin: 100% 0;
+        background: linear-gradient(135deg, #5ae5e814, #0000 35%), #0d183ff0;
+        border: 1px solid #adefff47;
+        border-radius: 0 12px 12px;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0;
+        transition:
+          opacity 0.13s,
+          transform 0.18s;
+        display: flex;
+        overflow: hidden;
+        box-shadow: 0 22px 70px #0611397a;
+      }
+      .game-tuning[data-state="collapsed"] .game-tuning__body {
+        visibility: hidden;
+        opacity: 0;
+        transform: translate(12px) scaleX(0.96);
+      }
+      .game-tuning__header {
+        border-bottom: 1px solid #96e0ff26;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.9rem 0.9rem 0.7rem;
+        display: flex;
+      }
+      .game-tuning__header h1 {
+        letter-spacing: 0.04em;
+        margin: 0.18rem 0 0;
+        font-size: 1rem;
+        line-height: 1.15;
+      }
+      .game-tuning__eyebrow,
+      .game-tuning__note {
+        margin: 0;
+      }
+      .game-tuning__eyebrow {
+        color: #6de8ed;
+        letter-spacing: 0.14em;
+        font-size: 0.58rem;
+      }
+      .game-tuning__note {
+        color: #e0f7ffa3;
+        padding: 0.68rem 0.9rem;
+        font-size: 0.66rem;
+        line-height: 1.55;
+      }
+      .game-tuning__copy,
+      .game-tuning__reset {
+        color: #e9fbff;
+        font: inherit;
+        cursor: pointer;
+        background: #41cbe11f;
+        border: 1px solid #70e8ee75;
+        border-radius: 6px;
+        font-size: 0.64rem;
+      }
+      .game-tuning__copy {
+        min-width: 4.8rem;
+        padding: 0.48rem 0.55rem;
+      }
+      .game-tuning__copy[data-state="success"] {
+        color: #142652;
+        background: #6cebd8;
+      }
+      .game-tuning__copy[data-state="error"] {
+        color: #ffd5e6;
+        border-color: #ff87b9;
+      }
+      .game-tuning__controls {
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+        display: flex;
+      }
+      .game-tuning__actions {
+        color: #d7f5ff73;
+        letter-spacing: 0.12em;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0.9rem 0.55rem;
+        font-size: 0.55rem;
+        display: flex;
+      }
+      .game-tuning__reset {
+        color: #e6faffb8;
+        padding: 0.32rem 0.48rem;
+      }
+      .game-tuning__groups {
+        scrollbar-color: #6ae6eb6b transparent;
+        scrollbar-width: thin;
+        flex: 1;
+        min-height: 0;
+        padding: 0 0.65rem 0.75rem;
+        overflow: hidden auto;
+      }
+      .game-tuning .control-group {
+        background: #5f84d614;
+        border: 1px solid #a3e2ff24;
+        border-radius: 8px;
+        margin-bottom: 0.48rem;
+        overflow: clip;
+      }
+      .game-tuning .control-group[open] {
+        background: #4366be1f;
+        border-color: #67e3e947;
+      }
+      .game-tuning .control-group__summary {
+        color: #e8faffd6;
+        letter-spacing: 0.045em;
+        cursor: pointer;
+        padding: 0.68rem 2rem 0.68rem 0.72rem;
+        font-size: 0.69rem;
+        font-weight: 800;
+        list-style: none;
+        position: relative;
+      }
+      .game-tuning .control-group__summary::-webkit-details-marker {
+        display: none;
+      }
+      .game-tuning .control-group__summary:after {
+        content: "";
+        border-bottom: 1px solid #72e9ed;
+        border-right: 1px solid #72e9ed;
+        width: 0.42rem;
+        height: 0.42rem;
+        transition: transform 0.14s;
+        position: absolute;
+        top: 50%;
+        right: 0.75rem;
+        transform: translateY(-65%) rotate(45deg);
+      }
+      .game-tuning .control-group[open] .control-group__summary:after {
+        transform: translateY(-25%) rotate(225deg);
+      }
+      .game-tuning .control-group__fields {
+        border-top: 1px solid #99dfff1a;
+        gap: 0.72rem;
+        padding: 0.15rem 0.72rem 0.85rem;
+        display: grid;
+      }
+      .game-tuning .control-field {
+        min-width: 0;
+      }
+      .game-tuning .control-field__header,
+      .game-tuning .control-field--toggle {
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.7rem;
+        display: flex;
+      }
+      .game-tuning .control-field__label,
+      .game-tuning .control-field__value {
+        font-size: 0.66rem;
+      }
+      .game-tuning .control-field__label {
+        color: #e7f9ffc2;
+      }
+      .game-tuning .control-field__value {
+        color: #72e9ed;
+        font-variant-numeric: tabular-nums;
+      }
+      .game-tuning .control-field__range {
+        accent-color: #63e2e8;
+        cursor: ew-resize;
+        width: 100%;
+        height: 16px;
+        margin: 0.2rem 0 0;
+      }
+      .game-tuning .control-field__select {
+        color: #e8fbff;
+        width: 100%;
+        font: inherit;
+        background: #17265a;
+        border: 1px solid #80ddf638;
+        border-radius: 5px;
+        margin-top: 0.34rem;
+        padding: 0.4rem 0.48rem;
+        font-size: 0.66rem;
+      }
+      .game-tuning .control-field__toggle {
+        accent-color: #67e7df;
+        width: 2rem;
+      }
+      .game-tuning .control-field__color {
+        background: #17265a;
+        border: 1px solid #80ddf638;
+        border-radius: 5px;
+        width: 100%;
+        height: 1.65rem;
+        margin-top: 0.34rem;
+        padding: 2px;
+        display: block;
+      }
+      .game-tuning .control-field__description {
+        color: #d7f2ff6b;
+        margin: 0.26rem 0 0;
+        font-size: 0.58rem;
+        line-height: 1.45;
+      }
+      .game-tuning button:focus-visible,
+      .game-tuning input:focus-visible,
+      .game-tuning select:focus-visible,
+      .game-tuning summary:focus-visible {
+        outline-offset: 2px;
+        outline: 2px solid #ff86bc;
+      }
+      @media (width<=720px) {
+        .game-tuning {
+          width: min(310px, 100vw - 16px);
+        }
+        .game-tuning[data-state="collapsed"] {
+          width: 34px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .game-tuning,
+        .game-tuning__body,
+        .game-tuning .control-group__summary:after {
+          transition: none;
+        }
+      }
+      /*$vite$:1*/
+    </style>
+  <link rel="icon" href="data:,">
+</head>
+  <body class="remix-game">
+    <main id="game" aria-label="Cylinder Jumper game canvas"></main>
+    <p id="game-status" role="alert" hidden></p>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

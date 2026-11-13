@@ -1,0 +1,60 @@
+{
+  "max_steps": 5,
+  "steps_used": 5,
+  "actual_steps": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Failed initial load: this repair missed original Cocos bootstrap registration rename; original failure retained, not passed."
+    },
+    {
+      "step": 2,
+      "type": "navigate",
+      "operation": "reload",
+      "selector": "index.html",
+      "result": "After exact module-registry correction, native full resource loading and Sally training."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "key": "d",
+      "hold_ms": 1600,
+      "result": "No movement while focus remained outside canvas; not keyboard pass."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "selector": "#GameCanvas",
+      "coordinate": [
+        405,
+        641
+      ],
+      "hold_ms": 1600,
+      "result": "Native screen D button moves original player right through target, original green check observed."
+    },
+    {
+      "step": 5,
+      "type": "click",
+      "selector": "#GameCanvas",
+      "coordinate": [
+        205,
+        641
+      ],
+      "hold_ms": 2600,
+      "result": "Native screen A button moves original player left through target, original green check captured."
+    }
+  ],
+  "unverified": [
+    "jump",
+    "bothshottypes",
+    "skill",
+    "goal/fullmatch/result",
+    "othercharacters/modes",
+    "postinteractionreload/saverestore",
+    "optionalreward/monetaryUI",
+    "keyboardaftercanvasfocus",
+    "mobile/audiooutput"
+  ],
+  "stopped_at_limit": true
+}

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+<head><script type="importmap">{"imports":{"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js":"./_remote/28f7db420fe306d9/three.module.js","https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/+esm":"./_remote/378fdf6dadf61abc/+esm.js"}}</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, viewport-fit=cover">
+    <title>SkyRoll: Apex</title>
+    <style>
+        body { 
+            margin: 0; overflow: hidden; touch-action: none; font-family: 'Segoe UI', Tahoma, sans-serif; 
+            user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; 
+            -webkit-tap-highlight-color: transparent; outline: none;
+            background-color: #87CEEB; 
+        }
+        
+        #top-ui {
+            position: absolute; 
+            top: 40px; 
+            left: max(20px, env(safe-area-inset-left)); 
+            /* Ép sát lề phải 15px để 2 nút Pause/Stop thẳng hàng với nút Remix */
+            right: max(15px, env(safe-area-inset-right)); 
+            z-index: 10;
+            display: flex; justify-content: space-between; align-items: flex-start;
+            pointer-events: none; color: white;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.6);
+        }
+        
+        .ui-panel { display: flex; flex-direction: column; gap: 4px; }
+        .ui-right { align-items: flex-end; text-align: right; }
+        
+        /* Chữ nhỏ lại, chống vỡ dòng */
+        .brand-text { font-size: 13px; color: #2ecc71; font-weight: 900; letter-spacing: 1px; margin-bottom: 2px; text-transform: uppercase; font-style: italic; white-space: nowrap;}
+        .score-text { font-size: 15px; font-weight: 800; margin: 0; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; white-space: nowrap;}
+        
+        .score-val { 
+            font-size: 24px; font-weight: 900; color: #ffffff; margin-left: 6px; 
+            font-style: italic; text-shadow: 0 3px 8px rgba(0,0,0,0.7); 
+            display: inline-block;
+        }
+        
+        /* THANH THỜI GIAN BAR MỚI (Ngắn gọn, tinh tế) */
+        .time-bar-container {
+            width: 160px; height: 14px; 
+            border: 2px solid #111; border-radius: 8px; 
+            background-color: #222; position: relative; 
+            /* margin-top 22px đẩy thanh này xuống đúng dòng 2, ngang với LEVEL */
+            margin-top: 29px; margin-bottom: 6px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            display: flex; align-items: center; overflow: visible;
+        }
+        
+        /* Vạch chia vùng (Dividers) */
+        .bar-divider {
+            position: absolute; top: 0; height: 100%; width: 2px;
+            background-color: rgba(0,0,0,0.8); z-index: 2;
+        }
+        
+        .time-bar-fill {
+            height: 100%; width: 100%; 
+            background-color: #a4de02; border-radius: 6px; 
+            transition: width 0.1s linear, background-color 0.3s;
+            box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2), inset 0 2px 0 rgba(255,255,255,0.3);
+            z-index: 1;
+        }
+        .time-bar-fill.warning { background-color: #f1c40f; }
+        .time-bar-fill.danger { background-color: #e74c3c; }
+        
+        /* Ngôi Sao CSS */
+        .star-icon {
+            position: absolute; top: -7px; 
+            width: 14px; height: 14px; margin-left: -7px; /* ÉP TÂM NGÔI SAO VÀO CHÍNH GIỮA TỌA ĐỘ LEFT */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f1c40f" stroke="%23111" stroke-width="2" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>');
+            background-size: cover; z-index: 3;
+            transition: filter 0.2s, transform 0.2s;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8)); transform-origin: center;
+        }
+        .star-lost { filter: grayscale(100%) brightness(0.4) drop-shadow(0 0 0 rgba(0,0,0,0)); transform: scale(0.85); }
+
+        #in-game-controls {
+            display: none; flex-direction: row; justify-content: flex-end; gap: 8px; 
+            margin-top: -2px; /* KÉO NÚT LÊN SÁT THANH THỜI GIAN */
+            pointer-events: auto;
+        }
+        
+        .ctrl-btn {
+            width: 28px; height: 28px; border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3); transition: all 0.2s ease;
+        }
+        .ctrl-btn:active { transform: scale(0.85); background: rgba(231, 76, 60, 0.8); border-color: #e74c3c; box-shadow: 0 0 10px rgba(231,76,60,0.6); }
+        
+        .icon-pause {
+            width: 4px; height: 10px; 
+            border-left: 3px solid #ffffff; border-right: 3px solid #ffffff; 
+            padding-left: 2px; box-sizing: border-box; background: transparent;
+        }
+        .icon-stop {
+            width: 10px; height: 10px; background: #ffffff; border-radius: 1px;
+        }
+        .icon-menu {
+            width: 14px; height: 2px; background: #ffffff; border-radius: 1px;
+            box-shadow: 0 -4px 0 #ffffff, 0 4px 0 #ffffff;
+        }
+
+        .overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            z-index: 100; display: none; justify-content: center; align-items: center;
+        }
+        
+        #intro-overlay { display: block; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+        
+        .vignette-top {
+            position: absolute; top: 0; left: 0; width: 100%; height: 30vh;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent); pointer-events: none;
+        }
+        .vignette-bottom {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 40vh;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); pointer-events: none;
+        }
+
+        .intro-title {
+            position: absolute; top: 8vh; width: 100%;
+            font-size: 46px; color: #ffffff; font-weight: 900; font-style: italic; 
+            text-transform: uppercase; letter-spacing: 3px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.8); text-align: center; line-height: 1.1;
+        }
+        .intro-title span { color: #2ecc71; font-size: 52px; }
+
+        .skin-selector {
+            position: absolute; top: 60vh; width: 100%; padding: 0 40px; box-sizing: border-box;
+            display: flex; align-items: center; justify-content: center; gap: 15px; pointer-events: auto;
+        }
+        
+        .nav-btn {
+            background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.6); color: white;
+            width: 45px; height: 45px; border-radius: 50%; font-size: 20px; font-weight: bold; flex-shrink: 0;
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            transition: all 0.2s; backdrop-filter: blur(4px); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .nav-btn:active { transform: scale(0.85); background: #2ecc71; border-color: #2ecc71; }
+        
+        #skin-name {
+            flex-grow: 1; max-width: 240px; 
+            font-size: clamp(14px, 4.5vw, 20px); 
+            font-weight: 900; color: #f1c40f; 
+            text-align: center; font-style: italic; text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.9);
+            white-space: normal; line-height: 1.2; overflow: visible;
+        }
+        
+        .intro-bottom {
+            position: absolute; bottom: 8vh; width: 100%;
+            display: flex; flex-direction: column; align-items: center; gap: 15px; pointer-events: auto;
+        }
+
+        .play-btn {
+            background: #2ecc71; color: #ffffff; border: none; padding: 14px 60px;
+            font-size: 24px; font-weight: 900; border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); cursor: pointer; font-style: italic;
+            text-transform: uppercase; letter-spacing: 2px; transition: transform 0.1s, background 0.2s;
+        }
+        .play-btn:active { background: #27ae60; transform: scale(0.94); box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4); }
+
+        .unlock-btn {
+            background: linear-gradient(135deg, #f39c12, #d35400); color: #ffffff; border: none; padding: 14px 30px;
+            font-size: 20px; font-weight: 900; border-radius: 50px; font-style: italic;
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4); cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s; display: none;
+        }
+        .unlock-btn:active { transform: scale(0.94); filter: brightness(0.9); }
+
+        .instructions {
+            font-size: 13px; color: rgba(255,255,255,0.9); font-weight: 600; 
+            letter-spacing: 2px; text-shadow: 0 2px 5px rgba(0,0,0,0.8); text-align: center;
+            line-height: 1.8; pointer-events: none;
+        }
+
+        .modal-card {
+            background: rgba(15, 20, 25, 0.65); border-radius: 24px; padding: 30px 20px;
+            text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+            border: 1px solid rgba(255, 255, 255, 0.15); color: white; width: 100%; max-width: 320px;
+            position: relative; z-index: 101; pointer-events: auto; box-sizing: border-box;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        }
+        .modal-card h2 { 
+            font-size: 30px; color: #2ecc71; margin: 0 0 10px 0; text-transform: uppercase; 
+            letter-spacing: 3px; font-style: italic; font-weight: 900;
+            text-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+        }
+        .modal-card p { 
+            font-size: 14px; margin: 0 0 20px 0; color: rgba(255,255,255,0.85); 
+            line-height: 1.5; letter-spacing: 1px; font-weight: 600;
+        }
+        
+        .btn {
+            background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); 
+            padding: 14px 16px; font-size: 15px; font-weight: 900; border-radius: 30px; 
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); font-style: italic;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: all 0.2s ease;
+        }
+        .btn:active { 
+            transform: scale(0.92); background: rgba(46, 204, 113, 0.6); 
+            border-color: #2ecc71; box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+        }
+        .btn-cancel { background: #e74c3c; border-color: #c0392b; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+        .btn-cancel:active { 
+            background: #c0392b; border-color: #a5281b; 
+            box-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
+        }
+        
+        .modal-btn-row { 
+            display: flex; gap: 12px; justify-content: center; margin-top: 15px; 
+            flex-direction: row; flex-wrap: nowrap;
+        }
+        .modal-btn-row .btn { flex: 1; padding: 14px 0; }
+    </style>
+</head>
+<body>
+
+    <div id="top-ui" style="display: none;">
+        <div class="ui-panel">
+            <div class="brand-text">SKYROLL: APEX</div>
+            <div class="score-text">LEVEL <span id="ui-level" class="score-val">1</span></div>
+        </div>
+        <div class="ui-panel ui-right">
+            <!-- THANH BAR THỜI GIAN (6 SAO & 2 VẠCH CHIA) -->
+            <div class="time-bar-container">
+                <div class="time-bar-fill" id="ui-time-fill" style="width: 100%;"></div>
+                
+                <!-- Vạch chia vùng -->
+                <div class="bar-divider" style="left: 15%;"></div>
+                <div class="bar-divider" style="left: 30%;"></div>
+                
+                <!-- Vùng 1 (Tâm 7.5%) -->
+                <div class="star-icon star-zone-1" style="left: 7.5%;"></div>
+                
+                <!-- Vùng 2 (Tâm 22.5%) -->
+                <div class="star-icon star-zone-2" style="left: 20%;"></div>
+                <div class="star-icon star-zone-2" style="left: 25%;"></div>
+                
+                <!-- Vùng 3 (Tâm 65%) -->
+                <div class="star-icon star-zone-3" style="left: 58%;"></div>
+                <div class="star-icon star-zone-3" style="left: 65%;"></div>
+                <div class="star-icon star-zone-3" style="left: 72%;"></div>
+            </div>
+            
+            <div id="in-game-controls">
+                <div class="ctrl-btn" onclick="playButtonSound(); pauseGame()">
+                    <div class="icon-pause"></div>
+                </div>
+                <div class="ctrl-btn" onclick="playButtonSound(); askEndGame()">
+                    <div class="icon-menu"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="intro-overlay" class="overlay" style="display: block;">
+        <div class="vignette-top"></div>
+        <div class="vignette-bottom"></div>
+        <div class="intro-title">SKYROLL<br><span>APEX</span></div>
+        
+        <div class="skin-selector">
+            <button class="nav-btn" onclick="playButtonSound(); prevSkin()">&#10094;</button>
+            <div id="skin-name">CLASSIC</div>
+            <button class="nav-btn" onclick="playButtonSound(); nextSkin()">&#10095;</button>
+        </div>
+
+        <div class="intro-bottom">
+            <button id="play-btn" class="play-btn" onclick="playButtonSound(); startGame()">PLAY</button>
+            <span id="unlock-btn" hidden></span>
+            <div class="instructions">DRAG TO STEER<br>DODGE OBSTACLES<br>REACH CHECKPOINTS</div>
+        </div>
+    </div>
+
+    <div id="pause-overlay" class="overlay">
+        <div class="modal-card">
+            <h2>PAUSED</h2>
+            <p>Take a deep breath...</p>
+            <button class="btn" style="width:100%" onclick="playButtonSound(); resumeGame()">RESUME</button>
+        </div>
+    </div>
+
+    <div id="confirm-end-overlay" class="overlay">
+        <div class="modal-card">
+            <h2 style="color: #f1c40f; text-shadow: 0 0 15px rgba(241, 196, 15, 0.5);">MAIN MENU?</h2>
+            <p>Return to menu to change skins?</p>
+            <div class="modal-btn-row">
+                <button class="btn btn-cancel" onclick="playButtonSound(); forceEndGame()">MENU</button>
+                <button class="btn" onclick="playButtonSound(); cancelEndGame()">CANCEL</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <script type="module" src="game.js"></script>
+</body>
+</html>

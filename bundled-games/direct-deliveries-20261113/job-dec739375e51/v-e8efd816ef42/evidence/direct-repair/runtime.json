@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "missing": [],
+  "required_external": [],
+  "actions": [
+    {
+      "type": "click",
+      "target": "Play Ball numbers",
+      "result": "Original practice mode starts at zero points and zero shots"
+    },
+    {
+      "type": "key",
+      "key": "Space",
+      "result": "Original break and ball collisions; no pot in first shot"
+    },
+    {
+      "type": "click",
+      "target": "top-right pocket then Space",
+      "result": "Scratch -5, ball in hand"
+    },
+    {
+      "type": "drag",
+      "target": "cue ball",
+      "result": "Legal native ball-in-hand placement behind the 8"
+    },
+    {
+      "type": "key",
+      "key": "Space",
+      "result": "8 potted on shot 3, original final score 46 = -5 scratch +51 time bonus; native result panel"
+    },
+    {
+      "type": "click",
+      "target": "Play again",
+      "result": "Original Rt reset: full rack, score 0, shots 0"
+    },
+    {
+      "type": "reload",
+      "result": "Original menu returns; no persistent match save in source"
+    },
+    {
+      "type": "click",
+      "target": "Play Classic 8-ball then weak Space shot",
+      "result": "No ball hit, Player 1 -5; Player 2 has ball in hand"
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8881/index.html",
+    "http://127.0.0.1:8881/_remote/3a125e88c76c9347/css2",
+    "http://127.0.0.1:8881/game.js",
+    "http://127.0.0.1:8881/_remote/8a1b82acd9dbb73f/three@0.186.0.js",
+    "http://127.0.0.1:8881/_remote/ba20a7fb9a5bf09b/RoomEnvironment.js",
+    "http://127.0.0.1:8881/_remote/faa9389fa69a1c42/three.mjs.js",
+    "http://127.0.0.1:8881/_remote/be60a0d932dc16a4/RoomEnvironment.mjs.js",
+    "http://127.0.0.1:8881/_runtime_resources/a86bfaeb027f7c938fed5a8f.mp3",
+    "http://127.0.0.1:8881/_runtime_resources/ffe43922c43145eab219d60b.mp3",
+    "http://127.0.0.1:8881/_runtime_resources/d73744cf192fc26087a775cd.mp3",
+    "http://127.0.0.1:8881/_runtime_resources/996c6c06b7db87c0024b3d3c.mp3",
+    "http://127.0.0.1:8881/_runtime_resources/031657bcb15005ca3d47c74b.mp3",
+    "http://127.0.0.1:8881/index.html",
+    "http://127.0.0.1:8881/_remote/3a125e88c76c9347/css2",
+    "http://127.0.0.1:8881/game.js",
+    "http://127.0.0.1:8881/_remote/8a1b82acd9dbb73f/three@0.186.0.js",
+    "http://127.0.0.1:8881/_remote/ba20a7fb9a5bf09b/RoomEnvironment.js",
+    "http://127.0.0.1:8881/_remote/faa9389fa69a1c42/three.mjs.js",
+    "http://127.0.0.1:8881/_remote/be60a0d932dc16a4/RoomEnvironment.mjs.js",
+    "http://127.0.0.1:8881/_runtime_resources/a86bfaeb027f7c938fed5a8f.mp3",
+    "http://127.0.0.1:8881/_runtime_resources/ffe43922c43145eab219d60b.mp3",
+    "http://127.0.0.1:8881/_runtime_resources/d73744cf192fc26087a775cd.mp3",
+    "http://127.0.0.1:8881/_runtime_resources/996c6c06b7db87c0024b3d3c.mp3",
+    "http://127.0.0.1:8881/_runtime_resources/031657bcb15005ca3d47c74b.mp3"
+  ],
+  "scope": "Desktop IAB 1280x720: Numbers practice completed under original scoring, 3 shots / score 46 (-5 scratch +51 original speed bonus), replay resets score and rack. Classic same-device two-player startup and foul/turn change verified; complete Classic win/loss, called pocket, spin effects, mobile touch and result Main menu button not independently verified. No persistent game save in original. No Bot or online play claimed.",
+  "evidence": "evidence/direct-repair/network.json"
+}

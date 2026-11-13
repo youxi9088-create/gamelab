@@ -1,0 +1,557 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "step": 1,
+        "type": "navigate",
+        "selector": "index.html",
+        "result": "Originalmenu rendered with native rider/track."
+      },
+      {
+        "step": 2,
+        "type": "click",
+        "selector": "Plunge in",
+        "result": "SUMMIT LAUNCH, real speed/time HUD."
+      },
+      {
+        "step": 3,
+        "type": "key",
+        "key": "a",
+        "hold_ms": 600,
+        "result": "THE WALL; nativeWIPEOUT+3.0S observed."
+      },
+      {
+        "step": 4,
+        "type": "key",
+        "key": "Space",
+        "hold_ms": 160,
+        "result": "Jump input exercised; native recovery continued, airtime metric not measured."
+      },
+      {
+        "step": 5,
+        "type": "reload",
+        "selector": "page",
+        "result": "Originalmenu restored. No persistent score/position claim."
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8923/",
+      "http://127.0.0.1:8923/main.js",
+      "http://127.0.0.1:8923/vendor/001-three-0.185.js",
+      "http://127.0.0.1:8923/vendor/003-EffectComposer.js",
+      "http://127.0.0.1:8923/vendor/005-RenderPass.js",
+      "http://127.0.0.1:8923/vendor/007-UnrealBloomPass.js",
+      "http://127.0.0.1:8923/vendor/009-OutputPass.js",
+      "http://127.0.0.1:8923/vendor/011-GLTFLoader.js",
+      "http://127.0.0.1:8923/vendor/002-three.js",
+      "http://127.0.0.1:8923/vendor/004-EffectComposer.js",
+      "http://127.0.0.1:8923/vendor/006-RenderPass.js",
+      "http://127.0.0.1:8923/vendor/008-UnrealBloomPass.js",
+      "http://127.0.0.1:8923/vendor/010-OutputPass.js",
+      "http://127.0.0.1:8923/vendor/012-GLTFLoader.js",
+      "http://127.0.0.1:8923/assets/020-modelsrider-avatar-074e2f68-503a-40bc-8e71-473383fd635c.gltf-bina",
+      "http://127.0.0.1:8923/assets/019-modelsparadise-support-tower-cf1869d9paradise-support-tower.gltf-",
+      "http://127.0.0.1:8923/assets/018-modelsparadise-royal-palm-03217fffparadise-royal-palm.gltf-binary",
+      "http://127.0.0.1:8923/assets/021-modelssummit-launch-platform-50024893-12f7-4020-8444-1132b5944a52-6Dre",
+      "http://127.0.0.1:8923/assets/022-modelstropical-waters-resort-0d44e555-5261-496e-8ea3-a7c3dfdee267-Yr9S",
+      "http://127.0.0.1:8923/assets/016-modelscliff-rock-formation-64d95cf1-8cec-4103-bace-3f00dd4db8e3.g",
+      "http://127.0.0.1:8923/assets/017-modelsinflatable-tube-cca9bcbc-cb67-4c69-abd1-0cace08e7c05.gltf-b",
+      "blob:http://127.0.0.1:8923/a394e109-7495-4c43-9f9b-c2bcebd4f04c",
+      "blob:http://127.0.0.1:8923/75cf1ad5-d827-4ae0-98bc-09f27cf5f946",
+      "blob:http://127.0.0.1:8923/2c41871c-abc7-45d3-8cbb-04c94cbd8762",
+      "blob:http://127.0.0.1:8923/4f92af82-5f0c-4666-b8b0-e1712f2b999c",
+      "blob:http://127.0.0.1:8923/c2104684-d01f-48bc-bf5b-2abbab53a371",
+      "blob:http://127.0.0.1:8923/444b0a24-56e4-4de2-bebf-7bc75c301798",
+      "blob:http://127.0.0.1:8923/6babe3e2-ef9c-4f80-b1a0-8d076a5075fb",
+      "blob:http://127.0.0.1:8923/1bd6697e-ceb1-4443-b7dc-8c1fc2784299",
+      "blob:http://127.0.0.1:8923/0f3c61c9-fc1b-421d-b3f0-a5a8c2c82067",
+      "blob:http://127.0.0.1:8923/e49300be-d33a-46a8-a4bd-36d80f3a60df",
+      "blob:http://127.0.0.1:8923/228d519a-2b2e-465d-bd72-8e23fe568843",
+      "blob:http://127.0.0.1:8923/bb9e6ffd-7749-43db-95ba-43a624e2ba77",
+      "blob:http://127.0.0.1:8923/7e92dfac-fcae-4a62-a359-2c3d650b8d30",
+      "http://127.0.0.1:8923/assets/014-billboardsparadise-plunge-brand.webp",
+      "http://127.0.0.1:8923/assets/015-billboardstropical-tube-rider.webp",
+      "http://127.0.0.1:8923/assets/013-billboardshigh-score-ad.webp"
+    ],
+    "scope": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+    "network_scope": "Observation begins after first menu loaded, covers steps2-5 including complete final reload; first startup before cursor not claimed.",
+    "evidence": "evidence/direct-repair/network-final.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-02-playing.jpg",
+        "screenshots/revision-03-steer.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-02-playing.jpg",
+        "screenshots/revision-03-steer.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-02-playing.jpg",
+        "screenshots/revision-03-steer.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-02-playing.jpg",
+        "screenshots/revision-03-steer.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-02-playing.jpg",
+        "screenshots/revision-03-steer.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-02-playing.jpg",
+        "screenshots/revision-03-steer.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-02-playing.jpg",
+        "screenshots/revision-03-steer.jpg",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "Originalmenu rendered with native rider/track."
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "Plunge in",
+      "result": "SUMMIT LAUNCH, real speed/time HUD."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "key": "a",
+      "hold_ms": 600,
+      "result": "THE WALL; nativeWIPEOUT+3.0S observed."
+    },
+    {
+      "step": 4,
+      "type": "key",
+      "key": "Space",
+      "hold_ms": 160,
+      "result": "Jump input exercised; native recovery continued, airtime metric not measured."
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "page",
+      "result": "Originalmenu restored. No persistent score/position claim."
+    }
+  ],
+  "scope": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      }
+    ],
+    "scope": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。"
+  },
+  "dependency_review": {
+    "previous_revision": 10,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原Three.js游戏离线启动、进入正式滑行并持续运行，无运行错误。",
+          "evidence": "verification/720bbeea-acd1-40e4-9541-fe0426d779e1-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "赛道、角色、粒子、字体与渲染资源完整，missing为空。",
+          "evidence": "verification/720bbeea-acd1-40e4-9541-fe0426d779e1-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "赛段与计分配置可读取，运行时确认SUMMIT LAUNCH至THE WALL推进。",
+          "evidence": "verification/720bbeea-acd1-40e4-9541-fe0426d779e1-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "已观察的单人启动与滑行流程零外部请求，本地代码独立完成；仅覆盖该流程。",
+          "evidence": "verification/720bbeea-acd1-40e4-9541-fe0426d779e1-web-play.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地宿主可加载菜单并启动单人游戏。",
+          "evidence": "verification/720bbeea-acd1-40e4-9541-fe0426d779e1-web-play.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 10,
+      "updated_at": "2026-11-05T13:20:15+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。"
+    },
+    "basis": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。"
+  },
+  "base_version_id": "v-d81fff9d226c",
+  "manual_execution": {
+    "executor": "Codex direct repair / actual UI",
+    "automated_model_conversion": false,
+    "original_job": "job-4af837e89b75",
+    "max_gameplay_steps": 5,
+    "at": "2026-11-12T17:27:18.856229+00:00"
+  },
+  "game_profile": {
+    "category": "体育 / 跑酷",
+    "dimension": "3D",
+    "perspective": "第三人称尾随泳圈，弯道随角色朝向移动；左上Time/Speed/Chain，下方Now Riding赛段与WIPEOUT反馈。",
+    "core_gameplay": "点击开始→观察弯道和速度→左右转向或跳跃→沿赛道推进/触发WIPEOUT→检查点继续→终点入池后原统计结算。",
+    "core_experience": "",
+    "controls": "A/D或左右方向键持续转向，Space跳跃；点击Plunge in开始，原结算Run again代码保留。实际仅按5步上限验证A和Space输入及刷新，未操作终点Run again。原移动按钮仍保留，真实触屏未测。",
+    "game_loop": "原菜单→Plunge in→十段连续赛道→终点泳池→统计面板→Run again。此次只实测前两赛段及WIPEOUT恢复，按5步上限停止，不宣称完整流程已实测。",
+    "content": "10个连续赛段：SUMMIT LAUNCH、THE WALL、THE DROP、THE GLASS RUN、THE SPLIT、THE SURGE、THE GAP、THE SPIRAL、PARADISE FALLS、THE PARADISE PLUNGE。是同一连续滑道的分段，不称10个独立关卡；全部配置保留，实测前两段。",
+    "progression": "本局累计时间、速度、连锁、浪峰/腾空/干净度等评价；未发现当前原玩法调用持久化存储，不能宣称最高分、成长解锁或新关卡存档。",
+    "save": "当前原玩法中没有ne.saveState调用；原local-host中通用localStorage桥并不构成游戏实际保存。此次已退役该SDK桥，未新增存档。实测刷新回菜单；不声称保留成绩或局面。",
+    "rules": "从起点沿原连续赛道到终点泳池；冲出赛道或原碰撞条件触发WIPEOUT与检查点恢复，并加3秒。最终分数至少0；计分和原落地区域逻辑不改。没有新增自动成功或减少惩罚。",
+    "systems": "泳圈物理/输入、分段路线、碰撞与检查点、计时/评分、镜头/水花/程序音频、原菜单和结果UI、桌面/移动输入。真实组队传输与宿主功能已退役。",
+    "ui_flow": "菜单显示原标题/操作提示/Plunge in；开始后顶部Time/Speed/Chain和当前赛段；WIPEOUT显示+3秒并恢复；原结果面板代码有时间与各项评价、Run again。刷新回菜单。",
+    "level_design": "原分段曲线、宽度/倾斜、跳台、分支、开口与终点泳池；SPLIT和GAP原路线分支保留。未按操作能力缩短THE WALL或修改难度。",
+    "verification": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。",
+    "evidence": "main.js原lt物理类/赛段ss与Ot/原UI jt及统计方法；source-preservation.json记录71语义SHA和vendor字节；resource-http-verified.json；network-final.json；screenshots/revision-01..05。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "Three.js 0.185.x、GLTFLoader与EffectComposer/UnrealBloom/OutputPass。",
+    "programming_language": "JavaScript ES模块、HTML/CSS、Three GLSL材质；原内联模块提取为可编辑main.js。",
+    "game_summary": "乘泳圈沿高空水上滑梯下滑，通过转向和跳跃维持路线，终点入池后按时间与滑行表现计分。",
+    "resource_types": "场景、泳圈、角色与棕榈/支架等7份原GLB二进制模型；3张原WebP广告牌/品牌图；Three程序几何、GLSL水体/灯光、Canvas纹理、CSS界面；音效由原WebAudio程序合成。原资源字节保留。",
+    "engine_asset_system": "本地vendor/Three模块与assets/模型纹理；GLTFLoader读取原二进制，原分段曲线和几何生成赛道。未新增联网下载或占位模型。",
+    "core_challenge_details": "高速滑行时控制转向和起跳，沿原弯道、开口与分支保持在赛道内，失误后从检查点恢复并累计时间惩罚。",
+    "core_challenge_type": "操作执行",
+    "input_elements": "左右键持续输入、Space跳跃、菜单点击；实测A600ms/Space160ms。",
+    "app_suitability": "",
+    "core_loop": "观察路线→输入方向/跳跃→位置速度变化→判断赛道边界和检查点→继续滑行。",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "目标：沿赛道抵达终点泳池，取得更好的滑行表现。规则：原固定步长物理、转向、跳跃、碰撞和检查点处理不变；WIPEOUT加3秒，不直接结束整局。反馈：角色/泳圈位置和倾斜、尾随镜头、水花/光效、Time/Speed/Chain、赛段名、WIPEOUT大字。激励：源码存在时间/浪峰/腾空/连锁与落地区域的原计分，终点统计和Run again可作为下一目标；本轮未到达终点，奖励与结算不列为实测。刷新回菜单重新开始，不声称恢复未完成局。",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "源码固定步长1/120秒；WIPEOUT+3秒。finalScore=max(0,round(score+landingBonus+max(0,420-time)*40+goodTime*15+crests*200+airtime*25-wipeouts*250))。flow=round(100*goodTime/max(1,time))；clean=round(max(0,100-wipeouts*7-damage*20))。均为原源码公式，非此次终点实测数值。",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "Tropical Waters夜间海岛高空滑道、棕榈/礁石/度假村、霓虹灯、水体和黄色泳圈，保留原角色、广告牌纹理和英文UI。",
+    "theme_position": "热带水上滑梯运动。",
+    "economy": "未发现商店、货币或养成消耗链；本局计分属于表现评价，不能当作可消费货币。",
+    "roles": "一个单人泳圈骑手，原角色/泳圈模型及外观材质保留；其他模型为场景装饰与支撑物。原Team网络参与者和远端影子已退役。",
+    "roster_summary": "",
+    "monetization_details": "当前版本不加载真实广告/支付SDK，不上报成绩、云存档或组队消息。原场景里的品牌/广告牌纹理仍保留为静态美术，不代表网络广告。未接入供货。",
+    "monetization": "本交付无真实广告或支付请求。",
+    "illustrations": [
+      {
+        "path": "screenshots/revision-01-startup.jpg",
+        "caption": "第1步原菜单、角色泳圈与滑道。"
+      },
+      {
+        "path": "screenshots/revision-03-steer.jpg",
+        "caption": "第3步A转向后THE WALL，实际WIPEOUT+3.0S；不是通关。"
+      },
+      {
+        "path": "screenshots/revision-05-reload.jpg",
+        "caption": "第5步刷新回菜单；不代表持久成绩或局面恢复。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "main.js original native module, index.html/CSS and localvendor; originalauthorprojectnotrecovered.",
+    "reuse": "Physics/course/UI/nativeinput remain enginecoupled; needadaptation forothergames.",
+    "dependencies": "Three/WebGL/GLTF/WebAudio, localassets; serveoverHTTP.",
+    "preservation": "按用户最新上限仅验证5步：1启动原菜单，2点击Plunge in，3按A转向600ms，4按Space160ms，5刷新回菜单。实际由SUMMIT LAUNCH进入THE WALL，出现原WIPEOUT+3.0S，恢复后继续滑行；未到终点、未验证完整结算或Run again，不宣称通关。保留原lt物理/赛道/碰撞/计时/得分/难度、全部10赛段配置及原UI/模型/纹理；71个原函数或类语义SHA一致，原assets/vendor逐字节一致。退役实际SDK发现/绑定/上报/云发送器和整个Team网络类，原local-host假SDK包装移出运行包；不伪造房间、账号、广告或支付。保留原单人结果和重玩代码，不改变成功条件；当前原玩法未实际调用保存方法，刷新回菜单，不宣称记录或局面持久保存。完整74事件覆盖第2—5步及末次完整加载，无截断/外联/加载失败/脚本异常，console无警告错误。首屏加载发生在游标之前，不冒充完整全程；未验证后续赛段/终点/真触控/听觉。沿原任务正常交付待人工验收，不批准、不供货。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 15049.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 7523.45,
+      "calls": 60,
+      "known_input_tokens": 2789926,
+      "known_output_tokens": 262985,
+      "cached_input_tokens_known": 1236408,
+      "unknown_usage_calls": 6,
+      "known_estimated_cost_subtotals": {
+        "CNY": 46.937626800000004
+      },
+      "unknown_cost_calls": 9,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 22,
+          "input_tokens_known": 954276,
+          "output_tokens_known": 61927,
+          "unknown_usage_calls": 2,
+          "known_cost_subtotals": {
+            "CNY": 4.4912328
+          },
+          "unknown_cost_calls": 5,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 38,
+          "input_tokens_known": 1835650,
+          "output_tokens_known": 201058,
+          "unknown_usage_calls": 4,
+          "known_cost_subtotals": {
+            "CNY": 42.446394
+          },
+          "unknown_cost_calls": 4,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T10:04:50.723391+00:00",
+      "observed_until": "2026-11-12T17:27:56.725329+00:00",
+      "observed_wall_seconds": 26586.001938,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

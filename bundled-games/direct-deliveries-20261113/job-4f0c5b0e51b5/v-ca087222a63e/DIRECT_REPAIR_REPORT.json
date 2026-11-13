@@ -1,0 +1,570 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "actions": [
+      {
+        "type": "click",
+        "selector": "canvas",
+        "x": 642,
+        "y": 590,
+        "target": "Native Play button",
+        "result": "Language selection"
+      },
+      {
+        "type": "click",
+        "selector": "canvas",
+        "x": 510,
+        "y": 240,
+        "target": "English",
+        "result": "Category selection"
+      },
+      {
+        "type": "click",
+        "selector": "canvas",
+        "x": 483,
+        "y": 238,
+        "target": "Fruits",
+        "result": "Original puzzle and help"
+      },
+      {
+        "type": "click",
+        "selector": "canvas",
+        "x": 803,
+        "y": 463,
+        "target": "Help next",
+        "result": "Puzzle ready"
+      },
+      {
+        "type": "click",
+        "target": "Play / English / Fruits / help next",
+        "result": "Original 10x10 puzzle and 16 fruit words generated"
+      },
+      {
+        "type": "drag",
+        "result": "All 16 visible words found by actual mouse drags; horizontal, reverse, vertical and diagonal highlights/strikes"
+      },
+      {
+        "type": "observe",
+        "result": "Original YOU WON / TOTAL SCORE 26 / elapsed 00:03:28"
+      },
+      {
+        "type": "click",
+        "target": "next",
+        "result": "Category selection returns; Vegetables generates a distinct grid"
+      },
+      {
+        "type": "click",
+        "target": "pause / resume",
+        "result": "Pause page then returns to same Vegetables grid"
+      },
+      {
+        "type": "drag",
+        "target": "non-word two cells",
+        "result": "No word marked found"
+      },
+      {
+        "type": "click",
+        "target": "exit / cancel, exit / confirm",
+        "result": "Cancel preserves puzzle; confirm returns title"
+      },
+      {
+        "type": "reload",
+        "result": "Original title returns; no persistent puzzle save in game source"
+      },
+      {
+        "type": "drag",
+        "target": "fresh reload Fruits PEAR / KIWI / PLANTAIN",
+        "result": "Three real words selected in complete incremental network observation window"
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8883/index.html",
+      "http://127.0.0.1:8883/css/reset.css",
+      "http://127.0.0.1:8883/css/main.css",
+      "http://127.0.0.1:8883/css/orientation_utils.css",
+      "http://127.0.0.1:8883/js/jquery-3.2.1.min.js",
+      "http://127.0.0.1:8883/js/easeljs-NEXT.min.js",
+      "http://127.0.0.1:8883/js/tweenjs.js",
+      "http://127.0.0.1:8883/js/screenfull.min.js",
+      "http://127.0.0.1:8883/js/platform.js",
+      "http://127.0.0.1:8883/js/howler.min.js",
+      "http://127.0.0.1:8883/js/ctl_utils.js",
+      "http://127.0.0.1:8883/js/sprite_lib.js",
+      "http://127.0.0.1:8883/js/settings.js",
+      "http://127.0.0.1:8883/js/CLang.min.js",
+      "http://127.0.0.1:8883/js/CPreloader.js",
+      "http://127.0.0.1:8883/js/CMain.js",
+      "http://127.0.0.1:8883/js/CTextButton.js",
+      "http://127.0.0.1:8883/js/CToggle.js",
+      "http://127.0.0.1:8883/js/CNumToggle.js",
+      "http://127.0.0.1:8883/js/CGfxButton.js",
+      "http://127.0.0.1:8883/js/CMenu.js",
+      "http://127.0.0.1:8883/js/CGame.js",
+      "http://127.0.0.1:8883/js/CAreYouSurePanel.js",
+      "http://127.0.0.1:8883/js/CInterface.js",
+      "http://127.0.0.1:8883/js/CCreditsPanel.js",
+      "http://127.0.0.1:8883/js/CEndPanel.js",
+      "http://127.0.0.1:8883/js/CLevelMenu.js",
+      "http://127.0.0.1:8883/js/CLevelBut.js",
+      "http://127.0.0.1:8883/js/CWordCell.js",
+      "http://127.0.0.1:8883/js/CPause.js",
+      "http://127.0.0.1:8883/js/CLanguageMenu.js",
+      "http://127.0.0.1:8883/js/CFailGenerateGrid.js",
+      "http://127.0.0.1:8883/js/CTimeBoard.js",
+      "http://127.0.0.1:8883/js/CHelpPanel.js",
+      "http://127.0.0.1:8883/js/CLogo.js",
+      "http://127.0.0.1:8883/js/PlaceWord.js",
+      "http://127.0.0.1:8883/js/CCTLText.js",
+      "http://127.0.0.1:8883/js/lang_english.js",
+      "http://127.0.0.1:8883/js/lang_french.js",
+      "http://127.0.0.1:8883/js/lang_german.js",
+      "http://127.0.0.1:8883/js/lang_italian.js",
+      "http://127.0.0.1:8883/js/lang_portoguese.js",
+      "http://127.0.0.1:8883/js/lang_spanish.js",
+      "http://127.0.0.1:8883/css/blackplotan-webfont-webfont.woff2",
+      "http://127.0.0.1:8883/sprites/progress_bar.png",
+      "http://127.0.0.1:8883/sprites/200x200.jpg",
+      "http://127.0.0.1:8883/sprites/but_start.png",
+      "http://127.0.0.1:8883/sprites/bg_menu.jpg",
+      "http://127.0.0.1:8883/sprites/msg_box.png",
+      "http://127.0.0.1:8883/sprites/bg_game.jpg",
+      "http://127.0.0.1:8883/sprites/but_exit.png",
+      "http://127.0.0.1:8883/sprites/but_pause.png",
+      "http://127.0.0.1:8883/sprites/icon_audio.png",
+      "http://127.0.0.1:8883/sprites/but_play.png",
+      "http://127.0.0.1:8883/sprites/but_restart.png",
+      "http://127.0.0.1:8883/sprites/but_continue.png",
+      "http://127.0.0.1:8883/sprites/but_category.png",
+      "http://127.0.0.1:8883/sprites/hit_area_cell.png",
+      "http://127.0.0.1:8883/sprites/but_yes.png",
+      "http://127.0.0.1:8883/sprites/arrow_right.png",
+      "http://127.0.0.1:8883/sprites/arrow_left.png",
+      "http://127.0.0.1:8883/sprites/but_info.png",
+      "http://127.0.0.1:8883/sprites/logo_ctl.png",
+      "http://127.0.0.1:8883/sprites/but_not.png",
+      "http://127.0.0.1:8883/sprites/game_panel.png",
+      "http://127.0.0.1:8883/sprites/word_panel.png",
+      "http://127.0.0.1:8883/sprites/but_home.png",
+      "http://127.0.0.1:8883/sprites/img_help.png",
+      "http://127.0.0.1:8883/sprites/time_board.png",
+      "http://127.0.0.1:8883/sprites/logo_small.png",
+      "http://127.0.0.1:8883/sprites/but_fullscreen.png",
+      "http://127.0.0.1:8883/sprites/flag_0.png",
+      "http://127.0.0.1:8883/sprites/flag_1.png",
+      "http://127.0.0.1:8883/sprites/flag_2.png",
+      "http://127.0.0.1:8883/sprites/flag_3.png",
+      "http://127.0.0.1:8883/sprites/flag_4.png",
+      "http://127.0.0.1:8883/sprites/flag_5.png",
+      "http://127.0.0.1:8883/sounds/guessed.mp3",
+      "http://127.0.0.1:8883/sounds/click.mp3",
+      "http://127.0.0.1:8883/sounds/wrong.mp3",
+      "http://127.0.0.1:8883/sounds/game_completed.mp3",
+      "http://127.0.0.1:8883/sounds/soundtrack.mp3"
+    ],
+    "scope": "Desktop IAB 1280x720. English Fruits complete original 16-word round, original score 26 at 00:03:28; next/category selection, Vegetables new grid, pause/resume, invalid word, cancel/confirm exit and reload verified. Other five languages and all categories not exhaustively played. No persistent puzzle save exists in original game. Complete non-truncated network window covers final fresh startup and 3 representative finds; earlier long complete-round network window was truncated and retained only as diagnostic. Actual complete-round UI screenshots are separate evidence.",
+    "network_scope": "Final fresh reload, startup, English/Fruits entry and actual PEAR/KIWI/PLANTAIN selection. Earlier complete puzzle UI evidence remains valid, but its long network window was truncated and is saved separately as diagnostic only.",
+    "evidence": "evidence/direct-repair/network.json"
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "multiplayer": {
+      "status": "absent",
+      "reason": "Final native CreateJS game has no multiplayer control, SDK, call or backend; final representative network window only local resources.",
+      "evidence": [
+        "index.html",
+        "js/CGame.js",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "Final native CreateJS game has no payments control, SDK, call or backend; final representative network window only local resources.",
+      "evidence": [
+        "index.html",
+        "js/CGame.js",
+        "evidence/direct-repair/network.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "Removed CTL global score/share event emitters and parent callbacks. Original local round score and native result remain, no fabricated leaderboard or submission.",
+      "evidence": [
+        "index.html",
+        "js/CEndPanel.js",
+        "evidence/direct-repair/win-score26.png"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "Removed CTL interlevel-ad emitters, parent ad callback, ad counters/config. Native ending/next/category routes actually exercised; no fake ad reward.",
+      "evidence": [
+        "index.html",
+        "js/CGame.js",
+        "js/CEndPanel.js",
+        "js/settings.js",
+        "evidence/direct-repair/network.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "Actual 16-word round completed, score26, next and category generation.",
+      "evidence": [
+        "evidence/direct-repair/win-score26.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "Original CreateJS libraries, sprites, dictionary and local sound preload; final network no failed/external requests.",
+      "evidence": [
+        "evidence/direct-repair/reload-menu.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "Original title, language/category panels, board and results render.",
+      "evidence": [
+        "evidence/direct-repair/win-score26.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "All 16 real drags recognized, reverse/vertical/diagonal and crossing highlights.",
+      "evidence": [
+        "evidence/direct-repair/puzzle-15-of-16.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "characters": {
+      "status": "not_applicable",
+      "reason": "No character system applies to this original word puzzle.",
+      "evidence": [
+        "evidence/direct-repair/win-score26.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "Original tweened menus/result bounce, selection lines and clock observed.",
+      "evidence": [
+        "evidence/direct-repair/pause.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "Word strikes, timer, original score26 result, category, pause and exit confirmation inspected.",
+      "evidence": [
+        "evidence/direct-repair/win-score26.png",
+        "evidence/direct-repair/runtime.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "type": "click",
+      "selector": "canvas",
+      "x": 642,
+      "y": 590,
+      "target": "Native Play button",
+      "result": "Language selection"
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "x": 510,
+      "y": 240,
+      "target": "English",
+      "result": "Category selection"
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "x": 483,
+      "y": 238,
+      "target": "Fruits",
+      "result": "Original puzzle and help"
+    },
+    {
+      "type": "click",
+      "selector": "canvas",
+      "x": 803,
+      "y": 463,
+      "target": "Help next",
+      "result": "Puzzle ready"
+    },
+    {
+      "type": "click",
+      "target": "Play / English / Fruits / help next",
+      "result": "Original 10x10 puzzle and 16 fruit words generated"
+    },
+    {
+      "type": "drag",
+      "result": "All 16 visible words found by actual mouse drags; horizontal, reverse, vertical and diagonal highlights/strikes"
+    },
+    {
+      "type": "observe",
+      "result": "Original YOU WON / TOTAL SCORE 26 / elapsed 00:03:28"
+    },
+    {
+      "type": "click",
+      "target": "next",
+      "result": "Category selection returns; Vegetables generates a distinct grid"
+    },
+    {
+      "type": "click",
+      "target": "pause / resume",
+      "result": "Pause page then returns to same Vegetables grid"
+    },
+    {
+      "type": "drag",
+      "target": "non-word two cells",
+      "result": "No word marked found"
+    },
+    {
+      "type": "click",
+      "target": "exit / cancel, exit / confirm",
+      "result": "Cancel preserves puzzle; confirm returns title"
+    },
+    {
+      "type": "reload",
+      "result": "Original title returns; no persistent puzzle save in game source"
+    },
+    {
+      "type": "drag",
+      "target": "fresh reload Fruits PEAR / KIWI / PLANTAIN",
+      "result": "Three real words selected in complete incremental network observation window"
+    }
+  ],
+  "scope": "Desktop IAB 1280x720. English Fruits complete original 16-word round, original score 26 at 00:03:28; next/category selection, Vegetables new grid, pause/resume, invalid word, cancel/confirm exit and reload verified. Other five languages and all categories not exhaustively played. No persistent puzzle save exists in original game. Complete non-truncated network window covers final fresh startup and 3 representative finds; earlier long complete-round network window was truncated and retained only as diagnostic. Actual complete-round UI screenshots are separate evidence.",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "Original CreateJS and editable game scripts run through complete first puzzle; 12 core/dictionary files unchanged by SHA.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/win-score26.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "Original sprites, UI and local sounds retained; fresh startup/3 finds network is complete with only local successful requests. Actual complete first puzzle UI verified.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/win-score26.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "Six original language dictionaries and native placement retained; English Fruits 16 words solved, Vegetables distinct grid generated. Others retained but not exhaustively played.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/win-score26.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "No backend is required by native word generation/matching/result/next. CTL global score/share/ad parent callbacks retired; original game has no persistent puzzle save; refresh returns title.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/win-score26.png",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "Native CreateJS requires no external host after CTL parent callbacks/event emitters removed. Title, win, category, pause, exit and reload run directly.",
+        "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/win-score26.png",
+        "next_action": ""
+      }
+    ],
+    "scope": "Desktop IAB 1280x720. English Fruits complete original 16-word round, original score 26 at 00:03:28; next/category selection, Vegetables new grid, pause/resume, invalid word, cancel/confirm exit and reload verified. Other five languages and all categories not exhaustively played. No persistent puzzle save exists in original game. Complete non-truncated network window covers final fresh startup and 3 representative finds; earlier long complete-round network window was truncated and retained only as diagnostic. Actual complete-round UI screenshots are separate evidence."
+  },
+  "dependency_review": {
+    "previous_revision": 2,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "离线启动通过；广告过滤及被拒绝请求见 runtime_smoke，存档及结算尚未验证",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证保存恢复和阶段结果"
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 2,
+      "updated_at": "2026-10-30T13:40:38+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "Original CreateJS and editable game scripts run through complete first puzzle; 12 core/dictionary files unchanged by SHA.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/win-score26.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "Original sprites, UI and local sounds retained; fresh startup/3 finds network is complete with only local successful requests. Actual complete first puzzle UI verified.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/win-score26.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "Six original language dictionaries and native placement retained; English Fruits 16 words solved, Vegetables distinct grid generated. Others retained but not exhaustively played.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/win-score26.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "No backend is required by native word generation/matching/result/next. CTL global score/share/ad parent callbacks retired; original game has no persistent puzzle save; refresh returns title.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/win-score26.png",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "Native CreateJS requires no external host after CTL parent callbacks/event emitters removed. Title, win, category, pause, exit and reload run directly.",
+          "evidence": "evidence/direct-repair/runtime.json; evidence/direct-repair/source-preservation.json; evidence/direct-repair/win-score26.png",
+          "next_action": ""
+        }
+      ],
+      "scope": "Desktop IAB 1280x720. English Fruits complete original 16-word round, original score 26 at 00:03:28; next/category selection, Vegetables new grid, pause/resume, invalid word, cancel/confirm exit and reload verified. Other five languages and all categories not exhaustively played. No persistent puzzle save exists in original game. Complete non-truncated network window covers final fresh startup and 3 representative finds; earlier long complete-round network window was truncated and retained only as diagnostic. Actual complete-round UI screenshots are separate evidence."
+    },
+    "basis": "Actual source/runtime/UI evidence; normal candidate dependency API must apply revision comparison before artifact completion."
+  },
+  "base_version_id": "v-93cb74941519",
+  "manual_execution": {
+    "executor": "Codex direct source repair and actual UI play",
+    "automated_model_conversion": false,
+    "base_version": "v-93cb74941519",
+    "original_job": "job-4f0c5b0e51b5",
+    "at": "2026-11-11T16:22:20.467396+00:00"
+  },
+  "implementation": {
+    "editable_source": "js/CGame.js, CWordCell.js, PlaceWord.js and dictionaries; normal readable original scripts.",
+    "reuse": "Word placement/cell selection/timer and CreateJS UI require extraction/adaptation; no separate reusable-module certification.",
+    "dependencies": "Local jQuery/CreateJS/Howler and original sprites/dictionaries, no backend or runtime host.",
+    "preservation": "12 core/dictionary files exact original SHA; changes only CTL ad/global-score/share/lifecycle hooks/counters and external credit navigation. Credit text/logo retained."
+  },
+  "game_profile": {
+    "category": "益智解谜 · 单词搜索",
+    "dimension": "",
+    "perspective": "",
+    "core_gameplay": "Find listed words in original generated grid, across eight directions.",
+    "core_experience": "",
+    "controls": "Mouse drag from first to last letter; native language/category, pause, exit and result controls.",
+    "game_loop": "",
+    "content": "",
+    "progression": "",
+    "save": "No persistent puzzle save exists in original; refresh returns title.",
+    "rules": "",
+    "systems": "",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "Desktop IAB 1280x720. English Fruits complete original 16-word round, original score 26 at 00:03:28; next/category selection, Vegetables new grid, pause/resume, invalid word, cancel/confirm exit and reload verified. Other five languages and all categories not exhaustively played. No persistent puzzle save exists in original game. Complete non-truncated network window covers final fresh startup and 3 representative finds; earlier long complete-round network window was truncated and retained only as diagnostic. Actual complete-round UI screenshots are separate evidence.",
+    "evidence": "",
+    "illustrations": [
+      {
+        "path": "screenshots/startup.png",
+        "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+      }
+    ]
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

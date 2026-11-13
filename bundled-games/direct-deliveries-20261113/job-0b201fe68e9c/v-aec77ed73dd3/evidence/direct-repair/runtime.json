@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "missing": [],
+  "required_external": [],
+  "actions": [
+    {
+      "type": "click",
+      "selector": "native canvas career / front office / roster",
+      "result": "Created Washington career, QB profile, training upgrade -2 credits."
+    },
+    {
+      "type": "drag",
+      "selector": "native tutorial QB",
+      "result": "First passing tutorial Excellent; remaining tutorial exited with native Esc, not fully passed."
+    },
+    {
+      "type": "click",
+      "selector": "native football field",
+      "result": "Manual runs/touchdowns/two-point conversion/field-goal attempts/punt through first3 quarters; original SIM enabled during third-quarter commentary and fourth-quarter SkipTime; actual final27:0."
+    },
+    {
+      "type": "click",
+      "selector": "native postmatch interview",
+      "result": "Quarter table8/6/6/7; playerXP and stats; original interview -1 credit; balance2."
+    },
+    {
+      "type": "reload",
+      "selector": "page",
+      "result": "SameY1W18/W27-0/3W14L/2credits/34%fans/74%morale; training2 restored."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8922/",
+    "http://127.0.0.1:8922/html5game/splash.png",
+    "http://127.0.0.1:8922/html5game/RetroBowl.js",
+    "http://127.0.0.1:8922/native-loader.js",
+    "http://127.0.0.1:8922/html5game/RetroBowl_texture_0.png",
+    "http://127.0.0.1:8922/html5game/RetroBowl_texture_1.png",
+    "http://127.0.0.1:8922/html5game/RetroBowl_texture_2.png",
+    "http://127.0.0.1:8922/html5game/RetroBowl_texture_3.png",
+    "http://127.0.0.1:8922/html5game/snd_audible.ogg",
+    "http://127.0.0.1:8922/html5game/snd_audience_dis.ogg",
+    "http://127.0.0.1:8922/html5game/snd_audience_fg.ogg",
+    "http://127.0.0.1:8922/html5game/snd_audience_idle.ogg",
+    "http://127.0.0.1:8922/html5game/snd_beep.ogg",
+    "http://127.0.0.1:8922/html5game/snd_beep2.ogg",
+    "http://127.0.0.1:8922/html5game/snd_bounce.ogg",
+    "http://127.0.0.1:8922/html5game/snd_click.ogg",
+    "http://127.0.0.1:8922/html5game/snd_co_brass1.ogg",
+    "http://127.0.0.1:8922/html5game/snd_co_brass2.ogg",
+    "http://127.0.0.1:8922/html5game/snd_co_brass3.ogg",
+    "http://127.0.0.1:8922/html5game/snd_co_brass4.ogg",
+    "http://127.0.0.1:8922/html5game/snd_drink.ogg",
+    "http://127.0.0.1:8922/html5game/snd_error.ogg",
+    "http://127.0.0.1:8922/html5game/snd_kick.ogg",
+    "http://127.0.0.1:8922/html5game/snd_oof1.ogg",
+    "http://127.0.0.1:8922/html5game/snd_oof2.ogg",
+    "http://127.0.0.1:8922/html5game/snd_oof3.ogg",
+    "http://127.0.0.1:8922/html5game/snd_post.ogg",
+    "http://127.0.0.1:8922/html5game/snd_purchase.ogg",
+    "http://127.0.0.1:8922/html5game/snd_starrating.ogg",
+    "http://127.0.0.1:8922/html5game/snd_success.ogg",
+    "http://127.0.0.1:8922/html5game/snd_tackle.ogg",
+    "http://127.0.0.1:8922/html5game/snd_throw.ogg",
+    "http://127.0.0.1:8922/html5game/snd_timeout.ogg",
+    "http://127.0.0.1:8922/html5game/LanguageUS.txt",
+    "http://127.0.0.1:8922/html5game/LanguageUS_FR.txt",
+    "http://127.0.0.1:8922/html5game/Achievements.txt",
+    "http://127.0.0.1:8922/html5game/PlayerRecords.txt",
+    "http://127.0.0.1:8922/html5game/Shopping.txt",
+    "http://127.0.0.1:8922/html5game/LanguageUS.txt",
+    "http://127.0.0.1:8922/html5game/LanguageUS_FR.txt",
+    "http://127.0.0.1:8922/html5game/uniforms_default.txt",
+    "http://127.0.0.1:8922/html5game/uniforms_default.txt"
+  ],
+  "scope": "保留原GameMaker v1.6.8.0职业橄榄球玩法、球队/球员/赛程/难度/得分/训练经济/原存档格式；7961个原生函数语义SHA一致，JSON_game除SDK Extensions与加载条名外的数据属性一致。退役Poki/CrazyGames实际扩展、广告/推广/外链与宿主依赖，独立原生画布加载条，不注入模拟SDK；可选赛后广告CoinBoost退役且不自动发奖。个人文件仍先读写原localStorage，只阻止不存在个人文件的HTTP回落；PlayerRecords.txt保留为静态原模板。精确恢复59份原资源，其中57份随包、2份旧扩展只留审计；4纹理/27OGG/原US语言和球队等数据齐备。原s_is_co_mode固定返回0；6个学院版专用路径原站404，明确保留缺口，不宣称学院版可用。实际新建Nazeeh Ejiya华盛顿生涯、查看QB/阵容、花2信用升级训练设施；完成传球教程第一阶段后用原Esc退出剩余教程；正式第18周前三节手动跑球/达阵/两分转换/射门尝试/弃踢，第三节防守启用原SIM，第四节原SkipTime结算，最终27:0（分节8/6/6/7），不宣称全手动获胜。原赛后统计/战绩3胜14负/采访承担责任扣1信用；最终信用2、球迷34%、士气74%。刷新仍为原生Y1第18周W27-0、相同战绩/信用2/球迷34%/训练设施2格。整场网络游标过期，旧窗口明确不完整；重新采集刷新及管理界面84条完整事件无截断/外联/404/失败/脚本异常，正式窗口无警告错误，历史故障日志保留。未验证全部赛季/球队/难度/真实触屏/听觉，未供货。",
+  "network_scope": "Full observed reload and restored management UI window. Earlier full match capture expired and is explicitly incomplete.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

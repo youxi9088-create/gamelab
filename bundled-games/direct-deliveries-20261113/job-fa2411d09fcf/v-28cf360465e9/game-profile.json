@@ -1,0 +1,62 @@
+{
+  "category": "益智 · 数独",
+  "dimension": "2D",
+  "perspective": "固定平视界面，左侧情景插画、右侧棋盘面板",
+  "core_gameplay": "Original generated unique Sudoku; four difficulties, original correct-entry streak and timed completion bonus.",
+  "core_experience": "英伦棚屋氛围的休闲数独：角色Knott陪伴吐槽，配SHED FM电子乐与随机器情景小事件",
+  "controls": "Click cells or number pad,1–9/arrows/Backspace; new puzzle/difficulty/mute.",
+  "game_loop": "开始：自动生成当前难度题目；操作：选格填数，对错即时反馈；结果：正确填入加分并更新最高分，错误标红可改；继续：继续填同一题，刷新后分数与最高分恢复、题目重新生成",
+  "content": "固定数量：4档难度（EASY/MEDIUM/HARD/EXPERT）；程序生成：棋盘题目由生成器实时产出，Easy界面标注36个空格；无固定关卡表",
+  "progression": "题号随已完成数递增，默认难度随完成数提升；累计分数、最高分与最佳时间跨局保留（最佳时间记录未实机验证）",
+  "save": "Original shedoku localStorage records; score/highscore/solved/PB/difficulty, original fresh puzzle after reload.",
+  "rules": "目标：填满全部空格且每行每列每宫1–9不重复；成功：完成整盘（未实机完成）；失败：无硬失败，错误填入标红且可修改；计分：正确填入加分（实证单题内10→22），具体公式与连击阈值未确认",
+  "systems": "题目生成与唯一解校验系统；格子选中与行列宫/同数高亮；正误判定与红绿反馈；计分与连击；计时；本地存档；Knott情景事件系统（干扰弹窗、茶杯、烟灰缸互动）；SHED FM音乐轮换与音量/静音控制",
+  "ui_flow": "主界面：左栏标题、PB、收音机与角色，右栏难度、计时/分数/最高分/已解、棋盘、数字键盘与状态行；干扰事件以弹窗覆盖，点Back to Sudoku返回棋盘",
+  "level_design": "无手工关卡，程序生成；难度通过空格数量区分，Easy为36空（界面实证），其余档位具体空格数未确认",
+  "verification": "Desktop1280x720 actual UI. Visible givens independently solved outside page; ordinary cell clicks/number keys only, no hidden solution or state manipulation. Original Easy36 blanks solved in1:15 score1438 bonus748. Wrong number red feedback and clear, new Medium42-blank puzzle, reload actual score/highscore1438 solved1 PB1:15 and Medium restored. Original design regenerates board on reload, does not save mid-puzzle. Medium/Hard/Expert full wins, mobile/touch and audio hearing not exhausted. Complete network window reload/full Easy win/new/reload with no truncation, external request, missing asset or console error.",
+  "evidence": "main.js（题目生成、存档读写、渲染与反馈逻辑）；index.html（界面结构）；runtime运行报告steps与screenshots/startup.png、step-0至step-8；localStorage键shedoku内容哈希随计分更新且刷新后保留",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/step-0.png",
+      "caption": "实际操作记录 1。画面文字：SHEDOKU\n\nSUDOKU IN THE SHED\n\nPuzzles: 0 · PB: —\n♫ SHED FM · 1999\nSOUND ON\nMUSIC\nSFX\nSHED FM\n98.6\n☕\n😤\nI have nearly got this. Probably.\nDISTRACTION!\n\nIs this the fun phone game with all the little squares?\n\nKnott: It’s a puzzle. There are rules. Sort of.\n\nBack to Sudoku\nThe rain has started absolutely hammering down.\nMUM SAID DO SOMETHING USEFUL\nSHEDOKU\nNEW PUZZLE ↻\nDIFFICULTY\nEASY\nMEDIUM\nHARD\nEXPERT\nTIME\n1:34\nSCORE\n0\nHIGH SCORE\n0\nSOLVED\n0\nPersonal best time: — · Easy · Puzzle 1\n3\n1\n6\n1\n6\n8\n7\n3\n9\n9\n2\n3\n4\n8\n1\n7\n6\n4\n2\n5\n3\n9\n8\n1\n7\n4\n6\n9\n7\n3\n2\n5\n7\n9\n3\n6\n1\n9\n6\n2\n4\n9\n2\n7\n8\n1\n2\n3\n4\n5\n6\n7\n8\n9\n⌫ CLEAR\nE"
+    },
+    {
+      "path": "screenshots/step-1.png",
+      "caption": "实际操作记录 2。画面文字：SHEDOKU\n\nSUDOKU IN THE SHED\n\nPuzzles: 0 · PB: —\n♫ SHED FM · 1999\nSOUND ON\nMUSIC\nSFX\nSHED FM\n98.6\n☕\n😤\nI have nearly got this. Probably.\nDISTRACTION!\n\nIs this the fun phone game with all the little squares?\n\nKnott: It’s a puzzle. There are rules. Sort of.\n\nBack to Sudoku\nThe rain has started absolutely hammering down.\nMUM SAID DO SOMETHING USEFUL\nSHEDOKU\nNEW PUZZLE ↻\nDIFFICULTY\nEASY\nMEDIUM\nHARD\nEXPERT\nTIME\n1:34\nSCORE\n0\nHIGH SCORE\n0\nSOLVED\n0\nPersonal best time: — · Easy · Puzzle 1\n3\n1\n6\n1\n6\n8\n7\n3\n9\n9\n2\n3\n4\n8\n1\n7\n6\n4\n2\n5\n3\n9\n8\n1\n7\n4\n6\n9\n7\n3\n2\n5\n7\n9\n3\n6\n1\n9\n6\n2\n4\n9\n2\n7\n8\n1\n2\n3\n4\n5\n6\n7\n8\n9\n⌫ CLEAR\nE"
+    },
+    {
+      "path": "screenshots/step-2.png",
+      "caption": "实际操作记录 3。画面文字：SHEDOKU\n\nSUDOKU IN THE SHED\n\nPuzzles: 0 · PB: —\n♫ SHED FM · 1999\nSOUND ON\nMUSIC\nSFX\nSHED FM\n98.6\n☕\n😖\nThat's definitely not right.\nDISTRACTION!\n\nIs this the fun phone game with all the little squares?\n\nKnott: It’s a puzzle. There are rules. Sort of.\n\nBack to Sudoku\nThe rain has started absolutely hammering down.\nMUM SAID DO SOMETHING USEFUL\nSHEDOKU\nNEW PUZZLE ↻\nDIFFICULTY\nEASY\nMEDIUM\nHARD\nEXPERT\nTIME\n1:36\nSCORE\n0\nHIGH SCORE\n0\nSOLVED\n0\nPersonal best time: — · Easy · Puzzle 1\n5\n3\n1\n6\n1\n6\n8\n7\n3\n9\n9\n2\n3\n4\n8\n1\n7\n6\n4\n2\n5\n3\n9\n8\n1\n7\n4\n6\n9\n7\n3\n2\n5\n7\n9\n3\n6\n1\n9\n6\n2\n4\n9\n2\n7\n8\n1\n2\n3\n4\n5\n6\n7\n8\n9\n⌫ CLEAR\nThat"
+    },
+    {
+      "path": "screenshots/step-3.png",
+      "caption": "实际操作记录 4。画面文字：SHEDOKU\n\nSUDOKU IN THE SHED\n\nPuzzles: 0 · PB: —\n♫ SHED FM · 1999\nSOUND ON\nMUSIC\nSFX\nSHED FM\n98.6\n☕\n🤓\nThat was obvious.\nDISTRACTION!\n\nIs this the fun phone game with all the little squares?\n\nKnott: It’s a puzzle. There are rules. Sort of.\n\nBack to Sudoku\nThe rain has started absolutely hammering down.\nKNOTT! I can hear that radio!\nMUM SAID DO SOMETHING USEFUL\nSHEDOKU\nNEW PUZZLE ↻\nDIFFICULTY\nEASY\nMEDIUM\nHARD\nEXPERT\nTIME\n3:24\nSCORE\n10\nHIGH SCORE\n10\nSOLVED\n0\nPersonal best time: — · Easy · Puzzle 1\n7\n3\n1\n6\n1\n6\n8\n7\n3\n9\n9\n2\n3\n4\n8\n1\n7\n6\n4\n2\n5\n3\n9\n8\n1\n7\n4\n6\n9\n7\n3\n2\n5\n7\n9\n3\n6\n1\n9\n6\n2\n4\n9\n2\n7\n8\n1\n2\n3\n4\n5"
+    },
+    {
+      "path": "screenshots/step-5.png",
+      "caption": "实际操作记录 6。画面文字：SHEDOKU\n\nSUDOKU IN THE SHED\n\nPuzzles: 0 · PB: —\n♫ SHED FM · 1999\nSOUND ON\nMUSIC\nSFX\nSHED FM\n98.6\n☕\n✨\nAbsolute genius.\nDISTRACTION!\n\nIs this the fun phone game with all the little squares?\n\nKnott: It’s a puzzle. There are rules. Sort of.\n\nBack to Sudoku\nThe rain has started absolutely hammering down.\nKNOTT! I can hear that radio!\nMUM SAID DO SOMETHING USEFUL\nSHEDOKU\nNEW PUZZLE ↻\nDIFFICULTY\nEASY\nMEDIUM\nHARD\nEXPERT\nTIME\n3:25\nSCORE\n22\nHIGH SCORE\n22\nSOLVED\n0\nPersonal best time: — · Easy · Puzzle 1\n7\n3\n1\n6\n1\n6\n8\n7\n3\n9\n9\n2\n3\n4\n8\n1\n8\n7\n6\n4\n2\n5\n3\n9\n8\n1\n7\n4\n6\n9\n7\n3\n2\n5\n7\n9\n3\n6\n1\n9\n6\n2\n4\n9\n2\n7\n8\n1\n2\n3\n4"
+    },
+    {
+      "path": "screenshots/step-6.png",
+      "caption": "实际操作记录 7。画面文字：SHEDOKU\n\nSUDOKU IN THE SHED\n\nPuzzles: 0 · PB: —\n♫ SHED FM · 1999\nSOUND ON\nMUSIC\nSFX\nSHED FM\n98.6\n☕\n✨\nAbsolute genius.\nDISTRACTION!\n\nIs this the fun phone game with all the little squares?\n\nKnott: It’s a puzzle. There are rules. Sort of.\n\nBack to Sudoku\nThe rain has started absolutely hammering down.\nKNOTT! I can hear that radio!\nMUM SAID DO SOMETHING USEFUL\nSHEDOKU\nNEW PUZZLE ↻\nDIFFICULTY\nEASY\nMEDIUM\nHARD\nEXPERT\nTIME\n3:26\nSCORE\n22\nHIGH SCORE\n22\nSOLVED\n0\nPersonal best time: — · Easy · Puzzle 1\n7\n3\n1\n6\n1\n6\n8\n7\n3\n9\n9\n2\n3\n4\n8\n1\n8\n7\n6\n4\n2\n5\n3\n9\n8\n1\n7\n4\n6\n9\n7\n3\n2\n5\n7\n9\n3\n6\n1\n9\n6\n2\n4\n9\n2\n7\n8\n1\n2\n3\n4"
+    },
+    {
+      "path": "screenshots/step-7.png",
+      "caption": "实际操作记录 8。画面文字：SHEDOKU\n\nSUDOKU IN THE SHED\n\nPuzzles: 0 · PB: —\n♫ SHED FM · 1999\nSOUND ON\nMUSIC\nSFX\nSHED FM\n98.6\n☕\nDISTRACTION!\n\nBack to Sudoku\nMUM SAID DO SOMETHING USEFUL\nSHEDOKU\nNEW PUZZLE ↻\nDIFFICULTY\nEASY\nMEDIUM\nHARD\nEXPERT\nTIME\n0:06\nSCORE\n22\nHIGH SCORE\n22\nSOLVED\n0\nPersonal best time: — · Easy · Puzzle 1\n3\n2\n1\n9\n8\n7\n5\n7\n4\n3\n1\n9\n5\n6\n1\n7\n1\n8\n9\n3\n7\n6\n7\n9\n1\n4\n9\n3\n6\n5\n9\n8\n4\n6\n2\n1\n2\n6\n9\n8\n4\n5\n8\n2\n7\n1\n2\n3\n4\n5\n6\n7\n8\n9\n⌫ CLEAR\nEasy puzzle: 36 empty squares.\nKeys 1–9 · arrows move · ⌫ clears · M mutes\nReady when you are, Knott."
+    },
+    {
+      "path": "screenshots/step-8.png",
+      "caption": "实际操作记录 9。画面文字：SHEDOKU\n\nSUDOKU IN THE SHED\n\nPuzzles: 0 · PB: —\n♫ SHED FM · 1999\nSOUND ON\nMUSIC\nSFX\nSHED FM\n98.6\n☕\nDISTRACTION!\n\nBack to Sudoku\nMUM SAID DO SOMETHING USEFUL\nSHEDOKU\nNEW PUZZLE ↻\nDIFFICULTY\nEASY\nMEDIUM\nHARD\nEXPERT\nTIME\n0:09\nSCORE\n22\nHIGH SCORE\n22\nSOLVED\n0\nPersonal best time: — · Easy · Puzzle 1\n3\n2\n1\n9\n8\n7\n5\n7\n4\n3\n1\n9\n5\n6\n1\n7\n1\n8\n9\n3\n7\n6\n7\n9\n1\n4\n9\n3\n6\n5\n9\n8\n4\n6\n2\n1\n2\n6\n9\n8\n4\n5\n8\n2\n7\n1\n2\n3\n4\n5\n6\n7\n8\n9\n⌫ CLEAR\nEasy puzzle: 36 empty squares.\nKeys 1–9 · arrows move · ⌫ clears · M mutes\nReady when you are, Knott."
+    }
+  ]
+}

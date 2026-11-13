@@ -1,0 +1,62 @@
+{
+  "category": "益智动作 · 3D迷宫吃点",
+  "dimension": "3D",
+  "perspective": "第三人称越肩/尾随视角，支持滚轮缩放",
+  "core_gameplay": "Original maze chase, dot scoring/ghosts/lives/power/bonus and level progression; no victory claim in actual sample.",
+  "core_experience": "快节奏的复古街机体验，结合 Three.js 霓虹视觉、发光 shader、动态摄像机与 Pac-Man 式追逐 AI。",
+  "controls": "WASD/arrows normal movement/steering; F at InsertCoin to play or leave, scroll camera.",
+  "game_loop": "大厅待机 → 接近 INSERT COIN 平台并按 F → 3-2-1 倒计时 → 驾驶光荚吃光点 → 撞到幽灵失去生命/被吃 → 生命耗尽则游戏结束返回大厅；吃完所有光点进入下一关。",
+  "content": "固定关卡：当前验证到 1 个霓虹迷宫（31×28 网格镜像布局）。含普通光点、4 颗能量豆、Bonus 宝石、4 种幽灵、多个跨世界传送门（源码定义，未实机访问）。",
+  "progression": "完成当前关卡所有光点后进入下一关；关卡提升会加快幽灵与玩家速度；累计 10000 分奖励额外生命；最高分持久化。",
+  "save": "Native original standalone localStorage record path, actual High600 restored; no mid-run restore claim.",
+  "rules": "目标：吃掉关卡内所有光点。成功：光点清零进入下一关。失败：被幽灵抓到减少 1 条生命，生命为 0 时游戏结束。计分：普通光点基础分，能量豆更高，惊吓期间吃幽灵分数递增。额外生命阈值 10000 分。",
+  "systems": "光点系统：InstancedMesh 渲染，被吃后缩放到 0。幽灵 AI：scatter/chase/frightened/wisp/house 五种状态，按 Pac-Man 规则选目标格。能量豆系统：触发幽灵 frightened 状态并改变外观。摄像机系统：跟随光荚并平滑插值。碰撞系统：墙体阻挡、幽灵触发掉命。保存系统：本地记录最高分。",
+  "ui_flow": "启动画面 → 霓虹大厅（显示 HIGH SCORE）→ 接近 INSERT COIN 平台 → 按 F 进入载具 → 倒计时 → HUD（LEVEL/分数/生命/最高分/进度）→ 按 F/Esc 退出 → 返回大厅。",
+  "level_design": "迷宫采用经典吃豆布局的 3D 霓虹重制：对称墙体、中央幽灵巢穴、左右隧道、四周传送门出口；墙体使用发光 shader，地面为网格与点光源。",
+  "verification": "Desktop1280x720 actual original GlowMaze. Ordinary walking to InsertCoin and F starts original3-life countdown; actual scoring190 then600, ghost collisions lives3to2to1, later native lobby High600 (GameOver label transition not screenshot-captured; no victory claimed). Original restart resets0/3lives retaining600. Latest source removes inert host menu entry; final reload restored600, actual steering/countdown/190score and F exit returned InsertCoin-high600. All53 original game functions canonical SHA unchanged, only inter-game portal placement list retired. Original maze/pellets/ghostAI/lives/scoring/level data retained. Complete final reload/play/exit network window no truncation/external/missing/errors. Full-maze victory/later levels, power/ghost-eating/gem bonuses, achievements, mobile/controller/audio hearing not exhausted.",
+  "evidence": "源码：source-analysis/js-2.16.0-7f76cb31ebe.../readable.js（Glow Maze 主逻辑），vendor/004-15e95a6cf14...js（PortalWorld 宿主与输入）。运行证据：screenshots/step-29 至 step-38，runtime.json 中 localStorage 'remix-portal-save:glow-maze' 条目及刷新前后最高分 220。",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/step-0.png",
+      "caption": "实际操作记录 1。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-5.png",
+      "caption": "实际操作记录 6。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-11.png",
+      "caption": "实际操作记录 12。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-16.png",
+      "caption": "实际操作记录 17。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-22.png",
+      "caption": "实际操作记录 23。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-27.png",
+      "caption": "实际操作记录 28。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    },
+    {
+      "path": "screenshots/step-33.png",
+      "caption": "实际操作记录 34。画面文字：LEVEL 1\n220\n♥ High 220\nF\nEsc\nGet out"
+    },
+    {
+      "path": "screenshots/step-38.png",
+      "caption": "实际操作记录 39。画面文字：无可提取文字；仅记录实际画面，不据此推断通关。"
+    }
+  ]
+}

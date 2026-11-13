@@ -1,0 +1,38 @@
+{
+  "category": "3D · 单人对三CPU竞技击球",
+  "dimension": "3D",
+  "perspective": "俯视固定视角（等距/微透视），竞技场四角/四边各一名角色",
+  "core_gameplay": "Originalfourbonkers/fivearenas, defendgoal/grabthrowball/15HPelimination/lastsurvivor. ActualGardenplayerloss5goals5000 andDesertLumpyactualstart.",
+  "core_experience": "快节奏、卡通黏土风格的轻竞技派对游戏，强调移动走位、抓投时机与防御反击。",
+  "controls": "A/D orarrowsmove,Spacenativegrabthrow,Escpause; originaltouchpad retainednotactualtouchvalidated.",
+  "game_loop": "1) 主菜单选择 SINGLE PLAYER；2) 角色选择（4选1）与命名；3) 地图选择（5选1）；4) 3秒倒计时后进入对局；5) 移动、击球、防守、扣血、淘汰；6) 最后存活者触发结算，显示得分明细；7) PLAY AGAIN 重开本局或返回主菜单。",
+  "content": "固定内容：5张竞技场地图、4名可玩角色、单局玩法；无程序生成关卡或叙事内容。",
+  "progression": "单局内进度：HP 15→0 淘汰、进球数、实时得分；跨局无角色升级、解锁或战役进度，属于街机式单场循环。",
+  "save": "Originalno persistent save, refreshmenu/defaultZiggy; no fabricatedsave.",
+  "rules": "目标：成为最后存活的 Bonker。成功：其他三名角色全部淘汰。失败：自身 HP 归零。计分公式（单机）：进球得分 Bn×1000 + 剩余 HP×200 + 胜利奖励 5000（若获胜）。",
+  "systems": "对象系统：4名玩家角色（含本地/CPU状态、HP、alive、holding等）；球体系统：多球管理（active/held/ignore/lastHit）；球门/发射器系统：li[] 控制球的生成与充能；物理/碰撞系统：Three.js 场景内基于位置与速度的简化物理；AI系统：CPU 在 play 阶段由 qd() 驱动；网络系统：RemixSDK 在线房间（本验证仅使用本地单机分支）。",
+  "ui_flow": "主菜单（SINGLE PLAYER / PLAY WITH FRIENDS）→ 角色选择（名称输入、左右切换、NEXT）→ 地图选择（5张地图、START MATCH）→ HUD（角色卡、HP、SCORE、球数、NEXT BALL、操作提示）→ 暂停面板（RESUME/MAIN MENU）→ 结算面板（胜者、得分明细、PLAY AGAIN/MAIN MENU）。",
+  "level_design": "5张固定竞技场：CLAY GARDEN、CLAY DESERT、CLAY SNOW、CLAY TOY FACTORY、CLAY VOLCANO；每张地图有独立天空、雾、地面色调与装饰元素；已实机验证前两张。",
+  "verification": "原单人和三CPU、四角色、五场地、15HP、球物理/AI/伤害/进球奖励不变。退役旧RemixSDK/联机房间/好友UI/全局成绩提交，无SDK或房间桩、无假对手/假奖励。1254函数/方法语义SHA保留（含内置THREE），Ma/Hd/Zd/Yd/qd/Hn物理AI生成原函数均不变；11函数仅单人条件折叠/移除在线调用及渲染像素上限，源控制器逐项说明。仅渲染降低主抗锯齿/像素比上限1/阴影2048到1024，原场景模型材质和模拟步长不变；显示页面后仍慢，渲染限制后实际10秒已开局受伤，不伪报CPU/FPS百分比。原Garden实际A/D移动、Space抓投、得分3200/HP6，完整终局5进球5000/HP0/胜利奖励0，Bopsy原最后存活3HP，玩家失败；PlayAgain重置15HP和3000基础生命分、暂停/菜单正常。原换Lumpy与Desert实际开局15HP/暂停。刷新回原主菜单/默认Ziggy，原版无持久化，不添加存档、不称保留得分。旧首次启动Is声明误删异常和渲染限制前网络原样保留，已修正并新窗口最终完整21请求无外部/失败/HTTP错误/异常/控制台错/截断。未验证冠军/其余三场地完整对局/四角色完整对局/真实触控/听觉。",
+  "evidence": "源码文件 index.html（主程序，含 $i 地图数组、et 角色表、Gx/Vx/Wx 状态快照、op 结算、hp 渲染循环）；local-host.js（本地 Remix SDK stub，gameOver/再玩一次弹窗）。本轮证据：runtime.steps 0-21 截图与文本、screenshots/step-*.png。",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/startup.png",
+      "caption": "本轮启动画面；仅证明已记录画面，验证范围见正文。"
+    },
+    {
+      "path": "screenshots/current.png",
+      "caption": "本轮最终观察画面；仅证明已记录画面，验证范围见正文。"
+    }
+  ]
+}

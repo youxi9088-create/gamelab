@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "warnings": [],
+  "missing": [],
+  "required_external": [],
+  "non_game_http_findings": [],
+  "non_game_http_resolution": "",
+  "actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "NativeLevel1FirstGearstartup."
+    },
+    {
+      "step": 2,
+      "type": "key",
+      "key": "Right",
+      "hold_ms": 2200,
+      "result": "Originalcarphysicsoverbridge."
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "key": "Right",
+      "hold_ms": 1700,
+      "result": "Nativestart-tofinish/Goldtime0:03.36."
+    },
+    {
+      "step": 4,
+      "type": "click",
+      "selector": "#canvas",
+      "coordinate": [
+        638,
+        661
+      ],
+      "result": "ShortNextlevelclick no transition."
+    },
+    {
+      "step": 5,
+      "type": "click",
+      "selector": "#canvas",
+      "coordinate": [
+        638,
+        659
+      ],
+      "hold_ms": 150,
+      "result": "NativeNextleveltransition; newrightsidecarspawnandleftarrow."
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "not_run",
+      "reason": "Exactly5UIactions, no currentreload."
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8966/index.html",
+    "http://127.0.0.1:8966/webapp/fancade.css",
+    "http://127.0.0.1:8966/webapp/cover.jpg",
+    "http://127.0.0.1:8966/webapp/source_min.js",
+    "http://127.0.0.1:8966/webapp/index.js",
+    "http://127.0.0.1:8966/webapp/index.data",
+    "http://127.0.0.1:8966/webapp/index.wasm"
+  ],
+  "scope": "严格5步：1启动原Level1:FirstGear；2Right持续2200ms原车辆过桥；3Right持续1700ms到达原终点，实际Goldtime0:03.36奖章结算；4Nextlevel普通点击未见转场；5同原按钮150ms按下成功进入下一场景，车在右侧/箭头向左。没有第六步，不冒称第二关驾驶/整局/刷新已测。原index.wasm和index.data完整保留，包含原Fancade引擎/方块/物理/车辆/场景/图集/声音及全部原游戏包；保留可编辑宿主Audio/Storage/输入/画布与44命名原函数。未恢复C++工程，不将WASM冒充可直接编辑的玩法源码，不杜撰总关数或称全部关卡实测。真正移除Poki SDK初始化、上报/榜单/分数回传和宿主限制代码、外部HTTP请求发送器，不安装假Poki/账号或假联网对手；编译后WASM原ABI槽仅接明确本地继续/可选领取：取消不领取、不自动发奖励。原VS等编译界面未重绘，在线调用无远端发送并走原空失败回调；未测这些入口及可选领取，不称其可用。14完整网络事件无外联/HTTP失败/加载异常，console无错误警告。原Storage.PREFIX=com.martinmagni.drivemad/data/和本地二进制存档逻辑保持，本轮不追加刷新。原任务正常入库到待验收，未批准未供货。",
+  "network_scope": "Complete startup to original first-level Goldtime3.36 and nextscene after fifthinput. No fullgame/reload/claim/online testing.",
+  "evidence": "evidence/direct-repair/network-final.json"
+}

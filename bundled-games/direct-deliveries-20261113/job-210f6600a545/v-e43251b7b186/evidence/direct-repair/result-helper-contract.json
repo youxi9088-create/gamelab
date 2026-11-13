@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "scope": "Isolated result helper only. No game source executed, no real victory/UI/physics/earned progression claim.",
+  "checks": [
+    "loss writes no progress or next-level",
+    "native-won helper input records only current earned stars",
+    "repeat preserves best stars; next starts adjacent earned level",
+    "level30 caps progression",
+    "corrupt local save falls back to1"
+  ]
+}

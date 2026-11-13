@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+
+
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" href="data:,"><title>Infinity Frisbee</title>
+    
+    
+    <link href="./_remote/56c4fdab00adf668/css2.css" rel="stylesheet">
+    <script src="./_remote/25023b521d7747c7/three.min.js"></script>
+    
+    <style>
+      :root {
+        --transition-fast: 150ms;
+        --transition-normal: 300ms;
+        --ease-out: cubic-bezier(0, 0, 0.2, 1);
+        --space-sm: 16px;
+        --space-md: 24px;
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        touch-action: none;
+        -ms-touch-action: none;
+        font-family: "Inter", sans-serif;
+        background: #1a1a2e;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      #game-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+
+      #game-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .ui-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      .ui-overlay > * {
+        pointer-events: auto;
+      }
+
+      #score-wrapper {
+        position: absolute;
+        top: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+      }
+
+      #score-display {
+        text-align: center;
+        pointer-events: none;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 8px 24px;
+        border-radius: 22px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        box-shadow:
+          0 4px 20px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      #score-label {
+        display: none;
+      }
+
+      #score-value {
+        font-family: "Bangers", cursive;
+        font-size: 26px;
+        color: white;
+        -webkit-text-stroke: 0;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        line-height: 1;
+        letter-spacing: 1px;
+      }
+
+      #multiplier-display {
+        display: none;
+        position: absolute;
+        bottom: -10px;
+        right: -10px;
+        font-family: "Bangers", cursive;
+        font-size: 14px;
+        color: #fff;
+        background: rgba(140, 100, 220, 0.85);
+        padding: 2px 8px;
+        border-radius: 12px;
+        line-height: 1.3;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 8px rgba(140, 100, 220, 0.4);
+        white-space: nowrap;
+        pointer-events: none;
+      }
+
+      #combo-display {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.6);
+        font-family: "Bangers", cursive;
+        font-size: 38px;
+        color: #ffd54f;
+        text-shadow:
+          0 0 12px currentColor,
+          0 0 30px currentColor,
+          0 3px 8px rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        transition:
+          opacity 0.2s var(--ease-out),
+          transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        pointer-events: none;
+        letter-spacing: 4px;
+        width: 100%;
+        text-align: center;
+        padding: 0 20px;
+        box-sizing: border-box;
+      }
+
+      #combo-display.visible {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      #game-over-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.6) 0%,
+          rgba(0, 0, 0, 0.85) 100%
+        );
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity var(--transition-normal) var(--ease-out);
+      }
+
+      #game-over-screen.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      #game-over-title {
+        font-family: "Bangers", cursive;
+        font-size: 36px;
+        color: #ffd54f;
+        margin-bottom: 20px;
+        -webkit-text-stroke: 2px #000000;
+        letter-spacing: 3px;
+      }
+
+      #final-score {
+        font-family: "Bangers", cursive;
+        font-size: 72px;
+        color: #ffffff;
+        line-height: 1;
+        background: linear-gradient(
+          135deg,
+          #ffd700 0%,
+          #ffa500 50%,
+          #ff1493 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8))
+          drop-shadow(0 0 40px rgba(255, 20, 147, 0.6))
+          drop-shadow(0 4px 16px rgba(0, 0, 0, 0.7));
+        letter-spacing: 6px;
+      }
+
+      #leaderboard-container {
+        margin-top: 32px;
+        margin-bottom: 32px;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 16px;
+        padding: 20px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      }
+
+      #leaderboard-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        color: #ffd54f;
+        text-align: center;
+        margin-bottom: 16px;
+        letter-spacing: 3px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      }
+
+      #leaderboard-entries {
+        max-height: 400px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #ffd54f rgba(255, 255, 255, 0.1);
+        overflow-x: hidden;
+      }
+
+      #leaderboard-entries::-webkit-scrollbar {
+        width: 8px;
+      }
+      #leaderboard-entries::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+      #leaderboard-entries::-webkit-scrollbar-thumb {
+        background: #ffd54f;
+        border-radius: 4px;
+      }
+
+      .leaderboard-entry {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        margin-bottom: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+      }
+      .leaderboard-entry:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: none;
+      }
+      .leaderboard-entry.current-player {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 215, 0, 0.3) 0%,
+          rgba(255, 140, 0, 0.3) 100%
+        );
+        border: 2px solid #ffd700;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+      }
+
+      .leaderboard-rank {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 24px;
+        color: #ffd54f;
+        min-width: 40px;
+        text-align: center;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      }
+      .leaderboard-rank.top3 {
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .leaderboard-rank.rank1 {
+        color: #ffd700;
+      }
+      .leaderboard-rank.rank2 {
+        color: #c0c0c0;
+      }
+      .leaderboard-rank.rank3 {
+        color: #cd7f32;
+      }
+
+      .leaderboard-profile {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        object-fit: cover;
+      }
+
+      .leaderboard-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .leaderboard-username {
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: #ffffff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .leaderboard-entry.current-player .leaderboard-username {
+        color: #ffd700;
+      }
+
+      .leaderboard-score {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 24px;
+        color: #4caf50;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+        margin-left: 12px;
+      }
+      .leaderboard-entry.current-player .leaderboard-score {
+        color: #ffd700;
+      }
+
+      .leaderboard-loading {
+        text-align: center;
+        padding: 20px;
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .leaderboard-error {
+        text-align: center;
+        padding: 20px;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        color: rgba(255, 100, 100, 0.8);
+      }
+
+      #restart-btn {
+        padding: 0 32px;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        letter-spacing: 2px;
+        color: white;
+        background: linear-gradient(135deg, #ffd54f 0%, #ff1493 100%);
+        border: none;
+        border-radius: 60px;
+        cursor: pointer;
+        transition:
+          transform var(--transition-fast) var(--ease-out),
+          box-shadow var(--transition-fast);
+        min-width: 180px;
+        min-height: 60px;
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+      }
+      #restart-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 32px rgba(76, 175, 80, 0.5);
+      }
+      #restart-btn:active {
+        transform: scale(0.97);
+        box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4);
+      }
+      #restart-btn:focus-visible {
+        outline: 3px solid rgba(255, 255, 255, 0.5);
+        outline-offset: 4px;
+      }
+
+      #trajectory-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      #edit-indicator {
+        position: absolute;
+        top: 28px;
+        right: 24px;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+        color: white;
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 1px;
+        border-radius: 24px;
+        box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4);
+        display: none;
+      }
+      #edit-indicator.visible {
+        display: block;
+      }
+
+      #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition:
+          opacity 0.5s ease,
+          visibility 0.5s ease;
+      }
+      #loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      #loading-content {
+        text-align: center;
+        padding: 40px;
+      }
+      #loading-title {
+        display: none;
+      }
+
+      @keyframes loadingPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      #loading-subtitle {
+        font-family: "Inter", sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 40px;
+        letter-spacing: 2px;
+      }
+
+      #loading-bar-container {
+        width: 400px;
+        max-width: 80vw;
+        height: 50px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow:
+          0 4px 20px rgba(0, 0, 0, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08),
+          inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+        margin: 0 auto 20px;
+      }
+
+      #loading-bar-fill {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          #ff1493 0%,
+          #ffd700 50%,
+          #ff1493 100%
+        );
+        background-size: 200% 100%;
+        animation: loadingGradient 2s linear infinite;
+        transition: width 0.3s ease;
+        box-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
+      }
+
+      @keyframes loadingGradient {
+        0% {
+          background-position: 0% 0%;
+        }
+        100% {
+          background-position: 200% 0%;
+        }
+      }
+
+      #loading-percentage {
+        display: none;
+      }
+
+      #best-score {
+        position: absolute;
+        top: 28px;
+        left: 24px;
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.6);
+        pointer-events: none;
+        display: none;
+        align-items: center;
+        gap: 6px;
+      }
+      #best-score::before {
+        content: "🏆";
+        font-size: 18px;
+      }
+
+      #best-value {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      #tutorial-message {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: "Bangers", cursive;
+        font-size: 56px;
+        color: #ffffff;
+        text-shadow:
+          0 0 20px rgba(255, 255, 255, 0.6),
+          0 0 50px rgba(255, 215, 0, 0.3),
+          0 4px 12px rgba(0, 0, 0, 0.7);
+        pointer-events: none;
+        text-align: center;
+        letter-spacing: 4px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        z-index: 20;
+      }
+      #tutorial-message.visible {
+        opacity: 1;
+        visibility: visible;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.05);
+        }
+      }
+
+      .swipe-indicator {
+        position: absolute;
+        top: 200px;
+        left: 50%;
+        width: 80px;
+        height: 80px;
+        transform: translateX(-50%);
+        opacity: 0.9;
+      }
+      .swipe-indicator::before {
+        content: "";
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.9) 0%,
+          rgba(255, 255, 255, 0.5) 70%
+        );
+        border: 4px solid #ff1493;
+        box-shadow:
+          0 0 20px rgba(255, 20, 147, 0.6),
+          0 4px 12px rgba(0, 0, 0, 0.4);
+        animation: swipeMotion 2s ease-in-out infinite;
+      }
+      .swipe-indicator::after {
+        content: "↑";
+        position: absolute;
+        font-size: 48px;
+        color: #ff1493;
+        text-shadow:
+          0 0 10px rgba(255, 20, 147, 0.8),
+          0 2px 8px rgba(0, 0, 0, 0.6);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: swipeArrow 2s ease-in-out infinite;
+      }
+
+      @keyframes swipeMotion {
+        0% {
+          top: 0;
+          opacity: 0.3;
+          transform: scale(0.8);
+        }
+        30% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        70% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          top: -80px;
+          opacity: 0.3;
+          transform: scale(0.8);
+        }
+      }
+
+      @keyframes swipeArrow {
+        0%,
+        100% {
+          opacity: 0.5;
+          transform: translate(-50%, -50%) scale(0.8);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1.2);
+        }
+      }
+
+      #lives-display {
+        position: absolute;
+        bottom: 24px;
+        left: 24px;
+        display: flex;
+        gap: 8px;
+        pointer-events: none;
+      }
+
+      .life-icon {
+        width: 28px;
+        height: 28px;
+        background: radial-gradient(circle, #9088ff 30%, #6c63ff 100%);
+        border-radius: 50%;
+        box-shadow:
+          0 2px 10px rgba(108, 99, 255, 0.6),
+          0 0 20px rgba(108, 99, 255, 0.25),
+          inset 0 1px 2px rgba(255, 255, 255, 0.3),
+          inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .life-icon::before {
+        content: "★";
+        font-size: 16px;
+        color: #ffffff;
+        text-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+        line-height: 1;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .life-icon.lost {
+        opacity: 0.2;
+        transform: scale(0.7);
+        filter: grayscale(100%);
+      }
+
+      #frisbee-selector-btn {
+        display: none;
+        position: absolute;
+        bottom: 24px;
+        right: 24px;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff1493 0%, #ffd700 100%);
+        border: 3px solid white;
+        box-shadow: 0 4px 12px rgba(255, 20, 147, 0.5);
+        font-size: 32px;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+        z-index: 15;
+      }
+      #frisbee-selector-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(255, 20, 147, 0.7);
+      }
+      #frisbee-selector-btn:active {
+        transform: scale(0.95);
+      }
+
+      #frisbee-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      #frisbee-overlay.visible {
+        display: flex;
+        opacity: 1;
+      }
+
+      #frisbee-selector-panel {
+        background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+        border-radius: 24px;
+        padding: 32px;
+        max-width: 600px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        border: 2px solid rgba(255, 215, 0, 0.3);
+      }
+
+      #frisbee-selector-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+      #frisbee-selector-header h2 {
+        font-family: "Bangers", cursive;
+        font-size: 32px;
+        color: #ffd700;
+        margin: 0;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      }
+
+      .close-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .close-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: rotate(90deg);
+      }
+
+      #frisbee-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 16px;
+      }
+
+      .frisbee-option {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 16px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 3px solid transparent;
+        position: relative;
+      }
+      .frisbee-option:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-4px);
+      }
+      .frisbee-option.selected {
+        border-color: #ffd700;
+        background: rgba(255, 215, 0, 0.2);
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+      }
+      .frisbee-option.locked {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .frisbee-option.locked:hover {
+        transform: none;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .frisbee-preview {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 12px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .frisbee-name {
+        font-family: "Inter", sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 4px;
+      }
+      .frisbee-unlock {
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .lock-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 40px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div id="loading-screen">
+      <div id="loading-content"></div>
+    </div>
+
+    <div id="game-container">
+      <canvas id="game-canvas"></canvas>
+      <canvas id="trajectory-canvas"></canvas>
+
+      <div class="ui-overlay">
+        <div id="score-wrapper">
+          <div id="score-display">
+            <div id="score-label">⭐</div>
+            <div id="score-value">0</div>
+          </div>
+          <div id="multiplier-display">×1</div>
+        </div>
+
+        <div id="combo-display">×2 COMBO!</div>
+
+        <div id="tutorial-message">
+          Swipe Up to Throw
+          <div class="swipe-indicator"></div>
+        </div>
+
+        <div id="best-score">Best <span id="best-value">0</span></div>
+
+        <div id="lives-display">
+          <div class="life-icon" id="life-1"></div>
+          <div class="life-icon" id="life-2"></div>
+          <div class="life-icon" id="life-3"></div>
+        </div>
+
+        <button id="frisbee-selector-btn" class="icon-button" title="Change Frisbee">
+          🥏
+        </button>
+
+        <div id="edit-indicator">EDIT MODE</div>
+
+        <div id="frisbee-overlay">
+          <div id="frisbee-selector-panel">
+            <div id="frisbee-selector-header">
+              <h2>SELECT YOUR FRISBEE</h2>
+              <button id="close-frisbee-selector" class="close-btn">✕</button>
+            </div>
+            <div id="frisbee-options"></div>
+          </div>
+        </div>
+
+        <div id="game-over-screen" style="display: none">
+          <div id="game-over-title">GAME OVER</div>
+          <div id="final-score">0</div>
+          
+          <button id="restart-btn" style="display: none">PLAY AGAIN</button>
+        </div>
+      </div>
+    </div>
+
+    
+  
+
+<script type="module" src="./game.js"></script></body></html>

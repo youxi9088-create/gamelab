@@ -1,0 +1,405 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "errors": [],
+  "warnings": [],
+  "missing": [],
+  "required_external": [],
+  "non_game_http_findings": [
+    {
+      "sequence": 313,
+      "source": {
+        "tabId": 56
+      },
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "9DA3EB8330F5F340B8164FCE04A0B8AF",
+        "hasExtraInfo": true,
+        "loaderId": "E9A88417A092B27BFB7DC55F059062CE",
+        "requestId": "22248.44",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "utf-8",
+          "connectionId": 783206,
+          "connectionReused": false,
+          "encodedDataLength": 185,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Connection": "close",
+            "Content-Length": "460",
+            "Content-Type": "text/html;charset=utf-8",
+            "Date": "Fri, 13 Nov 2026 07:27:47 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "text/html",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8987,
+          "responseTime": 1794554867819.105,
+          "securityState": "secure",
+          "status": 404,
+          "statusText": "File not found",
+          "timing": {
+            "connectEnd": 0.61,
+            "connectStart": 0.218,
+            "dnsEnd": 0.218,
+            "dnsStart": 0.212,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 26.69,
+            "receiveHeadersStart": 26.605,
+            "requestTime": 1311866.036044,
+            "sendEnd": 0.737,
+            "sendStart": 0.661,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8987/favicon.ico"
+        },
+        "timestamp": 1311866.063449,
+        "type": "Other"
+      }
+    }
+  ],
+  "non_game_http_resolution": "保留原favicon404；最终只添加datafavicon，原玩法/样式/资产不变。无需重复玩法验证。",
+  "actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "原guest欢迎。"
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "New Game",
+      "result": "进入原三页创建。"
+    },
+    {
+      "step": 3,
+      "type": "native-character-creation",
+      "selector": "original 3 pages",
+      "result": "正常头像/本地姓名Wanderer/Mango选择与招呼，逐次输入见verification-action-ledger，不是一次点击。"
+    },
+    {
+      "step": 4,
+      "type": "single-original-outing",
+      "selector": "Meadow and native five-find confirmations",
+      "result": "仅一趟原探索，券消耗/自然计时/五项原发现与升级入账；逐次输入全部保留，无第二趟。"
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "document",
+      "result": "实际恢复Lv2/68XP/8券、宠物和收集状态。"
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "startup",
+      "status": "passed"
+    },
+    {
+      "name": "interaction",
+      "status": "passed"
+    },
+    {
+      "name": "reload",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:8987/index.html",
+    "http://127.0.0.1:8987/rosebud-game-defaults.css",
+    "http://127.0.0.1:8987/rosebud-game-defaults.js",
+    "http://127.0.0.1:8987/main.js",
+    "http://127.0.0.1:8987/expedition-data.js",
+    "http://127.0.0.1:8987/ticket-manager.js",
+    "http://127.0.0.1:8987/objective-data.js",
+    "http://127.0.0.1:8987/objective-manager.js",
+    "http://127.0.0.1:8987/offline-reward-manager.js",
+    "http://127.0.0.1:8987/account-save-manager.js",
+    "http://127.0.0.1:8987/social-manager.js",
+    "http://127.0.0.1:8987/marketplace-manager.js",
+    "http://127.0.0.1:8987/economy-data.js",
+    "http://127.0.0.1:8987/potion-data.js",
+    "http://127.0.0.1:8987/progression-data.js",
+    "http://127.0.0.1:8987/simulated-player-manager.js",
+    "http://127.0.0.1:8987/social-player-service.js",
+    "http://127.0.0.1:8987/pet-dialogue-manager.js",
+    "http://127.0.0.1:8987/npc-behavior-manager.js",
+    "http://127.0.0.1:8987/content-safety.js",
+    "http://127.0.0.1:8987/assets/room-bg.webp",
+    "http://127.0.0.1:8987/assets/pocketwild-isometric-cottage.webp",
+    "http://127.0.0.1:8987/assets/pocketwild-isometric-cottage-portrait.webp",
+    "http://127.0.0.1:8987/assets/mango-frog-chunky.webp",
+    "http://127.0.0.1:8987/assets/beans-cat-chunky.webp",
+    "http://127.0.0.1:8987/assets/trash-raccoon-chunky.webp",
+    "http://127.0.0.1:8987/assets/luna-moth-chunky.webp",
+    "http://127.0.0.1:8987/assets/explorer-compass-display.webp",
+    "http://127.0.0.1:8987/assets/ancient-cauldron-display.webp",
+    "http://127.0.0.1:8987/assets/moonstone-lantern-display.webp",
+    "http://127.0.0.1:8987/assets/world-relic-display.webp",
+    "http://127.0.0.1:8987/assets/master-collectors-relic-display.webp",
+    "http://127.0.0.1:8987/assets/audio/cozy-theme.mp3",
+    "http://127.0.0.1:8987/assets/audio/windowlight-lofi.mp3",
+    "http://127.0.0.1:8987/assets/audio/mossy-afternoon-lofi.mp3",
+    "http://127.0.0.1:8987/assets/audio/arrive-sparkle.mp3",
+    "http://127.0.0.1:8987/assets/audio/pet-purr-soft.mp3",
+    "http://127.0.0.1:8987/assets/audio/pet-soft-rustle.mp3",
+    "http://127.0.0.1:8987/assets/audio/pet-warm-chime.mp3",
+    "http://127.0.0.1:8987/favicon.ico",
+    "http://127.0.0.1:8987/assets/audio/cozy-theme.mp3",
+    "http://127.0.0.1:8987/assets/audio/windowlight-lofi.mp3",
+    "http://127.0.0.1:8987/assets/audio/mossy-afternoon-lofi.mp3",
+    "http://127.0.0.1:8987/assets/audio/arrive-sparkle.mp3",
+    "http://127.0.0.1:8987/assets/audio/pet-purr-soft.mp3",
+    "http://127.0.0.1:8987/assets/audio/pet-soft-rustle.mp3",
+    "http://127.0.0.1:8987/index.html",
+    "http://127.0.0.1:8987/rosebud-game-defaults.css",
+    "http://127.0.0.1:8987/rosebud-game-defaults.js",
+    "http://127.0.0.1:8987/main.js",
+    "http://127.0.0.1:8987/expedition-data.js",
+    "http://127.0.0.1:8987/ticket-manager.js",
+    "http://127.0.0.1:8987/objective-data.js",
+    "http://127.0.0.1:8987/objective-manager.js",
+    "http://127.0.0.1:8987/offline-reward-manager.js",
+    "http://127.0.0.1:8987/account-save-manager.js",
+    "http://127.0.0.1:8987/social-manager.js",
+    "http://127.0.0.1:8987/marketplace-manager.js",
+    "http://127.0.0.1:8987/economy-data.js",
+    "http://127.0.0.1:8987/potion-data.js",
+    "http://127.0.0.1:8987/progression-data.js",
+    "http://127.0.0.1:8987/simulated-player-manager.js",
+    "http://127.0.0.1:8987/social-player-service.js",
+    "http://127.0.0.1:8987/pet-dialogue-manager.js",
+    "http://127.0.0.1:8987/npc-behavior-manager.js",
+    "http://127.0.0.1:8987/content-safety.js",
+    "http://127.0.0.1:8987/assets/room-bg.webp",
+    "http://127.0.0.1:8987/assets/pocketwild-isometric-cottage.webp",
+    "http://127.0.0.1:8987/assets/pocketwild-isometric-cottage-portrait.webp",
+    "http://127.0.0.1:8987/assets/mango-frog-chunky.webp",
+    "http://127.0.0.1:8987/assets/beans-cat-chunky.webp",
+    "http://127.0.0.1:8987/assets/trash-raccoon-chunky.webp",
+    "http://127.0.0.1:8987/assets/luna-moth-chunky.webp",
+    "http://127.0.0.1:8987/assets/explorer-compass-display.webp",
+    "http://127.0.0.1:8987/assets/ancient-cauldron-display.webp",
+    "http://127.0.0.1:8987/assets/moonstone-lantern-display.webp",
+    "http://127.0.0.1:8987/assets/world-relic-display.webp",
+    "http://127.0.0.1:8987/assets/master-collectors-relic-display.webp",
+    "http://127.0.0.1:8987/assets/audio/cozy-theme.mp3",
+    "http://127.0.0.1:8987/assets/audio/windowlight-lofi.mp3",
+    "http://127.0.0.1:8987/assets/audio/mossy-afternoon-lofi.mp3",
+    "http://127.0.0.1:8987/assets/audio/arrive-sparkle.mp3",
+    "http://127.0.0.1:8987/assets/audio/pet-purr-soft.mp3",
+    "http://127.0.0.1:8987/assets/audio/pet-soft-rustle.mp3",
+    "http://127.0.0.1:8987/assets/audio/pet-warm-chime.mp3"
+  ],
+  "scope": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+  "network_scope": "One actual original onboarding and one Meadowouting with all5finds, then original guestrestore; no secondouting or state injection.",
+  "evidence": "evidence/direct-repair/network-final.json",
+  "expected_media_cancellations": [
+    {
+      "event": {
+        "sequence": 323,
+        "source": {
+          "tabId": 56
+        },
+        "method": "Network.loadingFailed",
+        "params": {
+          "canceled": true,
+          "errorText": "net::ERR_ABORTED",
+          "requestId": "22248.37",
+          "timestamp": 1311881.067937,
+          "type": "Media"
+        }
+      },
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 783042,
+        "connectionReused": false,
+        "encodedDataLength": 191,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Content-Length": "1817133",
+          "Content-type": "audio/mpeg",
+          "Date": "Fri, 13 Nov 2026 07:27:47 GMT",
+          "Last-Modified": "Thu, 12 Nov 2026 02:53:49 GMT",
+          "Server": "SimpleHTTP/0.6 Python/3.14.4"
+        },
+        "mimeType": "audio/mpeg",
+        "protocol": "http/1.0",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8987,
+        "responseTime": 1794554867696.311,
+        "securityState": "secure",
+        "status": 200,
+        "statusText": "OK",
+        "timing": {
+          "connectEnd": 1.263,
+          "connectStart": 0.768,
+          "dnsEnd": 0.768,
+          "dnsStart": 0.761,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 3.054,
+          "receiveHeadersStart": 2.943,
+          "requestTime": 1311865.936912,
+          "sendEnd": 1.648,
+          "sendStart": 1.589,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8987/assets/audio/cozy-theme.mp3"
+      },
+      "reason": "原音频HTTP200且后续Range206；文档刷新时浏览器Media canceled ERR_ABORTED，原字节保留及工程GET/SHA核对，不宣称听觉通过。"
+    },
+    {
+      "event": {
+        "sequence": 324,
+        "source": {
+          "tabId": 56
+        },
+        "method": "Network.loadingFailed",
+        "params": {
+          "canceled": true,
+          "errorText": "net::ERR_ABORTED",
+          "requestId": "22248.38",
+          "timestamp": 1311881.068017,
+          "type": "Media"
+        }
+      },
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 783046,
+        "connectionReused": false,
+        "encodedDataLength": 190,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Content-Length": "240789",
+          "Content-type": "audio/mpeg",
+          "Date": "Fri, 13 Nov 2026 07:27:47 GMT",
+          "Last-Modified": "Thu, 12 Nov 2026 02:53:49 GMT",
+          "Server": "SimpleHTTP/0.6 Python/3.14.4"
+        },
+        "mimeType": "audio/mpeg",
+        "protocol": "http/1.0",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8987,
+        "responseTime": 1794554867696.697,
+        "securityState": "secure",
+        "status": 200,
+        "statusText": "OK",
+        "timing": {
+          "connectEnd": 1.372,
+          "connectStart": 0.954,
+          "dnsEnd": 0.954,
+          "dnsStart": 0.951,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 3.276,
+          "receiveHeadersStart": 3.171,
+          "requestTime": 1311865.93707,
+          "sendEnd": 1.543,
+          "sendStart": 1.509,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8987/assets/audio/windowlight-lofi.mp3"
+      },
+      "reason": "原音频HTTP200且后续Range206；文档刷新时浏览器Media canceled ERR_ABORTED，原字节保留及工程GET/SHA核对，不宣称听觉通过。"
+    },
+    {
+      "event": {
+        "sequence": 325,
+        "source": {
+          "tabId": 56
+        },
+        "method": "Network.loadingFailed",
+        "params": {
+          "canceled": true,
+          "errorText": "net::ERR_ABORTED",
+          "requestId": "22248.39",
+          "timestamp": 1311881.068075,
+          "type": "Media"
+        }
+      },
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 783050,
+        "connectionReused": false,
+        "encodedDataLength": 190,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Content-Length": "240789",
+          "Content-type": "audio/mpeg",
+          "Date": "Fri, 13 Nov 2026 07:27:47 GMT",
+          "Last-Modified": "Thu, 12 Nov 2026 02:53:49 GMT",
+          "Server": "SimpleHTTP/0.6 Python/3.14.4"
+        },
+        "mimeType": "audio/mpeg",
+        "protocol": "http/1.0",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8987,
+        "responseTime": 1794554867699.085,
+        "securityState": "secure",
+        "status": 200,
+        "statusText": "OK",
+        "timing": {
+          "connectEnd": 1.33,
+          "connectStart": 1.066,
+          "dnsEnd": 1.066,
+          "dnsStart": 1.064,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 5.947,
+          "receiveHeadersStart": 5.503,
+          "requestTime": 1311865.937126,
+          "sendEnd": 1.529,
+          "sendStart": 1.5,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8987/assets/audio/mossy-afternoon-lofi.mp3"
+      },
+      "reason": "原音频HTTP200且后续Range206；文档刷新时浏览器Media canceled ERR_ABORTED，原字节保留及工程GET/SHA核对，不宣称听觉通过。"
+    }
+  ]
+}

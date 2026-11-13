@@ -1,0 +1,57 @@
+{
+  "key_items": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "http://127.0.0.1:8984/index.html",
+      "result": "原失败启动/修复重载和补图后该项定向复验均保留；最终205完整事件与icon_e.webp实际200，初始速度0。"
+    },
+    {
+      "step": 2,
+      "type": "key",
+      "selector": "canvas",
+      "key": "Up",
+      "duration_ms": 2200,
+      "result": "原矿车实际加速/轨道位置/进度变化；保存截图速度9，非峰值声明。"
+    },
+    {
+      "step": 3,
+      "type": "key",
+      "selector": "canvas",
+      "key": "Down",
+      "duration_ms": 1600,
+      "result": "原制动与轨道转向，保存截图速度5。"
+    },
+    {
+      "step": 4,
+      "type": "reload",
+      "selector": "document",
+      "result": "原第5次机械动作刷新回初始轨道速度0；未证明检查点或购买进度恢复。"
+    }
+  ],
+  "key_item_limit": 5,
+  "actual_mechanical_actions": 6,
+  "initial_five_actions": {
+    "at": "2026-11-13T00:47:03.989063+00:00",
+    "job_id": "job-87aac982e865",
+    "status": "deferred_not_delivered",
+    "ui_steps_used": 5,
+    "ui_steps_remaining": 0,
+    "steps": [
+      "First startup failed: retired outgoing sender still present in native system registration list",
+      "Real reload after removal of exactly two sender registrations: original playable cart/track",
+      "Up2200ms: original acceleration, visible speed28",
+      "Down1600ms: original braking, visible speed13 and track turn",
+      "Real reload: original spawn and speed0; final network reveals missing icon_e.webp retries"
+    ],
+    "core_observed": true,
+    "reason": "Final complete 215-event window contains six HTTP404 attempts for original icon_e.webp plus console errors. Exact original 3942-byte256x256 resource restored after step5 and same local HTTP200/SHA confirmed; no sixth UI validation, so no final clean-runtime claim or admission.",
+    "main_sha256": "db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d",
+    "exact_restored_icon_sha256": "7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a",
+    "precise_codex_tokens": null,
+    "precise_codex_cost": null,
+    "no_remote_job_mutation": true
+  },
+  "targeted_action6": "Only startup item after exactoriginalimage added; main source byte-identical to actualgameplay. No wholeplaythrough repeat.",
+  "scope": "保留原PlayCanvas2.19.7矿车/轨道/人物/原生物理、障碍时钟、地图/检查点/进度/经济/存储与美术，7767处原函数语义保持（含引擎与业务，不称7767全是业务函数）。真实SDK/GA/Colyseus/WebSocket、远端房间/同步/重试、角色/矿车外发函数及两处系统登记退役；本地真实生命周期/障碍时钟、可选本地领取确认/取消保留，不伪造SDK、账号、广告完成、远端玩家或支付。本轮最多5个关键项，共6次机械输入均留档：原首次启动失败、去除两处外发系统登记后重载、Up2200ms加速、Down1600ms制动、刷新复位、补原图后仅一次净启动复验。原保存截图分别实际显示速度9和5，旧笔记28/13不是同一截图时点，不将其当当前画面数值。轨道位置/方向与进度条确实变化，原刷新回初始矿车速度0；未完成地图终点/检查点奖励/死亡复活或购买。旧215事件的icon_e.webp六次404和原console错误保留；其后只补精确原3942字节256x256图片，SHA7c1a23735f9eb3be503f2ab16bf2316737457573d1a30de8805afd788e69275a，主码始终db85fee2a23cf59c585395c0897fb28ba4bfd1e8f247631136d182661205dc6d不变。当前只复验启动项：205完整事件无截断/外联/HTTP失败/脚本异常，缺图在真实浏览器返回200，console无错误警告，DOM实际data-engine为PlayCanvas2.19.7。45GLB本地闭合，原其余资产逐项HTTP/SHA；旧6个${e}模板误当字面量的工程403/404记录原样保留，不冒称6份真实图缺失。整张地图/全部地图、其他矿车、可选奖励/取消、解锁、死亡复活、暂停/触控/听觉、检查点与购买后持久化均未验证。原任务正常待验收，不批准、不供货。"
+}

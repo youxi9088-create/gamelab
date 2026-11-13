@@ -1,0 +1,862 @@
+{
+  "path": "direct-agent-repair",
+  "recovery_kind": "direct-source-repair",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "passed": true,
+    "environment": "local-artifact",
+    "network_observation_complete": true,
+    "external": [],
+    "errors": [],
+    "warnings": [],
+    "missing": [],
+    "required_external": [],
+    "non_game_http_findings": [
+      {
+        "sequence": 313,
+        "source": {
+          "tabId": 56
+        },
+        "method": "Network.responseReceived",
+        "params": {
+          "frameId": "9DA3EB8330F5F340B8164FCE04A0B8AF",
+          "hasExtraInfo": true,
+          "loaderId": "E9A88417A092B27BFB7DC55F059062CE",
+          "requestId": "22248.44",
+          "response": {
+            "alternateProtocolUsage": "unspecifiedReason",
+            "charset": "utf-8",
+            "connectionId": 783206,
+            "connectionReused": false,
+            "encodedDataLength": 185,
+            "fromDiskCache": false,
+            "fromPrefetchCache": false,
+            "fromServiceWorker": false,
+            "headers": {
+              "Connection": "close",
+              "Content-Length": "460",
+              "Content-Type": "text/html;charset=utf-8",
+              "Date": "Fri, 13 Nov 2026 07:27:47 GMT",
+              "Server": "SimpleHTTP/0.6 Python/3.14.4"
+            },
+            "mimeType": "text/html",
+            "protocol": "http/1.0",
+            "remoteIPAddress": "127.0.0.1",
+            "remotePort": 8987,
+            "responseTime": 1794554867819.105,
+            "securityState": "secure",
+            "status": 404,
+            "statusText": "File not found",
+            "timing": {
+              "connectEnd": 0.61,
+              "connectStart": 0.218,
+              "dnsEnd": 0.218,
+              "dnsStart": 0.212,
+              "proxyEnd": -1,
+              "proxyStart": -1,
+              "pushEnd": 0,
+              "pushStart": 0,
+              "receiveHeadersEnd": 26.69,
+              "receiveHeadersStart": 26.605,
+              "requestTime": 1311866.036044,
+              "sendEnd": 0.737,
+              "sendStart": 0.661,
+              "sslEnd": -1,
+              "sslStart": -1,
+              "workerFetchStart": -1,
+              "workerReady": -1,
+              "workerRespondWithSettled": -1,
+              "workerStart": -1
+            },
+            "url": "http://127.0.0.1:8987/favicon.ico"
+          },
+          "timestamp": 1311866.063449,
+          "type": "Other"
+        }
+      }
+    ],
+    "non_game_http_resolution": "保留原favicon404；最终只添加datafavicon，原玩法/样式/资产不变。无需重复玩法验证。",
+    "actions": [
+      {
+        "step": 1,
+        "type": "navigate",
+        "selector": "index.html",
+        "result": "原guest欢迎。"
+      },
+      {
+        "step": 2,
+        "type": "click",
+        "selector": "New Game",
+        "result": "进入原三页创建。"
+      },
+      {
+        "step": 3,
+        "type": "native-character-creation",
+        "selector": "original 3 pages",
+        "result": "正常头像/本地姓名Wanderer/Mango选择与招呼，逐次输入见verification-action-ledger，不是一次点击。"
+      },
+      {
+        "step": 4,
+        "type": "single-original-outing",
+        "selector": "Meadow and native five-find confirmations",
+        "result": "仅一趟原探索，券消耗/自然计时/五项原发现与升级入账；逐次输入全部保留，无第二趟。"
+      },
+      {
+        "step": 5,
+        "type": "reload",
+        "selector": "document",
+        "result": "实际恢复Lv2/68XP/8券、宠物和收集状态。"
+      }
+    ],
+    "navigation_checkpoints": [
+      {
+        "name": "startup",
+        "status": "passed"
+      },
+      {
+        "name": "interaction",
+        "status": "passed"
+      },
+      {
+        "name": "reload",
+        "status": "passed"
+      }
+    ],
+    "network_requests": [
+      "http://127.0.0.1:8987/index.html",
+      "http://127.0.0.1:8987/rosebud-game-defaults.css",
+      "http://127.0.0.1:8987/rosebud-game-defaults.js",
+      "http://127.0.0.1:8987/main.js",
+      "http://127.0.0.1:8987/expedition-data.js",
+      "http://127.0.0.1:8987/ticket-manager.js",
+      "http://127.0.0.1:8987/objective-data.js",
+      "http://127.0.0.1:8987/objective-manager.js",
+      "http://127.0.0.1:8987/offline-reward-manager.js",
+      "http://127.0.0.1:8987/account-save-manager.js",
+      "http://127.0.0.1:8987/social-manager.js",
+      "http://127.0.0.1:8987/marketplace-manager.js",
+      "http://127.0.0.1:8987/economy-data.js",
+      "http://127.0.0.1:8987/potion-data.js",
+      "http://127.0.0.1:8987/progression-data.js",
+      "http://127.0.0.1:8987/simulated-player-manager.js",
+      "http://127.0.0.1:8987/social-player-service.js",
+      "http://127.0.0.1:8987/pet-dialogue-manager.js",
+      "http://127.0.0.1:8987/npc-behavior-manager.js",
+      "http://127.0.0.1:8987/content-safety.js",
+      "http://127.0.0.1:8987/assets/room-bg.webp",
+      "http://127.0.0.1:8987/assets/pocketwild-isometric-cottage.webp",
+      "http://127.0.0.1:8987/assets/pocketwild-isometric-cottage-portrait.webp",
+      "http://127.0.0.1:8987/assets/mango-frog-chunky.webp",
+      "http://127.0.0.1:8987/assets/beans-cat-chunky.webp",
+      "http://127.0.0.1:8987/assets/trash-raccoon-chunky.webp",
+      "http://127.0.0.1:8987/assets/luna-moth-chunky.webp",
+      "http://127.0.0.1:8987/assets/explorer-compass-display.webp",
+      "http://127.0.0.1:8987/assets/ancient-cauldron-display.webp",
+      "http://127.0.0.1:8987/assets/moonstone-lantern-display.webp",
+      "http://127.0.0.1:8987/assets/world-relic-display.webp",
+      "http://127.0.0.1:8987/assets/master-collectors-relic-display.webp",
+      "http://127.0.0.1:8987/assets/audio/cozy-theme.mp3",
+      "http://127.0.0.1:8987/assets/audio/windowlight-lofi.mp3",
+      "http://127.0.0.1:8987/assets/audio/mossy-afternoon-lofi.mp3",
+      "http://127.0.0.1:8987/assets/audio/arrive-sparkle.mp3",
+      "http://127.0.0.1:8987/assets/audio/pet-purr-soft.mp3",
+      "http://127.0.0.1:8987/assets/audio/pet-soft-rustle.mp3",
+      "http://127.0.0.1:8987/assets/audio/pet-warm-chime.mp3",
+      "http://127.0.0.1:8987/favicon.ico",
+      "http://127.0.0.1:8987/assets/audio/cozy-theme.mp3",
+      "http://127.0.0.1:8987/assets/audio/windowlight-lofi.mp3",
+      "http://127.0.0.1:8987/assets/audio/mossy-afternoon-lofi.mp3",
+      "http://127.0.0.1:8987/assets/audio/arrive-sparkle.mp3",
+      "http://127.0.0.1:8987/assets/audio/pet-purr-soft.mp3",
+      "http://127.0.0.1:8987/assets/audio/pet-soft-rustle.mp3",
+      "http://127.0.0.1:8987/index.html",
+      "http://127.0.0.1:8987/rosebud-game-defaults.css",
+      "http://127.0.0.1:8987/rosebud-game-defaults.js",
+      "http://127.0.0.1:8987/main.js",
+      "http://127.0.0.1:8987/expedition-data.js",
+      "http://127.0.0.1:8987/ticket-manager.js",
+      "http://127.0.0.1:8987/objective-data.js",
+      "http://127.0.0.1:8987/objective-manager.js",
+      "http://127.0.0.1:8987/offline-reward-manager.js",
+      "http://127.0.0.1:8987/account-save-manager.js",
+      "http://127.0.0.1:8987/social-manager.js",
+      "http://127.0.0.1:8987/marketplace-manager.js",
+      "http://127.0.0.1:8987/economy-data.js",
+      "http://127.0.0.1:8987/potion-data.js",
+      "http://127.0.0.1:8987/progression-data.js",
+      "http://127.0.0.1:8987/simulated-player-manager.js",
+      "http://127.0.0.1:8987/social-player-service.js",
+      "http://127.0.0.1:8987/pet-dialogue-manager.js",
+      "http://127.0.0.1:8987/npc-behavior-manager.js",
+      "http://127.0.0.1:8987/content-safety.js",
+      "http://127.0.0.1:8987/assets/room-bg.webp",
+      "http://127.0.0.1:8987/assets/pocketwild-isometric-cottage.webp",
+      "http://127.0.0.1:8987/assets/pocketwild-isometric-cottage-portrait.webp",
+      "http://127.0.0.1:8987/assets/mango-frog-chunky.webp",
+      "http://127.0.0.1:8987/assets/beans-cat-chunky.webp",
+      "http://127.0.0.1:8987/assets/trash-raccoon-chunky.webp",
+      "http://127.0.0.1:8987/assets/luna-moth-chunky.webp",
+      "http://127.0.0.1:8987/assets/explorer-compass-display.webp",
+      "http://127.0.0.1:8987/assets/ancient-cauldron-display.webp",
+      "http://127.0.0.1:8987/assets/moonstone-lantern-display.webp",
+      "http://127.0.0.1:8987/assets/world-relic-display.webp",
+      "http://127.0.0.1:8987/assets/master-collectors-relic-display.webp",
+      "http://127.0.0.1:8987/assets/audio/cozy-theme.mp3",
+      "http://127.0.0.1:8987/assets/audio/windowlight-lofi.mp3",
+      "http://127.0.0.1:8987/assets/audio/mossy-afternoon-lofi.mp3",
+      "http://127.0.0.1:8987/assets/audio/arrive-sparkle.mp3",
+      "http://127.0.0.1:8987/assets/audio/pet-purr-soft.mp3",
+      "http://127.0.0.1:8987/assets/audio/pet-soft-rustle.mp3",
+      "http://127.0.0.1:8987/assets/audio/pet-warm-chime.mp3"
+    ],
+    "scope": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+    "network_scope": "One actual original onboarding and one Meadowouting with all5finds, then original guestrestore; no secondouting or state injection.",
+    "evidence": "evidence/direct-repair/network-final.json",
+    "expected_media_cancellations": [
+      {
+        "event": {
+          "sequence": 323,
+          "source": {
+            "tabId": 56
+          },
+          "method": "Network.loadingFailed",
+          "params": {
+            "canceled": true,
+            "errorText": "net::ERR_ABORTED",
+            "requestId": "22248.37",
+            "timestamp": 1311881.067937,
+            "type": "Media"
+          }
+        },
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 783042,
+          "connectionReused": false,
+          "encodedDataLength": 191,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "1817133",
+            "Content-type": "audio/mpeg",
+            "Date": "Fri, 13 Nov 2026 07:27:47 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 02:53:49 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8987,
+          "responseTime": 1794554867696.311,
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.263,
+            "connectStart": 0.768,
+            "dnsEnd": 0.768,
+            "dnsStart": 0.761,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 3.054,
+            "receiveHeadersStart": 2.943,
+            "requestTime": 1311865.936912,
+            "sendEnd": 1.648,
+            "sendStart": 1.589,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8987/assets/audio/cozy-theme.mp3"
+        },
+        "reason": "原音频HTTP200且后续Range206；文档刷新时浏览器Media canceled ERR_ABORTED，原字节保留及工程GET/SHA核对，不宣称听觉通过。"
+      },
+      {
+        "event": {
+          "sequence": 324,
+          "source": {
+            "tabId": 56
+          },
+          "method": "Network.loadingFailed",
+          "params": {
+            "canceled": true,
+            "errorText": "net::ERR_ABORTED",
+            "requestId": "22248.38",
+            "timestamp": 1311881.068017,
+            "type": "Media"
+          }
+        },
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 783046,
+          "connectionReused": false,
+          "encodedDataLength": 190,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "240789",
+            "Content-type": "audio/mpeg",
+            "Date": "Fri, 13 Nov 2026 07:27:47 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 02:53:49 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8987,
+          "responseTime": 1794554867696.697,
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.372,
+            "connectStart": 0.954,
+            "dnsEnd": 0.954,
+            "dnsStart": 0.951,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 3.276,
+            "receiveHeadersStart": 3.171,
+            "requestTime": 1311865.93707,
+            "sendEnd": 1.543,
+            "sendStart": 1.509,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8987/assets/audio/windowlight-lofi.mp3"
+        },
+        "reason": "原音频HTTP200且后续Range206；文档刷新时浏览器Media canceled ERR_ABORTED，原字节保留及工程GET/SHA核对，不宣称听觉通过。"
+      },
+      {
+        "event": {
+          "sequence": 325,
+          "source": {
+            "tabId": 56
+          },
+          "method": "Network.loadingFailed",
+          "params": {
+            "canceled": true,
+            "errorText": "net::ERR_ABORTED",
+            "requestId": "22248.39",
+            "timestamp": 1311881.068075,
+            "type": "Media"
+          }
+        },
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 783050,
+          "connectionReused": false,
+          "encodedDataLength": 190,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Length": "240789",
+            "Content-type": "audio/mpeg",
+            "Date": "Fri, 13 Nov 2026 07:27:47 GMT",
+            "Last-Modified": "Thu, 12 Nov 2026 02:53:49 GMT",
+            "Server": "SimpleHTTP/0.6 Python/3.14.4"
+          },
+          "mimeType": "audio/mpeg",
+          "protocol": "http/1.0",
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 8987,
+          "responseTime": 1794554867699.085,
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "OK",
+          "timing": {
+            "connectEnd": 1.33,
+            "connectStart": 1.066,
+            "dnsEnd": 1.066,
+            "dnsStart": 1.064,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 5.947,
+            "receiveHeadersStart": 5.503,
+            "requestTime": 1311865.937126,
+            "sendEnd": 1.529,
+            "sendStart": 1.5,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "http://127.0.0.1:8987/assets/audio/mossy-afternoon-lofi.mp3"
+        },
+        "reason": "原音频HTTP200且后续Range206；文档刷新时浏览器Media canceled ERR_ABORTED，原字节保留及工程GET/SHA核对，不宣称听觉通过。"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/direct-repair/runtime.json",
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "advertising": {
+      "status": "absent",
+      "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+      "evidence": [
+        "main.js",
+        "evidence/direct-repair/source-preservation.json",
+        "evidence/direct-repair/network-final.json"
+      ]
+    }
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-04-reward-finished.png",
+        "screenshots/revision-05-reload.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-04-reward-finished.png",
+        "screenshots/revision-05-reload.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-04-reward-finished.png",
+        "screenshots/revision-05-reload.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-04-reward-finished.png",
+        "screenshots/revision-05-reload.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-04-reward-finished.png",
+        "screenshots/revision-05-reload.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-04-reward-finished.png",
+        "screenshots/revision-05-reload.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+      "evidence": [
+        "screenshots/revision-04-reward-finished.png",
+        "screenshots/revision-05-reload.png",
+        "evidence/direct-repair/source-preservation.json"
+      ]
+    }
+  },
+  "acceptance_actions": [
+    {
+      "step": 1,
+      "type": "navigate",
+      "selector": "index.html",
+      "result": "原guest欢迎。"
+    },
+    {
+      "step": 2,
+      "type": "click",
+      "selector": "New Game",
+      "result": "进入原三页创建。"
+    },
+    {
+      "step": 3,
+      "type": "native-character-creation",
+      "selector": "original 3 pages",
+      "result": "正常头像/本地姓名Wanderer/Mango选择与招呼，逐次输入见verification-action-ledger，不是一次点击。"
+    },
+    {
+      "step": 4,
+      "type": "single-original-outing",
+      "selector": "Meadow and native five-find confirmations",
+      "result": "仅一趟原探索，券消耗/自然计时/五项原发现与升级入账；逐次输入全部保留，无第二趟。"
+    },
+    {
+      "step": 5,
+      "type": "reload",
+      "selector": "document",
+      "result": "实际恢复Lv2/68XP/8券、宠物和收集状态。"
+    }
+  ],
+  "scope": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+  "dependencies": {
+    "items": [
+      {
+        "id": "web-entry",
+        "name": "游戏代码与引擎",
+        "kind": "code",
+        "status": "verified",
+        "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-assets",
+        "name": "游戏资源",
+        "kind": "resources",
+        "status": "verified",
+        "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-data",
+        "name": "游戏配置",
+        "kind": "data",
+        "status": "verified",
+        "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-backend",
+        "name": "后端依赖",
+        "kind": "backend",
+        "status": "not_applicable",
+        "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      },
+      {
+        "id": "web-host",
+        "name": "宿主接口",
+        "kind": "platform",
+        "status": "not_applicable",
+        "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+        "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+        "next_action": ""
+      }
+    ],
+    "scope": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。"
+  },
+  "dependency_review": {
+    "previous_revision": 2,
+    "previous": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "原引擎与原游戏包已采集并离线启动",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "available",
+          "reason": "已捕获运行资源并保留哈希；不推断未游玩资源闭合",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证核心玩法及后续场景"
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "available",
+          "reason": "保留运行包内配置",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "核对关卡及进度"
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "unknown",
+          "reason": "离线启动通过；广告过滤及被拒绝请求见 runtime_smoke，存档及结算尚未验证",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": "验证保存恢复和阶段结果"
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "verified",
+          "reason": "本地引擎启动通过；广告不伪造奖励",
+          "evidence": "evidence/runtime.json; evidence/acquisition.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "已验证启动路径离线运行；未游玩场景、动态下载及完整玩法仍待验证。",
+      "revision": 2,
+      "updated_at": "2026-11-04T06:06:49+00:00"
+    },
+    "proposed": {
+      "items": [
+        {
+          "id": "web-entry",
+          "name": "游戏代码与引擎",
+          "kind": "code",
+          "status": "verified",
+          "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-assets",
+          "name": "游戏资源",
+          "kind": "resources",
+          "status": "verified",
+          "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-data",
+          "name": "游戏配置",
+          "kind": "data",
+          "status": "verified",
+          "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-backend",
+          "name": "后端依赖",
+          "kind": "backend",
+          "status": "not_applicable",
+          "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        },
+        {
+          "id": "web-host",
+          "name": "宿主接口",
+          "kind": "platform",
+          "status": "not_applicable",
+          "reason": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+          "evidence": "evidence/direct-repair/source-preservation.json; evidence/direct-repair/runtime.json; evidence/direct-repair/resource-http-verified.json",
+          "next_action": ""
+        }
+      ],
+      "scope": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。"
+    },
+    "basis": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。"
+  },
+  "base_version_id": "v-c63839d03619",
+  "manual_execution": {
+    "executor": "Codex direct repair / actual UI",
+    "automated_model_conversion": false,
+    "original_job": "job-8553639718c8",
+    "max_gameplay_steps": 5,
+    "at": "2026-11-13T07:55:35.998944+00:00",
+    "actual_mechanical_actions": 17,
+    "key_verification_items": 5,
+    "actual_input_ledger": "evidence/direct-repair/verification-action-ledger.json"
+  },
+  "game_profile": {
+    "category": "宠物陪伴 / 放置探索 / 收集与合成",
+    "dimension": "2D",
+    "perspective": "原像素房间侧视与卡片式地图/奖励界面。",
+    "core_gameplay": "选择Mango→原Meadow首次探索→消耗1券→自然返回→确认原五项发现→材料、经验、配方与手机入账。",
+    "core_experience": "",
+    "controls": "鼠标点击原角色/宠物/目的地/探索与奖励按钮；键盘输入本地显示名。原触控路径未验证。",
+    "game_loop": "真实首次探索完成后Lv2、68总XP、13/58级内XP、8券；刷新相同。未进行第二趟或全部进度。",
+    "content": "原像素宠物/房间、六目的地、图鉴发现、材料/配方、手机/目标、原本地NPC与活动；本轮未全面试玩。",
+    "progression": "原Lv1–60目的地区间与宠物/图鉴/配方/房间/手机/目标成长保留；仅Meadow首次探索实测。",
+    "save": "原guest/device localStorage恢复、备份和持久化代码保留；实际刷新后Mango/68XP/Lv2/8券和收集结果不变。无云账户/跨设备承诺。",
+    "rules": "原探索时间/券耗/掉落/发现经验/升级/配方不变，无时间跳跃、资源注入、自动完成或降低目标。",
+    "systems": "原角色/宠物创建、探索计时/奖励、经验与等级、背包/收集、配方/合成、房间/手机/目标、音频、设备存档和明确simulated本地NPC；真实账号/云社交交易退役。",
+    "ui_flow": "欢迎→NewGame→头像/姓名/宠物三页→房间招呼→首趟目的地→返回发现1至5→Lv2房间→刷新同一存档。",
+    "level_design": "原目的地卡片、等级/时段与探索概率数据保留，不改为新短关。首次原引导探索按自然顺序执行。",
+    "verification": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。",
+    "evidence": "17实际输入台账、原五发现DOM、实际三截图、173完整网络、源函数/模块指纹、原图恢复SHA和设备刷新恢复。",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "原生Canvas2D与DOM，JavaScript ES模块；本轮桌面Chromium普通HTTP。",
+    "programming_language": "JavaScript ES模块、HTML/CSS，完整原可编辑代码保留。",
+    "game_summary": "创建本地角色并选择原宠物，派伙伴探索目的地，收集原材料、图鉴发现和经验，再通过合成与房间/成长系统继续探索。",
+    "resource_types": "22份原素材：15WebP、7MP3；原模块、CSS、规则/配方/目的地/宠物/NPC数据。三WebP从同一原构建补齐。",
+    "engine_asset_system": "原相对路径ES模块与本地assets；20模块导入静态闭合，原图像/音频本地GET与SHA核对。",
+    "core_challenge_details": "按原目的地与券条件派出伙伴，等待原计时，领取发现与材料，积累经验并准备后续合成。原随机概率、计时和物品规则不变。",
+    "core_challenge_type": "目的地选择 / 探索收集 / 资源与合成成长",
+    "input_elements": "原NewGame、三页角色/姓名/宠物创建、房间对话、目的地卡片、派遣与五个发现确认、原背包/配方/手机入口。",
+    "app_suitability": "",
+    "core_loop": "选择伙伴/目的地→消耗探索券并等候→收集原奖励/经验→原等级与合成材料成长→后续探索。只实际完成首次一趟。",
+    "churn_risk": "",
+    "progression_loop": "原材料和发现/经验→原升级、配方与成长→更高目的地；实际证明首次升级与设备保存，未测合成和后续解锁。",
+    "core_closure": "原创建、真实券消耗、首次探索计时/返回/五项发现、奖励入账和刷新恢复成立。",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "原四伙伴Mango/Beans/Trash/Luna；原UI分别显示4%新发现、4%额外材料、3%Rare+、5%夜偏好，未统计验证。原六目的地仅测Meadow。实际券4→3→8，总经验68，Lv2级内13/58，Clover1/蘑菇2/Softwood3，Compass材料5/11。",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "原柔和像素房间、绿蛙Mango、探索卡片、物品插画与暖色对话框；使用原资产。",
+    "theme_position": "轻松宠物陪伴与探索收藏。",
+    "economy": "原探索券、金币、星尘、经验与材料经济保留；本轮金币0/星尘0，首次券消耗和原奖励实际入账，未测试商店或付费。",
+    "roles": "本地Wanderer与Mango伙伴；原simulated NPC数据本地保留且与真实账号区分，不创建服务器身份。",
+    "roster_summary": "",
+    "monetization_details": "实际provider、Firebase导入与云恢复/认证实现退役；原无账号防护保留。不能作为真实联网交易版本使用。",
+    "monetization": "未引入广告/支付；Firebase账号、真实云社交/交易不可用且不伪造成功。原单机经济保留。",
+    "illustrations": [
+      {
+        "path": "screenshots/revision-04-discovery.png",
+        "caption": "同一首次Meadow探索的原Clover发现，保留原奖励对话。"
+      },
+      {
+        "path": "screenshots/revision-04-reward-finished.png",
+        "caption": "完成五项原发现后Lv2、68总XP与8券。"
+      },
+      {
+        "path": "screenshots/revision-05-reload.png",
+        "caption": "真实刷新后同一Mango及等级/经验/券和收集结果保留。"
+      }
+    ]
+  },
+  "implementation": {
+    "editable_source": "原完整JavaScript ES模块/规则与本地素材可编辑。",
+    "reuse": "原宠物/探索/合成/房间/设备存档模块可分解研究，跨项目复用未验证。",
+    "dependencies": "现代浏览器、普通HTTP与本地原素材；无Firebase或在线账号服务依赖。",
+    "preservation": "保留Pocketwild原Canvas2D/DOM、708个main原函数指纹和14个原规则/数据/NPC模块字节；保留原四宠物、六目的地、探索奖励/经验/等级/券/背包/合成/房间/设备存档规则。三份缺失原WebP同构建HTTPS200恢复并保留SHA。真实Firebase认证/云恢复provider及SDK初始化、宿主注入脚本退役；原guest设备恢复与持久化保留，真实社交/交易明确不可用，原simulated NPC类型本地独立保留，不伪造在线玩家或认证。五个关键验证项共17次实际输入，另一次输入前定位失败单独保留：原欢迎→NewGame→原三页创建Wanderer与Mango蛙→一趟原Meadow探索及五个原发现确认→刷新恢复。实际券4→3消耗，原Clover1/Meadow mushroom2/Softwood3、配方和手机奖励入账，最终68总XP、Lv2(13/58)、8券；ExplorerCompass材料5/11不是总物品数。没有第二趟、时钟/进度/资源注入或概率统计。刷新后原宠物、经验、券、物品/配方保留。173完整网络事件无外联/异常，控制台0错误0警告；保留浏览器Other favicon404及三条文档刷新取消的原音频ERR_ABORTED（原响应200且后续206），不是缺失游戏资源。最终只加datafavicon元数据，精确差异哈希留档。未测其他宠物/目的地/合成/商店/全部成长/原NPC拜访/触控/听觉/跨设备，不声明这些通过。正常待验收，不批准、不供货。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "execution_accounting": {
+    "historical_platform_model_usage": {
+      "source": "Readonlyplatform.sqlite3 ai_usage/events/jobs/candidates; deduplicatedusageID; registeredpercallprice snapshots only",
+      "snapshot_at": "2026-11-12T08:14:12.290844+00:00",
+      "recorded_node_elapsed_wall_seconds": 29626.0,
+      "processing_seconds": null,
+      "processing_status": "Actualprocessingnotrecordedseparatelyfrommodel/network/backoffwaits",
+      "recorded_inference_call_wall_seconds": 21992.749,
+      "calls": 180,
+      "known_input_tokens": 9121161,
+      "known_output_tokens": 587440,
+      "cached_input_tokens_known": 3830420,
+      "unknown_usage_calls": 16,
+      "known_estimated_cost_subtotals": {
+        "CNY": 172.21965999999995
+      },
+      "unknown_cost_calls": 16,
+      "complete_estimated_cost_by_currency": null,
+      "models": {
+        "api:kimi-k2.7-code": {
+          "calls": 4,
+          "input_tokens_known": 0,
+          "output_tokens_known": 0,
+          "unknown_usage_calls": 4,
+          "known_cost_subtotals": {},
+          "unknown_cost_calls": 4,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 6.5,
+              "output_per_million": 27,
+              "cached_input_per_million": 1.3
+            }
+          ]
+        },
+        "api:kimi-k3": {
+          "calls": 176,
+          "input_tokens_known": 9121161,
+          "output_tokens_known": 587440,
+          "unknown_usage_calls": 12,
+          "known_cost_subtotals": {
+            "CNY": 172.21965999999995
+          },
+          "unknown_cost_calls": 12,
+          "registered_price_bands": [
+            {
+              "currency": "CNY",
+              "input_per_million": 20,
+              "output_per_million": 100,
+              "cached_input_per_million": 2
+            }
+          ]
+        }
+      }
+    },
+    "current_direct_repair": {
+      "source": "NTFS originalZIPcreation -> reportpreparation UTCclock; includesdownload/setup/UI/analysis/idle/overlappingaccountingwork, notactiveCPUorstrictgame-onlylabor",
+      "observed_from": "2026-11-12T02:53:48.950233+00:00",
+      "observed_until": "2026-11-13T07:55:52.133246+00:00",
+      "observed_wall_seconds": 104523.183013,
+      "codex_game_input_tokens": null,
+      "codex_game_output_tokens": null,
+      "codex_game_cost": null,
+      "unknown_reason": "Desktopchatcountersarenotpergameledger; accountbillnotavailable. NotzeroandnotestimatedfromAPIlistprices."
+    }
+  }
+}

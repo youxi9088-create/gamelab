@@ -1,0 +1,5 @@
+# Chess Pro
+
+保留原国际象棋引擎逐字节SHA、10机器人难度、开局库、完整谜题数据、机器人/谜题/每日控制器、个人存档与原钱包奖励额度的语义SHA；只退役真实Poki SDK/广告调用、Netlib/联网控制器与邀请入口、云端排行及遥测，无假SDK/房间/服务器结果。原广告可选项目改主动本地领取，取消不发放，不改星数/额度。实际非法f2f5不改变棋盘；同机普通点击f2f3/e7e5/g2g4/d8h4，原生黑方将死、成就、棋谱；复盘取消仍锁定、确认后原生47%/100%分析；再下一局复位，e4刷新回同机仍为黑方走；机器人Pebble400实际回应d5，刷新仍保留e4/d5。完整最终窗口111事件无截断/外联/请求失败/HTTP错误/脚本异常，控制台错误警告为空。未声称所有谜题/10机器人全胜/全部特殊棋步/日关/真实触控/听觉已测。
+
+{'editable_source': 'Originalreadablechessengineinline andreadablemain.js/nativeUI; native10botconfigs andpuzzledataset retained.', 'reuse': 'Legalchessengine,AIworker+fallback,puzzles,personalrecords,review andboards areextractablewithadaptation; notseparatelycertified.', 'dependencies': 'LocalbrowserDOM/Canvas/BlobWorker/WebAudio/localStorage andembeddedlicensedSVG/fonts; noSDK/netserver.', 'preservation': '保留原国际象棋引擎逐字节SHA、10机器人难度、开局库、完整谜题数据、机器人/谜题/每日控制器、个人存档与原钱包奖励额度的语义SHA；只退役真实Poki SDK/广告调用、Netlib/联网控制器与邀请入口、云端排行及遥测，无假SDK/房间/服务器结果。原广告可选项目改主动本地领取，取消不发放，不改星数/额度。实际非法f2f5不改变棋盘；同机普通点击f2f3/e7e5/g2g4/d8h4，原生黑方将死、成就、棋谱；复盘取消仍锁定、确认后原生47%/100%分析；再下一局复位，e4刷新回同机仍为黑方走；机器人Pebble400实际回应d5，刷新仍保留e4/d5。完整最终窗口111事件无截断/外联/请求失败/HTTP错误/脚本异常，控制台错误警告为空。未声称所有谜题/10机器人全胜/全部特殊棋步/日关/真实触控/听觉已测。'}

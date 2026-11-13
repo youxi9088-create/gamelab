@@ -1,0 +1,78 @@
+<!doctype html>
+
+
+
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="modulepreload" href="./vendor/004-15e95a6cf14fc9ae2003f48bcdf1568e475cd15dd14a1a41fc1d3eb29a6ce294.js" data-remix-portal-preload><link rel="modulepreload" href="./vendor/001-three-a973dc20bf0957e55145ef9e6b9c97d50275b224b1d81a57603249dd6750ab96.js" data-remix-portal-preload><link rel="modulepreload" href="./vendor/002-BufferGeometryUtils.js" data-remix-portal-preload>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+    />
+    <title>Ember Colosseum</title>
+    
+  <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/001-three-a973dc20bf0957e55145ef9e6b9c97d50275b224b1d81a57603249dd6750ab96.js",
+          "three/addons/utils/BufferGeometryUtils.js": "./vendor/002-BufferGeometryUtils.js"
+        }
+      }
+    </script><script type="module" data-remix-portal-triangle-test>import { Box3, REVISION } from "./vendor/001-three-a973dc20bf0957e55145ef9e6b9c97d50275b224b1d81a57603249dd6750ab96.js";
+((function(Box3, revision) {
+  var rev = Number(revision);
+  if (!(rev >= 178 && rev <= 185)) return;
+  if (!Box3 || !Box3.prototype || typeof Box3.prototype.intersectsTriangle !== 'function') return;
+  var axes = new Float64Array(30);
+  Box3.prototype.intersectsTriangle = function intersectsTriangle(triangle) {
+    var min = this.min, max = this.max;
+    if (max.x < min.x || max.y < min.y || max.z < min.z) return false;
+    var cx = (min.x + max.x) * 0.5, cy = (min.y + max.y) * 0.5, cz = (min.z + max.z) * 0.5;
+    var ex = max.x - cx, ey = max.y - cy, ez = max.z - cz;
+    var a = triangle.a, b = triangle.b, c = triangle.c;
+    var v0x = a.x - cx, v0y = a.y - cy, v0z = a.z - cz;
+    var v1x = b.x - cx, v1y = b.y - cy, v1z = b.z - cz;
+    var v2x = c.x - cx, v2y = c.y - cy, v2z = c.z - cz;
+    var r, p0, p1, p2;
+    // The box's face normals (three's second axis list), written out: r and each p are
+    // three's sums with the zero terms kept, so an infinite or NaN coordinate answers as there.
+    r = ex * 1 + ey * 0 + ez * 0;
+    p0 = v0x * 1 + v0y * 0 + v0z * 0; p1 = v1x * 1 + v1y * 0 + v1z * 0; p2 = v2x * 1 + v2y * 0 + v2z * 0;
+    if (Math.max(-Math.max(p0, p1, p2), Math.min(p0, p1, p2)) > r) return false;
+    r = ex * 0 + ey * 1 + ez * 0;
+    p0 = v0x * 0 + v0y * 1 + v0z * 0; p1 = v1x * 0 + v1y * 1 + v1z * 0; p2 = v2x * 0 + v2y * 1 + v2z * 0;
+    if (Math.max(-Math.max(p0, p1, p2), Math.min(p0, p1, p2)) > r) return false;
+    r = ex * 0 + ey * 0 + ez * 1;
+    p0 = v0x * 0 + v0y * 0 + v0z * 1; p1 = v1x * 0 + v1y * 0 + v1z * 1; p2 = v2x * 0 + v2y * 0 + v2z * 1;
+    if (Math.max(-Math.max(p0, p1, p2), Math.min(p0, p1, p2)) > r) return false;
+    var f0x = v1x - v0x, f0y = v1y - v0y, f0z = v1z - v0z;
+    var f1x = v2x - v1x, f1y = v2y - v1y, f1z = v2z - v1z;
+    var f2x = v0x - v2x, f2y = v0y - v2y, f2z = v0z - v2z;
+    // The edge cross axes (three's first list, in its order), then the triangle's normal.
+    axes[0] = 0; axes[1] = -f0z; axes[2] = f0y;
+    axes[3] = 0; axes[4] = -f1z; axes[5] = f1y;
+    axes[6] = 0; axes[7] = -f2z; axes[8] = f2y;
+    axes[9] = f0z; axes[10] = 0; axes[11] = -f0x;
+    axes[12] = f1z; axes[13] = 0; axes[14] = -f1x;
+    axes[15] = f2z; axes[16] = 0; axes[17] = -f2x;
+    axes[18] = -f0y; axes[19] = f0x; axes[20] = 0;
+    axes[21] = -f1y; axes[22] = f1x; axes[23] = 0;
+    axes[24] = -f2y; axes[25] = f2x; axes[26] = 0;
+    axes[27] = f0y * f1z - f0z * f1y; axes[28] = f0z * f1x - f0x * f1z; axes[29] = f0x * f1y - f0y * f1x;
+    for (var i = 0; i < 30; i += 3) {
+      var x = axes[i], y = axes[i + 1], z = axes[i + 2];
+      r = ex * Math.abs(x) + ey * Math.abs(y) + ez * Math.abs(z);
+      p0 = v0x * x + v0y * y + v0z * z; p1 = v1x * x + v1y * y + v1z * z; p2 = v2x * x + v2y * y + v2z * z;
+      if (Math.max(-Math.max(p0, p1, p2), Math.min(p0, p1, p2)) > r) return false;
+    }
+    return true;
+  };
+}))(Box3, REVISION);</script></head>
+  <body>
+    
+  <script type="module" src="./main.js"></script></body>
+</html>

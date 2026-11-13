@@ -1,0 +1,46 @@
+{
+  "category": "3D · 时间随动平台动作",
+  "dimension": "3D",
+  "perspective": "第三人称追尾视角，鼠标或触摸滑动转视角",
+  "core_gameplay": "Original12level3Dplatformer withtimefollowingmovement, jump/doublejump/longjump/stomp/crystals/checkpoints/flags. Actualfirst1-1clear and1-2continue only.",
+  "core_experience": "SUPERHOT式时间操控与马里奥平台跳跃混搭；慢速读弹幕、规划跳跃路线",
+  "controls": "WASD/arrows move, Spacevariable/doublejump, run+Shiftlongjump/airpound, Ppause, Rretry, Tstats, optionaloriginalcamera.",
+  "game_loop": "标题点击进入→piOS终端剧情（可跳）→关卡内移动跳跃收集→触旗结算并解锁下一关→回放后进入下一关或评分；死亡后重试",
+  "content": "关卡为代码固定定义（源码LEVELS表，可见1-1 TIME IS A PLUMBER、1-2 SHELL GAME、1-3 BULLET BALLET等）；总关数未实机穷举",
+  "progression": "逐关解锁；localStorage保存当前关卡、统计与已学提示；死亡计入DEATHS",
+  "save": "Originalpersonallevelprogress/crystals/learned/stats. ActualrefreshContinue1-2 andcontinued. Sessioncoins/score/deathsreset preserved, no persistenceclaim.",
+  "rules": "目标：抵达关卡末端旗杆；失败：坠落/被敌人或子弹击中死亡；计分：金币与击杀加分（具体公式未确认）；HUD含TIME（游戏内时间）、DEATHS计数",
+  "systems": "时间随动系统（不动时TIME×约0.03，操作时升高）；敌人含Goomba与Koopa射手（子弹随时间流动）；砖块/?砖可顶出金币或蘑菇；检查点与水晶收集；回放系统记录操作轨迹（仅源码确认）",
+  "ui_flow": "标题（CLICK TO PLAY/CONTINUE）→piOS剧情终端→关卡HUD（MARIO分数/COINS/WORLD/TIME/DEATHS/倍率/操作提示）→暂停层→结算/回放→评分（世界末）→下一关",
+  "level_design": "白色极简走廊式3D平台，含台阶、水管、砖块阵、敌人配置与隐藏水晶；教学化编排（先移动后跳跃再双跳/远跳）",
+  "verification": "Desktop1280x720 original12level3Dplatformer entiremain.js byteSHA unchanged, originalnativefont/loading2bootstraps retained, exact7missingdeclaredfontfiles recovered atorigin withSHA. Hosttools/interception retired. ActualnativeWmovement/variablejump/stomp/coins/crystals/timefreeze/pause-resume/deathautoretry+R/checkpoints34/67/86.5/doublejump/assistedlongjump. Original1-1flag fullclear withscore3000/3coins/5deaths and2of3redcrystalicons atflag; originalreplay then1-2. NativeStats1-1 actual8tries1clear5deathsbest38.2s, otherlevelsnotplayed except1-2start. Reload titleContinue1-2, actualclickcontinued1-2. Originalsessioncoins/score/deaths resetonreload, no claim they persist. No all12clear/Boss/groundpoundplate/powerups/fire/rating/fullcrystals/mobile/hearing proof. Complete50requestwindow noexternal/failed/exception/truncation; one originalTHREEshaderX3577compilerprecisionoptimization warning, no consoleerrors or runtimeNaNrestore.",
+  "evidence": "main.js（LEVELS/输入映射/存档键）；verification/89c50d34-56cc-40df-9637-ad521da8c35e-web-play.json；本轮截图step-33至36与当前帧",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "illustrations": [
+    {
+      "path": "screenshots/step-33.png",
+      "caption": "实际操作记录 1。画面文字：MARIO\n000000\nCOINS\n00\nWORLD\n1-1\nTIME\n15.3\nDEATHS\n0\nSMALL\nTIME ×0.54\nTIME MOVES ONLY WHEN YOU MOVE\nW\nA\nS\nD\nMOVE\nWORLD\n1-1 — TIME IS A PLUMBER\nSTOMP THEM. OR DON'T MOVE.\nREPLAY\n0.0s\nCLICK / SPACE — SKIP\nSUPERHOT\nMARIO\nTIME MOVES ONLY WHEN YOU MOVE.\nCLICK TO PLAY\nA FAN-MADE PARODY · NOT AFFILIATED WITH NINTENDO OR SUPERHOT TEAM · KEYBOARD REQUIRED\nPAUSED\nTIME IS STOPPED. FOR REAL THIS TIME.\nCLICK OR P TO RESUME\nSUPERHOT\nMARIO\nTHE MOST INNOVATIVE PLUMBER I'VE PLAYED IN YEARS.\nSCORE\n0\nCOINS\n0\nCRYSTALS\n0\nDEATHS\n0\nTIME\n0\nCLICK TO PLAY AGAIN"
+    },
+    {
+      "path": "screenshots/step-34.png",
+      "caption": "实际操作记录 2。画面文字：MARIO\n000000\nCOINS\n00\nWORLD\n1-1\nTIME\n15.8\nDEATHS\n0\nSMALL\nTIME ×0.19\nTIME MOVES ONLY WHEN YOU MOVE\nW\nA\nS\nD\nMOVE\nWORLD\n1-1 — TIME IS A PLUMBER\nSTOMP THEM. OR DON'T MOVE.\nREPLAY\n0.0s\nCLICK / SPACE — SKIP\nSUPERHOT\nMARIO\nTIME MOVES ONLY WHEN YOU MOVE.\nCLICK TO PLAY\nA FAN-MADE PARODY · NOT AFFILIATED WITH NINTENDO OR SUPERHOT TEAM · KEYBOARD REQUIRED\nPAUSED\nTIME IS STOPPED. FOR REAL THIS TIME.\nCLICK OR P TO RESUME\nSUPERHOT\nMARIO\nTHE MOST INNOVATIVE PLUMBER I'VE PLAYED IN YEARS.\nSCORE\n0\nCOINS\n0\nCRYSTALS\n0\nDEATHS\n0\nTIME\n0\nCLICK TO PLAY AGAIN"
+    },
+    {
+      "path": "screenshots/step-35.png",
+      "caption": "实际操作记录 3。画面文字：MARIO\n000000\nCOINS\n00\nWORLD\n1-1\nTIME\n16.3\nDEATHS\n0\nSMALL\nTIME ×0.04\nTIME MOVES ONLY WHEN YOU MOVE\nW\nA\nS\nD\nMOVE\nWORLD\n1-1 — TIME IS A PLUMBER\nSTOMP THEM. OR DON'T MOVE.\nREPLAY\n0.0s\nCLICK / SPACE — SKIP\nSUPERHOT\nMARIO\nTIME MOVES ONLY WHEN YOU MOVE.\nCLICK TO PLAY\nA FAN-MADE PARODY · NOT AFFILIATED WITH NINTENDO OR SUPERHOT TEAM · KEYBOARD REQUIRED\nPAUSED\nTIME IS STOPPED. FOR REAL THIS TIME.\nCLICK OR P TO RESUME\nSUPERHOT\nMARIO\nTHE MOST INNOVATIVE PLUMBER I'VE PLAYED IN YEARS.\nSCORE\n0\nCOINS\n0\nCRYSTALS\n0\nDEATHS\n0\nTIME\n0\nCLICK TO PLAY AGAIN"
+    },
+    {
+      "path": "screenshots/step-36.png",
+      "caption": "实际操作记录 4。画面文字：MARIO\n000000\nCOINS\n00\nWORLD\n1-1\nTIME\n17.0\nDEATHS\n0\nSMALL\nTIME ×0.03\nTIME MOVES ONLY WHEN YOU MOVE\nW\nA\nS\nD\nMOVE\nWORLD\n1-1 — TIME IS A PLUMBER\nSTOMP THEM. OR DON'T MOVE.\nREPLAY\n0.0s\nCLICK / SPACE — SKIP\nSUPERHOT\nMARIO\nTIME MOVES ONLY WHEN YOU MOVE.\nCLICK TO PLAY\nA FAN-MADE PARODY · NOT AFFILIATED WITH NINTENDO OR SUPERHOT TEAM · KEYBOARD REQUIRED\nPAUSED\nTIME IS STOPPED. FOR REAL THIS TIME.\nCLICK OR P TO RESUME\nSUPERHOT\nMARIO\nTHE MOST INNOVATIVE PLUMBER I'VE PLAYED IN YEARS.\nSCORE\n0\nCOINS\n0\nCRYSTALS\n0\nDEATHS\n0\nTIME\n0\nCLICK TO PLAY AGAIN"
+    }
+  ]
+}

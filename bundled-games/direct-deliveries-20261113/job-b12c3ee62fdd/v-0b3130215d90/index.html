@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	
+	
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battle Medieval Chess</title>
+    
+    
+    <link href="./_remote/3a125e88c76c9347/css2" rel="stylesheet">
+    <!--
+      Rosebud defaults disable accidental selection, context menus, tap highlights,
+      and native dragging during gameplay while preserving text editing. Most games
+      need no customization.
+    -->
+    <link rel="stylesheet" href="./rosebud-game-defaults.css" />
+    <script src="./rosebud-game-defaults.js" defer></script>
+    
+    <style>
+      * { box-sizing: border-box; }
+      html, body { width: 100%; height: 100%; min-height: 100%; margin: 0; padding: 0; background: #050505; overflow: hidden; }
+      body { touch-action: none; font-family: Inter, system-ui, sans-serif; }
+      #game-container { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; }
+      canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+      #status { position: fixed; z-index: 2; top: max(20px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); max-width: min(calc(100vw - 300px), 760px); color: #f3dfb5; background: rgba(30,18,8,.88); border: 1px solid #a07a40; padding: 9px 18px 9px 42px; border-radius: 10px; font-size: clamp(13px, 1.5vw, 16px); font-weight: 600; text-align: center; pointer-events: none; white-space: nowrap; }
+      #check-alert { position: fixed; z-index: 6; top: clamp(112px, 24vh, 220px); left: 50%; display: flex; align-items: center; justify-content: center; gap: 10px; width: min(350px, calc(100vw - 32px)); min-height: 68px; padding: 14px 16px 14px 48px; border: 2px solid; border-radius: 12px; box-shadow: 0 10px 32px rgba(0,0,0,.52), inset 0 0 0 3px rgba(255,255,255,.12); font: 800 clamp(14px, 2.4vw, 18px)/1.25 Cinzel, Georgia, serif; text-align: center; transform: translateX(-50%); animation: check-alert-enter .24s ease-out; }
+      #check-alert.hidden { display: none; }
+      #check-alert.check-alert-white { color: #352313; background: linear-gradient(145deg, #fff3d7, #d8c197); border-color: #f0d293; text-shadow: 0 1px rgba(255,255,255,.65); }
+      #check-alert.check-alert-black { color: #fff0cf; background: linear-gradient(145deg, #363b42, #15191f); border-color: #c49a58; text-shadow: 0 2px 4px #000; }
+      .check-alert-emblem { flex: 0 0 auto; color: #9a6626; font: 30px/1 Georgia, serif; }
+      .check-alert-black .check-alert-emblem { color: #f0cf89; }
+      @keyframes check-alert-enter { from { opacity: 0; transform: translate(-50%, -10px) scale(.96); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
+      .move-grip { position: absolute; z-index: 8; top: 3px; left: 3px; display: grid; width: 28px; height: 26px; place-items: center; padding: 0; color: #f3dfb5; background: rgba(58, 39, 22, .94); border: 1px solid rgba(196,154,88,.78); border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,.3); font: 700 16px/1 Inter, sans-serif; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+      .move-grip:active { cursor: grabbing; background: #765832; }
+      .move-grip:focus-visible { outline: 2px solid #fff0cf; outline-offset: 2px; }
+      #tutorial-open:not(.is-game-control) .move-grip { display: none; }
+      #status .move-grip { pointer-events: auto; }
+      #clock-panel .move-grip { pointer-events: auto; }
+      #battle-panel > summary { padding-left: 38px; }
+      #language-control { padding-left: 36px; }
+      #clock-panel { padding-left: 34px; }
+      #sound-controls { padding-top: 32px; }
+      #reset-game, #back-to-setup, #tutorial-open.is-game-control { padding-left: 43px; }
+      #sound-controls { position: fixed; z-index: 12; right: max(12px, env(safe-area-inset-right)); bottom: max(8px, env(safe-area-inset-bottom)); display: grid; gap: 5px; width: min(150px, calc(100vw - 140px)); padding: 6px; color: #f3dfb5; background: rgba(30,18,8,.94); border: 1px solid #a07a40; border-radius: 10px; box-shadow: 0 3px 12px rgba(0,0,0,.3); }
+      #sound-controls.hidden { display: none; }
+      .sound-option { display: flex; align-items: center; justify-content: space-between; gap: 7px; width: 100%; min-height: 34px; padding: 5px 7px; color: #cbb89a; background: rgba(20,14,9,.55); border: 1px solid rgba(160,122,64,.5); border-radius: 6px; font: 700 11px Inter, system-ui, sans-serif; text-align: left; cursor: pointer; touch-action: manipulation; }
+      .sound-option[aria-pressed="true"] { color: #fff0cf; background: rgba(128,101,53,.42); border-color: #e1bd78; }
+      .sound-option:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 2px; }
+      .sound-option-copy { display: flex; align-items: center; gap: 7px; min-width: 0; }
+      .sound-option-icon { width: 17px; color: #e1bd78; font-size: 15px; text-align: center; }
+      .sound-switch { position: relative; flex: 0 0 auto; width: 30px; height: 17px; background: #38281a; border: 1px solid #85663d; border-radius: 999px; }
+      .sound-switch::after { position: absolute; top: 2px; left: 2px; width: 11px; height: 11px; content: ""; background: #c7b18c; border-radius: 50%; transition: transform .18s ease, background .18s ease; }
+      .sound-option[aria-pressed="true"] .sound-switch { background: #806535; border-color: #e1bd78; }
+      .sound-option[aria-pressed="true"] .sound-switch::after { transform: translateX(13px); background: #fff0cf; }
+      #language-control { position: fixed; z-index: 12; top: max(16px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right)); display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 4px 8px; color: #f3dfb5; background: rgba(30,18,8,.94); border: 1px solid #a07a40; border-radius: 9px; box-shadow: 0 3px 12px rgba(0,0,0,.3); }
+      #language-control label { font-size: 16px; }
+      #language-select { max-width: 112px; min-height: 34px; padding: 4px 18px 4px 5px; color: #fff0cf; background: #352416; border: 0; font: 600 12px Inter, system-ui, sans-serif; cursor: pointer; touch-action: manipulation; }
+      #language-select:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 2px; }
+      #tutorial-open { position: relative; display: block; min-height: 44px; margin: 12px auto 0; padding: 9px 14px; color: #2c1b0d; background: linear-gradient(#ffe4a9, #bd8741); border: 1px solid #fff0c8; border-radius: 9px; box-shadow: 0 4px 14px rgba(0,0,0,.35); font: 800 12px Cinzel, Georgia, serif; cursor: pointer; touch-action: manipulation; }
+      #tutorial-open.is-game-control { position: fixed; z-index: 12; left: max(12px, env(safe-area-inset-left)); bottom: max(12px, env(safe-area-inset-bottom)); margin: 0; }
+      #tutorial-open:focus-visible, #tutorial-close:focus-visible { outline: 2px solid #fff0cf; outline-offset: 3px; }
+      #tutorial { position: fixed; z-index: 15; inset: 0; display: grid; place-items: center; overflow-y: auto; padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); background: rgba(9, 7, 5, .82); backdrop-filter: blur(7px); }
+      #tutorial.hidden { display: none; }
+      .tutorial-card { width: min(100%, 650px); max-height: calc(100dvh - 32px); overflow-y: auto; overscroll-behavior: contain; padding: clamp(20px, 4vw, 32px); color: #f3dfb5; background: linear-gradient(145deg, #3b291b, #18110c); border: 1px solid #c49a58; border-radius: 14px; box-shadow: 0 20px 70px rgba(0,0,0,.72), inset 0 0 0 4px rgba(160,122,64,.12); touch-action: pan-y; }
+      .tutorial-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+      .tutorial-kicker { margin: 0 0 6px; color: #e1bd78; font: 700 10px Cinzel, Georgia, serif; letter-spacing: .2em; text-transform: uppercase; }
+      .tutorial-card h2 { margin: 0; color: #fff0cf; font: 700 clamp(24px, 5vw, 34px) Cinzel, Georgia, serif; }
+      #tutorial-close { flex: 0 0 auto; min-width: 42px; min-height: 42px; color: #f3dfb5; background: #503721; border: 1px solid #9f7945; border-radius: 8px; font-size: 22px; cursor: pointer; touch-action: manipulation; }
+      #tutorial-intro { margin: 10px 0 18px; color: #d9c8aa; font: 14px/1.55 Georgia, serif; }
+      .tutorial-section { margin-top: 12px; padding: 13px 15px; background: rgba(14, 10, 7, .48); border: 1px solid rgba(196,154,88,.25); border-radius: 9px; }
+      .tutorial-section h3 { margin: 0 0 5px; color: #f1d398; font: 700 15px Cinzel, Georgia, serif; }
+      .tutorial-section p { margin: 0; color: #eee0c7; font: 13px/1.5 Georgia, serif; }
+      .piece-rules { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 9px; }
+      .piece-rule { padding: 9px 10px; background: rgba(218,185,127,.09); border-radius: 7px; }
+      .piece-rule strong { display: block; margin-bottom: 3px; color: #f5d48f; font: 700 12px Cinzel, Georgia, serif; }
+      .piece-rule span { display: block; color: #e3d5bf; font: 12px/1.4 Georgia, serif; }
+      .pawn-opportunity { border-color: rgba(225,189,120,.48); background: linear-gradient(145deg, rgba(122,83,39,.2), rgba(14,10,7,.55)); }
+      .pawn-choice-intro { margin: 0 0 10px !important; color: #f0dfbf !important; }
+      .pawn-choice-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin-top: 9px; }
+      .pawn-choice-card { min-width: 0; padding: 10px; background: rgba(218,185,127,.08); border: 1px solid rgba(196,154,88,.24); border-radius: 8px; }
+      .pawn-choice-card h4 { margin: 0 0 8px; color: #f5d48f; font: 700 12px Cinzel, Georgia, serif; }
+      .pawn-path { display: flex; flex-direction: column; align-items: center; gap: 1px; margin: 2px auto 8px; }
+      .pawn-path-square { display: grid; width: 34px; height: 23px; place-items: center; color: #50371e; background: #d7bc83; border: 1px solid rgba(255,240,207,.6); font: 700 12px Georgia, serif; }
+      .pawn-path-destination { color: #2d1c0d; background: #f0cf89; box-shadow: 0 0 12px rgba(240,207,137,.4); }
+      .pawn-path-start { color: #51381e; background: #eee0c7; font-size: 17px; }
+      .pawn-path-arrow { height: 12px; color: #e1bd78; font: 700 13px/12px Inter, sans-serif; }
+      .pawn-sequence { display: grid; gap: 6px; margin: 10px 0; }
+      .pawn-sequence-row { display: grid; grid-template-columns: 22px 26px 18px 38px min-content; align-items: center; justify-content: center; gap: 5px; }
+      .pawn-order { display: grid; width: 20px; height: 20px; place-items: center; color: #402a14; background: #d2a963; border-radius: 50%; font: 800 10px Inter, sans-serif; }
+      .pawn-token { color: #f3dfb5; font: 21px/1 Georgia, serif; text-align: center; }
+      .pawn-sequence-arrow { color: #e1bd78; font: 700 15px Inter, sans-serif; text-align: center; }
+      .pawn-step-tag { padding: 3px 6px; color: #2d1c0d; background: #e1bd78; border-radius: 4px; font: 800 10px Inter, sans-serif; text-align: center; }
+      .pawn-double-closed { padding: 3px 5px; color: #c4aa87; background: rgba(14,10,7,.5); border: 1px dashed rgba(196,170,135,.45); border-radius: 4px; font: 700 10px Inter, sans-serif; text-decoration: line-through; }
+      .pawn-choice-card p { color: #e3d5bf; font: 12px/1.45 Georgia, serif; }
+      #tutorial[dir="rtl"] .tutorial-heading { flex-direction: row-reverse; }
+      #intro-screen { position: fixed; z-index: 10; inset: 0; display: grid; place-items: center; overflow: hidden; padding: max(26px, env(safe-area-inset-top)) 20px max(22px, env(safe-area-inset-bottom)); color: #fff0cf; background: #17130f; }
+      #intro-screen.hidden { display: none; }
+      #intro-screen::before { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, rgba(12, 10, 9, .37), transparent 28%, transparent 70%, rgba(12, 9, 7, .78)), radial-gradient(ellipse at 50% 48%, transparent 20%, rgba(8, 7, 6, .26) 100%); pointer-events: none; }
+      .intro-art { position: absolute; inset: 0; overflow: hidden; background: url("assets/title-castle-four-sided-windows.webp") center center / cover no-repeat; }
+      .intro-rider { position: absolute; z-index: 0; bottom: 2%; height: min(78%, 78vh); max-width: 46%; width: auto; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 9px 10px rgba(18, 12, 7, .34)); transform-origin: center bottom; animation: mounted-knight-idle 4.4s ease-in-out infinite; pointer-events: none; user-select: none; }
+      .intro-rider-light { left: 2%; }
+      .intro-rider-dark { right: 2%; animation-delay: -2.2s; }
+      @keyframes mounted-knight-idle { 0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); } 50% { transform: translate3d(0, -7px, 0) rotate(-.45deg); } }
+      @media (prefers-reduced-motion: reduce) { .intro-rider { animation: none; } }
+      .intro-content { position: relative; z-index: 1; display: flex; width: min(100%, 980px); height: 100%; flex-direction: column; align-items: center; justify-content: space-between; padding: clamp(18px, 4vh, 40px) 0 clamp(12px, 3vh, 30px); text-align: center; pointer-events: none; }
+      .intro-title-block { padding: 10px 24px 12px; border: 2px solid rgba(226, 186, 111, .92); border-radius: 14px; background: linear-gradient(145deg, rgba(16, 11, 7, .94), rgba(42, 27, 14, .82)); box-shadow: 0 12px 36px rgba(0, 0, 0, .68), inset 0 0 0 3px rgba(255, 227, 174, .12); }
+      .intro-title { margin: 0; color: #ffedc2; font: 800 clamp(35px, 5.5vw, 68px)/.9 Cinzel, Georgia, serif; letter-spacing: .055em; -webkit-text-stroke: 1.3px #422713; paint-order: stroke fill; text-shadow: 0 3px 0 #7b4a1e, 0 6px 0 #28170b, 0 10px 22px rgba(0,0,0,.95), 0 0 26px rgba(255, 208, 123, .42); }
+      .intro-title span { display: block; color: #efc875; font-size: .76em; letter-spacing: .2em; }
+      .intro-bottom { display: flex; flex-direction: column; align-items: center; gap: 12px; pointer-events: auto; }
+      .intro-copy { max-width: 480px; margin: 0; padding: 7px 16px; color: #fff3d5; background: rgba(22, 16, 11, .68); border: 1px solid rgba(237, 201, 136, .5); border-radius: 6px; font: 600 clamp(12px, 1.7vw, 16px)/1.45 Cinzel, Georgia, serif; text-shadow: 0 2px 6px #130c07; }
+      #enter-game { min-height: 54px; padding: 12px 30px; color: #2c1b0d; background: linear-gradient(#ffe4a9, #bd8741); border: 2px solid #fff0c8; border-radius: 8px; box-shadow: inset 0 0 0 2px rgba(83, 49, 20, .5), 0 7px 22px rgba(0,0,0,.55); font: 800 clamp(14px, 1.7vw, 18px) Cinzel, Georgia, serif; letter-spacing: .07em; text-transform: uppercase; cursor: pointer; touch-action: manipulation; transition: transform .16s ease, filter .16s ease; }
+      #enter-game:hover { transform: translateY(-2px); filter: brightness(1.08); }
+      #enter-game:focus-visible { outline: 3px solid #fff5d8; outline-offset: 4px; }
+      .intro-hint { color: #f6dfb5; font: 700 10px Cinzel, Georgia, serif; letter-spacing: .15em; text-transform: uppercase; text-shadow: 0 2px 5px #130c07; }
+      #color-picker { position: fixed; z-index: 8; inset: 0; display: grid; place-items: center; overflow-y: auto; padding: max(18px, env(safe-area-inset-top)) 20px max(18px, env(safe-area-inset-bottom)); background: rgba(13, 9, 6, .76); backdrop-filter: blur(6px); }
+      #color-picker.hidden { display: none; }
+      .picker-card { position: relative; width: min(100%, 500px); max-height: calc(100dvh - 32px); overflow-y: auto; padding: clamp(22px, 5vw, 34px); text-align: center; color: #f3dfb5; background: linear-gradient(145deg, rgba(54, 36, 21, .98), rgba(24, 17, 12, .99)); border: 1px solid #c49a58; border-radius: 12px; box-shadow: 0 18px 55px rgba(0, 0, 0, .65), inset 0 0 0 4px rgba(160, 122, 64, .14); }
+      .picker-card::before { position: absolute; inset: 7px; border: 1px solid rgba(196, 154, 88, .35); border-radius: 8px; content: ""; pointer-events: none; }
+      .picker-kicker { margin: 0 0 10px; color: #e1bd78; font: 700 11px Cinzel, Georgia, serif; letter-spacing: .24em; text-transform: uppercase; }
+      .picker-card h1 { margin: 0; color: #fff0cf; font: 400 clamp(30px, 7vw, 40px)/1.1 MedievalSharp, Georgia, serif; text-shadow: 0 2px 8px rgba(0,0,0,.4); }
+      #picker-copy { margin: 12px 0 24px; color: #d8c6a8; font: 14px/1.5 Georgia, serif; }
+      .color-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .color-options button { min-width: 0; min-height: 54px; padding: 12px 10px; color: #f3dfb5; background: #46301f; border: 1px solid #a07a40; border-radius: 7px; font: 700 14px Cinzel, Georgia, serif; line-height: 1.15; overflow-wrap: anywhere; cursor: pointer; touch-action: manipulation; transition: transform .15s ease, background .15s ease; }
+      .color-options button:hover { transform: translateY(-2px); background: #60442b; }
+      .color-options button:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 3px; }
+      #play-again-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 320px; margin: 0 auto 20px; }
+      #play-again-options.hidden, #computer-setup.hidden, .clock-section.hidden, #tutorial-open.hidden { display: none; }
+      #play-again-options button { min-height: 52px; padding: 12px 18px; color: #2c1b0d; background: linear-gradient(#ffe4a9, #bd8741); border: 1px solid #fff0c8; border-radius: 7px; font: 800 15px Cinzel, Georgia, serif; cursor: pointer; touch-action: manipulation; }
+      #play-again-options button:last-child { color: #f3dfb5; background: #46301f; border-color: #a07a40; }
+      #play-again-options button:hover { filter: brightness(1.08); }
+      #play-again-options button:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 3px; }
+      .color-options button[data-player-color="w"] { color: #322214; background: #e6d5b4; }
+      .color-options button[data-player-color="w"]:hover { background: #f3e6cb; }
+      .skill-section { margin: 24px 0 20px; text-align: left; }
+      .skill-label { display: block; margin-bottom: 7px; color: #d2a963; font: 700 11px Cinzel, Georgia, serif; letter-spacing: .14em; text-transform: uppercase; }
+      #skill-copy { min-height: 36px; margin: 0 0 10px; color: #cbb89a; font: 13px/1.45 Georgia, serif; }
+      .skill-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+      .skill-options button { min-width: 0; min-height: 48px; padding: 8px 5px; color: #ead8b7; background: rgba(20, 14, 9, .72); border: 1px solid #765832; border-radius: 6px; font: 700 11px/1.1 Cinzel, Georgia, serif; overflow-wrap: anywhere; cursor: pointer; touch-action: manipulation; transition: background .15s ease, border-color .15s ease, transform .15s ease; }
+      .skill-options button[aria-pressed="true"] { color: #25180c; background: #d2a963; border-color: #f0d39d; box-shadow: 0 0 0 2px rgba(210, 169, 99, .2); }
+      .skill-options button:hover { transform: translateY(-1px); }
+      .skill-options button:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 3px; }
+      #battle-log-setting { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: -7px 0 20px; padding: 10px 12px; color: #ead8b7; background: rgba(20, 14, 9, .62); border: 1px solid rgba(160,122,64,.66); border-radius: 7px; }
+      #battle-log-setting.hidden { display: none; }
+      .battle-log-option-label { font: 700 12px Cinzel, Georgia, serif; }
+      #battle-log-toggle { position: relative; flex: 0 0 auto; width: 48px; height: 28px; padding: 0; background: #38281a; border: 1px solid #85663d; border-radius: 999px; cursor: pointer; touch-action: manipulation; transition: background .18s ease, border-color .18s ease; }
+      #battle-log-toggle::after { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; content: ""; background: #c7b18c; border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,.45); transition: transform .18s ease, background .18s ease; }
+      #battle-log-toggle[aria-pressed="true"] { background: #806535; border-color: #e1bd78; }
+      #battle-log-toggle[aria-pressed="true"]::after { transform: translateX(20px); background: #fff0cf; }
+      #battle-log-toggle:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 3px; }
+      #battle-log-toggle:disabled { cursor: default; opacity: .55; }
+      .clock-section { margin: 20px 0 22px; text-align: left; }
+      .clock-label { display: block; margin-bottom: 7px; color: #d2a963; font: 700 11px Cinzel, Georgia, serif; letter-spacing: .14em; text-transform: uppercase; }
+      #clock-copy { min-height: 30px; margin: 0 0 10px; color: #cbb89a; font: 13px/1.45 Georgia, serif; }
+      .clock-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .clock-options button { min-height: 46px; padding: 8px 4px; color: #ead8b7; background: rgba(20, 14, 9, .72); border: 1px solid #765832; border-radius: 6px; font: 700 10px Cinzel, Georgia, serif; cursor: pointer; touch-action: manipulation; transition: background .15s ease, border-color .15s ease, transform .15s ease; }
+      .clock-options button[aria-pressed="true"] { color: #25180c; background: #d2a963; border-color: #f0d39d; box-shadow: 0 0 0 2px rgba(210, 169, 99, .2); }
+      .clock-options button:hover { transform: translateY(-1px); }
+      .clock-options button:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 3px; }
+      #clock-panel { position: fixed; z-index: 2; top: max(72px, calc(env(safe-area-inset-top) + 58px)); left: 50%; display: flex; gap: 8px; transform: translateX(-50%); pointer-events: none; }
+      #clock-panel.hidden { display: none; }
+      #claim-draw { position: fixed; z-index: 3; right: max(16px, env(safe-area-inset-right)); bottom: max(158px, calc(env(safe-area-inset-bottom) + 152px)); padding: 10px 15px; color: #f3dfb5; background: rgba(30, 18, 8, .94); border: 1px solid #c49a58; border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,.35); font: 700 12px Cinzel, Georgia, serif; cursor: pointer; touch-action: manipulation; }
+      #claim-draw.hidden { display: none; }
+      #reset-game, #back-to-setup { position: fixed; z-index: 12; display: flex; align-items: center; gap: 7px; min-height: 44px; padding: 9px 13px; color: #f3dfb5; background: rgba(30, 18, 8, .94); border: 1px solid #c49a58; border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,.35); font: 700 12px Cinzel, Georgia, serif; cursor: pointer; touch-action: manipulation; }
+      #reset-game { right: max(12px, env(safe-area-inset-right)); bottom: max(106px, calc(env(safe-area-inset-bottom) + 100px)); }
+      #back-to-setup { left: max(12px, env(safe-area-inset-left)); bottom: max(64px, calc(env(safe-area-inset-bottom) + 56px)); }
+      #reset-game.hidden, #back-to-setup.hidden { display: none; }
+      #reset-game:hover, #back-to-setup:hover { background: #60442b; }
+      #reset-game:focus-visible, #back-to-setup:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 3px; }
+      #claim-draw:focus-visible, .promotion-options button:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 3px; }
+      #battle-panel { position: fixed; z-index: 5; top: max(148px, calc(env(safe-area-inset-top) + 136px)); left: max(12px, env(safe-area-inset-left)); width: min(188px, calc(100vw - 24px)); color: #f3dfb5; background: rgba(30, 18, 8, .9); border: 1px solid #a07a40; border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,.34); backdrop-filter: blur(6px); }
+      #battle-panel.hidden { display: none; }
+      #battle-panel > summary { display: flex; align-items: center; gap: 6px; min-height: 34px; padding: 5px 8px; list-style: none; cursor: pointer; touch-action: manipulation; }
+      #battle-panel > summary::-webkit-details-marker { display: none; }
+      #battle-panel > summary:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 2px; border-radius: 7px; }
+      .battle-emblem { color: #f0cf89; font-size: 15px; }
+      .battle-heading { flex: 1; min-width: 0; font: 800 10px Cinzel, Georgia, serif; letter-spacing: .03em; }
+      #battle-turn-mini { max-width: 62px; overflow: hidden; color: #f0d598; font-size: 10px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+      .battle-caret { width: 7px; height: 7px; margin-inline: 2px 3px; border-right: 2px solid #e7d2ac; border-bottom: 2px solid #e7d2ac; transform: rotate(45deg) translateY(-2px); transition: transform .16s ease; }
+      #battle-panel[open] .battle-caret { transform: rotate(225deg) translateY(-2px); }
+      .battle-body { max-height: min(25dvh, 220px); overflow-y: auto; overscroll-behavior: contain; padding: 0 8px 7px; border-top: 1px solid rgba(196,154,88,.28); scrollbar-color: #927044 transparent; scrollbar-width: thin; }
+      .battle-state { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 28px; padding: 4px 2px; font-size: 10px; }
+      .battle-state-label { color: #cbb89a; }
+      #battle-active { font-weight: 800; }
+      #battle-check { padding: 2px 5px; border: 1px solid rgba(196,154,88,.45); border-radius: 5px; color: #d9d0bc; font-size: 9px; font-weight: 800; white-space: nowrap; }
+      #battle-check.is-check { color: #ffe0a2; background: rgba(150,55,35,.36); border-color: #ce7756; }
+      .battle-section-title { margin: 4px 0 3px; color: #e6c987; font: 700 9px Cinzel, Georgia, serif; letter-spacing: .04em; }
+      #battle-moves { display: grid; gap: 2px; max-height: 66px; overflow-y: auto; margin: 0; padding: 0; list-style: none; scrollbar-color: #927044 transparent; scrollbar-width: thin; }
+      .battle-move { display: grid; grid-template-columns: 25px minmax(0,1fr) minmax(0,1fr); gap: 3px; align-items: center; min-height: 20px; padding: 2px 4px; border-radius: 4px; color: #efe2ca; font: 600 10px/1.15 ui-monospace, SFMono-Regular, Consolas, monospace; font-variant-numeric: tabular-nums; }
+      .battle-move:nth-child(odd) { background: rgba(240,215,170,.08); }
+      .battle-move-number { color: #ae9672; }
+      .battle-move-san { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .battle-move-san:last-child { color: #d8cfbe; }
+      .battle-empty { grid-column: 1 / -1; color: #bca989; font: 10px Georgia, serif; }
+      .captured-heading { margin-top: 5px; }
+      .captured-row { display: grid; grid-template-columns: 64px minmax(0,1fr); align-items: start; gap: 5px; padding: 2px; color: #cbb89a; font-size: 9px; }
+      .captured-icons { display: flex; min-height: 18px; flex-wrap: wrap; gap: 2px; }
+      .captured-icon { display: inline-grid; width: 17px; height: 17px; place-items: center; border-radius: 4px; color: #fff0cf; background: rgba(221,196,153,.17); font: 15px/1 Georgia, serif; }
+      .captured-icons[data-side="b"] .captured-icon { color: #d7d2c8; background: rgba(220,220,230,.12); }
+      .captured-none { color: #9f8b6b; font: 11px Georgia, serif; }
+      #promotion-picker {  position: fixed; z-index: 9; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(13, 9, 6, .76); backdrop-filter: blur(5px); }
+      #promotion-picker.hidden { display: none; }
+      .promotion-card { width: min(100%, 390px); padding: 28px 22px; text-align: center; color: #f3dfb5; background: linear-gradient(145deg, rgba(54, 36, 21, .99), rgba(24, 17, 12, .99)); border: 1px solid #c49a58; border-radius: 12px; box-shadow: 0 18px 55px rgba(0,0,0,.65); }
+      .promotion-card h2 { margin: 0 0 20px; color: #fff0cf; font: 700 22px Cinzel, Georgia, serif; }
+      .promotion-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .promotion-options button { min-height: 52px; color: #f3dfb5; background: #46301f; border: 1px solid #a07a40; border-radius: 7px; font: 700 14px Cinzel, Georgia, serif; cursor: pointer; touch-action: manipulation; }
+      .promotion-options button:hover { background: #60442b; }
+      .clock-face { display: grid; grid-template-columns: auto auto; align-items: center; gap: 10px; min-width: 112px; padding: 7px 10px; color: #ead8b7; background: rgba(30, 18, 8, .92); border: 1px solid #765832; border-radius: 10px; box-shadow: 0 4px 14px rgba(0, 0, 0, .32); }
+      .clock-name { color: #cbb89a; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+      .clock-time { font: 700 15px Orbitron, monospace; font-variant-numeric: tabular-nums; }
+      .clock-face.is-active { color: #fff2d4; background: rgba(83, 56, 29, .97); border-color: #e1bd78; }
+      .clock-face.low-time { color: #ffd2c9; border-color: #e06c5e; animation: clock-pulse .7s ease-in-out infinite alternate; }
+      @keyframes clock-pulse { to { box-shadow: 0 0 12px rgba(224, 108, 94, .45); } }
+      @media (max-width: 600px) {
+        #status { top: max(60px, calc(env(safe-area-inset-top) + 50px)); max-width: calc(100vw - 24px); padding: 7px 10px 7px 38px; font-size: 12px; }
+        .move-grip { width: 26px; height: 24px; }
+        #battle-panel > summary { padding-left: 36px; }
+        #language-control { padding-left: 34px; }
+        #clock-panel { padding-left: 31px; }
+        #sound-controls { padding-top: 30px; }
+        #reset-game, #back-to-setup, #tutorial-open.is-game-control { padding-left: 40px; }
+        #sound-controls { right: max(8px, env(safe-area-inset-right)); bottom: max(8px, env(safe-area-inset-bottom)); width: min(132px, calc(100vw - 130px)); padding: 5px; gap: 4px; }
+        .sound-option { min-height: 32px; padding: 4px 6px; font-size: 10px; }
+        #language-control { top: max(10px, env(safe-area-inset-top)); right: max(10px, env(safe-area-inset-right)); min-height: 42px; padding: 3px 6px; gap: 4px; }
+        #language-control label { font-size: 14px; }
+        #language-select { max-width: 76px; min-height: 32px; padding: 3px 15px 3px 4px; font-size: 10px; }
+        #tutorial-open { min-height: 42px; padding: 8px 12px; font-size: 11px; }
+        #tutorial-open.is-game-control { left: max(8px, env(safe-area-inset-left)); bottom: max(8px, env(safe-area-inset-bottom)); }
+        #clock-panel { top: max(104px, calc(env(safe-area-inset-top) + 94px)); gap: 6px; }
+        .clock-face { min-width: 104px; gap: 7px; padding: 6px 8px; }
+        .clock-time { font-size: 13px; }
+        #battle-panel { top: max(148px, calc(env(safe-area-inset-top) + 138px)); left: max(9px, env(safe-area-inset-left)); width: min(150px, calc(100vw - 18px)); }
+        #reset-game, #back-to-setup { min-height: 42px; padding: 8px 10px; font-size: 11px; }
+        #reset-game { right: max(10px, env(safe-area-inset-right)); bottom: max(98px, calc(env(safe-area-inset-bottom) + 92px)); }
+        #claim-draw { right: max(10px, env(safe-area-inset-right)); bottom: max(146px, calc(env(safe-area-inset-bottom) + 140px)); }
+        #back-to-setup { left: max(8px, env(safe-area-inset-left)); bottom: max(62px, calc(env(safe-area-inset-bottom) + 54px)); }
+        .battle-body { max-height: min(22dvh, 170px); padding: 0 7px 6px; }
+        #battle-moves { max-height: 52px; }
+        #battle-turn-mini { max-width: 48px; }
+        .captured-row { grid-template-columns: 58px minmax(0,1fr); }
+        .captured-icon { width: 16px; height: 16px; font-size: 14px; }
+        .tutorial-card { max-height: calc(100dvh - 20px); padding: 18px 16px; }
+        .tutorial-section { padding: 11px 12px; }
+        .tutorial-section h3 { font-size: 14px; }
+        .tutorial-section p, .piece-rule span, .castling-list { font-size: 12px; }
+        .piece-rules { gap: 6px; }
+        .piece-rule { padding: 8px; }
+        .pawn-choice-examples { grid-template-columns: 1fr; }
+        .pawn-choice-card { padding: 9px 10px; }
+        .intro-art { inset: auto 0; top: 50%; height: auto; aspect-ratio: 16 / 9; transform: translateY(-50%); background-size: 100% 100%; box-shadow: 0 0 34px 14px rgba(0,0,0,.6); }
+        .intro-rider { bottom: 1%; height: 96%; max-width: 48%; }
+        .intro-rider-light { left: .5%; }
+        .intro-rider-dark { right: .5%; }
+        .intro-content { padding-top: max(52px, calc(env(safe-area-inset-top) + 24px)); padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+        .intro-title-block { padding: 8px 12px 10px; }
+        .intro-title { font-size: clamp(23px, 6.8vw, 38px); }
+        .intro-kicker { font-size: 9px; }
+        .intro-copy { max-width: 330px; font-size: 11px; }
+        .intro-bottom { gap: 8px; }
+        #enter-game { min-height: 48px; padding: 10px 22px; font-size: 13px; }
+        .intro-hint { font-size: 9px; }
+        #color-picker { padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)); }
+        .picker-card { padding: 22px 18px; }
+        #picker-copy { margin-bottom: 18px; font-size: 13px; }
+        .skill-section { margin: 18px 0 14px; }
+        .skill-options { gap: 6px; }
+        .skill-options button { padding-inline: 2px; font-size: clamp(9px, 2.7vw, 10px); letter-spacing: -.02em; white-space: nowrap; }
+        .clock-section { margin: 15px 0 17px; }
+        .clock-options button { font-size: 9px; }
+      }
+      @media (max-height: 760px) {
+        #color-picker { padding-top: max(10px, env(safe-area-inset-top)); padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+        .picker-card { padding: 16px clamp(14px, 4vw, 26px); }
+        .picker-kicker { margin-bottom: 6px; font-size: 10px; }
+        .picker-card h1 { font-size: clamp(27px, 6vw, 36px); }
+        #picker-copy { margin: 8px 0 12px; font-size: 12px; line-height: 1.35; }
+        #tutorial-open { min-height: 40px; margin-top: 6px; padding: 7px 12px; }
+        .skill-section { margin: 12px 0 10px; }
+        .skill-label, .clock-label { margin-bottom: 4px; }
+        #skill-copy, #clock-copy { min-height: 0; margin-bottom: 7px; font-size: 12px; line-height: 1.3; }
+        .skill-options { gap: 6px; }
+        .skill-options button { min-height: 44px; padding: 6px 2px; font-size: clamp(9px, 2.7vw, 10px); letter-spacing: -.02em; white-space: nowrap; }
+        #battle-log-setting { margin: -3px 0 12px; padding: 7px 10px; }
+        .color-options { gap: 8px; }
+        .color-options button { min-height: 48px; padding: 8px; }
+        .clock-section { margin: 12px 0; }
+        .clock-options { gap: 6px; }
+        .clock-options button { min-height: 42px; padding: 6px 3px; font-size: 9px; }
+      }
+      @media (max-height: 650px) {
+        .picker-card { padding: 12px clamp(12px, 3.5vw, 22px); }
+        .picker-kicker { margin-bottom: 4px; font-size: 9px; }
+        .picker-card h1 { font-size: clamp(25px, 5.5vw, 32px); }
+        #picker-copy { margin: 5px 0 8px; font-size: 11px; line-height: 1.25; }
+        #tutorial-open { min-height: 38px; margin-top: 4px; padding: 6px 10px; }
+        .skill-section { margin: 8px 0 7px; }
+        #skill-copy, #clock-copy { margin-bottom: 5px; font-size: 11px; line-height: 1.2; }
+        .skill-options button { min-height: 42px; padding: 5px 2px; }
+        #battle-log-setting { margin: -2px 0 8px; padding: 6px 8px; }
+        .color-options button { min-height: 44px; padding: 6px; }
+        .clock-section { margin: 8px 0; }
+        .clock-options button { min-height: 40px; padding: 5px 2px; }
+      }
+      /* Reassert handle clearance after the responsive panel padding rules. */
+      #status { padding-inline: 42px; }
+      #battle-panel > summary { padding: 5px 8px 5px 38px; }
+      #language-control { padding: 4px 8px 4px 36px; }
+      #sound-controls { padding: 32px 6px 6px; }
+      #reset-game, #back-to-setup, #tutorial-open.is-game-control { padding: 9px 13px 9px 43px; }
+      @media (max-width: 600px) {
+        #status { padding: 7px 38px; }
+        #battle-panel > summary { padding: 5px 7px 5px 36px; }
+        #language-control { padding: 3px 6px 3px 34px; }
+        #sound-controls { padding: 30px 5px 5px; }
+        #reset-game, #back-to-setup, #tutorial-open.is-game-control { padding: 8px 10px 8px 40px; }
+      }
+      #game-menu { position: fixed; z-index: 12; top: max(16px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right)); left: auto; bottom: auto; width: min(210px, calc(100vw - 20px)); color: #f3dfb5; background: rgba(30,18,8,.96); border: 1px solid #a07a40; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,.42); backdrop-filter: blur(7px); }
+      #game-menu > summary { position: relative; display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 7px 10px 7px 40px; list-style: none; cursor: pointer; touch-action: manipulation; }
+      #game-menu > summary::-webkit-details-marker { display: none; }
+      #game-menu > summary:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 2px; border-radius: 8px; }
+      #game-menu .move-grip { pointer-events: auto; }
+      .game-menu-title { flex: 1; min-width: 0; overflow: hidden; color: #fff0cf; font: 800 12px Cinzel, Georgia, serif; text-overflow: ellipsis; white-space: nowrap; }
+      .game-menu-caret { flex: 0 0 auto; width: 8px; height: 8px; margin-right: 3px; border-right: 2px solid #e7d2ac; border-bottom: 2px solid #e7d2ac; transform: rotate(45deg) translateY(-2px); transition: transform .16s ease; }
+      #game-menu[open] .game-menu-caret { transform: rotate(225deg) translateY(-2px); }
+      .game-menu-content { display: grid; gap: 8px; max-height: min(68dvh, 460px); overflow-y: auto; overscroll-behavior: contain; padding: 9px; border-top: 1px solid rgba(196,154,88,.32); scrollbar-color: #927044 transparent; scrollbar-width: thin; }
+      .board-controls { display: grid; gap: 7px; padding: 8px; color: #ead8b7; background: rgba(20,14,9,.62); border: 1px solid rgba(160,122,64,.55); border-radius: 7px; }
+      .board-size-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; font: 700 11px Cinzel, Georgia, serif; }
+      #board-size-readout { color: #f0cf89; font: 700 11px Inter, sans-serif; font-variant-numeric: tabular-nums; }
+      #board-size { width: 100%; height: 22px; margin: 0; accent-color: #d2a963; cursor: pointer; touch-action: pan-y; }
+      .board-layout-button { width: 100%; min-height: 36px; padding: 7px 8px; color: #ead8b7; background: #46301f; border: 1px solid #8c693c; border-radius: 6px; font: 700 10px Cinzel, Georgia, serif; cursor: pointer; touch-action: manipulation; }
+      .board-layout-button[aria-pressed="true"] { color: #25180c; background: #d2a963; border-color: #f0d39d; }
+      .board-layout-button:focus-visible, #board-size:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 2px; }
+      #board-arrange-hint { margin: 0; color: #d9c8aa; font: 11px/1.4 Georgia, serif; }
+      #board-arrange-hint.hidden { display: none; }
+      .board-reset-button { width: 100%; min-height: 32px; padding: 6px 8px; color: #cbb89a; background: rgba(20,14,9,.48); border: 1px solid rgba(160,122,64,.42); border-radius: 6px; font: 600 10px Inter, sans-serif; cursor: pointer; touch-action: manipulation; }
+      .board-reset-button:hover { color: #fff0cf; background: #60442b; }
+      .board-reset-button:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 2px; }
+      .board-accessibility-setting { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 36px; padding: 2px 3px; color: #ead8b7; font: 700 10px/1.3 Cinzel, Georgia, serif; }
+      .accessibility-toggle { position: relative; flex: 0 0 auto; width: 42px; height: 25px; padding: 0; background: #38281a; border: 1px solid #85663d; border-radius: 999px; cursor: pointer; touch-action: manipulation; transition: background .18s ease, border-color .18s ease; }
+      .accessibility-toggle::after { position: absolute; top: 3px; left: 3px; width: 17px; height: 17px; content: ""; background: #c7b18c; border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,.35); transition: transform .18s ease, background .18s ease; }
+      .accessibility-toggle[aria-pressed="true"] { background: #806535; border-color: #e1bd78; }
+      .accessibility-toggle[aria-pressed="true"]::after { transform: translateX(17px); background: #fff0cf; }
+      .accessibility-toggle:focus-visible { outline: 2px solid #f3dfb5; outline-offset: 2px; }
+      .colorblind-mode #battle-check.is-check { color: #fff; background: rgba(160,70,0,.62); border-color: #f0a202; }
+      .colorblind-mode .clock-face.low-time { color: #fff; border-color: #f0a202; animation: colorblind-clock-pulse .7s ease-in-out infinite alternate; }
+      @keyframes colorblind-clock-pulse { to { box-shadow: 0 0 12px rgba(240,162,2,.55); } }
+      #game-container.is-board-placement canvas { cursor: grab; }
+      #game-container.is-board-placement canvas:active { cursor: grabbing; }
+      #game-menu #language-control { position: static; display: grid; grid-template-columns: 20px minmax(0, 1fr); align-items: center; gap: 5px; min-height: 0; padding: 0; color: inherit; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+      #game-menu #language-control label { font-size: 14px; text-align: center; }
+      #game-menu #language-select, #game-menu #voice-select { width: 100%; min-width: 0; max-width: none; min-height: 36px; padding: 4px 18px 4px 6px; font-size: 11px; }
+      #game-menu #tutorial-open, #game-menu #tutorial-open.is-game-control { position: relative; inset: auto; z-index: auto; width: 100%; min-height: 40px; margin: 0; padding: 8px 10px; font-size: 11px; }
+      #game-menu #sound-controls { position: static; inset: auto; width: 100%; max-width: none; gap: 5px; padding: 0; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+      #game-menu .sound-option { min-height: 36px; }
+      #game-menu #back-to-setup, #game-menu #reset-game { position: static; inset: auto; z-index: auto; width: 100%; min-height: 40px; margin: 0; padding: 8px 10px; font-size: 11px; }
+      @media (max-width: 600px) {
+        #game-menu { top: max(10px, env(safe-area-inset-top)); right: max(8px, env(safe-area-inset-right)); width: min(200px, calc(100vw - 16px)); }
+        #game-menu > summary { min-height: 42px; }
+        .game-menu-content { max-height: min(64dvh, 400px); padding: 8px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game-container"></div>
+    <div id="status"><span id="status-message">Loading...</span></div>
+    <aside id="check-alert" class="hidden" role="alert" aria-live="assertive" aria-hidden="true">
+      <span class="check-alert-emblem" aria-hidden="true">♔</span>
+      <span id="check-alert-message"></span>
+    </aside>
+    <details id="battle-panel" class="hidden" aria-label="Battle log" data-i18n-aria="battleLog">
+      <summary id="battle-summary">
+        <span class="battle-emblem" aria-hidden="true">⚔</span>
+        <span class="battle-heading" data-i18n="battleLog">Battle log</span>
+        <span id="battle-turn-mini">White</span>
+        <span class="battle-caret" aria-hidden="true"></span>
+      </summary>
+      <div class="battle-body">
+        <div class="battle-state" aria-live="polite">
+          <span class="battle-state-label" data-i18n="activeSide">To move</span>
+          <strong id="battle-active">White</strong>
+          <span id="battle-check" aria-label="King status" data-i18n-aria="checkStatus">King safe</span>
+        </div>
+        <section aria-labelledby="battle-moves-title">
+          <h2 id="battle-moves-title" class="battle-section-title" data-i18n="recentMoves">Recent moves</h2>
+          <ol id="battle-moves" aria-label="Recent chess moves" data-i18n-aria="recentMoves"></ol>
+        </section>
+        <section aria-labelledby="battle-captured-title">
+          <h2 id="battle-captured-title" class="battle-section-title captured-heading" data-i18n="capturedPieces">Captured pieces</h2>
+          <div class="captured-row"><span data-i18n="whiteCaptured">White captured</span><span id="white-captured" class="captured-icons" data-side="w"></span></div>
+          <div class="captured-row"><span data-i18n="blackCaptured">Black captured</span><span id="black-captured" class="captured-icons" data-side="b"></span></div>
+        </section>
+      </div>
+    </details>
+    <details id="game-menu" aria-label="Game controls" data-i18n-aria="gameMenu">
+      <summary id="game-menu-summary">
+        <span class="game-menu-title" data-i18n="gameMenu">Game controls</span>
+        <span class="game-menu-caret" aria-hidden="true"></span>
+      </summary>
+      <div id="game-menu-content" class="game-menu-content">
+        <div id="language-control">
+          <label for="language-select" aria-hidden="true">🌐</label>
+          <select id="language-select" aria-label="Choose language" data-i18n-aria="languageLabel">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="pt">Português</option>
+            <option value="it">Italiano</option>
+            <option value="ja">日本語</option>
+          </select>
+        </div>
+        <div id="board-controls" class="board-controls" role="group" aria-label="Board display" data-i18n-aria="boardDisplay">
+          <div class="board-size-heading"><label for="board-size" data-i18n="boardSize">Board size</label><output id="board-size-readout" for="board-size">100%</output></div>
+          <input id="board-size" type="range" min="70" max="125" step="1" value="100" aria-label="Board size" data-i18n-aria="boardSize">
+          <button id="board-arrange" class="board-layout-button" type="button" aria-pressed="false" aria-label="Move board" data-i18n-aria="arrangeBoard"><span data-i18n="arrangeBoard">Move board</span></button>
+          <p id="board-arrange-hint" class="hidden" data-i18n="arrangeBoardHint">Drag the board to place it. With the button focused, use the arrow keys to nudge it.</p>
+          <button id="board-reset-view" class="board-reset-button" type="button" aria-label="Reset board size and position" data-i18n-aria="resetBoardView" data-i18n="resetBoardView">Reset board view</button>
+          <div class="board-accessibility-setting" role="group" aria-label="Color-blind display option" data-i18n-aria="colorBlindMode">
+            <span data-i18n="colorBlindMode">Color-blind-friendly colors</span>
+            <button id="colorblind-toggle" class="accessibility-toggle" type="button" aria-pressed="false" aria-label="Color-blind-friendly colors" data-i18n-aria="colorBlindMode"></button>
+          </div>
+        </div>
+        <button id="tutorial-open" class="hidden" type="button"><span data-i18n="learn">How to play</span></button>
+        <div id="sound-controls" class="hidden" role="group" aria-label="Sound options" data-i18n-aria="soundOptions">
+          <button id="music-toggle" class="sound-option" type="button" aria-pressed="true" aria-label="Toggle background music" data-i18n-aria="backgroundMusicLabel">
+            <span class="sound-option-copy"><span class="sound-option-icon" aria-hidden="true">♫</span><span data-i18n="music">Music</span></span>
+            <span class="sound-switch" aria-hidden="true"></span>
+          </button>
+          <button id="clash-toggle" class="sound-option" type="button" aria-pressed="true" aria-label="Toggle battle clash sounds" data-i18n-aria="clashSoundsLabel">
+            <span class="sound-option-copy"><span class="sound-option-icon" aria-hidden="true">⚔</span><span data-i18n="clashes">Clashes</span></span>
+            <span class="sound-switch" aria-hidden="true"></span>
+          </button>
+        </div>
+        <button id="back-to-setup" class="hidden" type="button" aria-label="Back to setup" data-i18n-aria="backToSetup"><span aria-hidden="true">←</span><span data-i18n="backToSetup">Back to setup</span></button>
+        <button id="reset-game" class="hidden" type="button" aria-label="Restart" data-i18n-aria="resetGame"><span aria-hidden="true">↻</span><span data-i18n="resetGame">Restart</span></button>
+      </div>
+    </details>
+    <button id="claim-draw" class="hidden" type="button" aria-label="Claim an available draw" data-i18n="claimDraw">Claim draw</button>
+    <div id="clock-panel" class="hidden" role="group" aria-label="Chess clocks" aria-hidden="true">
+      <div class="clock-face" data-clock-side="w"><span class="clock-name" data-i18n="white">White</span><span id="white-clock" class="clock-time">05:00</span></div>
+      <div class="clock-face" data-clock-side="b"><span class="clock-name" data-i18n="black">Black</span><span id="black-clock" class="clock-time">05:00</span></div>
+    </div>
+    <section id="promotion-picker" class="hidden" role="dialog" aria-modal="true" aria-labelledby="promotion-title">
+      <div class="promotion-card">
+        <h2 id="promotion-title" data-i18n="promotionTitle">Choose your promotion</h2>
+        <div class="promotion-options" role="group" aria-label="Promotion piece">
+          <button type="button" data-promotion="q" data-i18n="queen">Queen</button>
+          <button type="button" data-promotion="r" data-i18n="rook">Rook</button>
+          <button type="button" data-promotion="b" data-i18n="bishop">Bishop</button>
+          <button type="button" data-promotion="n" data-i18n="knight">Knight</button>
+        </div>
+      </div>
+    </section>
+    <section id="intro-screen" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+      <div class="intro-art" aria-hidden="true">
+        <img class="intro-rider intro-rider-light" src="./assets/ivory-mounted-knight.webp" alt="" aria-hidden="true" draggable="false">
+        <img class="intro-rider intro-rider-dark" src="./assets/charcoal-mounted-knight.webp" alt="" aria-hidden="true" draggable="false">
+      </div>
+      <div class="intro-content">
+        <div class="intro-title-block">
+          <h1 id="intro-title" class="intro-title">Battle Medieval<span>Chess</span></h1>
+        </div>
+        <div class="intro-bottom">
+          <p class="intro-copy" data-i18n="introCopy">A logical strategy game.</p>
+          <button id="enter-game" type="button" data-i18n="enterGame">Enter the realm</button>
+          <span class="intro-hint" data-i18n="introHint">Tap to begin your tale</span>
+        </div>
+      </div>
+    </section>
+    <section id="color-picker" class="hidden" role="dialog" aria-modal="true" aria-labelledby="picker-title" aria-describedby="picker-copy">
+      <div class="picker-card">
+        <p class="picker-kicker">Battle Medieval Chess</p>
+        <h1 id="picker-title" data-i18n="chooseSide">Choose your side</h1>
+        <p id="picker-copy" data-i18n="pickerCopy">Choose White or Black to begin. The computer plays the other side.</p>
+        <div id="play-again-options" class="hidden" role="group" aria-label="Play again">
+          <button id="play-again-yes" type="button" data-i18n="yes">Yes</button>
+          <button id="play-again-no" type="button" data-i18n="no">No</button>
+        </div>
+        <div id="computer-setup">
+          <div class="skill-section">
+            <span class="skill-label" data-i18n="skillLabel">Opponent skill</span>
+            <p id="skill-copy" aria-live="polite">Intermediate — a balanced opponent that spots simple tactics.</p>
+            <div class="skill-options" role="group" aria-label="Choose opponent skill">
+              <button type="button" data-skill="beginner" aria-pressed="false" data-i18n="beginner">Beginner</button>
+              <button type="button" data-skill="intermediate" aria-pressed="true" data-i18n="intermediate">Intermediate</button>
+              <button type="button" data-skill="advanced" aria-pressed="false" data-i18n="advanced">Advanced</button>
+            </div>
+          </div>
+          <div id="battle-log-setting" class="battle-log-setting">
+            <span class="battle-log-option-label" data-i18n="battleLogOption">Show battle log</span>
+            <button id="battle-log-toggle" type="button" aria-label="Show battle log" data-i18n-aria="battleLogOption" aria-pressed="true"></button>
+          </div>
+          <div class="color-options">
+            <button type="button" data-player-color="w" data-i18n="playWhite">Play as White</button>
+            <button type="button" data-player-color="b" data-i18n="playBlack">Play as Black</button>
+          </div>
+        </div>
+        <div class="clock-section">
+          <span class="clock-label" data-i18n="clockLabel">Game clock</span>
+          <p id="clock-copy" data-i18n="clockCopy">Choose a time control, or play without a clock.</p>
+          <div class="clock-options" role="group" aria-label="Choose a clock setting">
+            <button type="button" data-clock-base="0" data-clock-increment="0" aria-pressed="true" data-i18n="untimed">Untimed</button>
+            <button type="button" data-clock-base="300" data-clock-increment="3" aria-pressed="false" data-i18n="fiveMin">5 min + 3 sec</button>
+            <button type="button" data-clock-base="600" data-clock-increment="5" aria-pressed="false" data-i18n="tenMin">10 min + 5 sec</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="tutorial" class="hidden" role="dialog" aria-modal="true" aria-labelledby="tutorial-title">
+      <div class="tutorial-card">
+        <div class="tutorial-heading">
+          <div>
+            <p class="tutorial-kicker" data-i18n="learn">How to play</p>
+            <h2 id="tutorial-title" data-i18n="tutorialTitle">Chess made simple</h2>
+          </div>
+          <button id="tutorial-close" type="button" aria-label="Close" data-i18n-aria="close">×</button>
+        </div>
+        <p id="tutorial-intro" data-i18n="tutorialIntro">A quick beginner guide. You move one piece, then your opponent takes a turn.</p>
+        <section class="tutorial-section">
+          <h3 data-i18n="historyTitle">A brief history</h3>
+          <p data-i18n="historyText">Chess is thought to have begun in India around the 6th century as a game called chaturanga, then spread through Persia to Europe. By the late 15th century, European rules had changed dramatically: the queen gained much of its modern power, the bishop acquired its modern long-range diagonal move, and special moves such as castling and en passant took shape. Stalemate also took shape as a recognized outcome during this period, with its status as a draw standardized in the 19th century. Shared rules define legal moves and goals so everyone plays by the same fair standards.</p>
+          <p data-i18n="historyRuleText" style="margin-top:6px">White always moves first, following the standard 19th-century chess rules.</p>
+        </section>
+        <section class="tutorial-section">
+          <h3 data-i18n="goalTitle">1. Your goal</h3>
+          <p data-i18n="goalText">Trap the enemy king so it cannot escape attack. This is checkmate, and you win.</p>
+        </section>
+        <section class="tutorial-section">
+          <h3 data-i18n="turnsTitle">2. Take turns</h3>
+          <p data-i18n="turnsText">Tap one of your pieces. Green squares show where it can move. Tap a green square to move. White always moves first, following the standard 19th-century chess rules.</p>
+        </section>
+        <section class="tutorial-section">
+          <h3 data-i18n="piecesTitle">3. How pieces move</h3>
+          <p data-i18n="piecesIntro">Pieces cannot jump over other pieces, except the knight.</p>
+          <div class="piece-rules">
+            <div class="piece-rule"><strong data-i18n="pawn">Pawn</strong><span data-i18n="pawnRule">Moves forward 1 square (or 2 from its start). Captures diagonally.</span></div>
+            <div class="piece-rule"><strong data-i18n="knight">Knight</strong><span data-i18n="knightRule">Moves in an L shape and can jump over pieces.</span></div>
+            <div class="piece-rule"><strong data-i18n="bishop">Bishop</strong><span data-i18n="bishopRule">Moves diagonally any number of clear squares.</span></div>
+            <div class="piece-rule"><strong data-i18n="rook">Rook</strong><span data-i18n="rookRule">Moves straight any number of clear squares.</span></div>
+            <div class="piece-rule"><strong data-i18n="queen">Queen</strong><span data-i18n="queenRule">Moves straight or diagonally any number of clear squares.</span></div>
+            <div class="piece-rule"><strong data-i18n="king">King</strong><span data-i18n="kingRule">Moves 1 square in any direction. Keep it safe!</span></div>
+          </div>
+        </section>
+        <section class="tutorial-section pawn-opportunity" aria-labelledby="pawn-opportunity-title">
+          <h3 id="pawn-opportunity-title" data-i18n="pawnOpportunityTitle">A shared first-pawn choice</h3>
+          <p class="pawn-choice-intro" data-i18n="pawnOpportunityIntro">Each side gets one two-square chance: only its first pawn to move may take it. If that pawn moves 1 square, the chance is gone.</p>
+          <div class="pawn-choice-examples">
+            <article class="pawn-choice-card">
+              <h4 data-i18n="pawnLeapTitle">Take the two-square leap</h4>
+              <div class="pawn-path" aria-hidden="true">
+                <span class="pawn-path-square pawn-path-destination">+2</span>
+                <span class="pawn-path-arrow">↑</span>
+                <span class="pawn-path-square">+1</span>
+                <span class="pawn-path-arrow">↑</span>
+                <span class="pawn-path-square pawn-path-start">♙</span>
+              </div>
+              <p data-i18n="pawnLeapText">Example: your first pawn advances 2 squares. The chance is spent; every later pawn advances 1 square at a time.</p>
+            </article>
+            <article class="pawn-choice-card">
+              <h4 data-i18n="pawnSingleTitle">Choose one square</h4>
+              <div class="pawn-sequence" aria-hidden="true">
+                <div class="pawn-sequence-row"><span class="pawn-order">1</span><span class="pawn-token">♙</span><span class="pawn-sequence-arrow">→</span><span class="pawn-step-tag">+1</span></div>
+                <div class="pawn-sequence-row"><span class="pawn-order">2</span><span class="pawn-token">♙</span><span class="pawn-sequence-arrow">→</span><span class="pawn-step-tag">+1</span><span class="pawn-double-closed">+2</span></div>
+              </div>
+              <p data-i18n="pawnSingleText">Example: your first pawn advances 1 square. Your second and every later pawn can then advance only 1 square at a time.</p>
+            </article>
+          </div>
+        </section>
+        <section class="tutorial-section">
+          <h3 data-i18n="castlingTitle">Castling</h3>
+          <p data-i18n="castlingText">Move the king two squares toward a rook, then move the rook to the square the king crossed.</p>
+          <p data-i18n="castlingRules">You can castle only if the king and rook have not moved, no pieces are between them, and the king is not in check, crosses no attacked square, and ends safe.</p>
+        </section>
+        <section class="tutorial-section">
+          <h3 data-i18n="capturesTitle">4. Captures and safety</h3>
+          <p data-i18n="captureText">Capture a piece by moving onto its square. The king is never captured.</p>
+        </section>
+        <section class="tutorial-section">
+          <h3 data-i18n="checkTitle">Check</h3>
+          <p data-i18n="checkText">Your king is under attack. Escape, block the attack, or take the attacking piece.</p>
+        </section>
+        <section class="tutorial-section">
+          <h3 data-i18n="winTitle">How the game ends</h3>
+          <p data-i18n="checkmateText">Checkmate means the king cannot escape: you win. Checkmate against you means you lose.</p>
+          <p data-i18n="stalemateText" style="margin-top:6px">If a player has no legal move but is not in check, the game is a stalemate, also known as a draw.</p>
+        </section>
+      </div>
+    </section>
+    <script type="module" src="./main.js"></script>
+    
+    
+  </body>
+</html>
