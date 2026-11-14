@@ -1,0 +1,54 @@
+{
+  "max_steps": 5,
+  "steps_used": 5,
+  "actual_steps": [
+    {
+      "step": 1,
+      "action": "Navigate native v61 game entry",
+      "at": "2026-11-14T09:36:08.685Z",
+      "result": "Native menu/first-run notes render",
+      "type": "navigate",
+      "selector": "index.html"
+    },
+    {
+      "step": 2,
+      "action": "Dismiss native v61 first-run notes",
+      "at": "2026-11-14T09:37:31.200Z",
+      "result": "Native notes acknowledged",
+      "type": "click",
+      "selector": "#notesOk"
+    },
+    {
+      "step": 3,
+      "action": "Native Play using default Warrior",
+      "at": "2026-11-14T09:37:41.057Z",
+      "result": "Warrior details rendered",
+      "type": "click",
+      "selector": "#startBtn"
+    },
+    {
+      "step": 4,
+      "action": "Click native Start run without unlocks or bonuses",
+      "at": "2026-11-14T09:38:09.461Z",
+      "result": "Native combat started",
+      "type": "click",
+      "selector": "#cdStart"
+    },
+    {
+      "step": 5,
+      "action": "Choose earned native Fire Wave level-up card",
+      "at": "2026-11-14T09:39:53.004Z",
+      "result": "Earned Fire Wave applied; weapon count and health changed, combat continued",
+      "type": "click",
+      "selector": "button: Fire Wave NEW"
+    }
+  ],
+  "unverified": [
+    "movement",
+    "reload/continue",
+    "30-minute victory/final boss",
+    "later content/classes",
+    "auditory output"
+  ],
+  "stopped_at_limit": true
+}
