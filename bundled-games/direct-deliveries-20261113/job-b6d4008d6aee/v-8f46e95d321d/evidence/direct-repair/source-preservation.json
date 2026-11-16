@@ -1,0 +1,112 @@
+{
+  "at": "2026-11-14T11:56:13.552185+00:00",
+  "job_id": "job-b6d4008d6aee",
+  "intake": {
+    "at": "2026-11-14T10:01:31.478545+00:00",
+    "source_page": "https://oilike.itch.io/oilike",
+    "url": "https://html-classic.itch.zone/html/15671504/index.html?v=1783066045",
+    "provenance": "Original author page Run game data-iframe read directly from browser DOM. No game start or guessed path.",
+    "proxy": false,
+    "ui_game_starts": 0,
+    "http": 200,
+    "final_url": "https://html-classic.itch.zone/html/15671504/index.html?v=1783066045",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 3223,
+    "sha256": "0ad674c7512ef982d3218af24738541a150e64e96ddecef1c8569036db4cc19e",
+    "declared_refs": [
+      {
+        "tag": "link",
+        "attribute": "href",
+        "url": "./favicon.png"
+      },
+      {
+        "tag": "script",
+        "attribute": "src",
+        "url": "./assets/demo-B7AHxOkn.js"
+      },
+      {
+        "tag": "link",
+        "attribute": "href",
+        "url": "./assets/safeArea-CdfXo7BA.js"
+      },
+      {
+        "tag": "link",
+        "attribute": "href",
+        "url": "./assets/safeArea-CfVPXujj.css"
+      },
+      {
+        "tag": "link",
+        "attribute": "href",
+        "url": "./assets/demo-BvZGEpe8.css"
+      },
+      {
+        "tag": "script",
+        "attribute": "src",
+        "url": "https://static.itch.io/htmlgame.js"
+      }
+    ]
+  },
+  "files": 193,
+  "changes": [
+    {
+      "path": "index.html",
+      "before": "    <!-- Google tag (gtag.js) -->\n    <script>\n      const hostname = window.location.hostname;\n      const isLocalEnvironment =\n        window.location.protocol === 'file:' ||\n        hostname === '' ||\n        ['localhost', '127.0.0.1', '::1', '0.0.0.0'].includes(hostname) ||\n        hostname.endsWith('.local');\n\n      if (!isLocalEnvironment) {\n        const GA_MEASUREMENT_ID = 'G-F6VBE87BG0';\n        const GA_PLATFORM = 'demo-webapp';\n        const url = new URL(window.location.href);\n        const pageLocation = url.href;\n        const pagePath = `${url.pathname}${url.search}`;\n        const referrer = document.referrer || '(direct)';\n        const utm = Object.fromEntries(\n          ['source', 'medium', 'campaign', 'content', 'term'].map((key) => [\n            `utm_${key}`,\n            url.searchParams.get(`utm_${key}`) || '(not_set)',\n          ]),\n        );\n\n        const gaScript = document.createElement('script');\n        gaScript.async = true;\n        gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;\n        document.head.appendChild(gaScript);\n\n        window.dataLayer = window.dataLayer || [];\n\n        function gtag() {\n          window.dataLayer.push(arguments);\n        }\n\n        window.gtag = gtag;\n\n        gtag('js', new Date());\n        gtag('set', { platform: GA_PLATFORM });\n        gtag('set', 'user_properties', {\n          platform: GA_PLATFORM,\n          entry_url: pageLocation,\n          entry_referrer: referrer,\n          ...utm,\n        });\n        gtag('config', GA_MEASUREMENT_ID, {\n          page_path: pagePath,\n          page_location: pageLocation,\n          page_title: document.title,\n        });\n\n        const sessionKey = 'oi-demo-ga-session';\n        const isNewSession = !sessionStorage.getItem(sessionKey);\n        const eventPayload = {\n          page_path: pagePath,\n          page_location: pageLocation,\n          page_title: document.title,\n          entry_referrer: referrer,\n          ...utm,\n        };\n\n        if (isNewSession) {\n          sessionStorage.setItem(sessionKey, 'initialized');\n          gtag('event', 'demo_session_start', eventPayload);\n        }\n\n        gtag('event', 'demo_page_view', eventPayload);\n      }\n    </script>\n",
+      "after": "",
+      "reason": "Retire Google Analytics only; no game rules in this block."
+    },
+    {
+      "path": "index.html",
+      "before": "<script defer src=\"https://static.itch.io/htmlgame.js\" type=\"text/javascript\"></script>",
+      "after": "",
+      "reason": "Retire itch embedding container script only."
+    },
+    {
+      "path": "assets/safeArea-CdfXo7BA.js",
+      "before": "assets/icon/items/gold.png",
+      "after": "assets/items/gold.png",
+      "reason": "Source literal points at original-site 404. Native Gold and other gold icons already bind to original assets/items/gold.png; use that same original gold image."
+    },
+    {
+      "path": "assets/safeArea-CdfXo7BA.js",
+      "before": "texture:\"gochujang-pool.png\",",
+      "after": "",
+      "reason": "Only remove nonexistent unused texture metadata/preload. Native pepperPool class uses scene.add.ellipse, fire/ultimateFire/evolve do not consume texture; class preserved byte-for-byte. Icon and all rules remain."
+    },
+    {
+      "path": "assets/safeArea-CdfXo7BA.js",
+      "before": "key:\"enemy:cactus\",texture:{path:\"assets/enemy/cactus.png\",frames:4}",
+      "after": "key:\"enemy:cactus\",texture:{path:\"assets/enemy/cactus.png\",frames:1,frameWidth:193,frameHeight:288}",
+      "reason": "Actual original PNG is one transparent 193x288 cactus, not four default192x192 frames. Set correct full-image cell size and single frame, preserving PNG bytes, all combat values/behaviors and native animation loader."
+    }
+  ],
+  "preserved": "Original native Demo is already sessionId demo-session, demo-token and local result handling. No invented authentication/session/rewards. MainGame demo branch skips network finish as authored. Story stage1/Arena stageRank remain.",
+  "missing_original_paths": [
+    {
+      "path": "assets/icon/items/gold.png",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "path": "assets/weapons/gochujang-pool.png",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "path": "assets/maps/tilesets/basic-grass.png",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "path": "assets/maps/tilesets/basic-plants.png",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ],
+  "developer_map_scope": "stage0 only has missing basic-grass/basic-plants originals; author Demo exposes stage1 and stageRank, not stage0. No invented replacements, no claim that development map is complete.",
+  "ui_steps_used": 0,
+  "ui_steps_remaining": 5,
+  "admitted": false,
+  "ui_intermediate_findings": {
+    "used": 3,
+    "one_selector_attempt_sent_no_input": true,
+    "native_arena_observed": "Level3, 34 actual kills, death settlement Demo Over with Play Again. No state injection.",
+    "first_network_events_truncated": true,
+    "first_console_warnings": "Three missing cactus frames; fixed exact original metadata, final reload verification still required."
+  }
+}
