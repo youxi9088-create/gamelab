@@ -1,0 +1,73 @@
+{
+  "at": "2026-11-17T11:01:22.788862+00:00",
+  "direct_https_no_proxy": true,
+  "specification": {
+    "http": 200,
+    "sha256": "945dc29c9a29b6a6f8d53c9fdacb3cc6d9e0d00dcdbe2a78265d3d2c1fe46857",
+    "bytes": 6525,
+    "first_lines": "# Play OMNIS Global Initiative - Free Online Game | Rosebud 游戏规格说明书\n\n规格标准：V5.1\n\n## 1. 基础事实\n\n**维度定义**：让读者第一眼知道“这是什么类型、什么操控体验的游戏”，以及它的技术栈。\n\n**内容说明**\n\nPhaser 3.70.0＋JavaScript的原生回合卡牌策略单机AI模式，Tone 14.7.77音频。原本地AI与玩法保留，联机数据库和宿主工具退役。52实测原结束回合、AI卡牌效果并返回玩家第2回合；未验证胜局。来源：main.js、gameLogic.js、evidence/direct-repair/runtime.json。\n\n## 2. 资源类型\n\n**维度定义**：游戏中游戏内容元素的资源类型是什么——即在哪个引擎运行下的资源格式。\n\n**内容说明**\n\n原WebP/PNG卡牌/阵营插画、MP3、WOFF2；173项缺",
+    "headings": [
+      "1. 基础事实",
+      "2. 资源类型",
+      "3. 核心挑战维度",
+      "4. 操控方式",
+      "5. 行为路径",
+      "6. 游戏路径（关键节点 + 流失风险）",
+      "7. 成长路径",
+      "8. 核心闭环（目标-规则-反馈-激励）",
+      "9. 玩法规则",
+      "10. 数值配置",
+      "11. 关卡配置",
+      "12. 系统设计",
+      "13. 主题化包装",
+      "14. 养成系统 + 经济系统",
+      "15. 角色 / 单位设定",
+      "16. 商业化"
+    ],
+    "definition_count": 16,
+    "content_count": 16,
+    "has_round2": true,
+    "has_ai_effect": true,
+    "has_version": true
+  },
+  "profile_keys": [
+    "specification_v51",
+    "title",
+    "category",
+    "engine",
+    "core_gameplay",
+    "verification",
+    "save",
+    "cover"
+  ],
+  "spec_section_keys": [
+    "basic_facts",
+    "asset_types",
+    "core_challenge",
+    "controls",
+    "behavior_path",
+    "game_path",
+    "progression_path",
+    "core_loop",
+    "gameplay_rules",
+    "key_numbers",
+    "level_configuration",
+    "system_design",
+    "theme",
+    "progression_economy",
+    "roster",
+    "monetization"
+  ],
+  "version_status": "review",
+  "authorized_launch": {
+    "http": 200,
+    "bytes": 57109,
+    "final_host": "gamelab-play.debug.ndaeweb.com"
+  },
+  "authorized_main": {
+    "http": 200,
+    "bytes": 423501,
+    "sha256": "39ebb07f271eeea3374c0c90b87e18bd88b90099d93ac3e59a5fdc19c4729b23",
+    "matches": true
+  }
+}
