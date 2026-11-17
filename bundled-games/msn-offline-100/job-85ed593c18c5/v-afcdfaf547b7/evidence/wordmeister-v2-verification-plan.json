@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-17T10:30:08.102399+00:00",
+  "revision": "wordmeister-offline-v2",
+  "historical_checkpoints": 1,
+  "maximum_checkpoints": 5,
+  "checkpoints": [
+    {
+      "step": 1,
+      "used": true,
+      "inputs": 1,
+      "scope": "Original v1 goto failed on two branding files; retained."
+    },
+    {
+      "step": 2,
+      "maximum_inputs": 2,
+      "scope": "One new ordinary goto after exact resource-only repair; if displayed original TapToStart once."
+    },
+    {
+      "step": 3,
+      "maximum_inputs": 4,
+      "scope": "Bounded setup: HomePlay, default avatar Select, tutorial-menu native Play(skip), native FirstTurn close. Original RNG/CPU turn preserved."
+    },
+    {
+      "step": 4,
+      "maximum_inputs": 2,
+      "scope": "Place one two-letter word using at most two ordinary visible rack tile drags; every raw gesture/trajectory logged. No hidden letters, no extra reposition retries."
+    },
+    {
+      "step": 5,
+      "maximum_inputs": 1,
+      "scope": "One native board Play/submit; observe validation/score/CPU continuation. If no legitimate move achieved, defer."
+    }
+  ],
+  "boundaries": "Maximum cumulative5 checkpoints and10 raw navigation/gesture commands INCLUDING prior failure. No game method/state/RNG/time writes or SDK/reward simulation. No fullmatch/refresh/save claim. This plan replaces unused portions of v1 plan before any v2UI; historical budget is retained."
+}

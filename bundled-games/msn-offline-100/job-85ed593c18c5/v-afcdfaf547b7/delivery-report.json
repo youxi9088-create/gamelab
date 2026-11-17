@@ -1,0 +1,279 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "原v1品牌图缺失启动失败"
+      },
+      {
+        "type": "checkpoint",
+        "description": "v2资源修复后正常菜单"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原Play/默认Select/教程Play/抽签关闭四设置点击"
+      },
+      {
+        "type": "checkpoint",
+        "description": "一次拖O接R，15鼠标子事件"
+      },
+      {
+        "type": "checkpoint",
+        "description": "普通提交OR2分，原CPU续AA至16"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 22,
+    "responses": 22,
+    "network_events": 45,
+    "scope": "累计5检查点/8条实际导航或手势：1原v1首次加载因漏两张品牌图受阻，保留失败；2修复后v2启动原菜单（原28文件不变，仅增加2原图）；3有界原设置4次点击为Play、默认头像Select、教程选Play、关闭抽签窗；4一次拖手牌O至棋盘已有R左侧形成OR，568,846→490,458，15底层鼠标子事件；5普通Play提交。原抽签N对H、CPU Daisy先手，未改随机数。等待原CPU出ACRED14分，再按可见手牌/棋盘落O提交；人类2分，CPU正常出AA加2至16，回到人类可操作。未读取CPU暗牌，未调用判定/得分或写状态。仅一次合法人类落字与CPU前后两手，不是整局/全部词汇/全部系统验证。",
+    "network_scope": "v2整段22请求/22响应均本地HTTP200，没有外联、请求失败或pageerror异常；原1条AudioContext自动播放警告保留。v1真实两张品牌图404/对应异常共4条控制台记录保留，不算成功。原资源采集时3个逻辑图路径404属于原生图集frame，实际50frame由原2张atlas和原内嵌JSON映射，未造单图或重构atlas；缺失promo截图404只在已退役Microsoft分享fallback中，未冒充运行失败或补假图。",
+    "historical_failures": "evidence/v1-network-console.json",
+    "script_exceptions": [],
+    "browser_errors_preserved": true,
+    "tested_revision": "wordmeister-offline-v2",
+    "delivery_revision": "wordmeister-offline-v2"
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "原提供者/免费换牌激励UI及奖励回调删除，不增加免费次数；普通换牌回合规则不变。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/wordmeister-retirement.json",
+        "evidence/v2-network-console.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "原在线提交删除，原本地玩家/CPU计分和单局排序保留。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/wordmeister-retirement.json",
+        "evidence/v2-network-console.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "本地CPU在原词库运算，无联网玩家/房间/登录或匹配。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/wordmeister-retirement.json",
+        "evidence/v2-network-console.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "没有现金支付/充值/订单或新增免费权益。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/wordmeister-retirement.json",
+        "evidence/v2-network-console.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "益智 / 本地拼字棋",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "在15×15棋盘用自己的可见字母牌组成合法英文词，与本地CPU轮流落字；利用原字母分值和棋盘加成，并通过已有词连接获得分数。",
+    "core_experience": "",
+    "controls": "普通点击菜单/默认头像/Play/关闭先手抽签窗，拖拽手牌到棋盘后点Play提交。原Shuffle、Reset、Swap、Skip、Pause、声音和教程入口保留，本轮只操作原设置、一次落牌和提交；未验证其他按钮。",
+    "game_loop": "",
+    "content": "原单局围绕剩余字母袋、双方分数与既有词继续进行，原结束/排名规则保留。本轮字母袋显示84→79→77，未耗尽牌袋或触发结束，不提供通关关数。",
+    "progression": "",
+    "save": "",
+    "rules": "沿用原15×15棋盘、8张人类手牌、原字母分值/格加成，词库按词长索引在包内。原EntityLetter负责拖放/边界/占格，EntityPlayBtn负责方向/连接/词有效性及得分，原CPU使用同一词库运算。普通换牌继续消耗原回合，广告奖励5次免费换牌的提供者/按钮/回调已删除，不授予免费次数。",
+    "systems": "原Impact框架/图集Packer/Image与Animation注入器、字母拖放/棋盘/词库/CPU/计分/换牌/本地IO保留。334游戏及FontInfo方法中290归一AST相同、29服务方法删除、15服务范围修改。归一仅去位置/原字面量格式，并按同操作符&&或||保留操作数顺序消除生成器冗余括号差异，不混合运算符或改布尔值。原字典、Packer、棋盘/牌袋数据保持；不造SDK。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5检查点/8条实际导航或手势：1原v1首次加载因漏两张品牌图受阻，保留失败；2修复后v2启动原菜单（原28文件不变，仅增加2原图）；3有界原设置4次点击为Play、默认头像Select、教程选Play、关闭抽签窗；4一次拖手牌O至棋盘已有R左侧形成OR，568,846→490,458，15底层鼠标子事件；5普通Play提交。原抽签N对H、CPU Daisy先手，未改随机数。等待原CPU出ACRED14分，再按可见手牌/棋盘落O提交；人类2分，CPU正常出AA加2至16，回到人类可操作。未读取CPU暗牌，未调用判定/得分或写状态。仅一次合法人类落字与CPU前后两手，不是整局/全部词汇/全部系统验证。 v2整段22请求/22响应均本地HTTP200，没有外联、请求失败或pageerror异常；原1条AudioContext自动播放警告保留。v1真实两张品牌图404/对应异常共4条控制台记录保留，不算成功。原资源采集时3个逻辑图路径404属于原生图集frame，实际50frame由原2张atlas和原内嵌JSON映射，未造单图或重构atlas；缺失promo截图404只在已退役Microsoft分享fallback中，未冒充运行失败或补假图。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "ImpactJS / Canvas2D",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "MSN9n48sfvb0c4f，原Wordmeister v14；ImpactJS/Canvas2D、JavaScript/HTML/CSS，原横向2D棋盘。实测viewport1440×1020，原1920×1080画布显示为1440×810并上下留黑；实体手机未测。",
+        "asset_types": "保留原2张PNG图集及内嵌JSON的50frame，原牌/棋盘/人物/按钮与背景；3原字体montserrat/patuaone-regular/asap-regular的woff2/woff/ttf，9原MP3音频、2原品牌图、favicon/方向图/封面/CSS/gif。最终30基础运行文件中28依赖/素材保持原字节；JS只按服务范围修订，HTML为离线入口。",
+        "core_challenge": "在15×15棋盘用自己的可见字母牌组成合法英文词，与本地CPU轮流落字；利用原字母分值和棋盘加成，并通过已有词连接获得分数。",
+        "controls": "普通点击菜单/默认头像/Play/关闭先手抽签窗，拖拽手牌到棋盘后点Play提交。原Shuffle、Reset、Swap、Skip、Pause、声音和教程入口保留，本轮只操作原设置、一次落牌和提交；未验证其他按钮。",
+        "behavior_path": "原菜单→Play→选择默认头像→教程页普通Play跳过→随机先手→关闭抽签窗→原本地CPU出词→拖手牌O至已有R左侧→Play提交→计分/补牌/CPU续走。所有节点来自原按钮和正常输入。",
+        "game_path": "原抽签N对H，Daisy先手；CPU正常ACRED获14分→玩家OR获2分→CPU正常AA获2分、累计16→原黄色指示回到玩家。没有强制人类先手、替换抽牌或伪造对手。",
+        "progression_path": "原单局围绕剩余字母袋、双方分数与既有词继续进行，原结束/排名规则保留。本轮字母袋显示84→79→77，未耗尽牌袋或触发结束，不提供通关关数。",
+        "core_loop": "观察手牌与现有词→拖牌形成相连合法词→普通提交→原词库/空间/连接判定→原加成计分与补牌→原CPU本地搜索并落字→回到玩家继续。本轮实际OR2分并补牌、CPU再走AA。",
+        "gameplay_rules": "沿用原15×15棋盘、8张人类手牌、原字母分值/格加成，词库按词长索引在包内。原EntityLetter负责拖放/边界/占格，EntityPlayBtn负责方向/连接/词有效性及得分，原CPU使用同一词库运算。普通换牌继续消耗原回合，广告奖励5次免费换牌的提供者/按钮/回调已删除，不授予免费次数。",
+        "key_numbers": "代码确认15×15棋盘、8张人类手牌、原字母牌格56×56内部像素。实际抽签N/H；CPU ACRED14，人类O1+已有R1构成OR计2，CPU AA再加2至16；可见占格5→6→7，最终牌袋77。未测高分组合/空白牌/终局。",
+        "level_configuration": "原单局棋盘色格/字母袋和本地词库均归一AST相同；原随机抽牌/CPU头像/先手保持。词库模块3,658,407字节的分析文件仅用于追溯，不把文件大小当词数，也不声称所有单词已试玩。",
+        "system_design": "原Impact框架/图集Packer/Image与Animation注入器、字母拖放/棋盘/词库/CPU/计分/换牌/本地IO保留。334游戏及FontInfo方法中290归一AST相同、29服务方法删除、15服务范围修改。归一仅去位置/原字面量格式，并按同操作符&&或||保留操作数顺序消除生成器冗余括号差异，不混合运算符或改布尔值。原字典、Packer、棋盘/牌袋数据保持；不造SDK。",
+        "theme": "原深蓝背景、木色字母牌、彩色倍数格、绿色按钮、卡通人物头像、白黄记分与Game Panel出词日志；原2张品牌图保留。实际棋盘与OR/ACRED/AA和2/16分显示，未使用占位素材。",
+        "progression_economy": "原单局牌袋/分数和本地声音等IO保留；实际补入新N牌、牌袋变77。未刷新，不能称存档或断线恢复已验证。无新增货币、现金支付、免费换牌或广告权益。",
+        "roster": "原本地8个卡通头像与内置Rob/Luke/Eric/Tony/Daisy/Jane/Sarah/Hana名字池，原CPU随机挑选不同索引；Daisy是本地算法角色，不是在线匹配玩家或账号。本轮未读取其暗牌。",
+        "monetization": "Microsoft/CPMStar/GA/API迁移、广告控制器/激励免费换牌、在线报分、分享/更多游戏/外链提供者及真实调用/按钮退役。普通换牌回合规则保留，未伪造广告成功/奖励。仅静态HTTP，不依赖业务服务器；本轮全请求本地，非全局系统/全部功能覆盖。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/100.png",
+        "caption": "原菜单，修复仅增加原品牌图"
+      },
+      {
+        "path": "screenshots/103.png",
+        "caption": "原随机N/H，Daisy获得先手"
+      },
+      {
+        "path": "screenshots/104.png",
+        "caption": "本地CPU正常出ACRED，14分"
+      },
+      {
+        "path": "screenshots/105.png",
+        "caption": "普通拖O至可见R左侧，未提交"
+      },
+      {
+        "path": "screenshots/106.png",
+        "caption": "原OR2分、CPU续AA至16分，回到人类"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-17T09:18:48.914818+00:00",
+    "observation_end": "2026-11-17T10:40:14.921549+00:00",
+    "elapsed_seconds": 4886.006731271744,
+    "scope": "原入口归档至材料整理的观测窗口，包含等待和其他游戏工作；不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "人类OR合法落字2分、CPU前后两次正常出词；非整局",
+      "evidence": [
+        "screenshots/104.png",
+        "screenshots/105.png",
+        "screenshots/106.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "v2全22请求本地200/无缺失；28原依赖SHA及原2atlas/50frame保留",
+      "evidence": [
+        "screenshots/104.png",
+        "screenshots/105.png",
+        "screenshots/106.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单、头像选择、教程选择、抽签、棋盘实际显示",
+      "evidence": [
+        "screenshots/104.png",
+        "screenshots/105.png",
+        "screenshots/106.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原牌/棋盘/人物/按钮/日志和分数字段可见",
+      "evidence": [
+        "screenshots/104.png",
+        "screenshots/105.png",
+        "screenshots/106.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "普通拖拽/吸附、补牌/本地CPU落字和指示切换实显",
+      "evidence": [
+        "screenshots/104.png",
+        "screenshots/105.png",
+        "screenshots/106.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "5检查点/8实际输入（含1历史失败），一拖15底层事件，不追加验证",
+      "evidence": [
+        "screenshots/104.png",
+        "screenshots/105.png",
+        "screenshots/106.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原本地头像与Daisy算法角色，无网络身份模拟",
+      "evidence": [
+        "screenshots/104.png",
+        "screenshots/105.png",
+        "screenshots/106.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

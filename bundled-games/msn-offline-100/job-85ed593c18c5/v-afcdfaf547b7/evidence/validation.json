@@ -1,0 +1,577 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "原v1品牌图缺失启动失败"
+      },
+      {
+        "type": "checkpoint",
+        "description": "v2资源修复后正常菜单"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原Play/默认Select/教程Play/抽签关闭四设置点击"
+      },
+      {
+        "type": "checkpoint",
+        "description": "一次拖O接R，15鼠标子事件"
+      },
+      {
+        "type": "checkpoint",
+        "description": "普通提交OR2分，原CPU续AA至16"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 22,
+    "responses": 22,
+    "network_events": 45,
+    "scope": "累计5检查点/8条实际导航或手势：1原v1首次加载因漏两张品牌图受阻，保留失败；2修复后v2启动原菜单（原28文件不变，仅增加2原图）；3有界原设置4次点击为Play、默认头像Select、教程选Play、关闭抽签窗；4一次拖手牌O至棋盘已有R左侧形成OR，568,846→490,458，15底层鼠标子事件；5普通Play提交。原抽签N对H、CPU Daisy先手，未改随机数。等待原CPU出ACRED14分，再按可见手牌/棋盘落O提交；人类2分，CPU正常出AA加2至16，回到人类可操作。未读取CPU暗牌，未调用判定/得分或写状态。仅一次合法人类落字与CPU前后两手，不是整局/全部词汇/全部系统验证。",
+    "network_scope": "v2整段22请求/22响应均本地HTTP200，没有外联、请求失败或pageerror异常；原1条AudioContext自动播放警告保留。v1真实两张品牌图404/对应异常共4条控制台记录保留，不算成功。原资源采集时3个逻辑图路径404属于原生图集frame，实际50frame由原2张atlas和原内嵌JSON映射，未造单图或重构atlas；缺失promo截图404只在已退役Microsoft分享fallback中，未冒充运行失败或补假图。",
+    "historical_failures": "evidence/v1-network-console.json",
+    "script_exceptions": [],
+    "browser_errors_preserved": true,
+    "tested_revision": "wordmeister-offline-v2",
+    "delivery_revision": "wordmeister-offline-v2"
+  },
+  "accounting": {
+    "observation_start": "2026-11-17T09:18:48.914818+00:00",
+    "observation_end": "2026-11-17T10:40:14.921549+00:00",
+    "elapsed_seconds": 4886.006731271744,
+    "scope": "原入口归档至材料整理的观测窗口，包含等待和其他游戏工作；不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "before": {
+    "size": {
+      "width": 1920,
+      "height": 1080
+    },
+    "canvas": {
+      "x": 0,
+      "y": 105,
+      "width": 1440,
+      "height": 810,
+      "top": 105,
+      "right": 1440,
+      "bottom": 915,
+      "left": 0
+    },
+    "scene": 2,
+    "game": {
+      "paused": false,
+      "firstTurn": false,
+      "playerScore": 0,
+      "cpuScore": 14,
+      "cpuName": "Daisy",
+      "playTiles": 0,
+      "boardVisibleTiles": 5,
+      "humanRack": [
+        {
+          "letter": "E",
+          "value": 1,
+          "x": 368,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "G",
+          "value": 2,
+          "x": 458,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "E",
+          "value": 1,
+          "x": 548,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "I",
+          "value": 1,
+          "x": 638,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "O",
+          "value": 1,
+          "x": 728,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "N",
+          "value": 1,
+          "x": 818,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "S",
+          "value": 1,
+          "x": 908,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "O",
+          "value": 1,
+          "x": 998,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        }
+      ],
+      "assistant": [
+        "- Daisy played ACRED (14 points) "
+      ]
+    },
+    "controls": [
+      {
+        "kind": "EntityPlayBtn",
+        "x": 1168,
+        "y": 970,
+        "width": 237,
+        "height": 95,
+        "enabled": true
+      },
+      {
+        "kind": "EntityPlayGameBtn",
+        "x": 857,
+        "y": -170,
+        "width": 237,
+        "height": 95,
+        "enabled": true
+      }
+    ],
+    "visibleTexts": [
+      {
+        "text": "You",
+        "x": 1410,
+        "y": 100
+      },
+      {
+        "text": "Score",
+        "x": 1616,
+        "y": 78
+      },
+      {
+        "text": "0",
+        "x": 1660,
+        "y": 128
+      },
+      {
+        "text": "Daisy",
+        "x": 1410,
+        "y": 240
+      },
+      {
+        "text": "Score",
+        "x": 1616,
+        "y": 218
+      },
+      {
+        "text": "14",
+        "x": 1660,
+        "y": 268
+      },
+      {
+        "text": "Tiles Bag",
+        "x": 140,
+        "y": 746
+      },
+      {
+        "text": "79",
+        "x": 140,
+        "y": 680
+      }
+    ]
+  },
+  "placed": {
+    "size": {
+      "width": 1920,
+      "height": 1080
+    },
+    "canvas": {
+      "x": 0,
+      "y": 105,
+      "width": 1440,
+      "height": 810,
+      "top": 105,
+      "right": 1440,
+      "bottom": 915,
+      "left": 0
+    },
+    "scene": 2,
+    "game": {
+      "paused": false,
+      "firstTurn": false,
+      "playerScore": 0,
+      "cpuScore": 14,
+      "cpuName": "Daisy",
+      "playTiles": 1,
+      "boardVisibleTiles": 6,
+      "humanRack": [
+        {
+          "letter": "E",
+          "value": 1,
+          "x": 368,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "G",
+          "value": 2,
+          "x": 458,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "E",
+          "value": 1,
+          "x": 548,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "I",
+          "value": 1,
+          "x": 638,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "O",
+          "value": 1,
+          "x": 626,
+          "y": 442,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": true
+        },
+        {
+          "letter": "N",
+          "value": 1,
+          "x": 818,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "S",
+          "value": 1,
+          "x": 908,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "O",
+          "value": 1,
+          "x": 998,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        }
+      ],
+      "assistant": [
+        "- Daisy played ACRED (14 points) "
+      ]
+    },
+    "controls": [
+      {
+        "kind": "EntityPlayBtn",
+        "x": 1168,
+        "y": 970,
+        "width": 237,
+        "height": 95,
+        "enabled": true
+      },
+      {
+        "kind": "EntityPlayGameBtn",
+        "x": 857,
+        "y": -170,
+        "width": 237,
+        "height": 95,
+        "enabled": true
+      }
+    ],
+    "visibleTexts": [
+      {
+        "text": "You",
+        "x": 1410,
+        "y": 100
+      },
+      {
+        "text": "Score",
+        "x": 1616,
+        "y": 78
+      },
+      {
+        "text": "0",
+        "x": 1660,
+        "y": 128
+      },
+      {
+        "text": "Daisy",
+        "x": 1410,
+        "y": 240
+      },
+      {
+        "text": "Score",
+        "x": 1616,
+        "y": 218
+      },
+      {
+        "text": "14",
+        "x": 1660,
+        "y": 268
+      },
+      {
+        "text": "Tiles Bag",
+        "x": 140,
+        "y": 746
+      },
+      {
+        "text": "79",
+        "x": 140,
+        "y": 680
+      }
+    ]
+  },
+  "after": {
+    "size": {
+      "width": 1920,
+      "height": 1080
+    },
+    "canvas": {
+      "x": 0,
+      "y": 105,
+      "width": 1440,
+      "height": 810,
+      "top": 105,
+      "right": 1440,
+      "bottom": 915,
+      "left": 0
+    },
+    "scene": 2,
+    "game": {
+      "paused": false,
+      "firstTurn": false,
+      "playerScore": 2,
+      "cpuScore": 16,
+      "cpuName": "Daisy",
+      "playTiles": 0,
+      "boardVisibleTiles": 7,
+      "humanRack": [
+        {
+          "letter": "E",
+          "value": 1,
+          "x": 368,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "G",
+          "value": 2,
+          "x": 458,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "E",
+          "value": 1,
+          "x": 548,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "I",
+          "value": 1,
+          "x": 638,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "N",
+          "value": 1,
+          "x": 728,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "N",
+          "value": 1,
+          "x": 818,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "S",
+          "value": 1,
+          "x": 908,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        },
+        {
+          "letter": "O",
+          "value": 1,
+          "x": 998,
+          "y": 960,
+          "width": 56,
+          "height": 56,
+          "enabled": true,
+          "inBoard": false
+        }
+      ],
+      "assistant": [
+        "- Daisy played ACRED (14 points) ",
+        "- You played OR (2 points) ",
+        "- Daisy played AA (2 points) "
+      ]
+    },
+    "controls": [
+      {
+        "kind": "EntityPlayBtn",
+        "x": 1168,
+        "y": 970,
+        "width": 237,
+        "height": 95,
+        "enabled": true
+      },
+      {
+        "kind": "EntityPlayGameBtn",
+        "x": 857,
+        "y": -170,
+        "width": 237,
+        "height": 95,
+        "enabled": true
+      }
+    ],
+    "visibleTexts": [
+      {
+        "text": "You",
+        "x": 1410,
+        "y": 100
+      },
+      {
+        "text": "Score",
+        "x": 1616,
+        "y": 78
+      },
+      {
+        "text": "2",
+        "x": 1660,
+        "y": 128
+      },
+      {
+        "text": "Daisy",
+        "x": 1410,
+        "y": 240
+      },
+      {
+        "text": "Score",
+        "x": 1616,
+        "y": 218
+      },
+      {
+        "text": "16",
+        "x": 1660,
+        "y": 268
+      },
+      {
+        "text": "Tiles Bag",
+        "x": 140,
+        "y": 746
+      },
+      {
+        "text": "77",
+        "x": 140,
+        "y": 680
+      }
+    ]
+  },
+  "checkpoints": 5,
+  "raw_inputs": 8,
+  "drag_subevents": 15,
+  "scope": "累计5检查点/8条实际导航或手势：1原v1首次加载因漏两张品牌图受阻，保留失败；2修复后v2启动原菜单（原28文件不变，仅增加2原图）；3有界原设置4次点击为Play、默认头像Select、教程选Play、关闭抽签窗；4一次拖手牌O至棋盘已有R左侧形成OR，568,846→490,458，15底层鼠标子事件；5普通Play提交。原抽签N对H、CPU Daisy先手，未改随机数。等待原CPU出ACRED14分，再按可见手牌/棋盘落O提交；人类2分，CPU正常出AA加2至16，回到人类可操作。未读取CPU暗牌，未调用判定/得分或写状态。仅一次合法人类落字与CPU前后两手，不是整局/全部词汇/全部系统验证。"
+}
