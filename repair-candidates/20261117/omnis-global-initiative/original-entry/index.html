@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script src="runtime-resource-map.js"></script><script src="runtime-resource-bindings.js"></script>
+	<script>(function () {
+var parent = window.parent;
+if (!parent || parent === window) return;
+function send(action, content) {
+try {
+parent.postMessage({ action: action, content: content }, '*');
+} catch (e) {}
+}
+send('pageStarted');
+var contentShown = false;
+var contentSent = false;
+var contentVia = null;
+var parsed = false;
+var loaded = false;
+function usesSdk() {
+return !!document.querySelector('script[src*="/sdk/v1/rosebud.js"]');
+}
+function sendContent() {
+if (contentShown && parsed && !contentSent && (loaded || !usesSdk())) {
+contentSent = true;
+send('firstContent', { via: contentVia });
+}
+}
+function markContent(via) {
+if (contentShown) return;
+contentShown = true;
+contentVia = via;
+sendContent();
+}
+function markInnerFrame() {
+try {
+var frames = document.getElementsByTagName('iframe');
+var pageArea = window.innerWidth * window.innerHeight;
+for (var i = 0; i < frames.length; i++) {
+var box = frames[i].getBoundingClientRect();
+if (pageArea > 0 && box.width * box.height >= pageArea * 0.3) {
+markContent('frame');
+return;
+}
+}
+} catch (e) {}
+}
+document.addEventListener('DOMContentLoaded', function () {
+parsed = true;
+markInnerFrame();
+sendContent();
+});
+var paintTiming = false;
+try {
+paintTiming = PerformanceObserver.supportedEntryTypes.indexOf('paint') >= 0;
+if (paintTiming) {
+new PerformanceObserver(function (list) {
+var entries = list.getEntries();
+for (var i = 0; i < entries.length; i++) {
+if (entries[i].name === 'first-contentful-paint') markContent('paint');
+}
+}).observe({ type: 'paint', buffered: true });
+}
+} catch (e) {
+paintTiming = false;
+}
+var wrapped = [];
+function restoreDraws() {
+for (var i = 0; i < wrapped.length; i++) wrapped[i][0][wrapped[i][1]] = wrapped[i][2];
+wrapped = [];
+}
+var canvasDraws = [
+[window.WebGLRenderingContext, ['drawArrays', 'drawElements']],
+[window.WebGL2RenderingContext, ['drawArrays', 'drawElements', 'drawArraysInstanced', 'drawElementsInstanced', 'drawRangeElements']],
+[window.CanvasRenderingContext2D, ['drawImage', 'fillText', 'strokeText', 'putImageData', 'stroke']]
+];
+for (var c = 0; c < canvasDraws.length; c++) {
+if (!canvasDraws[c][0] || !canvasDraws[c][0].prototype) continue;
+for (var d = 0; d < canvasDraws[c][1].length; d++) {
+(function (proto, name) {
+var original = proto[name];
+if (typeof original !== 'function') return;
+wrapped.push([proto, name, original]);
+proto[name] = function () {
+try {
+if (this.canvas && this.canvas.isConnected && this.canvas.getClientRects().length > 0) {
+restoreDraws();
+markContent('canvas');
+}
+} catch (e) {}
+return original.apply(this, arguments);
+};
+})(canvasDraws[c][0].prototype, canvasDraws[c][1][d]);
+}
+}
+window.addEventListener(
+'load',
+function () {
+loaded = true;
+send('runtimeLoaded');
+if (!paintTiming) markContent('load');
+sendContent();
+},
+{ once: true }
+);
+var master = 1;
+var gains = [];
+var playing = [];
+var media = null;
+var gameVolumes = null;
+var applied = null;
+var routed = null;
+var getVolume = null;
+var setVolume = null;
+var volumeLocked = false;
+var gameMuted = null;
+var appliedMuted = null;
+var getMuted = null;
+var setMuted = null;
+var spare = null;
+var own = null;
+function setGain(gain, value) {
+try {
+gain.gain.value = value === undefined ? master : value;
+} catch (e) {}
+}
+function liveGains() {
+var live = [];
+for (var i = 0; i < gains.length; i++) {
+if (gains[i].context.state !== 'closed') live.push(gains[i]);
+}
+gains = live;
+return live;
+}
+function addMasterGain(context) {
+var output = context.destination;
+var gain = context.createGain();
+setGain(gain);
+gain.connect(output);
+var forwarded = ['maxChannelCount', 'channelCount', 'channelCountMode', 'channelInterpretation'];
+for (var i = 0; i < forwarded.length; i++) {
+(function (name) {
+Object.defineProperty(gain, name, {
+configurable: true,
+get: function () {
+return output[name];
+},
+set: function (value) {
+output[name] = value;
+}
+});
+})(forwarded[i]);
+}
+gain.disconnect = function () {};
+Object.defineProperty(context, 'destination', {
+configurable: true,
+get: function () {
+return gain;
+}
+});
+liveGains().push(gain);
+}
+function isRouted(element) {
+return !!routed && routed.has(element);
+}
+function gameVolume(element) {
+var volume = gameVolumes.get(element);
+if (volume === undefined) {
+volume = getVolume.call(element);
+gameVolumes.set(element, volume);
+}
+return volume;
+}
+function playedScale(element) {
+return isRouted(element) ? 1 : master;
+}
+function isGameMuted(element) {
+var muted = gameMuted.get(element);
+if (muted === undefined) {
+muted = getMuted.call(element);
+gameMuted.set(element, muted);
+}
+return muted;
+}
+function applyVolume(element) {
+if (volumeLocked) {
+var path = own && own.routes.get(element);
+if (path) setGain(path.gain, gameVolume(element));
+var waiting = !!own && own.waiting.has(element);
+setMuted.call(element, isGameMuted(element) || playedScale(element) === 0 || waiting);
+appliedMuted.set(element, getMuted.call(element));
+} else {
+setVolume.call(element, gameVolume(element) * playedScale(element));
+applied.set(element, getVolume.call(element));
+}
+listen(element);
+}
+function checkedVolume(value) {
+if (!spare) spare = document.createElement('audio');
+setVolume.call(spare, value);
+return getVolume.call(spare);
+}
+function markRouted(element) {
+try {
+routed.set(element, true);
+if (media) applyVolume(element);
+} catch (e) {}
+}
+function controlsChangedVolume(element) {
+if (volumeLocked) return controlsChangedMuted(element);
+var played = getVolume.call(element);
+var last = applied.get(element);
+if (last === undefined) {
+if (gameVolumes.has(element)) gameVolumes.set(element, played);
+return;
+}
+if (Math.abs(played - last) < 1e-6) return;
+var scale = playedScale(element);
+gameVolumes.set(element, scale > 0 ? Math.min(1, played / scale) : played);
+applyVolume(element);
+}
+function controlsChangedMuted(element) {
+var muted = getMuted.call(element);
+var last = appliedMuted.get(element);
+if (last === undefined) {
+if (gameMuted.has(element)) gameMuted.set(element, muted);
+return;
+}
+if (muted === last) return;
+gameMuted.set(element, muted);
+applyVolume(element);
+}
+function onPlay(event) {
+try {
+if (event.target instanceof window.HTMLMediaElement) track(event.target);
+} catch (e) {}
+}
+function onVolumeChange(event) {
+try {
+if (event.target instanceof window.HTMLMediaElement) controlsChangedVolume(event.target);
+} catch (e) {}
+}
+function listen(target) {
+if (!target || typeof target.addEventListener !== 'function') return;
+target.addEventListener('play', onPlay, true);
+target.addEventListener('volumechange', onVolumeChange, true);
+if (own) target.addEventListener('loadstart', onLoadStart, true);
+}
+function track(element) {
+applyVolume(element);
+var still = [element];
+for (var i = 0; i < playing.length; i++) {
+if (playing[i] !== element && !playing[i].paused) still.push(playing[i]);
+}
+playing = still;
+if (!own) return;
+if (own.routes.has(element)) {
+wakeOwnContext(false);
+plug(element);
+} else if (canRoute(element)) {
+wakeOwnContext(true);
+if (wantsRoute(element)) routeSoon(element);
+}
+}
+function prepareSource(element, url) {
+if (!(element instanceof window.HTMLAudioElement)) return;
+own.readable.delete(element);
+var target = new window.URL(String(url), document.baseURI);
+var local = target.origin === window.location.origin;
+if (element.crossOrigin === null || own.cors.has(element)) {
+own.setCrossOrigin.call(element, local ? 'anonymous' : null);
+if (local) own.cors.set(element, true);
+else own.cors.delete(element);
+}
+var inline = target.protocol === 'data:' || target.protocol === 'blob:';
+own.readable.set(element, inline || element.crossOrigin !== null);
+}
+function onLoadStart(event) {
+try {
+var element = event.target;
+var url = element instanceof window.HTMLAudioElement && element.currentSrc;
+if (!url) return;
+var protocol = new window.URL(url).protocol;
+own.readable.set(element, protocol === 'data:' || protocol === 'blob:' || element.crossOrigin !== null);
+if (!element.paused && wantsRoute(element)) routeSoon(element);
+} catch (e) {}
+}
+function canRoute(element) {
+return (
+element instanceof window.HTMLAudioElement &&
+!isRouted(element) &&
+!own.tried.has(element) &&
+own.readable.get(element) === true
+);
+}
+function wantsRoute(element) {
+return master < 1 && canRoute(element);
+}
+function wakeOwnContext(create) {
+try {
+if (!own.context) {
+if (!create) return;
+own.context = new own.Context();
+own.context.addEventListener('statechange', routeWaiting);
+}
+if (own.context.state === 'running') return;
+var resumed = own.context.resume();
+if (resumed && typeof resumed.then === 'function') resumed.then(routeWaiting, function () {});
+} catch (e) {}
+}
+function onTap() {
+wakeOwnContext(false);
+}
+function routeWaiting() {
+for (var i = 0; i < playing.length; i++) {
+if (!playing[i].paused && wantsRoute(playing[i])) routeSoon(playing[i]);
+}
+}
+function routeSoon(element) {
+if (!own.context || own.context.state !== 'running' || own.waiting.has(element)) return;
+own.waiting.set(element, true);
+applyVolume(element);
+if (!element.paused && element.readyState >= 3) {
+routeLater(element);
+} else {
+element.addEventListener('playing', onPlaying);
+}
+}
+function onPlaying(event) {
+var element = event.target;
+try {
+element.removeEventListener('playing', onPlaying);
+} catch (e) {}
+routeLater(element);
+}
+function routeLater(element) {
+setTimeout(function () {
+try {
+route(element);
+} catch (e) {}
+}, 0);
+}
+function route(element) {
+own.waiting.delete(element);
+var source = null;
+try {
+if (own.context && own.context.state === 'running' && !element.paused && wantsRoute(element)) {
+own.tried.set(element, true);
+source = own.context.createMediaElementSource(element);
+}
+} catch (e) {}
+if (!source) return applyVolume(element);
+try {
+var gain = own.context.createGain();
+setGain(gain, gameVolume(element));
+own.routes.set(element, { source: source, gain: gain, plugged: false });
+element.addEventListener('pause', unplug);
+element.addEventListener('emptied', unplug);
+plug(element);
+} catch (e) {}
+}
+function plug(element) {
+var path = own.routes.get(element);
+if (!path || path.plugged) return;
+path.source.connect(path.gain);
+path.gain.connect(own.context.destination);
+path.plugged = true;
+}
+function unplug(event) {
+try {
+var element = event.target;
+var path = own.routes.get(element);
+if (!path || !path.plugged || !element.paused) return;
+path.source.disconnect();
+path.gain.disconnect();
+path.plugged = false;
+} catch (e) {}
+}
+function watchSources() {
+var setAttribute = media.setAttribute;
+if (typeof setAttribute === 'function') {
+media.setAttribute = function (name) {
+try {
+var key = String(name).toLowerCase();
+if (key === 'src') {
+prepareSource(this, arguments[1]);
+listen(this);
+} else if (key === 'crossorigin') own.cors.delete(this);
+} catch (e) {}
+return setAttribute.apply(this, arguments);
+};
+}
+var cloneNode = media.cloneNode;
+if (typeof cloneNode === 'function') {
+media.cloneNode = function () {
+var copy = cloneNode.apply(this, arguments);
+try {
+if (own.cors.has(this)) own.cors.set(copy, true);
+if (own.readable.has(this)) own.readable.set(copy, own.readable.get(this));
+listen(copy);
+} catch (e) {}
+return copy;
+};
+}
+var crossOrigin = Object.getOwnPropertyDescriptor(media, 'crossOrigin');
+Object.defineProperty(media, 'crossOrigin', {
+configurable: true,
+enumerable: crossOrigin.enumerable,
+get: crossOrigin.get,
+set: function (value) {
+try {
+own.cors.delete(this);
+} catch (e) {}
+crossOrigin.set.call(this, value);
+}
+});
+}
+function wrapAudio() {
+var Native = window.Audio;
+if (typeof Native !== 'function' || !Native.prototype) return;
+function RosebudAudio(src) {
+if (!(this instanceof RosebudAudio)) return Native.apply(this, arguments);
+var element =
+typeof Reflect === 'object' && Reflect.construct
+? Reflect.construct(Native, [], this.constructor)
+: new Native();
+if (src !== undefined) element.src = src;
+return element;
+}
+RosebudAudio.prototype = Native.prototype;
+try {
+if (Object.setPrototypeOf) Object.setPrototypeOf(RosebudAudio, Native);
+} catch (e) {}
+window.Audio = RosebudAudio;
+}
+var contextWrappers = [];
+function wrapAudioContext(name) {
+var Native = window[name];
+if (typeof Native !== 'function' || !Native.prototype) return;
+for (var i = 0; i < contextWrappers.length; i++) {
+if (contextWrappers[i][0] === Native) {
+window[name] = contextWrappers[i][1];
+return;
+}
+}
+function RosebudAudioContext() {
+if (!(this instanceof RosebudAudioContext)) return Native.apply(this, arguments);
+var context =
+typeof Reflect === 'object' && Reflect.construct
+? Reflect.construct(Native, arguments, this.constructor)
+: arguments.length
+? new Native(arguments[0])
+: new Native();
+try {
+addMasterGain(context);
+} catch (e) {}
+return context;
+}
+RosebudAudioContext.prototype = Native.prototype;
+try {
+if (Object.setPrototypeOf) Object.setPrototypeOf(RosebudAudioContext, Native);
+} catch (e) {}
+var createSource = Native.prototype.createMediaElementSource;
+if (typeof createSource === 'function' && routed) {
+Native.prototype.createMediaElementSource = function (element) {
+var node = createSource.apply(this, arguments);
+markRouted(element);
+return node;
+};
+}
+contextWrappers.push([Native, RosebudAudioContext]);
+window[name] = RosebudAudioContext;
+}
+function wrapMediaSourceNode() {
+var Native = window.MediaElementAudioSourceNode;
+if (typeof Native !== 'function' || !Native.prototype || !routed) return;
+function RosebudMediaElementAudioSourceNode(context, options) {
+if (!(this instanceof RosebudMediaElementAudioSourceNode)) return Native.apply(this, arguments);
+var node =
+typeof Reflect === 'object' && Reflect.construct
+? Reflect.construct(Native, arguments, this.constructor)
+: new Native(context, options);
+if (options) markRouted(options.mediaElement);
+return node;
+}
+RosebudMediaElementAudioSourceNode.prototype = Native.prototype;
+try {
+if (Object.setPrototypeOf) Object.setPrototypeOf(RosebudMediaElementAudioSourceNode, Native);
+} catch (e) {}
+window.MediaElementAudioSourceNode = RosebudMediaElementAudioSourceNode;
+}
+function applyMaster() {
+var live = liveGains();
+for (var i = 0; i < live.length; i++) setGain(live[i]);
+var still = [];
+for (var j = 0; j < playing.length; j++) {
+if (playing[j].paused) continue;
+still.push(playing[j]);
+try {
+applyVolume(playing[j]);
+} catch (e) {}
+}
+playing = still;
+if (own) routeWaiting();
+}
+try {
+if (typeof WeakMap === 'function') {
+gameVolumes = new WeakMap();
+applied = new WeakMap();
+routed = new WeakMap();
+gameMuted = new WeakMap();
+appliedMuted = new WeakMap();
+}
+wrapAudioContext('AudioContext');
+wrapAudioContext('webkitAudioContext');
+wrapMediaSourceNode();
+var mediaProto = window.HTMLMediaElement && window.HTMLMediaElement.prototype;
+var volumeDescriptor = mediaProto && Object.getOwnPropertyDescriptor(mediaProto, 'volume');
+if (gameVolumes && volumeDescriptor && volumeDescriptor.get && volumeDescriptor.set && volumeDescriptor.configurable) {
+media = mediaProto;
+getVolume = volumeDescriptor.get;
+setVolume = volumeDescriptor.set;
+var userAgent = (window.navigator && window.navigator.userAgent) || '';
+var mutedDescriptor = Object.getOwnPropertyDescriptor(media, 'muted');
+if (
+/\b(iPhone|iPod)\b/.test(userAgent) &&
+mutedDescriptor &&
+mutedDescriptor.get &&
+mutedDescriptor.set &&
+mutedDescriptor.configurable
+) {
+volumeLocked = true;
+getMuted = mutedDescriptor.get;
+setMuted = mutedDescriptor.set;
+Object.defineProperty(media, 'muted', {
+configurable: true,
+enumerable: mutedDescriptor.enumerable,
+get: function () {
+return isGameMuted(this);
+},
+set: function (value) {
+try {
+gameMuted.set(this, !!value);
+applyVolume(this);
+} catch (e) {
+setMuted.call(this, value);
+}
+}
+});
+var Context = window.AudioContext || window.webkitAudioContext;
+var crossOriginDescriptor = Object.getOwnPropertyDescriptor(media, 'crossOrigin');
+if (
+Context &&
+window.HTMLAudioElement &&
+window.URL &&
+window.location &&
+crossOriginDescriptor &&
+crossOriginDescriptor.set &&
+crossOriginDescriptor.configurable
+) {
+own = {
+Context: Context,
+context: null,
+setCrossOrigin: crossOriginDescriptor.set,
+cors: new WeakMap(),
+readable: new WeakMap(),
+waiting: new WeakMap(),
+tried: new WeakMap(),
+routes: new WeakMap()
+};
+watchSources();
+wrapAudio();
+var taps = ['touchend', 'click', 'keydown'];
+for (var t = 0; t < taps.length; t++) window.addEventListener(taps[t], onTap, true);
+}
+}
+Object.defineProperty(media, 'volume', {
+configurable: true,
+enumerable: volumeDescriptor.enumerable,
+get: function () {
+return gameVolume(this);
+},
+set: function (value) {
+var volume;
+try {
+volume = checkedVolume(value);
+} catch (error) {
+if (spare) throw error;
+setVolume.call(this, value);
+volume = getVolume.call(this);
+}
+try {
+gameVolumes.set(this, volume);
+applyVolume(this);
+} catch (e) {}
+}
+});
+var play = media.play;
+if (typeof play === 'function') {
+media.play = function () {
+try {
+track(this);
+} catch (e) {}
+return play.apply(this, arguments);
+};
+}
+listen(document);
+var sources = ['src', 'srcObject', 'autoplay'];
+for (var i = 0; i < sources.length; i++) {
+(function (name) {
+var descriptor = Object.getOwnPropertyDescriptor(media, name);
+if (!descriptor || !descriptor.set || !descriptor.configurable) return;
+Object.defineProperty(media, name, {
+configurable: true,
+enumerable: descriptor.enumerable,
+get: descriptor.get,
+set: function (value) {
+if (own) {
+try {
+if (name === 'src') prepareSource(this, value);
+if (name === 'srcObject') own.readable.delete(this);
+} catch (e) {}
+}
+descriptor.set.call(this, value);
+try {
+listen(this);
+} catch (e) {}
+}
+});
+})(sources[i]);
+}
+var elementProto = window.Element && window.Element.prototype;
+var attachShadow = elementProto && elementProto.attachShadow;
+if (typeof attachShadow === 'function') {
+elementProto.attachShadow = function () {
+var root = attachShadow.apply(this, arguments);
+try {
+listen(root);
+} catch (e) {}
+return root;
+};
+}
+}
+window.addEventListener('message', function (event) {
+try {
+var data = event.data;
+if (event.source !== parent || !data || data.action !== 'setVolume' || !data.content) return;
+var volume = data.content.volume;
+if (typeof volume !== 'number' || volume !== volume) return;
+master = Math.min(1, Math.max(0, volume));
+applyMaster();
+} catch (e) {}
+});
+} catch (e) {}
+})();</script>
+	<script src="./_remote/9c2ab15c10d0faf5/ScriptsLoader-Universal.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OMNIS Global Initiative</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="./_remote/3a125e88c76c9347/css2" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+    <script type="importmap">{"imports":{"phaser":"./_remote/b8c86383a79f25ec/phaser@3.70.0.js","tone":"./_remote/e761a2424dc7fdba/tone@14.7.77.js","@instantdb/core":"./_remote/991cfe224ed797e6/core@0.17.12.js","https://storage.googleapis.com/rosebud_staticfiles/ScriptsLoader-Universal.js?v=c26350c252c2":"./_remote/9c2ab15c10d0faf5/ScriptsLoader-Universal.js","https://playground-gateway-v2-snduoq54tq-uc.a.run.app/api/server/cb620fce-f674-4051-ba75-0d083c255526/main.js":"./main.js","https://storage.googleapis.com/rosebud_staticfiles/ChatManager.js":"./_remote/deb467d4198f1f06/ChatManager.js","https://storage.googleapis.com/rosebud_staticfiles/ImageGenerator.js":"./_remote/54d51111a998fc39/ImageGenerator.js","https://storage.googleapis.com/rosebud_staticfiles/ProgressLogger.js":"./_remote/e57730bf0f3c819c/ProgressLogger.js","https://storage.googleapis.com/rosebud_staticfiles/OGP.js":"./_remote/da8426dfa60b6b27/OGP.js","https://esm.sh/phaser@3.70.0":"./_remote/b8c86383a79f25ec/phaser@3.70.0.js","https://esm.sh/@instantdb/core@0.17.12":"./_remote/991cfe224ed797e6/core@0.17.12.js","https://playground-gateway-v2-snduoq54tq-uc.a.run.app/api/server/cb620fce-f674-4051-ba75-0d083c255526/GameGraph.js":"./GameGraph.js","https://playground-gateway-v2-snduoq54tq-uc.a.run.app/api/server/cb620fce-f674-4051-ba75-0d083c255526/cardRenderer.js":"./cardRenderer.js","https://playground-gateway-v2-snduoq54tq-uc.a.run.app/api/server/cb620fce-f674-4051-ba75-0d083c255526/portUtils.js":"./portUtils.js","https://playground-gateway-v2-snduoq54tq-uc.a.run.app/api/server/cb620fce-f674-4051-ba75-0d083c255526/gameLogic.js":"./gameLogic.js","https://playground-gateway-v2-snduoq54tq-uc.a.run.app/api/server/cb620fce-f674-4051-ba75-0d083c255526/sfx.js":"./sfx.js","https://playground-gateway-v2-snduoq54tq-uc.a.run.app/api/server/cb620fce-f674-4051-ba75-0d083c255526/tutorial.js":"./tutorial.js","https://playground-gateway-v2-snduoq54tq-uc.a.run.app/api/server/cb620fce-f674-4051-ba75-0d083c255526/cardFlavours.js":"./cardFlavours.js","https://playground-gateway-v2-snduoq54tq-uc.a.run.app/api/server/cb620fce-f674-4051-ba75-0d083c255526/instant_db_config.js":"./instant_db_config.js","https://esm.sh/node/process.mjs":"./_remote/9d3493270fc89c07/process.mjs.js","https://esm.sh/phaser@3.70.0/es2022/phaser.mjs":"./_remote/0e08c3fa6080f249/phaser.mjs.js","https://esm.sh/mutative@%5E1.0.10?target=es2022":"./_remote/20d94ecf938a9258/mutative@^1.0.10.js","https://esm.sh/uuid@%5E9.0.0?target=es2022":"./_remote/052767a4a2207cf8/uuid@^9.0.0.js","https://esm.sh/@instantdb/core@0.17.12/es2022/core.mjs":"./_remote/589b6c41c3c9d3ab/core.mjs.js","https://esm.sh/tone@14.7.77":"./_remote/e761a2424dc7fdba/tone@14.7.77.js","https://esm.sh/node/events.mjs":"./_remote/4482af8fc17462a7/events.mjs.js","https://esm.sh/node/tty.mjs":"./_remote/54186365b6107d9b/tty.mjs.js","https://esm.sh/mutative@1.3.0/es2022/mutative.mjs":"./_remote/89e00f7b30149ee8/mutative.mjs.js","https://esm.sh/uuid@9.0.1/es2022/uuid.mjs":"./_remote/a2f138853a64835d/uuid.mjs.js","https://esm.sh/standardized-audio-context@%5E25.1.8?target=es2022":"./_remote/872a41badadd3d91/standardized-audio-context@^25.1.8.js","https://esm.sh/tslib@%5E2.0.1?target=es2022":"./_remote/5eb4b38a68f19ca1/tslib@^2.0.1.js","https://esm.sh/tone@14.7.77/es2022/tone.mjs":"./_remote/1a1a832daa0b9f06/tone.mjs.js","https://esm.sh/node/async_hooks.mjs":"./_remote/5a6b2a422712fc8f/async_hooks.mjs.js","https://esm.sh/automation-events@%5E7.0.9?target=es2022":"./_remote/8e28f97bf941fa53/automation-events@^7.0.9.js","https://esm.sh/standardized-audio-context@25.3.77/es2022/standardized-audio-context.mjs":"./_remote/1efad4ce8d720b28/standardized-audio-context.mjs.js","https://esm.sh/tslib@2.8.1/es2022/tslib.mjs":"./_remote/8110024141253489/tslib.mjs.js","https://esm.sh/automation-events@7.1.19/es2022/automation-events.mjs":"./_remote/d5b391c706674034/automation-events.mjs.js"}}</script>
+  </head>
+  <body>
+    <div id="app">
+        <!-- Main Title / Mode Selection Screen -->
+        <div id="mode-modal" class="modal-overlay title-screen" style="display: flex;">
+            <!-- Animated background layers -->
+            <div class="title-bg-layer" style="background: url('assets/2063bd94-1ad3-4c79-9f45-19eb71fbed47-3.png') no-repeat center center; background-size: cover;"></div>
+            <div class="title-bg-vignette"></div>
+            <div class="title-scanlines"></div>
+
+            <div class="title-content">
+                <!-- Branding -->
+                <div class="title-header">
+                    <div class="title-eyebrow">⟐ CLASSIFIED // CLEARANCE LEVEL: CHAIRMAN ⟐</div>
+                    <h1 class="title-logo">
+                        <span class="title-logo-icon">👁</span>
+                        <span class="title-logo-text">OMNIS</span>
+                    </h1>
+                    <div class="title-subtitle">GLOBAL INITIATIVE</div>
+                    <div class="title-tagline">The truth is optional. <span class="title-tagline-accent">Control isn't.</span></div>
+                </div>
+
+                <!-- Directive Buttons -->
+                <div class="title-directives">
+                    <button class="title-btn title-btn--primary" id="btn-mode-tutorial">
+                        <div class="title-btn-badge">RECOMMENDED</div>
+                        <div class="title-btn-icon">🎓</div>
+                        <div class="title-btn-body">
+                            <div class="title-btn-label">TRAINING PROTOCOL</div>
+                            <div class="title-btn-desc">Guided onboarding — learn to build power networks, wage bidding wars, and topple rival factions.</div>
+                        </div>
+                    </button>
+
+                    <button class="title-btn title-btn--standard" id="btn-mode-local">
+                        <div class="title-btn-icon">⚔️</div>
+                        <div class="title-btn-body">
+                            <div class="title-btn-label">AI SIMULATION</div>
+                            <div class="title-btn-desc">Full game against AI-controlled factions. Choose your allegiance, compete for dominance.</div>
+                        </div>
+                    </button>
+
+                    <button class="title-btn title-btn--network" id="btn-mode-multi">
+                        <div class="title-btn-icon">🌐</div>
+                        <div class="title-btn-body">
+                            <div class="title-btn-label">SECURE NETWORK HUB</div>
+                            <div class="title-btn-desc">Multiplayer — connect to a room and vie for control against human operatives.</div>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="title-footer">
+                    <span class="title-footer-pulse"></span>
+                    <span>SYSTEM ONLINE — AWAITING DIRECTIVE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Multiplayer Lobby Modal -->
+        <div id="lobby-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 760px; width: 95%; max-height: 92vh; overflow-y: auto; border-color: var(--accent-purple); box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);">
+                <h2 style="font-family: var(--font-mono); color: var(--accent-purple); margin-bottom: 20px; text-align: center; font-size: 24px;">NETWORK LOBBY</h2>
+
+                <!-- Step 1: Join a room -->
+                <div id="lobby-join-section" style="margin-bottom: 20px;">
+                    <label style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: block; margin-bottom: 5px;">CREATE OR JOIN ROOM</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="lobby-room-input" class="transfer-input" placeholder="Room ID (e.g. shadow-net-1)" value="global-1" style="flex: 1;">
+                        <button id="btn-join-room" class="action-btn" style="margin: 0; padding: 0 20px; border-color: var(--accent-purple); color: var(--accent-purple);">JOIN</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Setup (revealed once joined) -->
+                <div id="lobby-setup-section" style="display: none;">
+                    <!-- Your operative -->
+                    <div style="background: rgba(168,85,247,0.05); border: 1px solid rgba(168,85,247,0.3); border-radius: 6px; padding: 15px; margin-bottom: 15px;">
+                        <h3 style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-purple); margin: 0 0 12px 0; letter-spacing: 1px;">▸ YOUR OPERATIVE</h3>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 200px;">
+                                <label style="font-family: var(--font-mono); font-size: 11px; color: #a0aec0; display: block; margin-bottom: 4px;">CODENAME</label>
+                                <input type="text" id="lobby-my-name" class="transfer-input" maxlength="20" placeholder="Operative-XXXX" style="width: 100%;">
+                            </div>
+                            <div style="flex: 1; min-width: 200px;">
+                                <label style="font-family: var(--font-mono); font-size: 11px; color: #a0aec0; display: block; margin-bottom: 4px;">FACTION</label>
+                                <select id="lobby-my-faction" class="transfer-input" style="width: 100%;">
+                                    <option value="">-- Select Faction --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-top: 12px; align-items: center;">
+                            <button id="lobby-ready-btn" class="action-btn" style="flex: 1; margin: 0; padding: 10px; border-color: var(--accent-green); color: var(--accent-green);">⬜ MARK READY</button>
+                            <div id="lobby-my-faction-preview" style="flex: 1; font-family: var(--font-mono); font-size: 11px; color: #718096; padding: 8px 10px; background: rgba(0,0,0,0.4); border: 1px dashed rgba(255,255,255,0.1); border-radius: 4px; min-height: 32px; box-sizing: border-box;">No faction selected.</div>
+                        </div>
+                    </div>
+
+                    <!-- Connected Operatives -->
+                    <div id="lobby-players-container" style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-color); border-radius: 6px; padding: 15px; margin-bottom: 15px;">
+                        <h3 style="font-family: var(--font-mono); font-size: 13px; color: var(--text-white); margin: 0 0 10px 0; letter-spacing: 1px;">▸ CONNECTED OPERATIVES (<span id="lobby-player-count">0</span>)</h3>
+                        <ul id="lobby-players-list" style="list-style: none; padding: 0; margin: 0; font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: flex; flex-direction: column; gap: 6px;">
+                            <!-- Players injected here -->
+                        </ul>
+                    </div>
+
+                    <!-- Lobby Chat -->
+                    <div id="lobby-chat-container" style="background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.3); border-radius: 6px; padding: 12px; margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <h3 style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-blue); margin: 0; letter-spacing: 1px;">▸ SECURE CHANNEL</h3>
+                            <span id="lobby-chat-status" style="font-family: var(--font-mono); font-size: 10px; color: #718096;">— offline —</span>
+                        </div>
+                        <div id="lobby-chat-log" style="height: 160px; overflow-y: auto; background: rgba(0,0,0,0.6); border: 1px solid #1a202c; border-radius: 4px; padding: 8px 10px; font-family: var(--font-mono); font-size: 11px; color: #cbd5e0; display: flex; flex-direction: column; gap: 4px; box-shadow: inset 0 0 10px rgba(0,0,0,0.6);">
+                            <div class="lobby-chat-empty" style="color: #4a5568; font-style: italic; text-align: center; padding: 10px;">Channel is quiet. Say hello to your fellow operatives.</div>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-top: 8px;">
+                            <input type="text" id="lobby-chat-input" class="transfer-input" maxlength="240" placeholder="Type a message…" style="flex: 1; font-size: 12px;">
+                            <button id="lobby-chat-send" class="action-btn" style="margin: 0; padding: 0 14px; border-color: var(--accent-blue); color: var(--accent-blue); font-size: 12px;">SEND</button>
+                        </div>
+                    </div>
+
+                    <!-- Host Settings -->
+                    <div id="lobby-host-settings" style="background: rgba(234,179,8,0.05); border: 1px solid rgba(234,179,8,0.3); border-radius: 6px; padding: 15px; margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <h3 style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-yellow); margin: 0; letter-spacing: 1px;">▸ OPERATION PARAMETERS <span id="lobby-host-tag" style="font-size: 10px; color: #718096; font-weight: normal;"></span></h3>
+                            <button id="btn-lobby-defaults" class="action-btn" style="margin: 0; padding: 4px 10px; font-size: 10px; border-color: var(--accent-green); color: var(--accent-green); background: rgba(72, 187, 120, 0.1);">DEFAULTS</button>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <label style="display: flex; align-items: center; gap: 8px; color: var(--text-white); font-family: var(--font-mono); font-size: 13px; cursor: pointer;">
+                                <input type="checkbox" id="lobby-win-faction" checked style="accent-color: var(--accent-yellow);">
+                                Faction-Specific Victories
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; color: var(--text-white); font-family: var(--font-mono); font-size: 13px; cursor: pointer;">
+                                <input type="checkbox" id="lobby-win-generic" checked style="accent-color: var(--accent-yellow);">
+                                Generic Victory (Control Groups)
+                            </label>
+                            <div id="lobby-generic-threshold-container" style="display: flex; align-items: center; gap: 15px; margin-left: 25px;">
+                                <span style="font-family: var(--font-mono); font-size: 11px; color: #a0aec0;">Threshold:</span>
+                                <input type="range" id="lobby-win-threshold" min="1" max="20" value="10" style="flex: 1; accent-color: var(--accent-yellow);">
+                                <span id="lobby-win-threshold-val" style="font-family: var(--font-mono); color: var(--accent-yellow); font-weight: bold; width: 30px; text-align: center;">10</span>
+                            </div>
+                        </div>
+                        <p id="lobby-host-readonly-note" style="display:none; font-family: var(--font-mono); font-size: 10px; color: #718096; margin: 10px 0 0 0; text-align: center; font-style: italic;">Only the host can change these settings.</p>
+                    </div>
+
+                    <button id="btn-start-multiplayer" class="action-btn" style="display: none; width: 100%; padding: 14px; font-size: 14px; border-color: var(--accent-green); color: var(--accent-green); background: rgba(34,197,94,0.1);" disabled>⏳ WAITING FOR ALL OPERATIVES TO BE READY...</button>
+                    <button id="btn-leave-lobby" class="action-btn" style="width: 100%; margin-top: 8px; padding: 8px; font-size: 11px; background: transparent; border-color: var(--accent-red); color: var(--accent-red);">LEAVE LOBBY</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Setup Modal -->
+        <div id="ai-setup-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 500px; border-color: var(--accent-blue); box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="font-family: var(--font-mono); color: var(--accent-blue); margin: 0; font-size: 24px;">AI SIMULATION SETUP</h2>
+                    <button id="btn-ai-setup-default" class="action-btn" style="padding: 5px 10px; font-size: 10px; border-color: var(--accent-green); color: var(--accent-green); background: rgba(72, 187, 120, 0.1);">DEFAULT RECOMMENDED</button>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: block; margin-bottom: 5px;">OPPONENT COUNT</label>
+                    <select id="ai-count" class="transfer-input" style="width: 100%;">
+                        <option value="1">1 Opponent</option>
+                        <option value="2">2 Opponents</option>
+                        <option value="3" selected>3 Opponents</option>
+                        <option value="4">4 Opponents</option>
+                        <option value="5">5 Opponents</option>
+                        <option value="6">6 Opponents</option>
+                        <option value="7">7 Opponents</option>
+                    </select>
+                </div>
+
+                <div id="ai-selection-container" style="margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px;">
+                    <!-- Opponent selects injected here -->
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: block; margin-bottom: 5px;">VICTORY CONDITIONS</label>
+                    <div style="display: flex; gap: 10px; flex-direction: column; background: rgba(0,0,0,0.3); padding: 10px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
+                        <label style="display: flex; align-items: center; gap: 8px; color: var(--text-white); font-family: var(--font-mono); font-size: 14px; cursor: pointer;">
+                            <input type="checkbox" id="win-con-faction" checked style="accent-color: var(--accent-blue);"> 
+                            Faction Specific
+                        </label>
+                        
+                        <div style="width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin: 5px 0;"></div>
+
+                        <label style="display: flex; align-items: center; gap: 8px; color: var(--text-white); font-family: var(--font-mono); font-size: 14px; cursor: pointer;">
+                            <input type="checkbox" id="win-con-generic" checked style="accent-color: var(--accent-blue);"> 
+                            Generic (Control Groups)
+                        </label>
+                        
+                        <div id="generic-win-threshold-container" style="display: flex; align-items: center; gap: 15px; margin-left: 25px; margin-top: 5px;">
+                            <input type="range" id="win-con-generic-threshold" min="1" max="20" value="10" style="flex: 1; accent-color: var(--accent-blue);">
+                            <span id="win-con-generic-val" style="font-family: var(--font-mono); color: var(--accent-yellow); font-weight: bold; width: 30px; text-align: center;">10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button id="btn-start-ai-sim" class="action-btn" style="flex: 1; border-color: var(--accent-blue); color: var(--accent-blue);">CONFIRM SETUP</button>
+                    <button id="btn-cancel-ai-sim" class="action-btn" style="flex: 1; background: transparent; border-color: var(--accent-red); color: var(--accent-red);">CANCEL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Faction Selection Modal -->
+        <div id="faction-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 1400px; width: 95%;">
+                <h2 style="font-family: var(--font-mono); color: var(--accent-green); margin-bottom: 30px; text-align: center; font-size: 28px; letter-spacing: 2px;">SELECT YOUR FACTION</h2>
+                <div id="faction-list" class="faction-list">
+                    <!-- Factions injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Victory Overlay (Mission Debrief) -->
+        <div id="victory-modal" class="modal-overlay title-screen" style="display: none;">
+            <!-- Animated background layers -->
+            <div class="title-bg-layer" style="background: url('assets/2063bd94-1ad3-4c79-9f45-19eb71fbed47-3.png') no-repeat center center; background-size: cover; filter: grayscale(80%) sepia(20%) hue-rotate(90deg) brightness(0.6);"></div>
+            <div class="title-bg-vignette"></div>
+            <div class="title-scanlines"></div>
+
+            <div class="title-content" style="max-width: 800px; width: 90%; text-align: center; border: none; background: transparent; padding: 0;">
+                <!-- Branding -->
+                <div class="title-header">
+                    <div class="title-eyebrow" style="color: var(--accent-green);">⟐ OPERATION TERMINATED // DEBRIEF PROTOCOL INITIATED ⟐</div>
+                    <h1 id="victory-title-h1" class="title-logo" style="font-size: 3rem; margin-top: 10px; color: var(--accent-green); text-shadow: 0 0 15px var(--accent-green); letter-spacing: 2px;">
+                        GLOBAL CONTROL ACHIEVED
+                    </h1>
+                </div>
+
+                <div style="background: rgba(0,20,0,0.7); border: 1px solid var(--accent-green); padding: 30px; border-radius: 8px; box-shadow: 0 0 30px rgba(34, 197, 94, 0.2); margin-bottom: 30px; position: relative; z-index: 10;">
+                    <h2 id="winner-name" style="color: var(--text-white); margin-bottom: 20px; font-family: var(--font-mono); font-size: 24px; text-align: center; text-transform: uppercase;"></h2>
+                    <p id="winner-desc" style="color: #a0aec0; margin-bottom: 30px; line-height: 1.6; font-size: 16px; text-align: center;"></p>
+                    
+                    <div id="victory-stats" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; border-top: 1px dashed rgba(34, 197, 94, 0.3); padding-top: 20px; text-align: left;">
+                        <!-- Stats injected dynamically -->
+                    </div>
+                </div>
+
+                <!-- Directive Buttons -->
+                <div id="victory-buttons" class="title-directives" style="max-width: 400px; margin: 0 auto; position: relative; z-index: 10;">
+                    <button class="title-btn title-btn--primary" id="btn-victory-default" onclick="window.location.reload()">
+                        <div class="title-btn-icon">🔌</div>
+                        <div class="title-btn-body">
+                            <div class="title-btn-label">RECONNECT TO SECURE NETWORK</div>
+                            <div class="title-btn-desc">End session and return to main interface.</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Move Group Modal -->
+        <div id="move-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 450px;">
+                <h3 style="font-family: var(--font-mono); color: var(--accent-blue); margin-bottom: 10px;">🔀 MOVE GROUP</h3>
+                <p id="move-source-info" style="font-family: var(--font-mono); font-size: 12px; color: #718096; margin-bottom: 15px;">Moving: —</p>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: block; margin-bottom: 5px;">NEW PARENT NODE</label>
+                    <select id="move-targets" class="transfer-input"></select>
+                </div>
+                <p id="move-warning" style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-yellow); margin-bottom: 15px; display: none;"></p>
+                <div style="display: flex; gap: 10px;">
+                    <button id="move-confirm" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; border-color: var(--accent-blue); background: rgba(59,130,246,0.15); color: var(--accent-blue);">CONFIRM MOVE</button>
+                    <button id="move-cancel" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; background: transparent; border-color: var(--accent-red); color: var(--accent-red);">CANCEL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transfer BTC Modal -->
+        <div id="transfer-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 400px;">
+                <h3 style="font-family: var(--font-mono); color: var(--accent-green); margin-bottom: 15px;">💱 TRANSFER ₿TC</h3>
+                <p id="transfer-max" style="font-family: var(--font-mono); font-size: 12px; color: #718096; margin-bottom: 15px;">Available: ₿0</p>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: block; margin-bottom: 5px;">AMOUNT</label>
+                    <input id="transfer-amount" type="number" min="1" step="1" value="1" class="transfer-input">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: block; margin-bottom: 5px;">DESTINATION</label>
+                    <select id="transfer-targets" class="transfer-input"></select>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button id="transfer-confirm" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0;">CONFIRM</button>
+                    <button id="transfer-cancel" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; background: transparent; border-color: var(--accent-red); color: var(--accent-red);">CANCEL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Card Target Modal -->
+        <div id="action-card-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 480px; border-color: var(--accent-yellow); box-shadow: 0 0 20px rgba(234,179,8,0.3);">
+                <h3 id="action-card-title" style="font-family: var(--font-mono); color: var(--accent-yellow); margin-bottom: 5px;">⚡ ACTION CARD</h3>
+                <p id="action-card-desc" style="font-family: var(--font-mono); font-size: 11px; color: #718096; margin-bottom: 15px;">Description goes here.</p>
+                <div id="action-card-target-container" style="margin-bottom: 15px;">
+                    <label style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: block; margin-bottom: 5px;">TARGET</label>
+                    <select id="action-card-targets" class="transfer-input"></select>
+                </div>
+                <div id="action-card-second-target-container" style="margin-bottom: 15px; display: none;">
+                    <label style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: block; margin-bottom: 5px;">SECOND TARGET (connected to first)</label>
+                    <select id="action-card-second-targets" class="transfer-input"></select>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button id="action-card-confirm" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; border-color: var(--accent-yellow); background: rgba(234,179,8,0.15); color: var(--accent-yellow);">⚡ PLAY</button>
+                    <button id="action-card-cancel" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; background: transparent; border-color: var(--accent-red); color: var(--accent-red);">CANCEL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deck Peek / Reorder Modal -->
+        <div id="deck-peek-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 560px; border-color: var(--accent-yellow); box-shadow: 0 0 20px rgba(234,179,8,0.3);">
+                <h3 style="font-family: var(--font-mono); color: var(--accent-yellow); margin-bottom: 5px;">🃏 DECK-RIGGING</h3>
+                <p style="font-family: var(--font-mono); font-size: 11px; color: #718096; margin-bottom: 15px;">Drag cards to reorder. Top card will be drawn first.</p>
+                <div id="deck-peek-cards" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px; min-height: 120px;"></div>
+                <div style="display: flex; gap: 10px;">
+                    <button id="deck-peek-confirm" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; border-color: var(--accent-yellow); background: rgba(234,179,8,0.15); color: var(--accent-yellow);">CONFIRM ORDER</button>
+                    <button id="deck-peek-cancel" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; background: transparent; border-color: var(--accent-red); color: var(--accent-red);">CANCEL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generic Group Ability Modal -->
+        <div id="group-ability-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 450px;">
+                <h3 id="group-ability-title" style="font-family: var(--font-mono); color: var(--accent-purple); margin-bottom: 5px;">📢 ABILITY</h3>
+                <p id="group-ability-desc" style="font-family: var(--font-mono); font-size: 11px; color: #718096; margin-bottom: 15px;">Description goes here.</p>
+                <div id="group-ability-target-container" style="margin-bottom: 15px;">
+                    <label style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: block; margin-bottom: 5px;">TARGET GROUP</label>
+                    <select id="group-ability-targets" class="transfer-input"></select>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button id="group-ability-confirm" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; border-color: var(--accent-purple); background: rgba(168,85,247,0.15); color: var(--accent-purple);">USE ABILITY</button>
+                    <button id="group-ability-cancel" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; background: transparent; border-color: var(--accent-red); color: var(--accent-red);">CANCEL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Faction Active Ability Modal -->
+        <div id="faction-active-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 450px;">
+                <h3 id="fa-modal-title" style="font-family: var(--font-mono); color: var(--accent-purple); margin-bottom: 5px;">📢 ACTIVE ABILITY</h3>
+                <p id="fa-modal-desc" style="font-family: var(--font-mono); font-size: 11px; color: #718096; margin-bottom: 15px;">Ability description.</p>
+                <div id="fa-modal-body" style="margin-bottom: 15px;">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button id="fa-modal-confirm" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; border-color: var(--accent-purple); background: rgba(168,85,247,0.15); color: var(--accent-purple);">EXECUTE</button>
+                    <button id="fa-modal-cancel" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; background: transparent; border-color: var(--accent-red); color: var(--accent-red);">CANCEL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fluid Tokenomics Modal (Crypto Cult) -->
+        <div id="tokenomics-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 450px;">
+                <h3 style="font-family: var(--font-mono); color: var(--accent-purple); margin-bottom: 5px;">⛓️ FLUID TOKENOMICS NETWORK</h3>
+                <p style="font-family: var(--font-mono); font-size: 11px; color: #718096; margin-bottom: 15px;">Move ALL ₿TC from one group to another. Ignores adjacency rules.</p>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: block; margin-bottom: 5px;">SOURCE (move ₿TC from)</label>
+                    <select id="tokenomics-source" class="transfer-input"></select>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: block; margin-bottom: 5px;">DESTINATION (move ₿TC to)</label>
+                    <select id="tokenomics-dest" class="transfer-input"></select>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button id="tokenomics-confirm" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; border-color: var(--accent-purple); background: rgba(168,85,247,0.15); color: var(--accent-purple);">TRANSFER TOKENS</button>
+                    <button id="tokenomics-cancel" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; background: transparent; border-color: var(--accent-red); color: var(--accent-red);">CANCEL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Permanent Network Modal (Underground) -->
+        <div id="permanent-network-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 500px;">
+                <h3 style="font-family: var(--font-mono); color: var(--accent-purple); margin-bottom: 5px;">🕴️ PERMANENT NETWORK</h3>
+                <p style="font-family: var(--font-mono); font-size: 11px; color: #718096; margin-bottom: 15px;">Execute one shadow operation. Choose your approach.</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                    <button id="pn-btn-undermine" class="action-btn" style="padding: 15px; border-color: var(--accent-red); background: rgba(239,68,68,0.1); color: var(--accent-red); text-align: left; display: flex; flex-direction: column; gap: 5px;">
+                        <span style="font-weight: bold; font-size: 14px;">🗡️ UNDERMINE</span>
+                        <span style="font-size: 11px; color: rgba(239,68,68,0.8); font-family: var(--font-mono); text-transform: none;">Target enemy gets -1 R.</span>
+                    </button>
+                    <button id="pn-btn-extract" class="action-btn" style="padding: 15px; border-color: var(--accent-green); background: rgba(34,197,94,0.1); color: var(--accent-green); text-align: left; display: flex; flex-direction: column; gap: 5px;">
+                        <span style="font-weight: bold; font-size: 14px;">💰 EXTRACT</span>
+                        <span style="font-size: 11px; color: rgba(34,197,94,0.8); font-family: var(--font-mono); text-transform: none;">Instantly gain ₿2 in Vault.</span>
+                    </button>
+                    <button id="pn-btn-erase" class="action-btn" style="padding: 15px; border-color: var(--accent-purple); background: rgba(168,85,247,0.1); color: var(--accent-purple); text-align: left; display: flex; flex-direction: column; gap: 5px;">
+                        <span style="font-weight: bold; font-size: 14px;">🗂️ ERASE</span>
+                        <span style="font-size: 11px; color: rgba(168,85,247,0.8); font-family: var(--font-mono); text-transform: none;">Draw 1 card from deck.</span>
+                    </button>
+                    <button id="pn-btn-entrench" class="action-btn" style="padding: 15px; border-color: #3b82f6; background: rgba(59,130,246,0.1); color: #3b82f6; text-align: left; display: flex; flex-direction: column; gap: 5px;">
+                        <span style="font-weight: bold; font-size: 14px;">🛡️ ENTRENCH</span>
+                        <span style="font-size: 11px; color: rgba(59,130,246,0.8); font-family: var(--font-mono); text-transform: none;">Target ally gets +1 R.</span>
+                    </button>
+                </div>
+
+                <div id="pn-target-section" style="display: none; margin-bottom: 15px;">
+                    <label id="pn-target-label" style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; display: block; margin-bottom: 5px;">SELECT TARGET</label>
+                    <select id="pn-target-select" class="transfer-input"></select>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button id="pn-confirm" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; border-color: var(--accent-purple); background: rgba(168,85,247,0.15); color: var(--accent-purple); display: none;">EXECUTE OPERATION</button>
+                    <button id="pn-cancel" class="action-btn" style="flex:1; padding: 10px; margin-bottom:0; background: transparent; border-color: var(--accent-red); color: var(--accent-red);">CANCEL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Victory Tracker Modal -->
+        <div id="victory-tracker-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 900px; width: 90%; max-height: 85vh; display: flex; flex-direction: column;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="font-family: var(--font-mono); color: var(--accent-yellow); margin: 0; font-size: 24px;">🏆 GLOBAL VICTORY PROGRESS</h2>
+                    <button id="victory-tracker-close" style="background: transparent; border: none; color: var(--accent-red); font-size: 20px; cursor: pointer;">✕</button>
+                </div>
+                <div id="victory-players-container" style="display: flex; flex-direction: column; gap: 15px; overflow-y: auto; padding-right: 10px;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Victory Intel Modal -->
+        <div id="victory-intel-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 600px; border-color: var(--accent-yellow); box-shadow: 0 0 30px rgba(234, 179, 8, 0.2);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <img id="v-intel-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" style="width: 60px; height: 60px; object-fit: contain;">
+                        <div>
+                            <h2 id="v-intel-name" style="font-family: var(--font-mono); color: var(--accent-yellow); margin: 0; font-size: 24px;"></h2>
+                            <div id="v-intel-aligns" style="font-family: var(--font-mono); font-size: 11px; color: #a0aec0;"></div>
+                        </div>
+                    </div>
+                    <button id="v-intel-close" style="background: transparent; border: none; color: var(--accent-red); font-size: 20px; cursor: pointer;">✕</button>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <div style="font-family: var(--font-mono); font-size: 12px; color: #718096; margin-bottom: 8px;">CORE DIRECTIVE</div>
+                    <p id="v-intel-desc" style="font-size: 14px; color: #cbd5e0; font-style: italic; line-height: 1.5;"></p>
+                </div>
+                
+                <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                    <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-yellow); margin-bottom: 12px; letter-spacing: 1px;">🏆 VICTORY CONDITION</div>
+                    <div id="v-intel-win-desc" style="font-size: 15px; color: var(--text-white); font-weight: bold; margin-bottom: 15px; line-height: 1.4;"></div>
+                    <div id="v-intel-progress-bar" style="height: 12px; background: rgba(255,255,255,0.05); border-radius: 6px; overflow: hidden; margin-bottom: 8px;">
+                        <div id="v-intel-progress-fill" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent-yellow), #fcd34d); transition: width 0.5s ease-out;"></div>
+                    </div>
+                    <div id="v-intel-progress-text" style="font-family: var(--font-mono); font-size: 12px; color: #a0aec0; text-align: right;">0% Complete</div>
+                </div>
+                
+                <div id="v-intel-ability-box" style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 8px; padding: 15px;">
+                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-purple); margin-bottom: 6px; letter-spacing: 1px;">⭐ SPECIAL ABILITY</div>
+                    <div id="v-intel-ability-name" style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-purple); font-weight: bold; margin-bottom: 4px;"></div>
+                    <div id="v-intel-ability-desc" style="font-size: 12px; color: #a0aec0; line-height: 1.4;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assets Encyclopedia Modal -->
+        <div id="assets-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 900px; width: 90%; max-height: 85vh; display: flex; flex-direction: column;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="font-family: var(--font-mono); color: var(--accent-blue); margin: 0; font-size: 24px;">💼 ASSET ENCYCLOPEDIA</h2>
+                    <button id="assets-close" style="background: transparent; border: none; color: var(--accent-red); font-size: 20px; cursor: pointer;">✕</button>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="assets-search" class="transfer-input" placeholder="Search assets..." style="flex: 1;">
+                    <select id="assets-filter" class="transfer-input" style="flex: 0 0 150px;">
+                        <option value="all">All Types</option>
+                        <option value="faction">Factions</option>
+                        <option value="group">Groups</option>
+                        <option value="action">Actions</option>
+                        <option value="event">Events</option>
+                    </select>
+                </div>
+                
+                <div id="assets-list" style="overflow-y: auto; flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 15px; padding-right: 10px;">
+                    <!-- Assets injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Intel History Modal -->
+        <div id="history-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 800px; width: 90%; max-height: 85vh; display: flex; flex-direction: column; border-color: var(--accent-yellow);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="font-family: var(--font-mono); color: var(--accent-yellow); margin: 0; font-size: 24px;">📜 SESSION INTEL HISTORY</h2>
+                    <button id="history-close" style="background: transparent; border: none; color: var(--accent-red); font-size: 20px; cursor: pointer;">✕</button>
+                </div>
+                
+                <div id="history-list" style="overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 8px; padding-right: 10px; font-family: var(--font-mono); font-size: 13px;">
+                    <!-- History log entries injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Alignment Reference Modal -->
+        <div id="alignment-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content" style="max-width: 900px; width: 95%; max-height: 85vh; display: flex; flex-direction: column; border-color: var(--accent-blue);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="font-family: var(--font-mono); color: var(--accent-blue); margin: 0; font-size: 24px;">🔍 ALIGNMENT STRATEGY GUIDE</h2>
+                    <button id="alignment-close" style="background: transparent; border: none; color: var(--accent-red); font-size: 20px; cursor: pointer;">✕</button>
+                </div>
+                
+                <div style="background: rgba(34,197,94,0.05); border: 1px solid rgba(34,197,94,0.3); border-radius: 6px; padding: 15px; margin-bottom: 20px; font-size: 13px; line-height: 1.5; color: #cbd5e0;">
+                    <p style="margin: 0;">Alignments determine tactical bonuses and penalties during capture attempts. Only the <b>attacking</b> group's alignments are compared against the target.</p>
+                    <div style="display: flex; gap: 20px; margin-top: 10px; font-family: var(--font-mono); font-size: 11px;">
+                        <span style="color: var(--accent-green);">MATCHING: +4 Bonus</span>
+                        <span style="color: var(--accent-yellow);">TENSION: -2 Penalty</span>
+                        <span style="color: var(--accent-red);">OPPOSED: -4 Penalty</span>
+                    </div>
+                </div>
+                
+                <div id="alignment-grid" style="overflow-y: auto; flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; padding-right: 10px;">
+                    <!-- Alignments injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Sidebar Toggle -->
+        <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle Menu">☰</button>
+        <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon">👁️</div>
+                <div class="logo-text">
+                    <h1>OMNIS</h1>
+                    <h2 id="player-name">SECURE TERMINAL</h2>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="#" class="active" id="btn-nav-power" style="pointer-events: none;"><span class="icon">🕸️</span> POWER STRUCTURE</a>
+                <a href="#" id="btn-nav-victory" style="border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);"><span class="icon">🏆</span> VICTORY PROGRESS</a>
+                <a href="#" id="btn-assets"><span class="icon">💼</span> ASSETS</a>
+                <a href="#" id="btn-history" style="border-top: 1px solid var(--border-color);"><span class="icon">📜</span> INTEL HISTORY</a>
+                <a href="#" id="btn-alignment-ref" style="border-top: 1px solid var(--border-color);"><span class="icon">🔍</span> ALIGNMENT GUIDE</a>
+            </nav>
+
+            <div class="panel-box sidebar-intel" style="border: none; flex: 1; min-height: 0;">
+                <h4 style="font-family: var(--font-mono); color: #718096; font-size: 11px; letter-spacing: 1px; margin-bottom: 10px;">📡 INTEL FEED</h4>
+                <ul class="event-list" id="event-log" style="flex: 1; overflow-y: auto;">
+                    <!-- Filled by JS -->
+                </ul>
+            </div>
+
+            <div id="victory-tracker" class="victory-tracker" style="display: none; flex: 1; overflow-y: auto; padding: 0 20px;">
+            </div>
+            
+            <div id="sidebar-overview" style="display: none;"></div>
+
+            <div class="quote-area">
+                <p>"The best conspiracy is the one nobody believes."</p>
+                <span>- Unknown</span>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Event Ticker / Banner Area -->
+            <div id="top-ticker-container" class="top-ticker-container">
+                <div class="ticker-label">GLOBAL EVENT</div>
+                <div class="ticker-wrapper">
+                    <div id="top-ticker-text" class="ticker-text">AWAITING INTEL...</div>
+                </div>
+            </div>
+
+            <!-- Phase Indicator Bar -->
+            <div class="phase-bar" style="display: flex; justify-content: space-between; align-items: center; padding-right: 20px;">
+                <div id="phase-indicator" style="display: flex; align-items: center;">
+                    <!-- Filled by JS -->
+                </div>
+                
+                <div class="audio-controls" style="display: flex; align-items: center; gap: 10px;">
+                    <button id="btn-reset" class="action-btn" style="padding: 5px 10px; margin: 0; font-size: 12px; background-color: transparent; border-color: var(--accent-red); color: var(--accent-red);">RESET NETWORK</button>
+                    <button id="btn-mute" class="icon-btn">🔊</button>
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.2">
+                </div>
+            </div>
+
+            <!-- Middle Area: Graph + Details -->
+            <div class="middle-area">
+                <div class="graph-container" style="position: relative;">
+                    <button id="toggle-left-panel" class="panel-tab panel-tab-left">◀</button>
+                    <button id="toggle-right-panel" class="panel-tab panel-tab-right">▶</button>
+                    <div id="phaser-container"></div>
+                    <div id="neutral-zone-guide" class="neutral-zone-guide" aria-hidden="true">
+                        <div class="neutral-zone-guide__ring"></div>
+                        <div class="neutral-zone-guide__label">DROP INTO SHARED NEUTRAL ZONE</div>
+                    </div>
+                    <div id="hand-drag-ghost" class="hand-drag-ghost" aria-hidden="true"></div>
+                </div>
+
+                <div class="details-panel" id="details-panel">
+                    <div class="panel-placeholder" id="panel-placeholder">SELECT A NODE OR CARD</div>
+                    
+                    <div class="node-details" id="node-details" style="display: none;">
+                        <h3 id="target-name">TARGET: -</h3>
+                        <p id="target-owner" style="font-family: var(--font-mono); font-size: 14px; margin-bottom: 5px;">UNCONTROLLED</p>
+                        <p id="target-desc">Select a node to view details.</p>
+                        
+                        <div class="node-stats">
+                            <div class="stat">
+                                <span class="label">POWER</span>
+                                <span class="value" id="target-power">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">RESISTANCE</span>
+                                <span class="value" id="target-resistance">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">INCOME</span>
+                                <span class="value" id="target-income">₿0M</span>
+                            </div>
+                        </div>
+
+                        <p id="target-arrows" style="font-family: var(--font-mono); font-size: 14px; color: var(--accent-blue); margin-bottom: 8px;"></p>
+                        <p id="target-distance" style="font-family: var(--font-mono); font-size: 13px; color: #a78bfa; margin-bottom: 8px; display:none;"></p>
+                        <p id="target-btc" style="font-family: var(--font-mono); font-size: 15px; color: var(--accent-yellow); margin-bottom: 15px; display:none;">₿0M on this card</p>
+
+                        <div class="attack-section" id="attack-section">
+                            <h4>OPERATIONS</h4>
+                            <p style="font-size: 14px; color: #718096; margin-bottom: 15px;">You get <strong style="color:#cbd5e1;">2 actions per turn</strong>. Attacks and Move Group each cost 1 action. Action Cards are free; first 2 ₿TC transfers per turn are free.</p>
+                            
+                            <!-- Attacker Selector -->
+                            <div id="attacker-select" style="display:none; margin-bottom: 10px;"></div>
+                            <div id="attacker-info" style="display:none;"></div>
+
+                            <button id="btn-attack-control" class="attack-btn attack-control" disabled>
+                                🎯 ATTACK TO CONTROL
+                            </button>
+                            <button id="btn-attack-neutralize" class="attack-btn attack-neutralize" disabled>
+                                💫 ATTACK TO NEUTRALIZE
+                            </button>
+                            <button id="btn-attack-destroy" class="attack-btn attack-destroy" disabled>
+                                💀 ATTACK TO DESTROY
+                            </button>
+
+                            <div class="free-actions-section">
+                                <h4 style="margin-top: 15px; font-size: 15px; color: #718096;">OTHER ACTIONS</h4>
+                                <button id="btn-group-ability" class="action-btn free-action-btn" style="display:none; border-color: var(--accent-green); color: var(--accent-green); background: rgba(34,197,94,0.1);">
+                                    ACTIVE ABILITY
+                                </button>
+                                <button id="btn-transfer-btc" class="action-btn free-action-btn" style="display:none;">
+                                    💱 TRANSFER ₿TC <span class="btn-meta">First 2 free per turn</span>
+                                </button>
+                                <button id="btn-move-group" class="action-btn free-action-btn" style="display:none;">
+                                    🔀 MOVE GROUP <span class="btn-meta">Costs 1 action</span>
+                                </button>
+                            </div>
+
+                            <div id="attack-result" class="attack-result"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Panel -->
+            <footer class="bottom-panel">
+                <div class="panel-box" style="flex: 5; overflow: hidden;">
+                    <div style="display:flex; justify-content: space-between; align-items: baseline;">
+                        <h4>YOUR HAND</h4>
+                        <span id="deck-count" style="font-family: var(--font-mono); font-size: 10px; color:#718096;">DECK: 0</span>
+                    </div>
+                    <div id="hand-container" class="hand-container">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+                <div id="faction-ability-panel" class="panel-box faction-ability-panel" style="flex: 1.2; display: none;">
+                    <h4 style="color: var(--accent-purple); margin-bottom: 8px;">FACTION ABILITIES</h4>
+                    <div style="margin-bottom: 8px;">
+                        <div id="f-ability-passive-name" style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-blue); font-weight: bold; margin-bottom: 2px;"></div>
+                        <div id="f-ability-passive-desc" style="font-family: var(--font-sans); font-size: 10px; color: #a0aec0; line-height: 1.3;"></div>
+                    </div>
+                    <div style="margin-bottom: 8px; flex-grow: 1;">
+                        <div id="f-ability-active-name" style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-purple); font-weight: bold; margin-bottom: 2px;"></div>
+                        <div id="f-ability-active-desc" style="font-family: var(--font-sans); font-size: 10px; color: #a0aec0; line-height: 1.3;"></div>
+                    </div>
+                    <div id="f-ability-status" style="font-family: var(--font-mono); font-size: 11px; text-align: center; padding: 6px; border-radius: 4px; border: 1px solid var(--accent-purple); transition: all 0.2s;"></div>
+                </div>
+                <div class="panel-box" style="flex: 1.2; display:flex; flex-direction:column; justify-content:center;">
+                    <h4 style="margin-bottom:5px;">COMMAND</h4>
+                    <div class="turn-status" id="turn-status" style="margin-bottom: 15px;">WAITING FOR NETWORK...</div>
+                    <button id="btn-end-turn" class="action-btn" disabled style="padding: 12px; font-size: 14px; margin-bottom:0;">
+                        END TURN
+                    </button>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Turn Transition Overlay -->
+    <div id="turn-overlay" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.85); align-items:center; justify-content:center; flex-direction:column; gap:12px; transition:opacity 0.5s ease; pointer-events:none;">
+        <img id="turn-overlay-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" style="width:120px; height:120px; margin-bottom:20px; filter:drop-shadow(0 0 15px rgba(255,255,255,0.2)); object-fit:contain;">
+        <div id="turn-overlay-title" style="font-family:var(--font-mono); font-size:28px; color:var(--accent-green); text-transform:uppercase; letter-spacing:4px; text-shadow:0 0 20px rgba(74,222,128,0.5);">YOUR TURN</div>
+        <div id="turn-overlay-subtitle" style="font-family:var(--font-mono); font-size:12px; color:#718096; letter-spacing:2px;">INITIATING OPERATIONS...</div>
+    </div>
+
+    <!-- Card Tooltip Overlay -->
+    <div id="card-tooltip" class="card-tooltip" style="display:none; position:fixed; z-index:1000; pointer-events:none;"></div>
+
+    <script type="module" src="./main.js"></script>
+    <script src="./_remote/deb467d4198f1f06/ChatManager.js"></script>
+    <script src="./_remote/54d51111a998fc39/ImageGenerator.js"></script>
+    <script src="./_remote/e57730bf0f3c819c/ProgressLogger.js"></script>
+    <script src="./_remote/da8426dfa60b6b27/OGP.js"></script>
+  </body>
+</html>

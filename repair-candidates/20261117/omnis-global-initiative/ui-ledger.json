@@ -1,0 +1,46 @@
+{
+  "job_id": "job-e7d352b1a2b1",
+  "scope": "A组直接修复的首次界面验证；旧模型流程记录单独保留，不冒充本轮通过。",
+  "max_steps": 5,
+  "steps_used": 5,
+  "remaining": 0,
+  "steps": [
+    {
+      "step": 1,
+      "at": "2026-11-17T03:11:52.397Z",
+      "action": "Click diagnostic link to load the original local candidate on remote52",
+      "outcome": "Original OMNIS title screen, background and native Training/AI Simulation modes rendered on remote52; online entry disabled in candidate.",
+      "screenshot": "validation-20261117/step-1.png"
+    },
+    {
+      "step": 2,
+      "at": "2026-11-17T03:12:21.045Z",
+      "action": "Click original AI Simulation mode",
+      "outcome": "Original AI Simulation Setup rendered: three random-faction opponents, native faction and generic victory conditions, default target10. No original settings changed.",
+      "screenshot": "validation-20261117/step-2.png"
+    },
+    {
+      "step": 3,
+      "at": "2026-11-17T03:12:53.626Z",
+      "action": "Confirm the unchanged original default AI setup",
+      "outcome": "Native six-faction selection rendered with original power/income/alignment and victory/ability descriptions.",
+      "screenshot": "validation-20261117/step-3.png"
+    },
+    {
+      "step": 4,
+      "at": "2026-11-17T03:13:13.206Z",
+      "action": "Select native Algorithmic Overlords faction",
+      "outcome": "Original Algorithmic Overlords local match initialized with three AI opponents, card artwork, hand and power graph. Native first-time orientation1/8 displayed; no combat/AI turn claim.",
+      "screenshot": "validation-20261117/step-4.png"
+    },
+    {
+      "step": 5,
+      "at": "2026-11-17T03:13:35.920Z",
+      "action": "Click original on-screen SKIP for the optional orientation overlay",
+      "outcome": "Original optional orientation dismissed through native SKIP. Round1 action phase, root treasury13, income3, four action cards and three rival factions displayed. No attack, bidding, AI turn, victory or refresh was tested. Five-step budget exhausted; do not mark full gameplay passed.",
+      "screenshot": "validation-20261117/step-5.png"
+    }
+  ],
+  "runtime_verified": false,
+  "admitted": false
+}
