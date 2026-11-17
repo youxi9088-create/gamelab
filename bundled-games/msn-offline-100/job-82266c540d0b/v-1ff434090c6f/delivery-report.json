@@ -1,0 +1,254 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "Open original native menu"
+      },
+      {
+        "type": "checkpoint",
+        "description": "Click original local play"
+      },
+      {
+        "type": "checkpoint",
+        "description": "Click native solo mode"
+      },
+      {
+        "type": "checkpoint",
+        "description": "Click canvas to stop moving dart / second tutorial displayed"
+      },
+      {
+        "type": "checkpoint",
+        "description": "Drag downward and release: native hit16, remaining darts3 to2"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "network_events": 216,
+    "requests": 108,
+    "scope": "远端52独立Playwright浏览器真实5步：首页→本地→单人→点屏停住飞镖→原生按住拖拽释放。原靶面命中16分、剩余飞镖3变2。未追加点击、刷新、第二次投掷、CPU关卡或整局通关；声音初始静音未测试。",
+    "console_warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ]
+  },
+  "offline_features": {
+    "multiplayer": {
+      "status": "removed",
+      "reason": "整段PlayerIO、联网房间UI、邀请/匹配/联网游戏类已删除；保留同机双人和原CPU。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/darts-native-retirement.json",
+        "evidence/network-console.json"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "平台启动脚本、推荐、广告派发/监听已移除，无广告成功替身。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/darts-native-retirement.json",
+        "evidence/network-console.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "上传成绩与分享事件移除，原本地计分保留。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/darts-native-retirement.json",
+        "evidence/network-console.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "保留原本地玩法无真实支付或登录购买调用，本轮无对应请求。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/darts-native-retirement.json",
+        "evidence/network-console.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "体育 / 飞镖",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "原生501飞镖，固定移动飞镖后按住拖拽释放，本轮真实命中16分。",
+    "core_experience": "",
+    "controls": "点屏固定→按住向下拖拽→释放",
+    "game_loop": "",
+    "content": "原8个CPU关卡及单人/同机双人模式源码保留，108项动态资源本地化；未逐关试玩。",
+    "progression": "",
+    "save": "原darts_pro_本地存储；未测试刷新恢复。",
+    "rules": "原501与每轮3支、靶面双倍三倍及50/25环值配置保留；只验证第一次16分和剩余3→2。",
+    "systems": "原本地计分、飞镖、靶面、动画、存档、帮助、音量；联网房间、匹配、广告、上传退役。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "远端52独立Playwright浏览器真实5步：首页→本地→单人→点屏停住飞镖→原生按住拖拽释放。原靶面命中16分、剩余飞镖3变2。未追加点击、刷新、第二次投掷、CPU关卡或整局通关；声音初始静音未测试。 完整108请求/108响应，均本地127.0.0.1且状态200；无外联请求、请求失败或脚本错误。保留1条Canvas getImageData性能警告，未隐藏。没有注入游戏状态、解锁、分数或服务端/广告返回值。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "CreateJS",
+    "programming_language": "",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "格式版本：V5.1。Darts Pro，二维飞镖，JavaScript/HTML、CreateJS Canvas、Howler。MSN 9n3n198l6zpj，原站身份及SHA保留。远端52独立Playwright浏览器真实5步：首页→本地→单人→点屏停住飞镖→原生按住拖拽释放。原靶面命中16分、剩余飞镖3变2。未追加点击、刷新、第二次投掷、CPU关卡或整局通关；声音初始静音未测试。",
+        "asset_types": "原PNG/JPG、Impact字体与MP3；108项动态资源逐项原站SHA一致，99张图片解码结构检查通过。来源：darts-source-asset-closure.json、darts-runtime-closure.json。",
+        "core_challenge": "原代码使用移动中的飞镖、按压与滑动输入，计算方向/力度后按原靶面位置计分。实际操控手感尚未试玩。",
+        "controls": "原先点屏固定移动中的飞镖，再按住向下拖拽设定力度并释放。远端52独立Playwright浏览器真实5步：首页→本地→单人→点屏停住飞镖→原生按住拖拽释放。原靶面命中16分、剩余飞镖3变2。未追加点击、刷新、第二次投掷、CPU关卡或整局通关；声音初始静音未测试。",
+        "behavior_path": "远端52独立Playwright浏览器真实5步：首页→本地→单人→点屏停住飞镖→原生按住拖拽释放。原靶面命中16分、剩余飞镖3变2。未追加点击、刷新、第二次投掷、CPU关卡或整局通关；声音初始静音未测试。",
+        "game_path": "本轮实际：首页→本地模式→单人局→两段原教程→一次投掷反馈。CPU8关、同机双人、设置及结算保留原代码但未验证。",
+        "progression_path": "CPU模式原NUM_LEVELS=8；localStorage使用原darts_pro_前缀。源码保留，本轮未验证解锁或刷新。",
+        "core_loop": "原501点靶面计分循环，实际第一支16分命中与消耗1支飞镖；未完成一轮3支或整局，画面PT仍501不冒充整轮扣分已验。",
+        "gameplay_rules": "原STARTING_SCORE=501、NUM_THROW_PER_TURN=3、POINTS_DARTBOARD_CENTER=[50,25]、20区靶面、双倍/三倍区域配置保留；不修改原碰撞或输赢判定。",
+        "key_numbers": "原配置：MAX_NUM_THROW=99、MAX_SWIPE_TIME=250、MIN_DIST_SWIPE=100、FORCE_MULTIPLIER=7.2、NUM_SPRITE_DART=26、NUM_SPRITE_HITAREA=51；这些是源码数值，不是实测时长或完成数量。",
+        "level_configuration": "原CPU关卡8；原AI_ACCURACY数组[1,0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2]完整保留，未宣称全部索引均使用。 远端52独立Playwright浏览器真实5步：首页→本地→单人→点屏停住飞镖→原生按住拖拽释放。原靶面命中16分、剩余飞镖3变2。未追加点击、刷新、第二次投掷、CPU关卡或整局通关；声音初始静音未测试。",
+        "system_design": "保留本地模式选择、靶面、力度与飞镖动画、计分、原本地成绩、帮助、音量控件。删除联网入口、房间UI、邀请登录、PlayerIO客户端、广告/成绩上传/分享事件。音频失败输出真实错误，不模拟加载成功。 完整108请求/108响应，均本地127.0.0.1且状态200；无外联请求、请求失败或脚本错误。保留1条Canvas getImageData性能警告，未隐藏。没有注入游戏状态、解锁、分数或服务端/广告返回值。",
+        "theme": "原飞镖靶、两种飞镖外观、体育计分界面。",
+        "progression_economy": "原本地最高分与关卡得分存储函数保留；没有新增虚构货币、免费广告奖励或云端存档。",
+        "roster": "原两种飞镖外观各5张图组成26帧动画；保留原CPU算法，不改造成服务端玩家。",
+        "monetization": "广告、推荐跳转、联网身份/匹配与上传退役。无SDK成功替身；支付能力未见于保留的原本地玩法，本轮本地单人路径未见上述服务调用；未遍历全部界面。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/01-start.png",
+        "caption": "原首页；原图中的MULTIPLAYER属于源标识，联网按钮及服务已删除"
+      },
+      {
+        "path": "screenshots/03-solo.png",
+        "caption": "原单人局起始501、3支飞镖"
+      },
+      {
+        "path": "screenshots/05-shot.png",
+        "caption": "原第一次命中16分，余2支；未完成一轮扣总分"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-16T12:46:05.400476+00:00",
+    "observation_end": "2026-11-16T13:31:44.052854+00:00",
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "price": null,
+    "currency": null,
+    "pure_processing_seconds": null,
+    "scope": "含交错工作、工具连接与等待，非游戏独占耗时；缺逐游戏token/单价，不填零"
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "原生一次投掷命中16、飞镖3→2",
+      "evidence": [
+        "screenshots/03-solo.png",
+        "screenshots/05-shot.png",
+        "js/main.js"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "108原站动态资源SHA一致，全部本地请求200",
+      "evidence": [
+        "screenshots/03-solo.png",
+        "screenshots/05-shot.png",
+        "js/main.js"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单、模式、靶场真实渲染",
+      "evidence": [
+        "screenshots/03-solo.png",
+        "screenshots/05-shot.png",
+        "js/main.js"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原飞镖与靶面、计分、剩余飞镖可见",
+      "evidence": [
+        "screenshots/03-solo.png",
+        "screenshots/05-shot.png",
+        "js/main.js"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "投掷与原镜头缩放、命中数字可见",
+      "evidence": [
+        "screenshots/03-solo.png",
+        "screenshots/05-shot.png",
+        "js/main.js"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "本地/单人/原两段教程实际操作",
+      "evidence": [
+        "screenshots/03-solo.png",
+        "screenshots/05-shot.png",
+        "js/main.js"
+      ]
+    },
+    "characters": {
+      "status": "not_applicable",
+      "reason": "原玩法无操控人物，飞镖为操作物件。"
+    }
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

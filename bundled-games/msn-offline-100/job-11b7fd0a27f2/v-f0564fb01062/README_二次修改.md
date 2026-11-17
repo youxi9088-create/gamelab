@@ -1,0 +1,1 @@
+原发布JavaScript保留可编辑的CGameBase/CGameSingle瞄准、风偏、命中距离与环值计分，LEVELS包含24份原配置。CArrow、CTarget、CPlayer、CLocalStorage相关函数可在理解CreateJS资源契约后拆解适配；未取得原作者工程，未证明直接跨引擎移植。代码存在不等于全部关卡已试玩。详见GAME_SPECIFICATION.md及evidence。

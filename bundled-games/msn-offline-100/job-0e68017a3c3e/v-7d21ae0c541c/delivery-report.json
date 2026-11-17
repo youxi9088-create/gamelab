@@ -1,0 +1,213 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "navigate",
+        "description": "启动至原菜单"
+      },
+      {
+        "type": "click",
+        "description": "点击播放，原关卡选择显示1–30"
+      },
+      {
+        "type": "click",
+        "description": "选择第1关，显示原版教程"
+      },
+      {
+        "type": "click",
+        "description": "关闭教程，原挡板/球/砖块场景就绪"
+      },
+      {
+        "type": "click",
+        "description": "点击发球；原碰撞使分数0变5、砖块移除，失球生命3变2"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "network_events": 128,
+    "scope": "只覆盖5步启动/关卡选择/教程/发球/自然碰撞与失球；未通关、未实测所有道具、暂停/重开或刷新存档。不追加试玩。"
+  },
+  "offline_features": {
+    "leaderboard": {
+      "status": "removed",
+      "reason": "原入口save_score上传监听已删除，本地分数和过关存档保留。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/retirement.json"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "原外部平台脚本、推荐入口及插屏事件调用已删除，不伪造广告结果。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/retirement.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原版为单人挡板弹球，不含匹配或房间；全部30关配置本地。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/retirement.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "原玩法未发现真实货币购买入口或支付调用。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/retirement.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "街机 / 挡板打砖块",
+    "dimension": "2D",
+    "perspective": "固定正面竖屏",
+    "core_gameplay": "移动挡板反弹小球，破坏砖块并获得分数；躲避落空，收集原版掉落道具，消除可破坏砖块进入下一关。",
+    "core_experience": "",
+    "controls": "鼠标移动挡板、单击发球；触摸输入由原版CreateJS Touch处理。本轮实际为鼠标单击。",
+    "game_loop": "首页播放 → 原30关选择 → 首关教程 → 挡板与球 → 碰撞计分/失球。",
+    "content": "30关矩阵及全套原图像/音频运行资源已落地；仅首关一次发球实测，未将材料完整当作30关通关。",
+    "progression": "",
+    "save": "沿用原localStorage：brick_out_level与brick_out_score_level_N。平台云端fetchLocalstorage读取已移除，仅读取原本地数据。刷新恢复本轮未验证。",
+    "rules": "原BRICKS_SCORE为[5,5,5,5,5,5,5,5,30,20]；原入口保留砖块耐久[0,0,0,0,0,0,0,0,0,1]，第8类不可被普通球破坏。代码确认，非逐类实测。",
+    "systems": "原菜单、选关、挡板/球碰撞、分数、生命、道具、暂停、清档、本地存档；广告、引流、线上成绩与云存档读取退役。",
+    "ui_flow": "原积木风格首页、30关网格、英文教程、LEVEL/SCORE/生命HUD和设置按钮。本轮保留原版界面资源。",
+    "level_design": "BRICKS_LEVEL_POSITION[0]至[29]全部保留，按原关卡解锁，不注入解锁状态。",
+    "verification": "Agent在52机器隔离HTTP目录经SSH隧道真实操作5步。启动与素材加载完整记录128条CDP事件，无外联、加载失败或异常。未验证整关通关、所有道具、暂停重开和刷新存档。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "CreateJS Canvas 与 Howler；原JavaScript发布程序。",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "原PNG/JPG贴图、MP3声音、WOFF字体；JavaScript含30关原砖块矩阵。",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "发球 → 球与砖块/挡板碰撞 → 砖块消失并计分 → 继续弹球；失球减生命。",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "目标：清除当前关可破坏砖块。规则：原球速7、初始3生命，不同砖块耐久/可破坏性由原配置决定。反馈：砖块消失、分数和生命HUD变化。激励：本地分数及关卡递进。实测首关一次发球，分数0→5、生命3→2；整关胜利和后续关未实测。",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "30份关卡矩阵，10类砖块、10类道具，初始生命3，球速7。",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "彩色积木、玩具房背景、紫色挡板与原按钮图集。",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "本单机版不含广告/真实支付、云排行、账号或服务端访问；本地分数不上传。",
+    "illustrations": [
+      {
+        "path": "screenshots/01-menu.png",
+        "caption": "原版首页"
+      },
+      {
+        "path": "screenshots/02-levels.png",
+        "caption": "原30关选择；未逐关试玩"
+      },
+      {
+        "path": "screenshots/05-score-life.png",
+        "caption": "发球后原分数5、生命2，出现砖块缺口"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-13T21:14:09.616138+00:00",
+    "observation_end": "2026-11-13T21:19:12.102338+00:00",
+    "scope": "包含素材下载、交错工作与等待，非纯处理或CPU耗时",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "evidence": [
+        "screenshots/05-score-life.png",
+        "js/main.js"
+      ],
+      "reason": "原发球后砖块消失、计分与失球反馈实测"
+    },
+    "resources": {
+      "status": "verified",
+      "evidence": [
+        "screenshots/05-score-life.png",
+        "js/main.js"
+      ],
+      "reason": "原素材闭包清单本地齐全，实际请求无404"
+    },
+    "scene": {
+      "status": "verified",
+      "evidence": [
+        "screenshots/05-score-life.png",
+        "js/main.js"
+      ],
+      "reason": "原首页、选关、首关场景均实际渲染"
+    },
+    "objects": {
+      "status": "verified",
+      "evidence": [
+        "screenshots/05-score-life.png",
+        "js/main.js"
+      ],
+      "reason": "原挡板、球、砖块和HUD可见"
+    },
+    "animation": {
+      "status": "verified",
+      "evidence": [
+        "screenshots/05-score-life.png",
+        "js/main.js"
+      ],
+      "reason": "球运动、砖块消失及界面过渡实测"
+    },
+    "ui": {
+      "status": "verified",
+      "evidence": [
+        "screenshots/05-score-life.png",
+        "js/main.js"
+      ],
+      "reason": "原菜单、选关、教程、HUD实际截图"
+    },
+    "characters": {
+      "status": "not_applicable",
+      "reason": "无可操控人物，背景玩具保留。"
+    }
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

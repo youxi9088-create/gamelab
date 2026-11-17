@@ -1,0 +1,37 @@
+{
+  "revision": "archery-offline-v1",
+  "source_sha256": "d0765196052af5a910d2f9511328e78055b173889bba95340fb136a65ed8e0f2",
+  "revision_sha256": "08fc6b67633bde77a2278f414dba21e6c5dc981aa0d8d5b93653b7ee6fdc015c",
+  "edits": 174,
+  "retired": [
+    "CNetworkManager",
+    "CNetworkMessageForwarder",
+    "CGameMultiplayer",
+    "CInterfaceMultiplayer",
+    "CEndPanelMultiplayerBase",
+    "CEndPanelMultiplayerLandscape",
+    "CEndPanelMultiplayerPortrait",
+    "CLoginPanel",
+    "CUserStats",
+    "CButReward",
+    "CEmoticonController",
+    "CEmoticon",
+    "COpponentScreen",
+    "getPlayerLogin",
+    "savePlayerLogin",
+    "saveMultiplayerData",
+    "getMultiplayerData"
+  ],
+  "core_unchanged": [
+    "CGameBase.prototype.startAiming",
+    "CGameBase.prototype.moveAim",
+    "CGameBase.prototype.startShot",
+    "CGameBase.prototype._checkDistance",
+    "CGameSingle.prototype._calculateWind",
+    "CGameSingle.prototype.onArrowStop"
+  ],
+  "native_scoring_wind_arrows_levels_and_local_progress_preserved": true,
+  "no_sdk_facade": true,
+  "no_reward_simulation": true,
+  "runtime_verified": false
+}

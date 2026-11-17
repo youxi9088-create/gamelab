@@ -1,0 +1,100 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": false,
+    "network_windows": [
+      {
+        "file": "aim-events.json",
+        "events": 0,
+        "truncated": false,
+        "hasMore": false
+      },
+      {
+        "file": "help-events.json",
+        "events": 0,
+        "truncated": false,
+        "hasMore": false
+      },
+      {
+        "file": "load-1-events.json",
+        "events": 0,
+        "truncated": false,
+        "hasMore": false
+      },
+      {
+        "file": "load-2-events.json",
+        "events": 1000,
+        "truncated": true,
+        "hasMore": false
+      },
+      {
+        "file": "shot-events.json",
+        "events": 0,
+        "truncated": false,
+        "hasMore": false
+      },
+      {
+        "file": "start-events.json",
+        "events": 329,
+        "truncated": false,
+        "hasMore": false
+      }
+    ],
+    "network_scope": "首页记录329条完整CDP事件；球场后台预取全部18洞时缓冲区截断，保留该窗口最后1000条，不能声称启动全过程网络记录完整。后续教程、瞄准、击球窗口记录完整且无新增请求或异常；所有保留事件无外联/HTTP失败，控制台错误/警告为空。另由全量源码静态审查和384项实际原站资源SHA闭包佐证单机依赖，不将截断窗口当完整网络证明。",
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "Menu then native 18-hole level selector",
+        "bounded_actions": [
+          "Load remote isolated runtime",
+          "Click native Play once"
+        ]
+      },
+      {
+        "type": "checkpoint",
+        "description": "Original first-shot help",
+        "bounded_actions": [
+          "Select original unlocked hole1 once"
+        ]
+      },
+      {
+        "type": "checkpoint",
+        "description": "Original ball and course",
+        "bounded_actions": [
+          "Dismiss first help once"
+        ]
+      },
+      {
+        "type": "checkpoint",
+        "description": "Native pan tutorial; no second shot",
+        "bounded_actions": [
+          "One native aim/power drag gesture"
+        ]
+      },
+      {
+        "type": "checkpoint",
+        "description": "Observe original shot physics and shot-count feedback",
+        "bounded_actions": [
+          "Dismiss native pan tutorial once"
+        ]
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "network_events": 1329,
+    "scope": "按预先计划完成5个有界验证检查点：首页并单击播放→第1洞→关闭击球教程→一次瞄准拖拽→关闭平移教程并观察原生击球。LAUNCH由0变1，球沿原场景运动、镜头跟随。未验证进洞、关卡结算、后17洞、再次击球、重开与刷新存档。"
+  },
+  "accounting": {
+    "observation_start": "2026-11-14T09:59:55.579509+00:00",
+    "observation_end": "2026-11-14T10:07:36.519894+00:00",
+    "scope": "含抓取、交错工作和等待，非独占推理耗时；未知token和单价不填零",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "ui_steps_used": 5,
+  "unverified": "按预先计划完成5个有界验证检查点：首页并单击播放→第1洞→关闭击球教程→一次瞄准拖拽→关闭平移教程并观察原生击球。LAUNCH由0变1，球沿原场景运动、镜头跟随。未验证进洞、关卡结算、后17洞、再次击球、重开与刷新存档。"
+}

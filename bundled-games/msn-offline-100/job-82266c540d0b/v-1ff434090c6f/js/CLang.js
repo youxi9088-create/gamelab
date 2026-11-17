@@ -1,0 +1,80 @@
+var TEXT_ARE_YOU_SURE = "ARE YOU SURE?";
+var TEXT_SCORE = "SCORE: %s";
+var TEXT_BEST = "BEST %s";
+var TEXT_THROWS = "THROWS: %s";
+var TEXT_BEST_SCORE = "BEST SCORE: %s";
+var TEXT_LEVEL_SCORE = "LEVEL SCORE: %s";
+var TEXT_TOT_SCORE = "TOTAL SCORE: %s";
+var TEXT_GAME_OVER = "GAME OVER";
+var TEXT_SELECT_MODE = "SELECT MODE";
+var TEXT_PLAYER_NAME =["PLAYER 1","PLAYER 2"];
+var TEXT_CPU = "CPU";
+var TEXT_YOU_WIN = "YOU WIN";
+var TEXT_YOU_LOSE = "YOU LOSE";
+var TEXT_CONGRATS = "CONGRATS!!";
+var TEXT_WINS = "%s WINS!!";
+var TEXT_SELECT_LEVEL = "SELECT A LEVEL";
+var TEXT_PT = "PT";
+var TEXT_DOUBLE = "DOUBLE";
+var TEXT_TRIPLE = "TRIPLE";
+var TEXT_RING = "%s RING";
+var TEXT_CENTER = "CENTER";
+var TEXT_BULLSEYE = "BULL'S EYE";
+var TEXT_FINAL_TARGET = "DOUBLE %s";
+var TEXT_HINT = "YOU MUST HIT %s TO WIN THE MATCH!";
+var TEXT_HINT_OPP = "OPPONENT MUST HIT %s TO WIN THE MATCH!";
+var TEXT_HELP_CONTROLS_1 = "TAP THE SCREEN TO STOP THE DART WHERE YOU WANT";
+var TEXT_HELP_CONTROLS_2 = "PRESS AND HOLD TO SET THE POWER AND DIRECTION. RELEASE TO THROW THE DART.";
+var TEXT_HELP = "YOUR GOAL IS TO DECREASE YOUR STARTING SCORE %s. THE FINAL DART MUST LAND IN EITHER THE BULLSEYE OR A DOUBLE SEGMENT IN ORDER TO WIN";
+var TEXT_ERR_LS = "YOUR WEB BROWSER DOES NOT SUPPORT LOCAL STORAGE. IF YOU'RE USING SAFARI, IT MAY BE RELATED TO PRIVATE BROWSING. AS A RESULT, SOME INFO MAY NOT BE SAVED OR SOME FEATURES MAY NOT BE AVAILABLE.";
+var TEXT_THINKING   = "WAITING OPPONENT";
+
+var TEXT_YOU_RUN_OUT_TIME = "you ran out of time";
+var TEXT_OPPONENT_RUN_OUT_TIME = "opponent ran out of time";
+
+///////////// GAME MULTIPLAYER TEXT
+var TEXT_WAIT_OPPONENT = "WAITING OPPONENT...";
+var TEXT_OPPONENT_LEFT = "OPPONENT LEFT!";
+var TEXT_PLAYER_DISCONNECTED = "YOU LEFT!";
+var TEXT_REMATCH = "do you want the re-match?";
+var TEXT_INVALID_NAME = "INVALID NAME!"
+var TEXT_REMATCH_ALERT = "%s WANTS TO PLAY AGAIN";
+
+///////////// LOGIN ROOM SYSTEM TEXT
+var TEXT_SYS_CHOOSENICK = "Choose nickname";
+var TEXT_SYS_UPDATE = "update";
+var TEXT_SYS_MATCH_LIST = "Match list";
+var TEXT_SYS_QUICKMATCH = "quick match";
+var TEXT_SYS_CREATEMATCH = "create match";
+var TEXT_SYS_BACK = "back";
+var TEXT_SYS_OK = "ok";
+var TEXT_SYS_CREATE = "create";
+var TEXT_SYS_CLOSE = "close";
+var TEXT_SYS_LOADING = "Loading...";
+var TEXT_SYS_NAMEROOM = "Name Room";
+var TEXT_SYS_CREATEROOM = "Create Room";
+var TEXT_SYS_PASSWORD = "Password";
+var TEXT_SYS_INFOPASS = "If you don\'t set a password this room will be public.";
+var TEXT_SYS_TYPEROOMPASS = "Type Room Password";
+var TEXT_WRONG_PASSWORD = "Wrong Password!";
+var TEXT_NETWORK_CONNECTING = "connecting...";
+var TEXT_ROOM_IS_FULL = "Room is full!";
+var TEXT_FIND_OPPONENT = "finding opponent...";
+var TEXT_CONNECT_TO_LOBBY = "Connect to lobby...";
+var TEXT_ROOM_DOESNT_EXIST = "Room doesn't exist!";
+var TEXT_WAITING_FOR_OPPONENT_IN_ROOM = "waiting for opponent in room: ";
+var TEXT_WAITING_FOR_PLAYERS_IN_ROOM = "waiting for players in room: ";
+var TEXT_MATCH_FOUND = "Match found!";
+var TEXT_SYS_DEFAULTROOMNAME = "%s's room";
+var TEXT_NO_CONNECTION = "NO CONNECTION<br/>(Connect to find someone to play online)";
+var TEXT_SYS_FINDROOM = "find a room...";
+var TEXT_SYS_INVITE = "INVITE";
+var TEXT_SYS_COPIED_TO_CLIPBOARD = 'Game link copied to your Clipboard. Share it to your friends!';
+var TEXT_ROOM_IS_EXPIRED = "Room Expired!";
+var TEXT_VS = "VS";
+
+var TEXT_MORE_GAMES = "DO YOU WANNA PLAY MORE GAMES?\n\nCLICK OK TO WATCH OUR CATALOG";
+
+var TEXT_SYS_BACK = "back";
+var TEXT_SYS_CONTINUE = "continue";
+var TEXT_SYS_RESTORE = "restore";

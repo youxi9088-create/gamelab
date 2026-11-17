@@ -1,0 +1,45 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "navigate",
+        "description": "启动至原菜单"
+      },
+      {
+        "type": "click",
+        "description": "点击播放，原关卡选择显示1–30"
+      },
+      {
+        "type": "click",
+        "description": "选择第1关，显示原版教程"
+      },
+      {
+        "type": "click",
+        "description": "关闭教程，原挡板/球/砖块场景就绪"
+      },
+      {
+        "type": "click",
+        "description": "点击发球；原碰撞使分数0变5、砖块移除，失球生命3变2"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "network_events": 128,
+    "scope": "只覆盖5步启动/关卡选择/教程/发球/自然碰撞与失球；未通关、未实测所有道具、暂停/重开或刷新存档。不追加试玩。"
+  },
+  "accounting": {
+    "observation_start": "2026-11-13T21:14:09.616138+00:00",
+    "observation_end": "2026-11-13T21:19:12.102338+00:00",
+    "scope": "包含素材下载、交错工作与等待，非纯处理或CPU耗时",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "ui_steps_used": 5,
+  "unverified": "只覆盖5步启动/关卡选择/教程/发球/自然碰撞与失球；未通关、未实测所有道具、暂停/重开或刷新存档。不追加试玩。"
+}

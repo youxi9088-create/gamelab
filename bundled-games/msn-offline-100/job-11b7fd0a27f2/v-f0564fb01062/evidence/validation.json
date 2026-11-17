@@ -1,0 +1,54 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "原首页启动"
+      },
+      {
+        "type": "checkpoint",
+        "description": "选择原单人模式"
+      },
+      {
+        "type": "checkpoint",
+        "description": "选择第1关"
+      },
+      {
+        "type": "checkpoint",
+        "description": "关闭原帮助"
+      },
+      {
+        "type": "checkpoint",
+        "description": "按住瞄准、拖动并释放；原生7分，已用箭0/2变1/2"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "network_events": 397,
+    "requests": 198,
+    "scope": "远端52独立Playwright真实5步：原首页→单人入口→第1关→关闭帮助→按住瞄准并小幅拖动、松手放箭。靶面实际7分，HUD分数0→7、已用箭数0/2→1/2。未再次射击、通关、试玩后23关、开启声音、刷新存档或验证重开；不额外追加输入。自然动画结束的只读截图未改变游戏状态。",
+    "console_warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ]
+  },
+  "accounting": {
+    "observation_start": "2026-11-17T03:38:17.149449+00:00",
+    "observation_end": "2026-11-17T03:50:39.807747+00:00",
+    "elapsed_seconds": 742.6582980155945,
+    "scope": "包含原包抓取、代码审查、下载、实际浏览器交互及等待；非独占推理或CPU耗时",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "ui_steps_used": 5,
+  "limitations": "远端52独立Playwright真实5步：原首页→单人入口→第1关→关闭帮助→按住瞄准并小幅拖动、松手放箭。靶面实际7分，HUD分数0→7、已用箭数0/2→1/2。未再次射击、通关、试玩后23关、开启声音、刷新存档或验证重开；不额外追加输入。自然动画结束的只读截图未改变游戏状态。",
+  "network_scope": "完整198请求与198响应均为本地同源HTTP200，无外联、失败请求或脚本错误；保留1条Canvas getImageData性能警告。全部204项声明原静态资源有SHA，190张图片解码通过。早期额外猜测的css/bg_desktop.jpg原站404被保留在源失败文件；原CSS未引用该路径，未放入运行包，也未伪造资源。"
+}

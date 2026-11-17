@@ -1,0 +1,261 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "原首页启动"
+      },
+      {
+        "type": "checkpoint",
+        "description": "选择原单人模式"
+      },
+      {
+        "type": "checkpoint",
+        "description": "选择第1关"
+      },
+      {
+        "type": "checkpoint",
+        "description": "关闭原帮助"
+      },
+      {
+        "type": "checkpoint",
+        "description": "按住瞄准、拖动并释放；原生7分，已用箭0/2变1/2"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "network_events": 397,
+    "requests": 198,
+    "scope": "远端52独立Playwright真实5步：原首页→单人入口→第1关→关闭帮助→按住瞄准并小幅拖动、松手放箭。靶面实际7分，HUD分数0→7、已用箭数0/2→1/2。未再次射击、通关、试玩后23关、开启声音、刷新存档或验证重开；不额外追加输入。自然动画结束的只读截图未改变游戏状态。",
+    "console_warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ]
+  },
+  "offline_features": {
+    "multiplayer": {
+      "status": "removed",
+      "reason": "整段房间UI/登录/PlayerIO依赖、邀请与联网游戏/界面/统计类退役，保留单人关卡；无SDK替身。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/archery-retirement.json",
+        "evidence/network-console.json"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "平台启动、推荐/通知/插屏派发和奖励按钮/加箭方法移除，不发免费奖励。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/archery-retirement.json",
+        "evidence/network-console.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "在线统计、联网排行存取、成绩上传事件退役；原本地关卡星级与分数保留。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/archery-retirement.json",
+        "evidence/network-console.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "原单人关卡未发现真实支付或购买接口；实际网络仅同源静态资源。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/archery-retirement.json",
+        "evidence/network-console.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "体育 / 射箭",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "按住瞄准、拖动调整、释放射箭，有限箭数达到关卡最低分。",
+    "core_experience": "",
+    "controls": "按住准备→拖动瞄准→释放射箭",
+    "game_loop": "",
+    "content": "24份原关卡配置与204项声明资源；仅首关一次射箭实测。",
+    "progression": "",
+    "save": "原archery_king前缀localStorage成绩与解锁，刷新恢复未实测。",
+    "rules": "原24关、环值10至0、第1关2箭、星级阈值8/14/18。",
+    "systems": "保留原单人选关、弓箭手/靶面、瞄准与风偏、箭数、分数、星级、帮助、音量、清档及本地进度。删除房间/登录/邀请/PlayerIO、在线统计、上传/通知、推荐/广告、奖励按钮与额外箭奖励方法；没有伪造SDK或广告成功。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "远端52独立Playwright真实5步：原首页→单人入口→第1关→关闭帮助→按住瞄准并小幅拖动、松手放箭。靶面实际7分，HUD分数0→7、已用箭数0/2→1/2。未再次射击、通关、试玩后23关、开启声音、刷新存档或验证重开；不额外追加输入。自然动画结束的只读截图未改变游戏状态。 完整198请求与198响应均为本地同源HTTP200，无外联、失败请求或脚本错误；保留1条Canvas getImageData性能警告。全部204项声明原静态资源有SHA，190张图片解码通过。早期额外猜测的css/bg_desktop.jpg原站404被保留在源失败文件；原CSS未引用该路径，未放入运行包，也未伪造资源。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "CreateJS / Howler",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Archery King / 射箭之王。MSN原生身份9n5gkc4t7lzz，Code This Lab公开原构建v28；JavaScript/HTML/CSS，CreateJS Canvas2D、Howler。二维背景与弓箭手帧动画。本轮实际5步见验证附记。",
+        "asset_types": "PNG/JPG角色帧、草地/靶面背景和按钮，MP3音频与Russo One WOFF/WOFF2字体；原JavaScript内嵌24关配置。204项声明资源保留原URL和SHA，190图片解码通过。",
+        "core_challenge": "按住开始瞄准，在原抖动与风偏下拖动调整方向，松手射箭；有限箭数内达到本关最低分。实际首箭命中7分，未验证后续难度。",
+        "controls": "实际使用浏览器原生触摸事件触发CreateJS输入：按下约1.1秒、从(650,440)拖至(655,445)并释放。原帮助说明为鼠标左键按住、拖动瞄准、释放射箭；触摸路径实际生效，未注入游戏函数或状态。",
+        "behavior_path": "本轮：首页选择单人→24关选择界面中的第1关→原帮助弹窗→关闭帮助→一次瞄准放箭→靶面7分及HUD已用箭1/2。",
+        "game_path": "代码路径：本地菜单→按原存档选关→帮助/弓箭场景→有限次射击→按最低分与星级阈值结算→重开/下一关；本轮只到首箭反馈，未实测结算和流失风险。",
+        "progression_path": "保留原24关顺序及本地最高分/解锁；新存档实测仅第1关解锁，未篡改存档或批量解锁。",
+        "core_loop": "目标：本关箭数内达到最低分。规则：按住准备、拖动调整、松手射箭，按靶面环值计分。反馈：箭落靶动画、7分浮字、分数0→7、已用箭0/2→1/2。激励/下一目标：原星级阈值与下一关解锁代码保留；本轮未完成这一整关。",
+        "gameplay_rules": "原TARGET_SCORE=[10,9,8,7,6,5,4,3,2,1,0]；原命中距离分类、靶心坐标、风偏、箭数、抖动、星级及输赢判断保留。第1关2箭，最低8分，三档星级阈值[8,14,18]，风速min0/max0；本轮首箭7分仍未达到通关阈值。",
+        "key_numbers": "源码数值：AIMING_TIME800、ARROW_SPEED200、AIM_SENSITIVITY0.007；10个TARGET_DISTANCES位置配置[20,37,52,69,87,105,122,142,161,180]；7语言。第1关aim_tremble distance6/time9000。数值来自原代码，不冒充实测耗时。",
+        "level_configuration": "LEVELS为24份实际原关卡记录，每关wind、arrows、stars、aim_tremble均原样保留于evidence/archery-native-facts.json。只试玩第1关一次放箭；完整配置不等于24关通关。",
+        "system_design": "保留原单人选关、弓箭手/靶面、瞄准与风偏、箭数、分数、星级、帮助、音量、清档及本地进度。删除房间/登录/邀请/PlayerIO、在线统计、上传/通知、推荐/广告、奖励按钮与额外箭奖励方法；没有伪造SDK或广告成功。",
+        "theme": "原写实弓箭运动员、草地射箭场、山地背景、彩环箭靶、英文帮助与图标资源；只使用原包素材和实际运行截图。",
+        "progression_economy": "原游戏按关卡最高分与星级解锁记录本地进度。本版不含联网排名、付费货币、购买或广告换箭；未新增经济数值，也未实测进度刷新。",
+        "roster": "弓箭手为原70帧player_0至69的准备/瞄准/放箭动画；操作对象是弓箭方向，箭与靶面由原CArrow/CTarget及命中距离逻辑处理；没有新增角色能力或联网对手替身。",
+        "monetization": "单机修订去除外部平台脚本、广告推荐/成绩上传、登录房间、广告奖励入口及奖励加箭，不把奖励当免费领取。原本地计分与解锁不依赖服务端；未发现保留的真实支付接口。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/01-start.png",
+        "caption": "原首页，联网按钮已退役"
+      },
+      {
+        "path": "screenshots/02-local.png",
+        "caption": "原选关与初始解锁，仅第1关可选"
+      },
+      {
+        "path": "screenshots/05-release.png",
+        "caption": "首箭原靶面实际7分"
+      },
+      {
+        "path": "screenshots/05-score.png",
+        "caption": "原HUD分数7，已用箭1/2；未通关"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-17T03:38:17.149449+00:00",
+    "observation_end": "2026-11-17T03:50:39.807747+00:00",
+    "elapsed_seconds": 742.6582980155945,
+    "scope": "包含原包抓取、代码审查、下载、实际浏览器交互及等待；非独占推理或CPU耗时",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "原生首箭7分与箭数消耗，未通关",
+      "evidence": [
+        "screenshots/05-score.png",
+        "screenshots/05-release.png",
+        "js/main.js"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "204声明资源SHA与190图片解码；实际198请求本地200",
+      "evidence": [
+        "screenshots/05-score.png",
+        "screenshots/05-release.png",
+        "js/main.js"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "首页、选关、原帮助、原球场实渲染",
+      "evidence": [
+        "screenshots/05-score.png",
+        "screenshots/05-release.png",
+        "js/main.js"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原弓、箭、靶面和HUD可见",
+      "evidence": [
+        "screenshots/05-score.png",
+        "screenshots/05-release.png",
+        "js/main.js"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原弓箭手帧动画实际完成一次射击",
+      "evidence": [
+        "screenshots/05-score.png",
+        "screenshots/05-release.png",
+        "js/main.js"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "准备/瞄准/放箭/落靶/反馈回场",
+      "evidence": [
+        "screenshots/05-score.png",
+        "screenshots/05-release.png",
+        "js/main.js"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "原5步操作与HUD变化",
+      "evidence": [
+        "screenshots/05-score.png",
+        "screenshots/05-release.png",
+        "js/main.js"
+      ]
+    }
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

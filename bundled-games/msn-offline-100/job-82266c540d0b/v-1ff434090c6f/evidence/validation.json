@@ -1,0 +1,56 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "Open original native menu"
+      },
+      {
+        "type": "checkpoint",
+        "description": "Click original local play"
+      },
+      {
+        "type": "checkpoint",
+        "description": "Click native solo mode"
+      },
+      {
+        "type": "checkpoint",
+        "description": "Click canvas to stop moving dart / second tutorial displayed"
+      },
+      {
+        "type": "checkpoint",
+        "description": "Drag downward and release: native hit16, remaining darts3 to2"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "network_events": 216,
+    "requests": 108,
+    "scope": "远端52独立Playwright浏览器真实5步：首页→本地→单人→点屏停住飞镖→原生按住拖拽释放。原靶面命中16分、剩余飞镖3变2。未追加点击、刷新、第二次投掷、CPU关卡或整局通关；声音初始静音未测试。",
+    "console_warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ]
+  },
+  "accounting": {
+    "observation_start": "2026-11-16T12:46:05.400476+00:00",
+    "observation_end": "2026-11-16T13:31:44.052854+00:00",
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "price": null,
+    "currency": null,
+    "pure_processing_seconds": null,
+    "scope": "含交错工作、工具连接与等待，非游戏独占耗时；缺逐游戏token/单价，不填零"
+  },
+  "ui_steps_used": 5,
+  "scope": "远端52独立Playwright浏览器真实5步：首页→本地→单人→点屏停住飞镖→原生按住拖拽释放。原靶面命中16分、剩余飞镖3变2。未追加点击、刷新、第二次投掷、CPU关卡或整局通关；声音初始静音未测试。",
+  "network_scope": "完整108请求/108响应，均本地127.0.0.1且状态200；无外联请求、请求失败或脚本错误。保留1条Canvas getImageData性能警告，未隐藏。没有注入游戏状态、解锁、分数或服务端/广告返回值。"
+}

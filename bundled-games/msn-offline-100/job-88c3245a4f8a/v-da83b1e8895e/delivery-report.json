@@ -1,0 +1,268 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": false,
+    "network_windows": [
+      {
+        "file": "aim-events.json",
+        "events": 0,
+        "truncated": false,
+        "hasMore": false
+      },
+      {
+        "file": "help-events.json",
+        "events": 0,
+        "truncated": false,
+        "hasMore": false
+      },
+      {
+        "file": "load-1-events.json",
+        "events": 0,
+        "truncated": false,
+        "hasMore": false
+      },
+      {
+        "file": "load-2-events.json",
+        "events": 1000,
+        "truncated": true,
+        "hasMore": false
+      },
+      {
+        "file": "shot-events.json",
+        "events": 0,
+        "truncated": false,
+        "hasMore": false
+      },
+      {
+        "file": "start-events.json",
+        "events": 329,
+        "truncated": false,
+        "hasMore": false
+      }
+    ],
+    "network_scope": "首页记录329条完整CDP事件；球场后台预取全部18洞时缓冲区截断，保留该窗口最后1000条，不能声称启动全过程网络记录完整。后续教程、瞄准、击球窗口记录完整且无新增请求或异常；所有保留事件无外联/HTTP失败，控制台错误/警告为空。另由全量源码静态审查和384项实际原站资源SHA闭包佐证单机依赖，不将截断窗口当完整网络证明。",
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "Menu then native 18-hole level selector",
+        "bounded_actions": [
+          "Load remote isolated runtime",
+          "Click native Play once"
+        ]
+      },
+      {
+        "type": "checkpoint",
+        "description": "Original first-shot help",
+        "bounded_actions": [
+          "Select original unlocked hole1 once"
+        ]
+      },
+      {
+        "type": "checkpoint",
+        "description": "Original ball and course",
+        "bounded_actions": [
+          "Dismiss first help once"
+        ]
+      },
+      {
+        "type": "checkpoint",
+        "description": "Native pan tutorial; no second shot",
+        "bounded_actions": [
+          "One native aim/power drag gesture"
+        ]
+      },
+      {
+        "type": "checkpoint",
+        "description": "Observe original shot physics and shot-count feedback",
+        "bounded_actions": [
+          "Dismiss native pan tutorial once"
+        ]
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "network_events": 1329,
+    "scope": "按预先计划完成5个有界验证检查点：首页并单击播放→第1洞→关闭击球教程→一次瞄准拖拽→关闭平移教程并观察原生击球。LAUNCH由0变1，球沿原场景运动、镜头跟随。未验证进洞、关卡结算、后17洞、再次击球、重开与刷新存档。"
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "原平台脚本/服务工作线程/通知及广告和推荐调用已移除，无模拟广告成功。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/minigolf-retirement.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "原save_score上传监听和派发已移除，单机各洞分数保留。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/minigolf-retirement.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原18洞为单人CANNON物理击球，未见房间或匹配入口；同站其他游戏不作本款功能。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/minigolf-retirement.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "原18洞玩法无真实支付、账号购入或充值入口。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/minigolf-retirement.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "体育 / 迷你高尔夫",
+    "dimension": "2.5D",
+    "perspective": "等距球场与跟球镜头",
+    "core_gameplay": "点击球并拖拽设定方向与力度，释放后依原刚体物理在球场运动；尽少击球让球入洞。",
+    "core_experience": "",
+    "controls": "本轮鼠标点击、单次按住球拖拽并释放；原教程还有拖拽平移视野。触摸实现保留但未测试。",
+    "game_loop": "首页→18洞选择（初始仅第1洞解锁）→原两段教程→击球与HUD；后续按原存档解锁，不注入解锁。",
+    "content": "完整18洞原场景资源与模型已本地化，384项动态资源闭包全部原站获取并SHA归档。源码资源齐全不代表18洞通关。",
+    "progression": "",
+    "save": "沿用原CLocalStorage(minigolf_world)本地解锁和各洞成绩。未验证刷新恢复；无平台云存档或服务端成绩调用。",
+    "rules": "原每洞PAR为[3,3,4,5,4,5,5,5,6,5,5,6,7,8,6,10,7,7]；PAR基分5000、每杆差值1000、最大击球力度152均沿用原入口配置；公式及判定源码保留，未逐洞结算测试。",
+    "systems": "原选关、本地成绩/解锁、球物理、方向力度、镜头平移、教程、重开、静音/全屏控件保留；广告、推荐、通知、线上分数退役。",
+    "ui_flow": "原草地/石墙首页→18洞网格→击球和平移教程→PAR/LAUNCH/HOLE HUD。界面图片与原按钮保留；无新增替代游戏界面。",
+    "level_design": "保留原18洞形状、CANNON边界/沙地/水区/洞传感器和原PAR顺序；未调物理、难度或计分。",
+    "verification": "按预先计划完成5个有界验证检查点：首页并单击播放→第1洞→关闭击球教程→一次瞄准拖拽→关闭平移教程并观察原生击球。LAUNCH由0变1，球沿原场景运动、镜头跟随。未验证进洞、关卡结算、后17洞、再次击球、重开与刷新存档。 首页记录329条完整CDP事件；球场后台预取全部18洞时缓冲区截断，保留该窗口最后1000条，不能声称启动全过程网络记录完整。后续教程、瞄准、击球窗口记录完整且无新增请求或异常；所有保留事件无外联/HTTP失败，控制台错误/警告为空。另由全量源码静态审查和384项实际原站资源SHA闭包佐证单机依赖，不将截断窗口当完整网络证明。 代码可修改规则/物理参数并拆解球、场景和存档模块；FBX旧解析器存在未运行的旧格式分支引用，现用18模型为7400/7500，首洞实际解析成功，不声称所有分支可复用。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "原CreateJS Canvas、THREE FBX解析、CANNON刚体和Howler；发布JavaScript。",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "PNG/JPG、原字体、MP3、18份原FBX文本模型和324块球场背景切片。",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "观察球洞和障碍→原方向/力度拖拽→球运动与镜头跟随→击球数反馈→再次击球直至入洞。仅一次击球实际验证。",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "目标入洞；原碰撞、沙/水/球洞传感器及判定保留。实际原LAUNCH从0增至1、球离开初始标记、镜头跟随，未观察进洞或胜利。",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "18洞；每洞18块背景图，共324块；18个实际原FBX文本模型；第1洞PAR3，本轮LAUNCH0→1。",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "草地、石墙、泥地、洞旗及白色高尔夫球；原等距球场贴图与字体。",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "单机版移除广告、引流、通知及成绩上传，无真实支付或在线身份；不伪造SDK或奖励结果。",
+    "illustrations": [
+      {
+        "path": "screenshots/01-levels.png",
+        "caption": "原18洞选择，仅第1洞初始解锁"
+      },
+      {
+        "path": "screenshots/03-ready.png",
+        "caption": "原第1洞PAR3与初始球位"
+      },
+      {
+        "path": "screenshots/05-shot.png",
+        "caption": "一次原生击球后LAUNCH1与球位/镜头变化"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-14T09:59:55.579509+00:00",
+    "observation_end": "2026-11-14T10:07:36.519894+00:00",
+    "scope": "含抓取、交错工作和等待，非独占推理耗时；未知token和单价不填零",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "evidence": [
+        "screenshots/05-shot.png",
+        "js/main.js"
+      ],
+      "reason": "一次原生方向力度拖拽和发球0→1"
+    },
+    "resources": {
+      "status": "verified",
+      "evidence": [
+        "screenshots/05-shot.png",
+        "js/main.js"
+      ],
+      "reason": "384项原站资源闭包，全部18模型/324背景本地；网络预取窗口截断单独披露"
+    },
+    "scene": {
+      "status": "verified",
+      "evidence": [
+        "screenshots/05-shot.png",
+        "js/main.js"
+      ],
+      "reason": "原首页、18洞网格及首洞实际渲染"
+    },
+    "objects": {
+      "status": "verified",
+      "evidence": [
+        "screenshots/05-shot.png",
+        "js/main.js"
+      ],
+      "reason": "原高尔夫球、球场、HUD可见"
+    },
+    "animation": {
+      "status": "verified",
+      "evidence": [
+        "screenshots/05-shot.png",
+        "js/main.js"
+      ],
+      "reason": "原球移动和镜头跟随实际可见"
+    },
+    "ui": {
+      "status": "verified",
+      "evidence": [
+        "screenshots/05-shot.png",
+        "js/main.js"
+      ],
+      "reason": "原首页、选关、两段教程及HUD实际操作"
+    },
+    "characters": {
+      "status": "not_applicable",
+      "reason": "原玩法无可操控人物。"
+    }
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

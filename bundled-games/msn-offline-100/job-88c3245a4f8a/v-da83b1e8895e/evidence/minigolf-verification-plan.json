@@ -1,0 +1,43 @@
+{
+  "revision": "minigolf-offline-v1",
+  "limit": 5,
+  "steps": [
+    {
+      "number": 1,
+      "actions": [
+        "Load remote isolated runtime",
+        "Click native Play once"
+      ],
+      "checkpoint": "Menu then native 18-hole level selector"
+    },
+    {
+      "number": 2,
+      "actions": [
+        "Select original unlocked hole1 once"
+      ],
+      "checkpoint": "Original first-shot help"
+    },
+    {
+      "number": 3,
+      "actions": [
+        "Dismiss first help once"
+      ],
+      "checkpoint": "Original ball and course"
+    },
+    {
+      "number": 4,
+      "actions": [
+        "One native aim/power drag gesture"
+      ],
+      "checkpoint": "Native pan tutorial; no second shot"
+    },
+    {
+      "number": 5,
+      "actions": [
+        "Dismiss native pan tutorial once"
+      ],
+      "checkpoint": "Observe original shot physics and shot-count feedback"
+    }
+  ],
+  "scope": "Five bounded validation checkpoints; no retries or second shot. Unverified course completion, later holes, restart/save."
+}
