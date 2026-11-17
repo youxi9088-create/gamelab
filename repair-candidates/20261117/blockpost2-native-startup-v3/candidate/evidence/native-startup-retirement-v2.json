@@ -1,0 +1,68 @@
+{
+  "at": "2026-11-17T06:02:24.107572+00:00",
+  "original_wasm_sha256": "0701b526a23164c9f29bf9ffd691e0f17dee0312ca8cb7dcd7f367fe08546f6d",
+  "candidate_wasm_sha256": "b403141ba8e22b7e1e412a5fc5752b4c7f1bb152b3134b84327d224704145750",
+  "defined_functions": 129713,
+  "byte_identical_functions": 129712,
+  "changed_functions": [
+    92855
+  ],
+  "retired_calls": [
+    {
+      "relative_offset": 214,
+      "callee": 47466,
+      "original": "10eaf202",
+      "replacement": "1a1a",
+      "reason": "Native startup master-server connection retired"
+    },
+    {
+      "relative_offset": 358,
+      "callee": 56621,
+      "original": "10adba03",
+      "replacement": "1a1a",
+      "reason": "Actual repeated native SDK initialization consumer retired"
+    }
+  ],
+  "function_signatures_verified": true,
+  "all_noncode_sections_preserved": true,
+  "original_data_sha256": "9fcd833314b96715815832021716ca42657c2dcd9a514fa3ecf887f4ab6c9dfb",
+  "candidate_data_sha256": "d743541862513c4429f9be26be77dc86cd1d87d5274540a1d2e3e15879aa8e10",
+  "original_unity_object_count": 42139,
+  "unchanged_unity_objects": 42138,
+  "changed_unity_objects": [
+    {
+      "file": "globalgamemanagers",
+      "path_id": 18,
+      "type": "UnityConnectSettings",
+      "before": "d493235294c49058fc07f222b542a36accc95202c5252be35390061a8d6355c4",
+      "after": "48155e2f6dbae97d9bc1a5389b04c58abfa02223ebd842e18f239531e855efa3"
+    }
+  ],
+  "unchanged_native_members": [
+    {
+      "name": "boot.config",
+      "sha256": "c92f81ae694ceb6d2f59ad7b35f14fb34f491afbfd18ed40c5c8b34044b2808c"
+    },
+    {
+      "name": "resources.resource",
+      "sha256": "9e2b0c5f940d97738e59e797ec42df382a58351fcac5a3f172564284b39b6431"
+    },
+    {
+      "name": "RuntimeInitializeOnLoads.json",
+      "sha256": "eaf79963f588ae340c57751644da11a6330b488f46db253faa07d398b25ebbc8"
+    },
+    {
+      "name": "ScriptingAssemblies.json",
+      "sha256": "aa7df093a92cebab2ada551bd1f1710812f039cfac41023c5f594dc79e1f0c98"
+    },
+    {
+      "name": "Il2CppData/Metadata/global-metadata.dat",
+      "sha256": "a1724beea1e183ff2174fbfeddb379f654a02d430d8111529280cc72d0fce75b"
+    },
+    {
+      "name": "Resources/unity_default_resources",
+      "sha256": "288620d5afcbb7c6154cba6fc6d5200631baa72a3e917cf8ae9d75f5fa120b27"
+    }
+  ],
+  "scope": "Only two void calls in proven native startup coroutine plus three original Unity Analytics settings flags. No SDK ready flag, account, server response, source domain, license or gameplay/level/AI field changed. Original v1 and original build retained; new v2 unverified."
+}

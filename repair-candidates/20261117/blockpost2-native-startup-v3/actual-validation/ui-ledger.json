@@ -1,0 +1,39 @@
+{
+  "job_id": "job-353d7339bf40",
+  "scope": "First direct GUI verification; historical capture failures kept separately.",
+  "max_steps": 5,
+  "steps_used": 4,
+  "remaining": 1,
+  "steps": [
+    {
+      "step": 1,
+      "action": "Start original 2021 native default start scene; preserve authorization redirects",
+      "at": "2026-11-17T05:36:31.385Z",
+      "outcome": "Original native guest profile/menu rendered, unlike older Blockpost license redirect. Current runtime still retries native SDK initialization and remote WebSocket/Unity telemetry; no offline match or gameplay claim. Stop further input pending causal retirement.",
+      "screenshot": "validation-20261117/step-1.png"
+    },
+    {
+      "step": 2,
+      "action": "Start v3 original native menu after mapped startup consumer retirement and exact StreamingAssets config recovery; cumulative step2",
+      "at": "2026-11-17T06:19:40.765Z",
+      "outcome": "v3 original guest/native menu rendered. Startup observation: six resources HTTP200, no prior SDK initialization exception or outbound attempt; one engine persistentDataPath deprecation warning. Gameplay not yet proven.",
+      "screenshot": "validation-20261117/step-2.png"
+    },
+    {
+      "step": 3,
+      "action": "Click original top-left PLAY menu to inspect native offline/training entry",
+      "at": "2026-11-17T06:20:08.900Z",
+      "outcome": "Native PLAY displayed original modes Gungame, Team Deathmatch, Zombie, Free for All, Sniper Arena; additional lower rows off-screen and original level3 locks retained. No mode entered and no gameplay proof.",
+      "screenshot": "validation-20261117/step-3.png"
+    },
+    {
+      "step": 4,
+      "action": "Click original native down arrow to expose remaining original mode list",
+      "at": "2026-11-17T06:21:42.207Z",
+      "outcome": "Original down-arrow click did not change visible mode list after no-input observation; native level3 locks retained. Preserve last remaining action pending source-backed offline entry, no random mode retry.",
+      "screenshot": "validation-20261117/step-4.png"
+    }
+  ],
+  "runtime_verified": false,
+  "admitted": false
+}
