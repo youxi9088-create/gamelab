@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-17T20:01:14.020860+00:00",
+  "max_cumulative_inputs": 5,
+  "revision": "reversi-offline-v3",
+  "inputs": [
+    {
+      "step": 1,
+      "action": "goto",
+      "purpose": "Original local menu, resources, font and publisher feature retirement"
+    },
+    {
+      "step": 2,
+      "action": "click",
+      "purpose": "Original CPU training button"
+    },
+    {
+      "step": 3,
+      "action": "click",
+      "purpose": "Original beginner difficulty"
+    },
+    {
+      "step": 4,
+      "action": "click",
+      "purpose": "Original help panel dismissal"
+    },
+    {
+      "step": 5,
+      "action": "click",
+      "purpose": "One legal visible player move; observe native flips and ordinary CPU response"
+    }
+  ],
+  "no_state_or_legal_move_injection": true,
+  "no_hidden_answers_read": true,
+  "observation": "Only rendered board disc types, visible text and original public counters; input chosen from real screenshot/native Reversi rules, never invoke game control methods."
+}

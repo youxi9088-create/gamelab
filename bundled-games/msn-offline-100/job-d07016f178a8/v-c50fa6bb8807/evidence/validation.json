@@ -1,0 +1,310 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "1原入口"
+      },
+      {
+        "type": "checkpoint",
+        "description": "2训练/对抗AI"
+      },
+      {
+        "type": "checkpoint",
+        "description": "3初学者"
+      },
+      {
+        "type": "checkpoint",
+        "description": "4退出原帮助"
+      },
+      {
+        "type": "checkpoint",
+        "description": "5原合法格落子与CPU回应"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 70,
+    "responses": 70,
+    "network_events": 141,
+    "scope": "累计5次真实输入：进入原入口、训练/对抗AI、初学者、关闭原规则帮助、点击可见高亮合法格（屏幕390,300）。实际初始黑2/白2/占4格，玩家黑棋落至第3行第4列，原CPU白棋回应第3行第3列，最终黑3/白3/占6格。原规则夹吃翻转和CPU回应在真实画面出现，截图001至005已查看。只读getType读取可见棋子用于记录，不调用落子/AI方法、不读隐藏解题答案、不改棋盘或时间。未完成整局、胜负结算、刷新存档、另外两档难度、本地双人或手机验证。",
+    "network_scope": "实际70请求/70响应全部本地同源HTTP200，0外联、失败、缺失和脚本异常。保留AudioContext自动播放警告及Canvas2D读回性能提示各1条；没有把警告隐藏或声称声音听感通过。浏览器59086已关闭，实际exit0。",
+    "script_exceptions": [],
+    "tested_revision": "reversi-offline-v3",
+    "delivery_revision": "reversi-offline-v3",
+    "native_player_and_CPU_turn_verified": true,
+    "full_match_verified": false,
+    "storage_reload_verified": false
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "before": {
+    "canvas": {
+      "x": 0,
+      "y": -270,
+      "width": 1440,
+      "height": 1440,
+      "top": -270,
+      "right": 1440,
+      "bottom": 1170,
+      "left": 0
+    },
+    "size": {
+      "width": 1920,
+      "height": 1920
+    },
+    "stage": {
+      "scaleX": 1.5,
+      "scaleY": 1.5
+    },
+    "mode": 1,
+    "difficulty": 0,
+    "board": [
+      [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        1,
+        0,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        0,
+        1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ]
+    ],
+    "game": {
+      "started": false,
+      "touchActive": false,
+      "currentPlayer": 0,
+      "black": 2,
+      "white": 2,
+      "occupied": 4,
+      "blackTime": 0,
+      "whiteTime": 0
+    },
+    "visibleText": [
+      "00:00",
+      "人工智能",
+      "玩家",
+      "通过将对方的棋子夹在你的两个棋子之间来翻转它们。",
+      "你的目标是在游戏结束时拥有比对手更多的棋子。"
+    ],
+    "storageKeys": []
+  },
+  "after": {
+    "canvas": {
+      "x": 0,
+      "y": -270,
+      "width": 1440,
+      "height": 1440,
+      "top": -270,
+      "right": 1440,
+      "bottom": 1170,
+      "left": 0
+    },
+    "size": {
+      "width": 1920,
+      "height": 1920
+    },
+    "stage": {
+      "scaleX": 1.5,
+      "scaleY": 1.5
+    },
+    "mode": 1,
+    "difficulty": 0,
+    "board": [
+      [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        1,
+        0,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        1,
+        0,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        0,
+        1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ]
+    ],
+    "game": {
+      "started": true,
+      "touchActive": false,
+      "currentPlayer": 0,
+      "black": 3,
+      "white": 3,
+      "occupied": 6,
+      "blackTime": 28335,
+      "whiteTime": 1717
+    },
+    "visibleText": [
+      "00:01",
+      "人工智能",
+      "00:28",
+      "玩家"
+    ],
+    "storageKeys": []
+  },
+  "accounting": {
+    "observation_start": "2026-11-17T19:36:36.906533+00:00",
+    "observation_end": "2026-11-17T20:12:36.202511+00:00",
+    "elapsed_seconds": 2159.295978,
+    "scope": "原包归档至证据整理的观测窗口，包含等待及其他工作；不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "browser_channel_exit_code": 0,
+  "readonly_business_getter": "CCell.getType only; no game handler invocation"
+}

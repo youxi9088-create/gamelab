@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-17T20:15:31.063958+00:00",
+  "candidate_id": "game-eaa6babad32b",
+  "canonical_url": "https://www.4k99.com/detail/383",
+  "profiles_sha256": "dd9a6f8adb97cd6787141ce5273acd359cd08bd32ccb79de233598b950fa55cf",
+  "historical_versions_reviewed": [
+    "v-f019d1e6c4af"
+  ],
+  "matched_literal": "黑白棋",
+  "decision": "different_mechanics",
+  "existing_source_facts": {
+    "core": "按原规则从黑棋起拖动覆盖白棋。首关为一排1颗黑棋及3颗白棋；普通横向拖动后4颗变绿，原判定显示“关卡1通过”。",
+    "controls": "普通点击开始与第一关；按住首颗黑棋向右拖过三颗白棋。本轮没有使用提示、广告、皮肤或状态写入。",
+    "level_design": "原LevelConfig.GameLevels有50份7行6列数组；第一关第3行包含99起点和3个1棋子，其余为空。仅第一关有实机通关证据，不将静态配置数量作为全关卡可玩验收。"
+  },
+  "existing_mechanics": "原7行6列关卡拼图，一笔拖过棋子将其变绿并通关；50份预定布局，不是双方轮流落子夹吃的对弈。",
+  "new_source_facts": "Reversi原8×8空格落子；夹住对方连续棋子翻色；黑白双方交替；本机CPU评价/搜索回应，没有预设解题关卡。",
+  "comparison": "共同使用黑白棋子仅为对象外观；输入为连续拖线覆盖与单格落子，状态转移为关卡覆盖变绿与双方夹吃翻色，目标为预定拼图通关与终局占子比较，核心规则不同。",
+  "scope": "只允许已读取的这一个完整历史profile快照；相同候选后续profile变化或任何其他命中仍阻断，不削弱全站去重。",
+  "no_game_UI_inputs_added": true,
+  "submission_before_candidate_mutation_blocked": true
+}

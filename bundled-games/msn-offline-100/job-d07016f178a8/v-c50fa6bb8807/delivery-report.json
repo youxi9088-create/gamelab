@@ -1,0 +1,273 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "1原入口"
+      },
+      {
+        "type": "checkpoint",
+        "description": "2训练/对抗AI"
+      },
+      {
+        "type": "checkpoint",
+        "description": "3初学者"
+      },
+      {
+        "type": "checkpoint",
+        "description": "4退出原帮助"
+      },
+      {
+        "type": "checkpoint",
+        "description": "5原合法格落子与CPU回应"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 70,
+    "responses": 70,
+    "network_events": 141,
+    "scope": "累计5次真实输入：进入原入口、训练/对抗AI、初学者、关闭原规则帮助、点击可见高亮合法格（屏幕390,300）。实际初始黑2/白2/占4格，玩家黑棋落至第3行第4列，原CPU白棋回应第3行第3列，最终黑3/白3/占6格。原规则夹吃翻转和CPU回应在真实画面出现，截图001至005已查看。只读getType读取可见棋子用于记录，不调用落子/AI方法、不读隐藏解题答案、不改棋盘或时间。未完成整局、胜负结算、刷新存档、另外两档难度、本地双人或手机验证。",
+    "network_scope": "实际70请求/70响应全部本地同源HTTP200，0外联、失败、缺失和脚本异常。保留AudioContext自动播放警告及Canvas2D读回性能提示各1条；没有把警告隐藏或声称声音听感通过。浏览器59086已关闭，实际exit0。",
+    "script_exceptions": [],
+    "tested_revision": "reversi-offline-v3",
+    "delivery_revision": "reversi-offline-v3",
+    "native_player_and_CPU_turn_verified": true,
+    "full_match_verified": false,
+    "storage_reload_verified": false
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "原广告调用及SDK退役，保留无奖励普通继续。",
+      "evidence": [
+        "js/main.js",
+        "ctl_ui/js/CGUIController.js",
+        "evidence/reversi-reversi-offline-v3-retirement.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "原报分/排行服务与面板退役，本地占子计数保留。",
+      "evidence": [
+        "js/main.js",
+        "ctl_ui/js/CGUIController.js",
+        "evidence/reversi-reversi-offline-v3-retirement.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "只退役在线房间/匹配；同设备双人与本机CPU保留。",
+      "evidence": [
+        "js/main.js",
+        "ctl_ui/js/CGUIController.js",
+        "evidence/reversi-reversi-offline-v3-retirement.json"
+      ]
+    },
+    "payments": {
+      "status": "removed",
+      "reason": "原内购服务、消费数据和相关面板/调用退役。",
+      "evidence": [
+        "js/main.js",
+        "ctl_ui/js/CGUIController.js",
+        "evidence/reversi-reversi-offline-v3-retirement.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "黑白棋 / 本地CPU棋盘对弈",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "在8×8棋盘空格落子，用己方两端夹住连续对方棋子并翻色，争取终局占子更多。单机CPU依据原搜索/评价方法回应；这轮实际完成玩家落子和CPU回应。",
+    "core_experience": "",
+    "controls": "鼠标点原训练/对抗AI→初学者→规则帮助任意处退出→点击有1枚可翻提示的高亮格。四次click各为一次move/down/up，另一次为首次导航，合计5输入。没有脚本调用游戏业务处理器。",
+    "game_loop": "",
+    "content": "原无关卡序列；本地双人、单机CPU和初学者/业余/专业3档保留。只实际选择初学者，另两档与同设备双人未运行。",
+    "progression": "",
+    "save": "",
+    "rules": "10个重点方法AST精确一致：开局布子、cellClicked、numFlips、cellFlips、calcFlipCounts、countPawn、rate、othelloAI及单机_startGame/changeTurn。31个原核心方法中28个AST一致，3个只退役发行集成；CCell整个原函数字节一致。原合法性、翻转、换手、跳过/终局算法保持。",
+    "systems": "138处main精确范围改动，移除64个仅服务端GUI方法。完整物理退役PlayerIO、网络序列化、在线房间/匹配/在线bot、平台协议/账号/内购、排行/广告/发行外链及其调用。保留原独立浏览器工具，JSON使用真实浏览器内置，语言取navigator原生属性与原支持表，不提供SDK替身。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5次真实输入：进入原入口、训练/对抗AI、初学者、关闭原规则帮助、点击可见高亮合法格（屏幕390,300）。实际初始黑2/白2/占4格，玩家黑棋落至第3行第4列，原CPU白棋回应第3行第3列，最终黑3/白3/占6格。原规则夹吃翻转和CPU回应在真实画面出现，截图001至005已查看。只读getType读取可见棋子用于记录，不调用落子/AI方法、不读隐藏解题答案、不改棋盘或时间。未完成整局、胜负结算、刷新存档、另外两档难度、本地双人或手机验证。实际70请求/70响应全部本地同源HTTP200，0外联、失败、缺失和脚本异常。保留AudioContext自动播放警告及Canvas2D读回性能提示各1条；没有把警告隐藏或声称声音听感通过。浏览器59086已关闭，实际exit0。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "CreateJS / Canvas / Howler",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "MSN9n3s2qsvv0vn/v5，Reversi；原界面中文奥赛罗。CodeThisLab CreateJS/Canvas与Howler，JavaScript/HTML/CSS。实际1440×900桌面视口，原1920×1920画布按原逻辑缩放裁背景；手机未测。",
+        "asset_types": "原静态文件95项取得并保留来源与SHA。运行修订初始86文件，移除仅在线/更多游戏使用的9项；74个非脚本/HTML资源原字节核对一致，包括原棋盘、黑白棋子、按钮/难度、帮助、8个MP3及本地字体。已退役轮播的owl.video.play.png原404保留证据，不伪造替图。",
+        "core_challenge": "在8×8棋盘空格落子，用己方两端夹住连续对方棋子并翻色，争取终局占子更多。单机CPU依据原搜索/评价方法回应；这轮实际完成玩家落子和CPU回应。",
+        "controls": "鼠标点原训练/对抗AI→初学者→规则帮助任意处退出→点击有1枚可翻提示的高亮格。四次click各为一次move/down/up，另一次为首次导航，合计5输入。没有脚本调用游戏业务处理器。",
+        "behavior_path": "原木纹菜单奥赛罗→训练难度初学者/业余/专业→初学者规则帮助→原8×8初始4子与合法格提示→玩家落子/翻转→CPU自动落子/翻转→原双方计数3:3，轮回玩家。",
+        "game_path": "累计5次真实输入：进入原入口、训练/对抗AI、初学者、关闭原规则帮助、点击可见高亮合法格（屏幕390,300）。实际初始黑2/白2/占4格，玩家黑棋落至第3行第4列，原CPU白棋回应第3行第3列，最终黑3/白3/占6格。原规则夹吃翻转和CPU回应在真实画面出现，截图001至005已查看。只读getType读取可见棋子用于记录，不调用落子/AI方法、不读隐藏解题答案、不改棋盘或时间。未完成整局、胜负结算、刷新存档、另外两档难度、本地双人或手机验证。",
+        "progression_path": "原本地对局、重开和返回菜单逻辑保留；本轮没有存储键出现，未宣称跨刷新存档或关卡成长。原在线账号、房间、匹配、平台排行和消费进度已退役。",
+        "core_loop": "观察棋盘与合法格提示→选择夹吃落点→原cellFlips翻色→原countPawn更新双方计数→原CPU评价/搜索选择并落子→交替直至原终局判定。实测仅首个玩家/CPU往返，终局源码保留而未试玩。",
+        "gameplay_rules": "10个重点方法AST精确一致：开局布子、cellClicked、numFlips、cellFlips、calcFlipCounts、countPawn、rate、othelloAI及单机_startGame/changeTurn。31个原核心方法中28个AST一致，3个只退役发行集成；CCell整个原函数字节一致。原合法性、翻转、换手、跳过/终局算法保持。",
+        "key_numbers": "原8×8共64格，初始4子（黑2/白2）。实际一次玩家落子加一次CPU回应后占6格（黑3/白3）。原配置TIME_PER_MOVE30000ms、MAX_AI_THINKING1500ms、预载最短3500ms；这些常量来自源码，不代表实测所有超时分支。",
+        "level_configuration": "原无关卡序列；本地双人、单机CPU和初学者/业余/专业3档保留。只实际选择初学者，另两档与同设备双人未运行。",
+        "system_design": "138处main精确范围改动，移除64个仅服务端GUI方法。完整物理退役PlayerIO、网络序列化、在线房间/匹配/在线bot、平台协议/账号/内购、排行/广告/发行外链及其调用。保留原独立浏览器工具，JSON使用真实浏览器内置，语言取navigator原生属性与原支持表，不提供SDK替身。",
+        "theme": "原木纹背景、绿色棋盘、高亮合法格翻子数量、黑白圆棋子、双方面板、中文帮助与菜单保留。原帮助示意棋盘/静态署名保留，外链信用按钮改为纯本地显示，不假冒原平台版本。",
+        "progression_economy": "原普通棋盘占子计数是胜负依据，不新增金币、奖励或成长。广告奖励、内购、在线身份及其面板移除；没有伪造奖励/免费解锁。",
+        "roster": "原玩家黑棋与CPU白棋、8×8格子、合法格翻子数字、规则帮助、原双方面板及菜单。无叙事角色或新增替代素材。",
+        "monetization": "原平台SDK/PlayerIO账号房间、广告、排行报分、内购和更多游戏/反馈/隐私外链与调用物理退役。同设备双人与本机CPU保留原规则，本轮观察无服务端或外部访问。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原奥赛罗菜单，在线入口退役"
+      },
+      {
+        "path": "screenshots/002.png",
+        "caption": "原CPU三档难度"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "原规则帮助，未开始计时"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "原初始黑2白2与合法格提示"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "实际玩家及CPU落子后黑3白3"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-17T19:36:36.906533+00:00",
+    "observation_end": "2026-11-17T20:12:36.202511+00:00",
+    "elapsed_seconds": 2159.295978,
+    "scope": "原包归档至证据整理的观测窗口，包含等待及其他工作；不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "原合法格落子、翻转与CPU回应，黑2白2占4→黑3白3占6。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "74原非脚本资源字节核对，实际70同源请求全200。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单、难度、帮助和8×8棋盘实际显示。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原黑白棋子、合法格高亮/翻转数和双方计数实显。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原黑白双方棋子表现；原无角色叙事。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原棋子翻色与CPU自动回应，最终画面已查看。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "累计5输入完成菜单→训练→初学者→帮助→首回合。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}
