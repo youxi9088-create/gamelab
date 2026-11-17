@@ -1,0 +1,112 @@
+{
+  "identical_methods": 158,
+  "scoped_service_changes": [
+    {
+      "method": "game.entities.controllers.menu-controller:init",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.controllers.menu-controller:toGameplay",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-win:init",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-win:onContinueButtonClick",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-win:onShareButtonClick",
+      "removed": true,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-win:kill",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-win:moveIn",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-win:moveOut",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-game-over:init",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-game-over:createGameOverPopup",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-game-over:onRetryButtonClick",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-game-over:onHomeButtonClick",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-game-over:onShareButtonClick",
+      "removed": true,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-game-over:moveIn",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-game-over:kill",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.ui.popup-game-over:configureRewardedAds",
+      "removed": true,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.controllers.game-controller:gameover",
+      "removed": false,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.controllers.game-controller:extraRound",
+      "removed": true,
+      "scoped": true
+    },
+    {
+      "method": "game.entities.controllers.game-controller:submitScore",
+      "removed": true,
+      "scoped": true
+    }
+  ],
+  "native_words": {
+    "_PUZZLE_WORDS": {
+      "count": 494,
+      "sha256": "d674a3a55390bbd2ad76dade0fa37eebb38600d4327a2f4af044c06d85d5532a"
+    },
+    "_WORDS": {
+      "count": 12448,
+      "sha256": "871a3eacb1b32bee1f8f5cce2bd3abf4ddedf8af48f1e95fcc6ed0471c687a77"
+    }
+  },
+  "verified": true,
+  "scope": "Canonical AST comparison of every retained native game entity method, including exact original dictionaries, keyboard, feedback, animations and RNG. Scoped changes retire service controls/callers only; no gameplay state mutation."
+}

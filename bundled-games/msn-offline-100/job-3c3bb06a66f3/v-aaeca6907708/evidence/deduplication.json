@@ -1,0 +1,208 @@
+{
+  "at": "2026-11-17T07:12:05.545104+00:00",
+  "candidates_checked": 593,
+  "native_or_same_five_letter_mechanic_matches": [],
+  "source_identity": "9p8d5mdf3g17",
+  "mechanic": "Five-letter whole-word guesses, six tries, repeated-letter position and presence feedback.",
+  "comparisons": [
+    {
+      "id": "game-02c5ae927da7",
+      "title": "猜字",
+      "profiles": [
+        {
+          "version_id": "v-3f8bed99be15",
+          "status": "approved",
+          "profile": {
+            "category": "文字益智 / 成语选字填空",
+            "dimension": "2D",
+            "perspective": "原二维黑板题目与八字选项",
+            "core_gameplay": "主页→顷刻之_→普通选间→原第2题意满_得→刷新→开始恢复同题。",
+            "core_experience": "第1题顷刻之_普通点击间，原手势/填字反馈后进入第2题意满_得；刷新再开始恢复同一第2题，候选字重新洗牌。",
+            "controls": "普通点开始，题目顷刻之_中普通选间；刷新后再点开始，无答案注入。",
+            "game_loop": "wordHelper生成成语与候选，gameLayer.updateWordsData建问题/空字和8候选；gameWord.chooseWord通过原RightAnswer类型发通知，chooseRightWord/showEmipt原反馈后updateLayer进入下一题；saveDataMgr保存当前题/空位/关卡。",
+            "content": "原教室/黑板/画架、汉字字体、空位框/8候选按钮、手指/关卡/最佳分UI、音频；8声明资源及GameScene.fire。",
+            "progression": "wordHelper生成成语与候选，gameLayer.updateWordsData建问题/空字和8候选；gameWord.chooseWord通过原RightAnswer类型发通知，chooseRightWord/showEmipt原反馈后updateLayer进入下一题；saveDataMgr保存当前题/空位/关卡。",
+            "save": "刷新主页显示0/最佳0；开始后恢复原第2关意满_得，选项重新排列。不把主页0当作关卡未保存。",
+            "rules": "选择正确缺字可进入下一关；原错误分支结束本局但未实测；第1题实际选间成功，第2题不作答。",
+            "systems": "gameLayer题目/进度/正误，gameWord单字按钮与反馈，wordHelper题库/候选，saveDataMgr当前题持久化；原业务保持。",
+            "ui_flow": "wordHelper生成成语与候选，gameLayer.updateWordsData建问题/空字和8候选；gameWord.chooseWord通过原RightAnswer类型发通知，chooseRightWord/showEmipt原反馈后updateLayer进入下一题；saveDataMgr保存当前题/空位/关卡。",
+            "level_design": "选择正确缺字可进入下一关；原错误分支结束本局但未实测；第1题实际选间成功，第2题不作答。",
+            "verification": "5步：主页、普通开始、第1关顷刻之_点击间后原进入第2关意满_得、刷新主页、普通开始恢复第2关同题但选项重新排列。",
+            "evidence": "src/project.de99e.js gameLayer.updateWordsData/chooseRightWord/updateLayer、gameWord.chooseWord/showEmipt、wordHelper、saveDataMgr；03-answer/05-resume截图原第2关意满_得。",
+            "gameplay_signature": "主页→顷刻之_→普通选间→原第2题意满_得→刷新→开始恢复同题。",
+            "session_mechanism": "wordHelper生成成语与候选，gameLayer.updateWordsData建问题/空字和8候选；gameWord.chooseWord通过原RightAnswer类型发通知，chooseRightWord/showEmipt原反馈后updateLayer进入下一题；saveDataMgr保存当前题/空位/关卡。",
+            "replay_mechanism": "刷新后普通开始恢复第2题，未重新答第2题。",
+            "drive_mechanism": "识别成语缺字，从8个候选字中选正确字，原正误反馈并递进下一题。",
+            "goal_mechanism": "普通选择缺失成语字，完成当前题。",
+            "achievement_mechanism": "5步：主页、普通开始、第1关顷刻之_点击间后原进入第2关意满_得、刷新主页、普通开始恢复第2关同题但选项重新排列。",
+            "feedback_mechanism": "第1题顷刻之_普通点击间，原手势/填字反馈后进入第2题意满_得；刷新再开始恢复同一第2题，候选字重新洗牌。",
+            "continuation_mechanism": "主页→顷刻之_→普通选间→原第2题意满_得→刷新→开始恢复同题。",
+            "motivation_mechanism": "不猜测玩家心理；已实现的连续目标和反馈见核心闭环。读缺字成语→8选1→原正确/错误反馈→正确下一题；本轮原答对一题并恢复下一题。",
+            "core_goal_reachability": "5步：主页、普通开始、第1关顷刻之_点击间后原进入第2关意满_得、刷新主页、普通开始恢复第2关同题但选项重新排列。；验证边界：只答对第1题并检查第2题恢复，未测试错误答案、后续题库、提示/换题、付费/复活或音频。；主页刷新后0与最佳0是原实际显示，未获得整局结算，不宣称最高分增长。；8为loadResDir返回资产数，不等于题目数量，题库关数未统计或逐题验证。",
+            "engine": "Cocos Creator 2.3.2",
+            "programming_language": "JavaScript",
+            "specification_v51": {
+              "template_version": "5.1",
+              "sections": {
+                "basic_facts": "4k99详情424/category4，原Cocos Creator2.3.2二维猜字发布包，设计750×1334。",
+                "asset_types": "原教室/黑板/画架、汉字字体、空位框/8候选按钮、手指/关卡/最佳分UI、音频；8声明资源及GameScene.fire。",
+                "controls": "普通点开始，题目顷刻之_中普通选间；刷新后再点开始，无答案注入。",
+                "behavior_path": "主页→顷刻之_→普通选间→原第2题意满_得→刷新→开始恢复同题。",
+                "game_path": "wordHelper生成成语与候选，gameLayer.updateWordsData建问题/空字和8候选；gameWord.chooseWord通过原RightAnswer类型发通知，chooseRightWord/showEmipt原反馈后updateLayer进入下一题；saveDataMgr保存当前题/空位/关卡。",
+                "core_loop": "读缺字成语→8选1→原正确/错误反馈→正确下一题；本轮原答对一题并恢复下一题。",
+                "gameplay_rules": "选择正确缺字可进入下一关；原错误分支结束本局但未实测；第1题实际选间成功，第2题不作答。",
+                "key_numbers": "第1题顷刻之间，正确后第2题意满_得；每题8候选；刷新恢复第2题，主页0/最佳0未变化。",
+                "system_design": "gameLayer题目/进度/正误，gameWord单字按钮与反馈，wordHelper题库/候选，saveDataMgr当前题持久化；原业务保持。",
+                "theme": "原教室黑板成语选字。"
+              }
+            },
+            "illustrations": [
+              {
+                "path": "screenshots/03-answer.jpg",
+                "caption": "普通答对顷刻之间后原第2题。"
+              },
+              {
+                "path": "screenshots/05-resume.jpg",
+                "caption": "刷新后普通开始恢复同一第2题。"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "game-25edfc5c74fd",
+      "title": "🎮 Hangman 🕹️ Play on CrazyGames",
+      "profiles": [
+        {
+          "version_id": "v-efe1457414bd",
+          "status": "approved",
+          "profile": {
+            "category": "益智 / 英文猜词",
+            "dimension": "2D",
+            "perspective": "固定正面",
+            "engine": "HTML5 Canvas 2D（ig/MJS运行结构）",
+            "programming_language": "JavaScript / HTML / CSS",
+            "core_gameplay": "根据分类提示观察字母槽，点击屏幕QWERTY字母补全英文词。正确字母逐位置计分，错误字母累积火柴人部件；可以按原价格使用钻石提示。",
+            "controls": "原新档教程逐页点击继续；菜单绿色Play进入，点击字母猜词。黄色灯泡先提示确认，再次确认后消耗10钻石并揭示一个未揭示字母。胜利结果Next进入下一题；右上设置入口保留，本轮未展开设置。实际使用桌面鼠标，触屏未验证。",
+            "game_loop": "观察分类和空槽→点击字母或确认使用钻石提示→显示正确字母/得分或增加错误部件→补全本题后原胜利结算及2钻石奖励→Next继续原题池；错误累计7次进入原失败分支。",
+            "save": "保留原设备存储及键格式，diamond、highScore、firstTimer、isTutorial等由原save/load方法维护。实际刷新后菜单最高分30，Play进入新局仍有72钻石，当前分数与题次归0/Level1，教程未再次出现；不保存当前题面或新增云存档。",
+            "rules": "原320词条/17分类、随机选词、长度递进、字母逐位置判断、7次错误阈值、每位置10分、胜利2钻石、提示10钻石及设备记录保持。原提示复用字母判断路径并按正确位置计分；不赠送资源或改变胜负条件。",
+            "verification": "原提示/字母/选词/胜负/记录等方法规范AST与五点实玩保持，最终仅ig.Image加载与reload真实src队列改为最多2项，不伪造加载或成功；旧版真实站23个HTTP502留存。5个验收检查点，17条行动记录含1次启动与16次普通点击/刷新：原启动教程；正常退出教程、确认提示使80→70钻石并揭示D/10分，点击O到20分；点击G完成DOG，原Well Done/New Highscore结算30分、钻石72；原Next到Level2 Clothes，分数30/钻石72；刷新回菜单最高分30，Play新局Level1 Body Parts/0分/72钻石且教程不再弹出。原140请求窗口无外联/请求失败/页面异常，两个原全屏图标404和2条旧meta提示完整留存；图标从原声明地址补齐后，保持原生玩法方法的启动资源复核71个请求无HTTP/请求失败/页面或控制台错误，保留1条旧meta提示。未写入游戏内存、得分、随机数或存储。未验证7错失败、全词库、全部分类长局循环、设置/全屏点击、触屏和音频听觉。",
+            "evidence": "evidence/direct-ai-b/runtime.json; evidence/direct-ai-b/ai_b_minimal-source-preservation.json; evidence/direct-ai-b/ai_b_image-queue-proof.json; evidence/direct-ai-b/ai_b_original-rule-data-facts.json; evidence/direct-ai-b/ai_b_declared-icon-receipts.json",
+            "specification_v51": {
+              "template_version": "5.1",
+              "sections": {
+                "basic_facts": "Hangman，英文分类猜词单机游戏。JavaScript/HTML/CSS与Canvas2D，保留原ig/MJS运行结构。实际桌面Chrome视口960×720，可见游戏区域960×540居中显示。授权方：gcy。",
+                "asset_types": "原PNG/JPG/GIF背景、字母/按钮、火柴人和胜败动画图片，naomi WOFF2/TTF字体与OGG音乐/音效均随包。两张原全屏图标已补齐并保留原URL、真实响应及SHA。封面与图解均为本版本实际画面。",
+                "core_challenge": "根据分类提示观察字母槽，点击屏幕QWERTY字母补全英文词。正确字母逐位置计分，错误字母累积火柴人部件；可以按原价格使用钻石提示。",
+                "controls": "原新档教程逐页点击继续；菜单绿色Play进入，点击字母猜词。黄色灯泡先提示确认，再次确认后消耗10钻石并揭示一个未揭示字母。胜利结果Next进入下一题；右上设置入口保留，本轮未展开设置。实际使用桌面鼠标，触屏未验证。",
+                "behavior_path": "读取分类提示与空槽数量，逐次选择字母，观察字母槽、按键状态、分数与火柴人部件。提示需要再次确认并消耗钻石，沿原字母判断路径揭示；玩家根据反馈继续猜词。未改按键防重复或错误累计逻辑。",
+                "game_path": "原新档启动教程→逐页说明分类、字母、10钻石提示、通关2钻石、每正确字母位置10分与错误后果→本题猜词→原胜利/失败结果→Next或原菜单流程。实测DOG胜利、Next到Clothes、刷新后菜单与Play新局Body Parts；失败界面未实测。",
+                "progression_path": "会话题次由原levelCounter推进，界面显示Level1、Level2等；选词长度上限为4+floor(levelCounter/3)。分数在连续题目中累积，刷新新局当前分数/题次重置；原最高分与钻石单独持久保存。实际Next保留30分/72钻石，刷新菜单最高分30，Play后0分/72钻石。",
+                "core_loop": "目标：补全分类对应英文词并延长连续题目。规则：随机选择剩余词条，逐位置判断字母，累计7次错误失败。反馈：正确槽位与按键变色、每位置加分、错误部件、胜败动画和结果面板。激励：提高本地最高分、胜题获得2钻石、以钻石购买原提示。",
+                "gameplay_rules": "原keyboardCallback遍历所有相同字母位置，每个正确位置加factorScore=10；错误使wrongCounter递增并播放原部件动画，达到7进入失败分支。isWin检查全部位置是否已揭示；原checkWin胜利增加factorDiamond=2并保存。clueClicked要求当前钻石不少于clueDiamond=10，并经原确认后扣除10，再调用原字母判断；重复字母可同时揭示相应位置。实测只涉及DOG各不重复字母，不声称重复字母或失败已试玩通过。",
+                "key_numbers": "原初始钻石80；每正确字母位置10分；胜题2钻石；提示10钻石；错误阈值7；题目长度上限4+floor(levelCounter/3)，levelCounter为从0开始的会话计数。原通用界面tweenDuration=0.25秒。实测80→70→72钻石、0→10→20→30分，Next Level2，刷新菜单最高分30。",
+                "level_configuration": "原Words数组320项、17分类。Body Parts13、Professions26、Soccer5、Fruits13、Vegetables15、Sports22、Foods18、Countries38、Clothes9、Animals55、Insects13、Fish10、Kitchen Tools16、Household Items9、Verbs38、Mythology10、School Supplies10。initQuestion按原随机数从剩余词池选择，排除上一分类及超过当前长度上限的词；选中项从词池移除，词池为空时原generateArray重建。320为词条数，不等于已逐关验证；本轮仅完成Animals/DOG并观察Clothes、Body Parts。",
+                "system_design": "原ig/MJS模块组织加载、尺寸/音频/指针/设备存储与实体界面。主要实体包括菜单、教程、字母键盘、答案槽、分类牌、灯泡提示、绞架/火柴人和结果面板。initQuestion、keyboardCallback、clueClicked、checkWin及原save/load承担题目、判断、提示、奖励和记录。保留原本地状态流；广告、宿主SDK及外跳功能退役，不建立服务器身份或远端结算。",
+                "theme": "方格纸和手绘风格；蓝色字母/分类与分数，绿色Play，黄色灯泡，蓝色钻石，黑色绞架与火柴人。实际胜利出现彩纸、Well Done/New Highscore面板及举手角色；保留原失败动画资源，但本轮未触发失败。",
+                "progression_economy": "个人分数和最高分构成分数成长；钻石用于原10钻石提示，原胜题补充2钻石。初始80钻石来自原配置。提示确认后扣费并调用相同字母规则，实际扣费80→70、解题后70→72；刷新仍为72。未操作其他购买/成长分支，不新增支付、广告补给或自动奖励。",
+                "roster": "玩家操作字母按钮，没有可操控的人物移动或AI对手。火柴人用于错误、胜败反馈，字母/答案槽与分类牌构成主要交互单位；原绞架与部件动画、胜利姿态和彩纸保留。OGG音效和音乐资源保留，本轮未做听觉验收。",
+                "monetization": "本地版本不提供广告观看、视频奖励、账户、在线排行、付费交易或跨游戏外跳。原个人最高分、钻石提示价格与正常胜题奖励保留；不把广告失败或SDK缺失当作奖励成功。"
+              }
+            },
+            "illustrations": [
+              {
+                "path": "screenshots/revision-00-cover.png",
+                "caption": "原菜单与保存的最高分30"
+              },
+              {
+                "path": "screenshots/revision-play.png",
+                "caption": "确认提示后70钻石、D字母与10分"
+              },
+              {
+                "path": "screenshots/revision-result.png",
+                "caption": "DOG完成，原30分/72钻石结算"
+              },
+              {
+                "path": "screenshots/revision-next.png",
+                "caption": "原Next进入Level2 Clothes并保留30分/72钻石"
+              },
+              {
+                "path": "screenshots/revision-reload.png",
+                "caption": "刷新再Play新局0分/72钻石、无重复教程"
+              }
+            ]
+          }
+        },
+        {
+          "version_id": "v-5a6fda760228",
+          "status": "superseded",
+          "profile": {
+            "category": "益智 / 英文猜词",
+            "dimension": "2D",
+            "perspective": "固定正面",
+            "engine": "HTML5 Canvas 2D（ig/MJS运行结构）",
+            "programming_language": "JavaScript / HTML / CSS",
+            "core_gameplay": "根据分类提示观察字母槽，点击屏幕QWERTY字母补全英文词。正确字母逐位置计分，错误字母累积火柴人部件；可以按原价格使用钻石提示。",
+            "controls": "原新档教程逐页点击继续；菜单绿色Play进入，点击字母猜词。黄色灯泡先提示确认，再次确认后消耗10钻石并揭示一个未揭示字母。胜利结果Next进入下一题；右上设置入口保留，本轮未展开设置。实际使用桌面鼠标，触屏未验证。",
+            "game_loop": "观察分类和空槽→点击字母或确认使用钻石提示→显示正确字母/得分或增加错误部件→补全本题后原胜利结算及2钻石奖励→Next继续原题池；错误累计7次进入原失败分支。",
+            "save": "保留原设备存储及键格式，diamond、highScore、firstTimer、isTutorial等由原save/load方法维护。实际刷新后菜单最高分30，Play进入新局仍有72钻石，当前分数与题次归0/Level1，教程未再次出现；不保存当前题面或新增云存档。",
+            "rules": "原320词条/17分类、随机选词、长度递进、字母逐位置判断、7次错误阈值、每位置10分、胜利2钻石、提示10钻石及设备记录保持。原提示复用字母判断路径并按正确位置计分；不赠送资源或改变胜负条件。",
+            "verification": "5个验收检查点，17条行动记录含1次启动与16次普通点击/刷新：原启动教程；正常退出教程、确认提示使80→70钻石并揭示D/10分，点击O到20分；点击G完成DOG，原Well Done/New Highscore结算30分、钻石72；原Next到Level2 Clothes，分数30/钻石72；刷新回菜单最高分30，Play新局Level1 Body Parts/0分/72钻石且教程不再弹出。原140请求窗口无外联/请求失败/页面异常，两个原全屏图标404和2条旧meta提示完整留存；图标从原声明地址补齐后，保持相同game.js的启动资源复核72个请求无HTTP/请求失败/页面或控制台错误，保留1条旧meta提示。未写入游戏内存、得分、随机数或存储。未验证7错失败、全词库、全部分类长局循环、设置/全屏点击、触屏和音频听觉。",
+            "evidence": [
+              "evidence/direct-ai-b/runtime.json",
+              "evidence/direct-ai-b/ai_b_minimal-source-preservation.json",
+              "evidence/direct-ai-b/ai_b_original-rule-data-facts.json",
+              "evidence/direct-ai-b/ai_b_declared-icon-receipts.json"
+            ],
+            "specification_v51": {
+              "template_version": "5.1",
+              "sections": {
+                "basic_facts": "Hangman，英文分类猜词单机游戏。JavaScript/HTML/CSS与Canvas2D，保留原ig/MJS运行结构。实际桌面Chrome视口960×720，可见游戏区域960×540居中显示。授权方：gcy。",
+                "asset_types": "原PNG/JPG/GIF背景、字母/按钮、火柴人和胜败动画图片，naomi WOFF2/TTF字体与OGG音乐/音效均随包。两张原全屏图标已补齐并保留原URL、真实响应及SHA。封面与图解均为本版本实际画面。",
+                "core_challenge": "根据分类提示观察字母槽，点击屏幕QWERTY字母补全英文词。正确字母逐位置计分，错误字母累积火柴人部件；可以按原价格使用钻石提示。",
+                "controls": "原新档教程逐页点击继续；菜单绿色Play进入，点击字母猜词。黄色灯泡先提示确认，再次确认后消耗10钻石并揭示一个未揭示字母。胜利结果Next进入下一题；右上设置入口保留，本轮未展开设置。实际使用桌面鼠标，触屏未验证。",
+                "behavior_path": "读取分类提示与空槽数量，逐次选择字母，观察字母槽、按键状态、分数与火柴人部件。提示需要再次确认并消耗钻石，沿原字母判断路径揭示；玩家根据反馈继续猜词。未改按键防重复或错误累计逻辑。",
+                "game_path": "原新档启动教程→逐页说明分类、字母、10钻石提示、通关2钻石、每正确字母位置10分与错误后果→本题猜词→原胜利/失败结果→Next或原菜单流程。实测DOG胜利、Next到Clothes、刷新后菜单与Play新局Body Parts；失败界面未实测。",
+                "progression_path": "会话题次由原levelCounter推进，界面显示Level1、Level2等；选词长度上限为4+floor(levelCounter/3)。分数在连续题目中累积，刷新新局当前分数/题次重置；原最高分与钻石单独持久保存。实际Next保留30分/72钻石，刷新菜单最高分30，Play后0分/72钻石。",
+                "core_loop": "目标：补全分类对应英文词并延长连续题目。规则：随机选择剩余词条，逐位置判断字母，累计7次错误失败。反馈：正确槽位与按键变色、每位置加分、错误部件、胜败动画和结果面板。激励：提高本地最高分、胜题获得2钻石、以钻石购买原提示。",
+                "gameplay_rules": "原keyboardCallback遍历所有相同字母位置，每个正确位置加factorScore=10；错误使wrongCounter递增并播放原部件动画，达到7进入失败分支。isWin检查全部位置是否已揭示；原checkWin胜利增加factorDiamond=2并保存。clueClicked要求当前钻石不少于clueDiamond=10，并经原确认后扣除10，再调用原字母判断；重复字母可同时揭示相应位置。实测只涉及DOG各不重复字母，不声称重复字母或失败已试玩通过。",
+                "key_numbers": "原初始钻石80；每正确字母位置10分；胜题2钻石；提示10钻石；错误阈值7；题目长度上限4+floor(levelCounter/3)，levelCounter为从0开始的会话计数。原通用界面tweenDuration=0.25秒。实测80→70→72钻石、0→10→20→30分，Next Level2，刷新菜单最高分30。",
+                "level_configuration": "原Words数组320项、17分类。Body Parts13、Professions26、Soccer5、Fruits13、Vegetables15、Sports22、Foods18、Countries38、Clothes9、Animals55、Insects13、Fish10、Kitchen Tools16、Household Items9、Verbs38、Mythology10、School Supplies10。initQuestion按原随机数从剩余词池选择，排除上一分类及超过当前长度上限的词；选中项从词池移除，词池为空时原generateArray重建。320为词条数，不等于已逐关验证；本轮仅完成Animals/DOG并观察Clothes、Body Parts。",
+                "system_design": "原ig/MJS模块组织加载、尺寸/音频/指针/设备存储与实体界面。主要实体包括菜单、教程、字母键盘、答案槽、分类牌、灯泡提示、绞架/火柴人和结果面板。initQuestion、keyboardCallback、clueClicked、checkWin及原save/load承担题目、判断、提示、奖励和记录。保留原本地状态流；广告、宿主SDK及外跳功能退役，不建立服务器身份或远端结算。",
+                "theme": "方格纸和手绘风格；蓝色字母/分类与分数，绿色Play，黄色灯泡，蓝色钻石，黑色绞架与火柴人。实际胜利出现彩纸、Well Done/New Highscore面板及举手角色；保留原失败动画资源，但本轮未触发失败。",
+                "progression_economy": "个人分数和最高分构成分数成长；钻石用于原10钻石提示，原胜题补充2钻石。初始80钻石来自原配置。提示确认后扣费并调用相同字母规则，实际扣费80→70、解题后70→72；刷新仍为72。未操作其他购买/成长分支，不新增支付、广告补给或自动奖励。",
+                "roster": "玩家操作字母按钮，没有可操控的人物移动或AI对手。火柴人用于错误、胜败反馈，字母/答案槽与分类牌构成主要交互单位；原绞架与部件动画、胜利姿态和彩纸保留。OGG音效和音乐资源保留，本轮未做听觉验收。",
+                "monetization": "本地版本不提供广告观看、视频奖励、账户、在线排行、付费交易或跨游戏外跳。原个人最高分、钻石提示价格与正常胜题奖励保留；不把广告失败或SDK缺失当作奖励成功。"
+              }
+            },
+            "illustrations": [
+              {
+                "path": "screenshots/revision-00-cover.png",
+                "caption": "原菜单与保存的最高分30"
+              },
+              {
+                "path": "screenshots/revision-play.png",
+                "caption": "确认提示后70钻石、D字母与10分"
+              },
+              {
+                "path": "screenshots/revision-result.png",
+                "caption": "DOG完成，原30分/72钻石结算"
+              },
+              {
+                "path": "screenshots/revision-next.png",
+                "caption": "原Next进入Level2 Clothes并保留30分/72钻石"
+              },
+              {
+                "path": "screenshots/revision-reload.png",
+                "caption": "刷新再Play新局0分/72钻石、无重复教程"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "conclusion": "现有猜字为中文缺字选择；Hangman为按分类逐字母补词及七次错误部件，均不是整词六次逐格位置/包含反馈。"
+}

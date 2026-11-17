@@ -1,0 +1,92 @@
+{
+  "category": "益智 / 五字母整词推理",
+  "dimension": "2D",
+  "perspective": "",
+  "core_gameplay": "在六次机会内输入合法的五字母整词，利用字母存在和位置的逐格颜色反馈推断隐藏词。只实测一次CRANE有效提交及反馈，不读取本局隐藏词或人为安排答案。",
+  "core_experience": "",
+  "controls": "原实体键盘A–Z、Enter、Backspace/Delete、原屏幕QWERTY按钮和鼠标入口。本轮真实鼠标Play/Continue后，实体键盘按C/R/A/N/E/Enter，未用脚本填字段或调用游戏函数。",
+  "game_loop": "",
+  "content": "原随机题库池不重复取词，耗尽后恢复原池；494个目标词与12448个合法词项源码确认并逐字AST一致。没有固定关卡总数，本轮未推进到下一词或验证池耗尽。",
+  "progression": "",
+  "save": "原sessionData保存声音、音乐和最高分，设备存储代码保留，本轮未刷新或验证高分保存。没有现金购买或货币；删除广告额外轮次，不赠送额外次数。",
+  "rules": "原maxWordLength5、maxTry6、字母可重复；先确认相同位置，再匹配剩余字母。原游戏实体158个方法AST相同；19个有范围的差异只删除分享、在线报分和广告续次/调用及原结算直接路径。核心checkAnswer、选词随机数、原词库、输入、逐格反馈和本地分数算法未改。",
+  "systems": "保留原Impact实体、键盘、输入检查、字母框/翻牌/颜色、说明弹窗、音效、原本地分数和存储。删除Microsoft Start/CPMStar/GA、旧MJS广告提供模块、API实例、在线报分、分享按钮及广告加一轮功能；本地失败直接显示原Game Over/重开/菜单，没有伪造奖励。",
+  "ui_flow": "",
+  "level_design": "",
+  "verification": "远端52实际浏览器累计5个验证检查点、10次原始输入：1首次127地址启动跳空白（失败保留）；2原已允许的localhost地址启动；3原Play；4原首次说明Continue；5预先限定的一次CRANE整词提交（C/R/A/N/E/Enter六次按键逐项日志）。原界面A黄色、N/E绿色，C/R灰色；第一行CRANE保留，currentRow0→1，继续可输入，score0。本轮只验证一次真实猜词，不是猜中或整局通关；未实测重复字母、非法词、删除、胜负、放弃、重开、声音、刷新保存或手机输入。只读快照从未读取隐藏答案，未注入随机数、分数或调用判词方法。 完整58请求/58响应，55个200和3个Logo字体404；3条失败请求及3条资源控制台错误原样保留，没有外联和脚本异常。遗漏的原logofont.woff2/woff/ttf随后按源码声明真实补齐，远端逐项HTTP200和原字节SHA读回；没有追加浏览器重载，因此不宣称字体在浏览器重新加载或启动全程无错误。当前交付文件完整，但本轮浏览器历史缺字体明确可见。",
+  "evidence": "",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "engine": "ImpactJS / Canvas2D / Howler",
+  "programming_language": "JavaScript、HTML、CSS",
+  "game_summary": "",
+  "resource_types": "",
+  "engine_asset_system": "",
+  "core_challenge_details": "",
+  "core_challenge_type": "",
+  "input_elements": "",
+  "app_suitability": "",
+  "core_loop": "",
+  "churn_risk": "",
+  "progression_loop": "",
+  "core_closure": "",
+  "loop_completeness": "",
+  "playability": "",
+  "key_numbers": "",
+  "level_structure": "",
+  "system_completeness": "",
+  "theme_details": "",
+  "theme_position": "",
+  "economy": "",
+  "roles": "",
+  "roster_summary": "",
+  "monetization_details": "",
+  "monetization": "",
+  "specification": {
+    "template_version": "5.1",
+    "sections": {
+      "basic_facts": "Wordler，MSN身份9p8d5mdf3g17，MarketJS公开构建v3，改编wordler-offline-v2。JavaScript/HTML/CSS，原ImpactJS Canvas2D和Howler/Jukebox；离线随机五字母猜词。",
+      "asset_types": "原字母格、紫色按钮、原屏幕QWERTY键盘、说明图、标题、翻牌/打字音效、Poppins三字重与原Logo字体；35PNG在开发环境完整解码。原运行基础72文件保留SHA，含已补齐三个Logo字体。",
+      "core_challenge": "在六次机会内输入合法的五字母整词，利用字母存在和位置的逐格颜色反馈推断隐藏词。只实测一次CRANE有效提交及反馈，不读取本局隐藏词或人为安排答案。",
+      "controls": "原实体键盘A–Z、Enter、Backspace/Delete、原屏幕QWERTY按钮和鼠标入口。本轮真实鼠标Play/Continue后，实体键盘按C/R/A/N/E/Enter，未用脚本填字段或调用游戏函数。",
+      "behavior_path": "原Wordler菜单→Play→原首次Instructions→Continue→原六行五列空格与键盘→输入CRANE并Enter→原翻牌与灰/黄/绿反馈→第二行等待下一次输入。",
+      "game_path": "实际显示原全屏/说明/声音按钮、Play、首次说明、Give Up、分数、六行五列、原QWERTY与Enter；只操作Play、说明Continue与一次猜词。联网分享、广告续次入口退役。",
+      "progression_path": "原随机题库池不重复取词，耗尽后恢复原池；494个目标词与12448个合法词项源码确认并逐字AST一致。没有固定关卡总数，本轮未推进到下一词或验证池耗尽。",
+      "core_loop": "观察当前猜词表和键盘→构造一个五字母合法词→原词库检查→原匹配与翻牌反馈→利用反馈继续推断。实测首行CRANE、A黄/N与E绿、第二行可输入，分数仍0；未完成胜负闭环。",
+      "gameplay_rules": "原maxWordLength5、maxTry6、字母可重复；先确认相同位置，再匹配剩余字母。原游戏实体158个方法AST相同；19个有范围的差异只删除分享、在线报分和广告续次/调用及原结算直接路径。核心checkAnswer、选词随机数、原词库、输入、逐格反馈和本地分数算法未改。",
+      "key_numbers": "五字母、六次机会、494目标词、12448合法词项。原猜中基础分5+(maxTry-currentRow-1)，六次对应10到5分，源码确认未实测；本次猜词后currentRow1/currentColumn0/score0/gameEndedfalse。",
+      "level_configuration": "原内置目标词及合法词表，没有外部每日词服务或固定关卡表。原Math.random取隐藏词、从池移除与耗尽重置保留；未写入或读取隐藏答案来指导操作。",
+      "system_design": "保留原Impact实体、键盘、输入检查、字母框/翻牌/颜色、说明弹窗、音效、原本地分数和存储。删除Microsoft Start/CPMStar/GA、旧MJS广告提供模块、API实例、在线报分、分享按钮及广告加一轮功能；本地失败直接显示原Game Over/重开/菜单，没有伪造奖励。",
+      "theme": "原淡紫底、深紫字、原Wordler标题、灰色空格/不包含、黄色包含、绿色位置正确、原扁平按钮和Poppins字体，未用占位图或新UI替代。",
+      "progression_economy": "原sessionData保存声音、音乐和最高分，设备存储代码保留，本轮未刷新或验证高分保存。没有现金购买或货币；删除广告额外轮次，不赠送额外次数。",
+      "roster": "玩家单人猜词；无可选战斗角色、AI对手、房间或在线身份。题目来自原本地词库随机池。",
+      "monetization": "删除SDK/广告/遥测、在线报分、分享与外部更多游戏实际调用和UI；原广告加一轮路径整体退役，固定六次保留。原部署白名单保留并追加本项目127及GameLab管理/试玩域名；匹配逻辑未替换，未伪造宿主或服务端身份。原JJ警告声明经有限字面量解码展开，保留原警告函数，没有执行动态源码。"
+    }
+  },
+  "illustrations": [
+    {
+      "path": "screenshots/003.png",
+      "caption": "原Wordler菜单；原Logo字体遗漏已在交付补齐，日志保留"
+    },
+    {
+      "path": "screenshots/004.png",
+      "caption": "原首次说明和灰黄绿规则"
+    },
+    {
+      "path": "screenshots/005.png",
+      "caption": "原六行五列和屏幕键盘"
+    },
+    {
+      "path": "screenshots/006.png",
+      "caption": "原生CRANE提交反馈：A黄、N/E绿，第二行等待输入"
+    }
+  ]
+}

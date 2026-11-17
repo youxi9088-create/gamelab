@@ -1,0 +1,38 @@
+{
+  "checkpoints": [
+    {
+      "step": 1,
+      "action": "goto",
+      "purpose": "native startup/menu"
+    },
+    {
+      "step": 2,
+      "action": "click",
+      "purpose": "native Play"
+    },
+    {
+      "step": 3,
+      "action": "click",
+      "purpose": "native mandatory instructions Continue"
+    },
+    {
+      "step": 4,
+      "action": "type",
+      "text": "CRANE",
+      "bounded_raw_key_presses": 5,
+      "purpose": "one fixed dictionary guess without reading hidden answer"
+    },
+    {
+      "step": 5,
+      "action": "press",
+      "key": "Enter",
+      "purpose": "native dictionary validation and letter feedback"
+    }
+  ],
+  "max_checkpoints": 5,
+  "max_raw_inputs": 9,
+  "historical_steps": 0,
+  "no_state_injection": true,
+  "read_only_snapshot_excludes_hidden_answer": true,
+  "scope": "One native guess only, not whole round. Earlier failures remain cumulative. All five letters are logged, not called one click."
+}

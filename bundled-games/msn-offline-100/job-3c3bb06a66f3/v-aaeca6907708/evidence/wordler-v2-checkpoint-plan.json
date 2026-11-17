@@ -1,0 +1,45 @@
+{
+  "historical_failed_startup": {
+    "step": 1,
+    "address": "127.0.0.1",
+    "evidence": "ui-evidence/wordler/001.json"
+  },
+  "remaining_checkpoints": [
+    {
+      "step": 2,
+      "action": "goto",
+      "host": "localhost",
+      "purpose": "unchanged original allows localhost"
+    },
+    {
+      "step": 3,
+      "action": "click",
+      "purpose": "native Play"
+    },
+    {
+      "step": 4,
+      "action": "click",
+      "purpose": "native first-time instructions Continue"
+    },
+    {
+      "step": 5,
+      "action": "guess",
+      "text": "CRANE",
+      "raw_key_presses": [
+        "C",
+        "R",
+        "A",
+        "N",
+        "E",
+        "Enter"
+      ],
+      "purpose": "one complete typed guess and native submission"
+    }
+  ],
+  "max_cumulative_checkpoints": 5,
+  "max_cumulative_raw_inputs": 10,
+  "hidden_answer_never_read": true,
+  "no_state_or_rng_injection": true,
+  "predeclared_before_remaining_inputs": true,
+  "scope": "One guess submission checkpoint has six real key presses, logged explicitly. Prior failed startup not erased. No full-round claim."
+}

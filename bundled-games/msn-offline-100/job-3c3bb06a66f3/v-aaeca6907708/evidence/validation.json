@@ -1,0 +1,406 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "127首次启动失败"
+      },
+      {
+        "type": "checkpoint",
+        "description": "localhost原菜单启动"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原Play进入首次说明"
+      },
+      {
+        "type": "checkpoint",
+        "description": "Continue进入原猜词表"
+      },
+      {
+        "type": "checkpoint",
+        "description": "一次CRANE整词提交，六按键已逐项记录"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "error",
+        "message": "Failed to load resource: the server responded with a status of 404 (File not found)"
+      },
+      {
+        "level": "error",
+        "message": "Failed to load resource: the server responded with a status of 404 (File not found)"
+      },
+      {
+        "level": "error",
+        "message": "Failed to load resource: the server responded with a status of 404 (File not found)"
+      }
+    ],
+    "missing": [
+      {
+        "type": "response",
+        "url": "http://localhost:18765/wordler-offline-v2/media/fonts/logofont.woff2",
+        "status": 404
+      },
+      {
+        "type": "failed",
+        "url": "http://localhost:18765/wordler-offline-v2/media/fonts/logofont.woff2",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "type": "response",
+        "url": "http://localhost:18765/wordler-offline-v2/media/fonts/logofont.woff",
+        "status": 404
+      },
+      {
+        "type": "failed",
+        "url": "http://localhost:18765/wordler-offline-v2/media/fonts/logofont.woff",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "type": "response",
+        "url": "http://localhost:18765/wordler-offline-v2/media/fonts/logofont.ttf",
+        "status": 404
+      },
+      {
+        "type": "failed",
+        "url": "http://localhost:18765/wordler-offline-v2/media/fonts/logofont.ttf",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      }
+    ],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 58,
+    "network_events": 120,
+    "scope": "远端52实际浏览器累计5个验证检查点、10次原始输入：1首次127地址启动跳空白（失败保留）；2原已允许的localhost地址启动；3原Play；4原首次说明Continue；5预先限定的一次CRANE整词提交（C/R/A/N/E/Enter六次按键逐项日志）。原界面A黄色、N/E绿色，C/R灰色；第一行CRANE保留，currentRow0→1，继续可输入，score0。本轮只验证一次真实猜词，不是猜中或整局通关；未实测重复字母、非法词、删除、胜负、放弃、重开、声音、刷新保存或手机输入。只读快照从未读取隐藏答案，未注入随机数、分数或调用判词方法。",
+    "network_scope": "完整58请求/58响应，55个200和3个Logo字体404；3条失败请求及3条资源控制台错误原样保留，没有外联和脚本异常。遗漏的原logofont.woff2/woff/ttf随后按源码声明真实补齐，远端逐项HTTP200和原字节SHA读回；没有追加浏览器重载，因此不宣称字体在浏览器重新加载或启动全程无错误。当前交付文件完整，但本轮浏览器历史缺字体明确可见。",
+    "resolved_missing_resources": {
+      "source_fonts_restored": [
+        {
+          "path": "media/fonts/logofont.woff2",
+          "http": 200,
+          "bytes": 107964,
+          "sha256": "94ad5be34d18de1518db4e8eb4f71decd8e6b7c7a25cf012a2f44512288ab93e"
+        },
+        {
+          "path": "media/fonts/logofont.woff",
+          "http": 200,
+          "bytes": 142100,
+          "sha256": "2b8d9258c6981f0c363b2fce5b2c62a7e1ccbf6803886329648a5ce46f480639"
+        },
+        {
+          "path": "media/fonts/logofont.ttf",
+          "http": 200,
+          "bytes": 246312,
+          "sha256": "7936f5df36474f02fd39797ce9665febfd3e5fce08cdf82e05caceea049e5ada"
+        }
+      ],
+      "prior_404_retained": true,
+      "browser_font_reload_not_claimed": true
+    },
+    "script_exceptions": [],
+    "browser_errors_preserved": true
+  },
+  "accounting": {
+    "observation_start": "2026-11-17T07:12:46.347029+00:00",
+    "observation_end": "2026-11-17T07:34:23.901123+00:00",
+    "elapsed_seconds": 1297.554093837738,
+    "scope": "本款入口归档到证据整理的观测窗口，含抓取、分析、修订、真实浏览器、等待和其他工作；不是独占实际处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "before": {
+    "player_answer": "",
+    "player_answers": [],
+    "currentRow": 0,
+    "currentColumn": 0,
+    "receiveInput": true,
+    "gameEnded": false,
+    "score": 0,
+    "maxTry": 6,
+    "maxWordLength": 5,
+    "letterCheckStates": [
+      {
+        "state": 0,
+        "index": -1
+      },
+      {
+        "state": 0,
+        "index": -1
+      },
+      {
+        "state": 0,
+        "index": -1
+      },
+      {
+        "state": 0,
+        "index": -1
+      },
+      {
+        "state": 0,
+        "index": -1
+      }
+    ],
+    "boxes": [
+      [
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        }
+      ],
+      [
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        }
+      ],
+      [
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        }
+      ],
+      [
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        }
+      ],
+      [
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        }
+      ],
+      [
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        }
+      ]
+    ],
+    "instructions": true
+  },
+  "after": {
+    "player_answer": "",
+    "player_answers": [
+      "crane"
+    ],
+    "currentRow": 1,
+    "currentColumn": 0,
+    "receiveInput": true,
+    "gameEnded": false,
+    "score": 0,
+    "maxTry": 6,
+    "maxWordLength": 5,
+    "letterCheckStates": [
+      {
+        "state": 2,
+        "index": 2
+      },
+      {
+        "state": 0,
+        "index": -1
+      },
+      {
+        "state": 0,
+        "index": -1
+      },
+      {
+        "state": 3,
+        "index": 3
+      },
+      {
+        "state": 3,
+        "index": 4
+      }
+    ],
+    "boxes": [
+      [
+        {
+          "letter": "C"
+        },
+        {
+          "letter": "R"
+        },
+        {
+          "letter": "A"
+        },
+        {
+          "letter": "N"
+        },
+        {
+          "letter": "E"
+        }
+      ],
+      [
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        }
+      ],
+      [
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        }
+      ],
+      [
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        }
+      ],
+      [
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        }
+      ],
+      [
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        },
+        {
+          "letter": ""
+        }
+      ]
+    ],
+    "instructions": true
+  },
+  "cumulative_checkpoints": 5,
+  "cumulative_raw_inputs": 10,
+  "previous_failure_preserved": true,
+  "scope": "远端52实际浏览器累计5个验证检查点、10次原始输入：1首次127地址启动跳空白（失败保留）；2原已允许的localhost地址启动；3原Play；4原首次说明Continue；5预先限定的一次CRANE整词提交（C/R/A/N/E/Enter六次按键逐项日志）。原界面A黄色、N/E绿色，C/R灰色；第一行CRANE保留，currentRow0→1，继续可输入，score0。本轮只验证一次真实猜词，不是猜中或整局通关；未实测重复字母、非法词、删除、胜负、放弃、重开、声音、刷新保存或手机输入。只读快照从未读取隐藏答案，未注入随机数、分数或调用判词方法。",
+  "network": "完整58请求/58响应，55个200和3个Logo字体404；3条失败请求及3条资源控制台错误原样保留，没有外联和脚本异常。遗漏的原logofont.woff2/woff/ttf随后按源码声明真实补齐，远端逐项HTTP200和原字节SHA读回；没有追加浏览器重载，因此不宣称字体在浏览器重新加载或启动全程无错误。当前交付文件完整，但本轮浏览器历史缺字体明确可见。"
+}
