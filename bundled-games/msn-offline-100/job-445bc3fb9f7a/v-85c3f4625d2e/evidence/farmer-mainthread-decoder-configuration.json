@@ -1,0 +1,29 @@
+{
+  "source_revision": "farmer-offline-v1",
+  "delivery_revision": "farmer-offline-v2",
+  "source_sha256": "75b0af64c9dbbfcdbf2284e3ced9bbfade7c8ecf092b25401034b8c37fbf10f5",
+  "runtime_sha256": "f34a663c26fd57099e89e59127c0969bb9899983a0e20ccfcb753b083ecc173d",
+  "edits": [
+    {
+      "start": 3412410,
+      "end": 3412434,
+      "before": "e.GetDefaultNumWorkers()",
+      "after": "0"
+    }
+  ],
+  "scope": "One native Babylon DracoCompression.DefaultNumWorkers initializer changes hardware concurrency to0, selecting the existing main-thread WASM path. No gameplay/module bodies, source algorithms, numerical rules, storage or providers changed. Original v1 five-input UI evidence retained, no v2 game UI claimed.",
+  "native_engine_probe_prefix": {
+    "bytes": 5038522,
+    "sha256": "fc407ca360e058ba72e65071235cccd22b272c1b39b6ae29232b116e2a24a428",
+    "top_level_expressions": 3,
+    "no_Impact_or_game_or_SDK": true
+  },
+  "proof_still_pending": false,
+  "initial_preparation_pending_flag": true,
+  "actual_component_validation": {
+    "matched": true,
+    "models": 2,
+    "meshes": 112,
+    "evidence": "evidence/farmer-decoder-mode-comparison.json"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-17T18:07:11.623624+00:00",
+  "revision": "farmer-offline-v1",
+  "historical_UI": 0,
+  "maximum_cumulative_checkpoints": 5,
+  "maximum_raw_inputs": 5,
+  "plan": [
+    "1 original entry/menu",
+    "2 original Play",
+    "3 first native narrator Continue",
+    "4 second native narrator Continue",
+    "5 one bounded ordinary held mouse drag/joystick toward screenshot-visible crops, then release"
+  ],
+  "invariants": [
+    "No clearing/synthesizing storage, hidden advance, state/coin/time/RNG injection or calling gameplay handlers.",
+    "Two original first-visit narrator texts and blank completion stay unchanged; if actual mandatory inputs exceed budget, defer without claiming harvest.",
+    "One continuous gesture counts one input; all move/down/up and held duration recorded. Readonly waits add no gameplay input.",
+    "Original harvesting, crop regrowth, cargo capacity, collisions, sell/store processing, costs, fivelevel configurations unchanged. No advertisement rewards or free upgrade branch.",
+    "Close actual owned browser after completion/defer."
+  ]
+}

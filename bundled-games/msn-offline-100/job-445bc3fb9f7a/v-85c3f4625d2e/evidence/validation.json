@@ -1,0 +1,315 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "1原入口菜单"
+      },
+      {
+        "type": "checkpoint",
+        "description": "2原Play"
+      },
+      {
+        "type": "checkpoint",
+        "description": "3原首段对话继续"
+      },
+      {
+        "type": "checkpoint",
+        "description": "4原第二段继续"
+      },
+      {
+        "type": "checkpoint",
+        "description": "5一次普通连续虚拟摇杆拖动并收割23株"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 123,
+    "responses": 123,
+    "network_events": 247,
+    "scope": "累计5检查点/5输入：原入口菜单→Play→原叙述者第一段继续→第二段继续→一次连续鼠标虚拟摇杆拖动（16个move、保持2500ms、一次down/up）。原收割机由x0/z59移至x15.803/z49.574；首块玉米由54降31，HUD及原本地资源corn0→23，出现原+23反馈；现金仍0，番茄/胡萝卜0，未解锁其他地块。已查看原菜单、两段对话、农田及收割后截图。未验证售卖、工厂加工、升级、扩地、通关、刷新存档、全部5阶段/15作物或手机。",
+    "network_scope": "实际123请求/123响应全本地同源HTTP200，含真实Draco WASM和4个原生解码worker加载，0外联/失败/缺失/脚本异常；1条原AudioContext自动播放警告完整保留。原生双GLB/贴图/解压与收割可见，未声称所有后期玩法路径均动态覆盖。",
+    "script_exceptions": [],
+    "tested_revision": "farmer-offline-v1",
+    "delivery_revision": "farmer-offline-v1",
+    "native_harvest_verified": true,
+    "sale_verified": false,
+    "full_level_verified": false,
+    "storage_reload_verified": false
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "before": {
+    "ready": true,
+    "size": {
+      "width": 2304,
+      "height": 1440
+    },
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "top": 0,
+      "right": 1440,
+      "bottom": 900,
+      "left": 0
+    },
+    "webglcanvas": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "top": 0,
+      "right": 1440,
+      "bottom": 900,
+      "left": 0
+    },
+    "scene": 2,
+    "level": 1,
+    "msgId": 3,
+    "wglReady": true,
+    "paused": false,
+    "publicProgress": {
+      "showFarmer": false,
+      "maps": [
+        3
+      ],
+      "items": {
+        "cash": 0,
+        "corn": 0,
+        "tomato": 0,
+        "carrot": 0
+      }
+    },
+    "harvester": {
+      "position": {
+        "x": 0,
+        "y": 0.01518861986359109,
+        "z": 59
+      },
+      "items": 0,
+      "capacity": 150
+    },
+    "fields": [
+      {
+        "type": "corn",
+        "remaining": 54,
+        "total": 54,
+        "visible": true,
+        "harvesterIn": false
+      },
+      {
+        "type": "corn",
+        "remaining": 36,
+        "total": 36,
+        "visible": true,
+        "harvesterIn": false
+      },
+      {
+        "type": "corn",
+        "remaining": 36,
+        "total": 36,
+        "visible": true,
+        "harvesterIn": false
+      }
+    ],
+    "HUD": {
+      "corn": {
+        "value": 0,
+        "text": "0"
+      },
+      "tomato": {
+        "value": 0,
+        "text": "0"
+      },
+      "carrot": {
+        "value": 0,
+        "text": "0"
+      },
+      "cash": {
+        "value": 0,
+        "text": "0"
+      }
+    },
+    "chatbox": {
+      "hidden": true,
+      "texts": [
+        "Reckon you could lend me a ",
+        "hand and help harvest them ",
+        "crops? "
+      ]
+    },
+    "controls": [
+      {
+        "kind": "EntityButtonUpgrade",
+        "x": 2169,
+        "y": 163,
+        "width": 120,
+        "height": 128,
+        "visible": true,
+        "image": "media/graphics/sprites/upgrade/upgrade-btn-v1.png"
+      },
+      {
+        "kind": "EntityButtonPause",
+        "x": 2169,
+        "y": 15,
+        "width": 120,
+        "height": 128,
+        "visible": true,
+        "image": "media/graphics/sprites/ui/btn-pause.png"
+      }
+    ],
+    "storageKeys": [
+      "ae0l6n",
+      "_secure__ls__metadata"
+    ]
+  },
+  "after": {
+    "ready": true,
+    "size": {
+      "width": 2304,
+      "height": 1440
+    },
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "top": 0,
+      "right": 1440,
+      "bottom": 900,
+      "left": 0
+    },
+    "webglcanvas": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "top": 0,
+      "right": 1440,
+      "bottom": 900,
+      "left": 0
+    },
+    "scene": 2,
+    "level": 1,
+    "msgId": 3,
+    "wglReady": true,
+    "paused": false,
+    "publicProgress": {
+      "showFarmer": false,
+      "maps": [
+        3
+      ],
+      "items": {
+        "cash": 0,
+        "corn": 23,
+        "tomato": 0,
+        "carrot": 0
+      }
+    },
+    "harvester": {
+      "position": {
+        "x": 15.803355468267084,
+        "y": 0.02669804911476902,
+        "z": 49.57373184465065
+      },
+      "items": 0,
+      "capacity": 150
+    },
+    "fields": [
+      {
+        "type": "corn",
+        "remaining": 31,
+        "total": 54,
+        "visible": true,
+        "harvesterIn": false
+      },
+      {
+        "type": "corn",
+        "remaining": 36,
+        "total": 36,
+        "visible": true,
+        "harvesterIn": false
+      },
+      {
+        "type": "corn",
+        "remaining": 36,
+        "total": 36,
+        "visible": true,
+        "harvesterIn": false
+      }
+    ],
+    "HUD": {
+      "corn": {
+        "value": 23,
+        "text": "23"
+      },
+      "tomato": {
+        "value": 0,
+        "text": "0"
+      },
+      "carrot": {
+        "value": 0,
+        "text": "0"
+      },
+      "cash": {
+        "value": 0,
+        "text": "0"
+      }
+    },
+    "chatbox": {
+      "hidden": true,
+      "texts": [
+        "Reckon you could lend me a ",
+        "hand and help harvest them ",
+        "crops? "
+      ]
+    },
+    "controls": [
+      {
+        "kind": "EntityButtonUpgrade",
+        "x": 2169,
+        "y": 163,
+        "width": 120,
+        "height": 128,
+        "visible": true,
+        "image": "media/graphics/sprites/upgrade/upgrade-btn-v1.png"
+      },
+      {
+        "kind": "EntityButtonPause",
+        "x": 2169,
+        "y": 15,
+        "width": 120,
+        "height": 128,
+        "visible": true,
+        "image": "media/graphics/sprites/ui/btn-pause.png"
+      }
+    ],
+    "storageKeys": [
+      "ae0l6n",
+      "_secure__ls__metadata"
+    ]
+  },
+  "accounting": {
+    "observation_start": "2026-11-17T17:57:57.541034+00:00",
+    "observation_end": "2026-11-17T18:20:15.839375+00:00",
+    "elapsed_seconds": 1338.298341,
+    "scope": "原包归档至证据整理的观测窗口，包含等待和其他工作；不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "browser_channel_exit_code": 0
+}
