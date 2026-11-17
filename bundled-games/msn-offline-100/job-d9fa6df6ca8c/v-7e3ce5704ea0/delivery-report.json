@@ -1,0 +1,282 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "原菜单导航"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原Play随机发牌"
+      },
+      {
+        "type": "checkpoint",
+        "description": "三次选择三张可见自己手牌"
+      },
+      {
+        "type": "checkpoint",
+        "description": "普通箭头换牌，原梅花2首出"
+      },
+      {
+        "type": "checkpoint",
+        "description": "普通出梅花4，原CPU完成首墩/第二墩续走"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 28,
+    "responses": 28,
+    "network_events": 57,
+    "scope": "预先限定5检查点/7条实际输入：导航原菜单；普通Play；三次分别点可见K红心/K方块/K梅花组成三张换牌；普通换牌箭头；在原Charlotte梅花2首出后普通点自有梅花4。原生随机发牌/换牌/跟花/CPU续走未修改。三张换出39/13/26、收到5/12/40，首墩正常结束进入第2墩；Karim/Ollie/Charlotte正常出黑桃5/2/4后轮到人类，手牌13→12。没有读CPU暗牌或调用游戏判定/计分方法，没有写状态/随机数/时间。所有实际罚分仍为0；未证明红心/黑桃Q罚分、13墩整手、整局、刷新存档或手机。",
+    "network_scope": "本轮28请求/28响应全本地HTTP200，无外联/缺失/请求失败/pageerror。3条原AudioContext自动播放警告逐条保留，不能称控制台全空。运行JS/HTML和32原依赖与本轮试玩清单一致，不在通过后修改玩法。",
+    "script_exceptions": [],
+    "browser_errors_preserved": true,
+    "tested_revision": "hearts-offline-v1",
+    "delivery_revision": "hearts-offline-v1"
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "广告提供者、奖励减分与额外轮次按钮/回调删除，不授予奖励。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/hearts-retirement.json",
+        "evidence/v1-network-console.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "平台提交删除，原公开本地罚分与结算保留。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/hearts-retirement.json",
+        "evidence/v1-network-console.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原三名CPU为本地算法，不是联网匹配/房间/账号。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/hearts-retirement.json",
+        "evidence/v1-network-console.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "无支付/充值/订单或新增免费权益。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/hearts-retirement.json",
+        "evidence/v1-network-console.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "纸牌 / 红心避分",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "四人红心避分牌戏，一名人类与三名原本地CPU轮流出牌。根据自己的可见手牌换出三张牌、跟随首出花色，减少吃到带罚分的红心与黑桃Q。罚分规则为代码确认，本轮实际罚分全部0。",
+    "core_experience": "",
+    "controls": "原Play开始；点击三张不同的自己可见手牌后点原换牌箭头；轮到自己时点击合法手牌出牌。原菜单/声音/普通新局和下一手入口保留，其余入口本轮未操作。",
+    "game_loop": "",
+    "content": "原52张牌四人各13张，按墩消耗手牌，原结算/下一手逻辑保留；换牌方向按原passTarget及roundNumber周期，第四轮不换。静态周期存在不代表已实测四轮。本轮仅首墩与第二墩轮到人类。",
+    "progression": "",
+    "save": "",
+    "rules": "源码确认首墩由梅花2开始，能跟花时必须跟随；红心每张1罚分，黑桃Q13罚分，破心限制和原本地CPU规则保留。原卡牌/玩家/计分管理/场景模块归一AST一致；不同于已有Spades的搭档叫牌/Nil/将牌玩法。未把复用的旧Spades类名当成当前规则。",
+    "systems": "保留Impact/图集加载器、Card/Player/ScoreManager、发牌/换牌/跟花/判墩、CPU和本地IO。250个原游戏及FontInfo方法中215归一AST相同，28服务方法退役，7方法仅退役服务调用或控件。归一只去位置/字面量格式并按同操作符&&/||保留求值顺序消除冗余结合括号。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "预先限定5检查点/7条实际输入：导航原菜单；普通Play；三次分别点可见K红心/K方块/K梅花组成三张换牌；普通换牌箭头；在原Charlotte梅花2首出后普通点自有梅花4。原生随机发牌/换牌/跟花/CPU续走未修改。三张换出39/13/26、收到5/12/40，首墩正常结束进入第2墩；Karim/Ollie/Charlotte正常出黑桃5/2/4后轮到人类，手牌13→12。没有读CPU暗牌或调用游戏判定/计分方法，没有写状态/随机数/时间。所有实际罚分仍为0；未证明红心/黑桃Q罚分、13墩整手、整局、刷新存档或手机。本轮28请求/28响应全本地HTTP200，无外联/缺失/请求失败/pageerror。3条原AudioContext自动播放警告逐条保留，不能称控制台全空。运行JS/HTML和32原依赖与本轮试玩清单一致，不在通过后修改玩法。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "ImpactJS / Canvas2D",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "MSN9mzhg3kjmmk4，原Hearts v9、内部microsoft-hearts；ImpactJS/Canvas2D、JavaScript/HTML/CSS，2D牌桌。实际1440×900视口，内部1920×1080画布显示1440×810，纵向上下留黑。实体手机未测。",
+        "asset_types": "原5张PNG图集/40frame、原卡牌/人物/按钮/桌面、原品牌图2张；montserrat与bpreplay两字体各woff2/woff/ttf，原13MP3。32基础依赖保持源字节，另含离线HTML和按范围修订的JS；原文件与源SHA归档。",
+        "core_challenge": "四人红心避分牌戏，一名人类与三名原本地CPU轮流出牌。根据自己的可见手牌换出三张牌、跟随首出花色，减少吃到带罚分的红心与黑桃Q。罚分规则为代码确认，本轮实际罚分全部0。",
+        "controls": "原Play开始；点击三张不同的自己可见手牌后点原换牌箭头；轮到自己时点击合法手牌出牌。原菜单/声音/普通新局和下一手入口保留，其余入口本轮未操作。",
+        "behavior_path": "原菜单→Play→原随机发13张牌→分别选三张→原箭头交换→原梅花2首出→玩家点击自有梅花4→CPU跟进完成首墩→第二墩三CPU出牌→回到玩家。",
+        "game_path": "本轮换出K红心/K方块/K梅花给原Karim，收到方块5/方块Q/黑桃A。Charlotte首出梅花2，玩家合法梅花4；首墩后Karim作为第二墩首家出黑桃5，Ollie出2、Charlotte出4，人类继续选择，未额外出第二张。",
+        "progression_path": "原52张牌四人各13张，按墩消耗手牌，原结算/下一手逻辑保留；换牌方向按原passTarget及roundNumber周期，第四轮不换。静态周期存在不代表已实测四轮。本轮仅首墩与第二墩轮到人类。",
+        "core_loop": "观察自己的手牌与公开首出→按原跟花/破心限制选牌→普通点击出牌→原本地CPU跟牌→原判墩与罚分累计→下一墩。目标是减少罚分；实际只确认一次合法人类跟牌和原CPU下一墩，未观察非零罚分。",
+        "gameplay_rules": "源码确认首墩由梅花2开始，能跟花时必须跟随；红心每张1罚分，黑桃Q13罚分，破心限制和原本地CPU规则保留。原卡牌/玩家/计分管理/场景模块归一AST一致；不同于已有Spades的搭档叫牌/Nil/将牌玩法。未把复用的旧Spades类名当成当前规则。",
+        "key_numbers": "源码确认52张/四人/各13张，换3张；红心1/黑桃Q13为源码值。实际己方手牌13→12、三张选择计数1→2→3，currentRound1→2；所有公开ScoreTaken0，未用未更新的旧trickTaken字段证明计墩。",
+        "level_configuration": "原标准牌组、花色/点数、原passTarget三方向及第四轮无换牌；原随机顺序与CPU决策保留。没有人为指定手牌、强制CPU行为、解锁奖励或改结束阈值；关卡/长局完成未测。",
+        "system_design": "保留Impact/图集加载器、Card/Player/ScoreManager、发牌/换牌/跟花/判墩、CPU和本地IO。250个原游戏及FontInfo方法中215归一AST相同，28服务方法退役，7方法仅退役服务调用或控件。归一只去位置/字面量格式并按同操作符&&/||保留求值顺序消除冗余结合括号。",
+        "theme": "原绿色花纹牌桌、红色牌背、白底黑红卡面、原卡通头像、ScoreTaken与回合提示、黄色声音和菜单按钮。实际截图呈现三CPU黑桃5/2/4及剩余12张人类手牌，不用占位素材。",
+        "progression_economy": "原本地回合/罚分记录与声音IO保留。无新增货币、内购、广告奖励、免费减分或额外轮次。未刷新页面，存档恢复未验证。",
+        "roster": "一名人类You，三个原内置本地算法对手Karim/Ollie/Charlotte；名字与头像取自原包，不是在线玩家或假账号。证据只读取自己的牌、公开出的牌、公开分数和对手剩余张数。",
+        "monetization": "Microsoft/API/广告控制器、分享/更多游戏外链及激励额外轮次/减分按钮和奖励回调物理退役。普通新局/下一手/正常罚分保留，不用SDK替身或奖励成功回调。只需本地静态HTTP，无原业务服务器，实测请求同源；未覆盖全部功能。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原Hearts菜单"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "原生选择三张待换手牌"
+      },
+      {
+        "path": "screenshots/006.png",
+        "caption": "正常交换后原梅花2首出，玩家回合"
+      },
+      {
+        "path": "screenshots/007.png",
+        "caption": "玩家正常出梅花4，进入下一墩并轮回人类"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-17T10:44:27.988245+00:00",
+    "observation_end": "2026-11-17T11:06:06.439561+00:00",
+    "elapsed_seconds": 1298.4513154029846,
+    "scope": "原入口归档至证据整理的观测窗口，包含等待和其他工作，不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "原换三张与合法梅花4跟牌，原CPU续至第二墩；非整局",
+      "evidence": [
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "screenshots/007.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "28请求本地200/无缺失，32原依赖SHA保留",
+      "evidence": [
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "screenshots/007.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单/换牌/正式牌桌实际显示",
+      "evidence": [
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "screenshots/007.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原卡牌/头像/按钮/提示可见",
+      "evidence": [
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "screenshots/007.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "实际选牌上移、换牌和原CPU出牌/回合切换",
+      "evidence": [
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "screenshots/007.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "5检查点7输入，第三检查点预限定三次点击",
+      "evidence": [
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "screenshots/007.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原三本地CPU，未读取暗牌或模拟在线身份",
+      "evidence": [
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "screenshots/007.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

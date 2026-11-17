@@ -1,0 +1,4 @@
+原Impact/Packer、Card/Player/ScoreManager、换牌/跟花/罚分和CPU可在理解原实体/资源契约后拆解适配，未取得作者工程，不保证跨引擎直接移植。
+Ignore source positions/raw spelling/comments; flatten only adjacent same-operator && or || preserving exact operand/evaluation order. Babel emitter removes redundant same-operator parentheses; no boolean conversion or mixed-operator flattening.
+预先限定5检查点/7条实际输入：导航原菜单；普通Play；三次分别点可见K红心/K方块/K梅花组成三张换牌；普通换牌箭头；在原Charlotte梅花2首出后普通点自有梅花4。原生随机发牌/换牌/跟花/CPU续走未修改。三张换出39/13/26、收到5/12/40，首墩正常结束进入第2墩；Karim/Ollie/Charlotte正常出黑桃5/2/4后轮到人类，手牌13→12。没有读CPU暗牌或调用游戏判定/计分方法，没有写状态/随机数/时间。所有实际罚分仍为0；未证明红心/黑桃Q罚分、13墩整手、整局、刷新存档或手机。
+本轮28请求/28响应全本地HTTP200，无外联/缺失/请求失败/pageerror。3条原AudioContext自动播放警告逐条保留，不能称控制台全空。运行JS/HTML和32原依赖与本轮试玩清单一致，不在通过后修改玩法。
