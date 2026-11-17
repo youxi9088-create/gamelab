@@ -1,0 +1,277 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "1原入口菜单"
+      },
+      {
+        "type": "checkpoint",
+        "description": "2原Play"
+      },
+      {
+        "type": "checkpoint",
+        "description": "3原首段对话继续"
+      },
+      {
+        "type": "checkpoint",
+        "description": "4原第二段继续"
+      },
+      {
+        "type": "checkpoint",
+        "description": "5一次普通连续虚拟摇杆拖动并收割23株"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 123,
+    "responses": 123,
+    "network_events": 247,
+    "scope": "累计5检查点/5输入：原入口菜单→Play→原叙述者第一段继续→第二段继续→一次连续鼠标虚拟摇杆拖动（16个move、保持2500ms、一次down/up）。原收割机由x0/z59移至x15.803/z49.574；首块玉米由54降31，HUD及原本地资源corn0→23，出现原+23反馈；现金仍0，番茄/胡萝卜0，未解锁其他地块。已查看原菜单、两段对话、农田及收割后截图。未验证售卖、工厂加工、升级、扩地、通关、刷新存档、全部5阶段/15作物或手机。",
+    "network_scope": "实际123请求/123响应全本地同源HTTP200，含真实Draco WASM和4个原生解码worker加载，0外联/失败/缺失/脚本异常；1条原AudioContext自动播放警告完整保留。原生双GLB/贴图/解压与收割可见，未声称所有后期玩法路径均动态覆盖。",
+    "script_exceptions": [],
+    "tested_revision": "farmer-offline-v1",
+    "delivery_revision": "farmer-offline-v1",
+    "native_harvest_verified": true,
+    "sale_verified": false,
+    "full_level_verified": false,
+    "storage_reload_verified": false
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "广告提供者/赠资源/免费升级及模拟广告成功弹窗完整退役。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/farmer-retirement-v1.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "平台SDK报分/排行退役，本地资源/进度保留。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/farmer-retirement-v1.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原单人本地收割经营，无匹配或联机身份。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/farmer-retirement-v1.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "无真钱付款；普通本地升级/买地仍遵循原费用。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/farmer-retirement-v1.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "3D农场 / 驾驶收割经营",
+    "dimension": "3D",
+    "perspective": "",
+    "core_gameplay": "驾驶原收割机穿过农田收割作物，将收获投入原工厂与扩地/升级循环。真实一次普通摇杆拖动收割23株玉米，资源HUD0→23；出售、加工与扩张仅源码核对，未操作。",
+    "core_experience": "",
+    "controls": "原鼠标点击Play、两次叙述者继续；在水面空白区按住鼠标向可见玉米田方向拖动，原全屏虚拟摇杆接管移动，保持2500ms后释放。没有直接调用移动/收割/奖励/保存函数或写存档。原方向键/缩放/暂停/普通升级源码保留，本轮未额外操作。",
+    "game_loop": "",
+    "content": "原5组阶段，依次为玉米/番茄/胡萝卜，土豆/卷心菜/茄子，蘑菇/大蒜/黄瓜，洋葱/辣椒/西兰花，莴苣/甜椒/南瓜；原海岛Map1…Map7按原价签开放。实际仅第1阶段Map3三片玉米田，收割首片23株，未通关或进入其他地图。",
+    "progression": "",
+    "save": "",
+    "rules": "收割机位置/转向/碰撞、刀头长宽/距离判定、作物实例与再生、背包上限、工厂处理/商店收入、地块原价格和升级倍率全部保持。重点13原模块函数体精确字节一致，全109模块中86个保留原函数体。广告送作物/广告免费升级/模拟广告成功弹窗及分享物理退役，不伪造SDK/身份/奖励。",
+    "systems": "64处精确范围改动，10个Microsoft/API/分享/外链/广告赠送/模拟广告模块及调用依赖退役。普通升级保留原足额扣cash→levelUp路径，删除整段广告免付分支。只移除Impact类实现前的独立发行域about:blank跳转变量对及唯一调用，保留外围原类实现；原Howler/Babylon不替换。3个Draco原URL映射本地真实文件，算法字节未改；原迁移fetchData脚本退役。浏览器进程已实际exit0。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5检查点/5输入：原入口菜单→Play→原叙述者第一段继续→第二段继续→一次连续鼠标虚拟摇杆拖动（16个move、保持2500ms、一次down/up）。原收割机由x0/z59移至x15.803/z49.574；首块玉米由54降31，HUD及原本地资源corn0→23，出现原+23反馈；现金仍0，番茄/胡萝卜0，未解锁其他地块。已查看原菜单、两段对话、农田及收割后截图。未验证售卖、工厂加工、升级、扩地、通关、刷新存档、全部5阶段/15作物或手机。实际123请求/123响应全本地同源HTTP200，含真实Draco WASM和4个原生解码worker加载，0外联/失败/缺失/脚本异常；1条原AudioContext自动播放警告完整保留。原生双GLB/贴图/解压与收割可见，未声称所有后期玩法路径均动态覆盖。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "Babylon.js / ImpactJS / Howler / Draco",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "MSN9mx1rqzs1gnz/v3，Farmer Pedro；内部MJS-Farmer-Pedro-microsoft，游戏1.1.68/框架2.0.0。ImpactJS二维HUD叠加原Babylon.js三维场景，JavaScript/HTML/CSS、原Howler和Draco。桌面1440×900实测，内部2304×1440；手机未测。",
+        "asset_types": "原121静态资源原字节/SHA保留，含112基础声明路径、原scene.babylon、island.glb及farmer/farmer.glb、3张场景材质贴图和3个真实Draco解码文件。两GLB内嵌贴图/缓冲无外部URI，必需KHR_draco_mesh_compression，实际本地WASM与worker加载成功。原字体WOFF/TTF、作物/农田/收割机/农夫/厂房/桥/海水与UI保留。",
+        "core_challenge": "驾驶原收割机穿过农田收割作物，将收获投入原工厂与扩地/升级循环。真实一次普通摇杆拖动收割23株玉米，资源HUD0→23；出售、加工与扩张仅源码核对，未操作。",
+        "controls": "原鼠标点击Play、两次叙述者继续；在水面空白区按住鼠标向可见玉米田方向拖动，原全屏虚拟摇杆接管移动，保持2500ms后释放。没有直接调用移动/收割/奖励/保存函数或写存档。原方向键/缩放/暂停/普通升级源码保留，本轮未额外操作。",
+        "behavior_path": "彩色原菜单→原3D海岛与三片玉米田→原农夫两段对话→普通点击继续自然收起原对话→一次摇杆移动→原收割机转向、镜头跟随、田内23株消失并显示+23/资源23。",
+        "game_path": "累计5检查点/5输入：原入口菜单→Play→原叙述者第一段继续→第二段继续→一次连续鼠标虚拟摇杆拖动（16个move、保持2500ms、一次down/up）。原收割机由x0/z59移至x15.803/z49.574；首块玉米由54降31，HUD及原本地资源corn0→23，出现原+23反馈；现金仍0，番茄/胡萝卜0，未解锁其他地块。已查看原菜单、两段对话、农田及收割后截图。未验证售卖、工厂加工、升级、扩地、通关、刷新存档、全部5阶段/15作物或手机。",
+        "progression_path": "原5组作物阶段、地块/桥价签解锁与本地升级保留；初始第1阶段仅Map3开放，cash/corn/tomato/carrot全0。实测仍Map3/第1阶段，只将玉米增至23，没有买地或免费跳关。",
+        "core_loop": "移动与切割判定→原作物实例移除/粒子与数量增长→按原容量收集→原工厂加工/售卖→按原费用解锁桥与地块/提升机器→新农田继续。真实只覆盖移动与23次原收割反馈；后半段保留源逻辑，未冒充完成交易。",
+        "gameplay_rules": "收割机位置/转向/碰撞、刀头长宽/距离判定、作物实例与再生、背包上限、工厂处理/商店收入、地块原价格和升级倍率全部保持。重点13原模块函数体精确字节一致，全109模块中86个保留原函数体。广告送作物/广告免费升级/模拟广告成功弹窗及分享物理退役，不伪造SDK/身份/奖励。",
+        "key_numbers": "实测corn0→23、首块54→31（其余36/36未动），收割机(x,z)由(0,59)至(15.803,49.574)，cash/tomato/carrot仍0。源码初始容量150；机器速度原-0.3，倍率1.03，原移动保持其符号约定；容量倍率1.1、尺寸1.15、作物品质1.1、工厂效率1.12。首批升级500/1000/500/500/500，费用倍率1.5；未购买。",
+        "level_configuration": "原5组阶段，依次为玉米/番茄/胡萝卜，土豆/卷心菜/茄子，蘑菇/大蒜/黄瓜，洋葱/辣椒/西兰花，莴苣/甜椒/南瓜；原海岛Map1…Map7按原价签开放。实际仅第1阶段Map3三片玉米田，收割首片23株，未通关或进入其他地图。",
+        "system_design": "64处精确范围改动，10个Microsoft/API/分享/外链/广告赠送/模拟广告模块及调用依赖退役。普通升级保留原足额扣cash→levelUp路径，删除整段广告免付分支。只移除Impact类实现前的独立发行域about:blank跳转变量对及唯一调用，保留外围原类实现；原Howler/Babylon不替换。3个Draco原URL映射本地真实文件，算法字节未改；原迁移fetchData脚本退役。浏览器进程已实际exit0。",
+        "theme": "原卡通海岛农场，明亮海水、绿色草地、黄色玉米、红色收割机、绿树木栅、原农夫3D说话模型、价格牌、厂房与水面，原2D菜单/资源HUD/暂停升级按钮。实际截图可见模型与原材质，未以自制几何/占位资源替代。",
+        "progression_economy": "原现金、三类阶段资源、各项升级、桥/地块价签与工厂处理时间保留。源码玉米/番茄/胡萝卜再生时间5/9/12秒，离田后原低存量自动再生逻辑保留，未专门计时复验；工厂初始处理3秒。当前只获玉米23、现金0，没有售卖/加工入账或领取广告资源。",
+        "roster": "原农夫、收割机/旋转刀头、作物实例、树/篱笆/桥/厂房/价签及水面；实际首关3D农夫/机具/玉米与原说话对话可见。完整15作物和所有表情/工厂动画未逐项实测。",
+        "monetization": "原平台SDK、分享/更多游戏/品牌外链、平台报分、广告赠作物与免费升级、模拟奖励广告成功弹窗完整退役。普通本地升级仍需原现金成本。无服务端替身、伪造身份、广告奖励或付费解锁；所有本轮实际请求同源。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原菜单，正常完整加载"
+      },
+      {
+        "path": "screenshots/002.png",
+        "caption": "原首段农夫对话与3D海岛"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "原第二段教程对话"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "原教程结束、玉米0/田54株"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "正常拖动后原玉米23/田31株/+23反馈"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-17T17:57:57.541034+00:00",
+    "observation_end": "2026-11-17T18:20:15.839375+00:00",
+    "elapsed_seconds": 1338.298341,
+    "scope": "原包归档至证据整理的观测窗口，包含等待和其他工作；不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "原虚拟摇杆移动与切割23株真实反馈，玉米0→23；出售未测。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "原121静态资源闭包，双Draco GLB/3材质/本地解码实际可用，123本地200。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单/农夫/3D首海岛与田块真实显示。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "收割机刀头、玉米实例、树/篱笆/价签和水面实显。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原农夫模型和两段说话教程、原收割机移动转向。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原说话、镜头跟随、刀头旋转、作物消失及+23反馈。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "累计5输入原Play/两次继续/一次拖动路径，真实资源HUD0→23。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}
