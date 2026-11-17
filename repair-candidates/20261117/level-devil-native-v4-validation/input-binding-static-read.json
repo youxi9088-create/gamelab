@@ -1,0 +1,171 @@
+{
+  "at": "2026-11-17T15:31:34.298201+00:00",
+  "scope": "Read-only original input binding and Lua consumer audit; no gameplay run",
+  "schema_url": "https://raw.githubusercontent.com/defold/defold/dev/engine/input/proto/input/input_ddf.proto",
+  "schema_sha256": "08cfec9111bca8a2aef78d7b6eac1dfb58e1898c263373a4bb7df9ffbe865971",
+  "resource_index": 498,
+  "original_and_v4_binding_sha256": "d4191ec6b57f2c1d81c92cd4f78a42a185638d2d6c879dcb1bf71ce4d16d1b55",
+  "unchanged": true,
+  "bindings": [
+    {
+      "key_number": 32,
+      "key": "KEY_A",
+      "action": "p1_left"
+    },
+    {
+      "key_number": 35,
+      "key": "KEY_D",
+      "action": "p1_right"
+    },
+    {
+      "key_number": 54,
+      "key": "KEY_W",
+      "action": "p1_up"
+    },
+    {
+      "key_number": 50,
+      "key": "KEY_S",
+      "action": "p1_down"
+    },
+    {
+      "key_number": 83,
+      "key": "KEY_LEFT",
+      "action": "p2_left"
+    },
+    {
+      "key_number": 84,
+      "key": "KEY_RIGHT",
+      "action": "p2_right"
+    },
+    {
+      "key_number": 81,
+      "key": "KEY_UP",
+      "action": "p2_up"
+    },
+    {
+      "key_number": 82,
+      "key": "KEY_DOWN",
+      "action": "p2_down"
+    },
+    {
+      "key_number": 0,
+      "key": "KEY_SPACE",
+      "action": "p1_jump"
+    },
+    {
+      "key_number": 68,
+      "key": "KEY_ESC",
+      "action": "pause"
+    },
+    {
+      "key_number": 91,
+      "key": "KEY_TAB",
+      "action": "pause"
+    },
+    {
+      "key_number": 92,
+      "key": "KEY_ENTER",
+      "action": "select"
+    },
+    {
+      "key_number": 93,
+      "key": "KEY_BACKSPACE",
+      "action": "backspace"
+    },
+    {
+      "key_number": 49,
+      "key": "KEY_R",
+      "action": "reload"
+    },
+    {
+      "key_number": 48,
+      "key": "KEY_Q",
+      "action": "debugkey_q"
+    },
+    {
+      "key_number": 16,
+      "key": "KEY_1",
+      "action": "debugkey_1"
+    },
+    {
+      "key_number": 17,
+      "key": "KEY_2",
+      "action": "debugkey_2"
+    },
+    {
+      "key_number": 18,
+      "key": "KEY_3",
+      "action": "debugkey_3"
+    },
+    {
+      "key_number": 19,
+      "key": "KEY_4",
+      "action": "debugkey_4"
+    },
+    {
+      "key_number": 20,
+      "key": "KEY_5",
+      "action": "debugkey_5"
+    },
+    {
+      "key_number": 57,
+      "key": "KEY_Z",
+      "action": "debugkey_z"
+    },
+    {
+      "key_number": 116,
+      "key": "KEY_KP_ENTER",
+      "action": "kp_enter"
+    },
+    {
+      "key_number": 21,
+      "key": "KEY_6",
+      "action": "debugkey_6"
+    },
+    {
+      "key_number": 22,
+      "key": "KEY_7",
+      "action": "debugkey_7"
+    },
+    {
+      "key_number": 0,
+      "key": "KEY_SPACE",
+      "action": "space"
+    },
+    {
+      "key_number": 79,
+      "key": "KEY_F11",
+      "action": "fullscreen"
+    },
+    {
+      "key_number": 87,
+      "key": "KEY_LCTRL",
+      "action": "ctrl"
+    },
+    {
+      "key_number": 88,
+      "key": "KEY_RCTRL",
+      "action": "ctrl"
+    },
+    {
+      "key_number": 56,
+      "key": "KEY_Y",
+      "action": "debugkey_y"
+    }
+  ],
+  "lua_consumers": {
+    "345": {
+      "file": "0345-inputs.script.lua",
+      "sha256": "14abb8d3f1b88b0de65caddd8b535af251341241c277f75f137d578b37364361"
+    },
+    "347": {
+      "file": "0347-gamemanager.lua.lua",
+      "sha256": "8ab6df40dbfb0902d33853ebfcea97e321e306ba1dbd9e28371ad6ba385bdce2"
+    }
+  },
+  "correction": "之前用Up尝试验证跳跃是测试键选择错误。原绑定Up→p2_up，原跳跃为Space→p1_jump，不能把父v3的姿态变化当跳跃证明。P1横向原键A/D；箭头Right绑定p2_right，单人消费者也可能路由到1，故不能仅凭绑定断言右移失败根因。Canvas焦点与帧采样仍未实测定位。",
+  "runtime_verified": false,
+  "ready_review": false,
+  "game_or_model_executed": false,
+  "additional_ui_inputs": 0
+}
