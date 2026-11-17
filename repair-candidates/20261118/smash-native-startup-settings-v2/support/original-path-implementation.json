@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-17T21:30:21.906770+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+  "original_body_hashes": [
+    {
+      "function_index": 635,
+      "bytes": 234,
+      "sha256": "6fd77406486f0be98995388c0622eb003f243fc151be53c655364f5d6c4c9b09"
+    },
+    {
+      "function_index": 676,
+      "bytes": 272,
+      "sha256": "5d75c35da2d1c1fc7bcb59ae11c9b84dfb9e76b79ffa6a4d1b2bdd3735fe5bb7"
+    },
+    {
+      "function_index": 6872,
+      "bytes": 38,
+      "sha256": "34b3f0c6f1ef2c213ccb4fa773d6dd703a3801bb0b92f94936bb311336d78997"
+    }
+  ],
+  "original_source_snippets": [
+    {
+      "function_index": 635,
+      "source": "function f_lx(a:int_ptr, b:int_ptr, c:int_ptr):int { // func635\n  var d:int;\n  if (eqz(6811569[0]:ubyte)) {\n    f_bw(5630468);\n    6811569[0]:byte = 1;\n  }\n  if (a) {\n    d = a[2];\n    if (d) goto B_d;\n  }\n  if (b) { if (b[2]) goto B_c }\n  return ((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16933]:int)[23]:int)[0]:int;\n  label B_d:\n  if (eqz(b)) { return a }\n  c = b[2];\n  if (eqz(c)) { return a }\n  c = f_lkb(c + d);\n  var e:int = a[2];\n  if (e > c[2]) goto B_b;\n  var f:int = c + 12;\n  f_znb(f, a + 12, e << 1, 0);\n  a = b[2];\n  if (a > c[2] - d) goto B_b;\n  f_znb((d << 1) + f, b + 12, a << 1, 0);\n  b = c;\n  label B_c:\n  return b;\n  label B_b:\n  a = f_fw(f_ew(5625048));\n  f_dlb(a, 0);\n  f_iw(a, f_ew(5701472));\n  return unreachable;\n}\n\n",
+      "source_sha256": "c5e62b194a2a60edef641e9f5077ee5d282b6134b6d5fb4e03e2957e0550a2ea"
+    },
+    {
+      "function_index": 676,
+      "source": "function f_az(a:int_ptr, b:int_ptr, c:int_ptr, d:int_ptr):int { // func676\n  var f:int;\n  var e:int;\n  var g:int;\n  if (a) {\n    d = a[2];\n    if (d) goto B_a;\n  }\n  return f_lx(b, c, a);\n  label B_a:\n  if (b) {\n    f = b[2];\n    if (f) goto B_c;\n  }\n  return f_lx(a, c, a);\n  label B_c:\n  if (c) {\n    e = c[2];\n    if (e) goto B_e;\n  }\n  return f_lx(a, b, a);\n  label B_e:\n  d = f_lkb(d + f + e);\n  e = a[2];\n  if (e <= d[2]) {\n    f = d + 12;\n    f_znb(f, a + 12, e << 1, 0);\n    e = b[2];\n    if (e > d[2] - (g = a[2])) goto B_h;\n    f_znb((g << 1) + f, b + 12, e << 1, 0);\n    e = c[2];\n    if (e > d[2] - (a = b[2] + a[2])) goto B_h;\n    f_znb((a << 1) + f, c + 12, e << 1, 0);\n    return d;\n    label B_h:\n  }\n  a = f_fw(f_ew(5625048));\n  f_dlb(a, 0);\n  f_iw(a, f_ew(5701472));\n  return unreachable;\n}\n\n",
+      "source_sha256": "f1631f14a962cb810a659b2b3ad6d239918cc6ae32e941dba2f2536895c584b1"
+    },
+    {
+      "function_index": 6872,
+      "source": "function f_idj(a:int):int { // func6872\n  a = 6805316[0]:int;\n  if (eqz(a)) { 6805316[0]:int = (a = f_uw(524858)) }\n  return call_indirect(a);\n}\n\n",
+      "source_sha256": "5167f6d71efd1379d803e8652f09fe4fb7585653fd0400f47e593caa51f2d795"
+    }
+  ]
+}
