@@ -1,0 +1,285 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "cumulative_step": 2,
+        "description": "修正后原菜单"
+      },
+      {
+        "type": "checkpoint",
+        "cumulative_step": 3,
+        "description": "原Play进入原必经教程"
+      },
+      {
+        "type": "checkpoint",
+        "cumulative_step": 4,
+        "description": "第一短音符真实点按"
+      },
+      {
+        "type": "checkpoint",
+        "cumulative_step": 5,
+        "description": "第二短音符真实点按"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 31,
+    "responses": 31,
+    "network_events": 63,
+    "scope": "累计5输入，未重置：1旧v2打开黑屏并报fenster未定义（保留失败图/控制台）；2修复v3打开原菜单；3原Play进入原必经教程；4按可见手势点第一道短音符495,700，原教程推进第二个短音符（第3道H）；5点第3道短音符795,700，原长按G音符示意出现。只按可见界面输入，没有读取隐藏谱面用于点按、调用游戏处理器或改状态。原音频上下文suspended→running、88个原采样已解码；未声称听感。正式曲目尚未进入，分数仍0、教程仍未完成；完整曲目/正式计分/长按/结算/星级解锁/刷新存储/全部曲目和手机均未验证。",
+    "network_scope": "最终v3实测31请求/31响应全部本地HTTP200，0外联/缺失/失败/脚本异常；2条Canvas2D读回性能警告保留。旧v2黑屏错误独立保留，不能当作最终通过。旧39109和新69695浏览器均已真实exit0；最终网络只证明本轮菜单及短音符教程路径。",
+    "script_exceptions": [],
+    "tested_revision": "piano-offline-v3",
+    "delivery_revision": "piano-offline-v3",
+    "native_two_tutorial_short_notes_verified": true,
+    "regular_level_entered": false,
+    "complete_tutorial_verified": false,
+    "regular_score_runtime_verified": false,
+    "all_songs_verified": false,
+    "storage_reload_verified": false,
+    "historical_bootstrap_failure": {
+      "revision": "piano-offline-v2",
+      "input": 1,
+      "error": "fenster is not defined",
+      "evidence": "evidence/piano-v2-network-console.json"
+    }
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "发行插屏/入口及调用物理退役，仅普通无奖励继续直连原函数。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/piano-retirement-v2.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "原发行统计/报分退役，原本地曲目分数保留。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/piano-retirement-v2.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原本机单人音乐节奏，无联网匹配。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/piano-retirement-v2.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "原星数解锁保留，无真钱购买功能。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/piano-retirement-v2.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "音乐节奏 / 四道钢琴音符",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "跟随四道下落音符及时点击短音符和按住长音符，依据原时机和谱面获得计分/星级，再解锁歌曲和专辑。实际仅完成原教程前两个短音符，正式曲目计分未验证。",
+    "core_experience": "",
+    "controls": "原教程画面提示F/G/H/J或点击四道音符。实测鼠标按提示分别点第一道和第三道短音符，原指导继续下一项；长按、键盘和手机触摸未追加验证。点击均是真实mouse move/down/up，累计输入含旧启动失败共5次。",
+    "game_loop": "",
+    "content": "108个原谱面及7个专辑星数门槛保留，教程包括短按和长按。实际只进入教程并完成前两个短按；未完整教程/选择歌曲/逐首实玩，不能把配置数量当成全部曲目验收。",
+    "progression": "",
+    "save": "",
+    "rules": "781个原类方法中717个AST相同；162个重点落块/按键触摸/谱面/速度/心形/音符/歌曲存储方法中159个AST相同，另外3个仅发行日志改console，规则体相同。44项原设置逐项一致，AUTOPLAY/GOD_MODE保持false；没有改谱面、速度、判定、生命、随机、分数和解锁。",
+    "systems": "100处主脚本精确范围改动，物理退役发行SDK/广告/统计/更多游戏/平台暂停音量回调和存储命名空间。普通非奖励广告继续直连同一原无参继续函数；保留浏览器原生可见性、音量、本地存储。MIDI.loadPlugin显式选原库自带webaudio分支，原MP3音色与MIDI算法不变；Phaser11处fenster.innerWidth/Height改真实window读取，精确反向编辑可恢复原引擎。无SDK替身。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5输入，未重置：1旧v2打开黑屏并报fenster未定义（保留失败图/控制台）；2修复v3打开原菜单；3原Play进入原必经教程；4按可见手势点第一道短音符495,700，原教程推进第二个短音符（第3道H）；5点第3道短音符795,700，原长按G音符示意出现。只按可见界面输入，没有读取隐藏谱面用于点按、调用游戏处理器或改状态。原音频上下文suspended→running、88个原采样已解码；未声称听感。正式曲目尚未进入，分数仍0、教程仍未完成；完整曲目/正式计分/长按/结算/星级解锁/刷新存储/全部曲目和手机均未验证。最终v3实测31请求/31响应全部本地HTTP200，0外联/缺失/失败/脚本异常；2条Canvas2D读回性能警告保留。旧v2黑屏错误独立保留，不能当作最终通过。旧39109和新69695浏览器均已真实exit0；最终网络只证明本轮菜单及短音符教程路径。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "Phaser 2.10.5 / MIDI.js / Canvas",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "MSN9nprcsghz6j6/v9，Perfect Piano，原perfect-piano。Phaser2.10.5/PIXI/Canvas、MIDI.js、JavaScript/HTML/CSS。原基准640×960，实际1440×900全画布，四道居中；手机未测。",
+        "asset_types": "7个原入口/脚本/CSS与50个源码声明静态资源实际取得。最终运行基础57文件，54个文件保持原字节；原游戏JS退役发行集成，原HTML改直载，原Phaser仅11个窗口几何别名改真实window。50项含3图集PNG/JSON、位图字体PNG/XML、5格式CSS字体、谱面/专辑JSON、11音效×MP3/M4A/OGG及1个原钢琴音色JS，88个内嵌音频采样。",
+        "core_challenge": "跟随四道下落音符及时点击短音符和按住长音符，依据原时机和谱面获得计分/星级，再解锁歌曲和专辑。实际仅完成原教程前两个短音符，正式曲目计分未验证。",
+        "controls": "原教程画面提示F/G/H/J或点击四道音符。实测鼠标按提示分别点第一道和第三道短音符，原指导继续下一项；长按、键盘和手机触摸未追加验证。点击均是真实mouse move/down/up，累计输入含旧启动失败共5次。",
+        "behavior_path": "旧v2黑屏取证→精确窗口读取修正→v3原Perfect Piano菜单→原Play→第一道短音符和手势→真实点击后第三道短音符和手势→再次真实点击后第二道长按音符和手势。保留强制首教程，不写已完成标记或伪造存档。",
+        "game_path": "累计5输入，未重置：1旧v2打开黑屏并报fenster未定义（保留失败图/控制台）；2修复v3打开原菜单；3原Play进入原必经教程；4按可见手势点第一道短音符495,700，原教程推进第二个短音符（第3道H）；5点第3道短音符795,700，原长按G音符示意出现。只按可见界面输入，没有读取隐藏谱面用于点按、调用游戏处理器或改状态。原音频上下文suspended→running、88个原采样已解码；未声称听感。正式曲目尚未进入，分数仍0、教程仍未完成；完整曲目/正式计分/长按/结算/星级解锁/刷新存储/全部曲目和手机均未验证。",
+        "progression_path": "原谱面、歌曲本地分数、星级门槛、专辑及教程完成存储保持。原localStorage键perfect_piano_1.0出现，教程完成仍false、分数0；没有把存储键存在冒充完成教程/恢复存档/解锁新歌。",
+        "core_loop": "观察原下落音符与指引→短按或长按→原音符反馈与MIDI播放→继续后续音符→原曲目分数/星级结算→按原星级要求解锁后续歌曲。本轮只核对原教程两个短按到长按示意的推进，未跑完整正式闭环。",
+        "gameplay_rules": "781个原类方法中717个AST相同；162个重点落块/按键触摸/谱面/速度/心形/音符/歌曲存储方法中159个AST相同，另外3个仅发行日志改console，规则体相同。44项原设置逐项一致，AUTOPLAY/GOD_MODE保持false；没有改谱面、速度、判定、生命、随机、分数和解锁。",
+        "key_numbers": "原4道，基准640×960、音符基准高度280，星级里程碑0.39/0.74/0.89。原108首谱面、7个专辑、108个专辑歌曲引用，88个钢琴内嵌采样。实测只点2个教程短音符，正式分数0/教程完成false。数值来自源码和JSON，非全曲实玩。",
+        "level_configuration": "108个原谱面及7个专辑星数门槛保留，教程包括短按和长按。实际只进入教程并完成前两个短按；未完整教程/选择歌曲/逐首实玩，不能把配置数量当成全部曲目验收。",
+        "system_design": "100处主脚本精确范围改动，物理退役发行SDK/广告/统计/更多游戏/平台暂停音量回调和存储命名空间。普通非奖励广告继续直连同一原无参继续函数；保留浏览器原生可见性、音量、本地存储。MIDI.loadPlugin显式选原库自带webaudio分支，原MP3音色与MIDI算法不变；Phaser11处fenster.innerWidth/Height改真实window读取，精确反向编辑可恢复原引擎。无SDK替身。",
+        "theme": "原青绿菱形背景、紫金Perfect Piano标题、白色播放/曲单/设置、四道渐变音符、F/G/H/J按键标签、原指导手和长按菱形标记均来自原素材。截图001是实际v3菜单（累计输入2），旧黑屏图仅在历史证据中。",
+        "progression_economy": "原歌曲得分、专辑星数门槛、本地保存与本局原心形机制保留，未改奖励或免费解锁。正式分数和成长未实玩；没有新增金币/后台经济/付费。",
+        "roster": "原四道短/长音符、原音符尾迹/背景/指导手/按键和各类本地菜单；原无叙事角色。实际屏幕只核对菜单、两个教程短音符和下一长按示意。",
+        "monetization": "发行广告、统计上报、品牌更多游戏及平台账号/存储接口物理退役，普通本机音符玩法保留。无联机/服务端替代或广告完成伪造。源码内保留的MIDI通用本地音色读取/本地文件导入功能不访问业务服务器，最终实际请求均同源。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原菜单，实际累计输入2；旧黑屏失败另存"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "原必经教程第一短音符"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "点按后推进第三道第二短音符"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "再次点按后原长按示意，未操作长按"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-17T19:38:11.489064+00:00",
+    "observation_end": "2026-11-17T20:44:28.379352+00:00",
+    "elapsed_seconds": 3976.890288,
+    "scope": "原入口归档至证据整理的观测窗口，包含其他工作、等待和一次实际启动失败；不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "两个原教程短音符按可见指引真实点击后，原教程分别推进下一短音符和长按示意；正式曲目/计分尚未验证。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "50个声明资源原字节齐备；88个原采样实际解码，31同源请求均200。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单及原四道教程真实显示，旧黑屏失败保留。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原短音符/长音符/按键/白色指引手实显。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原指引手与可操作音符，无叙事角色。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原手势和按下消退/下一音符出现，已查看真实图。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "包含一次旧启动失败共5输入；当前原菜单→必经教程→2短音符，无状态注入。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

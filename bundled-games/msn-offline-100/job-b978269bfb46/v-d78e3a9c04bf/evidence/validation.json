@@ -1,0 +1,262 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "cumulative_step": 2,
+        "description": "修正后原菜单"
+      },
+      {
+        "type": "checkpoint",
+        "cumulative_step": 3,
+        "description": "原Play进入原必经教程"
+      },
+      {
+        "type": "checkpoint",
+        "cumulative_step": 4,
+        "description": "第一短音符真实点按"
+      },
+      {
+        "type": "checkpoint",
+        "cumulative_step": 5,
+        "description": "第二短音符真实点按"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 31,
+    "responses": 31,
+    "network_events": 63,
+    "scope": "累计5输入，未重置：1旧v2打开黑屏并报fenster未定义（保留失败图/控制台）；2修复v3打开原菜单；3原Play进入原必经教程；4按可见手势点第一道短音符495,700，原教程推进第二个短音符（第3道H）；5点第3道短音符795,700，原长按G音符示意出现。只按可见界面输入，没有读取隐藏谱面用于点按、调用游戏处理器或改状态。原音频上下文suspended→running、88个原采样已解码；未声称听感。正式曲目尚未进入，分数仍0、教程仍未完成；完整曲目/正式计分/长按/结算/星级解锁/刷新存储/全部曲目和手机均未验证。",
+    "network_scope": "最终v3实测31请求/31响应全部本地HTTP200，0外联/缺失/失败/脚本异常；2条Canvas2D读回性能警告保留。旧v2黑屏错误独立保留，不能当作最终通过。旧39109和新69695浏览器均已真实exit0；最终网络只证明本轮菜单及短音符教程路径。",
+    "script_exceptions": [],
+    "tested_revision": "piano-offline-v3",
+    "delivery_revision": "piano-offline-v3",
+    "native_two_tutorial_short_notes_verified": true,
+    "regular_level_entered": false,
+    "complete_tutorial_verified": false,
+    "regular_score_runtime_verified": false,
+    "all_songs_verified": false,
+    "storage_reload_verified": false,
+    "historical_bootstrap_failure": {
+      "revision": "piano-offline-v2",
+      "input": 1,
+      "error": "fenster is not defined",
+      "evidence": "evidence/piano-v2-network-console.json"
+    }
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "historical_v2_inputs": 1,
+  "current_v3_inputs": 4,
+  "accounting": {
+    "observation_start": "2026-11-17T19:38:11.489064+00:00",
+    "observation_end": "2026-11-17T20:44:28.379352+00:00",
+    "elapsed_seconds": 3976.890288,
+    "scope": "原入口归档至证据整理的观测窗口，包含其他工作、等待和一次实际启动失败；不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "browser_sessions_exit0": [
+    39109,
+    69695
+  ],
+  "UI_snapshots": {
+    "1": {
+      "engine": {
+        "width": 800,
+        "height": 600,
+        "state": "",
+        "paused": false
+      },
+      "visibleText": [],
+      "visibleTiles": [],
+      "localTutorialCompleted": false,
+      "audio": {
+        "decodedInstrumentBuffers": 0
+      },
+      "storageKeys": []
+    },
+    "2": {
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "engine": {
+        "width": 1440,
+        "height": 900,
+        "state": "MainMenu",
+        "paused": false
+      },
+      "visibleText": [],
+      "visibleTiles": [],
+      "currentScore": 0,
+      "currentStarScore": 0,
+      "scoreProgress": 0,
+      "localTutorialCompleted": false,
+      "audio": {
+        "context": "suspended",
+        "mute": false,
+        "decodedInstrumentBuffers": 88
+      },
+      "storageKeys": [
+        "perfect_piano_1.0"
+      ]
+    },
+    "3": {
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "engine": {
+        "width": 1440,
+        "height": 900,
+        "state": "Tutorial",
+        "paused": false
+      },
+      "visibleText": [
+        "F",
+        "G",
+        "H",
+        "J"
+      ],
+      "visibleTiles": [
+        {
+          "kind": "TutorialShortTile",
+          "pressed": false,
+          "bounds": {
+            "x": 420,
+            "y": 546.8858482809967,
+            "width": 150,
+            "height": 262.5
+          }
+        }
+      ],
+      "currentScore": 0,
+      "currentStarScore": 0,
+      "scoreProgress": 0,
+      "localTutorialCompleted": false,
+      "audio": {
+        "context": "running",
+        "mute": false,
+        "decodedInstrumentBuffers": 88
+      },
+      "storageKeys": [
+        "perfect_piano_1.0"
+      ]
+    },
+    "4": {
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "engine": {
+        "width": 1440,
+        "height": 900,
+        "state": "Tutorial",
+        "paused": false
+      },
+      "visibleText": [
+        "F",
+        "G",
+        "H",
+        "J"
+      ],
+      "visibleTiles": [
+        {
+          "kind": "TutorialShortTile",
+          "pressed": false,
+          "bounds": {
+            "x": 720,
+            "y": 542.580058675625,
+            "width": 150,
+            "height": 262.5
+          }
+        }
+      ],
+      "currentScore": 0,
+      "currentStarScore": 0,
+      "scoreProgress": 0,
+      "localTutorialCompleted": false,
+      "audio": {
+        "context": "running",
+        "mute": false,
+        "decodedInstrumentBuffers": 88
+      },
+      "storageKeys": [
+        "perfect_piano_1.0"
+      ]
+    },
+    "5": {
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "engine": {
+        "width": 1440,
+        "height": 900,
+        "state": "Tutorial",
+        "paused": false
+      },
+      "visibleText": [
+        "F",
+        "G",
+        "H",
+        "J"
+      ],
+      "visibleTiles": [],
+      "currentScore": 0,
+      "currentStarScore": 0,
+      "scoreProgress": 0,
+      "localTutorialCompleted": false,
+      "audio": {
+        "context": "running",
+        "mute": false,
+        "decodedInstrumentBuffers": 88
+      },
+      "storageKeys": [
+        "perfect_piano_1.0"
+      ]
+    }
+  }
+}

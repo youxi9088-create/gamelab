@@ -1,0 +1,40 @@
+{
+  "native": {
+    "engine": {
+      "width": 800,
+      "height": 600,
+      "state": "",
+      "paused": false
+    },
+    "visibleText": [],
+    "visibleTiles": [],
+    "localTutorialCompleted": false,
+    "audio": {
+      "decodedInstrumentBuffers": 0
+    },
+    "storageKeys": []
+  },
+  "id": "1",
+  "action": "goto",
+  "ui_steps": 1,
+  "checkpoint_phases": {
+    "1": 1
+  },
+  "raw_ui_inputs": 1,
+  "url": "http://127.0.0.1:18865/piano-offline-v2/index.html",
+  "error": null,
+  "network_events": 15,
+  "console": [
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "error",
+      "kind": "exception",
+      "message": "fenster is not defined",
+      "stack": "ReferenceError: fenster is not defined\n    at http://127.0.0.1:18865/piano-offline-v2/lib/js/phaser.min.js:3:657627\n    at i.Device._readyCheck (http://127.0.0.1:18865/piano-offline-v2/lib/js/phaser.min.js:3:498788)"
+    }
+  ],
+  "closed": false
+}
