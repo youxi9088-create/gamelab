@@ -1,0 +1,95 @@
+{
+  "job_id": "job-e7d352b1a2b1",
+  "scope": "A组直接修复的首次界面验证；旧模型流程记录单独保留，不冒充本轮通过。",
+  "max_steps": 10,
+  "steps_used": 10,
+  "remaining": 0,
+  "steps": [
+    {
+      "step": 1,
+      "at": "2026-11-17T03:11:52.397Z",
+      "action": "Click diagnostic link to load the original local candidate on remote52",
+      "outcome": "Original OMNIS title screen, background and native Training/AI Simulation modes rendered on remote52; online entry disabled in candidate.",
+      "screenshot": "validation-20261117/step-1.png"
+    },
+    {
+      "step": 2,
+      "at": "2026-11-17T03:12:21.045Z",
+      "action": "Click original AI Simulation mode",
+      "outcome": "Original AI Simulation Setup rendered: three random-faction opponents, native faction and generic victory conditions, default target10. No original settings changed.",
+      "screenshot": "validation-20261117/step-2.png"
+    },
+    {
+      "step": 3,
+      "at": "2026-11-17T03:12:53.626Z",
+      "action": "Confirm the unchanged original default AI setup",
+      "outcome": "Native six-faction selection rendered with original power/income/alignment and victory/ability descriptions.",
+      "screenshot": "validation-20261117/step-3.png"
+    },
+    {
+      "step": 4,
+      "at": "2026-11-17T03:13:13.206Z",
+      "action": "Select native Algorithmic Overlords faction",
+      "outcome": "Original Algorithmic Overlords local match initialized with three AI opponents, card artwork, hand and power graph. Native first-time orientation1/8 displayed; no combat/AI turn claim.",
+      "screenshot": "validation-20261117/step-4.png"
+    },
+    {
+      "step": 5,
+      "at": "2026-11-17T03:13:35.920Z",
+      "action": "Click original on-screen SKIP for the optional orientation overlay",
+      "outcome": "Original optional orientation dismissed through native SKIP. Round1 action phase, root treasury13, income3, four action cards and three rival factions displayed. No attack, bidding, AI turn, victory or refresh was tested. Five-step budget exhausted; do not mark full gameplay passed.",
+      "screenshot": "validation-20261117/step-5.png"
+    },
+    {
+      "step": 6,
+      "at": "2026-11-17T10:15:43.769Z",
+      "action": "Click diagnostic link to start the unchanged native local OMNIS revision on52",
+      "outcome": "Unchanged native OMNIS title and AI Simulation mode rendered on52; local origin57584 retained. No game match resumed automatically.",
+      "extra_authorization": "call_dc4135e6c7a849dcb0ee099e3951f0db",
+      "screenshot": "validation-extra-resumed-20261117/step-6.png"
+    },
+    {
+      "step": 7,
+      "at": "2026-11-17T10:16:13.655Z",
+      "action": "Click original AI Simulation mode",
+      "outcome": "Original AI Simulation Setup rendered:3 random-faction opponents, both original victory options enabled, target10 unchanged.",
+      "extra_authorization": "call_dc4135e6c7a849dcb0ee099e3951f0db",
+      "screenshot": "validation-extra-resumed-20261117/step-7.png"
+    },
+    {
+      "step": 8,
+      "at": "2026-11-17T10:16:41.077Z",
+      "action": "Confirm unchanged original default AI Simulation setup",
+      "outcome": "Original six-faction selection rendered with native power, income, alignments and ability/victory descriptions; setup remained unchanged.",
+      "extra_authorization": "call_dc4135e6c7a849dcb0ee099e3951f0db",
+      "screenshot": "validation-extra-resumed-20261117/step-8.png"
+    },
+    {
+      "step": 9,
+      "at": "2026-11-17T10:17:10.501Z",
+      "action": "Select native Algorithmic Overlords faction",
+      "outcome": "Native Algorithmic Overlords round1 initialized without repeating the dismissed orientation: treasury13,income3,power8,3AI rivals,four original action cards and local simulation log rendered.",
+      "extra_authorization": "call_dc4135e6c7a849dcb0ee099e3951f0db",
+      "screenshot": "validation-extra-resumed-20261117/step-9.png"
+    },
+    {
+      "step": 10,
+      "at": "2026-11-17T10:18:29.083Z",
+      "action": "Click original PASS & END TURN once to hand control to the three native AI opponents",
+      "outcome": "After one intended PASS & END TURN click and continued no-input observation, command still shows ROUND1 / CHOOSE YOUR ACTION, treasury remains13 and no visible AI-turn progression. Core handoff not verified. Extra5 budget exhausted; no repeat click or admission.",
+      "extra_authorization": "call_dc4135e6c7a849dcb0ee099e3951f0db",
+      "screenshot": "validation-extra-resumed-20261117/step-10.png",
+      "diagnostic_observation": "Read-only DevTools console showed existing Phaser/Tone messages and camera-focus log; no visible [ui] End Turn handler-entry log. Actual handler delivery and AI progress remain unproven, not an established AI logic defect."
+    }
+  ],
+  "runtime_verified": false,
+  "admitted": false,
+  "initial_max_steps": 5,
+  "extra_authorization": {
+    "additional_steps": 5,
+    "scope": "Only this OMNIS native local revision, previous5 steps retained; no other game, manual pause release or admission without evidence.",
+    "user_answer": "仅 OMNIS 此修订额外最多 5 步",
+    "question_id": "call_dc4135e6c7a849dcb0ee099e3951f0db",
+    "at": "2026-11-17T09:00:05.918266+00:00"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "at": "2026-11-17T10:24:52.824555+00:00",
+  "job_id": "job-e7d352b1a2b1",
+  "base_version_id": "v-4f40af6a7dd7",
+  "status": "deferred_native_turn_handoff_unverified_additional_five_steps_exhausted",
+  "ui_steps_used": 10,
+  "ui_steps_remaining": 0,
+  "additional_steps": [
+    {
+      "step": 6,
+      "at": "2026-11-17T10:15:43.769Z",
+      "action": "Click diagnostic link to start the unchanged native local OMNIS revision on52",
+      "outcome": "Unchanged native OMNIS title and AI Simulation mode rendered on52; local origin57584 retained. No game match resumed automatically.",
+      "extra_authorization": "call_dc4135e6c7a849dcb0ee099e3951f0db",
+      "screenshot": "validation-extra-resumed-20261117/step-6.png"
+    },
+    {
+      "step": 7,
+      "at": "2026-11-17T10:16:13.655Z",
+      "action": "Click original AI Simulation mode",
+      "outcome": "Original AI Simulation Setup rendered:3 random-faction opponents, both original victory options enabled, target10 unchanged.",
+      "extra_authorization": "call_dc4135e6c7a849dcb0ee099e3951f0db",
+      "screenshot": "validation-extra-resumed-20261117/step-7.png"
+    },
+    {
+      "step": 8,
+      "at": "2026-11-17T10:16:41.077Z",
+      "action": "Confirm unchanged original default AI Simulation setup",
+      "outcome": "Original six-faction selection rendered with native power, income, alignments and ability/victory descriptions; setup remained unchanged.",
+      "extra_authorization": "call_dc4135e6c7a849dcb0ee099e3951f0db",
+      "screenshot": "validation-extra-resumed-20261117/step-8.png"
+    },
+    {
+      "step": 9,
+      "at": "2026-11-17T10:17:10.501Z",
+      "action": "Select native Algorithmic Overlords faction",
+      "outcome": "Native Algorithmic Overlords round1 initialized without repeating the dismissed orientation: treasury13,income3,power8,3AI rivals,four original action cards and local simulation log rendered.",
+      "extra_authorization": "call_dc4135e6c7a849dcb0ee099e3951f0db",
+      "screenshot": "validation-extra-resumed-20261117/step-9.png"
+    },
+    {
+      "step": 10,
+      "at": "2026-11-17T10:18:29.083Z",
+      "action": "Click original PASS & END TURN once to hand control to the three native AI opponents",
+      "outcome": "After one intended PASS & END TURN click and continued no-input observation, command still shows ROUND1 / CHOOSE YOUR ACTION, treasury remains13 and no visible AI-turn progression. Core handoff not verified. Extra5 budget exhausted; no repeat click or admission.",
+      "extra_authorization": "call_dc4135e6c7a849dcb0ee099e3951f0db",
+      "screenshot": "validation-extra-resumed-20261117/step-10.png",
+      "diagnostic_observation": "Read-only DevTools console showed existing Phaser/Tone messages and camera-focus log; no visible [ui] End Turn handler-entry log. Actual handler delivery and AI progress remain unproven, not an established AI logic defect."
+    }
+  ],
+  "runtime_verified": false,
+  "ready_review": false,
+  "remote_task_changed": false,
+  "reason": "用户仅此修订追加5步，原5步保留。额外5步为原包启动、AI模拟、确认默认设置、原Algorithmic阵营、一次意图点击PASS & END TURN。第1回合及原卡牌/原收入/3AI阵营正常显示，但最后输入后仍为ROUND1/CHOOSE YOUR ACTION，资金13；只读控制台未看到End Turn处理器入口日志。点击命中与AI交接尚未证明，不能据此断言AI逻辑故障，不再点击或重置步数，不提交待验收。当前原生对局保留。",
+  "observation": {
+    "events": 60,
+    "resources": 59,
+    "local_resources_200": 58,
+    "browser_favicon_404": 1,
+    "sequence_contiguous": true,
+    "issues": []
+  },
+  "pending_user_question": "是否仅追加1步，直接在当前保留的第1回合点击PASS & END TURN；未答复前不得执行。",
+  "accounting": {
+    "exclusive_processing_seconds": null,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "cost": null
+  }
+}
