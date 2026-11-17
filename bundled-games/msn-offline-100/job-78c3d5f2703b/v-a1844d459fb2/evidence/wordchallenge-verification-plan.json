@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-17T17:24:32.303566+00:00",
+  "revision": "wordchallenge-offline-v1",
+  "historical_UI": 0,
+  "maximum_cumulative_checkpoints": 5,
+  "maximum_raw_inputs": 5,
+  "plan": [
+    "1 original entry/menu",
+    "2 original Play",
+    "3 first unlocked level",
+    "4 one native continuous polyline word drag using only screenshot-visible letters and common language knowledge",
+    "5 one further visible-word drag or refresh, chosen from actual prior result"
+  ],
+  "invariants": [
+    "No reading hidden question-block text or levelData.Words answers. Observe visible letter/HUD/filled count only.",
+    "One physical gesture per checkpoint, every down/move/up and interpolation logged. Up to6visibleletter centers/5segments/12moves each, no repeated separate clicks folded into a step.",
+    "No game logic calls/state/coin/score/RNG/time writes. No ad reward/hint use or level selection bypass.",
+    "Readonly screenshots/paint waits do not inject input or reset budget. Close actual browser at completion/defer."
+  ]
+}

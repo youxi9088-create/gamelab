@@ -1,0 +1,406 @@
+{
+  "scope": "AST and exact original source ranges only. No SDK/game execution, no current hidden puzzle answers inspected or exported.",
+  "literal_media_paths": 43,
+  "missing": [],
+  "external_literals": [
+    {
+      "offset": 157447,
+      "value": "//"
+    },
+    {
+      "offset": 157841,
+      "value": "//"
+    },
+    {
+      "offset": 157887,
+      "value": "//"
+    }
+  ],
+  "exact_original_module_bodies": [
+    {
+      "module": "impact.image",
+      "sha256": "69a52f818344dab1912de3a57399d712bc356a0d75981371eaece33823cab36b"
+    },
+    {
+      "module": "impact.font",
+      "sha256": "75d8c844cdfe6d28294c768987e58d4a239548830e78f4f0c1664a29dc2f633d"
+    },
+    {
+      "module": "impact.sound",
+      "sha256": "6d6442bb8e857cffa2ff18e5290315168de5acc2d2ea71a2c52d572160d644f8"
+    },
+    {
+      "module": "impact.loader",
+      "sha256": "d2b311104637eb24d74fd4b2ad36f187599b5f50c6bc520a9fbd70bd83c4a3fd"
+    },
+    {
+      "module": "impact.timer",
+      "sha256": "4b7cb04258c99ecec5f76e75a3dd5c28c075581baba7575b0267c393574f9e7a"
+    },
+    {
+      "module": "impact.system",
+      "sha256": "05eaf213eeafb495eab0dbc5609dd8d740e0db9dac984600734d4e51e60d215e"
+    },
+    {
+      "module": "impact.input",
+      "sha256": "90b0ab690d0371ca0bfeeb0c96bc8a701a6effbea042fb8e8631d13fb14dfc2a"
+    },
+    {
+      "module": "impact.impact",
+      "sha256": "411c68156410271564b53be3aa8d1a245f6e20d8e9613b68f1f0d2f30468ddb5"
+    },
+    {
+      "module": "impact.animation",
+      "sha256": "d858bd2772e41b6c3f2983fdcd0f593f7d3067a1a30bd45143c56ec38bd2b913"
+    },
+    {
+      "module": "impact.entity",
+      "sha256": "23bef96dc32ae9b60023c35463d486a77c0bb5107e94231b259fa2635a51fb79"
+    },
+    {
+      "module": "impact.map",
+      "sha256": "4352ebdf627afad61dc7190939afd58f6b6ad1d2798512f75179eb0a01839c9a"
+    },
+    {
+      "module": "impact.collision-map",
+      "sha256": "c8f9627ec630701b9d24fa969b5cbcf651d4eb074f58eae8813c56d917c0f795"
+    },
+    {
+      "module": "impact.background-map",
+      "sha256": "fd5e8493863da7f5c20914e60fac54d6024e2f569427c76ce67d398ba4971f23"
+    },
+    {
+      "module": "impact.game",
+      "sha256": "3073124ce561ab44a8f9e15756be45e16dab434a8f8d7d7957952f77b73c3534"
+    },
+    {
+      "module": "plugins.patches.fps-limit-patch",
+      "sha256": "a8b26c3e4cbc93b2770ffb9fa2cd3deeaeb77e9ced8394fbfd15bad31ee31d1e"
+    },
+    {
+      "module": "plugins.patches.timer-patch",
+      "sha256": "ea31fe70ef3faf55c65343003bc39b433645c4e76cb2eec46ff6217f608d2d26"
+    },
+    {
+      "module": "plugins.patches.user-agent-patch",
+      "sha256": "84386d35aa35903b343f79c6c001a829fa0d72185e348db77387628603981783"
+    },
+    {
+      "module": "plugins.patches.webkit-image-smoothing-patch",
+      "sha256": "3361b03409b48c4abbf8e1aec43fc63fb5d06ac731ef83f1d7d7f28e1d42da09"
+    },
+    {
+      "module": "plugins.patches.windowfocus-onMouseDown-patch",
+      "sha256": "79b2b8af64366791c37c96c5caf6106d3b7ec3f35e7d4d4c44a03129176e9c45"
+    },
+    {
+      "module": "plugins.patches.input-patch",
+      "sha256": "2628b4797b8d47a8de9c645657a2265bfb639207b5d3dbde0018a6a2f3fda4df"
+    },
+    {
+      "module": "plugins.data.vector",
+      "sha256": "777b96847c17264d3d1a77ff4752d4813b24427915ed616f19059f90877a080c"
+    },
+    {
+      "module": "plugins.data.color-rgb",
+      "sha256": "7fc20146b5f50abec6be824c27273e2f449ec4a0ad7026743ec6a59c451e6906"
+    },
+    {
+      "module": "plugins.font.font-info",
+      "sha256": "e12947d3bddb8d51eddabe3a414208aebe75d388afde533443dc45b5e36971f1"
+    },
+    {
+      "module": "plugins.font.font-loader",
+      "sha256": "131bde440237dffbe89245b9e67c3507c99b853bdf75b918be73945a094c0c0b"
+    },
+    {
+      "module": "plugins.handlers.dom-handler",
+      "sha256": "96b86ee49dd074ceee78c24eee0c4a9245f5b6ed7a02b8b82450ed9f815831ac"
+    },
+    {
+      "module": "plugins.audio.sound-player",
+      "sha256": "c2286f7099292a40b6150ce48790a79745e55776e98e908008a91ba9b770955a"
+    },
+    {
+      "module": "plugins.audio.impact-music-player",
+      "sha256": "f920b5f498be735c90f7a3d42e6a912815aa32a78cb829641f76a48887ada125"
+    },
+    {
+      "module": "plugins.audio.impact-sound-player",
+      "sha256": "dcf0352e06edfa3ec54f4b82a07826ebb45ec96fa7fbc2571ba4d68a5b668193"
+    },
+    {
+      "module": "plugins.audio.howler-player",
+      "sha256": "f23d7818317b18b10cff29ef48665744663f54a6475c318b06a3182b13fca56d"
+    },
+    {
+      "module": "plugins.audio.howler-music-player",
+      "sha256": "009da2db108055b0473aefd01a031bd7f85ff29516530df0f56bdc237de49b68"
+    },
+    {
+      "module": "plugins.audio.jukebox-player",
+      "sha256": "3c6e180b79b82dfe492c4b90bf9f70c6c2b9e11f15d84fc8d96fd7e991dffd92"
+    },
+    {
+      "module": "plugins.audio.webaudio-music-player",
+      "sha256": "61e743f4767efe9dc9b4e0c8931e19f9d3eb161843921a718fff5746df42d13d"
+    },
+    {
+      "module": "plugins.audio.sound-info",
+      "sha256": "22890e28495ba77f8225975653102d573977809fa85ae9bcd517c82f8bf1b855"
+    },
+    {
+      "module": "plugins.audio.sound-handler",
+      "sha256": "1afb39149c59cf889b58d365598a520ac229d6d1e0c927042f31fe6988111d9a"
+    },
+    {
+      "module": "plugins.handlers.visibility-handler",
+      "sha256": "f6d34d1024ee6439395dd9af8b236e842b268404818a0a20ad12474b73a1967c"
+    },
+    {
+      "module": "plugins.io.storage",
+      "sha256": "8b2603bd198eb2a5ea7b0010b25ed319d979f9bf635d942c4c790092351de558"
+    },
+    {
+      "module": "plugins.io.mouse",
+      "sha256": "16a0dce0ca7c37c589088d71514728c5da74b8a6031302c831a94ab3c2fe2599"
+    },
+    {
+      "module": "plugins.io.keyboard",
+      "sha256": "46673686325724bfc0f4610db151cd2254d148287b388a82b6417f80e54a40d3"
+    },
+    {
+      "module": "plugins.io.gamepad-input",
+      "sha256": "0708b1d1ac62e147351cb07efe9ecee52f4ed5bf0f718cbb1397330f6a7e5556"
+    },
+    {
+      "module": "plugins.io.gamepad",
+      "sha256": "9013e49ede20077cc344121560fa259b79b511dc4344e143a5814d33748a76ba"
+    },
+    {
+      "module": "plugins.io.multitouch",
+      "sha256": "dd1cff6d82e781f531f9e4e84927dfc5b424434330a7b4b3e34c498b3f3cf4db"
+    },
+    {
+      "module": "plugins.io.multitouch-input",
+      "sha256": "2d82965aaec3a3300071143ebc4ad289bfdd2552b26aba5f74c3265a63da66f0"
+    },
+    {
+      "module": "plugins.io.fake-storage",
+      "sha256": "ac423b2cd3aede98d89ae4e90263d713b78c27ab5ec7097b696fda2ccd9e495c"
+    },
+    {
+      "module": "plugins.io.io-manager",
+      "sha256": "791b65f46c3d175abfe65f84414ad57a7b3bdda618495c9256d0ee378d367872"
+    },
+    {
+      "module": "plugins.io.storage-manager",
+      "sha256": "7c37c3f55845794a1078a376282738f4b917dfb138401403cacb30b4958a6025"
+    },
+    {
+      "module": "plugins.tween",
+      "sha256": "8a1088e59dec090dfb7a6e21458c075e493e814e0add521cb6317e3a0d5a1291"
+    },
+    {
+      "module": "plugins.patches.entity-patch",
+      "sha256": "1d19518aafdd6f4a185217c98b9593b85b5cb02c77812eeea153516d5bb18c5a"
+    },
+    {
+      "module": "plugins.tweens-handler",
+      "sha256": "bb4d13faf77e1344a968ffa4651e75410e2c4a4cdc96d465d0daec6ba90da32a"
+    },
+    {
+      "module": "plugins.url-parameters",
+      "sha256": "43cad0dc9699e50a7244c565a51f26a25681f393398298705e07d9269a3967aa"
+    },
+    {
+      "module": "plugins.director",
+      "sha256": "d5e02b5feb1f2094b7e6b323f3331b720663590ed5984644b9fa12d45a3cbd27"
+    },
+    {
+      "module": "plugins.impact-storage",
+      "sha256": "c7a0e94295eca883c5662302c88120028984fcb574a7770b3f1b62e715d99114"
+    },
+    {
+      "module": "plugins.fullscreen",
+      "sha256": "a25fa35fe22f3875df8af1e175201be3bfbf94b93d7791b4f6675f5130aa6708"
+    },
+    {
+      "module": "plugins.responsive.responsive-utils",
+      "sha256": "5bee888bb5d33d86d0e0be8bb64eae9b2652120f588565f08d4502bd0ca73b17"
+    },
+    {
+      "module": "plugins.responsive.responsive-plugin",
+      "sha256": "b98baa3ed52258bd445b74a554f81effb015445007304adbedb33c914ac94935"
+    },
+    {
+      "module": "plugins.scale",
+      "sha256": "17ef83311832bc215be516da01a1854a44b789492610090bc2afeb0059880230"
+    },
+    {
+      "module": "plugins.branding.splash",
+      "sha256": "db95bf833e781b24e9f62822a260f10b4568b57ea0b7aa31f2bb63de15159b91"
+    },
+    {
+      "module": "game.entities.buttons.button",
+      "sha256": "252f8727c9d6a8a7c9eed8f829db66758945e2a96b391612e1a605da5a2bd882"
+    },
+    {
+      "module": "game.entities.pointer",
+      "sha256": "475d3d8c74fa238a36ded20e02ab05b8c34d14d754d5eb6461f1772088c3c1d7"
+    },
+    {
+      "module": "game.entities.pointer-selector",
+      "sha256": "f229f5d6b7f4c1ddb2e48718f756cb5b8ddc05f86c1c91958cbba329bb0ee143"
+    },
+    {
+      "module": "game.entities.select",
+      "sha256": "ee9b584b7f7e907e2175625a872cf88182a7a15e90220123ccff97343758793c"
+    },
+    {
+      "module": "game.entities.opening-marketjs-logo",
+      "sha256": "05a292dde2eb363f3622d46385c941f2e59e91c3fbeb40cbf9e8fe98fe7f61ce"
+    },
+    {
+      "module": "game.levels.opening",
+      "sha256": "e8d69ca9c66321c92e8bd14d3d34f193840bec3046915fffa72f79fe3b6b3773"
+    },
+    {
+      "module": "game.entities.buttons.button-play",
+      "sha256": "01a4be715955f6b9ecc30cefa16b456517083dd2fe98452fb2791d568b721f74"
+    },
+    {
+      "module": "game.entities.buttons.button-setting-big",
+      "sha256": "8fe0c813dfc68a1cd8a99b02b4e13ee0f93ced4c34192aec17a67ae6c81a2ac0"
+    },
+    {
+      "module": "game.entities.controllers.popup-controller",
+      "sha256": "bd288bd00e8ce8013d558252812dea6fb702af42166d77e5036691b7e73dc947"
+    },
+    {
+      "module": "game.entities.buttons.button-toggle",
+      "sha256": "ab27e67ef0258d92c6508cb94a6779bba01e435c720d96b6c6d1e085d25a5ab7"
+    },
+    {
+      "module": "game.entities.buttons.button-home",
+      "sha256": "10717377b324be7d7a6dfbbd0e4a49cfac3215e468b33fc54cce5c0fcac8063a"
+    },
+    {
+      "module": "game.entities.controllers.setting-controller",
+      "sha256": "674c96e58e7d7992fd0fe93b0f1db5db14a2570cf440a41d858f130802693b4b"
+    },
+    {
+      "module": "game.entities.gameplay.level-item",
+      "sha256": "66db3735770f2908f860f1f3134a4b4acdc105a48e768fa05cb800d5603b7beb"
+    },
+    {
+      "module": "game.entities.buttons.button-home-small",
+      "sha256": "a6c92c27b652f07872fecaf4e0846a62d4f537dfa700bb7be4a835ca7edc7b56"
+    },
+    {
+      "module": "game.entities.buttons.button-next",
+      "sha256": "cebb99c52bb52e6ad274c7b34d2d7f2c3e9aba7ff8a9080308f30a0972e446e6"
+    },
+    {
+      "module": "game.entities.buttons.button-prev",
+      "sha256": "afcc23c79d4772de93767e49103493da95723b6fdbbd88ae05fd81eacf4067b5"
+    },
+    {
+      "module": "game.entities.controllers.level-select-controller",
+      "sha256": "20152ab1560e4f30cfabfe552b18155f6fbeb4e325036ae34f4efdbb4deda708"
+    },
+    {
+      "module": "game.levels.title",
+      "sha256": "efcc40b0521c24269ed30a58c9a364db1c3e069d0d547726d9a846577028e29a"
+    },
+    {
+      "module": "game.entities.gameplay.sparkle",
+      "sha256": "2c09b900238af51c998240e3bd71aa12de0f95c851d3830910474f251bc75cf3"
+    },
+    {
+      "module": "game.entities.gameplay.question-block",
+      "sha256": "97a35c075749000342503988892b971423ca56bf6463fb529d9cddac036c8bf6"
+    },
+    {
+      "module": "game.entities.gameplay.letter-block",
+      "sha256": "5c29b47e8efbde70513d4d03e876bbff22e5a04c6a72ccdd4676b418810f4d6d"
+    },
+    {
+      "module": "game.entities.gameplay.floating-coin",
+      "sha256": "c397c9b6d720922427257e11811ff0c12e5011521b2e87f566154dd198418fc8"
+    },
+    {
+      "module": "game.entities.gameplay.tutorial-finger",
+      "sha256": "6e0c5eab63e437993058da7b9047a0af626a0b4ca14c849123626db7daae8dcb"
+    },
+    {
+      "module": "game.entities.controllers.puzzle-controller",
+      "sha256": "1d5134502a5fefd4a3387bfd19b9f11548970b4f40f24433a486ae87e7e62f3b"
+    },
+    {
+      "module": "game.entities.buttons.button-setting",
+      "sha256": "9428906298c23d5e1159a11a5ebe9dd8c2d7641ca75af0233cc7917891d22974"
+    },
+    {
+      "module": "game.entities.gameplay.score-board",
+      "sha256": "cbafd76473805b82f4ea79d8280adb877e53ff67a01c3f4f52493bda0cd0a4e4"
+    },
+    {
+      "module": "game.entities.buttons.button-continue",
+      "sha256": "a0d6b0f837836d3879e031fd3ffc245be00c207598908c5652bbe27b6215fcf9"
+    },
+    {
+      "module": "game.entities.gameplay.coin-board",
+      "sha256": "8cb8b4a383ccd6ed276f1c83abf324c421c492f127bcaa7a86c4fef33cd88c30"
+    },
+    {
+      "module": "game.entities.buttons.button-hint",
+      "sha256": "30573ebf561289adb725954e13a8c9dd9662a58cb6849d704d654d11422d10b1"
+    },
+    {
+      "module": "game.levels.game",
+      "sha256": "8b4638b18774d47d91b9712b5c87ca83f4f80bcdab90d89cf1228af557777a59"
+    },
+    {
+      "module": "game.database.wordsdb",
+      "sha256": "ebb8f73408e0536a5ccc5fffc88a909a42aefdde41be87650485d2a8cda6af31"
+    }
+  ],
+  "native_database_counts": {
+    "groups": 1,
+    "levels": 200
+  },
+  "retirement_edits": 47,
+  "ordinary_continuations": [
+    {
+      "start": 608723,
+      "module": "game.entities.controllers.title-controller",
+      "identical_original_callbacks": true,
+      "callback_sha256": "8b93461313292074948b624102beec4bdad2fd01855879df00331e691260736d"
+    },
+    {
+      "start": 635426,
+      "module": "game.entities.buttons.button-restart",
+      "identical_original_callbacks": true,
+      "callback_sha256": "5924679ba4f0c6e07a623d274ed1b8020d5b2c725a649ce4e7fb31e786aa8ad6"
+    },
+    {
+      "start": 640240,
+      "module": "game.entities.controllers.paused-controller",
+      "identical_original_callbacks": true,
+      "callback_sha256": "a81a84540cfd2770c32d22e7b18471cdbf5f1cb82956feee2f8901295836ef97"
+    },
+    {
+      "start": 646514,
+      "module": "game.entities.controllers.result-controller",
+      "identical_original_callbacks": true,
+      "callback_sha256": "232271ddfc7126f1eb832cd009b8a39be0982e37e6d099c36d0f75e954193430"
+    },
+    {
+      "start": 646937,
+      "module": "game.entities.controllers.result-controller",
+      "identical_original_callbacks": true,
+      "callback_sha256": "a81a84540cfd2770c32d22e7b18471cdbf5f1cb82956feee2f8901295836ef97"
+    }
+  ]
+}

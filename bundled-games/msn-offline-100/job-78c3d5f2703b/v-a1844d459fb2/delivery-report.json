@@ -1,0 +1,284 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "1原入口"
+      },
+      {
+        "type": "checkpoint",
+        "description": "2原Play"
+      },
+      {
+        "type": "checkpoint",
+        "description": "3原关1"
+      },
+      {
+        "type": "checkpoint",
+        "description": "4单次CAT连续拖动"
+      },
+      {
+        "type": "checkpoint",
+        "description": "5单次ACT连续拖动并通关"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 59,
+    "responses": 59,
+    "network_events": 119,
+    "scope": "累计5检查点/5输入：进入原入口，原Play，选择唯一解锁的关1，一次连续CAT拖动，一次连续ACT拖动。仅依可见C/A/T与普通单词知识输入，没有读取隐藏答案或调用游戏方法。原填格0→3→5/5、有效单词0→1→2、金币0→20→40，关1原生通关；结算基础100+时间奖励163=总分263，已解锁索引0→1。两次只读等待010/011无额外输入；已查看实际菜单/选关/玩法/通关截图，011总分动画已完成；005的中间动画178保留原记录。未进入关2、刷新恢复、提示购买、声音听感或全部200关。",
+    "network_scope": "实际59请求/59响应全部本地同源HTTP200，0外联、失败、缺失或脚本异常；3条原AudioContext自动播放警告完整保留。仅代表本轮菜单至首关通关实际路径；不声称未进入的所有关卡已动态覆盖。",
+    "script_exceptions": [],
+    "tested_revision": "wordchallenge-offline-v1",
+    "delivery_revision": "wordchallenge-offline-v1",
+    "native_level1_win_verified": true,
+    "all_levels_verified": false,
+    "storage_reload_verified": false
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "广告提供者/调用/RV提示和跳关及奖励完整退役。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/wordchallenge-retirement-v1.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "平台SDK排行报分退役，原本地关卡分数保留。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/wordchallenge-retirement-v1.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原单人本地拼词，无匹配或联机身份。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/wordchallenge-retirement-v1.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "无真钱付款；原本地提示门槛保留且未验证扣费。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/wordchallenge-retirement-v1.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "字母连线 / 交叉填词",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "围绕圆盘中可见字母连续划线组成合法单词，填满相交的纵横单词格。首关C/A/T，实际两次连续拖动CAT和ACT填完5格。",
+    "core_experience": "",
+    "controls": "鼠标点击原Play和关1，再按住鼠标从C→A→T和A→C→T各拖一次并释放。每段12次插值move、单次down/up均记录；没有把多个独立点击合并计步。原设置/普通提示/结算按钮仍保留，未追加操作。",
+    "game_loop": "",
+    "content": "原wordsdb 1组200关，原题目/字母/交叉布局与10幅背景资源保留。关卡页首屏28格含锁，实际只打开第1关并原生通关；不声称全部200关可玩性已逐项验收。",
+    "progression": "",
+    "save": "",
+    "rules": "保留原拼词判定、重复单词限制、字母连线、教程、格位填充、时间奖励及逐关数据。六个重点原函数体（拼题控制、字母格、题目格、教程手、词库、普通提示）精确字节一致；全体103模块中87个保留原函数体字节。广告提示/广告跳关及其奖励回调物理退役，没有伪造广告成功或奖励。",
+    "systems": "47处精确范围改动，7个Microsoft/API/外链/分享/RV模块及其调用、实例、依赖和UI退役。5处普通插屏成功/失败回调原AST一致，直连同一原普通场景继续方法；不调用广告奖励。Howler前独立发行域about:blank跳转提供者与唯一调用移除，原音频/玩法保持，不伪造host。真实浏览器已关闭且进程exit0。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5检查点/5输入：进入原入口，原Play，选择唯一解锁的关1，一次连续CAT拖动，一次连续ACT拖动。仅依可见C/A/T与普通单词知识输入，没有读取隐藏答案或调用游戏方法。原填格0→3→5/5、有效单词0→1→2、金币0→20→40，关1原生通关；结算基础100+时间奖励163=总分263，已解锁索引0→1。两次只读等待010/011无额外输入；已查看实际菜单/选关/玩法/通关截图，011总分动画已完成；005的中间动画178保留原记录。未进入关2、刷新恢复、提示购买、声音听感或全部200关。实际59请求/59响应全部本地同源HTTP200，0外联、失败、缺失或脚本异常；3条原AudioContext自动播放警告完整保留。仅代表本轮菜单至首关通关实际路径；不声称未进入的所有关卡已动态覆盖。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "ImpactJS / Howler / JavaScript",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "MSN9pnpc2vh95tb/v6，Word Challenge Game；内部word-challenge-microsoft，游戏1.0.0/框架1.1.1。ImpactJS二维JavaScript/HTML/CSS，原Howler。实测桌面1440×900画面，内部2400×1500；手机未测。",
+        "asset_types": "原包83个唯一文件已取得并校验SHA，其中80个资源路径全部保留原字节；10幅原场景背景、原UI/字母/关卡锁、音效与字体，原logo字体WOFF2/WOFF/TTF及HTML横屏图齐备。103原Impact模块，含1组200关原数据库；未读取隐藏答案用于输入。",
+        "core_challenge": "围绕圆盘中可见字母连续划线组成合法单词，填满相交的纵横单词格。首关C/A/T，实际两次连续拖动CAT和ACT填完5格。",
+        "controls": "鼠标点击原Play和关1，再按住鼠标从C→A→T和A→C→T各拖一次并释放。每段12次插值move、单次down/up均记录；没有把多个独立点击合并计步。原设置/普通提示/结算按钮仍保留，未追加操作。",
+        "behavior_path": "原开场logo→纯等待后的向日葵菜单→Play→原关卡页（仅关1可选）→湖山背景/5空格/字母盘及原教程手→CAT填纵向3格并得20金币→ACT补齐横向2格并得20金币→原LEVEL COMPLETE，基础100、奖励163、总分263。",
+        "game_path": "累计5检查点/5输入：进入原入口，原Play，选择唯一解锁的关1，一次连续CAT拖动，一次连续ACT拖动。仅依可见C/A/T与普通单词知识输入，没有读取隐藏答案或调用游戏方法。原填格0→3→5/5、有效单词0→1→2、金币0→20→40，关1原生通关；结算基础100+时间奖励163=总分263，已解锁索引0→1。两次只读等待010/011无额外输入；已查看实际菜单/选关/玩法/通关截图，011总分动画已完成；005的中间动画178保留原记录。未进入关2、刷新恢复、提示购买、声音听感或全部200关。",
+        "progression_path": "原200关逐关解锁与原本地进度存储保留。实际首次通关将已解锁索引0推进至1，原本地存储键word-challenge-microsoft-v1.0.0出现；未刷新读取或进入下一关，不把写入证据冒充刷新恢复。",
+        "core_loop": "观察可见字母与相交空格→一笔连接成单词→原词库/格位验证→正确单词飞入空格并原金币反馈→重复直至全部正确→原计分与时间奖励结算→原解锁后续关。首关闭环已实际完成，下一关未进入。",
+        "gameplay_rules": "保留原拼词判定、重复单词限制、字母连线、教程、格位填充、时间奖励及逐关数据。六个重点原函数体（拼题控制、字母格、题目格、教程手、词库、普通提示）精确字节一致；全体103模块中87个保留原函数体字节。广告提示/广告跳关及其奖励回调物理退役，没有伪造广告成功或奖励。",
+        "key_numbers": "实际第1关3字母C/A/T、5格、2个正确单词；填格0→3→5，金币0→20→40。原结算基础100、剩余时间奖励向下取整163，总分263；原bonusTimer163.852。源码普通基础分100+关索引×200、最大时间奖励300、首个有效词奖励20。普通提示按钮显示$50且有50金币门槛；原onBuyHint→showHintAnswer未见显式扣币，本轮未用，不能宣称已验证扣50。",
+        "level_configuration": "原wordsdb 1组200关，原题目/字母/交叉布局与10幅背景资源保留。关卡页首屏28格含锁，实际只打开第1关并原生通关；不声称全部200关可玩性已逐项验收。",
+        "system_design": "47处精确范围改动，7个Microsoft/API/外链/分享/RV模块及其调用、实例、依赖和UI退役。5处普通插屏成功/失败回调原AST一致，直连同一原普通场景继续方法；不调用广告奖励。Howler前独立发行域about:blank跳转提供者与唯一调用移除，原音频/玩法保持，不伪造host。真实浏览器已关闭且进程exit0。",
+        "theme": "原自然摄影背景：菜单向日葵，首关山湖。粉紫交叉格、白圆字母盘、原指引手、紫色金币与设置/提示按钮、黄色LEVEL COMPLETE绶带；实际截图均使用原资源，未以占位素材替换。",
+        "progression_economy": "原普通有效词奖励20金币、本地分数/关卡解锁保留。首关金币实际40；提示门槛50但本轮没有使用，扣币行为未验证。广告看视频提示/跳关及奖励分支已完整移除，未新加免费解锁、后台经济或真钱支付。",
+        "roster": "可见原字母A/C/T、题格、提示手、山湖/向日葵背景、设置/金币/提示/结算面板；原后续关卡字母与背景仅源码/资源核对，未逐关实玩。",
+        "monetization": "Microsoft/API、报分/排行、旧广告布局/SDK、分享/更多游戏/品牌外链及RV奖励控件与提供者物理退役。没有SDK占位、模拟身份、广告回调伪造或服务端替代。普通本地拼词与解锁保留；本轮全部请求同源。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原菜单，实际等待渲染后"
+      },
+      {
+        "path": "screenshots/002.png",
+        "caption": "原关卡选择，关1解锁"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "原首关，5格与可见C/A/T"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "CAT拖动后原填3格/金币20"
+      },
+      {
+        "path": "screenshots/011.png",
+        "caption": "ACT后原LEVEL COMPLETE，基础100+奖励163=263"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-17T17:16:31.012775+00:00",
+    "observation_end": "2026-11-17T17:44:20.585271+00:00",
+    "elapsed_seconds": 1669.572496,
+    "scope": "原包归档至证据整理的观测窗口，包含等待及其他工作；不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "CAT/ACT两次连续拖动原生首关通关，填0→5，分263。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/011.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "80原资源字节保留，实际59请求全部本地200。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/011.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单/选关/山湖首关和结算真实显示。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/011.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原字母盘/5个交叉格/字母/教程手实显。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/011.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原教程手与可操作字母表现，原无角色叙事。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/011.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "字母连接、填格/金币反馈及原结算计分动画。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/011.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "累计5输入完成原菜单→选关→首关→结算，已查看真实截图。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/011.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}
