@@ -1,0 +1,456 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "原菜单启动"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原Play"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原第1关"
+      },
+      {
+        "type": "checkpoint",
+        "description": "一次普通拖Lynn至配偶槽，15子事件"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原Next进入第2关"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "error",
+        "message": "Creating a worker from 'blob:http://localhost:18765/fd9f8ce0-343f-45fb-8987-6ed0b345af6a' violates the following Content Security Policy directive: \"script-src 'self' 'unsafe-inline'\". Note that 'worker-src' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 60,
+    "network_events": 121,
+    "scope": "52机器真实Playwright Chromium累计5个检查点/5条用户手势命令：1原菜单启动；2原Play；3原第1关；4一次普通鼠标拖Lynn至Roy配偶空槽（起点450,744→541,317，15条移动/按下/释放子事件）；5原Next进入第2关。没有写游戏字段、调用判定方法或改随机数。根据真实可见Roy is married to Lynn线索操作，未读取隐藏节点答案。原首关3生命、匹配完成、1250分/最佳1250、解锁level2且Next进入第2关。仅第1关通关、第2关入口，不是120关试玩；未验证错误放置、失败、暂停、设置/声音、刷新存档、手机或其余关卡。",
+    "network_scope": "原v1游戏全量60请求/60响应全部本地HTTP200，无请求失败、外联或pageerror异常。保留1条AudioContext自动播放警告及1条本包Meta CSP阻止原彩纸Blob Worker的控制台错误。最终v2只有index.html增加worker-src self blob；其余75基础文件、游戏脚本和素材逐字节相同。独立中性页面无游戏/SDK，真实验证同一旧策略阻止、新策略创建Worker并收到local-worker-ok；旧中性页另有默认favicon404，原始日志保留。没有追加最终v2整款游戏试玩，不把独立策略验证称为彩纸实显复验或零历史错误。",
+    "script_exceptions": [],
+    "browser_errors_preserved": true,
+    "tested_revision": "family-offline-v1",
+    "delivery_revision": "family-offline-v2",
+    "runtime_binding": {
+      "only_changed_file": "index.html",
+      "change": "worker-src self blob added to our meta CSP; existing self-only connect/script restrictions retained",
+      "unchanged_runtime_files": 75,
+      "same_js_sha256": "68aad56b0064ee638162b5e51134b12b592cbdb772cfc3b1c995d7a47ce7f1c7",
+      "game_ui_retests": 0
+    },
+    "local_worker_policy_probe": {
+      "at": "2026-11-17T09:05:55.449404+00:00",
+      "exit_code": 0,
+      "probe": {
+        "old": {
+          "result": {
+            "ok": false
+          },
+          "logs": [
+            "Creating a worker from 'blob:http://localhost:18765/d2499c24-ba3c-447a-b3a9-8b6863fbcda6' violates the following Content Security Policy directive: \"script-src 'self' 'unsafe-inline'\". Note that 'worker-src' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+            "Failed to load resource: the server responded with a status of 404 (File not found)"
+          ]
+        },
+        "new": {
+          "result": {
+            "ok": true,
+            "message": "local-worker-ok"
+          },
+          "logs": []
+        }
+      },
+      "old_csp": "default-src 'self' data: blob:;connect-src 'self' blob:;script-src 'self' 'unsafe-inline';style-src 'self' 'unsafe-inline';img-src 'self' data: blob:;font-src 'self' data:;media-src 'self' blob:;object-src 'none';base-uri 'none';form-action 'none'",
+      "new_csp": "default-src 'self' data: blob:;connect-src 'self' blob:;script-src 'self' 'unsafe-inline';style-src 'self' 'unsafe-inline';img-src 'self' data: blob:;font-src 'self' data:;media-src 'self' blob:;worker-src 'self' blob:;object-src 'none';base-uri 'none';form-action 'none'",
+      "v2_html_sha256": "8cde6a4d9cd877f60f3507745fb98ea9dce075b2739b9cf4c28cb2f53d1da96d",
+      "game_ui_actions": 0,
+      "scope": "Only original vs corrected local CSP on neutral pages, no game/SDK loaded. Native game five-checkpoint v1 evidence retained; final v2 game was not replayed."
+    },
+    "final_game_ui_replayed": false
+  },
+  "accounting": {
+    "observation_start": "2026-11-17T08:40:49.789277+00:00",
+    "observation_end": "2026-11-17T09:08:36.415596+00:00",
+    "elapsed_seconds": 1666.6263189315796,
+    "scope": "入口归档至交付材料整理的观测窗口，含抓取/修订/试玩、等待和其他工作；不是独占纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "before": {
+    "size": {
+      "width": 1718,
+      "height": 2100
+    },
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 900,
+      "height": 1100,
+      "top": 0,
+      "right": 900,
+      "bottom": 1100,
+      "left": 0
+    },
+    "scene": 2,
+    "menu": true,
+    "session": {
+      "sound": 1,
+      "music": 0.3,
+      "level": 1,
+      "score": 0,
+      "tutorial": true
+    },
+    "ingame": {
+      "level": 1,
+      "score": 0,
+      "paused": false,
+      "progress": 0,
+      "life": 3,
+      "definedCount": 2,
+      "memberCount": 3,
+      "remaining": 1,
+      "completePanel": false,
+      "gameOverPanel": false
+    },
+    "visibleCharacters": [
+      {
+        "name": "Lynn",
+        "x": 784,
+        "y": 1344,
+        "width": 150,
+        "height": 150,
+        "defined": false
+      }
+    ],
+    "nodeGeometry": [
+      {
+        "x": 609,
+        "y": 531,
+        "width": 150,
+        "height": 150,
+        "defined": true
+      },
+      {
+        "x": 959,
+        "y": 531,
+        "width": 150,
+        "height": 150,
+        "defined": false
+      },
+      {
+        "x": 784,
+        "y": 831,
+        "width": 150,
+        "height": 150,
+        "defined": true
+      }
+    ],
+    "buttons": [
+      {
+        "x": 20,
+        "y": 20,
+        "width": 128,
+        "height": 128,
+        "enabled": true
+      },
+      {
+        "x": 990.6,
+        "y": -913,
+        "width": 188,
+        "height": 188,
+        "enabled": true
+      },
+      {
+        "x": 765,
+        "y": -913,
+        "width": 188,
+        "height": 188,
+        "enabled": true
+      },
+      {
+        "x": 539.4000000000001,
+        "y": -913,
+        "width": 188,
+        "height": 188,
+        "enabled": true
+      },
+      {
+        "x": 809,
+        "y": -1458.94,
+        "width": 356,
+        "height": 178,
+        "enabled": true
+      },
+      {
+        "x": 809,
+        "y": -1189.2199999999998,
+        "width": 356,
+        "height": 178,
+        "enabled": true
+      }
+    ]
+  },
+  "completed": {
+    "size": {
+      "width": 1718,
+      "height": 2100
+    },
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 900,
+      "height": 1100,
+      "top": 0,
+      "right": 900,
+      "bottom": 1100,
+      "left": 0
+    },
+    "scene": 2,
+    "menu": true,
+    "session": {
+      "sound": 1,
+      "music": 0.3,
+      "level": 2,
+      "score": 0,
+      "tutorial": true,
+      "best1": 1250
+    },
+    "ingame": {
+      "level": 1,
+      "score": 1250,
+      "paused": true,
+      "progress": 1,
+      "life": 3,
+      "definedCount": 3,
+      "memberCount": 3,
+      "remaining": 0,
+      "completePanel": true,
+      "gameOverPanel": false
+    },
+    "visibleCharacters": [],
+    "nodeGeometry": [
+      {
+        "x": 609,
+        "y": 531,
+        "width": 150,
+        "height": 150,
+        "defined": true
+      },
+      {
+        "x": 959,
+        "y": 531,
+        "width": 150,
+        "height": 150,
+        "defined": true
+      },
+      {
+        "x": 784,
+        "y": 831,
+        "width": 150,
+        "height": 150,
+        "defined": true
+      }
+    ],
+    "buttons": [
+      {
+        "x": 20,
+        "y": 20,
+        "width": 128,
+        "height": 128,
+        "enabled": false
+      },
+      {
+        "x": 990.6,
+        "y": -913,
+        "width": 188,
+        "height": 188,
+        "enabled": true
+      },
+      {
+        "x": 765,
+        "y": -913,
+        "width": 188,
+        "height": 188,
+        "enabled": true
+      },
+      {
+        "x": 539.4000000000001,
+        "y": -913,
+        "width": 188,
+        "height": 188,
+        "enabled": true
+      },
+      {
+        "x": 809,
+        "y": -1458.94,
+        "width": 356,
+        "height": 178,
+        "enabled": true
+      },
+      {
+        "x": 809,
+        "y": -1189.2199999999998,
+        "width": 356,
+        "height": 178,
+        "enabled": true
+      },
+      {
+        "x": 659.72,
+        "y": 1363,
+        "width": 188,
+        "height": 188,
+        "enabled": true
+      },
+      {
+        "x": 445.4,
+        "y": 1363,
+        "width": 188,
+        "height": 188,
+        "enabled": true
+      },
+      {
+        "x": 870.28,
+        "y": 1363,
+        "width": 188,
+        "height": 188,
+        "enabled": true,
+        "level": 2
+      }
+    ]
+  },
+  "next_level": {
+    "size": {
+      "width": 1718,
+      "height": 2100
+    },
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 900,
+      "height": 1100,
+      "top": 0,
+      "right": 900,
+      "bottom": 1100,
+      "left": 0
+    },
+    "scene": 2,
+    "menu": true,
+    "session": {
+      "sound": 1,
+      "music": 0.3,
+      "level": 2,
+      "score": 0,
+      "tutorial": true,
+      "best1": 1250
+    },
+    "ingame": {
+      "level": 2,
+      "score": 0,
+      "paused": false,
+      "progress": 0,
+      "life": 3,
+      "definedCount": 2,
+      "memberCount": 3,
+      "remaining": 1,
+      "completePanel": false,
+      "gameOverPanel": false
+    },
+    "visibleCharacters": [
+      {
+        "name": "Dawn",
+        "x": 784,
+        "y": 1344,
+        "width": 150,
+        "height": 150,
+        "defined": false
+      }
+    ],
+    "nodeGeometry": [
+      {
+        "x": 609,
+        "y": 531,
+        "width": 150,
+        "height": 150,
+        "defined": true
+      },
+      {
+        "x": 959,
+        "y": 531,
+        "width": 150,
+        "height": 150,
+        "defined": false
+      },
+      {
+        "x": 784,
+        "y": 831,
+        "width": 150,
+        "height": 150,
+        "defined": true
+      }
+    ],
+    "buttons": [
+      {
+        "x": 20,
+        "y": 20,
+        "width": 128,
+        "height": 128,
+        "enabled": true
+      },
+      {
+        "x": 990.6,
+        "y": -913,
+        "width": 188,
+        "height": 188,
+        "enabled": true
+      },
+      {
+        "x": 765,
+        "y": -913,
+        "width": 188,
+        "height": 188,
+        "enabled": true
+      },
+      {
+        "x": 539.4000000000001,
+        "y": -913,
+        "width": 188,
+        "height": 188,
+        "enabled": true
+      },
+      {
+        "x": 809,
+        "y": -1458.94,
+        "width": 356,
+        "height": 178,
+        "enabled": true
+      },
+      {
+        "x": 809,
+        "y": -1189.2199999999998,
+        "width": 356,
+        "height": 178,
+        "enabled": true
+      }
+    ]
+  },
+  "cumulative_checkpoints": 5,
+  "gesture_commands": 5,
+  "drag_mouse_subevents": 15,
+  "scope": "52机器真实Playwright Chromium累计5个检查点/5条用户手势命令：1原菜单启动；2原Play；3原第1关；4一次普通鼠标拖Lynn至Roy配偶空槽（起点450,744→541,317，15条移动/按下/释放子事件）；5原Next进入第2关。没有写游戏字段、调用判定方法或改随机数。根据真实可见Roy is married to Lynn线索操作，未读取隐藏节点答案。原首关3生命、匹配完成、1250分/最佳1250、解锁level2且Next进入第2关。仅第1关通关、第2关入口，不是120关试玩；未验证错误放置、失败、暂停、设置/声音、刷新存档、手机或其余关卡。"
+}

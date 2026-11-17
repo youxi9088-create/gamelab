@@ -1,0 +1,319 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "原菜单启动"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原Play"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原第1关"
+      },
+      {
+        "type": "checkpoint",
+        "description": "一次普通拖Lynn至配偶槽，15子事件"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原Next进入第2关"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "error",
+        "message": "Creating a worker from 'blob:http://localhost:18765/fd9f8ce0-343f-45fb-8987-6ed0b345af6a' violates the following Content Security Policy directive: \"script-src 'self' 'unsafe-inline'\". Note that 'worker-src' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 60,
+    "network_events": 121,
+    "scope": "52机器真实Playwright Chromium累计5个检查点/5条用户手势命令：1原菜单启动；2原Play；3原第1关；4一次普通鼠标拖Lynn至Roy配偶空槽（起点450,744→541,317，15条移动/按下/释放子事件）；5原Next进入第2关。没有写游戏字段、调用判定方法或改随机数。根据真实可见Roy is married to Lynn线索操作，未读取隐藏节点答案。原首关3生命、匹配完成、1250分/最佳1250、解锁level2且Next进入第2关。仅第1关通关、第2关入口，不是120关试玩；未验证错误放置、失败、暂停、设置/声音、刷新存档、手机或其余关卡。",
+    "network_scope": "原v1游戏全量60请求/60响应全部本地HTTP200，无请求失败、外联或pageerror异常。保留1条AudioContext自动播放警告及1条本包Meta CSP阻止原彩纸Blob Worker的控制台错误。最终v2只有index.html增加worker-src self blob；其余75基础文件、游戏脚本和素材逐字节相同。独立中性页面无游戏/SDK，真实验证同一旧策略阻止、新策略创建Worker并收到local-worker-ok；旧中性页另有默认favicon404，原始日志保留。没有追加最终v2整款游戏试玩，不把独立策略验证称为彩纸实显复验或零历史错误。",
+    "script_exceptions": [],
+    "browser_errors_preserved": true,
+    "tested_revision": "family-offline-v1",
+    "delivery_revision": "family-offline-v2",
+    "runtime_binding": {
+      "only_changed_file": "index.html",
+      "change": "worker-src self blob added to our meta CSP; existing self-only connect/script restrictions retained",
+      "unchanged_runtime_files": 75,
+      "same_js_sha256": "68aad56b0064ee638162b5e51134b12b592cbdb772cfc3b1c995d7a47ce7f1c7",
+      "game_ui_retests": 0
+    },
+    "local_worker_policy_probe": {
+      "at": "2026-11-17T09:05:55.449404+00:00",
+      "exit_code": 0,
+      "probe": {
+        "old": {
+          "result": {
+            "ok": false
+          },
+          "logs": [
+            "Creating a worker from 'blob:http://localhost:18765/d2499c24-ba3c-447a-b3a9-8b6863fbcda6' violates the following Content Security Policy directive: \"script-src 'self' 'unsafe-inline'\". Note that 'worker-src' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+            "Failed to load resource: the server responded with a status of 404 (File not found)"
+          ]
+        },
+        "new": {
+          "result": {
+            "ok": true,
+            "message": "local-worker-ok"
+          },
+          "logs": []
+        }
+      },
+      "old_csp": "default-src 'self' data: blob:;connect-src 'self' blob:;script-src 'self' 'unsafe-inline';style-src 'self' 'unsafe-inline';img-src 'self' data: blob:;font-src 'self' data:;media-src 'self' blob:;object-src 'none';base-uri 'none';form-action 'none'",
+      "new_csp": "default-src 'self' data: blob:;connect-src 'self' blob:;script-src 'self' 'unsafe-inline';style-src 'self' 'unsafe-inline';img-src 'self' data: blob:;font-src 'self' data:;media-src 'self' blob:;worker-src 'self' blob:;object-src 'none';base-uri 'none';form-action 'none'",
+      "v2_html_sha256": "8cde6a4d9cd877f60f3507745fb98ea9dce075b2739b9cf4c28cb2f53d1da96d",
+      "game_ui_actions": 0,
+      "scope": "Only original vs corrected local CSP on neutral pages, no game/SDK loaded. Native game five-checkpoint v1 evidence retained; final v2 game was not replayed."
+    },
+    "final_game_ui_replayed": false
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "Microsoft/CPMStar/GA、间屏/广告提示按钮及奖励回调退役；首次教学非广告，原方法保留。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/family-retirement.json",
+        "evidence/v1-network-console.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "在线submitScore删除，各关本地最佳分保存和原过关分不变。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/family-retirement.json",
+        "evidence/v1-network-console.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原生为本地家谱推理，无联网对手、房间或登录。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/family-retirement.json",
+        "evidence/v1-network-console.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "没有现金购买/订单/充值或新增免费权益。",
+      "evidence": [
+        "game.js",
+        "index.html",
+        "evidence/family-retirement.json",
+        "evidence/v1-network-console.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "益智 / 家谱亲属关系推理",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "阅读亲属文字线索，将待放置的具名人物拖到家谱空槽，依据父母/配偶/子女关系推断位置。首关实测可见Roy is married to Lynn，正常将Lynn放到配偶位置。未读取运行时隐藏答案来指导输入。",
+    "core_experience": "",
+    "controls": "原鼠标/触控拖拽、Play、关卡、Next、暂停/回家/重玩/声音/全屏。实际鼠标一次拖拽，完整记录move/down/12段move/up共15条底层子事件；五个检查点不等于五次底层鼠标事件。触屏偏移、设置等只源码保留，未测。",
+    "game_loop": "",
+    "content": "源码120个level配置、人物名/头像池AST完全一致；关卡页12关/页共10页。首关实际完成并解锁2，Next实际进入第2关。未把配置数当已通过关数，未解锁或跳过其余关。",
+    "progression": "",
+    "save": "原本地sessionData和localStorage保留声音/音乐/解锁关/各关最佳分/首次教程标记。实际首关后best1=1250、level2，Next继续可见；未刷新，不称已验证跨刷新保存。没有新增货币、购买或免费广告权益。",
+    "rules": "原EntityFamilyTree/Node/Character、关系图/姓名分配/随机、拖拽判定、错误扣命、原教学与计分保持。221原生实体/主类方法中190个AST不变，12个为已退役服务按钮方法，19个是列出的广告/报分/分享/外链/中心调用删除。原getAdHint仍供首次教学内部使用，无广告按钮或奖励回调代替。",
+    "systems": "保留原Impact场景/Pointer/IO、家谱节点/人物、关系判定、计分/生命/关卡/原localStorage、字体与音频。移除Microsoft Start/CPMStar/GA提供模块和API实例、广告调用/提示回调、在线报分、分享与更多游戏按钮/场景描述、外链覆盖层；原CDN迁移fetchData与广告DOM不进入新入口。原JJ只有限字面量解码，警告声明保留且不执行动态源码。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "52机器真实Playwright Chromium累计5个检查点/5条用户手势命令：1原菜单启动；2原Play；3原第1关；4一次普通鼠标拖Lynn至Roy配偶空槽（起点450,744→541,317，15条移动/按下/释放子事件）；5原Next进入第2关。没有写游戏字段、调用判定方法或改随机数。根据真实可见Roy is married to Lynn线索操作，未读取隐藏节点答案。原首关3生命、匹配完成、1250分/最佳1250、解锁level2且Next进入第2关。仅第1关通关、第2关入口，不是120关试玩；未验证错误放置、失败、暂停、设置/声音、刷新存档、手机或其余关卡。 原v1游戏全量60请求/60响应全部本地HTTP200，无请求失败、外联或pageerror异常。保留1条AudioContext自动播放警告及1条本包Meta CSP阻止原彩纸Blob Worker的控制台错误。最终v2只有index.html增加worker-src self blob；其余75基础文件、游戏脚本和素材逐字节相同。独立中性页面无游戏/SDK，真实验证同一旧策略阻止、新策略创建Worker并收到local-worker-ok；旧中性页另有默认favicon404，原始日志保留。没有追加最终v2整款游戏试玩，不把独立策略验证称为彩纸实显复验或零历史错误。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "ImpactJS / Canvas2D",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Family Tree Puzzle，MSN身份9p4vbq3rq8gz，MarketJS公开v3，ImpactJS/Canvas2D与原音频库，JavaScript/HTML/CSS，2D亲属关系逻辑拼图。交付family-offline-v2，原生玩法实测在v1；v2只修本包Worker策略。",
+        "asset_types": "原人物头像/姓名牌、家谱节点、提示手势、生命/勾选、关卡/结算UI、背景、MP3/OGG音效和音乐、原BarlowSemiCondensed Bold字体（游戏内名grilledcheese）与品牌图。74原依赖/素材文件SHA不变，76基础文件。原新增2个branding图来自明确源码路径。",
+        "core_challenge": "阅读亲属文字线索，将待放置的具名人物拖到家谱空槽，依据父母/配偶/子女关系推断位置。首关实测可见Roy is married to Lynn，正常将Lynn放到配偶位置。未读取运行时隐藏答案来指导输入。",
+        "controls": "原鼠标/触控拖拽、Play、关卡、Next、暂停/回家/重玩/声音/全屏。实际鼠标一次拖拽，完整记录move/down/12段move/up共15条底层子事件；五个检查点不等于五次底层鼠标事件。触屏偏移、设置等只源码保留，未测。",
+        "behavior_path": "原自动开场至菜单→Play→关卡1→原首次教学手势与文字线索→拖Lynn至配偶槽→原勾选/1250分/LEVEL COMPLETED→Next→原第2关Bruce/Dawn/Dana关系图和两条线索。",
+        "game_path": "原菜单、关卡分页、教学、家谱、结算和下一关可见；首关之外尚未试玩。原广告提示、分享、更多游戏入口已物理删除，不显示按钮等待假回调。原品牌归属图保留，外部跳转覆盖层退役。",
+        "progression_path": "源码120个level配置、人物名/头像池AST完全一致；关卡页12关/页共10页。首关实际完成并解锁2，Next实际进入第2关。未把配置数当已通过关数，未解锁或跳过其余关。",
+        "core_loop": "读线索→选择具名人物→原拖拽/悬停/释放→原关系判定与勾选、分数/生命反馈→补齐家谱→原结算/解锁→下一关。首关此闭环完整实测，第二关只进入，未完成。",
+        "gameplay_rules": "原EntityFamilyTree/Node/Character、关系图/姓名分配/随机、拖拽判定、错误扣命、原教学与计分保持。221原生实体/主类方法中190个AST不变，12个为已退役服务按钮方法，19个是列出的广告/报分/分享/外链/中心调用删除。原getAdHint仍供首次教学内部使用，无广告按钮或奖励回调代替。",
+        "key_numbers": "源码：120关、每页12关；首关3个节点、2已定义/1待填，3生命；原正确放置100、过关1000、每剩余生命50。实测首关100+1000+3×50=1250，best1=1250、session level2；第2关开始score0/life3，未测扣命。",
+        "level_configuration": "原120关members的ID/gender/parents/partners/children/defined、life与hints数据AST相同，人物名/头像池也完全相同。由本地关系配置生成图与文字，未使用每日服务或远端关卡表，未强制循环首关。",
+        "system_design": "保留原Impact场景/Pointer/IO、家谱节点/人物、关系判定、计分/生命/关卡/原localStorage、字体与音频。移除Microsoft Start/CPMStar/GA提供模块和API实例、广告调用/提示回调、在线报分、分享与更多游戏按钮/场景描述、外链覆盖层；原CDN迁移fetchData与广告DOM不进入新入口。原JJ只有限字面量解码，警告声明保留且不执行动态源码。",
+        "theme": "原白底、深蓝按钮和关系线、彩色人物头像、浅紫线索托盘、蓝色结算/关卡弹窗、绿色正确勾与原提示手势。保留原画与字体，未使用生成占位图。",
+        "progression_economy": "原本地sessionData和localStorage保留声音/音乐/解锁关/各关最佳分/首次教程标记。实际首关后best1=1250、level2，Next继续可见；未刷新，不称已验证跨刷新保存。没有新增货币、购买或免费广告权益。",
+        "roster": "家谱人物为原本地姓名/性别/头像池的虚构角色，非在线账号或玩家。实际首关Roy/Ezra/Lynn；第2关Bruce/Dana/Dawn。父母/配偶/子女结构来自原关卡，不伪造用户身份。",
+        "monetization": "原广告提示按钮及reward回调删除，不自动发提示；首次教学的原有提示保留。间屏、分享、在线累计报分、外部推广/服务端迁移调用均退役。独立静态HTTP启动，不连接业务服务端。原v1游戏全量60请求/60响应全部本地HTTP200，无请求失败、外联或pageerror异常。保留1条AudioContext自动播放警告及1条本包Meta CSP阻止原彩纸Blob Worker的控制台错误。最终v2只有index.html增加worker-src self blob；其余75基础文件、游戏脚本和素材逐字节相同。独立中性页面无游戏/SDK，真实验证同一旧策略阻止、新策略创建Worker并收到local-worker-ok；旧中性页另有默认favicon404，原始日志保留。没有追加最终v2整款游戏试玩，不把独立策略验证称为彩纸实显复验或零历史错误。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原菜单与品牌字样"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "原首关Roy/Lynn配偶线索、教学和3生命"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "普通拖拽后原首关1250分完成；历史Worker策略错误保留"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "原Next进入第2关，新的名字和父母/配偶线索"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-17T08:40:49.789277+00:00",
+    "observation_end": "2026-11-17T09:08:36.415596+00:00",
+    "elapsed_seconds": 1666.6263189315796,
+    "scope": "入口归档至交付材料整理的观测窗口，含抓取/修订/试玩、等待和其他工作；不是独占纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "首关正常拖拽、计分1250/结算/解锁，Next进第2关；非全部120关",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "game.js",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "60请求全部本地200，74依赖/素材原SHA不变；策略错误单列修正",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "game.js",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单、选关、第一关、结算、第二关实显",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "game.js",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原具名头像、关系空槽、线索、生命和关卡条",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "game.js",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原拖拽/放置勾选/分数与弹窗；彩纸Worker原错误保留，最终策略只独立验证",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "game.js",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "累计5检查点/5手势，一次拖拽15底层子事件，不追加游戏复测",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "game.js",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原Roy/Lynn/Ezra和第二关Bruce/Dawn/Dana实际显示，无在线身份",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "game.js",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

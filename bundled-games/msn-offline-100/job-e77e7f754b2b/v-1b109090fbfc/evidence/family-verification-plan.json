@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-17T08:57:22.170979+00:00",
+  "revision": "family-offline-v1",
+  "historical_checkpoints": 0,
+  "maximum_cumulative_checkpoints": 5,
+  "checkpoints": [
+    {
+      "step": 1,
+      "input": "goto native offline entry and observe original automatic splash/menu"
+    },
+    {
+      "step": 2,
+      "input": "native Play click"
+    },
+    {
+      "step": 3,
+      "input": "native level1 click"
+    },
+    {
+      "step": 4,
+      "input": "one ordinary drag from visible tray portrait to visibly identified family slot; all movement/down/up records preserved"
+    },
+    {
+      "step": 5,
+      "input": "native Next after actual completion; if no completion do not forge it or exceed budget"
+    }
+  ],
+  "invariants": [
+    "No hidden answers read to steer input; choose by actual visible clues/screenshots",
+    "No game functions or state writes, no fake API/rewards",
+    "Native first tutorial preserved, no rewarded hint button",
+    "Only one level real gameplay verification, not all120 levels",
+    "Close browser after passed/deferred"
+  ]
+}
