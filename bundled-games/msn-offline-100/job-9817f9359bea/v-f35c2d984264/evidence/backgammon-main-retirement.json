@@ -1,0 +1,49 @@
+{
+  "revision": "backgammon-offline-v1",
+  "removed_top_level_provider_nodes": 162,
+  "removed_functions": [
+    "CNetworkManager",
+    "CNetworkMessageForwarder",
+    "on_ctl_multiplayer_send_nickname",
+    "on_ctl_multiplayer_send_password",
+    "on_ctl_multiplayer_join_room_with_password",
+    "on_ctl_multiplayer_show_create_match",
+    "on_ctl_multiplayer_join_quick_match",
+    "on_ctl_multiplayer_close_type_room_password",
+    "on_ctl_multiplayer_close_create_room",
+    "on_ctl_multiplayer_refresh_room_list",
+    "on_ctl_multiplayer_create_room",
+    "on_ctl_multiplayer_join_room",
+    "on_ctl_multiplayer_spectate_room",
+    "on_ctl_user_search",
+    "on_ctl_edit_nickname",
+    "on_ctl_refresh_nickname",
+    "CGameMulti",
+    "CGameSpectate",
+    "CGameSingleWithBot",
+    "CLangFilter"
+  ],
+  "removed_methods": [
+    "CMenu.checkPendingInvitation",
+    "CMenu._onButMultiplayerRelease",
+    "CMenu.onRemoteGameStart",
+    "CMenu.onSpectateGameStart",
+    "CMenu._onMatchmakingConnected",
+    "CMenu._onGameRoomConnectionSuccess",
+    "CMenu._checkMatchWithBot",
+    "CMenu.clearBotCheck",
+    "CMain.gotoGameMulti",
+    "CMain.gotoGameSpectate",
+    "CMain.gotoGameWithBot"
+  ],
+  "removed_telemetry_events": 7,
+  "unwrapped_native_transitions": [
+    "() => {\n  s_oGame === n && s_oGame._restartMatch();\n}",
+    "() => {\n  s_oGame === n && (s_oGame.unload(), s_oMain.gotoMenu());\n}"
+  ],
+  "removed_identity_animation_tautologies": 1,
+  "original_animation_duration_ms": 700,
+  "no_sdk_facade": true,
+  "remaining_service_symbols": [],
+  "runtime_verified": false
+}

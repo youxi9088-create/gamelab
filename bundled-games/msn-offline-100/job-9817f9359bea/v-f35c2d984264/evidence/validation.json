@@ -1,0 +1,141 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "首次v1启动失败，已保留；移除残留隐私按钮刷新调用"
+      },
+      {
+        "type": "checkpoint",
+        "description": "v2原菜单启动"
+      },
+      {
+        "type": "checkpoint",
+        "description": "进入原训练/CPU棋盘"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原掷骰子，实际6/4"
+      },
+      {
+        "type": "checkpoint",
+        "description": "选白棋并点原合法目的地：16→20，4点骰子置灰；预先限定两次原始输入"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "requests": 284,
+    "network_events": 569,
+    "scope": "远端52真实浏览器累计5项检查、6次原始输入，包含首次v1启动失败。v2第2项启动，第3项进入原训练/CPU模式，第4项点击原掷骰子，第5项选择白棋并点击原黄色合法目的地。自然掷出6与4，白棋从零起第16点移至第20点：原点3→2、目的点0→1，4点骰子在原界面置灰、6点仍亮；双方仍各15枚，bar/off均0。只完成一次合法走棋，尚未用完本回合，未观察AI回合、吃子/中柱返场、出界收子、胜负、重开、同设备双人、改皮肤/语言、声音或刷新存档。公开getRulesState为从真实三角点读出新状态对象的只读函数，未写棋盘、骰子或调用走棋方法。",
+    "console_warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ]
+  },
+  "accounting": {
+    "observation_start": "2026-11-17T06:09:03.278216+00:00",
+    "observation_end": "2026-11-17T07:00:11.042613+00:00",
+    "elapsed_seconds": 3067.7643971443176,
+    "scope": "从本款原入口归档到证据整理的观测窗口，包含抓取、分析、代码修订、浏览器与等待及其他工作，不是独占处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "cumulative_checkpoints": 5,
+  "cumulative_raw_inputs": 6,
+  "current_revision_raw_inputs": 5,
+  "prior_failure_kept": true,
+  "before": {
+    "player": 0,
+    "dice1": 6,
+    "dice2": 4,
+    "moving": false,
+    "rules": {
+      "aPoints": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        -5,
+        0,
+        -3,
+        0,
+        0,
+        0,
+        5,
+        -5,
+        0,
+        0,
+        0,
+        3,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        -2
+      ],
+      "aBar": [
+        0,
+        0
+      ],
+      "aOff": [
+        0,
+        0
+      ]
+    }
+  },
+  "after": {
+    "player": 0,
+    "dice1": 6,
+    "dice2": 4,
+    "moving": false,
+    "rules": {
+      "aPoints": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        -5,
+        0,
+        -3,
+        0,
+        0,
+        0,
+        5,
+        -5,
+        0,
+        0,
+        0,
+        2,
+        0,
+        5,
+        0,
+        1,
+        0,
+        0,
+        -2
+      ],
+      "aBar": [
+        0,
+        0
+      ],
+      "aOff": [
+        0,
+        0
+      ]
+    }
+  },
+  "scope": "远端52真实浏览器累计5项检查、6次原始输入，包含首次v1启动失败。v2第2项启动，第3项进入原训练/CPU模式，第4项点击原掷骰子，第5项选择白棋并点击原黄色合法目的地。自然掷出6与4，白棋从零起第16点移至第20点：原点3→2、目的点0→1，4点骰子在原界面置灰、6点仍亮；双方仍各15枚，bar/off均0。只完成一次合法走棋，尚未用完本回合，未观察AI回合、吃子/中柱返场、出界收子、胜负、重开、同设备双人、改皮肤/语言、声音或刷新存档。公开getRulesState为从真实三角点读出新状态对象的只读函数，未写棋盘、骰子或调用走棋方法。",
+  "network": "v2完整284请求、284响应均为同源静态HTTP200，未出现外联、失败请求或脚本错误；保留1条Canvas getImageData性能警告。250项原静态配方、2幅根目录背景、原侧栏CSS/字体/图标依赖均闭合，240图片在开发环境解码通过；原Google Fonts声明的3个字重字体已按原文件本地化。首次启动因已移除隐私按钮仍被刷新而报错，旧日志/截图完整保留；v2只清理对应调用，未通用吞掉错误。"
+}

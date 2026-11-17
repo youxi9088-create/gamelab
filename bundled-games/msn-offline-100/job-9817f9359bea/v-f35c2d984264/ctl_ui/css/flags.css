@@ -1,0 +1,60 @@
+.language-flag {
+    width: 34px;
+    height: 24px;
+    float: right;
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    background-image: url('../sprites/flags.png');
+    background-size: 300% 600%;
+    background-repeat: no-repeat;
+}
+
+.change-lang-modal .language-flag {
+    float: left;
+    margin-right: 8px;
+}
+
+/* row 0 */
+.bg-es { background-position: 0% 0%; }
+.bg-fr { background-position: 50% 0%; }
+.bg-pt { background-position: 100% 0%; }
+
+/* row 1 */
+.bg-id { background-position: 0% 20%; }
+.bg-hi { background-position: 50% 20%; }
+.bg-ru { background-position: 100% 20%; }
+
+/* row 2 */
+.bg-it { background-position: 0% 40%; }
+.bg-ja { background-position: 50% 40%; }
+.bg-tr { background-position: 100% 40%; }
+
+/* row 3 */
+.bg-zh { background-position: 0% 60%; }
+.bg-ar { background-position: 50% 60%; }
+.bg-en { background-position: 100% 60%; }
+
+/* row 4 */
+.bg-de { background-position: 0% 80%; }
+.bg-nl { background-position: 50% 80%; }
+.bg-fa { background-position: 100% 80%; }
+
+/* row 5 */
+.bg-vi { background-position: 0% 100%; }
+
+@media (max-width: 575.98px) {
+    .language-flag {
+        width: 26px;
+        height: 18px;
+        border-radius: 0px;
+    }
+}
+
+@media (max-height: 450px) {
+    .language-flag {
+        width: 26px;
+        height: 18px;
+    }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head><meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-src 'none'; object-src 'none'; form-action 'none'; base-uri 'self'">
+<link rel="stylesheet" href="css/gui-google-fonts.css">
+        <title>Backgammon Multiplayer </title>
+        <link rel="stylesheet" href="css/reset.css" type="text/css">
+        <link rel="stylesheet" href="css/main.css" type="text/css">
+        <link rel="stylesheet" href="css/orientation_utils.css" type="text/css">
+        <link rel="stylesheet" href="css/ios_fullscreen.css" type="text/css">
+        
+                   
+           
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!-- Bootstrap CSS v5.3.2 -->
+        <link href="ctl_ui/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        
+        <link href="ctl_ui/fontawesome/css/brands.css" rel="stylesheet">
+        <link href="ctl_ui/fontawesome/css/fontawesome.css" rel="stylesheet">
+        <link href="ctl_ui/fontawesome/css/solid.css" rel="stylesheet">
+        <link href="ctl_ui/css/style.css" rel="stylesheet" />
+        <link href="ctl_ui/hamburger/hamburgers.min.css" rel="stylesheet"/>
+        
+        <link href="ctl_ui/css/theme.css" rel="stylesheet">
+        <link href="ctl_ui/css/flags.css" rel="stylesheet">
+        <link href="ctl_ui/animatecss/css/animate.min.css" rel="stylesheet">
+        
+        
+        
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,minimal-ui, viewport-fit=cover" />
+        <meta name="msapplication-tap-highlight" content="no"/>
+
+        
+        
+
+        
+
+        <script type="text/javascript" src="ctl_ui/js/jquery-3.7.1.min.js"></script>
+        <script type="text/javascript" src="ctl_ui/bootstrap/js/popper.min.js"></script>
+        <script type="text/javascript" src="ctl_ui/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="ctl_ui/js/utils.js"></script>
+        <script type="text/javascript" src="ctl_ui/js/lang.js"></script>
+             
+        <script type="text/javascript" src="ctl_ui/js/CEventsHandler.js"></script>
+        <script type="text/javascript" src="ctl_ui/js/CGUIController.js"></script>
+        
+        <script type="text/javascript" src="ctl_ui/js/CModalController.js"></script>
+        
+        
+        <script type="text/javascript" src="js/lib/createjs.min.js"></script>
+        <script type="text/javascript" src="js/lib/screenfull.min.js"></script>
+        <script type="text/javascript" src="js/lib/audio/howler.min.js"></script>
+        
+        
+        
+
+        <script type="text/javascript" src="js/CLang.js"></script>
+        
+        
+        
+        
+        
+
+
+        
+        
+
+        
+        <script type="text/javascript" src="js/main.js"></script>
+        
+    </head>
+    <body ondragstart="return false;" ondrop="return false;" >
+	<div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
+          
+        
+        <div class="check-fonts">
+            <p class="check-font-1">Montserrat-Black</p>
+        </div> 
+        
+        <canvas id="canvas" class='ani_hack'> </canvas>
+        <div data-orientation="landscape" class="orientation-msg-container"><p class="orientation-msg-text">Please rotate your device</p></div>
+        <div id="block_game" style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%; display:none"></div>
+
+    <script>document.addEventListener("DOMContentLoaded",function(){setScreenProperty();new CMain({fullscreen:false});sizeHandler();});</script></body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "native": null,
+  "id": "002",
+  "action": "observe",
+  "ui_steps": 1,
+  "url": "http://127.0.0.1:18765/backgammon-offline-v1/index.html",
+  "error": null,
+  "network_events": 569,
+  "console": [
+    {
+      "level": "error",
+      "kind": "exception",
+      "message": "Cannot read properties of null (reading 'classList')",
+      "stack": "TypeError: Cannot read properties of null (reading 'classList')\n    at CGUI._hideElement (http://127.0.0.1:18765/backgammon-offline-v1/ctl_ui/js/CGUIController.js:212:34)\n    at CGUI.hidePrivacyButton (http://127.0.0.1:18765/backgammon-offline-v1/ctl_ui/js/CGUIController.js:279:10)\n    at CGUI.checkButtonStatus (http://127.0.0.1:18765/backgammon-offline-v1/ctl_ui/js/CGUIController.js:168:10)\n    at CGUI.createSideBar (http://127.0.0.1:18765/backgammon-offline-v1/ctl_ui/js/CGUIController.js:164:10)\n    at new CGUIController (http://127.0.0.1:18765/backgammon-offline-v1/ctl_ui/js/CGUIController.js:60:10)\n    at new CGUI (http://127.0.0.1:18765/backgammon-offline-v1/js/main.js:9071:5)\n    at CMain.onRemovePreloader (http://127.0.0.1:18765/backgammon-offline-v1/js/main.js:7476:24)\n    at CMain.onRemovePreloader (http://127.0.0.1:18765/backgammon-offline-v1/js/main.js:7727:11)\n    at a.<anonymous> (http://127.0.0.1:18765/backgammon-offline-v1/js/main.js:970:15)\n    at d._runActionsRange (http://127.0.0.1:18765/backgammon-offline-v1/js/lib/createjs.min.js:19:7215)"
+    }
+  ],
+  "closed": false
+}

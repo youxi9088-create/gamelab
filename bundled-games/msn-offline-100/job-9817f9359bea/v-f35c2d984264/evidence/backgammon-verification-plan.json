@@ -1,0 +1,14 @@
+{
+  "max_cumulative_checkpoints": 5,
+  "prior_inputs": 0,
+  "steps": [
+    "Navigate original offline menu",
+    "Click native training/CPU entry and observe original distribution; wait naturally if CPU starts",
+    "Click native player dice control once",
+    "Select one visible legal player checker",
+    "Click one highlighted legal destination and observe move/die consumption"
+  ],
+  "max_raw_inputs": 5,
+  "read_only_observations": "Natural animation/CPU waiting and screenshots do not write game state or add input. If a mandatory extra step or new runtime block occurs, preserve count and stop without extra input.",
+  "state": "prepared_not_run"
+}

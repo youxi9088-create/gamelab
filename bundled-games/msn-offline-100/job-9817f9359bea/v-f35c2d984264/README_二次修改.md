@@ -1,0 +1,1 @@
+可编辑JavaScript保留CBackgammonRules、CBoard、CPiece、CAI、CDice和原单机棋局；171方法中167个规范AST完全相同，4处仅退役身份/遥测/广告继续边界。棋盘、骰子、皮肤与实际本地侧栏可在理解CreateJS/Bootstrap资源契约后拆解适配；未取得原作者工程，未证明直接跨引擎移植。一次掷骰和合法走棋已实测，AI回合、完整胜负、返场/收子、皮肤/语言/声音及刷新未测。静态HTTP目录运行，无服务端业务接口。详见V5.1说明书和evidence。
