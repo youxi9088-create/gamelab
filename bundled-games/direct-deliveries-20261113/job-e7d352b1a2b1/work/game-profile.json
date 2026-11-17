@@ -1,0 +1,30 @@
+{
+  "specification_v51": {
+    "template_version": "5.1",
+    "sections": {
+      "basic_facts": "**维度定义**：让读者第一眼知道“这是什么类型、什么操控体验的游戏”，以及它的技术栈。\n\n**内容说明**\n\nPhaser 3.70.0＋JavaScript的原生回合卡牌策略单机AI模式，Tone 14.7.77音频。原本地AI与玩法保留，联机数据库和宿主工具退役。52实测原结束回合、AI卡牌效果并返回玩家第2回合；未验证胜局。来源：main.js、gameLogic.js、evidence/direct-repair/runtime.json。",
+      "asset_types": "**维度定义**：游戏中游戏内容元素的资源类型是什么——即在哪个引擎运行下的资源格式。\n\n**内容说明**\n\n原WebP/PNG卡牌/阵营插画、MP3、WOFF2；173项缺失原图音素材和8份字体按原URL取得并留SHA。原ES模块22个、导入58条均本地闭合。来源：evidence/direct-repair/material-intake-20261116.json、pack-preparation.json、dependency-closure.json。",
+      "core_challenge": "**维度定义**：游戏核心玩法主要挑战 / 满足人的什么。\n\n**内容说明**\n\n规则要求管理行动、BTC收入及卡牌效果，在连接图争夺中立群组，原攻击/对齐/竞价规则存在。来源：gameLogic.js、GameGraph.js；玩家主动进攻与竞价未实测。",
+      "controls": "**维度定义**：操控本身的复杂度 + 需要玩家判断的时机 / 策略复杂度。\n\n**内容说明**\n\n原鼠标选择模式/阵营/卡牌/节点与结束回合按钮；GameGraph原WASD/方向键或空白拖动视野为源码确认。实测仅菜单选择和PASS & END TURN，不称全部控制已测。来源：main.js、GameGraph.js、ui-ledger.json。",
+      "behavior_path": "**维度定义**：玩家一局里重复做什么。\n\n**内容说明**\n\n原路径为选择本地AI模拟→默认AI配置→选阵营→玩家行动→结束回合→原AI行动→下一玩家回合。实测玩家选择PASS，观察原AI卡牌和效果后页面已出现第2回合玩家阶段文本；未实测玩家攻击分支。来源：main.js及runtime.json。",
+      "game_path": "**维度定义**：从开始到结束的流程 + 每个关键节点的潜在流失风险点。\n\n**内容说明**\n\n原标题→AI Simulation Setup→6阵营选择→原棋盘/手牌→回合阶段；原胜利检查与教学保留。实测至第2回合，未抵达胜利。没有实测耗时/流失风险数据。来源：main.js、tutorial.js、gameLogic.js及截图。",
+      "progression_path": "**维度定义**：玩家如何推进变强。\n\n**内容说明**\n\n本局按原群组控制、收入/资金、行动及阵营特殊胜利条件推进；未添加跨局成长。原本地模式无整局断点存档，仅教学偏好写localStorage。来源：gameLogic.js、main.js。",
+      "core_loop": "**维度定义**：游戏是否具备“明确目标 → 明确规则 → 达成反馈 → 奖励激励 → 下一目标”的完整闭环。\n\n**内容说明**\n\n目标：按原通用或阵营胜利条件推进。规则：玩家与本地AI依原回合收入、行动、卡牌/攻击/竞价运作。反馈：原卡牌展示、战况与节点数值。激励/下一目标：原群组/资金和胜利条件。实测有限闭环为玩家PASS→AI原卡牌→抵抗4降0→玩家Round2；未验证完整胜负闭环。来源：gameLogic.js、main.js、runtime.json。",
+      "gameplay_rules": "**维度定义**：核心循环、玩法规则、目标与进度。\n\n**内容说明**\n\n原DECK、ACTION_CARDS、连接图、攻击/对齐修正、竞价、收入与原本地AI保留。真实InstantDB、房间/聊天/联机初始化退役，采用原isMultiplayer=false路径，不伪造真人对手或服务器数据。来源：gameLogic.js、main.js、source-preservation.json。",
+      "key_numbers": "**维度定义**：影响玩法的关键数值。\n\n**内容说明**\n\n原每回合2行动、2次免费转账；默认3个AI。实测Algorithmic初回合资金13、收入3、力量8；六阵营界面存在。AI Outrage Supernova本轮实际将目标抵抗4降0；页面全文ROUND 2 — CHOOSE YOUR ACTION (2 available)只读查找1/1。来源：gameLogic.js、step-9.png、ai-national-security-effect.png、round2-human-full-find.png。",
+      "level_configuration": "**维度定义**：关卡结构、递进规律、难度曲线。\n\n**内容说明**\n\n原完整模拟对局及脚本教学，不是固定5关版本；教学源码7回合与控制3群组的独立条件保留。实测为默认3AI模拟至Round2，未完成教学或全局胜利。来源：tutorial.js、gameLogic.js及ui-ledger.json。",
+      "system_design": "**维度定义**：功能系统清单、UI 流程。\n\n**内容说明**\n\n原模式、AI设置、阵营、棋盘、手牌、竞价、资产、战况/规则界面保留；实际联机入口不可启动，相关数据库链移出。没有改变原单机设置或强制通关。来源：index.html、main.js及source-preservation.json。",
+      "theme": "**维度定义**：游戏的题材 / 世界观包装。\n\n**内容说明**\n\n原OMNIS Global Initiative阵营权力网络题材，使用原卡牌插画、阵营标识和文字。来源：gameLogic.js的FACTIONS/DECK及assets/；没有生成替代美术。",
+      "progression_economy": "**维度定义**：玩家如何成长、经济如何循环。\n\n**内容说明**\n\nBTC为原本局游戏资源，含收入、投入、转移、控制和摧毁规则；不是实际链上支付。实测初回合收入与AI效果；未验证玩家竞价和完整经济平衡。原无整局保存实现，刷新继续未实测。来源：gameLogic.js、main.js。",
+      "roster": "**维度定义**：有哪些角色/单位、各自定位（玩法层面）。\n\n**内容说明**\n\n原6阵营：Algorithmic Overlords、Corporate Megabloc、National Security Apparatus、Culture-War Architects、The Crypto Cult、The Hidden Hand，各自原power/income/resistance/能力/胜利定义保留。实测选Algorithmic，对手Crypto Cult及National Security原卡牌行动可见；未逐阵营试玩。来源：gameLogic.js的FACTIONS与截图。",
+      "monetization": "**维度定义**：靠什么变现。\n\n**内容说明**\n\n当前运行包无真实货币支付或广告奖励逻辑；未加购买/奖励替身。外部宿主工具和InstantDB实际启动依赖退役。原卡牌BTC为本局数值。来源：main.js、index.html、gameLogic.js及OFFLINE_DELIVERY_CHECKS.json。"
+    }
+  },
+  "title": "OMNIS Global Initiative",
+  "category": "回合制卡牌策略",
+  "engine": "Phaser 3.70.0",
+  "core_gameplay": "原生本地AI回合、卡牌与连接图策略",
+  "verification": "保留原Phaser卡牌策略、本地AI、GameGraph/gameLogic/portUtils/sfx/tutorial/cardFlavours/cardRenderer和原插画音频；精确退役真实InstantDB、联机房间/聊天/在线初始化及宿主工具脚本，无假SDK、假账号或假奖励。173项缺失原素材和8份字体已精确本地化；22模块58条导入闭合。52机器原候选220文件逐SHA一致后实机累计11步（原5+用户追加5+仅此次追加1），历史失败点击完整保留。原菜单→默认3AI→Algorithmic Overlords→收入3/资金13/手牌→原PASS & END TURN→Crypto Cult原生Algorithmic Deck-Rigging→National Security Apparatus原生Outrage Supernova使Big Pharma抵抗4降0；Chrome只读查找真实页面完整ROUND 2 — CHOOSE YOUR ACTION (2 available)为1/1，证明轮转回玩家第2回合，原卡牌揭示遮罩仍保留。66条连续浏览器观察/65资源均同一本地源，64项200，仅浏览器默认favicon.ico404，无脚本异常/外联。未点击玩家卡牌、攻击、竞价，未通关，未验证全部阵营/设置/教学、刷新或整局保存；原实现仅教学偏好存储，无整局断点存档。待验收不等于人工验收或下游供货。",
+  "save": "原整局断点存档未实现；仅教学偏好，刷新未测",
+  "cover": "screenshots/revision-title.png"
+}

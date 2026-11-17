@@ -1,0 +1,195 @@
+{
+  "passed": true,
+  "environment": "local-artifact",
+  "network_observation_complete": true,
+  "external": [],
+  "blocked_external": [],
+  "required_external": [],
+  "errors": [],
+  "missing": [],
+  "actions": [
+    {
+      "type": "click",
+      "step": 1,
+      "at": "2026-11-17T03:11:52.397Z",
+      "action": "Click diagnostic link to load the original local candidate on remote52",
+      "result": "Original OMNIS title screen, background and native Training/AI Simulation modes rendered on remote52; online entry disabled in candidate."
+    },
+    {
+      "type": "click",
+      "step": 2,
+      "at": "2026-11-17T03:12:21.045Z",
+      "action": "Click original AI Simulation mode",
+      "result": "Original AI Simulation Setup rendered: three random-faction opponents, native faction and generic victory conditions, default target10. No original settings changed."
+    },
+    {
+      "type": "click",
+      "step": 3,
+      "at": "2026-11-17T03:12:53.626Z",
+      "action": "Confirm the unchanged original default AI setup",
+      "result": "Native six-faction selection rendered with original power/income/alignment and victory/ability descriptions."
+    },
+    {
+      "type": "click",
+      "step": 4,
+      "at": "2026-11-17T03:13:13.206Z",
+      "action": "Select native Algorithmic Overlords faction",
+      "result": "Original Algorithmic Overlords local match initialized with three AI opponents, card artwork, hand and power graph. Native first-time orientation1/8 displayed; no combat/AI turn claim."
+    },
+    {
+      "type": "click",
+      "step": 5,
+      "at": "2026-11-17T03:13:35.920Z",
+      "action": "Click original on-screen SKIP for the optional orientation overlay",
+      "result": "Original optional orientation dismissed through native SKIP. Round1 action phase, root treasury13, income3, four action cards and three rival factions displayed. No attack, bidding, AI turn, victory or refresh was tested. Five-step budget exhausted; do not mark full gameplay passed."
+    },
+    {
+      "type": "click",
+      "step": 6,
+      "at": "2026-11-17T10:15:43.769Z",
+      "action": "Click diagnostic link to start the unchanged native local OMNIS revision on52",
+      "result": "Unchanged native OMNIS title and AI Simulation mode rendered on52; local origin57584 retained. No game match resumed automatically."
+    },
+    {
+      "type": "click",
+      "step": 7,
+      "at": "2026-11-17T10:16:13.655Z",
+      "action": "Click original AI Simulation mode",
+      "result": "Original AI Simulation Setup rendered:3 random-faction opponents, both original victory options enabled, target10 unchanged."
+    },
+    {
+      "type": "click",
+      "step": 8,
+      "at": "2026-11-17T10:16:41.077Z",
+      "action": "Confirm unchanged original default AI Simulation setup",
+      "result": "Original six-faction selection rendered with native power, income, alignments and ability/victory descriptions; setup remained unchanged."
+    },
+    {
+      "type": "click",
+      "step": 9,
+      "at": "2026-11-17T10:17:10.501Z",
+      "action": "Select native Algorithmic Overlords faction",
+      "result": "Native Algorithmic Overlords round1 initialized without repeating the dismissed orientation: treasury13,income3,power8,3AI rivals,four original action cards and local simulation log rendered."
+    },
+    {
+      "type": "click",
+      "step": 10,
+      "at": "2026-11-17T10:18:29.083Z",
+      "action": "Click original PASS & END TURN once to hand control to the three native AI opponents",
+      "result": "After one intended PASS & END TURN click and continued no-input observation, command still shows ROUND1 / CHOOSE YOUR ACTION, treasury remains13 and no visible AI-turn progression. Core handoff not verified. Extra5 budget exhausted; no repeat click or admission."
+    },
+    {
+      "type": "click",
+      "step": 11,
+      "at": "2026-11-17T10:35:43.902Z",
+      "action": "Click original PASS & END TURN once in retained round1, at observed button bounds",
+      "result": "Original PASS & END TURN triggered native AI responses: Crypto Cult played Algorithmic Deck-Rigging; National Security Apparatus turn and Outrage Supernova effect reduced Big Pharma resistance4 to0. Read-only Chrome Find matched the actual page text ROUND2 and full ROUND2—CHOOSE YOUR ACTION(2 available) once, proving return to player round2 while the original reveal overlay remained visible. No further player action or victory/save claim.",
+      "selector": "#btn-end-turn"
+    }
+  ],
+  "navigation_checkpoints": [
+    {
+      "name": "native-title",
+      "status": "passed"
+    },
+    {
+      "name": "ai-simulation-setup",
+      "status": "passed"
+    },
+    {
+      "name": "faction-selection",
+      "status": "passed"
+    },
+    {
+      "name": "native-board-round1",
+      "status": "passed"
+    },
+    {
+      "name": "native-end-turn-ai-effect-player-round2",
+      "status": "passed"
+    }
+  ],
+  "network_requests": [
+    "http://127.0.0.1:57584/main.js",
+    "http://127.0.0.1:57584/_remote/3a125e88c76c9347/css2.css",
+    "http://127.0.0.1:57584/styles.css",
+    "http://127.0.0.1:57584/_remote/b8c86383a79f25ec/phaser@3.70.0.js",
+    "http://127.0.0.1:57584/cardRenderer.js",
+    "http://127.0.0.1:57584/GameGraph.js",
+    "http://127.0.0.1:57584/portUtils.js",
+    "http://127.0.0.1:57584/sfx.js",
+    "http://127.0.0.1:57584/cardFlavours.js",
+    "http://127.0.0.1:57584/tutorial.js",
+    "http://127.0.0.1:57584/gameLogic.js",
+    "http://127.0.0.1:57584/assets/2063bd94-1ad3-4c79-9f45-19eb71fbed47-3.png",
+    "http://127.0.0.1:57584/fonts/59ceef91928ff1091749c6a4.woff2",
+    "http://127.0.0.1:57584/fonts/5e869948481779438fa52deb.woff2",
+    "http://127.0.0.1:57584/_remote/9d3493270fc89c07/process.mjs.js",
+    "http://127.0.0.1:57584/_remote/e761a2424dc7fdba/tone@14.7.77.js",
+    "http://127.0.0.1:57584/_remote/0e08c3fa6080f249/phaser.mjs.js",
+    "http://127.0.0.1:57584/_remote/4482af8fc17462a7/events.mjs.js",
+    "http://127.0.0.1:57584/_remote/54186365b6107d9b/tty.mjs.js",
+    "http://127.0.0.1:57584/_remote/872a41badadd3d91/standardized-audio-context@%5E25.1.8.js",
+    "http://127.0.0.1:57584/_remote/5eb4b38a68f19ca1/tslib@%5E2.0.1.js",
+    "http://127.0.0.1:57584/_remote/5a6b2a422712fc8f/async_hooks.mjs.js",
+    "http://127.0.0.1:57584/_remote/8e28f97bf941fa53/automation-events@%5E7.0.9.js",
+    "http://127.0.0.1:57584/_remote/1a1a832daa0b9f06/tone.mjs.js",
+    "http://127.0.0.1:57584/_remote/8110024141253489/tslib.mjs.js",
+    "http://127.0.0.1:57584/_remote/1efad4ce8d720b28/standardized-audio-context.mjs.js",
+    "http://127.0.0.1:57584/_remote/d5b391c706674034/automation-events.mjs.js",
+    "http://127.0.0.1:57584/assets/logo_corporate_megabloc-png.webp",
+    "http://127.0.0.1:57584/assets/logo_hidden_hand_v2-png.webp",
+    "http://127.0.0.1:57584/assets/logo_f_algo.webp",
+    "http://127.0.0.1:57584/assets/logo_f_natsec.webp",
+    "http://127.0.0.1:57584/assets/logo_f_cult.webp",
+    "http://127.0.0.1:57584/assets/logo_f_crypto.webp",
+    "http://127.0.0.1:57584/assets/dark-mode-control.mp3",
+    "http://127.0.0.1:57584/favicon.ico",
+    "http://127.0.0.1:57584/assets/logo_f_algo.webp",
+    "http://127.0.0.1:57584/assets/logo_corporate_megabloc-png.webp",
+    "http://127.0.0.1:57584/assets/logo_f_natsec.webp",
+    "http://127.0.0.1:57584/assets/logo_f_cult.webp",
+    "http://127.0.0.1:57584/assets/logo_f_crypto.webp",
+    "http://127.0.0.1:57584/assets/logo_hidden_hand_v2-png.webp",
+    "http://127.0.0.1:57584/fonts/973aa6fb2cb1cc3c788a40a1.woff2",
+    "http://127.0.0.1:57584/assets/act_surge_pricing.webp",
+    "http://127.0.0.1:57584/assets/act_crisis_broadcast.webp",
+    "http://127.0.0.1:57584/assets/act_cancel_cascade.webp",
+    "http://127.0.0.1:57584/assets/act_deepfake_assassin.webp",
+    "http://127.0.0.1:57584/assets/faction_crypto_v2.webp",
+    "http://127.0.0.1:57584/assets/faction_algo.webp",
+    "http://127.0.0.1:57584/assets/x_citizenj.webp",
+    "http://127.0.0.1:57584/assets/x_esg.webp",
+    "http://127.0.0.1:57584/assets/g_inf_scroll-png.webp",
+    "http://127.0.0.1:57584/assets/x_dreamad.webp",
+    "http://127.0.0.1:57584/assets/n_payday.webp",
+    "http://127.0.0.1:57584/assets/n_pharma.webp",
+    "http://127.0.0.1:57584/assets/x_loyaltypts.webp",
+    "http://127.0.0.1:57584/assets/x_shipfutures.webp",
+    "http://127.0.0.1:57584/assets/x_waterrights.webp",
+    "http://127.0.0.1:57584/assets/faction_corp.webp",
+    "http://127.0.0.1:57584/assets/faction_natsec.webp",
+    "http://127.0.0.1:57584/assets/y_conspiracy.webp",
+    "http://127.0.0.1:57584/assets/act_deck_rigging.webp",
+    "http://127.0.0.1:57584/assets/y_research.webp",
+    "http://127.0.0.1:57584/assets/n_thinktank.webp",
+    "http://127.0.0.1:57584/assets/x_taxavoid.webp",
+    "http://127.0.0.1:57584/assets/act_outrage_supernova.webp"
+  ],
+  "scope": "保留原Phaser卡牌策略、本地AI、GameGraph/gameLogic/portUtils/sfx/tutorial/cardFlavours/cardRenderer和原插画音频；精确退役真实InstantDB、联机房间/聊天/在线初始化及宿主工具脚本，无假SDK、假账号或假奖励。173项缺失原素材和8份字体已精确本地化；22模块58条导入闭合。52机器原候选220文件逐SHA一致后实机累计11步（原5+用户追加5+仅此次追加1），历史失败点击完整保留。原菜单→默认3AI→Algorithmic Overlords→收入3/资金13/手牌→原PASS & END TURN→Crypto Cult原生Algorithmic Deck-Rigging→National Security Apparatus原生Outrage Supernova使Big Pharma抵抗4降0；Chrome只读查找真实页面完整ROUND 2 — CHOOSE YOUR ACTION (2 available)为1/1，证明轮转回玩家第2回合，原卡牌揭示遮罩仍保留。66条连续浏览器观察/65资源均同一本地源，64项200，仅浏览器默认favicon.ico404，无脚本异常/外联。未点击玩家卡牌、攻击、竞价，未通关，未验证全部阵营/设置/教学、刷新或整局保存；原实现仅教学偏好存储，无整局断点存档。待验收不等于人工验收或下游供货。",
+  "limits": [
+    "玩家主动出牌/攻击/竞价未实测",
+    "完整胜局及全部阵营/选项/教学未实测",
+    "刷新未实测；原本地模式没有整局断点存档，仅教学偏好",
+    "第2回合完整阶段文本由只读浏览器查找1/1确认，原揭示遮罩未关闭",
+    "未逐个观察三个AI的全部卡牌；返回玩家第2回合和原轮转实现共同支持轮转完成"
+  ],
+  "evidence": "evidence/direct-repair/runtime-observation-final.json",
+  "non_game_http_errors": [
+    {
+      "url": "http://127.0.0.1:57584/favicon.ico",
+      "status": 404,
+      "reason": "Browser default favicon; no game script/image/audio/font failure"
+    }
+  ]
+}
