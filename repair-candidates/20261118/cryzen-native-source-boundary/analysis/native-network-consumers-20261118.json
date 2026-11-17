@@ -1,0 +1,106 @@
+{
+  "at": "2026-11-17T17:36:21.486509+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "network_requests": 0,
+  "readable_source_sha256": "f28fe23e14d4786a9438a9a9e9650cfeb279edeb07d6504fa9f5a43a31b2d302",
+  "rows": [
+    {
+      "key": "Failed to join lobby, cannot send JOIN_MATCH_BY_ID",
+      "count": 1,
+      "contexts": [
+        {
+          "offset": 8729682,
+          "line": 176493,
+          "source": "atchId\") : h(\"matchId\");\n          const n = xqe()[\"A2\"](e);\n          if (!n) {\n            if (e) {\n              if (!t[\"sQ\"]) try {\n                await t[\"RN\"]();\n              } catch (ZOn) {\n                return console[\"error\"](\"Failed to join lobby:\", ZOn), void t[\"Jh\"]();\n              }\n              const n = t[\"sQ\"];\n              return void (n ? n[\"send\"](8, {\n                [\"matchId\"]: e\n              }) : (console[\"error\"](\"Failed to join lobby, cannot send JOIN_MATCH_BY_ID\"), t[\"Jh\"]()));\n            }\n            if (!t[\"sQ\"]) try {\n              let e = null;\n              m && (e = m, l[\"replace\"]({\n                [\"path\"]: o[\"path\"],\n                [\"query\"]: {\n                  ...o[\"query\"],\n                  [\"id\"]: void 0\n                }\n              }));\n              e ? await t[\"RN\"]({\n                [\"id\"]: e\n              }) : await t[\"RN\"]();\n            } catch (ZOn) {\n              console[\"error\"](\"Initial connection failed:\", ZOn), eA({\n                [\"type\"]: \"error\",\n                [\"text\"]: bE[\"global\"][\"t\"](\"lobby.error.lobby-does-not-exist\", {\n                  [\"id\"]: m || \"\"\n                })\n              }), await t[\"RN\"]();\n            }\n          } else await l[\"replace\"]({\n            [\"name\"]: \"match-link\",\n            [\"query\"]: {\n              [\"matchId\"]: n[\"token\"][\"split\"](\":\")[0]\n            }\n          });\n        };\n        const E = [];\n        const M = Wp(() => {\n          const e = a[\"zm\"];\n          "
+        }
+      ]
+    },
+    {
+      "key": "Seat reservation is not initialized",
+      "count": 1,
+      "contexts": [
+        {
+          "offset": 5574681,
+          "line": 106823,
+          "source": "urn this[\"gJ\"] = !1, e[\"_h\"](), this[\"Go\"](a);\n            }\n          } catch (JOn) {\n            return n && !(this[\"FZ\"] === n) || !(this[\"nI\"] === t) || this[\"wG\"](JOn), null;\n          }\n        },\n        async [\"Jo\"]() {\n          const e = gqe();\n          const t = this[\"FZ\"];\n          const n = this[\"nI\"];\n          try {\n            if (!t) throw new Yi[\"Error\"](\"Client is not initialized\");\n            if (!n) throw new Yi[\"Error\"](\"Seat reservation is not initialized\");\n            const a = await t[\"consumeSeatReservation\"](n);\n            if (!(!!(this[\"FZ\"] === t) && !(this[\"nI\"] !== n))) {\n              return this[\"xU\"](a), null;\n            } else {\n              return this[\"gJ\"] = !1, e[\"_h\"](), this[\"Go\"](a);\n            }\n          } catch (JOn) {\n            return !(this[\"FZ\"] === t) || !(this[\"nI\"] === n) || this[\"wG\"](JOn), null;\n          }\n        },\n        [\"wG\"](e) {\n          Oqe()[\"OQ\"](e) || eA({\n            [\"text\"]: SE(xE(e)),\n            [\"type\"]: \"error\"\n          });\n          console[\"error\"](\"JOIN ERROR\", e), this[\"P3\"](), IC[\"push\"]({\n            [\"name\"]: \"play\"\n          });\n        },\n        [\"P3\"](e = {}) {\n          this[\"Lc\"]();\n          const t = this[\"vU\"];\n          this[\"FZ\"] = null, this[\"vU\"] = null;\n          t?.[\"abort\"]();\n          const n = e[\"navigateToLobby\"] ?? !0;\n          const a = yqe();\n          const s = $C();\n          const i = YC();\n          const r = Oqe();\n          const o = U3e();\n"
+        }
+      ]
+    },
+    {
+      "key": "[\"isBot\"]",
+      "count": 1,
+      "contexts": [
+        {
+          "offset": 6643060,
+          "line": 121526,
+          "source": "u[\"value\"] ? bp(\"\", !0) : (np(), lp(B5e, {\n            [\"key\"]: 0,\n            [\"size\"]: \"xs\",\n            [\"text\"]: \"RETRY\",\n            [\"on-press\"]: b\n          }))])), d[\"value\"] ? (np(), op(\"div\", Get, [mp(\"header\", Vet, [mp(\"div\", null, [mp(\"h2\", null, Yr(d[\"value\"][\"user\"][\"name\"]), 1), mp(\"p\", null, \" Level \" + Yr(Yi[\"Math\"][\"floor\"](d[\"value\"][\"user\"][\"lvl\"])) + \" \\xB7 \" + Yr(d[\"value\"][\"user\"][\"role\"]) + \" \\xB7 \" + Yr(d[\"value\"][\"user\"][\"isBot\"] ? \"Bot account\" : \"Human account\"), 1)]), mp(\"span\", Het, Yr(f[\"value\"]), 1)]), mp(\"dl\", qet, [mp(\"div\", null, [jet, mp(\"dd\", null, Yr(d[\"value\"][\"user\"][\"_id\"]), 1)]), mp(\"div\", null, [Qet, mp(\"dd\", null, Yr(d[\"value\"][\"user\"][\"subId\"]), 1)]), mp(\"div\", null, [Wet, mp(\"dd\", null, Yr(d[\"value\"][\"fetchedAt\"]), 1)])]), mp(\"dl\", $et, [mp(\"div\", null, [Ket, mp(\"dd\", null, Yr(v(d[\"value\"][\"skill\"][\"rating\"])), 1)]), mp(\"div\", null, [Xet, mp(\"dd\", null, Yr(v(d[\"value\"][\"skill\"][\"encounters\"])), 1)]), mp(\"div\", null, [Yet, mp(\"dd\", null, Yr(v(d[\"value\"][\"skill\"][\"matches\"])), 1)]), mp(\"div\", null, [Jet, mp(\"dd\", null, Yr(v(d[\"value\"][\"skill\"][\"playTimeMs\"])), 1)]), mp(\"div\", null, [Zet, mp(\"dd\", null, Yr(d[\"value\"][\"skill\"][\"newcomer\"] ? \"Active\" : \"Ended\"), 1)])]), !(\"stored\" === d[\"value\"][\"skillState\"]) ? (np(), op(\"p\", ett, \" Stored skill is \" + Yr(d[\"value\"][\"skillState\"]) + \". Matchmaking uses the fallback shown here: rating 0 with experience restored from aggregate statistics. Inspect"
+        }
+      ]
+    },
+    {
+      "key": "[\"joinOrCreate\"]",
+      "count": 2,
+      "contexts": [
+        {
+          "offset": 3361307,
+          "line": 70922,
+          "source": "n\"](e => {\n          const n = s[t][\"settings\"];\n          return console[\"log\"](`${\"\\uD83D\\uDEDC Endpoint Latency: \"}${e}${\"ms - \"}${n[\"hostname\"]}${\":\"}${n[\"port\"]}${n[\"pathname\"]}`), [t, e];\n        }))))[\"filter\"](e => !(\"fulfilled\" !== e[\"status\"]))[\"map\"](e => e[\"value\"]);\n        if (!(0 !== i[\"length\"])) throw new Yi[\"Error\"](\"All endpoints failed to respond\");\n        return s[i[\"sort\"]((e, t) => e[1] - t[1])[0][0]];\n      }\n      async [\"joinOrCreate\"](e, t = {}, n) {\n        return await this[\"createMatchMakeRequest\"](\"joinOrCreate\", e, t, n);\n      }\n      async [\"create\"](e, t = {}, n) {\n        return await this[\"createMatchMakeRequest\"](\"create\", e, t, n);\n      }\n      async [\"join\"](e, t = {}, n) {\n        return await this[\"createMatchMakeRequest\"](\"join\", e, t, n);\n      }\n      async [\"joinById\"](e, t = {}, n) {\n        return await this[\"createMatchMakeRequest\"](\"joinById\", e, t, n);\n      }\n      async [\"reconnect\"](e, t) {\n        if (\"string\" == typeof e && \"string\" == typeof t) throw new Yi[\"Error\"](\"DEPRECATED: .reconnect() now only accepts 'reconnectionToken' as argument.\\nYou can get this token from previously connected `room.reconnectionToken`\");\n        const [n, a] = e[\"split\"](\":\");\n        if (!n || !a) throw new Yi[\"Error\"](\"Invalid reconnection token format.\\nThe format should be roomId:reconnectionToken\");\n        return await this[\"createMatchMakeRequest\"](\"reconnect\", n, {\n          [\"reconnectionToken\"]:"
+        },
+        {
+          "offset": 5574015,
+          "line": 106805,
+          "source": "vU\"] !== n) && (this[\"vU\"] = null);\n          }\n        },\n        [\"xU\"](e) {\n          this[\"Lc\"](e);\n          this[\"sQ\"] === e && (this[\"sQ\"] = null), wqe(e);\n        },\n        async [\"Kj\"]() {\n          const e = gqe();\n          e[\"_h\"]();\n          const t = this[\"nI\"];\n          let n = null;\n          try {\n            const t = await _qe()[\"LV\"]();\n            n = _l(new CE(t));\n            this[\"FZ\"] = n;\n            const a = await n[\"joinOrCreate\"](\"Deathmatch\", {\n              [\"token\"]: C3e()[\"dW\"]\n            });\n            if (this[\"FZ\"] !== n || this[\"nI\"]) {\n              return this[\"xU\"](a), null;\n            } else {\n              return this[\"gJ\"] = !1, e[\"_h\"](), this[\"Go\"](a);\n            }\n          } catch (JOn) {\n            return n && !(this[\"FZ\"] === n) || !(this[\"nI\"] === t) || this[\"wG\"](JOn), null;\n          }\n        },\n        async [\"Jo\"]() {\n          const e = gqe();\n          const t = this[\"FZ\"];\n          const n = this[\"nI\"];\n          try {\n            if (!t) throw new Yi[\"Error\"](\"Client is not initialized\");\n            if (!n) throw new Yi[\"Error\"](\"Seat reservation is not initialized\");\n            const a = await t[\"consumeSeatReservation\"](n);\n            if (!(!!(this[\"FZ\"] === t) && !(this[\"nI\"] !== n))) {\n              return this[\"xU\"](a), null;\n            } else {\n              return this[\"gJ\"] = !1, e[\"_h\"](), this[\"Go\"](a);\n            }\n          } catch (JOn) {\n            return"
+        }
+      ]
+    },
+    {
+      "key": "[\"joinById\"]",
+      "count": 2,
+      "contexts": [
+        {
+          "offset": 3361672,
+          "line": 70931,
+          "source": "ond\");\n        return s[i[\"sort\"]((e, t) => e[1] - t[1])[0][0]];\n      }\n      async [\"joinOrCreate\"](e, t = {}, n) {\n        return await this[\"createMatchMakeRequest\"](\"joinOrCreate\", e, t, n);\n      }\n      async [\"create\"](e, t = {}, n) {\n        return await this[\"createMatchMakeRequest\"](\"create\", e, t, n);\n      }\n      async [\"join\"](e, t = {}, n) {\n        return await this[\"createMatchMakeRequest\"](\"join\", e, t, n);\n      }\n      async [\"joinById\"](e, t = {}, n) {\n        return await this[\"createMatchMakeRequest\"](\"joinById\", e, t, n);\n      }\n      async [\"reconnect\"](e, t) {\n        if (\"string\" == typeof e && \"string\" == typeof t) throw new Yi[\"Error\"](\"DEPRECATED: .reconnect() now only accepts 'reconnectionToken' as argument.\\nYou can get this token from previously connected `room.reconnectionToken`\");\n        const [n, a] = e[\"split\"](\":\");\n        if (!n || !a) throw new Yi[\"Error\"](\"Invalid reconnection token format.\\nThe format should be roomId:reconnectionToken\");\n        return await this[\"createMatchMakeRequest\"](\"reconnect\", n, {\n          [\"reconnectionToken\"]: a\n        }, t);\n      }\n      async [\"consumeSeatReservation\"](e, t) {\n        const n = this[\"createRoom\"](e[\"name\"], t);\n        n[\"roomId\"] = e[\"roomId\"], n[\"sessionId\"] = e[\"sessionId\"];\n        const a = {\n          [\"sessionId\"]: n[\"sessionId\"]\n        };\n        return e[\"reconnectionToken\"] && (a[\"reconnectionToken\"] = e[\"reconnectionToken\"]), n[\"co"
+        },
+        {
+          "offset": 5586774,
+          "line": 107117,
+          "source": "\"dropWeaponAfterDeath\"]: a[\"dropWeaponAfterDeath\"],\n                  [\"airborneSpeedMode\"]: a[\"airborneSpeedMode\"]\n                })\n              },\n              [\"token\"]: u[\"dW\"],\n              [\"key\"]: 0,\n              ...(!g ? {} : {\n                [\"banReceipt\"]: g\n              }),\n              [\"isPoki\"]: h[\"Qz\"],\n              [\"isMobile\"]: h[\"uo\"],\n              [\"q\"]: d(m)\n            };\n            const y = n[\"roomId\"] ? await f[\"joinById\"](n[\"roomId\"], v) : await f[\"create\"](\"lobby\", v);\n            y[\"onMessage\"](\"ban-receipt-ack\", e => {\n              en(e) && !(e !== g) && Wi(\"banReceipt\") === e && $i(\"banReceipt\", \"\");\n            }), this[\"sQ\"] = _l(y);\n            const w = u[\"uN\"][\"clan\"]?.[\"id\"] ?? null;\n            if (this[\"Dv\"] = [], this[\"QQ\"] = w, this[\"t_\"] = null, this[\"EO\"] = null, this[\"Qh\"] = null, this[\"w1\"] = !1, this[\"EA\"] = !1, this[\"jy\"] = \"CONNECTED\", this[\"lH\"] = null, this[\"Qw\"] = null, y[\"onStateChange\"](e => {\n              const t = e[\"toJSON\"]();\n              const n = t[\"lobbySettings\"];\n              const a = !n ? {\n                [\"public\"]: !1,\n                [\"gameModes\"]: [],\n                [\"isCustomMatch\"]: !1,\n                [\"customMatchSettings\"]: Dqe()\n              } : {\n                [\"public\"]: n[\"public\"] ?? !1,\n                [\"gameModes\"]: n[\"gameModes\"] ?? [],\n                [\"isCustomMatch\"]: n[\"isCustomMatch\"] ?? !1,\n                [\"customMatchSettings\"]: n["
+        }
+      ]
+    },
+    {
+      "key": "[\"onStateChange\"]",
+      "count": 5,
+      "contexts": [
+        {
+          "offset": 1805377,
+          "line": 29705,
+          "source": "elTexture\"][\"needsUpdate\"] = !0, e[\"lastLabelText\"] = t;\n      }\n    }[\"Cv\"],\n    $KW = {\n      [\"Jl\"]() {\n        const e = this[\"k5\"][\"splice\"](0);\n        return e[\"some\"](e => \"DROP_WEAPON\" === e[\"key\"]) && (this[\"xX\"][\"md\"][\"SV\"][\"Qm\"] = !1), e;\n      }\n    }[\"Jl\"],\n    $ix = {\n      [\"jE\"](e) {\n        return this[\"gt\"][\"EK\"] = e, this;\n      }\n    }[\"jE\"],\n    $kO = {\n      [\"removeAllListeners\"]() {\n        this[\"onJoin\"][\"clear\"](), this[\"onStateChange\"][\"clear\"](), this[\"onError\"][\"clear\"]();\n        this[\"onLeave\"][\"clear\"](), this[\"onReconnect\"][\"clear\"](), this[\"onDrop\"][\"clear\"]();\n        this[\"onMessageHandlers\"][\"events\"] = {};\n        this[\"serializer\"] instanceof iS && (this[\"serializer\"][\"decoder\"][\"root\"][\"callbacks\"] = {});\n      }\n    }[\"removeAllListeners\"],\n    $Ik = {\n      [\"PM\"](e) {\n        this[\"HV\"] = Ns(e) - e / 2;\n      }\n    }[\"PM\"],\n    $nP = {\n      [\"attach\"](e) {\n        return this[\"updateWorldMatrix\"](!0, !1), WT[\"copy\"](this[\"matrixWorld\"])[\"invert\"](), !(null === e[\"parent\"]) && (e[\"parent\"][\"updateWorldMatrix\"](!0, !1), WT[\"multiply\"](e[\"parent\"][\"matrixWorld\"])), e[\"applyMatrix4\"](WT), this[\"add\"](e), e[\"updateWorldMatrix\"](!1, !0), this;\n      }\n    }[\"attach\"],\n    $fh = 0.989313006401062,\n    $OP = {\n      [\"Ad\"]() {\n        const e = this[\"lG\"];\n        const t = {\n          [\"velocityDiv\"]: document[\"createElement\"](\"div\"),\n          [\"feetPositionDiv\"]: document[\"createElement\"](\"div\"),\n       "
+        },
+        {
+          "offset": 3344882,
+          "line": 70534,
+          "source": "rototype\"][\"setState\"] = $kE;\n  iS[\"prototype\"][\"getState\"] = $kF;\n  iS[\"prototype\"][\"patch\"] = $kG;\n  iS[\"prototype\"][\"teardown\"] = $kH;\n  iS[\"prototype\"][\"handshake\"] = $kI;\n  function rS() {\n    if (\"undefined\" != typeof performance) {\n      return performance[\"now\"]();\n    } else {\n      return Yi[\"Date\"][\"now\"]();\n    }\n  }\n  var oS = class {\n    [\"roomId\"];\n    [\"sessionId\"];\n    [\"reconnectionToken\"];\n    [\"name\"];\n    [\"connection\"];\n    [\"onStateChange\"] = $_G(211);\n    [\"onError\"] = $_G(211);\n    [\"onLeave\"] = $_G(211);\n    [\"onReconnect\"] = $_G(211);\n    [\"onDrop\"] = $_G(211);\n    [\"onJoin\"] = $_G(211);\n    [\"serializerId\"];\n    [\"serializer\"];\n    [\"reconnection\"] = {\n      [\"enabled\"]: !0,\n      [\"retryCount\"]: 0,\n      [\"maxRetries\"]: 15,\n      [\"delay\"]: 100,\n      [\"minDelay\"]: 100,\n      [\"maxDelay\"]: 5e3,\n      [\"minUptime\"]: 5e3,\n      [\"backoff\"]: lS,\n      [\"maxEnqueuedMessages\"]: 10,\n      [\"enqueuedMessages\"]: [],\n      [\"isReconnecting\"]: !1\n    };\n    [\"joinedAtTime\"] = 0;\n    [\"onMessageHandlers\"] = nS();\n    [\"packr\"];\n    #t = 0;\n    #n = void 0;\n    constructor(e, t) {\n      if (this[\"name\"] = e, this[\"packr\"] = new Lk(), this[\"packr\"][\"encode\"](void 0), t) {\n        const e = new (tS(\"schema\"))();\n        this[\"serializer\"] = e;\n        const n = new t();\n        e[\"state\"] = n, e[\"decoder\"] = new f_(n);\n      }\n      this[\"onLeave\"](() => {\n        this[\"removeAllListeners\"](), this[\"destroy\"]();\n      });\n    }\n"
+        },
+        {
+          "offset": 3348038,
+          "line": 70606,
+          "source": "ion\"][\"send\"](this[\"packr\"][\"buffer\"][\"subarray\"](0, 1)), this[\"reconnection\"][\"enqueuedMessages\"][\"length\"] > 0) {\n          for (const e of this[\"reconnection\"][\"enqueuedMessages\"]) this[\"connection\"][\"send\"](e[\"data\"]);\n          this[\"reconnection\"][\"enqueuedMessages\"] = [];\n        }\n      } else if (!(11 === a)) {\n        if (!(12 !== a)) this[\"leave\"]();else if (!(14 === a)) {\n          if (15 === a) this[\"serializer\"][\"patch\"](t, n), this[\"onStateChange\"][\"invoke\"](this[\"serializer\"][\"getState\"]());else if (!!(13 !== a)) {\n            if (!!(17 !== a)) !(18 !== a) && (this.#n?.(Yi[\"Math\"][\"round\"](rS() - this.#t)), this.#n = void 0);else {\n              const e = kx[\"stringCheck\"](t, n) ? kx[\"string\"](t, n) : kx[\"number\"](t, n);\n              this[\"dispatchMessage\"](e, t[\"subarray\"](n[\"offset\"]));\n            }\n          } else {\n            const e = !kx[\"stringCheck\"](t, n) ? kx[\"number\"](t, n) : kx[\"string\"](t, n);\n            const a = !(t[\"byteLength\"] > n[\"offset\"]) ? void 0 : wk(t, {\n              [\"start\"]: n[\"offset\"]\n            });\n            this[\"dispatchMessage\"](e, a);\n          }\n        } else this[\"serializer\"][\"setState\"](t, n), this[\"onStateChange\"][\"invoke\"](this[\"serializer\"][\"getState\"]());\n      } else {\n        const e = kx[\"number\"](t, n);\n        const a = kx[\"string\"](t, n);\n        this[\"onError\"][\"invoke\"](e, a);\n      }\n    }\n    [\"dispatchMessage\"]() {}\n    [\"destroy\"]() {}\n    [\"getMessageHandlerKey\"]("
+        }
+      ]
+    },
+    {
+      "key": "ws://127.0.0.1:2567",
+      "count": 1,
+      "contexts": [
+        {
+          "offset": 3359004,
+          "line": 70887,
+          "source": " !e[\"hostname\"][\"includes\"](\"trycloudflare.com\") && !e[\"hostname\"][\"includes\"](\"discordsays.com\") && n[\"length\"] > 2 ? `${\"/\"}${n[0]}` : \"\";\n    return e[\"pathname\"][\"startsWith\"](\"/.proxy\") ? `${e[\"protocol\"]}${\"//\"}${t}${a}${e[\"pathname\"]}${e[\"search\"]}` : `${e[\"protocol\"]}${\"//\"}${t}${\"/.proxy/colyseus\"}${a}${e[\"pathname\"]}${e[\"search\"]}`;\n  }\n  var xS = !(!(\"undefined\" == typeof window) && !(void 0 === window?.[\"location\"]?.[\"hostname\"])) ? \"ws://127.0.0.1:2567\" : `${window[\"location\"][\"protocol\"][\"replace\"](\"http\", \"ws\")}${\"//\"}${window[\"location\"][\"hostname\"]}${window[\"location\"][\"port\"] && `${\":\"}${window[\"location\"][\"port\"]}`}`,\n    _S = class e {\n      static [\"VERSION\"] = \"0.17\";\n      [\"http\"];\n      [\"auth\"];\n      [\"settings\"];\n      [\"urlBuilder\"];\n      constructor(e = xS, t) {\n        if (\"string\" == typeof e) {\n          const t = !e[\"startsWith\"](\"/\") ? new URL(e) : new URL(e, xS);\n          const n = !(\"https:\" !== t[\"protocol\"]) || !(\"wss:\" !== t[\"protocol\"]);\n          const a = Number(t[\"port\"] || (n ? 443 : 80));\n          this[\"settings\"] = {\n            [\"hostname\"]: t[\"hostname\"],\n            [\"pathname\"]: t[\"pathname\"],\n            [\"port\"]: a,\n            [\"secure\"]: n,\n            [\"searchParams\"]: t[\"searchParams\"][\"toString\"]() || void 0\n          };\n        } else !(void 0 !== e[\"port\"]) && (e[\"port\"] = !e[\"secure\"] ? 80 : 443), void 0 === e[\"pathname\"] && (e[\"pathname\"] = \"\"), this[\"settings\"] = e;\n        this[\""
+        }
+      ]
+    }
+  ]
+}

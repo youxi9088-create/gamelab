@@ -1,0 +1,1 @@
+完整原生源码及两个可读分析副本仅保留在52独立NOT-RUNTIME stage：D:\GameLab\temp\direct-cryzen-native-source-20261118-v1。本目录归档19份工具/证明/文档，原17文件保持，不是可运行转换或待验收交付。原源码SHA=db134e38cd649cc7484816ed3e2367ae1e3aa7b238100d3ebc9fcca1b71b9f47。
