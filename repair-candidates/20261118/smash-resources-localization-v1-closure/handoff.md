@@ -1,0 +1,24 @@
+# A组交接：Smash资源本地化候选未交付
+
+
+### 2026-11-18 Smash资源路径本地化候选真实同步与Git归档
+
+本轮测试站2026-11-17T20:33:40Z直连，A93仍35completed/1review/45blocked/9queued/3failed，57未达目标，无新增待验收。SSH94663实际完成原请求，未重连、未调用旧70702/94169；无新模型/转换/浏览器/自动接续。其他A/B分工、人工暂停、取消/跳过、Cow不重投、采集不重发及下游暂停全部保持。
+
+本轮从只读材料推进到真实资源本地化候选work-resource-localization-v1-markupfix-20261118：202文件/260820922字节。162原bundle原字节/SHA不变，两份原目录各83个HTTP内部资源ID改为同源相对路径，其余目录字段/编码键表/依赖和bundle hash均保留。只证明两个目录的引用闭包，动态StreamingAssets和其他运行期加载仍未证全，不称整款内容完整。
+
+原WASM4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a、框架、loader保持。桌面/移动两个UnityWebData仅对原metadata中class a field9000的既有RVA字符串前缀做等长路径修改：原https://smashkartsgc.b-cdn.net/assetbundles/remote/webgl/替换为./assets/smash-original-webgl-bundles-20261118-source-v1/，均57字节。实际二进制差异每份53字节，57是允许的连续区域宽度，不能误报57个字节均不同。原32字节格式异或和RVA异或编码保留，31版本头、其他metadata字节、外层9成员边界、其他8成员及UnityFS保持，不改账号、收益、原玩法、授权限制或引擎检查。
+
+原构建已被HTTP解压的文件不继续误用.br扩展名：候选Build改用.data/.wasm/.js，HTML原dataUrl/frameworkUrl/codeUrl/loaderUrl同步本地路径。6个已捕获SDK脚本仅改为本地原文件引用；它们和auth/main/广告等内部在线消费者仍未退役，不宣称离线。原静态HTML/CSS引用闭包已核查，Apple touch icon元数据映射现有原favicon。原Google字体CSS声明的4份WOFF2及两份目录同名.hash正常HTTPS首次GET200，curl绕代理、TLS未绕过，无API/登录请求或扫描批次。
+
+原.hash实际f28623a975543fb35e35b2bb186d56fe、dc4233b10d8dc62b76ac3d82392c3bb1，均不等于m_BuildResultHash也不是文件MD5。依据Unity公开文档与Bob Jenkins public-domain SpookyHash V2实现小端Hash128；2个独立Unity公开向量、两份原目录和真实.hash全部匹配。新目录实际字节重新计算.hash，在52重算一致；没有把旧缓存哈希硬套新目录、赋空值或禁用校验。官方参考在候选README，原配套文件和值随intake保存。
+
+本地第一次准备因原HTML字体URL用了&amp;实体断言停止，原不完整work-resource-localization-v1-20261118保留，没有启动游戏。独立markupfix准备正确处理实际HTML；支持材料摘要对Windows换行的canonical/实际文件SHA分别核对，最终recipe绑定真实字节，不修改游戏校验或放宽SHA。两次都是准备工具的问题，不计游戏输入或运行失败。
+
+52由原不可变native/addressables材料轻量配方组装D:\GameLab\temp\direct-smash-resources-localized-v1-20261118，真正210项SHA通过，manifest 76624adbf8badde5cd212f6811a2c8bdd6b8acd8103acedaefe860744621934e；202候选文件、两份metadata解码路径范围、原UnityFS保持、目录哈希与每个资源引用存在均核对。只上传约0.33MB配方/改动/字体，由52复制原资源，不重传原162包；没有启动新HTTP端口或游戏。原job-3db06205247a整行前后一致，仍blocked/round3/versionnull、非暂停，正常幂等work-log一次，不安装/接续/入库/供货。
+
+完整候选与工具GitHub ad9cd7866e9214ec7a414c50867cba64c098dbf8，215实际blob逐SHA、push0、ls-remote一致。第一次git add确实遇Windows Filename too long，HEAD仍37e0f8a、index无暂存，未反复重建归档；核对既有scope全部SHA后仅本次git -c core.longpaths=true add接续，原提交/文件不删、不改系统或全局Git设置。原约50.6MiB WASM正常推送成功，非上传失败。
+
+当前pending-direct-status已更新为资源候选/SDK初始化待完成，旧状态原字节保存在pending-direct-status-before-resource-localization-v1-20261118.json；原任务/库产物不受影响。V5.1十六维、未知独占耗时/Token/缓存/费用null完整；累计0/5，保留全部试玩额度。Level Devil旧v4授权18/18不重用；Little Alchemy v3和跑酷小人SDKv2追加5步问题仍待答，人工暂停不解除。
+
+下一步必须真正退役SDK/账号/广告消费者并建立显式本地配置、房间、角色和AI启动链，然后在52用原节点实际试玩验证；资源候选不等于单机完成。当前目标active，本轮实际运行材料修改/52组装/Git完整候选归档属于进展，全部A目标尚未实现。
