@@ -1,0 +1,191 @@
+{
+  "source_only": true,
+  "runtime_executed": false,
+  "files": [
+    {
+      "name": "41c0f438c941cb52e5a25dae21ba9c27.framework.js.br",
+      "sha256": "b15aea1228fc6ddd927b0e19fefaebcea79733ff554f8da8f8de809d34a7e7b2",
+      "matches": [
+        {
+          "term": "global-metadata",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "metadata",
+          "count": 4,
+          "snippets": [
+            "s*4};soundClip.getNumberOfChannels=function(){if(!this.buffer){console.log(\"Trying to get metadata of sound which is not loaded.\");return 0}return this.buffer.numberOfChannels};soundClip.getFrequency=function(){if(!this.buffer){console.log(\"Trying to get metadata of sound which",
+            "OfChannels};soundClip.getFrequency=function(){if(!this.buffer){console.log(\"Trying to get metadata of sound which is not loaded.\");return 0}return this.buffer.sampleRate};soundClip.createSourceNode=function(){if(!this.buffer){console.log(\"Trying to play sound which is not loade",
+            "createObjectURL(blob),error:false,mediaElement:new Audio};soundClip.mediaElement.preload=\"metadata\";soundClip.mediaElement.src=soundClip.url;soundClip.release=function(){if(!this.mediaElement){return}this.mediaElement.src=\"\";URL.revokeObjectURL(this.url);delete this.mediaElemen"
+          ]
+        },
+        {
+          "term": "decrypt",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "Decrypt",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "Crypto",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "XOR",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "HEAPU8",
+          "count": 41,
+          "snippets": [
+            "1023)}}}return str}function UTF8ToString(ptr,maxBytesToRead){return ptr?UTF8ArrayToString(HEAPU8,ptr,maxBytesToRead):\"\"}function stringToUTF8Array(str,heap,outIdx,maxBytesToWrite){if(!(maxBytesToWrite>0))return 0;var startIdx=outIdx;var endIdx=outIdx+maxBytesToWrite-1;for(var",
+            "x-startIdx}function stringToUTF8(str,outPtr,maxBytesToWrite){return stringToUTF8Array(str,HEAPU8,outPtr,maxBytesToWrite)}function lengthBytesUTF8(str){var len=0;for(var i=0;i<str.length;++i){var u=str.charCodeAt(i);if(u>=55296&&u<=57343)u=65536+((u&1023)<<10)|str.charCodeAt(+",
+            "{HEAP8[buffer++>>0]=str.charCodeAt(i)}if(!dontAddNull)HEAP8[buffer>>0]=0}var buffer,HEAP8,HEAPU8,HEAP16,HEAPU16,HEAP32,HEAPU32,HEAPF32,HEAPF64;function updateGlobalBufferAndViews(buf){buffer=buf;Module[\"HEAP8\"]=HEAP8=new Int8Array(buf);Module[\"HEAP16\"]=HEAP16=new Int16Array(b"
+          ]
+        },
+        {
+          "term": ".data",
+          "count": 12,
+          "snippets": [
+            "ssages:[]};socket.socket.binaryType=\"arraybuffer\";socket.socket.onmessage=function(e){if(e.data instanceof ArrayBuffer){var array=new Uint8Array(e.data);socket.messages.push(array)}};socket.socket.onclose=function(e){if(e.code!=1e3){if(e.reason!=null&&e.reason.length>0)socke",
+            ".socket.onmessage=function(e){if(e.data instanceof ArrayBuffer){var array=new Uint8Array(e.data);socket.messages.push(array)}};socket.socket.onclose=function(e){if(e.code!=1e3){if(e.reason!=null&&e.reason.length>0)socket.error=e.reason;else{switch(e.code){case 1001:socket.er",
+            "tream.fd)};peer.socket.onmessage=function peer_socket_onmessage(event){handleMessage(event.data)};peer.socket.onerror=function(error){sock.error=14;Module[\"websocket\"].emit(\"error\",[sock.stream.fd,sock.error,\"ECONNREFUSED: Connection refused\"])}}},poll:function(sock){if(sock"
+          ]
+        },
+        {
+          "term": "firebase",
+          "count": 4,
+          "snippets": [
+            "oadRemoteConfigs(()=>console.log(\"Remote configs loaded!\"))}function _LogEvent(eventName){firebaseLogEvent(UTF8ToString(eventName))}function _LogEventWithParam(eventName,p,v){firebaseLogEventWithParam(UTF8ToString(eventName),UTF8ToString(p),v)}function _LogEventWithParamDict(ev",
+            "ame){firebaseLogEvent(UTF8ToString(eventName))}function _LogEventWithParam(eventName,p,v){firebaseLogEventWithParam(UTF8ToString(eventName),UTF8ToString(p),v)}function _LogEventWithParamDict(eventName,paramsDictJsonString){firebaseLogEventWithParamDict(UTF8ToString(eventName),U",
+            "tName),UTF8ToString(p),v)}function _LogEventWithParamDict(eventName,paramsDictJsonString){firebaseLogEventWithParamDict(UTF8ToString(eventName),UTF8ToString(paramsDictJsonString))}function _LogEventWithParamString(eventName,p,v){firebaseLogEventWithParam(UTF8ToString(eventName)"
+          ]
+        },
+        {
+          "term": "firebaseConfig",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "Addressables",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "StreamingAssets",
+          "count": 2,
+          "snippets": [
+            "ystemInfo.width;HEAPF64[outHeight>>3]=Module.SystemInfo.height}function _JS_SystemInfo_GetStreamingAssetsURL(buffer,bufferSize){if(buffer)stringToUTF8(Module.streamingAssetsUrl,buffer,bufferSize);return lengthBytesUTF8(Module.streamingAssetsUrl)}function _JS_SystemInfo_HasAstcHdr(){va",
+            "nfo_GetPreferredDevicePixelRatio,\"gg\":_JS_SystemInfo_GetScreenSize,\"Cc\":_JS_SystemInfo_GetStreamingAssetsURL,\"Fg\":_JS_SystemInfo_HasAstcHdr,\"Ub\":_JS_SystemInfo_HasCursorLock,\"sg\":_JS_SystemInfo_HasFullscreen,\"za\":_JS_SystemInfo_HasWebGL,\"Zf\":_JS_SystemInfo_IsMobile,\"Tf\":_JS_UnityEngin"
+          ]
+        },
+        {
+          "term": "instantiateWasm",
+          "count": 3,
+          "snippets": [
+            "ionResult)})})}else{return instantiateArrayBuffer(receiveInstantiationResult)}}if(Module[\"instantiateWasm\"]){try{var exports=Module[\"instantiateWasm\"](info,receiveInstance);return exports}catch(e){err(\"Module.instantiateWasm callback failed with error: \"+e);return false}}instantiateAs",
+            "Buffer(receiveInstantiationResult)}}if(Module[\"instantiateWasm\"]){try{var exports=Module[\"instantiateWasm\"](info,receiveInstance);return exports}catch(e){err(\"Module.instantiateWasm callback failed with error: \"+e);return false}}instantiateAsync().catch(readyPromiseReject);return{}}va",
+            "ports=Module[\"instantiateWasm\"](info,receiveInstance);return exports}catch(e){err(\"Module.instantiateWasm callback failed with error: \"+e);return false}}instantiateAsync().catch(readyPromiseReject);return{}}var tempDouble;var tempI64;var ASM_CONSTS={6234712:function(){var u8=Module.HE"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "loader-existing-proxy-response.bin",
+      "sha256": "0660ba32bdf71fc21fbf087b41b6b60b0d2de83431c8a2209d4b47b2f939c4f5",
+      "matches": [
+        {
+          "term": "global-metadata",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "metadata",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "decrypt",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "Decrypt",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "Crypto",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "XOR",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "HEAPU8",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": ".data",
+          "count": 12,
+          "snippets": [
+            "tributes:{preserveDrawingBuffer:!1,powerPreference:2},cacheControl:function(e){return e==l.dataUrl||e.match(/\\.bundle/)?\"must-revalidate\":\"no-store\"},streamingAssetsUrl:\"StreamingAssets\",downloadProgress:{},deinitializers:[],intervals:{},setInterval:function(e,t){e=window.se",
+            "ache.put(e,t)})},x.prototype.close=function(){return this.isConnected.then(function(){this.database&&(this.database.close(),this.database=null),this.cache&&(this.cache=null)}.bind(this))},x.prototype.connect=function(){var o=this;return void 0===b?Promise.reject(new Error(\"C",
+            ",x.prototype.close=function(){return this.isConnected.then(function(){this.database&&(this.database.close(),this.database=null),this.cache&&(this.cache=null)}.bind(this))},x.prototype.connect=function(){var o=this;return void 0===b?Promise.reject(new Error(\"Could not connect"
+          ]
+        },
+        {
+          "term": "firebase",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "firebaseConfig",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "Addressables",
+          "count": 0,
+          "snippets": []
+        },
+        {
+          "term": "StreamingAssets",
+          "count": 1,
+          "snippets": [
+            "eturn e==l.dataUrl||e.match(/\\.bundle/)?\"must-revalidate\":\"no-store\"},streamingAssetsUrl:\"StreamingAssets\",downloadProgress:{},deinitializers:[],intervals:{},setInterval:function(e,t){e=window.setInterval(e,t);return this.intervals[e]=!0,e},clearInterval:function(e){delete this.interv"
+          ]
+        },
+        {
+          "term": "instantiateWasm",
+          "count": 0,
+          "snippets": []
+        }
+      ]
+    }
+  ],
+  "metadata": [
+    {
+      "file": "native-unpacked-20261117/e906ad610c88fe82b2d0199b3cc0e7fb/Il2CppData/Metadata/global-metadata.dat",
+      "sha256": "96487f62ad949a157b57bede09699230cb2663190963be83e9b063b243ff4624",
+      "printable_identifiers": 346,
+      "gameplay_hints": []
+    },
+    {
+      "file": "native-unpacked-20261117/0a3efef53b64864ab981529f48d1a272/Il2CppData/Metadata/global-metadata.dat",
+      "sha256": "dc23aab46c277a1951699810c815fe05d05e29fc61aecc68632a4498b101918a",
+      "printable_identifiers": 346,
+      "gameplay_hints": []
+    }
+  ]
+}
