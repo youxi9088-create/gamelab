@@ -1,0 +1,15 @@
+{
+  "revision": "mancala-offline-v1",
+  "maximum_cumulative_UI_inputs": 5,
+  "UI_used": 0,
+  "steps": [
+    "1 exact offline native entry",
+    "2 native splash Play",
+    "3 native difficulty selection to original CPU game, if visible",
+    "4 one visible legal pit; observe original sow/capture/store/CPU reaction",
+    "5 one more native legal pit or reload only if useful within remaining budget"
+  ],
+  "no_business_handler_or_engine_method_calls": true,
+  "no_game_state_or_save_injection": true,
+  "limits": "No full-match/end/reload/mobile/other difficulties claim without observation; never remove native onboarding to fit the budget."
+}

@@ -1,0 +1,96 @@
+{
+  "category": "Mancala播棋 / 本地CPU棋盘对弈",
+  "dimension": "2D",
+  "perspective": "",
+  "core_gameplay": "从己方六个坑选择有石的一坑，逐坑播撒石子，争取把更多石子放入己仓。原本地CPU逻辑与额外回合、对坑吃子和收尾规则保留；本轮实际观察一次玩家播撒和CPU回应。",
+  "core_experience": "",
+  "controls": "鼠标通过原Play、Player vs Computer、Medium进入对局，点击底排最左坑。5次输入严格为1次导航加4次单击，每次单击为真实鼠标move/down/up；未调用任何落子、AI、结算业务方法，未写游戏状态或存储。",
+  "game_loop": "",
+  "content": "原独立Mancala对局，无预设关卡序列。原本机双人、人机以及Easy/Medium/Hard三档菜单保留，仅实际选择Medium；未宣称另两档、本地双人或完整胜负测试通过。",
+  "progression": "",
+  "save": "",
+  "rules": "Board整段源码SHA256为9b223debc09ff323001f296f27bfdf4c6190d88abf57ac65725200c8103cad4c，与原包完全一致；Move、Player、Marble三个模块原字节保留。所有布局、对象定义及其他事件表不变；普通落子、AI、捕获和终局事件自身负载逐项核对。广告奖励撤销不改成免费奖励，原非广告条件下的撤销仍按原IsAdsAllowed反条件与原Board方法执行。",
+  "systems": "移除入口MSStart SDK、7个SDK函数体和1个奖励专用撤销回调，参考表8个未使用槽位置null保持其余原索引，不提供可调用SDK替身。data.json整个广告事件组、Reward_ES和相应include退役；普通插屏调用改为销毁广告绑定撤销按钮，奖励图标使用原销毁动作在对局初始化清除。原引擎和本地工作线程、棋盘类/AI/石子类保持。",
+  "ui_flow": "",
+  "level_design": "",
+  "verification": "累计5次真实输入：导航原入口→点击Play→选择Player vs Computer→选择Medium→点击底排最左方可见合法坑（367,560）。随后仅只读观察原动画和CPU，无第6次游戏输入。初始12坑各4石、两仓0；玩家0号坑4→0，1至4号坑各4→5。原CPU自动连走两次（含原落入己仓的额外回合），最终7号坑0、8至12号坑为5/1/6/6/5，CPU仓13为1，玩家仓6仍0，总石数48不变，画面交回玩家。截图001至005已打开核对，其中005是同一第5步后动画稳定的只读截图；原第5步进行中截图另存证据。未验证整局胜负、吃子、刷新、其余难度、本地双人、手机或声音听感。76个请求、76个响应全部本地同源HTTP200；0外联、失败、缺失、脚本异常和控制台警告。$msstart始终不存在，原广告符号、加载标志和广告撤销按钮在实际对局均不存在。浏览器43136已关闭，真实exit0。",
+  "evidence": "",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "engine": "Construct3 / Canvas",
+  "programming_language": "JavaScript、HTML、JSON、CSS",
+  "game_summary": "",
+  "resource_types": "",
+  "engine_asset_system": "",
+  "core_challenge_details": "",
+  "core_challenge_type": "",
+  "input_elements": "",
+  "app_suitability": "",
+  "core_loop": "",
+  "churn_risk": "",
+  "progression_loop": "",
+  "core_closure": "",
+  "loop_completeness": "",
+  "playability": "",
+  "key_numbers": "",
+  "level_structure": "",
+  "system_completeness": "",
+  "theme_details": "",
+  "theme_position": "",
+  "economy": "",
+  "roles": "",
+  "roster_summary": "",
+  "monetization_details": "",
+  "monetization": "",
+  "specification": {
+    "template_version": "5.1",
+    "sections": {
+      "basic_facts": "Classic Mancala，MSN原生项目9n88xcbppjjg/v1，Pikoya；Construct3导出的HTML/JavaScript/JSON/Canvas运行源码。原项目1.0.3.0、逻辑画面1920×1080，实测桌面浏览器1440×900；原useWorker:false保持，不改变引擎模式。手机未测。",
+      "asset_types": "79份原运行文件已按下载回执逐字节核对，修订保留75份原字节，修改入口、data.json、objRefTable和scriptsInEvents共4份。原木纹棋盘、彩色玻璃石、机器人/玩家、按钮、字体、6份WebM Opus音频保留；53项图像/字体/图标、6音频和2任务worker实际取得。原错误512X512 (1).png链接真实404，仅删除该声明，保留原有效图标，不伪造替图。",
+      "core_challenge": "从己方六个坑选择有石的一坑，逐坑播撒石子，争取把更多石子放入己仓。原本地CPU逻辑与额外回合、对坑吃子和收尾规则保留；本轮实际观察一次玩家播撒和CPU回应。",
+      "controls": "鼠标通过原Play、Player vs Computer、Medium进入对局，点击底排最左坑。5次输入严格为1次导航加4次单击，每次单击为真实鼠标move/down/up；未调用任何落子、AI、结算业务方法，未写游戏状态或存储。",
+      "behavior_path": "木纹标题Play→原双人/人机菜单→原Easy/Medium/Hard难度弹窗→Medium原14坑棋盘→选择底排左坑→原播撒动画→CPU连续回应→原绿色Player 1 Turn指示，交还玩家。",
+      "game_path": "累计5次真实输入：导航原入口→点击Play→选择Player vs Computer→选择Medium→点击底排最左方可见合法坑（367,560）。随后仅只读观察原动画和CPU，无第6次游戏输入。初始12坑各4石、两仓0；玩家0号坑4→0，1至4号坑各4→5。原CPU自动连走两次（含原落入己仓的额外回合），最终7号坑0、8至12号坑为5/1/6/6/5，CPU仓13为1，玩家仓6仍0，总石数48不变，画面交回玩家。截图001至005已打开核对，其中005是同一第5步后动画稳定的只读截图；原第5步进行中截图另存证据。未验证整局胜负、吃子、刷新、其余难度、本地双人、手机或声音听感。",
+      "progression_path": "原对局、返回菜单、普通重开与本地规则帮助保留；首次进入没有写入存储键，刷新及教程完成存档未实测。没有新增账号、服务器进度或关卡解锁，也未用预置存档跳过菜单。",
+      "core_loop": "选己方非空坑→原Board.playerChoseMove和Move计算播撒/吃子/额外回合→原事件表播放移石与数字变化→原换手或继续→本地CPU原算法选坑→原终局检查和剩余石收集。实测只有首次玩家/CPU往返，未运行终局。",
+      "gameplay_rules": "Board整段源码SHA256为9b223debc09ff323001f296f27bfdf4c6190d88abf57ac65725200c8103cad4c，与原包完全一致；Move、Player、Marble三个模块原字节保留。所有布局、对象定义及其他事件表不变；普通落子、AI、捕获和终局事件自身负载逐项核对。广告奖励撤销不改成免费奖励，原非广告条件下的撤销仍按原IsAdsAllowed反条件与原Board方法执行。",
+      "key_numbers": "原每方6坑、每坑4石、每方24石、含2仓共14坑、总48石。实测初始两仓0，首轮后CPU仓1、玩家仓0，总48；玩家底排为0/5/5/5/5/4，CPU顶排从左到右5/6/6/1/5/0。Board源码ENOUGH_POINTS_TO_WIN25和DEPTH6存在，原移动端setDepth改4的逻辑保留；这些源码常量不代表已验证全部终局或难度。",
+      "level_configuration": "原独立Mancala对局，无预设关卡序列。原本机双人、人机以及Easy/Medium/Hard三档菜单保留，仅实际选择Medium；未宣称另两档、本地双人或完整胜负测试通过。",
+      "system_design": "移除入口MSStart SDK、7个SDK函数体和1个奖励专用撤销回调，参考表8个未使用槽位置null保持其余原索引，不提供可调用SDK替身。data.json整个广告事件组、Reward_ES和相应include退役；普通插屏调用改为销毁广告绑定撤销按钮，奖励图标使用原销毁动作在对局初始化清除。原引擎和本地工作线程、棋盘类/AI/石子类保持。",
+      "theme": "原木纹地板、木制双排棋盘、彩色玻璃石、机器人CPU头像、玩家头像、原英文菜单和双方回合指示保留；实际画面显示数字、落子后空坑及CPU仓石。没有生成替代核心素材。",
+      "progression_economy": "仓中石数为原胜负统计，不新增金币、支付、成长或奖励。原广告撤销入口退役，不发送广告成功、免费撤销或伪造奖励；本地原非广告分支不改变其资格条件。",
+      "roster": "原玩家与机器人CPU、12个小坑和2个计分仓、48枚彩色石、原难度菜单、设置/规则/普通重开保留。装饰头像不代表网络身份。",
+      "monetization": "原MSStart平台探测、安装提示、奖励广告/插屏加载展示及调用物理退役；本包未发现在线房间、排行榜提交或付费调用。原PVP是同一设备双人，不是服务器联机。最终76次实测请求全部同源；未将请求拦截器当成源码退役证明。"
+    }
+  },
+  "illustrations": [
+    {
+      "path": "screenshots/001.png",
+      "caption": "原Classic Mancala标题"
+    },
+    {
+      "path": "screenshots/002.png",
+      "caption": "原本机双人与人机菜单"
+    },
+    {
+      "path": "screenshots/003.png",
+      "caption": "原CPU难度选择"
+    },
+    {
+      "path": "screenshots/004.png",
+      "caption": "原初始14坑48石"
+    },
+    {
+      "path": "screenshots/005.png",
+      "caption": "同一第5步后只读观察：原CPU回应后交回玩家"
+    }
+  ]
+}
