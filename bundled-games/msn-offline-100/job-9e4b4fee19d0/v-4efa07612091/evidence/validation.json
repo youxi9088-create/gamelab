@@ -1,0 +1,57 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "首次v1启动失败，完整保留；原全屏工具随后恢复"
+      },
+      {
+        "type": "checkpoint",
+        "description": "v2启动并进入本地人数选择，2次原始输入"
+      },
+      {
+        "type": "checkpoint",
+        "description": "选择2席与100分，2次原始输入"
+      },
+      {
+        "type": "checkpoint",
+        "description": "关闭原帮助并等待自然发牌，1次原始输入"
+      },
+      {
+        "type": "checkpoint",
+        "description": "点击高亮5/5首牌，原CPU接出2/5；1次原始输入"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "required_external": [],
+    "requests": 47,
+    "network_events": 95,
+    "scope": "远端52真实浏览器累计5项检查，保留首次启动失败。修订v2的第2项为启动与本地入口，第3项为2席与100分目标配置，第4项关闭原帮助并等待原发牌动画，第5项点击高亮5/5首牌；累计7次原始输入，其中旧失败1次。本轮玩家首牌入桌、原CPU接出2/5，两人手牌7/7变6/6、牌桌0变2张、比分仍0/0。只读截图及公开字段读取未改游戏状态；未完成整局、未再次出牌、未测3/4席、150/200分、声音、刷新存档或胜负结算。",
+    "console_warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ]
+  },
+  "accounting": {
+    "observation_start": "2026-11-17T05:46:34.899724+00:00",
+    "observation_end": "2026-11-17T06:04:13.459853+00:00",
+    "elapsed_seconds": 1058.560129404068,
+    "scope": "本款从原入口归档到此刻的观测窗口，包含下载、代码处理、真实浏览器、等待与其他工作；不是独占处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "checkpoints": 5,
+  "cumulative_raw_inputs": 7,
+  "current_revision_raw_inputs": 6,
+  "prior_failure_kept": true,
+  "scope": "远端52真实浏览器累计5项检查，保留首次启动失败。修订v2的第2项为启动与本地入口，第3项为2席与100分目标配置，第4项关闭原帮助并等待原发牌动画，第5项点击高亮5/5首牌；累计7次原始输入，其中旧失败1次。本轮玩家首牌入桌、原CPU接出2/5，两人手牌7/7变6/6、牌桌0变2张、比分仍0/0。只读截图及公开字段读取未改游戏状态；未完成整局、未再次出牌、未测3/4席、150/200分、声音、刷新存档或胜负结算。",
+  "network": "修订v2完整47请求与47响应均同源HTTP200，无外联、失败请求或脚本错误；保留Canvas getImageData性能警告。48项源码资源配方及3项原字体/桌面背景均有原文件SHA，38图片解码通过。首次v1误删原screenfull工具导致的启动异常日志与截图完整保留，原工具已从原包恢复，未用SDK替身。"
+}

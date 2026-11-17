@@ -1,0 +1,92 @@
+{
+  "category": "棋牌 / 多米诺骨牌",
+  "dimension": "2D",
+  "perspective": "",
+  "core_gameplay": "选择点数匹配的手牌接入牌链，与原CPU轮流出牌。实测首手5/5与CPU2/5接牌，双方7→6张。",
+  "core_experience": "",
+  "controls": "点击原本地菜单、人数、目标、帮助与高亮骨牌；双端选择未实测。",
+  "game_loop": "",
+  "content": "原28张双六骨牌，2/3/4席与100/150/200分目标；仅2席100分首手实测。",
+  "progression": "",
+  "save": "原classicdomino本地成绩与人数累计分代码保留，未实测刷新或结算。",
+  "rules": "原双六骨牌28张、每席初始7张；checkFirstTile按最高双牌优先，无双牌再比较总点数。原端点匹配、双向选择、CPU可接牌筛选与点数排序、无牌锁定、轮转、Domino/死局及胜分计算均保留。62个原生基类/单机方法逐项核对：57个规范AST完全一致，5个仅删除原联网遥测事件。",
+  "systems": "保留原本地人数/目标配置、发牌与牌盒动画、玩家手牌、端点匹配、CPU、锁定/轮转、累计分、帮助、音量、全屏及本地成绩。删除PlayerIO客户端、联网房间/登录/邀请、在线匹配及假在线机器人分支、广告/外部成绩事件和外跳。无SDK、身份或服务端回复替身。",
+  "ui_flow": "",
+  "level_design": "",
+  "verification": "远端52真实浏览器累计5项检查，保留首次启动失败。修订v2的第2项为启动与本地入口，第3项为2席与100分目标配置，第4项关闭原帮助并等待原发牌动画，第5项点击高亮5/5首牌；累计7次原始输入，其中旧失败1次。本轮玩家首牌入桌、原CPU接出2/5，两人手牌7/7变6/6、牌桌0变2张、比分仍0/0。只读截图及公开字段读取未改游戏状态；未完成整局、未再次出牌、未测3/4席、150/200分、声音、刷新存档或胜负结算。 修订v2完整47请求与47响应均同源HTTP200，无外联、失败请求或脚本错误；保留Canvas getImageData性能警告。48项源码资源配方及3项原字体/桌面背景均有原文件SHA，38图片解码通过。首次v1误删原screenfull工具导致的启动异常日志与截图完整保留，原工具已从原包恢复，未用SDK替身。",
+  "evidence": "",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "engine": "CreateJS / Howler",
+  "programming_language": "JavaScript、HTML、CSS",
+  "game_summary": "",
+  "resource_types": "",
+  "engine_asset_system": "",
+  "core_challenge_details": "",
+  "core_challenge_type": "",
+  "input_elements": "",
+  "app_suitability": "",
+  "core_loop": "",
+  "churn_risk": "",
+  "progression_loop": "",
+  "core_closure": "",
+  "loop_completeness": "",
+  "playability": "",
+  "key_numbers": "",
+  "level_structure": "",
+  "system_completeness": "",
+  "theme_details": "",
+  "theme_position": "",
+  "economy": "",
+  "roles": "",
+  "roster_summary": "",
+  "monetization_details": "",
+  "monetization": "",
+  "specification": {
+    "template_version": "5.1",
+    "sections": {
+      "basic_facts": "Domino Block / 多米诺骨牌。MSN原生身份9n6ghtwjh637，Code This Lab公开构建v2；本次单机修订domino-offline-v2。JavaScript/HTML/CSS，CreateJS Canvas2D、Howler；原纵向768×1400布局。",
+      "asset_types": "原PNG/JPG木牌、点数、按钮、牌盒、桌面背景、MP3音效、Arial Bold WOFF/WOFF2字体及原JavaScript逻辑。48项源码配方和3项字体/桌面背景保留原URL及SHA，38图片解码通过。",
+      "core_challenge": "观察牌链端点，选择手中点数匹配的牌接入，争取先出完手牌；无合法牌时沿原锁定与轮转规则处理。实测首手5/5及CPU接2/5，未验证整局胜负。",
+      "controls": "本轮使用真实鼠标点击原本地入口、2席、100分、帮助和高亮5/5首牌。原双端可接牌时有左右箭头选择，源码保留但本轮首牌不需要选择；未调用原游戏方法或写入进度。",
+      "behavior_path": "本地入口→原人数选择2席→原目标100分→原帮助→自然牌盒/发牌动画→玩家点击高亮首牌→CPU自然接牌→回到玩家回合。",
+      "game_path": "实测原首页、本地配置、英文帮助、发牌动画、双人桌面、玩家手牌、原CPU回复和合法牌高亮。未测试换目标、重开、完整牌局或刷新恢复。",
+      "progression_path": "原2/3/4席与100/150/200分目标保留，原每局累积分与best score使用本地存储。本轮只选择2席100分且尚未结算，不宣称目标已达成。",
+      "core_loop": "观察：牌链初始空，双方7张。输入：点击原高亮5/5。反馈：首牌入桌，CPU接出2/5，牌桌2张、双方6张，玩家合法牌继续高亮。下一目标：继续匹配端点并争取原设定100分；本轮未追加出牌。",
+      "gameplay_rules": "原双六骨牌28张、每席初始7张；checkFirstTile按最高双牌优先，无双牌再比较总点数。原端点匹配、双向选择、CPU可接牌筛选与点数排序、无牌锁定、轮转、Domino/死局及胜分计算均保留。62个原生基类/单机方法逐项核对：57个规范AST完全一致，5个仅删除原联网遥测事件。",
+      "key_numbers": "源码：TILES_NUMBER28、INITIAL_TILES7，TILE_VALUES覆盖0至6组合，WIN_SCORE[100,150,200]，FPS30、DOMINO_TIMER500、MATCHOVER_TIMER1000、TIME_LOOP_WAIT1000。实测牌桌0→2张、两人手牌各7→6、比分仍0/0；未将计时常量冒充处理耗时。",
+      "level_configuration": "本游戏为原洗牌生成的骨牌对局，无固定关卡表。保留28张牌数组、2/3/4席和100/150/200分目标；本轮仅实际选择2席100分。未修改洗牌、种子或发牌来安排结果。",
+      "system_design": "保留原本地人数/目标配置、发牌与牌盒动画、玩家手牌、端点匹配、CPU、锁定/轮转、累计分、帮助、音量、全屏及本地成绩。删除PlayerIO客户端、联网房间/登录/邀请、在线匹配及假在线机器人分支、广告/外部成绩事件和外跳。无SDK、身份或服务端回复替身。",
+      "theme": "保留原木质桌面、骨牌点数、金色面板和原英文帮助。首页原图片中仍含MULTIPLAYER字样，是原背景图文字；联网按钮、房间和连接代码已移除，实际只提供本地人机玩法。",
+      "progression_economy": "原classicdomino_best_score与classicdomino_scores2/3/4本地记录保留，源码有按人数保存累计成绩及清空逻辑。本轮未结算或刷新；无新增金币、购买、体力或免费广告奖励。",
+      "roster": "原PLAYER1为玩家，PLAYER2为原CPU；源码也保留3/4席配置。操作单位是28张双六骨牌，非角色成长；本轮CPU真实按原端点规则接牌，没有伪造联网玩家。",
+      "monetization": "单机修订删除外部平台启动/通知/推荐/广告、联网登录房间与成绩上传，移除制作方标志的外跳点击。未发现保留的支付流程，不发放广告成功或奖励；原资源、原计分和CPU保持。"
+    }
+  },
+  "illustrations": [
+    {
+      "path": "screenshots/003.png",
+      "caption": "原菜单，本地入口；联网按钮已移除"
+    },
+    {
+      "path": "screenshots/006.png",
+      "caption": "原帮助与100分目标"
+    },
+    {
+      "path": "screenshots/008.png",
+      "caption": "自然发牌后双方7张，高亮5/5首牌"
+    },
+    {
+      "path": "screenshots/010.png",
+      "caption": "玩家5/5与CPU2/5，双方各6张，比分0/0；未完成整局"
+    }
+  ]
+}
