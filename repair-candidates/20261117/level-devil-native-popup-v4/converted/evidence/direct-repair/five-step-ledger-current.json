@@ -1,0 +1,27 @@
+{
+  "previous": {
+    "at": "2026-11-12T20:14:01.476460+00:00",
+    "job_id": "job-ca75d464d2d7",
+    "status": "deferred",
+    "steps_used": 3,
+    "max_steps": 5,
+    "ready_review": false,
+    "remote_job_changed": false,
+    "reason": "原Defold完整归档、WASM及185引擎函数保持原内容，14项Poki边界退役。原地图菜单正常渲染，3步为启动、Space、点首个亮门；后两步均未进入关卡。canvas1280×720且焦点为CANVAS/visible，真实输入接受问题未定位，不将菜单动画算核心玩法。CDP键盘方法被工具拒绝、只读DOM辅助失败均未发送输入，不计额外玩家步。28完整网络事件及原日志和3图保留。按同款多次受阻即暂缓，停止试错，不入库、不改原任务、不计完成。"
+  },
+  "new": [
+    {
+      "step": 4,
+      "action": "Start unchanged native archive/glue on dedicated local origin",
+      "result": "Original three-chapter map menu visible; no gameplay state modified."
+    },
+    {
+      "step": 5,
+      "action": "Focus visible canvas and hold actual Space150ms through documented CUA input",
+      "result": "Native transition completed into original first room, character and exit visible. No movement/jump/clear performed."
+    }
+  ],
+  "steps_used": 5,
+  "remaining": 0,
+  "failed_stale_AX_attempt_sent_input": false
+}
