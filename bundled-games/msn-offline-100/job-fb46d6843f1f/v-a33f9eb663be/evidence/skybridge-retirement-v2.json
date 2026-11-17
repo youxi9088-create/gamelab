@@ -1,0 +1,339 @@
+{
+  "source_sha256": "8f6398ba87128be96aa2202e38e5b150115ea940fe459bbae913aee4bbfeb4af",
+  "runtime_sha256": "f8370c3c3d98aa611ff58119756934ba73cba151a1332dc07b1494340701acd3",
+  "method": "Finite literal AST analysis and exact source-position edits; never whole-program source generation or game execution. No SDK facade, fake identity, server response, ad callback or reward.",
+  "patches": [
+    {
+      "start": 118903,
+      "end": 123255,
+      "text": "",
+      "kind": "Remove complete server/social provider module BotMilestoneManager"
+    },
+    {
+      "start": 223023,
+      "end": 223171,
+      "text": "",
+      "kind": "Remove retired module dependency map"
+    },
+    {
+      "start": 223566,
+      "end": 223666,
+      "text": "",
+      "kind": "Remove retired module dependency map"
+    },
+    {
+      "start": 233703,
+      "end": 246371,
+      "text": "",
+      "kind": "Remove complete server/social provider module LeaderBoardManager"
+    },
+    {
+      "start": 246371,
+      "end": 247601,
+      "text": "",
+      "kind": "Remove complete server/social provider module LeaderBoardTab"
+    },
+    {
+      "start": 247601,
+      "end": 248365,
+      "text": "",
+      "kind": "Remove complete server/social provider module LeaderboardNotiIcon"
+    },
+    {
+      "start": 249044,
+      "end": 253268,
+      "text": "",
+      "kind": "Remove complete server/social provider module NameInputPanel"
+    },
+    {
+      "start": 285226,
+      "end": 288508,
+      "text": "",
+      "kind": "Remove complete server/social provider module database"
+    },
+    {
+      "start": 140347,
+      "end": 140523,
+      "text": "",
+      "kind": "Remove service-only button action OpenMoreGame",
+      "module": "ButtonBehaviour"
+    },
+    {
+      "start": 140814,
+      "end": 140966,
+      "text": "",
+      "kind": "Remove service-only button action OpenLeaderBoard",
+      "module": "ButtonBehaviour"
+    },
+    {
+      "start": 140966,
+      "end": 141117,
+      "text": "",
+      "kind": "Remove service-only button action CloseLeaderBoard",
+      "module": "ButtonBehaviour"
+    },
+    {
+      "start": 141117,
+      "end": 141583,
+      "text": "",
+      "kind": "Remove service-only button action ConfirmName",
+      "module": "ButtonBehaviour"
+    },
+    {
+      "start": 141583,
+      "end": 141755,
+      "text": "",
+      "kind": "Remove service-only button action FindMe",
+      "module": "ButtonBehaviour"
+    },
+    {
+      "start": 141755,
+      "end": 141905,
+      "text": "",
+      "kind": "Remove service-only button action HideRewardPopup",
+      "module": "ButtonBehaviour"
+    },
+    {
+      "start": 141905,
+      "end": 142273,
+      "text": "",
+      "kind": "Remove service-only button action SelectReward",
+      "module": "ButtonBehaviour"
+    },
+    {
+      "start": 212652,
+      "end": 212667,
+      "text": "void 0",
+      "kind": "Remove retired service module import",
+      "module": "GameManager"
+    },
+    {
+      "start": 212706,
+      "end": 212721,
+      "text": "void 0",
+      "kind": "Remove retired service module import",
+      "module": "GameManager"
+    },
+    {
+      "start": 213332,
+      "end": 213361,
+      "text": "void 0",
+      "kind": "Remove retired serialized field initializer",
+      "module": "GameManager"
+    },
+    {
+      "start": 213362,
+      "end": 213391,
+      "text": "void 0",
+      "kind": "Remove retired serialized field initializer",
+      "module": "GameManager"
+    },
+    {
+      "start": 213593,
+      "end": 213786,
+      "text": "void 0",
+      "kind": "Remove entire telemetry-only branch",
+      "module": "GameManager"
+    },
+    {
+      "start": 213788,
+      "end": 215738,
+      "text": "void 0",
+      "kind": "Remove service-only GameManager method gtm_gameReturn",
+      "module": "GameManager"
+    },
+    {
+      "start": 216028,
+      "end": 216193,
+      "text": "void 0",
+      "kind": "Remove entire telemetry-only branch",
+      "module": "GameManager"
+    },
+    {
+      "start": 216279,
+      "end": 216321,
+      "text": "void 0",
+      "kind": "Remove online rank/milestone caller",
+      "module": "GameManager"
+    },
+    {
+      "start": 216322,
+      "end": 216358,
+      "text": "void 0",
+      "kind": "Remove online rank/milestone caller",
+      "module": "GameManager"
+    },
+    {
+      "start": 216655,
+      "end": 217028,
+      "text": "void 0",
+      "kind": "Remove entire telemetry-only branch",
+      "module": "GameManager"
+    },
+    {
+      "start": 217091,
+      "end": 217719,
+      "text": "(this[_0xf00e[394]].DisplayPanel(_0x4cf0xc[_0xf00e[824]].GAME_OVER),this[_0xf00e[349]].SetScoreTextInGameOver())",
+      "kind": "Ordinary original local game-over panel/score branch, independent of online username/rank",
+      "module": "GameManager"
+    },
+    {
+      "start": 217721,
+      "end": 217889,
+      "text": "void 0",
+      "kind": "Remove service-only GameManager method ShowAds",
+      "module": "GameManager"
+    },
+    {
+      "start": 218443,
+      "end": 218485,
+      "text": "void 0",
+      "kind": "Remove online rank/milestone caller",
+      "module": "GameManager"
+    },
+    {
+      "start": 218486,
+      "end": 218522,
+      "text": "void 0",
+      "kind": "Remove online rank/milestone caller",
+      "module": "GameManager"
+    },
+    {
+      "start": 218722,
+      "end": 218887,
+      "text": "void 0",
+      "kind": "Remove entire telemetry-only branch",
+      "module": "GameManager"
+    },
+    {
+      "start": 220290,
+      "end": 220612,
+      "text": "void 0",
+      "kind": "Remove service-only GameManager method OpenLeaderBoard",
+      "module": "GameManager"
+    },
+    {
+      "start": 220613,
+      "end": 220795,
+      "text": "void 0",
+      "kind": "Remove service-only GameManager method CloseLeaderBoard",
+      "module": "GameManager"
+    },
+    {
+      "start": 220796,
+      "end": 220973,
+      "text": "void 0",
+      "kind": "Remove service-only GameManager method ShowRewardPopup",
+      "module": "GameManager"
+    },
+    {
+      "start": 220974,
+      "end": 221151,
+      "text": "void 0",
+      "kind": "Remove service-only GameManager method HideRewardPopup",
+      "module": "GameManager"
+    },
+    {
+      "start": 222207,
+      "end": 222299,
+      "text": "void 0",
+      "kind": "Remove decorators requiring retired components",
+      "module": "GameManager"
+    },
+    {
+      "start": 222300,
+      "end": 222392,
+      "text": "void 0",
+      "kind": "Remove decorators requiring retired components",
+      "module": "GameManager"
+    },
+    {
+      "start": 265175,
+      "end": 265265,
+      "text": "void 0",
+      "kind": "Remove online rank/milestone caller",
+      "module": "ScoreManager"
+    },
+    {
+      "start": 288513,
+      "end": 289109,
+      "text": "[\"BackgroundPalette\",\"GradientMaterial\",\"GradientSprite\",\"BridgeControl\",\"AvatarAnimation\",\"CharacterAnimation\",\"CharacterManager\",\"CharacterMovement\",\"CustomizeManager\",\"CheatManager\",\"ColumnBehaviour\",\"ColumnGeneration\",\"AudioEngine\",\"AudioManager\",\"CameraManager\",\"EffectManager\",\"GameManager\",\"Input\",\"PaletteManager\",\"ScoreManager\",\"StorageManager\",\"AboutAnimation\",\"CharacterAppearAnimation\",\"CoinBehaviour\",\"FireworkAnimation\",\"GameHelper\",\"GlowCircleAnimation\",\"ObjectMovement\",\"SmokeAnimation\",\"AntiAliasing\",\"FXAA\",\"FXAAMaterial\",\"BonusScorePopup\",\"ButtonBehaviour\",\"LevelProgressBar\",\"PanelBehaviour\",\"PanelManager\",\"ScoreNotification\",\"TitleAnimation\",\"UnlockCharacterPopup\"]",
+      "kind": "Remove retired module startup entries"
+    }
+  ],
+  "retired_modules": [
+    "database",
+    "LeaderBoardManager",
+    "LeaderBoardTab",
+    "NameInputPanel",
+    "LeaderboardNotiIcon",
+    "BotMilestoneManager"
+  ],
+  "service_button_actions": [
+    "OpenMoreGame",
+    "OpenLeaderBoard",
+    "CloseLeaderBoard",
+    "ConfirmName",
+    "FindMe",
+    "HideRewardPopup",
+    "SelectReward"
+  ],
+  "serialized_fields_removed": [
+    "leaderBoardManager",
+    "botMilestoneManager"
+  ],
+  "original_modules": 46,
+  "exact_source_byte_unchanged_modules": [
+    "AboutAnimation",
+    "AntiAliasing",
+    "AudioEngine",
+    "AudioManager",
+    "AvatarAnimation",
+    "BackgroundPalette",
+    "BonusScorePopup",
+    "BridgeControl",
+    "CameraManager",
+    "CharacterAnimation",
+    "CharacterAppearAnimation",
+    "CharacterManager",
+    "CharacterMovement",
+    "CheatManager",
+    "CoinBehaviour",
+    "ColumnBehaviour",
+    "ColumnGeneration",
+    "CustomizeManager",
+    "EffectManager",
+    "FXAAMaterial",
+    "FXAA",
+    "FireworkAnimation",
+    "GameHelper",
+    "GlowCircleAnimation",
+    "GradientMaterial",
+    "GradientSprite",
+    "Input",
+    "LevelProgressBar",
+    "ObjectMovement",
+    "PaletteManager",
+    "PanelBehaviour",
+    "PanelManager",
+    "ScoreNotification",
+    "SmokeAnimation",
+    "StorageManager",
+    "TitleAnimation",
+    "UnlockCharacterPopup"
+  ],
+  "changed_modules": [
+    "ButtonBehaviour",
+    "GameManager",
+    "ScoreManager"
+  ],
+  "removed_modules": [
+    "BotMilestoneManager",
+    "LeaderBoardManager",
+    "LeaderBoardTab",
+    "LeaderboardNotiIcon",
+    "NameInputPanel",
+    "database"
+  ],
+  "serialized_component_cleanup_pending": true
+}

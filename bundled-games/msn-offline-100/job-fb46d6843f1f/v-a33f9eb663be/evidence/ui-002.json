@@ -1,0 +1,76 @@
+{
+  "id": "002",
+  "action": "click",
+  "ui_steps": 2,
+  "raw_ui_inputs": 2,
+  "url": "http://localhost:18765/skybridge-offline-v3/index.html",
+  "native": {
+    "engineVersion": "2.0.5",
+    "scene": "Plank",
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 1100,
+      "height": 900,
+      "top": 0,
+      "right": 1100,
+      "bottom": 900,
+      "left": 0
+    },
+    "visibleLabels": [
+      {
+        "node": "ScoreText",
+        "text": "0"
+      },
+      {
+        "node": "BestScore",
+        "text": "BEST: 0"
+      },
+      {
+        "node": "CurrentLevelText",
+        "text": "1"
+      },
+      {
+        "node": "NextLevelText",
+        "text": "2"
+      },
+      {
+        "node": "Label",
+        "text": "TAP & HOLD TO STRETCH"
+      }
+    ],
+    "visibleControls": [
+      {
+        "name": "InGameMenu",
+        "x": 815.2222222222223,
+        "y": 667,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "name": "TutorialNode",
+        "x": 815.2222222222223,
+        "y": 667,
+        "width": 0,
+        "height": 0
+      }
+    ],
+    "nativePublic": {
+      "score": 0,
+      "best": 0,
+      "bridgePassCount": 1,
+      "bridgeVisible": false,
+      "waitingForCharacter": false,
+      "firstTutorial": true
+    }
+  },
+  "error": null,
+  "console": [
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    }
+  ],
+  "network_events": 184,
+  "closed": false
+}

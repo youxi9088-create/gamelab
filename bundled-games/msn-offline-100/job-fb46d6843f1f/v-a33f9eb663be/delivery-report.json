@@ -1,0 +1,395 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "local-artifact",
+    "passed": true,
+    "network_observation_complete": true,
+    "passed_scope": "Original startup and basic gameplay/failure settlement, checkpoints1–4 only. Additional refresh failed and is NOT included in the passed conclusion.",
+    "actions": [
+      {
+        "action": "goto",
+        "step": 1,
+        "url": "http://localhost:18765/skybridge-offline-v3/index.html",
+        "trajectory": []
+      },
+      {
+        "action": "click",
+        "step": 2,
+        "x": 547,
+        "y": 720,
+        "after_ms": 2200,
+        "trajectory": [
+          {
+            "event": "move",
+            "x": 547,
+            "y": 720
+          },
+          {
+            "event": "down"
+          },
+          {
+            "event": "up"
+          }
+        ]
+      },
+      {
+        "action": "hold",
+        "step": 3,
+        "x": 820,
+        "y": 700,
+        "hold_ms": 1100,
+        "after_ms": 3500,
+        "trajectory": [
+          {
+            "event": "move",
+            "x": 820,
+            "y": 700
+          },
+          {
+            "event": "down"
+          },
+          {
+            "event": "up"
+          }
+        ]
+      },
+      {
+        "action": "hold",
+        "step": 4,
+        "x": 820,
+        "y": 700,
+        "hold_ms": 1100,
+        "after_ms": 4500,
+        "trajectory": [
+          {
+            "event": "move",
+            "x": 820,
+            "y": 700
+          },
+          {
+            "event": "down"
+          },
+          {
+            "event": "up"
+          }
+        ]
+      },
+      {
+        "action": "reload",
+        "step": 5,
+        "after_ms": 4000,
+        "trajectory": []
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "error",
+        "message": "request error - res/raw-assets/ef/ef645a95-aad9-4a83-b467-287106b0f47a.mp3"
+      },
+      {
+        "level": "error",
+        "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      },
+      {
+        "level": "error",
+        "message": "request error - res/raw-assets/12/12066be2-d244-4bfc-9140-41dfacd5bbec.mp3"
+      },
+      {
+        "level": "error",
+        "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      },
+      {
+        "level": "error",
+        "message": "[]"
+      },
+      {
+        "level": "error",
+        "message": "[]"
+      },
+      {
+        "level": "error",
+        "message": "Failed to load scene: Error: [AssetLibrary] loading JSON or dependencies failed: undefined"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "failed_requests_preserved": [
+      {
+        "type": "failed",
+        "url": "http://localhost:18765/skybridge-offline-v3/res/raw-assets/ef/ef645a95-aad9-4a83-b467-287106b0f47a.mp3",
+        "error": {
+          "errorText": "net::ERR_CONNECTION_REFUSED"
+        }
+      },
+      {
+        "type": "failed",
+        "url": "http://localhost:18765/skybridge-offline-v3/res/raw-assets/12/12066be2-d244-4bfc-9140-41dfacd5bbec.mp3",
+        "error": {
+          "errorText": "net::ERR_CONNECTION_REFUSED"
+        }
+      }
+    ],
+    "requests": 184,
+    "responses": 182,
+    "network_events": 368,
+    "initial_gameplay_requests": 92,
+    "initial_gameplay_responses": 92,
+    "scope": "累计5检查点/5实际输入：原菜单、普通Play、原教程按住1100ms后松开、第二桥手动按住1100ms后松开、刷新。原教程自身把桥长限制到可见标尺目标，实际过桥PERFECT/+4、最佳4、教程结束；不冒充无辅助过桥。第二桥真实过长，原角色落下并进入NEW BEST SCORE4结算。未改桥长/位置/随机数/时钟/分数/存档，无业务方法调用。第五步刷新因两条本地音频连接拒绝未加载场景，明确未通过；没有第六次试玩。",
+    "network_scope": "首次启动至原失败结算的步骤1–4：92请求/92响应同源200、无请求失败或脚本异常，仅1原音频自动播放警告。完整5步合计184请求/182响应/2条本地ERR_CONNECTION_REFUSED，原错误/截图完整保留。随后只读HTTP读取两文件在localhost和127.0.0.1均200且SHA与已暂存原包相同，证明文件存在且可提供，不证明刷新玩法恢复，也不推断拒绝连接根因。",
+    "script_exceptions": [],
+    "additional_refresh_check": {
+      "passed": false,
+      "scene_loaded": false,
+      "cause_observed": "Two local mp3 requests ERR_CONNECTION_REFUSED",
+      "root_cause_diagnosed": false,
+      "later_read_only_source_HTTP_SHA_match": true,
+      "storage_restoration_verified": false
+    },
+    "browser_errors_preserved": true,
+    "tested_revision": "skybridge-offline-v3",
+    "delivery_revision": "skybridge-offline-v3"
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "广告与追踪包装器/ShowAds/调用/对应按钮删除，无回调或奖励替身。",
+      "evidence": [
+        "src/project.js",
+        "index.html",
+        "res/import/08/088271f7b.json",
+        "evidence/skybridge-retirement-v2.json",
+        "evidence/skybridge-trace-health.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "6服务模块及序列化组件/按钮/调用退役，普通本地结算和计分保留。",
+      "evidence": [
+        "src/project.js",
+        "index.html",
+        "res/import/08/088271f7b.json",
+        "evidence/skybridge-retirement-v2.json",
+        "evidence/skybridge-trace-health.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原核心单人测距造桥，无匹配/房间/远端对手。",
+      "evidence": [
+        "src/project.js",
+        "index.html",
+        "res/import/08/088271f7b.json",
+        "evidence/skybridge-retirement-v2.json",
+        "evidence/skybridge-trace-health.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "无真实支付或订单，普通角色本地经验/解锁保留，未添加免费权益。",
+      "evidence": [
+        "src/project.js",
+        "index.html",
+        "res/import/08/088271f7b.json",
+        "evidence/skybridge-retirement-v2.json",
+        "evidence/skybridge-trace-health.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "休闲 / 按住造桥测距",
+    "dimension": "2.5D",
+    "perspective": "",
+    "core_gameplay": "观察屋顶间距，按住使桥梁生长、松开让桥梁转落；桥长落在目标平台范围才可通行，过短或过长按原判定坠落。教程有原生标尺和长度上限辅助；本轮只实际通过教程桥，第二次非教程桥失败。",
+    "core_experience": "",
+    "controls": "原Play按钮开始，空白玩法区域普通鼠标按住与松开控制桥长；原Input绑定TOUCH_START/END/CANCEL/MOVE并由引擎处理浏览器输入，未调用游戏输入或桥梁业务函数。音量/说明/角色面板入口保留未操作。",
+    "game_loop": "",
+    "content": "实际走通原引导过桥及普通失败结算；第二次桥没有过关，不把失败写成第二次成功。第五步刷新停在原加载图，未验证存档恢复。长局、角色选择、其他楼顶布局、重玩和手机均未测。",
+    "progression": "",
+    "save": "",
+    "rules": "原BridgeControl.compareBridgeLength按平台中心距、半宽和padding分过短/过长/普通/完美；按住增长、松开转落、通过才推进ColumnGeneration，角色碰撞/坠落/动画和随机楼高/间距未改。教程自身使用getPerfectDistance上限和可见标尺，未删除教程或人为降低难度。",
+    "systems": "46原模块中37完整函数体保持原字节，6云数据/排行榜及在线里程碑模块移除，仅ButtonBehaviour/GameManager/ScoreManager三模块定向修改。桥梁/输入/角色移动/列生成/普通角色成长/本地存储原模块完整保留。场景包197条目不移位，195资产对象完全相同，仅服务组件/入口关联修改，剩余对象引用无悬空。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5检查点/5实际输入：原菜单、普通Play、原教程按住1100ms后松开、第二桥手动按住1100ms后松开、刷新。原教程自身把桥长限制到可见标尺目标，实际过桥PERFECT/+4、最佳4、教程结束；不冒充无辅助过桥。第二桥真实过长，原角色落下并进入NEW BEST SCORE4结算。未改桥长/位置/随机数/时钟/分数/存档，无业务方法调用。第五步刷新因两条本地音频连接拒绝未加载场景，明确未通过；没有第六次试玩。首次启动至原失败结算的步骤1–4：92请求/92响应同源200、无请求失败或脚本异常，仅1原音频自动播放警告。完整5步合计184请求/182响应/2条本地ERR_CONNECTION_REFUSED，原错误/截图完整保留。随后只读HTTP读取两文件在localhost和127.0.0.1均200且SHA与已暂存原包相同，证明文件存在且可提供，不证明刷新玩法恢复，也不推断拒绝连接根因。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "Cocos Creator2.0.5",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "MSN9pll61343jrg，Sky Bridge Classic、原目录20-cdn/h5/skyBridgeFree；实际原Cocos Creator2.0.5/JavaScript/HTML/CSS，等距2D场景、Spine角色。桌面1100×900实际浏览器；手机未测。此前资源分析将其称1.x为配置形态推断，已以真实cc.ENGINE_VERSION2.0.5更正。",
+        "asset_types": "原81项二进制原资源：48PNG、32MP3、1TTF；两个Cocos资源包含245个资产条目和239个序列化UUID引用，闭包无缺失。43份Spine骨骼JSON与atlas原已内嵌；原引擎preventPreloadNativeObject不加载其raw-skeleton.json字段。97运行文件中94原字节一致。",
+        "core_challenge": "观察屋顶间距，按住使桥梁生长、松开让桥梁转落；桥长落在目标平台范围才可通行，过短或过长按原判定坠落。教程有原生标尺和长度上限辅助；本轮只实际通过教程桥，第二次非教程桥失败。",
+        "controls": "原Play按钮开始，空白玩法区域普通鼠标按住与松开控制桥长；原Input绑定TOUCH_START/END/CANCEL/MOVE并由引擎处理浏览器输入，未调用游戏输入或桥梁业务函数。音量/说明/角色面板入口保留未操作。",
+        "behavior_path": "原标题/主菜单→原Play→教程TAP & HOLD TO STRETCH→按住/松开→原桥转落、角色行走、PERFECT/+4→教程标记结束→新楼顶间距→第二次按住/松开→原桥过长/角色坠落→NEW BEST SCORE4及原返回/重玩按钮。",
+        "game_path": "实际走通原引导过桥及普通失败结算；第二次桥没有过关，不把失败写成第二次成功。第五步刷新停在原加载图，未验证存档恢复。长局、角色选择、其他楼顶布局、重玩和手机均未测。",
+        "progression_path": "原顶部角色等级1→2的进度条、本地最佳分、角色经验和合法解锁逻辑保留；本轮分数/最佳0→4，顶部仍等级1。原StorageManager/localStorage代码未改，刷新读取结论未知。",
+        "core_loop": "观察当前/目标楼顶→按住增长桥→松手转落→原长度比较→原角色行走或坠落→成功得到原计分/经验与下一间距，失败显示本地结果并提供原重玩/返回。目标为连续跨越与提高本地最佳。",
+        "gameplay_rules": "原BridgeControl.compareBridgeLength按平台中心距、半宽和padding分过短/过长/普通/完美；按住增长、松开转落、通过才推进ColumnGeneration，角色碰撞/坠落/动画和随机楼高/间距未改。教程自身使用getPerfectDistance上限和可见标尺，未删除教程或人为降低难度。",
+        "key_numbers": "源码默认m_GrowSpeed6、旋转速度200、等距角27.4度；增长由原更新循环控制，不声称固定真实每秒速度。本轮两次各1100ms真实鼠标按住；原分0→4、最佳0→4，当前桥计数初始化1→2，不把初始化计数1当已通过一桥。",
+        "level_configuration": "原ColumnGeneration随机建筑与间距、BridgeControl参数、建筑/桥梁预制体保留。单一原Plank场景驱动连续流程，不把245资产/43骨骼或197包条目当关卡数量。实际一次原引导成功和一次普通失败。",
+        "system_design": "46原模块中37完整函数体保持原字节，6云数据/排行榜及在线里程碑模块移除，仅ButtonBehaviour/GameManager/ScoreManager三模块定向修改。桥梁/输入/角色移动/列生成/普通角色成长/本地存储原模块完整保留。场景包197条目不移位，195资产对象完全相同，仅服务组件/入口关联修改，剩余对象引用无悬空。",
+        "theme": "原粉蓝等距城市楼顶、青绿色桥心、方块小队/红帽角色、粉色六边形Play与计分/NEW BEST SCORE面板、原Spine行走/落下和转桥动画；配图为本轮真实截图，含刷新停留加载图。",
+        "progression_economy": "保留原本地角色等级/经验/解锁列表和最佳分，不赠送角色、经验或在线排名奖励。原在线排行榜用户名/服务时间/王者奖励入口与调用移除，普通本地游戏结束直接使用原本地结算分支。没有伪造云存档或排行榜返回。",
+        "roster": "实际原红帽方块队伍跨楼、普通Spine动作；原角色面板配置含普通和隐藏角色资源，未在本轮选择或解锁，不宣称全部角色测试完成。",
+        "monetization": "广告/追踪/外链包装器与ludiSDK不进入运行包；项目中ShowAds、在线排行榜/数据库模块、姓名弹窗/找自己/排名奖励按钮及调用物理退役，未使用SDK替身或奖励成功回调。无原联机核心或真实支付功能。原合法本地成长保留。完整观察未出现外联请求。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原菜单"
+      },
+      {
+        "path": "screenshots/002.png",
+        "caption": "原教程与可见桥长标尺"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "原教程过桥PERFECT/+4"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "第二桥真实过长及原NEW BEST SCORE4结算"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "未通过的刷新：本地连接拒绝，停留加载画面"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-17T15:19:05.928475+00:00",
+    "observation_end": "2026-11-17T15:55:32.710339+00:00",
+    "elapsed_seconds": 2186.781864,
+    "scope": "原入口归档至材料整理，含等待、分析与其他工作，非纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "原教程过桥4分和真实非教程失败/原结算；不是无辅助第二桥成功或全游戏验收。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "81原资源哈希完整，首次92请求92同源200；刷新两本地连接拒绝保留，事后独立HTTP200/SHA只证明文件可用。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单/楼顶/教程/计分/失败结算真实截图，刷新加载停留单独保留。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原建筑/桥/标尺/界面对象，桥过长失败真实显示。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原方块角色/队伍与Spine资源，实际行走与坠落；其他角色未操作。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原增长/转桥/行走/失败与结算动效；原骨骼JSON/atlas/纹理保持。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "原Play及玩法按住/松开可操作，原本地结算按钮显示；5步骤已用完，刷新未通过。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "known_limitations": [
+    "Refresh checkpoint5 failed due local connection refusals. Root cause not diagnosed; later HTTP200 does not prove refresh or storage restoration. No extra UI was performed.",
+    "First successful bridge was original assisted tutorial; next manual bridge failed legitimately. No unguided successful bridge or full-run claim."
+  ],
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "id": "001",
+  "action": "goto",
+  "ui_steps": 1,
+  "raw_ui_inputs": 1,
+  "url": "http://localhost:18765/skybridge-offline-v3/index.html",
+  "native": {
+    "engineVersion": "2.0.5",
+    "scene": "Plank",
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 1100,
+      "height": 900,
+      "top": 0,
+      "right": 1100,
+      "bottom": 900,
+      "left": 0
+    },
+    "visibleLabels": [
+      {
+        "node": "CurrentLevelText",
+        "text": "1"
+      },
+      {
+        "node": "NextLevelText",
+        "text": "2"
+      }
+    ],
+    "visibleControls": [
+      {
+        "name": "MainMenu",
+        "x": 815.2222222222223,
+        "y": 667,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "name": "FullScreenButton",
+        "x": 815.2222222222223,
+        "y": 667,
+        "width": 1630.4444444444446,
+        "height": 1334
+      },
+      {
+        "name": "PlayButton",
+        "x": 815.2222222222223,
+        "y": 267,
+        "width": 230,
+        "height": 230
+      },
+      {
+        "name": "SoundButton",
+        "x": 505.2222222222223,
+        "y": 72,
+        "width": 100,
+        "height": 100
+      },
+      {
+        "name": "AboutButton",
+        "x": 615.2222222222223,
+        "y": 72,
+        "width": 100,
+        "height": 100
+      },
+      {
+        "name": "SkinButton",
+        "x": 725.2222222222223,
+        "y": 72,
+        "width": 100,
+        "height": 100
+      },
+      {
+        "name": "CheatButton",
+        "x": 1115.2222222222222,
+        "y": 93,
+        "width": 100,
+        "height": 100
+      }
+    ],
+    "nativePublic": {
+      "score": 0,
+      "best": 0,
+      "bridgePassCount": 0,
+      "bridgeVisible": false,
+      "waitingForCharacter": false,
+      "firstTutorial": true
+    }
+  },
+  "error": null,
+  "console": [
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    }
+  ],
+  "network_events": 184,
+  "closed": false
+}

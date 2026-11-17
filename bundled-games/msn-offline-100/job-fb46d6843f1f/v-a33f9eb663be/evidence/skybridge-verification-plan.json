@@ -1,0 +1,15 @@
+{
+  "revision": "skybridge-offline-v3",
+  "limit": 5,
+  "previous_UI_steps": 0,
+  "checkpoints": [
+    "Navigate once to the isolated original menu; inspect screenshot and errors",
+    "One ordinary visible Play or tutorial-start button",
+    "One bounded real mouse hold/release for the visible bridge gap",
+    "One further ordinary bridge hold/release or native next button, selected from actual preceding screen",
+    "Reload to inspect original local progression if gameplay is proved; otherwise one remaining ordinary input within budget"
+  ],
+  "input_rules": "One player action per checkpoint. A mouse hold is one move/down/declared duration/up sequence, logged fully. No hidden target-distance reads, RNG/time changes, business callbacks or stored-value writes.",
+  "observations": "Screenshots, actual local requests/responses/errors, visible labels and read-only current score/bridge count. No assertions of full game, all characters or all random layouts.",
+  "stop_rule": "Preserve any failure and count it. Never exceed five cumulative checkpoints or reset the limit. Close the actual owned browser after pass/defer."
+}

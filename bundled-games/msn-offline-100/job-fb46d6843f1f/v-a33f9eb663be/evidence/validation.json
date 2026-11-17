@@ -1,0 +1,441 @@
+{
+  "runtime": {
+    "environment": "local-artifact",
+    "passed": true,
+    "network_observation_complete": true,
+    "passed_scope": "Original startup and basic gameplay/failure settlement, checkpoints1–4 only. Additional refresh failed and is NOT included in the passed conclusion.",
+    "actions": [
+      {
+        "action": "goto",
+        "step": 1,
+        "url": "http://localhost:18765/skybridge-offline-v3/index.html",
+        "trajectory": []
+      },
+      {
+        "action": "click",
+        "step": 2,
+        "x": 547,
+        "y": 720,
+        "after_ms": 2200,
+        "trajectory": [
+          {
+            "event": "move",
+            "x": 547,
+            "y": 720
+          },
+          {
+            "event": "down"
+          },
+          {
+            "event": "up"
+          }
+        ]
+      },
+      {
+        "action": "hold",
+        "step": 3,
+        "x": 820,
+        "y": 700,
+        "hold_ms": 1100,
+        "after_ms": 3500,
+        "trajectory": [
+          {
+            "event": "move",
+            "x": 820,
+            "y": 700
+          },
+          {
+            "event": "down"
+          },
+          {
+            "event": "up"
+          }
+        ]
+      },
+      {
+        "action": "hold",
+        "step": 4,
+        "x": 820,
+        "y": 700,
+        "hold_ms": 1100,
+        "after_ms": 4500,
+        "trajectory": [
+          {
+            "event": "move",
+            "x": 820,
+            "y": 700
+          },
+          {
+            "event": "down"
+          },
+          {
+            "event": "up"
+          }
+        ]
+      },
+      {
+        "action": "reload",
+        "step": 5,
+        "after_ms": 4000,
+        "trajectory": []
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "error",
+        "message": "request error - res/raw-assets/ef/ef645a95-aad9-4a83-b467-287106b0f47a.mp3"
+      },
+      {
+        "level": "error",
+        "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      },
+      {
+        "level": "error",
+        "message": "request error - res/raw-assets/12/12066be2-d244-4bfc-9140-41dfacd5bbec.mp3"
+      },
+      {
+        "level": "error",
+        "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      },
+      {
+        "level": "error",
+        "message": "[]"
+      },
+      {
+        "level": "error",
+        "message": "[]"
+      },
+      {
+        "level": "error",
+        "message": "Failed to load scene: Error: [AssetLibrary] loading JSON or dependencies failed: undefined"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "failed_requests_preserved": [
+      {
+        "type": "failed",
+        "url": "http://localhost:18765/skybridge-offline-v3/res/raw-assets/ef/ef645a95-aad9-4a83-b467-287106b0f47a.mp3",
+        "error": {
+          "errorText": "net::ERR_CONNECTION_REFUSED"
+        }
+      },
+      {
+        "type": "failed",
+        "url": "http://localhost:18765/skybridge-offline-v3/res/raw-assets/12/12066be2-d244-4bfc-9140-41dfacd5bbec.mp3",
+        "error": {
+          "errorText": "net::ERR_CONNECTION_REFUSED"
+        }
+      }
+    ],
+    "requests": 184,
+    "responses": 182,
+    "network_events": 368,
+    "initial_gameplay_requests": 92,
+    "initial_gameplay_responses": 92,
+    "scope": "累计5检查点/5实际输入：原菜单、普通Play、原教程按住1100ms后松开、第二桥手动按住1100ms后松开、刷新。原教程自身把桥长限制到可见标尺目标，实际过桥PERFECT/+4、最佳4、教程结束；不冒充无辅助过桥。第二桥真实过长，原角色落下并进入NEW BEST SCORE4结算。未改桥长/位置/随机数/时钟/分数/存档，无业务方法调用。第五步刷新因两条本地音频连接拒绝未加载场景，明确未通过；没有第六次试玩。",
+    "network_scope": "首次启动至原失败结算的步骤1–4：92请求/92响应同源200、无请求失败或脚本异常，仅1原音频自动播放警告。完整5步合计184请求/182响应/2条本地ERR_CONNECTION_REFUSED，原错误/截图完整保留。随后只读HTTP读取两文件在localhost和127.0.0.1均200且SHA与已暂存原包相同，证明文件存在且可提供，不证明刷新玩法恢复，也不推断拒绝连接根因。",
+    "script_exceptions": [],
+    "additional_refresh_check": {
+      "passed": false,
+      "scene_loaded": false,
+      "cause_observed": "Two local mp3 requests ERR_CONNECTION_REFUSED",
+      "root_cause_diagnosed": false,
+      "later_read_only_source_HTTP_SHA_match": true,
+      "storage_restoration_verified": false
+    },
+    "browser_errors_preserved": true,
+    "tested_revision": "skybridge-offline-v3",
+    "delivery_revision": "skybridge-offline-v3"
+  },
+  "accounting": {
+    "observation_start": "2026-11-17T15:19:05.928475+00:00",
+    "observation_end": "2026-11-17T15:55:32.710339+00:00",
+    "elapsed_seconds": 2186.781864,
+    "scope": "原入口归档至材料整理，含等待、分析与其他工作，非纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "UI_steps": 5,
+  "raw_inputs": 5,
+  "browser_exit_code": 0,
+  "checkpoint_results": {
+    "1": {
+      "engineVersion": "2.0.5",
+      "scene": "Plank",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1100,
+        "height": 900,
+        "top": 0,
+        "right": 1100,
+        "bottom": 900,
+        "left": 0
+      },
+      "visibleLabels": [
+        {
+          "node": "CurrentLevelText",
+          "text": "1"
+        },
+        {
+          "node": "NextLevelText",
+          "text": "2"
+        }
+      ],
+      "visibleControls": [
+        {
+          "name": "MainMenu",
+          "x": 815.2222222222223,
+          "y": 667,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "name": "FullScreenButton",
+          "x": 815.2222222222223,
+          "y": 667,
+          "width": 1630.4444444444446,
+          "height": 1334
+        },
+        {
+          "name": "PlayButton",
+          "x": 815.2222222222223,
+          "y": 267,
+          "width": 230,
+          "height": 230
+        },
+        {
+          "name": "SoundButton",
+          "x": 505.2222222222223,
+          "y": 72,
+          "width": 100,
+          "height": 100
+        },
+        {
+          "name": "AboutButton",
+          "x": 615.2222222222223,
+          "y": 72,
+          "width": 100,
+          "height": 100
+        },
+        {
+          "name": "SkinButton",
+          "x": 725.2222222222223,
+          "y": 72,
+          "width": 100,
+          "height": 100
+        },
+        {
+          "name": "CheatButton",
+          "x": 1115.2222222222222,
+          "y": 93,
+          "width": 100,
+          "height": 100
+        }
+      ],
+      "nativePublic": {
+        "score": 0,
+        "best": 0,
+        "bridgePassCount": 0,
+        "bridgeVisible": false,
+        "waitingForCharacter": false,
+        "firstTutorial": true
+      }
+    },
+    "2": {
+      "engineVersion": "2.0.5",
+      "scene": "Plank",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1100,
+        "height": 900,
+        "top": 0,
+        "right": 1100,
+        "bottom": 900,
+        "left": 0
+      },
+      "visibleLabels": [
+        {
+          "node": "ScoreText",
+          "text": "0"
+        },
+        {
+          "node": "BestScore",
+          "text": "BEST: 0"
+        },
+        {
+          "node": "CurrentLevelText",
+          "text": "1"
+        },
+        {
+          "node": "NextLevelText",
+          "text": "2"
+        },
+        {
+          "node": "Label",
+          "text": "TAP & HOLD TO STRETCH"
+        }
+      ],
+      "visibleControls": [
+        {
+          "name": "InGameMenu",
+          "x": 815.2222222222223,
+          "y": 667,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "name": "TutorialNode",
+          "x": 815.2222222222223,
+          "y": 667,
+          "width": 0,
+          "height": 0
+        }
+      ],
+      "nativePublic": {
+        "score": 0,
+        "best": 0,
+        "bridgePassCount": 1,
+        "bridgeVisible": false,
+        "waitingForCharacter": false,
+        "firstTutorial": true
+      }
+    },
+    "3": {
+      "engineVersion": "2.0.5",
+      "scene": "Plank",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1100,
+        "height": 900,
+        "top": 0,
+        "right": 1100,
+        "bottom": 900,
+        "left": 0
+      },
+      "visibleLabels": [
+        {
+          "node": "ScoreText",
+          "text": "4"
+        },
+        {
+          "node": "BestScore",
+          "text": "BEST: 4"
+        },
+        {
+          "node": "StatusLabel",
+          "text": "PERFECT"
+        },
+        {
+          "node": "BonusScoreLabel",
+          "text": "+4"
+        },
+        {
+          "node": "CurrentLevelText",
+          "text": "1"
+        },
+        {
+          "node": "NextLevelText",
+          "text": "2"
+        }
+      ],
+      "visibleControls": [
+        {
+          "name": "InGameMenu",
+          "x": 815.2222222222223,
+          "y": 667,
+          "width": 0,
+          "height": 0
+        }
+      ],
+      "nativePublic": {
+        "score": 4,
+        "best": 4,
+        "bridgePassCount": 2,
+        "bridgeVisible": false,
+        "waitingForCharacter": false,
+        "firstTutorial": false
+      }
+    },
+    "4": {
+      "engineVersion": "2.0.5",
+      "scene": "Plank",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1100,
+        "height": 900,
+        "top": 0,
+        "right": 1100,
+        "bottom": 900,
+        "left": 0
+      },
+      "visibleLabels": [
+        {
+          "node": "BestScoreText",
+          "text": "NEW BEST SCORE"
+        },
+        {
+          "node": "ScoreText",
+          "text": "4"
+        },
+        {
+          "node": "CurrentLevelText",
+          "text": "1"
+        },
+        {
+          "node": "NextLevelText",
+          "text": "2"
+        }
+      ],
+      "visibleControls": [
+        {
+          "name": "GameOver",
+          "x": 815.2222222222223,
+          "y": 667,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "name": "ReplayButton",
+          "x": 915.2222222222223,
+          "y": 577,
+          "width": 175,
+          "height": 175
+        },
+        {
+          "name": "BackToMainMenuButton",
+          "x": 715.2222222222223,
+          "y": 577,
+          "width": 175,
+          "height": 175
+        }
+      ],
+      "nativePublic": {
+        "score": 4,
+        "best": 4,
+        "bridgePassCount": 2,
+        "bridgeVisible": false,
+        "waitingForCharacter": false,
+        "firstTutorial": false
+      }
+    },
+    "5": {
+      "engineVersion": "2.0.5",
+      "scene": null
+    }
+  },
+  "scope": "累计5检查点/5实际输入：原菜单、普通Play、原教程按住1100ms后松开、第二桥手动按住1100ms后松开、刷新。原教程自身把桥长限制到可见标尺目标，实际过桥PERFECT/+4、最佳4、教程结束；不冒充无辅助过桥。第二桥真实过长，原角色落下并进入NEW BEST SCORE4结算。未改桥长/位置/随机数/时钟/分数/存档，无业务方法调用。第五步刷新因两条本地音频连接拒绝未加载场景，明确未通过；没有第六次试玩。",
+  "refresh_passed": false,
+  "completion_claim": "Basic native gameplay and original failure settlement only; human acceptance and refresh/storage restoration remain unverified."
+}

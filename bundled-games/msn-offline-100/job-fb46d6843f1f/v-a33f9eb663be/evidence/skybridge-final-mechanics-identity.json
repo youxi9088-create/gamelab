@@ -1,0 +1,77 @@
+{
+  "at": "2026-11-17T15:52:11.839848+00:00",
+  "queries": [
+    "9pll61343jrg",
+    "skybridge",
+    "sky bridge",
+    "stick hero",
+    "伸缩桥",
+    "伸长桥",
+    "伸长木棍",
+    "桥梁长度",
+    "hold to build the bridge",
+    "stretching the bridge"
+  ],
+  "candidates": 674,
+  "matches": [
+    {
+      "id": "game-037d37ab7f62",
+      "title": "Grow Run 3D",
+      "keys": [
+        "sky bridge"
+      ],
+      "semantic": {
+        "id": "game-037d37ab7f62",
+        "title": "Grow Run 3D",
+        "canonical_url": "https://remix.gg/g/grow-run-3d",
+        "description": "",
+        "original_metadata": [
+          "Crowd Run 3D is a colorful, action-packed endless runner where every recruit makes your crowd stronger! Race across busy highways, candy-colored sky bridges,...",
+          "Crowd Run 3D is a colorful, action-packed endless runner where every recruit makes your crowd stronger! Race across busy highways, candy-colored sky bridges,..."
+        ],
+        "all_meaningful_profiles": [
+          {
+            "version_id": "v-a0f8fa9b686d",
+            "status": "approved",
+            "profile": {
+              "engine": null,
+              "category": "跑酷",
+              "core_gameplay": "自动向前奔跑的跑酷：左右转向变道、空格跳跃，收集路人扩大队伍人数，躲避栏杆与车辆等障碍，队伍人数充当生命，撞击损失成员，归零即结束",
+              "controls": "A / D 或 ← / → → 左右转向变道 → 对局中持续生效；SPACE → 跳跃 → 对局中；PLAY 按钮 → 开始游戏 → 标题界面；⏸ 按钮 → 暂停/继续 → 任意对局时刻；🔊/✨ 按钮 → 音效开关/画质切换 → 界面角落常驻（均实机验证）",
+              "rules": "目标：跑得更远、收集更多路人与道具获得高分；成功：无终点，持续推进；失败：队伍人数因撞击归零即本局结束；计分：距离（米）与收集加成实时累加，界面 ×1 为倍率显示，具体公式数值未确认",
+              "content": "程序生成的无尽跑道：障碍、车辆、收集物随距离循环出现，关卡数量无固定上限（实机与源码方向一致，未穷举）",
+              "systems": "对象：玩家队伍、路人、栏杆、车辆、金币、汉堡；状态：标题/奔跑/暂停/结算；触发：碰撞检测驱动收集与伤害；交互：收集路人增加人数与倍率、撞障减少人数、跳跃越过低矮障碍"
+            }
+          },
+          {
+            "version_id": "v-6fd9f0da3b55",
+            "status": "approved",
+            "profile": {
+              "engine": null,
+              "category": "休闲跑酷（无尽跑酷 / 人群收集）",
+              "core_gameplay": "角色在自动前进的三维道路上奔跑，通过左右转向躲避障碍物、收集路人壮大队伍并拾取道具，最终根据距离与队伍规模结算分数。",
+              "controls": "1. A / D 或 ← / →（按住/点按）→ 左右转向 → 实机验证有效；\n2. Space → 跳跃 → 实机验证可跨越障碍；\n3. 鼠标点击 PLAY / 再玩一次按钮 → 开始或重开一局 → 实机验证有效；\n4. 点击 🔊 / ✨ / ⏸ 图标 → 切换音效、画质或暂停 → 界面可见，具体功能未逐项验证。",
+              "rules": "目标：尽可能跑得更远并获得更高分数；成功：持续躲避障碍并收集路人；失败：撞到固定障碍或被车辆撞击；计分公式未在源码中完全确认，实机观察为距离与队伍规模共同影响结算分。",
+              "content": "固定：单一无尽道路场景、若干障碍物与收集物模型、角色外观；程序生成：障碍与路人/道具的摆放位置随进程动态生成。",
+              "systems": "1. 自动移动系统：角色持续向前奔跑；\n2. 输入系统：键盘转向/跳跃、按钮点击；\n3. 碰撞系统：与障碍物触发游戏结束，与路人/道具触发收集；\n4. 计分系统：实时更新分数、距离、队伍人数；\n5. 存档系统：localStorage 保存最佳分与设置；\n6. 宿主 SDK：本地离线版提供 gameOver 与 saveGameState 接口。"
+            }
+          },
+          {
+            "version_id": "v-91758fa4cb61",
+            "status": "draft",
+            "profile": {
+              "engine": null,
+              "category": "3D 休闲跑酷 / crowd-runner 网页游戏（标题为 GROW RUN，HUD 含金币、距离、队伍人数、倍数）",
+              "core_gameplay": "玩家操控主角在 3D 跑道上前进，使用 A/D 或 ←/→ 控制左右转向，空格键跳跃；途中收集金币、扩大队伍、累积倍数，以获取更高得分并刷新最佳记录。",
+              "controls": "1. 键盘输入：A / D 或方向键 ← / → 转向；SPACE 跳跃。\n2. 按钮输入：🔊 音效开关、✨ 画质切换、⏸ 暂停、PLAY 开始。\n3. 反馈：主角/镜头产生位移，HUD 实时更新分数、金币、距离、队伍人数与倍数；音效状态写入 localStorage。",
+              "rules": "目标：在赛道上尽可能跑得更远，收集金币并扩大队伍规模。\n成功/失败：未实机验证；推测碰撞障碍或坠落会导致失败，到达终点为通关。\n计分公式：未确认；HUD 显示 0 BEST 0、0🪙、5m、5👥、×1，说明得分、金币、距离、队伍人数、倍数为核心指标，具体权重与阈值未确认。",
+              "content": "固定内容：标题画面、字体、Three.js 核心库、CSS、HUD 元素。\n未确认内容：关卡几何、障碍物排布、收集物配置是手工固定还是程序生成，本次未实机验证。",
+              "systems": "1. 输入系统：监听键盘 A/D/←/→/SPACE 事件及按钮点击。\n2. 角色/队伍系统：维护主角位置、速度、队伍人数与倍数状态。\n3. 推进系统：角色自动沿跑道前进，玩家仅控制左右与跳跃。\n4. 收集系统：金币与增益/减益道具触发数值变化。\n5. 障碍系统：检测碰撞并影响队伍人数或判定失败。\n6. HUD/UI 系统：更新分数、金币、距离、人数、倍数与按钮状态。\n7. 音效/画质系统：控制开关与渲染质量。\n8. 本地存储系统：仅持久化音效开关。\n交互链：输入 → 角色移动 → 碰撞/收集检测 → 状态变更 → HUD 刷新。"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "review": "Grow Run3D metadata mentions sky bridges as environment; player-controlled crowd running/jumping differs from hold/release bridge length measurement. All historical core profiles and original metadata read. No same native/core found."
+}
