@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-17T19:00:59.218Z",
+  "tests": [
+    "Readiness remains false until original bytes and digest complete",
+    "HTTP failure cannot mark package ready",
+    "Wrong length cannot mark package ready",
+    "Same length wrong SHA cannot mark package ready",
+    "External path traversal and query inputs fail before fetch",
+    "Duplicate or empty content group cannot mark ready",
+    "A ready group name cannot be reused for a different manifest",
+    "Same active manifest shares one request and genuine failed read can be retried",
+    "Content read concurrency stays at six per package"
+  ],
+  "native_game_executed": false,
+  "passed": 9
+}
