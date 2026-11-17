@@ -1,0 +1,71 @@
+{
+  "at": "2026-11-17T18:22:59.172033+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "prior_ui_steps": 5,
+  "new_ui_authorization": false,
+  "offline_static": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "pending",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [
+      "leaderboard",
+      "multiplayer",
+      "advertising",
+      "payments"
+    ],
+    "runtime_observed": false,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "delivery_static": {
+    "schema_version": 1,
+    "status": "static_checks_clear",
+    "findings": [],
+    "finding_count": 0,
+    "scope": "转换交付前静态提示；不提交供货、不修改验收状态。需在整理后的最终交付包中复验，动态资源与完整玩法另行验证。"
+  },
+  "static_clear_is_not_runtime_or_admission": true,
+  "base_records": 616,
+  "inline_images": 617,
+  "all_png_chunks_crc_valid": true,
+  "all_base_ids_have_original_images": true,
+  "base_sha256": "414eef63e9b3971192fdac57654db5770a5c40de4c6f8f58e78ded859373e729",
+  "images_sha256": "552c6217fb6b13395fc57307734073f234a92b542798d162e5f7a9bf172c350b",
+  "representative_recipe": {
+    "input_ids": [
+      1,
+      2
+    ],
+    "output_id": 5,
+    "names": {
+      "1": "water",
+      "2": "fire",
+      "5": "steam"
+    },
+    "original_parents": [
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        11
+      ]
+    ]
+  },
+  "five_step_proposal": [
+    "Start exact revision on remote52",
+    "Click native PLAY",
+    "Drag native water from library into workspace",
+    "Drag native fire onto water, observe native steam discovery and progress",
+    "Refresh and observe earned library/progress restoration"
+  ],
+  "not_verified": [
+    "Actual revised UI",
+    "Drag/drop and steam discovery",
+    "Earned save/reload",
+    "Complete runtime resource/error observation"
+  ],
+  "ready_review": false
+}
