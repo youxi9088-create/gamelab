@@ -1,0 +1,1 @@
+window.dba={},window.dba.dlwf=function(){window.alert("Attempted software breach. Please contact support@marketjs.com")},Object.freeze(window.dba);
