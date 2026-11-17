@@ -1,0 +1,96 @@
+{
+  "category": "3D物理益智 / 旋转彩色塔",
+  "dimension": "3D",
+  "perspective": "",
+  "core_gameplay": "旋转三维彩色塔，观察当前球颜色，点击可见同色塔块以触发原球命中及相邻同色移除，在有限弹药内使塔坍塌清除；本轮两次合法命中及转动真实通过，整关目标尚未完成。",
+  "core_experience": "",
+  "controls": "原Play进入；点击塔块由原窗口输入/Babylon拾取/原球发射处理；鼠标按住拖动调整绕塔角度。实际3次普通点击均move→100ms→down→80ms→up；旋转一次为12段move的真实拖拽。原暂停、缩放与50/100金币道具按钮在教程结束后保留，本轮没有点这些按钮。",
+  "game_loop": "",
+  "content": "原本地level/score/highscore/coin、首次点击与滑动教程标志、关卡切换、难度递增和正常存储路径保留。实际在关1，教程步骤自然前进与当前最高分2可见；没有刷新持久化、后续关卡或结算实测。",
+  "progression": "",
+  "save": "",
+  "rules": "原LevelManager pickBlock仅处理未冻结/有物理体且高于底部的块；原Ball颜色判定与相邻同色遍历、块破坏/坍塌、分数和弹药不改。每破坏块通过原tallyDestroyedBlock计分；原combo换金币及能量炮阈值机制仅源码保留，本轮没有触发奖励或免费道具。",
+  "systems": "358游戏/字体/3D方法中328归一AST一致、15平台/广告/外链方法退役、15方法仅服务调用/控件范围修改。31个原3D/物理/关卡/普通每日奖励/Packer及vendor节点经修改前结构AST相同后采用原字节保全，共3407682字节；完整Babylon/Ammo vendor和41数据/模块指纹保持。失败v1生成器补括号及v2过宽visitor触及vendor证据保留；v3将vendor从退役visitor排除，不以放宽哈希掩盖修改。",
+  "ui_flow": "",
+  "level_design": "",
+  "verification": "累计5检查点/5输入：原3D菜单、原Play、原教程可见青色方块一次点击、一次普通拖动旋转、可见橙色方块一次点击。额外003只是摄像机开场动画后的只读截图，无输入、无重复开局。实际HUD与截图确认分数/最高分0→1→2、弹药30→29→28、金币始终150；青色和橙色命中块消失，旋转改变塔与岛屿朝向，原滑动教程消失、正常暂停/50与100金币道具按钮出现，末次黄色球。没有写游戏状态/随机数/分数/弹药/时钟，没有调用射击或物理方法。未通关首关、未到失败/结算、未重开/刷新恢复、未购道具或领奖、未试玩全部关卡。原始只读观察器误读g.controller/window.gameScene，因原版使用ig.currentGame/ig.gameScene，对应null/false不是3D初始化失败判定；原始字段不改写，原菜单和真实3D塔、实际命中/旋转均以已查看截图证明。38请求/38响应全部本地HTTP200，包括原Ammo wasm、Babylon场景与实际材质贴图，无外联/404/失败/pageerror；1条原AudioContext自动播放警告保留。原53静态资源旧urllib连接重置与延期保留，实际Playwright请求栈以普通原页面Referer及浏览器式UA取得55/55（含wasm和场景），场景5贴图再5/5；不单独断言哪个头或TLS配置是原因。原title.png为图集61帧之一，单独文件原404；离线HTML去掉该无效横竖屏装饰引用，未伪造原PNG。横屏1440×900实测，实体手机未测。",
+  "evidence": "",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "engine": "ImpactJS / Babylon.js / Ammo.js / WebGL",
+  "programming_language": "JavaScript、HTML、CSS、WebAssembly",
+  "game_summary": "",
+  "resource_types": "",
+  "engine_asset_system": "",
+  "core_challenge_details": "",
+  "core_challenge_type": "",
+  "input_elements": "",
+  "app_suitability": "",
+  "core_loop": "",
+  "churn_risk": "",
+  "progression_loop": "",
+  "core_closure": "",
+  "loop_completeness": "",
+  "playability": "",
+  "key_numbers": "",
+  "level_structure": "",
+  "system_completeness": "",
+  "theme_details": "",
+  "theme_position": "",
+  "economy": "",
+  "roles": "",
+  "roster_summary": "",
+  "monetization_details": "",
+  "monetization": "",
+  "specification": {
+    "template_version": "5.1",
+    "sections": {
+      "basic_facts": "MSN9mvrrp2z8ks8，原Tower of Colors v4/Island Edition，内部mjs-tower-of-colors-island-edition。JavaScript/HTML/CSS，Impact二维HUD与原custom Babylon/Ammo WebGL三维场景。实际桌面1440×900、内部HUD1536×960；实体手机未测。",
+      "asset_types": "62原依赖逐文件SHA和字节一致，含原Ammo WebAssembly、原Babylon场景（28mesh/5material、内嵌几何）、5张材质贴图及水面图、原Packer图集61帧、原字体/音效、CSS和favicon。保留真实塔块、海岛、水面、山石、棕榈、球与HUD；没有占位贴图或重画原资源。",
+      "core_challenge": "旋转三维彩色塔，观察当前球颜色，点击可见同色塔块以触发原球命中及相邻同色移除，在有限弹药内使塔坍塌清除；本轮两次合法命中及转动真实通过，整关目标尚未完成。",
+      "controls": "原Play进入；点击塔块由原窗口输入/Babylon拾取/原球发射处理；鼠标按住拖动调整绕塔角度。实际3次普通点击均move→100ms→down→80ms→up；旋转一次为12段move的真实拖拽。原暂停、缩放与50/100金币道具按钮在教程结束后保留，本轮没有点这些按钮。",
+      "behavior_path": "原菜单海岛/标题→点击Play→原开场摄像机由塔底移到上层→按原青色教程手点击→显示1分/29弹药→普通拖动旋转→滑动手消失、普通控制显示→橙色命中→2分/28弹药、下一黄色球。没有额外开局或重放。",
+      "game_path": "本轮在原关1、关2目标刻度前完成2次原色球命中；青色/橙色相应块消失，塔上剩余原彩色块与底部支撑可见，视角随拖动改变。首次分数0、最高0、弹药30、金币150；末次2/2/28/150。不是首关通关、全流程或道具领奖验证。",
+      "progression_path": "原本地level/score/highscore/coin、首次点击与滑动教程标志、关卡切换、难度递增和正常存储路径保留。实际在关1，教程步骤自然前进与当前最高分2可见；没有刷新持久化、后续关卡或结算实测。",
+      "core_loop": "观察球色及可见塔块→点击原目标→原Ammo/Babylon物理及同色邻接遍历移除→累计破坏块分数/能量→必要时旋转找同色→弹药耗尽失败或塔清除进入下一关。原玩法循环保留，本轮仅覆盖两击、加分、减弹药、换球和转视角。",
+      "gameplay_rules": "原LevelManager pickBlock仅处理未冻结/有物理体且高于底部的块；原Ball颜色判定与相邻同色遍历、块破坏/坍塌、分数和弹药不改。每破坏块通过原tallyDestroyedBlock计分；原combo换金币及能量炮阈值机制仅源码保留，本轮没有触发奖励或免费道具。",
+      "key_numbers": "源码：15种原塔布局循环；难度d对应高度20+floor(2.5d)、上限150，颜色5+d上限9，弹药30+5d上限255；具体运行布局由原规则/随机数产生，不强行固定。实际原关1弹药30→29→28，分数/最高0→1→2，金币150不变；原wildshot价格50、laser100实显但未购买。",
+      "level_configuration": "原LevelDesign全部15种搭建函数、LevelManager全部原生成/颜色/邻接/坍塌规则保留，后续按原level循环布局及原难度推进，不以15模板误称只有15关。首关两次点击验证，完整首关、后续布局和全组合未验证。",
+      "system_design": "358游戏/字体/3D方法中328归一AST一致、15平台/广告/外链方法退役、15方法仅服务调用/控件范围修改。31个原3D/物理/关卡/普通每日奖励/Packer及vendor节点经修改前结构AST相同后采用原字节保全，共3407682字节；完整Babylon/Ammo vendor和41数据/模块指纹保持。失败v1生成器补括号及v2过宽visitor触及vendor证据保留；v3将vendor从退役visitor排除，不以放宽哈希掩盖修改。",
+      "theme": "原低多边形海岛/蓝色水面/山石棕榈、圆柱彩色块塔、球与原白边手势教程、分数星号、橙色暂停和蓝色道具按钮。实际海岛菜单、首塔、破坏后缺口、旋转朝向均见原渲染截图。",
+      "progression_economy": "保留原本地金币起点150、普通付金币wildshot50/laser100、原combo结算金币及原plugins.dailyreward真实日历/领取规则；可选广告型retention每日/抽奖/免费金币链路退役。没有伪造广告完成或跳过付费条件，实际金币150未变。领取、购买、后续局存档均未实测。",
+      "roster": "没有可操控人物/联网玩家；主要对象为原彩色塔块、底部支撑、原球、炮能量、海岛环境、物理碎片和教程手。28原场景mesh为源JSON结构核对，不等于逐一交互验证。",
+      "monetization": "平台Microsoft/API、外链分享/更多游戏、广告与广告免费金币UI/提供者/成功回调退役，35可选retention模块删除；6个原普通插屏成功/失败相同的流程回调直接恢复原普通转场。没有SDK替身、登录假身份、广告成功/支付成功或免费奖励。原本地金币道具和真正普通每日机制保留，只需本地静态HTTP。"
+    }
+  },
+  "illustrations": [
+    {
+      "path": "screenshots/001.png",
+      "caption": "原海岛菜单"
+    },
+    {
+      "path": "screenshots/003.png",
+      "caption": "开场动画完成，原青色教程"
+    },
+    {
+      "path": "screenshots/004.png",
+      "caption": "真实青色命中：1分/29弹药"
+    },
+    {
+      "path": "screenshots/005.png",
+      "caption": "原旋转拖动与教程结束"
+    },
+    {
+      "path": "screenshots/006.png",
+      "caption": "真实橙色命中：2分/28弹药"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-17T12:35:35.033676+00:00",
+  "status": "actual_ui_complete_delivery_evidence_pending",
+  "revision": "towercolors-offline-v3",
+  "checkpoints": 5,
+  "raw_ui_inputs": 5,
+  "actual_ui_actions": [
+    "Native menu",
+    "Original Play",
+    "Click visible cyan tutorial block",
+    "One physical camera-rotation drag",
+    "Click visible orange block"
+  ],
+  "manual_screenshot_observation": {
+    "before": "score0/best0/ammo30/coin150",
+    "after_first_hit": "score1/best1/ammo29/coin150, cyan block removed",
+    "after_rotation": "island/camera orientation changed, swipe hand disappeared, original pause and paid powerup UI visible",
+    "after_second_hit": "score2/best2/ammo28/coin150, orange block removed, next yellow ball"
+  },
+  "raw_readonly_observer_limit": "controller and scene3dReady fields target g.controller/window.gameScene, whereas original runtime uses ig.currentGame/ig.gameScene; null/false here is not an initialization verdict. Native screenshots show genuine rendered Babylon scene. Raw observations retained unmodified.",
+  "requests": 38,
+  "responses": 38,
+  "all_local_200": true,
+  "warnings": [
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    }
+  ],
+  "browser_closed": {
+    "closed": true,
+    "ui_steps": 5,
+    "raw_ui_inputs": 5
+  },
+  "dedicated_channel_exit_code": 0,
+  "dedicated_channel_session": 68441,
+  "native_methods": 358,
+  "unchanged_methods": 328,
+  "retired_methods": 15,
+  "scoped_changed_methods": 15,
+  "exact_original_raw_protected_nodes": 31,
+  "full_level_or_game_over_or_refresh_verified": false,
+  "admitted": false,
+  "next": "V5.1 16 sections, SHA/source/runtime evidence, offline gate, fresh dedup, normal intake, test-site readback and exact GitHub archive pending. Do not add UI/restart this game."
+}

@@ -1,0 +1,17 @@
+E:\AI改编游戏\gamelab\deployment-packages\msn_towercolors_preserve_source.cjs:12
+ old.vendors.forEach((v,i)=>{if(hash(v.node)!==hash(before.vendors[i].node))throw Error('Actual vendor AST was modified before emission:'+i);const node=after.vendors[i].node,text=raw.slice(v.node.start,v.node.end);patches.push({start:node.start,end:node.end,text});proof.push({kind:'vendor-statement',index:i,labels:v.labels,source_bytes:Buffer.byteLength(text),source_sha256:sha(text),pre_emission_AST_identical:true});});
+                                                                            ^
+
+Error: Actual vendor AST was modified before emission:0
+    at E:\AI改编游戏\gamelab\deployment-packages\msn_towercolors_preserve_source.cjs:12:83
+    at Array.forEach (<anonymous>)
+    at module.exports (E:\AI改编游戏\gamelab\deployment-packages\msn_towercolors_preserve_source.cjs:12:14)
+    at Object.<anonymous> (E:\AI改编游戏\gamelab\deployment-packages\msn_prepare_towercolors_v2.cjs:35:122)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+
+Node.js v24.14.0

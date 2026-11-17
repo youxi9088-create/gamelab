@@ -1,0 +1,1246 @@
+[
+  {
+    "path": "root.body.body.0.expression.right.arguments.0.properties.42.value.body.body.4.body.body.1.alternate.consequent.type",
+    "old": "IfStatement",
+    "now": "BlockStatement"
+  },
+  {
+    "path": "root.body.body.0.expression.right.arguments.0.properties.42.value.body.body.4.body.body.1.alternate.consequent.test",
+    "old": {
+      "type": "SequenceExpression",
+      "expressions": [
+        {
+          "type": "AssignmentExpression",
+          "operator": "-=",
+          "left": {
+            "type": "MemberExpression",
+            "object": {
+              "type": "Identifier",
+              "name": "e"
+            },
+            "computed": false,
+            "property": {
+              "type": "Identifier",
+              "name": "floatingTime"
+            }
+          },
+          "right": {
+            "type": "Identifier",
+            "name": "b"
+          }
+        },
+        {
+          "type": "BinaryExpression",
+          "left": {
+            "type": "NumericLiteral",
+            "value": 0
+          },
+          "operator": "<",
+          "right": {
+            "type": "MemberExpression",
+            "object": {
+              "type": "Identifier",
+              "name": "e"
+            },
+            "computed": false,
+            "property": {
+              "type": "Identifier",
+              "name": "floatingTime"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "path": "root.body.body.0.expression.right.arguments.0.properties.42.value.body.body.4.body.body.1.alternate.consequent.consequent",
+    "old": {
+      "type": "BlockStatement",
+      "body": [
+        {
+          "type": "VariableDeclaration",
+          "declarations": [
+            {
+              "type": "VariableDeclarator",
+              "id": {
+                "type": "Identifier",
+                "name": "f"
+              },
+              "init": {
+                "type": "CallExpression",
+                "callee": {
+                  "type": "MemberExpression",
+                  "object": {
+                    "type": "MemberExpression",
+                    "object": {
+                      "type": "Identifier",
+                      "name": "e"
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "name": "physicsImpostor"
+                    }
+                  },
+                  "computed": false,
+                  "property": {
+                    "type": "Identifier",
+                    "name": "getLinearVelocity"
+                  }
+                },
+                "arguments": []
+              }
+            }
+          ],
+          "kind": "var"
+        },
+        {
+          "type": "ExpressionStatement",
+          "expression": {
+            "type": "LogicalExpression",
+            "operator": "||",
+            "operands": [
+              {
+                "type": "MemberExpression",
+                "object": {
+                  "type": "Identifier",
+                  "name": "e"
+                },
+                "computed": false,
+                "property": {
+                  "type": "Identifier",
+                  "name": "hasDampened"
+                }
+              },
+              {
+                "type": "SequenceExpression",
+                "expressions": [
+                  {
+                    "type": "AssignmentExpression",
+                    "operator": "=",
+                    "left": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "Identifier",
+                        "name": "e"
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "name": "lerpValue"
+                      }
+                    },
+                    "right": {
+                      "type": "NumericLiteral",
+                      "value": 0.1
+                    }
+                  },
+                  {
+                    "type": "CallExpression",
+                    "callee": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "MemberExpression",
+                        "object": {
+                          "type": "MemberExpression",
+                          "object": {
+                            "type": "Identifier",
+                            "name": "e"
+                          },
+                          "computed": false,
+                          "property": {
+                            "type": "Identifier",
+                            "name": "physicsImpostor"
+                          }
+                        },
+                        "computed": false,
+                        "property": {
+                          "type": "Identifier",
+                          "name": "physicsBody"
+                        }
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "name": "setDamping"
+                      }
+                    },
+                    "arguments": [
+                      {
+                        "type": "NumericLiteral",
+                        "value": 0.5
+                      },
+                      {
+                        "type": "NumericLiteral",
+                        "value": 0.5
+                      }
+                    ]
+                  },
+                  {
+                    "type": "AssignmentExpression",
+                    "operator": "*=",
+                    "left": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "Identifier",
+                        "name": "f"
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "name": "y"
+                      }
+                    },
+                    "right": {
+                      "type": "NumericLiteral",
+                      "value": 0.2
+                    }
+                  },
+                  {
+                    "type": "AssignmentExpression",
+                    "operator": "=",
+                    "left": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "Identifier",
+                        "name": "e"
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "name": "hasDampened"
+                      }
+                    },
+                    "right": {
+                      "type": "UnaryExpression",
+                      "operator": "!",
+                      "prefix": true,
+                      "argument": {
+                        "type": "NumericLiteral",
+                        "value": 0
+                      }
+                    }
+                  },
+                  {
+                    "type": "CallExpression",
+                    "callee": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "ThisExpression"
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "name": "tallyDestroyedBlock"
+                      }
+                    },
+                    "arguments": [
+                      {
+                        "type": "NumericLiteral",
+                        "value": 1
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "ExpressionStatement",
+          "expression": {
+            "type": "AssignmentExpression",
+            "operator": "-=",
+            "left": {
+              "type": "MemberExpression",
+              "object": {
+                "type": "Identifier",
+                "name": "f"
+              },
+              "computed": false,
+              "property": {
+                "type": "Identifier",
+                "name": "y"
+              }
+            },
+            "right": {
+              "type": "BinaryExpression",
+              "left": {
+                "type": "BinaryExpression",
+                "left": {
+                  "type": "NumericLiteral",
+                  "value": 1.5
+                },
+                "operator": "*",
+                "right": {
+                  "type": "BinaryExpression",
+                  "left": {
+                    "type": "MemberExpression",
+                    "object": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "Identifier",
+                        "name": "ig"
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "name": "gameScene"
+                      }
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "name": "gravity"
+                    }
+                  },
+                  "operator": "*",
+                  "right": {
+                    "type": "Identifier",
+                    "name": "b"
+                  }
+                }
+              },
+              "operator": "*",
+              "right": {
+                "type": "MemberExpression",
+                "object": {
+                  "type": "MemberExpression",
+                  "object": {
+                    "type": "Identifier",
+                    "name": "ig"
+                  },
+                  "computed": false,
+                  "property": {
+                    "type": "Identifier",
+                    "name": "gameScene"
+                  }
+                },
+                "computed": false,
+                "property": {
+                  "type": "Identifier",
+                  "name": "dtFactor"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "ExpressionStatement",
+          "expression": {
+            "type": "AssignmentExpression",
+            "operator": "=",
+            "left": {
+              "type": "MemberExpression",
+              "object": {
+                "type": "Identifier",
+                "name": "f"
+              },
+              "computed": false,
+              "property": {
+                "type": "Identifier",
+                "name": "x"
+              }
+            },
+            "right": {
+              "type": "NumericLiteral",
+              "value": 0
+            }
+          }
+        },
+        {
+          "type": "ExpressionStatement",
+          "expression": {
+            "type": "AssignmentExpression",
+            "operator": "=",
+            "left": {
+              "type": "MemberExpression",
+              "object": {
+                "type": "Identifier",
+                "name": "f"
+              },
+              "computed": false,
+              "property": {
+                "type": "Identifier",
+                "name": "z"
+              }
+            },
+            "right": {
+              "type": "NumericLiteral",
+              "value": 0
+            }
+          }
+        },
+        {
+          "type": "ExpressionStatement",
+          "expression": {
+            "type": "CallExpression",
+            "callee": {
+              "type": "MemberExpression",
+              "object": {
+                "type": "MemberExpression",
+                "object": {
+                  "type": "Identifier",
+                  "name": "e"
+                },
+                "computed": false,
+                "property": {
+                  "type": "Identifier",
+                  "name": "physicsImpostor"
+                }
+              },
+              "computed": false,
+              "property": {
+                "type": "Identifier",
+                "name": "setLinearVelocity"
+              }
+            },
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "f"
+              }
+            ]
+          }
+        }
+      ],
+      "directives": []
+    }
+  },
+  {
+    "path": "root.body.body.0.expression.right.arguments.0.properties.42.value.body.body.4.body.body.1.alternate.consequent.alternate",
+    "old": {
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "ConditionalExpression",
+        "test": {
+          "type": "BinaryExpression",
+          "left": {
+            "type": "MemberExpression",
+            "object": {
+              "type": "MemberExpression",
+              "object": {
+                "type": "Identifier",
+                "name": "e"
+              },
+              "computed": false,
+              "property": {
+                "type": "Identifier",
+                "name": "position"
+              }
+            },
+            "computed": false,
+            "property": {
+              "type": "Identifier",
+              "name": "y"
+            }
+          },
+          "operator": "<",
+          "right": {
+            "type": "MemberExpression",
+            "object": {
+              "type": "ThisExpression"
+            },
+            "computed": false,
+            "property": {
+              "type": "Identifier",
+              "name": "sinkDepthLimit"
+            }
+          }
+        },
+        "consequent": {
+          "type": "CallExpression",
+          "callee": {
+            "type": "MemberExpression",
+            "object": {
+              "type": "ThisExpression"
+            },
+            "computed": false,
+            "property": {
+              "type": "Identifier",
+              "name": "destroyBlock"
+            }
+          },
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "e"
+            },
+            {
+              "type": "UnaryExpression",
+              "operator": "!",
+              "prefix": true,
+              "argument": {
+                "type": "NumericLiteral",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "alternate": {
+          "type": "SequenceExpression",
+          "expressions": [
+            {
+              "type": "AssignmentExpression",
+              "operator": "=",
+              "left": {
+                "type": "Identifier",
+                "name": "f"
+              },
+              "right": {
+                "type": "CallExpression",
+                "callee": {
+                  "type": "MemberExpression",
+                  "object": {
+                    "type": "MemberExpression",
+                    "object": {
+                      "type": "Identifier",
+                      "name": "e"
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "name": "physicsImpostor"
+                    }
+                  },
+                  "computed": false,
+                  "property": {
+                    "type": "Identifier",
+                    "name": "getLinearVelocity"
+                  }
+                },
+                "arguments": []
+              }
+            },
+            {
+              "type": "AssignmentExpression",
+              "operator": "-=",
+              "left": {
+                "type": "MemberExpression",
+                "object": {
+                  "type": "Identifier",
+                  "name": "f"
+                },
+                "computed": false,
+                "property": {
+                  "type": "Identifier",
+                  "name": "y"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "left": {
+                  "type": "BinaryExpression",
+                  "left": {
+                    "type": "NumericLiteral",
+                    "value": 0.5
+                  },
+                  "operator": "*",
+                  "right": {
+                    "type": "BinaryExpression",
+                    "left": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "MemberExpression",
+                        "object": {
+                          "type": "Identifier",
+                          "name": "ig"
+                        },
+                        "computed": false,
+                        "property": {
+                          "type": "Identifier",
+                          "name": "gameScene"
+                        }
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "name": "gravity"
+                      }
+                    },
+                    "operator": "*",
+                    "right": {
+                      "type": "Identifier",
+                      "name": "b"
+                    }
+                  }
+                },
+                "operator": "*",
+                "right": {
+                  "type": "MemberExpression",
+                  "object": {
+                    "type": "MemberExpression",
+                    "object": {
+                      "type": "Identifier",
+                      "name": "ig"
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "name": "gameScene"
+                    }
+                  },
+                  "computed": false,
+                  "property": {
+                    "type": "Identifier",
+                    "name": "dtFactor"
+                  }
+                }
+              }
+            },
+            {
+              "type": "CallExpression",
+              "callee": {
+                "type": "MemberExpression",
+                "object": {
+                  "type": "MemberExpression",
+                  "object": {
+                    "type": "Identifier",
+                    "name": "e"
+                  },
+                  "computed": false,
+                  "property": {
+                    "type": "Identifier",
+                    "name": "physicsImpostor"
+                  }
+                },
+                "computed": false,
+                "property": {
+                  "type": "Identifier",
+                  "name": "setLinearVelocity"
+                }
+              },
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "f"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "path": "root.body.body.0.expression.right.arguments.0.properties.42.value.body.body.4.body.body.1.alternate.consequent.body",
+    "now": [
+      {
+        "type": "IfStatement",
+        "test": {
+          "type": "SequenceExpression",
+          "expressions": [
+            {
+              "type": "AssignmentExpression",
+              "operator": "-=",
+              "left": {
+                "type": "MemberExpression",
+                "object": {
+                  "type": "Identifier",
+                  "name": "e"
+                },
+                "computed": false,
+                "property": {
+                  "type": "Identifier",
+                  "name": "floatingTime"
+                }
+              },
+              "right": {
+                "type": "Identifier",
+                "name": "b"
+              }
+            },
+            {
+              "type": "BinaryExpression",
+              "left": {
+                "type": "NumericLiteral",
+                "value": 0
+              },
+              "operator": "<",
+              "right": {
+                "type": "MemberExpression",
+                "object": {
+                  "type": "Identifier",
+                  "name": "e"
+                },
+                "computed": false,
+                "property": {
+                  "type": "Identifier",
+                  "name": "floatingTime"
+                }
+              }
+            }
+          ]
+        },
+        "consequent": {
+          "type": "BlockStatement",
+          "body": [
+            {
+              "type": "VariableDeclaration",
+              "declarations": [
+                {
+                  "type": "VariableDeclarator",
+                  "id": {
+                    "type": "Identifier",
+                    "name": "f"
+                  },
+                  "init": {
+                    "type": "CallExpression",
+                    "callee": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "MemberExpression",
+                        "object": {
+                          "type": "Identifier",
+                          "name": "e"
+                        },
+                        "computed": false,
+                        "property": {
+                          "type": "Identifier",
+                          "name": "physicsImpostor"
+                        }
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "name": "getLinearVelocity"
+                      }
+                    },
+                    "arguments": []
+                  }
+                }
+              ],
+              "kind": "var"
+            },
+            {
+              "type": "ExpressionStatement",
+              "expression": {
+                "type": "LogicalExpression",
+                "operator": "||",
+                "operands": [
+                  {
+                    "type": "MemberExpression",
+                    "object": {
+                      "type": "Identifier",
+                      "name": "e"
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "name": "hasDampened"
+                    }
+                  },
+                  {
+                    "type": "SequenceExpression",
+                    "expressions": [
+                      {
+                        "type": "AssignmentExpression",
+                        "operator": "=",
+                        "left": {
+                          "type": "MemberExpression",
+                          "object": {
+                            "type": "Identifier",
+                            "name": "e"
+                          },
+                          "computed": false,
+                          "property": {
+                            "type": "Identifier",
+                            "name": "lerpValue"
+                          }
+                        },
+                        "right": {
+                          "type": "NumericLiteral",
+                          "value": 0.1
+                        }
+                      },
+                      {
+                        "type": "CallExpression",
+                        "callee": {
+                          "type": "MemberExpression",
+                          "object": {
+                            "type": "MemberExpression",
+                            "object": {
+                              "type": "MemberExpression",
+                              "object": {
+                                "type": "Identifier",
+                                "name": "e"
+                              },
+                              "computed": false,
+                              "property": {
+                                "type": "Identifier",
+                                "name": "physicsImpostor"
+                              }
+                            },
+                            "computed": false,
+                            "property": {
+                              "type": "Identifier",
+                              "name": "physicsBody"
+                            }
+                          },
+                          "computed": false,
+                          "property": {
+                            "type": "Identifier",
+                            "name": "setDamping"
+                          }
+                        },
+                        "arguments": [
+                          {
+                            "type": "NumericLiteral",
+                            "value": 0.5
+                          },
+                          {
+                            "type": "NumericLiteral",
+                            "value": 0.5
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AssignmentExpression",
+                        "operator": "*=",
+                        "left": {
+                          "type": "MemberExpression",
+                          "object": {
+                            "type": "Identifier",
+                            "name": "f"
+                          },
+                          "computed": false,
+                          "property": {
+                            "type": "Identifier",
+                            "name": "y"
+                          }
+                        },
+                        "right": {
+                          "type": "NumericLiteral",
+                          "value": 0.2
+                        }
+                      },
+                      {
+                        "type": "AssignmentExpression",
+                        "operator": "=",
+                        "left": {
+                          "type": "MemberExpression",
+                          "object": {
+                            "type": "Identifier",
+                            "name": "e"
+                          },
+                          "computed": false,
+                          "property": {
+                            "type": "Identifier",
+                            "name": "hasDampened"
+                          }
+                        },
+                        "right": {
+                          "type": "UnaryExpression",
+                          "operator": "!",
+                          "prefix": true,
+                          "argument": {
+                            "type": "NumericLiteral",
+                            "value": 0
+                          }
+                        }
+                      },
+                      {
+                        "type": "CallExpression",
+                        "callee": {
+                          "type": "MemberExpression",
+                          "object": {
+                            "type": "ThisExpression"
+                          },
+                          "computed": false,
+                          "property": {
+                            "type": "Identifier",
+                            "name": "tallyDestroyedBlock"
+                          }
+                        },
+                        "arguments": [
+                          {
+                            "type": "NumericLiteral",
+                            "value": 1
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "ExpressionStatement",
+              "expression": {
+                "type": "AssignmentExpression",
+                "operator": "-=",
+                "left": {
+                  "type": "MemberExpression",
+                  "object": {
+                    "type": "Identifier",
+                    "name": "f"
+                  },
+                  "computed": false,
+                  "property": {
+                    "type": "Identifier",
+                    "name": "y"
+                  }
+                },
+                "right": {
+                  "type": "BinaryExpression",
+                  "left": {
+                    "type": "BinaryExpression",
+                    "left": {
+                      "type": "NumericLiteral",
+                      "value": 1.5
+                    },
+                    "operator": "*",
+                    "right": {
+                      "type": "BinaryExpression",
+                      "left": {
+                        "type": "MemberExpression",
+                        "object": {
+                          "type": "MemberExpression",
+                          "object": {
+                            "type": "Identifier",
+                            "name": "ig"
+                          },
+                          "computed": false,
+                          "property": {
+                            "type": "Identifier",
+                            "name": "gameScene"
+                          }
+                        },
+                        "computed": false,
+                        "property": {
+                          "type": "Identifier",
+                          "name": "gravity"
+                        }
+                      },
+                      "operator": "*",
+                      "right": {
+                        "type": "Identifier",
+                        "name": "b"
+                      }
+                    }
+                  },
+                  "operator": "*",
+                  "right": {
+                    "type": "MemberExpression",
+                    "object": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "Identifier",
+                        "name": "ig"
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "name": "gameScene"
+                      }
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "name": "dtFactor"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "ExpressionStatement",
+              "expression": {
+                "type": "AssignmentExpression",
+                "operator": "=",
+                "left": {
+                  "type": "MemberExpression",
+                  "object": {
+                    "type": "Identifier",
+                    "name": "f"
+                  },
+                  "computed": false,
+                  "property": {
+                    "type": "Identifier",
+                    "name": "x"
+                  }
+                },
+                "right": {
+                  "type": "NumericLiteral",
+                  "value": 0
+                }
+              }
+            },
+            {
+              "type": "ExpressionStatement",
+              "expression": {
+                "type": "AssignmentExpression",
+                "operator": "=",
+                "left": {
+                  "type": "MemberExpression",
+                  "object": {
+                    "type": "Identifier",
+                    "name": "f"
+                  },
+                  "computed": false,
+                  "property": {
+                    "type": "Identifier",
+                    "name": "z"
+                  }
+                },
+                "right": {
+                  "type": "NumericLiteral",
+                  "value": 0
+                }
+              }
+            },
+            {
+              "type": "ExpressionStatement",
+              "expression": {
+                "type": "CallExpression",
+                "callee": {
+                  "type": "MemberExpression",
+                  "object": {
+                    "type": "MemberExpression",
+                    "object": {
+                      "type": "Identifier",
+                      "name": "e"
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "name": "physicsImpostor"
+                    }
+                  },
+                  "computed": false,
+                  "property": {
+                    "type": "Identifier",
+                    "name": "setLinearVelocity"
+                  }
+                },
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "f"
+                  }
+                ]
+              }
+            }
+          ],
+          "directives": []
+        },
+        "alternate": {
+          "type": "ExpressionStatement",
+          "expression": {
+            "type": "ConditionalExpression",
+            "test": {
+              "type": "BinaryExpression",
+              "left": {
+                "type": "MemberExpression",
+                "object": {
+                  "type": "MemberExpression",
+                  "object": {
+                    "type": "Identifier",
+                    "name": "e"
+                  },
+                  "computed": false,
+                  "property": {
+                    "type": "Identifier",
+                    "name": "position"
+                  }
+                },
+                "computed": false,
+                "property": {
+                  "type": "Identifier",
+                  "name": "y"
+                }
+              },
+              "operator": "<",
+              "right": {
+                "type": "MemberExpression",
+                "object": {
+                  "type": "ThisExpression"
+                },
+                "computed": false,
+                "property": {
+                  "type": "Identifier",
+                  "name": "sinkDepthLimit"
+                }
+              }
+            },
+            "consequent": {
+              "type": "CallExpression",
+              "callee": {
+                "type": "MemberExpression",
+                "object": {
+                  "type": "ThisExpression"
+                },
+                "computed": false,
+                "property": {
+                  "type": "Identifier",
+                  "name": "destroyBlock"
+                }
+              },
+              "arguments": [
+                {
+                  "type": "Identifier",
+                  "name": "e"
+                },
+                {
+                  "type": "UnaryExpression",
+                  "operator": "!",
+                  "prefix": true,
+                  "argument": {
+                    "type": "NumericLiteral",
+                    "value": 0
+                  }
+                }
+              ]
+            },
+            "alternate": {
+              "type": "SequenceExpression",
+              "expressions": [
+                {
+                  "type": "AssignmentExpression",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "f"
+                  },
+                  "right": {
+                    "type": "CallExpression",
+                    "callee": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "MemberExpression",
+                        "object": {
+                          "type": "Identifier",
+                          "name": "e"
+                        },
+                        "computed": false,
+                        "property": {
+                          "type": "Identifier",
+                          "name": "physicsImpostor"
+                        }
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "name": "getLinearVelocity"
+                      }
+                    },
+                    "arguments": []
+                  }
+                },
+                {
+                  "type": "AssignmentExpression",
+                  "operator": "-=",
+                  "left": {
+                    "type": "MemberExpression",
+                    "object": {
+                      "type": "Identifier",
+                      "name": "f"
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "name": "y"
+                    }
+                  },
+                  "right": {
+                    "type": "BinaryExpression",
+                    "left": {
+                      "type": "BinaryExpression",
+                      "left": {
+                        "type": "NumericLiteral",
+                        "value": 0.5
+                      },
+                      "operator": "*",
+                      "right": {
+                        "type": "BinaryExpression",
+                        "left": {
+                          "type": "MemberExpression",
+                          "object": {
+                            "type": "MemberExpression",
+                            "object": {
+                              "type": "Identifier",
+                              "name": "ig"
+                            },
+                            "computed": false,
+                            "property": {
+                              "type": "Identifier",
+                              "name": "gameScene"
+                            }
+                          },
+                          "computed": false,
+                          "property": {
+                            "type": "Identifier",
+                            "name": "gravity"
+                          }
+                        },
+                        "operator": "*",
+                        "right": {
+                          "type": "Identifier",
+                          "name": "b"
+                        }
+                      }
+                    },
+                    "operator": "*",
+                    "right": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "MemberExpression",
+                        "object": {
+                          "type": "Identifier",
+                          "name": "ig"
+                        },
+                        "computed": false,
+                        "property": {
+                          "type": "Identifier",
+                          "name": "gameScene"
+                        }
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "name": "dtFactor"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "MemberExpression",
+                    "object": {
+                      "type": "MemberExpression",
+                      "object": {
+                        "type": "Identifier",
+                        "name": "e"
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "name": "physicsImpostor"
+                      }
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "name": "setLinearVelocity"
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "f"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "path": "root.body.body.0.expression.right.arguments.0.properties.42.value.body.body.4.body.body.1.alternate.consequent.directives",
+    "now": []
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-17T12:29:32.786143+00:00",
+  "revision": "towercolors-offline-v3",
+  "historical_checkpoints": 0,
+  "maximum_checkpoints": 5,
+  "maximum_raw_inputs": 5,
+  "checkpoints": [
+    {
+      "step": 1,
+      "maximum_inputs": 1,
+      "scope": "Native startup and 3D menu"
+    },
+    {
+      "step": 2,
+      "maximum_inputs": 1,
+      "scope": "Ordinary original Play"
+    },
+    {
+      "step": 3,
+      "maximum_inputs": 1,
+      "scope": "One visible original tutorial same-color tower tap"
+    },
+    {
+      "step": 4,
+      "maximum_inputs": 1,
+      "scope": "One ordinary visible tower rotation drag when tutorial permits"
+    },
+    {
+      "step": 5,
+      "maximum_inputs": 1,
+      "scope": "One further visible legal original color shot if eligible; otherwise defer"
+    }
+  ],
+  "boundaries": "At most5 meaningful checkpoints/5 inputs. Read-only public HUD/tutorial observations. No game state/color/RNG/score/currency/clock injection. Original physics, 15 level layouts, ordinary daily and earned powerup prices unchanged. No automatic replays."
+}

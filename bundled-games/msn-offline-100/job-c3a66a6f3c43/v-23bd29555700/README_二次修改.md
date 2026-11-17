@@ -1,0 +1,5 @@
+保留原Impact HUD、原custom Babylon/Ammo物理、LevelDesign/LevelManager/色球/邻接遍历/摄像机/本地存储与普通每日机制，需理解原实体与资源契约后拆解，不是作者原工程，不保证跨引擎直接复用。
+Ignore source positions/raw spelling/comments; flatten only adjacent same-operator && or || preserving exact operand/evaluation order. No mixed-operator flattening or boolean conversions.
+累计5检查点/5输入：原3D菜单、原Play、原教程可见青色方块一次点击、一次普通拖动旋转、可见橙色方块一次点击。额外003只是摄像机开场动画后的只读截图，无输入、无重复开局。实际HUD与截图确认分数/最高分0→1→2、弹药30→29→28、金币始终150；青色和橙色命中块消失，旋转改变塔与岛屿朝向，原滑动教程消失、正常暂停/50与100金币道具按钮出现，末次黄色球。没有写游戏状态/随机数/分数/弹药/时钟，没有调用射击或物理方法。未通关首关、未到失败/结算、未重开/刷新恢复、未购道具或领奖、未试玩全部关卡。
+原始只读观察器误读g.controller/window.gameScene，因原版使用ig.currentGame/ig.gameScene，对应null/false不是3D初始化失败判定；原始字段不改写，原菜单和真实3D塔、实际命中/旋转均以已查看截图证明。
+38请求/38响应全部本地HTTP200，包括原Ammo wasm、Babylon场景与实际材质贴图，无外联/404/失败/pageerror；1条原AudioContext自动播放警告保留。原53静态资源旧urllib连接重置与延期保留，实际Playwright请求栈以普通原页面Referer及浏览器式UA取得55/55（含wasm和场景），场景5贴图再5/5；不单独断言哪个头或TLS配置是原因。原title.png为图集61帧之一，单独文件原404；离线HTML去掉该无效横竖屏装饰引用，未伪造原PNG。横屏1440×900实测，实体手机未测。

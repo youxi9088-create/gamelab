@@ -1,0 +1,71 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "Native menu"
+      },
+      {
+        "type": "checkpoint",
+        "description": "Original Play"
+      },
+      {
+        "type": "checkpoint",
+        "description": "Click visible cyan tutorial block"
+      },
+      {
+        "type": "checkpoint",
+        "description": "One physical camera-rotation drag"
+      },
+      {
+        "type": "checkpoint",
+        "description": "Click visible orange block"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 38,
+    "responses": 38,
+    "network_events": 77,
+    "scope": "累计5检查点/5输入：原3D菜单、原Play、原教程可见青色方块一次点击、一次普通拖动旋转、可见橙色方块一次点击。额外003只是摄像机开场动画后的只读截图，无输入、无重复开局。实际HUD与截图确认分数/最高分0→1→2、弹药30→29→28、金币始终150；青色和橙色命中块消失，旋转改变塔与岛屿朝向，原滑动教程消失、正常暂停/50与100金币道具按钮出现，末次黄色球。没有写游戏状态/随机数/分数/弹药/时钟，没有调用射击或物理方法。未通关首关、未到失败/结算、未重开/刷新恢复、未购道具或领奖、未试玩全部关卡。",
+    "network_scope": "38请求/38响应全部本地HTTP200，包括原Ammo wasm、Babylon场景与实际材质贴图，无外联/404/失败/pageerror；1条原AudioContext自动播放警告保留。原53静态资源旧urllib连接重置与延期保留，实际Playwright请求栈以普通原页面Referer及浏览器式UA取得55/55（含wasm和场景），场景5贴图再5/5；不单独断言哪个头或TLS配置是原因。原title.png为图集61帧之一，单独文件原404；离线HTML去掉该无效横竖屏装饰引用，未伪造原PNG。横屏1440×900实测，实体手机未测。",
+    "observer_scope": "原始只读观察器误读g.controller/window.gameScene，因原版使用ig.currentGame/ig.gameScene，对应null/false不是3D初始化失败判定；原始字段不改写，原菜单和真实3D塔、实际命中/旋转均以已查看截图证明。",
+    "script_exceptions": [],
+    "browser_errors_preserved": true,
+    "tested_revision": "towercolors-offline-v3",
+    "delivery_revision": "towercolors-offline-v3",
+    "successful_native_color_hit_verified": true,
+    "native_rotation_verified": true,
+    "native_score_observed": 2,
+    "full_level_verified": false
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "manual_screenshot_observation": {
+    "before": "score0/best0/ammo30/coin150",
+    "after_first_hit": "score1/best1/ammo29/coin150, cyan block removed",
+    "after_rotation": "island/camera orientation changed, swipe hand disappeared, original pause and paid powerup UI visible",
+    "after_second_hit": "score2/best2/ammo28/coin150, orange block removed, next yellow ball"
+  },
+  "accounting": {
+    "observation_start": "2026-11-17T11:43:52.509279+00:00",
+    "observation_end": "2026-11-17T12:38:41.341358+00:00",
+    "elapsed_seconds": 3288.8320784568787,
+    "scope": "原入口归档至证据整理的观测窗口，包含等待及其他游戏，不是纯处理时间。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "browser_awaited_close_and_channel_exit": 0
+}
