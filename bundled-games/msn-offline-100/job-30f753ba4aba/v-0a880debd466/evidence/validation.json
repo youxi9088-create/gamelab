@@ -1,0 +1,83 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "原入口与START两输入"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原Local单输入"
+      },
+      {
+        "type": "checkpoint",
+        "description": "四次原生配置逐项日志"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原帮助跳过"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原骰子一次点击，玩家与CPU自然移动"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 98,
+    "network_events": 197,
+    "scope": "52机器真实Playwright Chromium，预先限定累计5检查点、9次原始输入。检查点1入口和原START（2输入）；2原Local（1）；3蛇棋/人机/双人/蓝色配置（4）；4原说明跳过（1）；5原骰子按钮（1）。未注入游戏状态、骰点、位置或调用游戏方法；原随机和CPU自然执行。实际玩家0→5格，CPU0→38格，回合交回玩家且可再掷。没有整局通关或全模式证明；滑梯模式、3～6人、同机多人、碰撞、蛇下降、精确终点反弹、重开、保存刷新、声音与手机操作仅源码保留，未追加实测。",
+    "network_scope": "完整98请求、98响应全部HTTP200，197条网络/主框架导航事件完整保留；0外部请求、0失败、0脚本异常。保留1条Canvas2D willReadFrequently性能警告，不是资源或游戏运行错误。",
+    "script_exceptions": [],
+    "browser_errors_preserved": true
+  },
+  "accounting": {
+    "observation_start": "2026-11-14T09:59:06.339241+00:00",
+    "observation_end": "2026-11-17T08:36:24.974238+00:00",
+    "elapsed_seconds": 254238.6349966526,
+    "scope": "原入口归档至本次材料整理的观测窗口，含抓取/分析/修订/真实浏览器、等待和其他工作；不是独占纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "before": {
+    "turn": 0,
+    "playerTurn": 0,
+    "mode": 1,
+    "players": 2,
+    "started": true,
+    "turnReady": true,
+    "positions": [
+      0,
+      0
+    ]
+  },
+  "after": {
+    "turn": 0,
+    "playerTurn": 0,
+    "mode": 1,
+    "players": 2,
+    "started": true,
+    "turnReady": true,
+    "diceResult": 3,
+    "playerDiceLaunch": 1,
+    "positions": [
+      5,
+      38
+    ]
+  },
+  "cumulative_checkpoints": 5,
+  "cumulative_raw_inputs": 9,
+  "scope": "52机器真实Playwright Chromium，预先限定累计5检查点、9次原始输入。检查点1入口和原START（2输入）；2原Local（1）；3蛇棋/人机/双人/蓝色配置（4）；4原说明跳过（1）；5原骰子按钮（1）。未注入游戏状态、骰点、位置或调用游戏方法；原随机和CPU自然执行。实际玩家0→5格，CPU0→38格，回合交回玩家且可再掷。没有整局通关或全模式证明；滑梯模式、3～6人、同机多人、碰撞、蛇下降、精确终点反弹、重开、保存刷新、声音与手机操作仅源码保留，未追加实测。"
+}

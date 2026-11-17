@@ -1,0 +1,271 @@
+{
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "checkpoint",
+        "description": "原入口与START两输入"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原Local单输入"
+      },
+      {
+        "type": "checkpoint",
+        "description": "四次原生配置逐项日志"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原帮助跳过"
+      },
+      {
+        "type": "checkpoint",
+        "description": "原骰子一次点击，玩家与CPU自然移动"
+      }
+    ],
+    "external": [],
+    "errors": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 98,
+    "network_events": 197,
+    "scope": "52机器真实Playwright Chromium，预先限定累计5检查点、9次原始输入。检查点1入口和原START（2输入）；2原Local（1）；3蛇棋/人机/双人/蓝色配置（4）；4原说明跳过（1）；5原骰子按钮（1）。未注入游戏状态、骰点、位置或调用游戏方法；原随机和CPU自然执行。实际玩家0→5格，CPU0→38格，回合交回玩家且可再掷。没有整局通关或全模式证明；滑梯模式、3～6人、同机多人、碰撞、蛇下降、精确终点反弹、重开、保存刷新、声音与手机操作仅源码保留，未追加实测。",
+    "network_scope": "完整98请求、98响应全部HTTP200，197条网络/主框架导航事件完整保留；0外部请求、0失败、0脚本异常。保留1条Canvas2D willReadFrequently性能警告，不是资源或游戏运行错误。",
+    "script_exceptions": [],
+    "browser_errors_preserved": true
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "原SDK、广告事件与显示/隐藏调用退役；未伪造奖励或额外骰点。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/snakes-retirement.json",
+        "evidence/v1-network-console.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "平台报分与遥测调用删除，原本地胜局统计保留。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/snakes-retirement.json",
+        "evidence/v1-network-console.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "网络房间/消息/PlayerIO/在线Bot模块与入口已删除；保留原CPU和同设备多名真人。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/snakes-retirement.json",
+        "evidence/v1-network-console.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "没有充值/订单/现金购买或新增权益。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/snakes-retirement.json",
+        "evidence/v1-network-console.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "棋牌 / 蛇梯棋掷骰竞速",
+    "dimension": "2D",
+    "perspective": "俯视100格棋盘",
+    "core_gameplay": "通过原随机骰子在100格棋盘竞速，利用梯子上升、避开蛇下降，并按精确点数到终点；运气型回合竞赛。实测玩家和CPU各完成首轮移动，不宣称完整胜负。",
+    "core_experience": "",
+    "controls": "鼠标点击原START、Local、棋盘模式、对手、人数、颜色、说明跳过和骰子；原CreateJS触控代码保留。只实测鼠标；未实测手机、声音/设置/全屏/重开按钮。",
+    "game_loop": "",
+    "content": "原蛇棋与滑梯两种板型、2～6名棋子、CPU或同设备轮流的配置保留；不是闯关合集。本次只进入蛇棋、2名、人对CPU配置，其余配置没有试玩。",
+    "progression": "",
+    "save": "原localStorage保存snakesandladders_gamesplayed/gameswon统计，原存储代码保留；本轮两项均null，没有进行结算或刷新测试。没有现金购买或新货币；原广告被移除，不赠送额外骰点或胜利。",
+    "rules": "原PERFECT_SCORE=true，超过100按剩余步数回退；掷6额外掷骰，蛇/滑梯下降、梯上升，原棋子占位和回合动画保留。181个原生核心方法中175个AST相同、6个只删平台事件/广告；没有更改骰点、CPU、棋盘图、结算或奖励。",
+    "systems": "保留CreateJS场景/原加载器/Howler/原screenfull、棋盘/骰子/CPU与本地统计。移除PlayerIO SDK、网络管理和消息转发、房间GUI、多人网络/假在线Bot场景及原实例、广告/报分/遥测调用，启动直接等待原字体后创建原CMain；getLang调用改为实际浏览器语言。未定义假SDK、身份或广告成功回调。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "52机器真实Playwright Chromium，预先限定累计5检查点、9次原始输入。检查点1入口和原START（2输入）；2原Local（1）；3蛇棋/人机/双人/蓝色配置（4）；4原说明跳过（1）；5原骰子按钮（1）。未注入游戏状态、骰点、位置或调用游戏方法；原随机和CPU自然执行。实际玩家0→5格，CPU0→38格，回合交回玩家且可再掷。没有整局通关或全模式证明；滑梯模式、3～6人、同机多人、碰撞、蛇下降、精确终点反弹、重开、保存刷新、声音与手机操作仅源码保留，未追加实测。 完整98请求、98响应全部HTTP200，197条网络/主框架导航事件完整保留；0外部请求、0失败、0脚本异常。保留1条Canvas2D willReadFrequently性能警告，不是资源或游戏运行错误。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "CreateJS / Canvas2D / Howler",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Snakes and Ladders，MSN身份9n9xf62dpf3h，Code This Lab公开原生v2；改编snakes-offline-v1。JavaScript/HTML/CSS、CreateJS Canvas2D、Howler，2D俯视棋盘，本地CPU或同设备对局。",
+        "asset_types": "原PNG棋盘/蛇/梯/骰子/棋子/按钮和动画图集、JPG背景、MP3音效与音乐、walibi原WOFF2/WOFF字体。103个源码声明运行素材和8个原CSS/字体/JS依赖逐字节SHA保留；113基础运行文件。没有替换成占位图或新玩法。",
+        "core_challenge": "通过原随机骰子在100格棋盘竞速，利用梯子上升、避开蛇下降，并按精确点数到终点；运气型回合竞赛。实测玩家和CPU各完成首轮移动，不宣称完整胜负。",
+        "controls": "鼠标点击原START、Local、棋盘模式、对手、人数、颜色、说明跳过和骰子；原CreateJS触控代码保留。只实测鼠标；未实测手机、声音/设置/全屏/重开按钮。",
+        "behavior_path": "原预载START→仅本地菜单入口→蛇棋→人对CPU→2人→蓝色→原规则说明→跳过→点骰子→原棋子前进与CPU自动响应→回到玩家回合。",
+        "game_path": "原菜单和四段配置、帮助、游戏棋盘、回合标记和骰子可见。菜单原联机按钮已删除，保留原原画上的Multiplayer文字，含义为本地多人能力，不提供网络匹配。没有以假连接替代原房间。",
+        "progression_path": "原蛇棋与滑梯两种板型、2～6名棋子、CPU或同设备轮流的配置保留；不是闯关合集。本次只进入蛇棋、2名、人对CPU配置，其余配置没有试玩。",
+        "core_loop": "目标到100格→点击原骰子→原随机1～6→按格移动/触发蛇梯→原回合和再掷提示→CPU或下一玩家→继续前进。实际观察蓝色从0到5、红色CPU从0到38，回到蓝色；未走到胜负结算。",
+        "gameplay_rules": "原PERFECT_SCORE=true，超过100按剩余步数回退；掷6额外掷骰，蛇/滑梯下降、梯上升，原棋子占位和回合动画保留。181个原生核心方法中175个AST相同、6个只删平台事件/广告；没有更改骰点、CPU、棋盘图、结算或奖励。",
+        "key_numbers": "源码：100格、1～6骰点、2种板型、2～6人、6色；9个梯起点[1,4,9,21,28,36,51,71,80]、10个下降起点[16,47,49,56,62,64,87,93,95,98]。实测2人、蛇棋mode0、人机mode1、玩家turn0，结束位置[5,38]。本次快照diceResult/playerDiceLaunch是原中间状态，未把它们当作两次初始骰点。",
+        "level_configuration": "原BOARD_SQUARES位置表、梯/障碍起点及移动映射、贝塞尔路径和图集均本地内置，无每日关卡或服务器棋盘配置。不同板型原配置保留，未新增关卡。",
+        "system_design": "保留CreateJS场景/原加载器/Howler/原screenfull、棋盘/骰子/CPU与本地统计。移除PlayerIO SDK、网络管理和消息转发、房间GUI、多人网络/假在线Bot场景及原实例、广告/报分/遥测调用，启动直接等待原字体后创建原CMain；getLang调用改为实际浏览器语言。未定义假SDK、身份或广告成功回调。",
+        "theme": "原卡通森林草地、橙蓝弹窗、蛇与彩梯、六色棋子、walibi粗体、原掷骰和移动动画；原素材SHA保持，未重绘或替换原UI。",
+        "progression_economy": "原localStorage保存snakesandladders_gamesplayed/gameswon统计，原存储代码保留；本轮两项均null，没有进行结算或刷新测试。没有现金购买或新货币；原广告被移除，不赠送额外骰点或胜利。",
+        "roster": "2～6个原六色棋子；本次蓝色玩家与红色CPU。CPU为原CGameSingle人机分支，不是伪造在线玩家；同设备多名真人模式源码保留，未实测。",
+        "monetization": "去除广告模块/事件、平台分数和通知、外链点击、在线房间/匹配/邀请、远程脚本与服务工作线程注册入口。原Credits归属文字保留，外部跳转监听器移除。离线静态HTTP运行，不连接业务服务端。完整98请求、98响应全部HTTP200，197条网络/主框架导航事件完整保留；0外部请求、0失败、0脚本异常。保留1条Canvas2D willReadFrequently性能警告，不是资源或游戏运行错误。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/002.png",
+        "caption": "原菜单仅保留本地入口，原图上的Multiplayer归属文字保持"
+      },
+      {
+        "path": "screenshots/007.png",
+        "caption": "原蛇梯规则说明，未替代原帮助"
+      },
+      {
+        "path": "screenshots/008.png",
+        "caption": "原双人对CPU棋盘，双方起点0"
+      },
+      {
+        "path": "screenshots/009.png",
+        "caption": "一次真实掷骰后蓝色5格、CPU红色38格，轮到玩家"
+      }
+    ]
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-14T09:59:06.339241+00:00",
+    "observation_end": "2026-11-17T08:36:24.974238+00:00",
+    "elapsed_seconds": 254238.6349966526,
+    "scope": "原入口归档至本次材料整理的观测窗口，含抓取/分析/修订/真实浏览器、等待和其他工作；不是独占纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "原玩家与CPU首轮自然移动并交回玩家，未整局或全模式验证",
+      "evidence": [
+        "screenshots/008.png",
+        "screenshots/009.png",
+        "js/main.js",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "111个原素材/依赖SHA，完整98请求全部HTTP200",
+      "evidence": [
+        "screenshots/008.png",
+        "screenshots/009.png",
+        "js/main.js",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单、配置、规则说明、蛇梯棋盘实显",
+      "evidence": [
+        "screenshots/008.png",
+        "screenshots/009.png",
+        "js/main.js",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原两名棋子、100格、蛇梯和骰子显示",
+      "evidence": [
+        "screenshots/008.png",
+        "screenshots/009.png",
+        "js/main.js",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原掷骰、步进和CPU移动完成，未伪造状态",
+      "evidence": [
+        "screenshots/008.png",
+        "screenshots/009.png",
+        "js/main.js",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "5累计检查点9次原始输入，原按钮和回合标识",
+      "evidence": [
+        "screenshots/008.png",
+        "screenshots/009.png",
+        "js/main.js",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原蓝色玩家/红色CPU位置真实变化，未测其余颜色配置",
+      "evidence": [
+        "screenshots/008.png",
+        "screenshots/009.png",
+        "js/main.js",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

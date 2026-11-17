@@ -1,0 +1,57 @@
+{
+  "at": "2026-11-17T08:25:32.000963+00:00",
+  "game": "snakes",
+  "native_id": "9n9xf62dpf3h",
+  "revision": "snakes-offline-v1",
+  "historical_checkpoints": 0,
+  "maximum_cumulative_checkpoints": 5,
+  "maximum_raw_inputs": 9,
+  "checkpoints": [
+    {
+      "step": 1,
+      "inputs": [
+        "goto original offline entry",
+        "native preloader Continue click"
+      ],
+      "max_inputs": 2
+    },
+    {
+      "step": 2,
+      "inputs": [
+        "native Local mode button"
+      ],
+      "max_inputs": 1
+    },
+    {
+      "step": 3,
+      "inputs": [
+        "native Snakes board selection",
+        "native human versus CPU selection",
+        "native two-player selection",
+        "native one color selection"
+      ],
+      "max_inputs": 4
+    },
+    {
+      "step": 4,
+      "inputs": [
+        "native help Skip click"
+      ],
+      "max_inputs": 1
+    },
+    {
+      "step": 5,
+      "inputs": [
+        "native Dice click"
+      ],
+      "max_inputs": 1
+    }
+  ],
+  "invariants": [
+    "Every raw input separately recorded; observations do not inject gameplay state",
+    "Choose coordinates from actual preceding screenshots",
+    "No full-round, all-board or storage replay claim from a single roll",
+    "Native RNG and native CPU order unchanged",
+    "Close actual browser when passed/deferred"
+  ]
+}
