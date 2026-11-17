@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-17T20:27:11.154133+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "network_requests_made": 0,
+  "native_settings_prefix_getter": {
+    "function_index": 33983,
+    "range": [
+      14117,
+      17
+    ],
+    "value": "gameSettingsUrls/"
+  },
+  "original_common_database_path": "gameSettingsUrls/common/",
+  "native_chain": {
+    "settings_registration": 43423,
+    "firebase_database_bridge": 4052,
+    "javascript_message_sender": 43394,
+    "wasm_import": "Md",
+    "framework_function": "_GetValueJS",
+    "host_function": "getValueTT",
+    "cdn_fetch_consumer": 26016
+  },
+  "actual_source_boundaries": [
+    "Common settings path is a Firebase database node, not an HTTP URL",
+    "Original JS reads the actual database child and forwards actual values to Unity",
+    "The native later consumer26016 calls UnityWebRequest.Get6275 for two actual URL values; none were fabricated or requested here",
+    "GameSettingsData43254 has an original constructor with native default values, not proof that all services or original account state are locally ready"
+  ],
+  "original_input_hashes": {
+    "original/scripts/auth.js": "164948b845509b13bd81a2912978dcc2ec9c187b7238839041b21ec269668338",
+    "native-build/41c0f438c941cb52e5a25dae21ba9c27.framework.js.br": "b15aea1228fc6ddd927b0e19fefaebcea79733ff554f8da8f8de809d34a7e7b2"
+  },
+  "original_framework_source": "function _GetValueJS(nodeKey){var nodeKeyStr=UTF8ToString(nodeKey);getValueTT(nodeKeyStr)}",
+  "original_host_get_value_source": "function getValueTT(n){const t=1e3,i=firebase.database().ref();i.child(n).once(\"value\").then(t=>{if(t.exists()){var i=JSON.stringify(t.val());SendDataToUnity(\"OnGetValueSuccess\",n,i)}else window.unityGame.SendMessage(unityFirebaseGameOjbectName,\"OnGetValueEmptySuccess\",n)}).catch(i=>{if(SendDataToUnity(unityFirebaseGameOjbectName,\"OnGetValueError\",n,i.message),console.error(i),i.code===\"PERMISSION_DENIED\"||i.message.includes(\"permission_denied\")){const r=isMobile()?\"mobile\":\"desktop\",u=window.location!=window.parent.location?document.referrer:document.location.href,f=new URL(u),e=f.hostname,o=e.replace(/\\./g,\"-\"),c=o+\"-\"+r,s=n.startsWith(\"users/\")&&n.endsWith(\"/ud\"),h=n.startsWith(\"users/\")&&n.endsWith(\"/udro\");let i=!1;if(s?firstLoadFailUD||(firstLoadFailUD=n,i=!0):h&&(firstLoadFailUDRO||(firstLoadFailUDRO=n,i=!0)),i){setTimeout(()=>getValueTT(n),t);return}}})}",
+  "source_views": {
+    "settings_constructor": 43254,
+    "decompiled_service_functions": 233,
+    "instruction_service_functions": 235,
+    "structured_view_exclusions": [
+      26015,
+      43610
+    ]
+  },
+  "limitations": [
+    "No account, Firebase return, remote URL, SDK/provider success or loaded flag is invented",
+    "1493 original item records and48 content groups do not prove prefab closure or complete game settings",
+    "Original local room/player/AI bootstrap and native runtime gameplay remain unresolved"
+  ]
+}
