@@ -1,0 +1,134 @@
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+   
+
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+
+local camera = require "extra.camera"
+
+local function has_active_follow_target(follow_id)
+	return go.exists(follow_id)
+end
+
+local function position_on_follow(self)
+	if has_active_follow_target(self.follow_target) then
+		local target_position = go.get_position(self.follow_target)
+		local camera_position = go.get_position()
+		target_position.z = camera_position.z
+		go.set_position(target_position)
+	end
+end
+
+local function set_camera_properties(self)
+	go.set("#camera", "far_z", self.far_z + 0.0001)
+	go.set("#camera", "near_z", self.near_z - 0.0001)
+	go.set("#camera", "orthographic_zoom", self.zoom)
+end
+
+function init(self)
+	self.id = go.get_id()
+	set_camera_properties(self)
+	camera.init(self.id, nil, { zoom = self.zoom })
+	camera.update(self.id, 0)
+	if self.enabled then
+		if self.follow and self.follow_immediately then
+			position_on_follow(self)
+		end
+	end
+end
+
+function final(self)
+	camera.final(self.id)
+end
+
+function late_update(self, dt)
+	camera.update(self.id, dt)
+	set_camera_properties(self)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == camera.MSG_ENABLE then
+		self.enabled = true
+	elseif message_id == camera.MSG_DISABLE then
+		self.enabled = false
+	elseif message_id == camera.MSG_UNFOLLOW then
+		self.follow = false
+	elseif message_id == camera.MSG_USE_PROJECTION then
+		assert(message.projection, "You must provide a projection")
+		self.projection = message.projection
+	elseif message_id == camera.MSG_FOLLOW then
+		assert(message.target, "You must provide a target")
+		self.follow = true
+		if message.horizontal == nil then message.horizontal = true end
+		if message.vertical == nil then message.vertical = true end
+		local lerp = message.lerp or 1
+		if lerp < 0 then lerp = 0 end
+		if lerp > 1 then lerp = 1 end
+		self.follow_horizontal = message.horizontal
+		self.follow_vertical = message.vertical
+		self.follow_target = type(message.target) == "string" and hash(message.target) or message.target
+		self.follow_lerp = lerp
+		self.follow_offset = message.offset or vmath.vector3()
+		self.follow_immediately = message.immediate
+		if self.follow and self.follow_immediately then
+			position_on_follow(self)
+		end
+	elseif message_id == camera.MSG_FOLLOW_OFFSET then
+		assert(message.offset, "You must provide an offset")
+		self.follow_offset = message.offset
+	elseif message_id == camera.MSG_DEADZONE then
+		self.deadzone_right = message.right or 0
+		self.deadzone_top = message.top or 0
+		self.deadzone_left = message.left or 0
+		self.deadzone_bottom = message.bottom or 0
+	elseif message_id == camera.MSG_BOUNDS then
+		self.bounds_right = message.right or 0
+		self.bounds_top = message.top or 0
+		self.bounds_left = message.left or 0
+		self.bounds_bottom = message.bottom or 0
+	elseif message_id == camera.MSG_VIEWPORT then
+		self.viewport_right = message.right or 0
+		self.viewport_top = message.top or 0
+		self.viewport_left = message.left or 0
+		self.viewport_bottom = message.bottom or 0
+	elseif message_id == camera.MSG_SHAKE then
+		camera.shake(self.id, message.intensity, message.duration, message.direction, function()
+			if go.exists(sender) then
+				msg.post(sender, camera.MSG_SHAKE_COMPLETED)
+			end
+		end)
+	elseif message_id == camera.MSG_RECOIL then
+		camera.recoil(self.id, message.offset, message.duration)
+	elseif message_id == camera.MSG_STOP_SHAKING then
+		camera.stop_shaking(self.id)
+	elseif message_id == camera.MSG_ZOOM_TO then
+		assert(message.zoom, "You must provide a zoom level")
+		self.zoom = message.zoom
+	elseif message_id == camera.MSG_SET_AUTOMATIC_ZOOM then
+		self.automatic_zoom = message.enabled
+	end
+end
