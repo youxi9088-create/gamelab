@@ -1,0 +1,11 @@
+# Smash Karts 原生离线模式边界（源码调查，未交付）
+
+原WASM/metadata不改，原任务job-3db06205247a状态、版本及预算不变，试玩0/5。本次没有可启动候选，没有游戏执行，不入库、不供货。
+
+从原PhotonUnityNetworking.dll模块表定位133个PhotonNetwork方法与27个属性。原属性qzt/getter ijp=96313/setter ijq=7186，真实setter有状态一致检查、已连接拒绝、断开连接、切换本地ID及连接回调。原警告getter46206由原class a初始化器109101/field44861的12647字节原RVA解码，原文为“Can't start OFFLINE mode while connected!”；不是按SDK方法次序猜名。
+
+两次静态反汇编均完整读取138243个原定义函数。离线setter的7处直接调用均属原PUN库内部；其中ilc41676包含显式offline布尔分支，原代码对它的唯一直接调用为PUN.ilb17293。没有在本次直接调用扫描中发现游戏Assembly-CSharp直接启用离线模式。此结论只限直接call指令，不能排除delegate/table/reflection路径。
+
+原GameStartScreen练习按钮仍调用GameManager.StartRoundSpawn；原PhotonConnectionManager.Awake仍读取实际Firebase用户。SDK本身存在OfflineMode不能证明游戏已具有独立单机入口。当前还需解决真实游戏消费者、房间/玩家初始化及本地完整对局，不能伪造Firebase身份或远端成功状态。两份原资源目录162包材料虽齐，不是游戏完成。
+
+本目录只收录静态源码证据与可修改工具。大体积NOT-RUNTIME切片及完整字符串表不入运行包，不执行原游戏代码；实际GUI预算和交付结论保持不变。未知独占耗时、逐游戏Token、费用仍为null。

@@ -1,0 +1,132 @@
+{
+  "source_only": true,
+  "game_executed": false,
+  "original_game_modified": false,
+  "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+  "disassembler": "wabt wasm-objdump -d original file; actual call opcodes, not byte-pattern matching",
+  "defined_functions_disassembled": 138243,
+  "calls": [
+    {
+      "caller_function": 6359,
+      "target_function": 7186,
+      "target_semantics": "original_offline_mode_setter",
+      "original_instruction": "2436ce: 10 92 38                   |   call 7186",
+      "caller_metadata_aliases": [
+        {
+          "type": "PhotonNetwork",
+          "namespace": "Photon.Pun",
+          "method": "ilg",
+          "image": "PhotonUnityNetworking.dll",
+          "token": 100663375
+        }
+      ]
+    },
+    {
+      "caller_function": 17293,
+      "target_function": 41676,
+      "target_semantics": "original_ilc_with_explicit_offline_boolean_branch",
+      "original_instruction": "65f7cc: 10 cc c5 02                | call 41676",
+      "caller_metadata_aliases": [
+        {
+          "type": "PhotonNetwork",
+          "namespace": "Photon.Pun",
+          "method": "ilb",
+          "image": "PhotonUnityNetworking.dll",
+          "token": 100663370
+        }
+      ]
+    },
+    {
+      "caller_function": 41668,
+      "target_function": 7186,
+      "target_semantics": "original_offline_mode_setter",
+      "original_instruction": "1189945: 10 92 38                   |     call 7186",
+      "caller_metadata_aliases": [
+        {
+          "type": "PhotonNetwork",
+          "namespace": "Photon.Pun",
+          "method": "ily",
+          "image": "PhotonUnityNetworking.dll",
+          "token": 100663388
+        }
+      ]
+    },
+    {
+      "caller_function": 41673,
+      "target_function": 7186,
+      "target_semantics": "original_offline_mode_setter",
+      "original_instruction": "118a7d2: 10 92 38                   |     call 7186",
+      "caller_metadata_aliases": [
+        {
+          "type": "PhotonNetwork",
+          "namespace": "Photon.Pun",
+          "method": "ilh",
+          "image": "PhotonUnityNetworking.dll",
+          "token": 100663376
+        }
+      ]
+    },
+    {
+      "caller_function": 41675,
+      "target_function": 7186,
+      "target_semantics": "original_offline_mode_setter",
+      "original_instruction": "118ad3a: 10 92 38                   |     call 7186",
+      "caller_metadata_aliases": [
+        {
+          "type": "PhotonNetwork",
+          "namespace": "Photon.Pun",
+          "method": "ild",
+          "image": "PhotonUnityNetworking.dll",
+          "token": 100663372
+        }
+      ]
+    },
+    {
+      "caller_function": 41676,
+      "target_function": 7186,
+      "target_semantics": "original_offline_mode_setter",
+      "original_instruction": "118b255: 10 92 38                   |     call 7186",
+      "caller_metadata_aliases": [
+        {
+          "type": "PhotonNetwork",
+          "namespace": "Photon.Pun",
+          "method": "ilc",
+          "image": "PhotonUnityNetworking.dll",
+          "token": 100663371
+        }
+      ]
+    },
+    {
+      "caller_function": 41676,
+      "target_function": 7186,
+      "target_semantics": "original_offline_mode_setter",
+      "original_instruction": "118b2c0: 10 92 38                   |     call 7186",
+      "caller_metadata_aliases": [
+        {
+          "type": "PhotonNetwork",
+          "namespace": "Photon.Pun",
+          "method": "ilc",
+          "image": "PhotonUnityNetworking.dll",
+          "token": 100663371
+        }
+      ]
+    },
+    {
+      "caller_function": 41678,
+      "target_function": 7186,
+      "target_semantics": "original_offline_mode_setter",
+      "original_instruction": "118b76f: 10 92 38                   | call 7186",
+      "caller_metadata_aliases": [
+        {
+          "type": "PhotonNetwork",
+          "namespace": "Photon.Pun",
+          "method": "ila",
+          "image": "PhotonUnityNetworking.dll",
+          "token": 100663369
+        }
+      ]
+    }
+  ],
+  "duration_seconds": 72.603,
+  "limitation": "Direct call instructions only; delegate/table/reflection entry points require separate inspection. No offline gameplay proof."
+}
