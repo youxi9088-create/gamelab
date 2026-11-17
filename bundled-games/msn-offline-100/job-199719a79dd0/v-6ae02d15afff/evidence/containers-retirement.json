@@ -1,0 +1,16 @@
+{
+  "revision": "containers-offline-v1",
+  "source_offset_edits": 40,
+  "removed_modules": [
+    "plugins.handlers.api-handler",
+    "plugins.microsoft",
+    "game.entities.buttons.button-branding-logo",
+    "game.entities.buttons.button-more-games",
+    "game.entities.screens.popup-rv",
+    "game.entities.controllers.ads-controller"
+  ],
+  "no_sdk_facade": true,
+  "no_ad_reward_granted": true,
+  "loss_behavior": "Use original showResult true/showAsk false non-ad branch; preserve native WindowResult and retry.",
+  "native_collision_cutting_and_scoring_unchanged": true
+}

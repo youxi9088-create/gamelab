@@ -1,0 +1,33 @@
+{
+  "at": "2026-11-17T09:52:19.463586+00:00",
+  "revision": "containers-offline-v2",
+  "historical_checkpoints": 2,
+  "historical_trace": "ui-evidence/containers/network-console.json",
+  "maximum_cumulative_checkpoints": 5,
+  "remaining": [
+    {
+      "step": 3,
+      "inputs": 1,
+      "scope": "One startup with live dedicated SSH worker"
+    },
+    {
+      "step": 4,
+      "inputs": 1,
+      "scope": "Native Play"
+    },
+    {
+      "step": 5,
+      "inputs": 1,
+      "scope": "One native stack tap, observe overlap/cut/score or failure"
+    }
+  ],
+  "boundaries": "No state/RNG/time injection, no hidden answer/geometry assisted timing. Timed waits/read-only rendering observations are not new inputs. Stop if repeated startup error.",
+  "history_uncertain_attempt": {
+    "command": "100",
+    "prior_process": 37164,
+    "actual_process_missing": true,
+    "result_missing": true,
+    "counted_conservatively": 1,
+    "reason": "Ready existed, process then absent before action receipt; no navigation outcome claimed."
+  }
+}
