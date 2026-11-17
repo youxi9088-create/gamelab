@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-17T16:46:30.966711+00:00",
+  "native_id": "9n8bq7npxbfw",
+  "revision": "hitman-offline-v3",
+  "maximum_cumulative_checkpoints": 5,
+  "historical_UI": 0,
+  "checkpoints": [
+    "Navigate original offline entry/menu",
+    "Click original Play",
+    "Select first unlocked level",
+    "One visible tutorial path destination click",
+    "One further visible tutorial destination click"
+  ],
+  "invariants": [
+    "Exactly one meaningful input per checkpoint. No hidden target reads/state writes or tutorial bypass.",
+    "Coordinates from screenshots, native player input/guard AI/pathfinding/collision/score only.",
+    "Core success must be seen; otherwise defer without admission. Full tutorial/level/storage reload coverage not implied.",
+    "No extra refresh or sixth input. Always close own browser."
+  ]
+}

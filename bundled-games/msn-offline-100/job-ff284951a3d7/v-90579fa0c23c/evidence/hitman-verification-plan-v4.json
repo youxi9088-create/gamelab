@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-17T16:46:30.966711+00:00",
+  "native_id": "9n8bq7npxbfw",
+  "revision": "hitman-offline-v4",
+  "maximum_cumulative_checkpoints": 5,
+  "historical_UI": 1,
+  "checkpoints": [
+    "1: original v3 startup FAILED missing original branding fonts and omitted orientation image",
+    "2: repaired v4 entry, same original code, complete source font/image bytes",
+    "3: original Play",
+    "4: first unlocked level",
+    "5: one visible original tutorial destination; native movement/attack only"
+  ],
+  "invariants": [
+    "Exactly one meaningful input per checkpoint. No hidden target reads/state writes or tutorial bypass.",
+    "Coordinates from screenshots, native player input/guard AI/pathfinding/collision/score only.",
+    "Core success must be seen; otherwise defer without admission. Full tutorial/level/storage reload coverage not implied.",
+    "No extra refresh or sixth input. Always close own browser."
+  ],
+  "revised_at": "2026-11-17T16:52:12.035865+00:00",
+  "remaining_UI": 4
+}
