@@ -1,0 +1,29 @@
+{
+  "job_id": "job-0d68b7f140bc",
+  "revision": "work-local-boundaries-v2",
+  "authorization_question": "call_8d08ad1ea3074c278192fdeb169e22b2",
+  "original_ledger_sha256": "93e7da67a40eb521cd1c1f9ce26a8a869bf023d58699f703db352a63d8eb7c89",
+  "preserved_prior_steps": 3,
+  "maximum_authorized": 5,
+  "ui_steps_used": 5,
+  "remaining": 0,
+  "historical_cumulative_steps": null,
+  "steps": [
+    {
+      "step": 4,
+      "at": "2026-11-17T17:12:53.507942+00:00",
+      "action": "在52浏览器打开同SHA原生v2候选，计为追加授权第4步",
+      "status": "attempted",
+      "outcome": "52原生开场和PLAY已渲染；92条观察事件，外部资源0；观察器CSP误挡本地blob worker一次、favicon 404各保留，不构成离线通过。尚无原生指针锁或找针交互证据。",
+      "observed_at": "2026-11-17T17:14:02.130028+00:00"
+    },
+    {
+      "step": 5,
+      "at": "2026-11-17T17:14:23.120980+00:00",
+      "action": "在52单击原生PLAY，观察是否进入草堆并取得指针锁，计追加授权第5步",
+      "status": "attempted",
+      "outcome": "52真实Chrome的trusted PLAY点击进入原生草堆；pointerlockchange确认Canvas locked=true，focused/visible=true。新增7个原音频本地404，CSP blob worker及favicon错误保留。追加5步已全部用完；实际挖取/针获取/结算/赚取存档均未验证，不入库。",
+      "observed_at": "2026-11-17T17:15:23.381311+00:00"
+    }
+  ]
+}

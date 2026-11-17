@@ -1,0 +1,115 @@
+{
+  "at": "2026-11-17T17:17:40.761176+00:00",
+  "complete": true,
+  "owned_observer_live": false,
+  "pid": 10512,
+  "port": 57588,
+  "used": 5,
+  "remaining": 0,
+  "native_pointer_lock_observed": true,
+  "events": 146,
+  "errors": [
+    {
+      "at": "2026-11-17T17:13:12.679489+00:00",
+      "seq": 39,
+      "type": "securitypolicyviolation",
+      "blockedURI": "blob",
+      "directive": "worker-src"
+    }
+  ],
+  "http_errors": [
+    {
+      "at": "2026-11-17T17:13:12.632323+00:00",
+      "seq": 28,
+      "type": "resource",
+      "url": "http://127.0.0.1:57588/favicon.ico",
+      "initiatorType": "other",
+      "responseStatus": 404,
+      "transferSize": 635,
+      "duration": 14.799999952316284
+    },
+    {
+      "at": "2026-11-17T17:14:49.645613+00:00",
+      "seq": 100,
+      "type": "resource",
+      "url": "http://127.0.0.1:57588/favicon.ico",
+      "initiatorType": "other",
+      "responseStatus": 404,
+      "transferSize": 635,
+      "duration": 2.799999952316284
+    },
+    {
+      "at": "2026-11-17T17:14:52.567563+00:00",
+      "seq": 107,
+      "type": "resource",
+      "url": "http://127.0.0.1:57588/assets/audio/sfx/farming/hay-2.mp3",
+      "initiatorType": "xmlhttprequest",
+      "responseStatus": 404,
+      "transferSize": 635,
+      "duration": 5.6000001430511475
+    },
+    {
+      "at": "2026-11-17T17:14:52.570840+00:00",
+      "seq": 110,
+      "type": "resource",
+      "url": "http://127.0.0.1:57588/assets/audio/sfx/farming/hay-4.mp3",
+      "initiatorType": "xmlhttprequest",
+      "responseStatus": 404,
+      "transferSize": 635,
+      "duration": 6
+    },
+    {
+      "at": "2026-11-17T17:14:52.572347+00:00",
+      "seq": 113,
+      "type": "resource",
+      "url": "http://127.0.0.1:57588/assets/audio/sfx/farming/click.mp3",
+      "initiatorType": "xmlhttprequest",
+      "responseStatus": 404,
+      "transferSize": 635,
+      "duration": 6.400000095367432
+    },
+    {
+      "at": "2026-11-17T17:14:52.582367+00:00",
+      "seq": 116,
+      "type": "resource",
+      "url": "http://127.0.0.1:57588/assets/audio/sfx/farming/needle.mp3",
+      "initiatorType": "xmlhttprequest",
+      "responseStatus": 404,
+      "transferSize": 635,
+      "duration": 8.400000095367432
+    },
+    {
+      "at": "2026-11-17T17:14:52.586370+00:00",
+      "seq": 119,
+      "type": "resource",
+      "url": "http://127.0.0.1:57588/assets/audio/sfx/farming/diamond.mp3",
+      "initiatorType": "xmlhttprequest",
+      "responseStatus": 404,
+      "transferSize": 635,
+      "duration": 8.5
+    },
+    {
+      "at": "2026-11-17T17:14:52.604530+00:00",
+      "seq": 122,
+      "type": "resource",
+      "url": "http://127.0.0.1:57588/assets/audio/sfx/farming/deposit.mp3",
+      "initiatorType": "xmlhttprequest",
+      "responseStatus": 404,
+      "transferSize": 635,
+      "duration": 10.799999952316284
+    },
+    {
+      "at": "2026-11-17T17:14:52.770122+00:00",
+      "seq": 127,
+      "type": "resource",
+      "url": "http://127.0.0.1:57588/assets/audio/music/darkest-child.mp3",
+      "initiatorType": "xmlhttprequest",
+      "responseStatus": 404,
+      "transferSize": 635,
+      "duration": 26.200000047683716
+    }
+  ],
+  "admitted": false,
+  "runtime_verified": false,
+  "reason": "Native PLAY and pointer lock on remote52 verified. Seven native audio 404 and observation CSP worker error preserved. Acquisition/settlement/earned save unverified; no steps remain."
+}
