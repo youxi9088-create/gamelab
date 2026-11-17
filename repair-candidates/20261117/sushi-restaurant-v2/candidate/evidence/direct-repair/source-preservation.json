@@ -1,0 +1,314 @@
+{
+  "baseline": "Original approved browser adaptation runtime; not the original TypeScript author project. Native map/resources/economy/limits retained, no playerstate injection or new gameplay replacement.",
+  "original_registry_sha256": "cb547005f9a6b94d49e0c3c28d7cef69d9e246f2458bf58fef2e75e4a01a5e7e",
+  "final_registry_sha256": "7cfbe4dff12d65d460135c245a2eb884442be81314c73727ead99a3ff91fa96d",
+  "unchanged_system_modules": 265,
+  "total_system_modules": 280,
+  "modified_system_modules": [
+    "chunks:///_virtual/LocalRewardManager.ts",
+    "chunks:///_virtual/BasePanel.ts",
+    "chunks:///_virtual/BasePlatform.ts",
+    "chunks:///_virtual/Factor.ts",
+    "chunks:///_virtual/PlatformKuaishou.ts",
+    "chunks:///_virtual/PlatformOppo.ts",
+    "chunks:///_virtual/PlatformQQ.ts",
+    "chunks:///_virtual/PlatformTTMini.ts",
+    "chunks:///_virtual/PlatformVivo.ts",
+    "chunks:///_virtual/PlatformWeiXin.ts",
+    "chunks:///_virtual/PlatformXiaoMi.ts",
+    "chunks:///_virtual/qxztsdk.ts",
+    "chunks:///_virtual/Third.ts",
+    "chunks:///_virtual/TxSdk.ts",
+    "chunks:///_virtual/YinLisdk.ts"
+  ],
+  "changed": [
+    {
+      "id": "chunks:///_virtual/LocalRewardManager.ts",
+      "method": "requestLocalReward",
+      "kind": "independent user-confirmed local claim, cancellation rejects and never invokes reward success"
+    },
+    {
+      "id": "chunks:///_virtual/LocalRewardManager.ts",
+      "method": "hideBannerAd",
+      "kind": "remove native banner forwarding"
+    },
+    {
+      "id": "chunks:///_virtual/BasePanel.ts",
+      "method": "requestLocalReward",
+      "kind": "route to real local claim; original success consumer only after confirmation; cancel path retained"
+    },
+    {
+      "id": "chunks:///_virtual/BasePlatform.ts",
+      "method": "loadSubpackage",
+      "kind": "remove native SDK calls; browser subclass owns local resource loading"
+    },
+    {
+      "id": "chunks:///_virtual/BasePlatform.ts",
+      "method": "showToast",
+      "kind": "remove native SDK calls; browser subclass owns local resource loading"
+    },
+    {
+      "id": "chunks:///_virtual/BasePlatform.ts",
+      "method": "shake",
+      "kind": "remove native SDK calls; browser subclass owns local resource loading"
+    },
+    {
+      "id": "chunks:///_virtual/BasePlatform.ts",
+      "method": "gotoMiniGame",
+      "kind": "remove native SDK calls; browser subclass owns local resource loading"
+    },
+    {
+      "id": "chunks:///_virtual/BasePlatform.ts",
+      "method": "requestLocalReward",
+      "kind": "platform reward interface unavailable, no ad success"
+    },
+    {
+      "id": "chunks:///_virtual/Factor.ts",
+      "method": "load",
+      "kind": "retire remote config transport; browser originally used local defaults"
+    },
+    {
+      "id": "chunks:///_virtual/Factor.ts",
+      "method": "setAdSheild",
+      "kind": "retire remote config transport; browser originally used local defaults"
+    },
+    {
+      "id": "chunks:///_virtual/Factor.ts",
+      "method": "loadFromRemote",
+      "kind": "retire remote config transport; browser originally used local defaults"
+    },
+    {
+      "id": "chunks:///_virtual/Factor.ts",
+      "method": "loadRequest",
+      "kind": "retire remote config transport; browser originally used local defaults"
+    },
+    {
+      "id": "chunks:///_virtual/Factor.ts",
+      "method": "loadFromLT",
+      "kind": "retire remote config transport; browser originally used local defaults"
+    },
+    {
+      "id": "chunks:///_virtual/qxztsdk.ts",
+      "method": "reportActive",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/Third.ts",
+      "method": "init",
+      "kind": "use original PlatformDefault browser provider, never select native SDK"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "canTrack",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "report",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "LOAD_FINISH",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "SHARE",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "WISHLIST",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "TUTORIAL_START",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "TUTORIAL_FINISH",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "LEVEL_ENTER",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "UPDATE_LEVEL",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "LEVEL_EXIT",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "LEVEL_LOSE",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "LEVEL_PASS",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "AD_PLACEMENT",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/TxSdk.ts",
+      "method": "AD_IMPRESSION",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "initialize",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "adshow",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "trackEvent",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "trackEvent2",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "eventTrack",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "eventTrack2",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "set_game_version",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "set_avtive_days",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "set_level_latest",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "video_first",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "level_start",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "level_finish",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "tool_use",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "power_get",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "levelStart",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "userSet",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    },
+    {
+      "id": "chunks:///_virtual/YinLisdk.ts",
+      "method": "getWxOpenId",
+      "kind": "retired outbound telemetry; no platform reply or success callback"
+    }
+  ],
+  "retired": [
+    {
+      "id": "chunks:///_virtual/PlatformKuaishou.ts",
+      "kind": "real native platform business implementation removed; explicit unavailable export, no success or fake identity"
+    },
+    {
+      "id": "chunks:///_virtual/PlatformOppo.ts",
+      "kind": "real native platform business implementation removed; explicit unavailable export, no success or fake identity"
+    },
+    {
+      "id": "chunks:///_virtual/PlatformQQ.ts",
+      "kind": "real native platform business implementation removed; explicit unavailable export, no success or fake identity"
+    },
+    {
+      "id": "chunks:///_virtual/PlatformTTMini.ts",
+      "kind": "real native platform business implementation removed; explicit unavailable export, no success or fake identity"
+    },
+    {
+      "id": "chunks:///_virtual/PlatformVivo.ts",
+      "kind": "real native platform business implementation removed; explicit unavailable export, no success or fake identity"
+    },
+    {
+      "id": "chunks:///_virtual/PlatformWeiXin.ts",
+      "kind": "real native platform business implementation removed; explicit unavailable export, no success or fake identity"
+    },
+    {
+      "id": "chunks:///_virtual/PlatformXiaoMi.ts",
+      "kind": "real native platform business implementation removed; explicit unavailable export, no success or fake identity"
+    },
+    {
+      "commonjs": "first-screen.js",
+      "kind": "unused miniapp startup or actual SDK source removed from runtime registry"
+    },
+    {
+      "commonjs": "game.js",
+      "kind": "unused miniapp startup or actual SDK source removed from runtime registry"
+    },
+    {
+      "commonjs": "utils/dhTxSdk.js",
+      "kind": "unused miniapp startup or actual SDK source removed from runtime registry"
+    },
+    {
+      "commonjs": "utils/txsdk/dn-sdk-minigame-1.5.8/index.js",
+      "kind": "unused miniapp startup or actual SDK source removed from runtime registry"
+    },
+    {
+      "commonjs": "utils/uma.min.js",
+      "kind": "unused miniapp startup or actual SDK source removed from runtime registry"
+    }
+  ],
+  "renames": {
+    "rewardVideo": "requestLocalReward",
+    "AdsManager": "LocalRewardManager",
+    "./AdsManager.ts": "./LocalRewardManager.ts",
+    "chunks:///_virtual/AdsManager.ts": "chunks:///_virtual/LocalRewardManager.ts",
+    "adFree": "localReward"
+  },
+  "scope": "LocalRewardManager is an independent confirmation/cancel service. NativeSDK providers explicitly unavailable; no fake SDK/auth/payment/ad success. Browser default local bundle loader/storage remain. Unchanged game module SHA after canonical service renames verifies core gameplay preservation. Runtime proof still required."
+}

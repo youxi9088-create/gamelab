@@ -1,0 +1,66 @@
+{
+  "at": "2026-11-17T05:14:00.152575+00:00",
+  "steps": {
+    "job_id": "job-ad79ce70fd26",
+    "max_steps": 5,
+    "steps_used": 5,
+    "remaining": 0,
+    "steps": [
+      {
+        "step": 1,
+        "outcome": "Original local Cocos loader failed: assets/main/index.js absent.",
+        "evidence": "work/evidence/direct-repair/network-first-loader-failure.json"
+      },
+      {
+        "step": 2,
+        "outcome": "After native launchers, GamePanel provider call and Datanexus wx.request failed.",
+        "evidence": "work/evidence/direct-repair/console-second-startup-failure.json"
+      },
+      {
+        "step": 3,
+        "action": "Open original local repaired game via diagnostic link",
+        "at": "2026-11-17T05:07:38.833Z",
+        "outcome": "Original native scene loaded: initial money20, actual blue player, original coin-pickup tutorial and world coin stacks. No gameplay input yet.",
+        "screenshot": "validation-20261117/step-3.png"
+      },
+      {
+        "step": 4,
+        "action": "One continuous original joystick drag right toward visible coin stacks",
+        "at": "2026-11-17T05:09:11.044Z",
+        "outcome": "One actual continuous drag completed; observed player remained at original coin tutorial and money20. No pickup or movement claimed.",
+        "screenshot": "validation-20261117/step-4.png"
+      },
+      {
+        "step": 5,
+        "action": "One continuous drag across lower original joystick touch region to move toward coin stacks",
+        "at": "2026-11-17T05:11:21.524Z",
+        "outcome": "Original joystick briefly appeared during actual drag, but final player position and money20 remained unchanged. Native movement/pickup/restaurant unlock not proven. Five-step budget exhausted; no admission.",
+        "screenshot": "validation-20261117/step-5.png"
+      }
+    ],
+    "admitted": false,
+    "runtime_verified": false
+  },
+  "event_count": 286,
+  "sequence_missing": [
+    263
+  ],
+  "non_resource_events": [
+    {
+      "at": "2026-11-17T05:07:39.576858+00:00",
+      "seq": 44,
+      "type": "console",
+      "level": "warn",
+      "args": [
+        "Warning 3800, please go to https://github.com/cocos-creator/engine/blob/develop/EngineErrorMap.md#3800 to see details."
+      ]
+    }
+  ],
+  "resource_status_counts": {
+    "200": 282,
+    "206": 1,
+    "0": 1
+  },
+  "ready_review": false,
+  "scope": "Real GUI observations; source/asset proof does not replace movement/pickup gameplay. Observed engine3800 is invalid persistent root node, not hidden or suppressed."
+}
