@@ -1,0 +1,41 @@
+{
+  "title": "Funny Shooter 2",
+  "engine": "Unity 2020.3.37f1",
+  "source_url": "https://4a3fab9c-91b5-4737-b5cd-fbf50aedaf83.gdn.poki.com/7a99568b-12cb-466d-975e-d1a61cc7609f/index.html",
+  "entry": "index.html",
+  "specification_v51": {
+    "template_version": "5.1",
+    "sections": {
+      "basic_facts": "Funny Shooter 2，原发布者GoGoMan，原生Unity2020.3.37f1/WebGL构建，原product_version1.0.1。原绑定run42051cc0-6e86-42c0-968e-ea60b5a78e44。当前为未交付修复候选，尚无本轮实机结论。",
+      "asset_types": "原UnityWebData八成员完整保留；data.unity3d含原主场景、网格、纹理、材质、音频、动画、物理和AI组件。WASM及原加载器逐字节保持，仅原引擎连接/广告初始化四个标志和17个Poki JS导入边界适配。原C#编辑器工程未恢复；HTML/JS边界可编辑复用，原生游戏逻辑为编译运行包。",
+      "core_challenge": "原GameManager含敌人生成、伤害命中/击杀、死亡复活、完成与奖励逻辑，原角色控制、武器和AI类保留；目前仅代码/配置确认。",
+      "controls": "",
+      "behavior_path": "原生菜单、关卡选择、战斗、死亡、完成和商店界面对象及回调保留，尚未按玩家路径实测。",
+      "game_path": "",
+      "progression_path": "",
+      "core_loop": "",
+      "gameplay_rules": "原GameManager.CreateNewEnemy/GenerateEnemys/EnemyDead/HitDetect/Complete与原Enemy、Boss对象未改动；实际战斗、结算与后续关卡待验证。",
+      "key_numbers": "",
+      "level_configuration": "BuildSettings只登记Assets/Scenes/Funny2.unity这一主场景；LevelsPanel、selectLevel与动态敌人/环境生成机制存在。主场景数不代表关卡数，具体总关数未知。",
+      "system_design": "保留本地原存档与成长数据。选定Poki桥接使用原加载器已声明的adblock不可用回调，非激励中断直接结束并续原回调，激励返回false/取消；不创建PokiSDK假全局，不伪造账号、SDK ready、支付或广告成功。原域名跳转保留。Yandex/购买接口仍为原代码，是否触发及独立离线边界待实测，不宣称全链路已验证。",
+      "theme": "原角色与场景视觉资产保留。",
+      "progression_economy": "原GameManager/AddMoney/SpendMoney、武器商店、升级、成就与关卡奖励逻辑保留；具体数值及经济循环未实测。",
+      "roster": "GameManager原序列化数据含Redman、Cyclops、Toiletman、Kamikaze、Jetpackman、Winged Hussar、Mumakil、Spearman名称；对应能力与定位未知。",
+      "monetization": "原包包含Poki、Yandex及UnityAds相关接口。本候选仅完成所列Poki边界及原引擎自动遥测/广告初始化退役，其他实际消费者待验证；没有模拟支付成功或激励发奖。"
+    }
+  },
+  "verification": {
+    "runtime_verified": false,
+    "ui_steps_used": 0,
+    "max_ui_steps": 5
+  },
+  "accounting": {
+    "exclusive_processing_seconds": null,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "cost": null
+  },
+  "cover": "cover.jpg",
+  "cover_url": "cover.jpg"
+}

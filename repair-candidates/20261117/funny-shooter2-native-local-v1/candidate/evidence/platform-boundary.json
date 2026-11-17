@@ -1,0 +1,83 @@
+{
+  "original_sha256": "39a225fa0ebe7a8898246cf83bc4e294053b51c0de4e31ec0b9cc6c5651bfd92",
+  "candidate_sha256": "5f4b7d5a0ae87393ce59b2bdafcf135514eca2bcfccd3dd3030a4401ee2a65c4",
+  "original_functions": 2289,
+  "candidate_functions": 2290,
+  "unchanged_original_functions": 2271,
+  "changed_platform_imports": [
+    {
+      "name": "_JS_PokiSDK_commercialBreak",
+      "kind": "Finish unavailable nonrewarded interruption and resume original callback, no ad/view/reward claim"
+    },
+    {
+      "name": "_JS_PokiSDK_customEvent",
+      "kind": "Retire platform-only telemetry/banner side effect"
+    },
+    {
+      "name": "_JS_PokiSDK_destroyAd",
+      "kind": "Retire platform-only telemetry/banner side effect"
+    },
+    {
+      "name": "_JS_PokiSDK_displayAd",
+      "kind": "Retire platform-only telemetry/banner side effect"
+    },
+    {
+      "name": "_JS_PokiSDK_gameLoadingFinished",
+      "kind": "Retire platform-only telemetry/banner side effect"
+    },
+    {
+      "name": "_JS_PokiSDK_gameLoadingStart",
+      "kind": "Retire platform-only telemetry/banner side effect"
+    },
+    {
+      "name": "_JS_PokiSDK_gameplayStart",
+      "kind": "Retire platform-only telemetry/banner side effect"
+    },
+    {
+      "name": "_JS_PokiSDK_gameplayStop",
+      "kind": "Retire platform-only telemetry/banner side effect"
+    },
+    {
+      "name": "_JS_PokiSDK_getLanguage",
+      "kind": "Actual browser language"
+    },
+    {
+      "name": "_JS_PokiSDK_getURLParam",
+      "kind": "Actual current query only; no domain, account or URL spoof"
+    },
+    {
+      "name": "_JS_PokiSDK_initPokiBridge",
+      "kind": "Exact original SDK rejection/adblock lifecycle callback from original shared loader; never ready/account success"
+    },
+    {
+      "name": "_JS_PokiSDK_isAdBlocked",
+      "kind": "Ads SDK is unavailable; no SDK ready or paid state"
+    },
+    {
+      "name": "_JS_PokiSDK_logError",
+      "kind": "Preserve native errors locally instead of external telemetry"
+    },
+    {
+      "name": "_JS_PokiSDK_preInit",
+      "kind": "Retire platform anti-debug timer only, not license/domain checks"
+    },
+    {
+      "name": "_JS_PokiSDK_redirect",
+      "kind": "Preserve original native redirect and any site authorization destination"
+    },
+    {
+      "name": "_JS_PokiSDK_rewardedBreak",
+      "kind": "Original native false/cancel reward callback; no reward granted"
+    },
+    {
+      "name": "_JS_PokiSDK_shareableURL",
+      "kind": "Original unavailable share rejection"
+    }
+  ],
+  "authorization_redirect_preserved": true,
+  "wasm_unchanged": true,
+  "global_sdk_created": false,
+  "original_loader_callback_source": "Exact retrieved shared unity-2020.js module612 and SDK initialization catch path",
+  "scope": "Selected Poki imports adapted only. Yandex/commerce imports remain original and unverified; inspect actual runtime before any delivery. No C# function mapping used or gameplay state modified.",
+  "runtime_verified": false
+}

@@ -1,0 +1,35 @@
+{
+  "source_only": true,
+  "base_sha256": "b403141ba8e22b7e1e412a5fc5752b4c7f1bb152b3134b84327d224704145750",
+  "candidate_sha256": "f732f625c59d26b608c94bdd42743933f76fcb63ef5a9698ac29817a7344fa3b",
+  "changed_from_v3": [
+    {
+      "function": 7241,
+      "class": "UICanvasPlay",
+      "method": "SelectSubMenu",
+      "change": "default0 routes to existing native local bot submenu4, other branches preserved"
+    },
+    {
+      "function": 100306,
+      "class": "UIPlayBot",
+      "method": "CreateServer",
+      "change": "Retire only local SDK commercial-ad predicate load169; original selected-map and bot start continuation preserved, no reward or SDK success produced"
+    }
+  ],
+  "unchanged_from_v3": 129711,
+  "total_changed_from_original": [
+    7241,
+    92855,
+    100306
+  ],
+  "original_unmodified_functions": 129710,
+  "global_flags_auth_levels_and_data_not_modified": true,
+  "validation": {
+    "tool": "wabt wasm-validate",
+    "exit": 0
+  },
+  "ui_steps_used": 4,
+  "remaining": 1,
+  "runtime_verified": false,
+  "scope": "No license/domain redirect change, no account or server stub, no gameplay/AI/level/selection writes. Native state only created by original normal bot start."
+}

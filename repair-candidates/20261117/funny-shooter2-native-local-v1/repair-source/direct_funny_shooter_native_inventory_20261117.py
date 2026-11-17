@@ -1,0 +1,5 @@
+from pathlib import Path
+import contextlib,io,json,re
+b=Path(__file__).parent;r=b/'direct-games/job-cb29c5351b91';code=(b/'direct_blockpost_native_inventory_20261117.py').read_text(encoding='utf8').replace("for jid in ['job-353d7339bf40','job-c515e756611f']:","for jid in ['job-cb29c5351b91']:").replace("name='bpm2.data.unityweb'if jid=='job-353d7339bf40'else'webgl_poki.data.unityweb'","name='FunnyShooter2_Poki.data.unityweb'")
+with contextlib.redirect_stdout(io.StringIO()):exec(compile(code,'funny-static-inventory','exec'),{'__file__':str(b/'inventory.py')})
+d=json.loads((r/'analysis-20261117/native-inventory.json').read_text(encoding='utf8'));print(json.dumps({'source_only':True,'members':d['members'],'metadata':[{'bytes':m['bytes'],'standard_header':m['standard_header'],'version':m['version']}for m in d['metadata']],'object_types':d['objects'],'scenes':d['scenes'],'sdk_or_level_classes':[s for s in d['mono_scripts']if re.search(r'poki|advert|sdk|level|wave|enemy|gamecontroller',s['name'],re.I)]},ensure_ascii=False))
