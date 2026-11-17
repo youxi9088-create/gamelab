@@ -1,0 +1,11 @@
+# Smash Karts · 原生本地启动边界（仅源码证据）
+
+原job-3db06205247a/game-60bd828457b8，尚未交付，没有可启动新候选。原WASM/数据/SDK状态全部不改；0/5玩家输入，耗时、Token及费用未知为null。
+
+IL2CPP31原声明和原WASM注册表唯一匹配：ServerSettings.StartInOfflineMode运行时字节26。桌面data.unity3d中resources.assets/51的PhotonServerSettings对象656字节，metadata字段精确解析到尾；UnityPy独立重写通用头、按类型重新编码自定义字段得到相同656字节。序列化离线值在168，实际false。原20个RPC名仅16个匹配当前metadata方法；4个未匹配名称保留，原因未知，不能篡改成20/20。
+
+原PhotonConnectionManager.Update在调用PUN连接包装器前仍读取实际Firebase身份。进一步解析原MethodSpec和泛型实例，得到SKServicesLoader检查GameSettingsService、UserService、FtueDataService、NewsDataService、CrossPromoDataService的原生布尔字段，以及GameDataService和CustomizationDataService引用。名称、字节及原源码片段绑定，未对任何状态赋值。该调查只覆盖已有原函数切片，不是全间接调用图。
+
+需要真正的本地数据加载、房间/角色/AI初始化和原玩法验证，不能通过改配置位、伪用户/令牌、强行服务就绪声称单机完成。当前仅明确阻断，未实施运行修补。NOT-RUNTIME分析切片不放入运行包、不执行；原AppID文本不进入证据，字符串仅长度/摘要。
+
+52只复核原WASM、解码metadata、从桌面UnityWebData解析出的data.unity3d的实际SHA及本证据逐SHA；没有在52重新解析Unity序列化字段或宣称远端玩法通过。工具需原材料、旧只读解析器与UnityPy；所附blockpost命名工具是共享原WASM数据段解析依赖，不运行Blockpost游戏。
