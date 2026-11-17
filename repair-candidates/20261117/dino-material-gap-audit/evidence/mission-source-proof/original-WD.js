@@ -1,0 +1,1 @@
+async function WD(o){let t=await fetch(ro(o));if(!t.ok)throw new Error(`${o}: HTTP ${t.status}`);return t}

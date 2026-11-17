@@ -1,0 +1,1 @@
+o=>Aa.load("json",tl(o),async()=>(await WD(o)).json())
