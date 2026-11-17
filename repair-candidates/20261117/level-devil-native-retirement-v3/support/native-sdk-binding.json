@@ -1,0 +1,185 @@
+{
+  "source_sha256": "6bd9728376a31d88777b3ad528214bfa86d426236b7fb585138089103b0996c7",
+  "imports": {
+    "475": {
+      "signature": 1,
+      "field": "Th",
+      "implementation": "_PokiSdkJs_ShareableURL"
+    },
+    "476": {
+      "signature": 1,
+      "field": "Uh",
+      "implementation": "_PokiSdkJs_SetDebug"
+    },
+    "477": {
+      "signature": 2,
+      "field": "Vh",
+      "implementation": "_PokiSdkJs_RewardedBreak"
+    },
+    "478": {
+      "signature": 120,
+      "field": "Wh",
+      "implementation": "_PokiSdkJs_MovePill"
+    },
+    "479": {
+      "signature": 4,
+      "field": "Xh",
+      "implementation": "_PokiSdkJs_Measure"
+    },
+    "480": {
+      "signature": 11,
+      "field": "Yh",
+      "implementation": "_PokiSdkJs_IsAdBlocked"
+    },
+    "481": {
+      "signature": 1,
+      "field": "Zh",
+      "implementation": "_PokiSdkJs_InternalCaptureError"
+    },
+    "482": {
+      "signature": 0,
+      "field": "_h",
+      "implementation": "_PokiSdkJs_GetURLParam"
+    },
+    "483": {
+      "signature": 15,
+      "field": "$h",
+      "implementation": "_PokiSdkJs_GameplayStop"
+    },
+    "484": {
+      "signature": 15,
+      "field": "ai",
+      "implementation": "_PokiSdkJs_GameplayStart"
+    },
+    "485": {
+      "signature": 1,
+      "field": "bi",
+      "implementation": "_PokiSdkJs_CommercialBreak"
+    },
+    "486": {
+      "signature": 1,
+      "field": "ci",
+      "implementation": "_PokiSdkJs_CaptureError"
+    },
+    "487": {
+      "signature": 2,
+      "field": "di",
+      "implementation": "_PokiSdkJs_AddParameterForURL"
+    },
+    "488": {
+      "signature": 2,
+      "field": "ei",
+      "implementation": "_PokiSdkJs_AddParameterForMeasure"
+    }
+  },
+  "module_name_addresses": [
+    {
+      "token": "poki_sdk",
+      "memory_address": 57812
+    },
+    {
+      "token": "PokiSdk",
+      "memory_address": 57821
+    }
+  ],
+  "direct_import_calls": [
+    {
+      "caller": 4855,
+      "target": 487,
+      "implementation": "_PokiSdkJs_AddParameterForURL",
+      "instruction": "248b36: 10 e7 03                   |       call 487 <a.di>"
+    },
+    {
+      "caller": 4855,
+      "target": 475,
+      "implementation": "_PokiSdkJs_ShareableURL",
+      "instruction": "248b90: 10 db 03                   |   call 475 <a.Th>"
+    },
+    {
+      "caller": 4857,
+      "target": 476,
+      "implementation": "_PokiSdkJs_SetDebug",
+      "instruction": "248bfc: 10 dc 03                   | call 476 <a.Uh>"
+    },
+    {
+      "caller": 4858,
+      "target": 477,
+      "implementation": "_PokiSdkJs_RewardedBreak",
+      "instruction": "248cde: 10 dd 03                   | call 477 <a.Vh>"
+    },
+    {
+      "caller": 4860,
+      "target": 478,
+      "implementation": "_PokiSdkJs_MovePill",
+      "instruction": "248d34: 10 de 03                   | call 478 <a.Wh>"
+    },
+    {
+      "caller": 4861,
+      "target": 488,
+      "implementation": "_PokiSdkJs_AddParameterForMeasure",
+      "instruction": "248dce: 10 e8 03                   |       call 488 <a.ei>"
+    },
+    {
+      "caller": 4861,
+      "target": 479,
+      "implementation": "_PokiSdkJs_Measure",
+      "instruction": "248deb: 10 df 03                   | call 479 <a.Xh>"
+    },
+    {
+      "caller": 4862,
+      "target": 480,
+      "implementation": "_PokiSdkJs_IsAdBlocked",
+      "instruction": "248e1b: 10 e0 03                   | call 480 <a.Yh>"
+    },
+    {
+      "caller": 4863,
+      "target": 482,
+      "implementation": "_PokiSdkJs_GetURLParam",
+      "instruction": "248e7b: 10 e2 03                   |   call 482 <a._h>"
+    },
+    {
+      "caller": 4864,
+      "target": 483,
+      "implementation": "_PokiSdkJs_GameplayStop",
+      "instruction": "248ed0: 10 e3 03                   | call 483 <a.$h>"
+    },
+    {
+      "caller": 4865,
+      "target": 484,
+      "implementation": "_PokiSdkJs_GameplayStart",
+      "instruction": "248f00: 10 e4 03                   | call 484 <a.ai>"
+    },
+    {
+      "caller": 4866,
+      "target": 485,
+      "implementation": "_PokiSdkJs_CommercialBreak",
+      "instruction": "248f76: 10 e5 03                   |   call 485 <a.bi>"
+    },
+    {
+      "caller": 4868,
+      "target": 486,
+      "implementation": "_PokiSdkJs_CaptureError",
+      "instruction": "248fc8: 10 e6 03                   | call 486 <a.ci>"
+    },
+    {
+      "caller": 4879,
+      "target": 481,
+      "implementation": "_PokiSdkJs_InternalCaptureError",
+      "instruction": "24a0e8: 10 e1 03                   |   call 481 <a.Zh>"
+    }
+  ],
+  "module_registration_candidates": [
+    {
+      "caller": 2356,
+      "address": 57821,
+      "instruction": "132bc8: 41 dd c3 03                | i32.const 57821"
+    },
+    {
+      "caller": 4881,
+      "address": 57812,
+      "instruction": "24a133: 41 d4 c3 03                | i32.const 57812"
+    }
+  ],
+  "runtime_executed": false,
+  "scope": "Original static Wasm direct calls and exact active data segment addresses only; no delegate reachability inference or executable modification."
+}

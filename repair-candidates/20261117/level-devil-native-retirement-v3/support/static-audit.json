@@ -1,0 +1,54 @@
+{
+  "recorded_at": "2026-11-17T11:59:04.783050+00:00",
+  "source": "E:\\AI改编游戏\\gamelab\\deployment-packages\\direct-games\\job-ca75d464d2d7\\work-native-retirement-20261117-v3",
+  "audit": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "pending",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": false,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "offline_features": {
+    "leaderboard": {
+      "status": "absent",
+      "reason": "Actual native provider registration and Lua HTTP/share/reward consumers retired. This is source review only; no dynamic proof or successful service response supplied.",
+      "evidence": [
+        "LevelDevil_wasm.js",
+        "index.html",
+        "evidence/native-retirement-20261117/source-retirement.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "removed",
+      "reason": "Actual native provider registration and Lua HTTP/share/reward consumers retired. This is source review only; no dynamic proof or successful service response supplied.",
+      "evidence": [
+        "LevelDevil_wasm.js",
+        "index.html",
+        "evidence/native-retirement-20261117/source-retirement.json"
+      ]
+    },
+    "advertising": {
+      "status": "removed",
+      "reason": "Actual native provider registration and Lua HTTP/share/reward consumers retired. This is source review only; no dynamic proof or successful service response supplied.",
+      "evidence": [
+        "LevelDevil_wasm.js",
+        "index.html",
+        "evidence/native-retirement-20261117/source-retirement.json"
+      ]
+    },
+    "payments": {
+      "status": "removed",
+      "reason": "Actual native provider registration and Lua HTTP/share/reward consumers retired. This is source review only; no dynamic proof or successful service response supplied.",
+      "evidence": [
+        "LevelDevil_wasm.js",
+        "index.html",
+        "evidence/native-retirement-20261117/source-retirement.json"
+      ]
+    }
+  },
+  "runtime_verified": false,
+  "ready_review": false,
+  "scope": "Absolute source root corrects the earlier CLI relative-root evidence-path rejection; only static paths/findings are clear, no runtime or admission."
+}

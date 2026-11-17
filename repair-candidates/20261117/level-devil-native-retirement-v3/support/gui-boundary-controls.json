@@ -1,0 +1,117 @@
+[
+  {
+    "file": "0083-level-editor.gui_script.lua",
+    "conditions": [
+      {
+        "condition": "gui.pick_node(gui.get_node(\"upload_popup_submit_button\"), action.x, action.y) and validate_upload_popup_input(self)",
+        "body_start": 35969,
+        "body_stop": 36572,
+        "prefix": "utility.button_press_animation(\"upload_popup_submit\")\n\t\t\t\t\tself.upload_blocker = true\n\t\t\t\t\tself.disable_input = true\n\t\t\t\t\tself.is_animating = true\n\t\t\t\t\t\n\t\t\t\t\tgui.set_enabled(gui.get_node(\"loading_screen_icon\"), true)\n\t\t\t\t\tgui.set_enabled(gui.get_node(\"loading_screen_overlay\"), true)\n\t\t\t\t\tgui.play_flipbook(gui.get_node(\"loading_screen_icon"
+      },
+      {
+        "condition": "gui.pick_node(gui.get_node(\"upload_popup_share_button\"), action.x, action.y)",
+        "body_start": 37220,
+        "body_stop": 38128,
+        "prefix": "utility.button_press_animation(\"upload_popup_share\")\n\t\t\t\t\ttimer.delay(.2, false, function ()\n\t\t\t\t\t\tpprint(level_editor.share_level_code)\n\t\t\t\t\t\tif html5 then\n\t\t\t\t\t\t\tif poki_sdk then\n\t\t\t\t\t\t\t\tpoki_sdk.shareable_url({level_editor = level_editor.share_level_code}, function (self,URL)\n\t\t\t\t\t\t\t\t\tlevel_editor.copy_text(URL)\n\t\t\t\t\t\t\t\t\tgui.set_text(g"
+      }
+    ],
+    "controls": [
+      "save_button",
+      "upload_button",
+      "copy_button",
+      "exit_button",
+      "play_button",
+      "layer_button",
+      "save_popup_update_button",
+      "save_popup_savecopy_button",
+      "save_popup_submit_button",
+      "save_popup_input_field",
+      "save_popup_close_button",
+      "upload_popup_submit_button",
+      "upload_popup_input_field",
+      "upload_popup_share_button",
+      "upload_popup_close_button",
+      "clear_confirmation_button",
+      "clear_warning_cancel_button",
+      "save_changes_popup_yes_button",
+      "save_changes_popup_no_button",
+      "save_changes_popup_cancel_button"
+    ],
+    "init": "function init(self)\n\tmsg.post(\".\", \"acquire_input_focus\")\n\tgui.set_render_order(gamemanager.gui_render_orders.level_editor_gui)\n\n\tfor key, value in ipairs(level_editor.TILE_PRESETS) do\n\t\t\n\t\tlocal new_button = gui.clone_tree(gui.get_node('preset_button_template'))\n\t\tgui.play_flipbook(new_button[\"preset_button_icon_template\"], value.sprite_override or value.values.sprite)\n\t\tlocal position = gui.get_position(new_button[\"preset_button_template\"])\n\t\tposition.x = position.x + (60 * (key - 1))\n\t\tgui.set_position(new_button[\"preset_button_template\"], position)\n\t\ttable.insert(preset_buttons, key, {\n\t\t\tnode = new_button[\"preset_button_template\"],\n\t\t\ttree = new_button,\n\t\t\tpreset_index = key,\n\t\t})\n\t\tgui.set_enabled(new_button[\"preset_button_template\"], true)\n\t\tgui.set_text(new_button[\"preset_button_template_text\"], value.values.display_name and utility.firstToUpper(value.values.display_name) or util"
+  },
+  {
+    "file": "0145-popup-infinite-mode-result.gui_script.lua",
+    "conditions": [
+      {
+        "condition": "gui.pick_node(self.nodes.share_link_button, x, y)",
+        "body_start": 2520,
+        "body_stop": 3174,
+        "prefix": "msg.post(soundmanager.audioref, soundmanager.triggers.sfx_play, { name = soundmanager.sfx_components.ui_click })\n\t\t\tutility.button_press_animation(\"share_link\")\n\t\t\t\n\t\t\tlocal link = \"\"\n\t\t\tlocal text = \"I just cleared this level. Your turn! \"\n\t\t\tif not _IS_POKI then\n\t\t\t\tlink = utility.construct_adjust_deeplink(monarchdata.level_code)\n\t\t\t\tte"
+      }
+    ],
+    "controls": [],
+    "init": "function init(self)\n\tgamemanager.is_complete_popup_open = true\n\t\n\tmonarchdata = monarch.data(my_screen_id)\n\n\t\n\tself.nodes = {\n\t\tshare_link_button = gui.get_node(\"share_link_button\"),\n\t\tcontinue_button = gui.get_node(\"continue_button\"),\n\t\tlevel_name = gui.get_node(\"level_name\"),\n\t}\n\n\tif self.nodes.level_name and monarchdata.name then\n\t\tgui.set_text(self.nodes.level_name, monarchdata.name)\n\tend\n\n\t\n\tmsg.post(\".\", \"acquire_input_focus\")\n\tgui.set_render_order(gamemanager.gui_render_orders.popup_menu)\nend\n\nlocal function do_close()\n\tmonarch.back()\n\tmsg.post(gamemanager.url_transition, \"do_anim\", {collection_to_load = gamemanager.collections.level})\nend\n\nlocal function close_popup()\n\tgamemanager.is_complete_popup_open = false\n\tmsg.post(\".\", \"release_input_focus\")\n\ttimer.delay(0.5, false, function ()\n\t\tif gamemanager.ad_variables.infinitemode_timer > gamemanager.remote_parameters.infinitemode_se"
+  },
+  {
+    "file": "0455-level-browser.gui_script.lua",
+    "conditions": [
+      {
+        "condition": "gui.pick_node(slot.copy_button, action.x, action.y)",
+        "body_start": 31742,
+        "body_stop": 32429,
+        "prefix": "msg.post(soundmanager.audioref, soundmanager.triggers.sfx_play, { name = soundmanager.sfx_components.ui_click })\n\t\t\t\t\t\tutility.button_press_animation(\"copy\", { tree_ref = slot.node })\n\t\t\t\t\t\tif html5 then\n\t\t\t\t\t\t\tif poki_sdk then\n\t\t\t\t\t\t\t\tpoki_sdk.shareable_url({level_editor = value.level_code}, function(self, URL)\n\t\t\t\t\t\t\t\t\tlevel_editor.copy"
+      }
+    ],
+    "controls": [
+      "search_popup_paste_button",
+      "search_popup_input_field",
+      "search_popup_submit_button",
+      "search_popup_close_button",
+      "exit_button",
+      "back_button",
+      "search_button",
+      "infinite_mode_button",
+      "editor_button",
+      "scroll_bar_thumb_hitbox",
+      "scroll_bar_track_hitbox",
+      "scroll_view"
+    ],
+    "init": "function init(self)\n\tlocal filename = get_curated_cache_filename()\n\tlocal data = sys.load(filename)\n\tlocal time = os.date(\"*t\")\n\tlocal date = data.date or {day = 0,month = 0,year = 0}\n\tlocal is_same_day = date.day == time.day and date.month == time.month and date.year == time.year\n\tlocal page_limit = get_page_limit()\n\n\t\n\tgui.set_enabled(gui.get_node(\"loading_screen_icon\"), true)\n\tgui.set_enabled(gui.get_node(\"loading_screen_overlay\"), true)\n\tgui.play_flipbook(gui.get_node(\"loading_screen_icon\"),\"loading_animation\")\n\tis_loading = true\n\n\tmsg.post(soundmanager.audioref, soundmanager.triggers.music_play, { name = soundmanager.music_components.theme, fadetime = 1 })\n\n\tgui.set_enabled(gui.get_node(\"search_button\"), _IS_STEAM)\n\tif not _IS_STEAM then\n\t\tgui.set_position(gui.get_node(\"infinite_mode_button\"), gui.get_position(gui.get_node(\"search_button\")))\n\tend\n\n\tremote_config.check_editor_blocked"
+  },
+  {
+    "file": "0569-level-editor-saves.gui_script.lua",
+    "conditions": [
+      {
+        "condition": "gui.pick_node(slot.copy_button, action.x, action.y) and gui.is_enabled(slot.copy_button)",
+        "body_start": 20408,
+        "body_stop": 21115,
+        "prefix": "msg.post(soundmanager.audioref, soundmanager.triggers.sfx_play, { name = soundmanager.sfx_components.ui_click })\n\t\t\t\t\t\tutility.button_press_animation(\"copy\", { tree_ref = slot.node })\n\t\t\t\t\t\tpprint(value)\n\t\t\t\t\t\tif html5 then\n\t\t\t\t\t\t\tif poki_sdk then\n\t\t\t\t\t\t\t\tpoki_sdk.shareable_url({level_editor = value.level_code}, function(self, URL)\n\t\t\t\t\t\t"
+      }
+    ],
+    "controls": [
+      "exit_button",
+      "back_button",
+      "browser_button",
+      "create_new_save_button",
+      "all_levels_button",
+      "uploaded_levels_button",
+      "scroll_bar_thumb_hitbox",
+      "scroll_bar_track_hitbox",
+      "scroll_view"
+    ],
+    "init": "function init(self)\n\t\n\tgui.set_enabled(gui.get_node(\"loading_screen_icon\"), true)\n\tgui.set_enabled(gui.get_node(\"loading_screen_overlay\"), true)\n\tgui.play_flipbook(gui.get_node(\"loading_screen_icon\"),\"loading_animation\")\n\tis_loading = true\n\tmsg.post(soundmanager.audioref, soundmanager.triggers.music_play, { name = soundmanager.music_components.theme, fadetime = 1 })\n\tremote_config.check_editor_blocked(function (block_editor)\n\t\tblock_uploaded_entries = block_editor\n\t\tinitialize_entries()\n\t\tmsg.post(\".\", \"acquire_input_focus\")\n\tend)\n\t\n\tgui.set_render_order(gamemanager.gui_render_orders.menu_level_editor_saves)\nend\n\n \n\n\n\n  \n\n\n\nfunction on_message(self, message_id, message, sender)\n\tif message_id == hash(\"show_uploaded_only\") then\n\t\tshow_uploaded_only = message.enabled ~= false\n\t\tinitialize_entries()\n\tend\nend\n\nfunction on_input(self, action_id, action)\n\n\tlocal cursorpos = gamemanager.get_cur"
+  },
+  {
+    "file": "0618-pause.gui_script.lua",
+    "conditions": [
+      {
+        "condition": "gui.is_enabled(self.nodes.btn_share_link.root) and gui.pick_node(self.nodes.btn_share_link.base, action.x, action.y)",
+        "body_start": 16275,
+        "body_stop": 16883,
+        "prefix": "utility.button_press_animation(\"btn_share_link\",{tree_ref = gui.get_tree(self.nodes.btn_share_link.root)})\n\t\t\t\t\tif html5 then\n\t\t\t\t\t\tif poki_sdk then\n\t\t\t\t\t\t\tpoki_sdk.shareable_url({level_editor = gamemanager.browser_share_level_code}, function(self, URL)\n\t\t\t\t\t\t\t\tlevel_editor.copy_text(URL)\n\t\t\t\t\t\t\tend)\n\t\t\t\t\t\telse\n\t\t\t\t\t\t\tlocal URL = html5.ru"
+      }
+    ],
+    "controls": [],
+    "init": "function init(self)\n\tmsg.post(\".\", \"acquire_input_focus\")\n\tgui.set_render_order(gamemanager.gui_render_orders.pausemenu)\n\n\tself.nodes = {\t\t\n\t\troot = gui.get_node(\"root\"),\n\t\tpausemenu = gui.get_node(\"menu_pause\"),\n\t\tbtn_pause = {\n\t\t\troot = gui.get_node(\"btn_pause\"),\n\t\t\tbase = gui.get_node(\"img_pause-base\"),\n\t\t\tbottom = gui.get_node(\"img_pause-bottom\")\n\t\t},\n\t\tbtn_edit = {\n\t\t\troot = gui.get_node(\"btn_edit\"),\n\t\t\tbase = gui.get_node(\"img_edit-base\"),\n\t\t\tbottom = gui.get_node(\"img_edit-bottom\"),\n\t\t\ticon = gui.get_node(\"img_edit-icon\")\n\t\t},\n\t\tbtn_reload = {\n\t\t\troot = gui.get_node(\"btn_reload\"),\n\t\t\tbase = gui.get_node(\"img_reload-base\"),\n\t\t\tbottom = gui.get_node(\"img_reload-bottom\"),\n\t\t\ticon = gui.get_node(\"img_reload-icon\")\n\t\t},\n\t\tbtn_share_link = {\n\t\t\troot = gui.get_node(\"btn_share_link\"),\n\t\t\tbase = gui.get_node(\"btn_share_link_button\"),\n\t\t\tbottom = gui.get_node(\"btn_share_link_button_bottom\")"
+  }
+]

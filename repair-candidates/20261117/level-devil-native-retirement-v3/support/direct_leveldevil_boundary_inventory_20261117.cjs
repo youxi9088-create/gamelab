@@ -1,0 +1,5 @@
+const fs=require('fs'),path=require('path'),crypto=require('crypto'),{createRequire}=require('module');
+const req=createRequire(path.resolve('gamelab/executors/package.json')),lib=createRequire(req.resolve('rea-agents/package.json')),parser=lib('@babel/parser'),traverse=lib('@babel/traverse').default;
+const root='deployment-packages/direct-games/job-ca75d464d2d7',source=fs.readFileSync(root+'/original/LevelDevil_wasm.js','utf8'),tree=parser.parse(source);let imports=[],names=[];
+traverse(tree,{ObjectProperty(p){const n=p.node;if(n.value.type==='Identifier'&&/_PokiSdkJs_|_js_.*(?:[Rr]emote|[Aa]nalytics)/.test(n.value.name))imports.push({field:n.key.name??n.key.value,implementation:n.value.name});},FunctionDeclaration(p){if(/^_PokiSdkJs_/.test(p.node.id.name))names.push({name:p.node.id.name,args:p.node.params.map(x=>x.name)});}});
+const out={source_sha256:crypto.createHash('sha256').update(source).digest('hex'),imports,names,runtime_executed:false};fs.mkdirSync(root+'/analysis-boundary-20261117',{recursive:true});fs.writeFileSync(root+'/analysis-boundary-20261117/js-import-binding.json',JSON.stringify(out,null,2));console.log(JSON.stringify(out));
