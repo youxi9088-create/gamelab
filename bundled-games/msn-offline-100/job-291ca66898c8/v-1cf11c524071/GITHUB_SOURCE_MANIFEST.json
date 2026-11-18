@@ -1,0 +1,517 @@
+{
+  "title": "堆叠扑克",
+  "revision": "pilepoker-offline-v1",
+  "job_id": "job-291ca66898c8",
+  "version_id": "v-1cf11c524071",
+  "artifact_id": "artifact-3289cb86f9df",
+  "artifact_sha256": "9c3d66620806685f56c04b9efe5ec0d9bafc0111bfabb14424408f34873ab8da",
+  "remote_archive_commit": "b9eeb623f0255c28ea6c5c732662cd8c3335c46e",
+  "files": {
+    "_external/sounds/cm9w5mukj2k2c2ok8hwh944oy/sfx_PUP_cardFlip_two.mp3": "7f11b9ee7b36ed254ea6f60cbc11bc42388123f9365ef4f784087cdad9cfdb88",
+    "_external/sounds/cm9w5muzz2k2k2ok85n181wtn/sfx_PUP_cardFlip_three.mp3": "79f4fcdde4ba2688adcd3a463751db2b3c4ce0f438e0c7e0297f432295482971",
+    "_external/sounds/cm9w5mvhy2npg2ona50wc7gea/sfx_PUP_cardFlip_ten.mp3": "cce89688cd58e30d36c3167bdf41adb03dd763cf36b33c50d5022d32e9dc12d0",
+    "_external/sounds/cm9w5mvzn2k2p2ok83n1pdjed/sfx_PUP_cardFlip_six.mp3": "386b937737fa954927e3a387f0903661b9c38f528173dd78797d8baa3468400b",
+    "_external/sounds/cm9w5mwht2k2q2ok8ejev1yx5/sfx_PUP_cardFlip_seven.mp3": "88381da453780e1a83b18da6725dbbfd0ddfb96eaa580a073721a182094f9b95",
+    "_external/sounds/cm9w5mwz82k2t2ok8dfw077zn/sfx_PUP_cardFlip_queen.mp3": "6cdda3b52fe4483ec9ed7164797d148919f44b5f42a4e1f57bf6ccd45b912f70",
+    "_external/sounds/cm9w5mxgs2npw2ona9vpr04jc/sfx_PUP_cardFlip_nine.mp3": "38a81c204a666b5dfc81ca95fb80e247703b348214ff227feb49549ed27c5405",
+    "_external/sounds/cm9w5mxxe2npx2ona5wco1ylf/sfx_PUP_cardFlip_king.mp3": "ec7c334d84d1db71bc4c2e7e93a445648195bdcd382e79b6bff487680c45e50c",
+    "_external/sounds/cm9w5mydf2k2u2ok8dcuu275u/sfx_PUP_cardFlip_joker.mp3": "2cc164fd5f38f4293ead843a1a275b387577ad143c75576e1f02401188ceacbf",
+    "_external/sounds/cm9w5mysy2k2v2ok83cbvepzo/sfx_PUP_cardFlip_jack.mp3": "ab5d7754e4d00ca5d9a62d22d941c6aebb8a38a51b3bd2a53947cca9818960d7",
+    "_external/sounds/cm9w5mz8s2k2y2ok80kd51vvf/sfx_PUP_cardFlip_four.mp3": "cfec15f1cfbcdb7746aaf51175d3f6a73b3be3e5c239516821fe2fdbddd39751",
+    "_external/sounds/cm9w5n1gw2k342ok89ohbhw7a/sfx_PUP_cardFlip_five.mp3": "823b894ec20c37afdacc18c6c70578f45369ac9f4fa5a4738380b1fcb02a7197",
+    "_external/sounds/cm9w5n22l2k372ok80usdej7q/sfx_PUP_cardFlip_eight.mp3": "1c3820732bdf0a5a07fb64431685eaa5788a746eb51198f61c93783366bcb099",
+    "_external/sounds/cm9w5n2mn2k3c2ok835vlhkk5/sfx_PUP_cardFlip_ace.mp3": "df8a4a7fd4d240ca0ead8f30486f48bf2646421a804c11ea5c898bd62127cf89",
+    "_external/sounds/cm9wz2z8f02fv2oktfjqhavnl/sfx_PUP_dealComplete_popUp.mp3": "5017a3276af4ee21a12cf1e45f10ad2fd505d8734bde81bcd86992f8c8835bc8",
+    "_external/sounds/cm9wz2zvm02zh3bs07r767x41/sfx_PUP_dealOut.mp3": "d03bd9d03de4bd6e4fd10ea3c92d3f7d37ae8f05d9964b7f0840f87be16357bc",
+    "_external/sounds/cm9wz30nu02gg2okt1vf22gxp/sfx_PUP_discard.mp3": "b1b83270351dad22d76c001ff0d5a7a08ecec4f00db0018003b386ebae93de2f",
+    "_external/sounds/cm9wz31zo02zi3bs08v2kgs3f/sfx_PUP_nextRound.mp3": "d5e4647828fc0526e4b1815b49bd9f689c33f3bb4b7ab395b126043ba3f479a5",
+    "_external/sounds/cm9wz32l502zl3bs08aekg080/sfx_PUP_pickUp.mp3": "0b37d9afa3d87433801ee0b614d7ed2d0f5fd5697cb7b84ba48c2a12ddb6bc33",
+    "_external/sounds/cm9wz337402zm3bs06lyqgzlk/sfx_PUP_placeDown.mp3": "5cd24c3772f938ed1d68dbbb13d4bb0c70983fb82a6040503166523b0815e849",
+    "_external/sounds/cm9wz33s002zn3bs0drhs22fw/sfx_PUP_scoreCount_12.mp3": "87e4bc8fad1fd98779b55d29d1a8fe5183d33f42578ede651670edb1b7b1a077",
+    "_external/sounds/cm9wz34d202h02okt7bj36j1e/sfx_PUP_scoreCount_11.mp3": "fbdeffc742c2c221ba8c597cf1b9fc428a6ab2c8d523f42e01c9fa1a1e251b52",
+    "_external/sounds/cm9wz34v602zo3bs0gno46lhg/sfx_PUP_scoreCount_10.mp3": "839f06d5a0e989aab5a9820f79fe1937c2510ad0e0b2a0b5305198a31f6f553e",
+    "_external/sounds/cm9wz35gg02zp3bs0exx4hc9y/sfx_PUP_scoreCount_09.mp3": "1b0d35223121ad91e05e7d080ab57b9de1c33953e4dcec77bb01c1eac549bc1b",
+    "_external/sounds/cm9wz35zg02zq3bs09un976zg/sfx_PUP_scoreCount_08.mp3": "3391048dd565286d4b588694e7c9d1809a8eb971315d8f190ed735901208846a",
+    "_external/sounds/cm9wz36io03063bs05jn54517/sfx_PUP_scoreCount_07.mp3": "801bff4225b2ed164f93a7f6d8d25d0707585f672773f481e2525114c8697eb0",
+    "_external/sounds/cm9wz371c030i3bs0aklo3ojn/sfx_PUP_scoreCount_06.mp3": "e2213f8de1e5954982578fcb69018fd4820ba6918424babc6ffa7913aa92ef0d",
+    "_external/sounds/cm9wz37j8030j3bs0ea771bge/sfx_PUP_scoreCount_05.mp3": "816749efabe454507bbedbaebc0ab7ef08194778b4bbe4ad3b04e0357e9410bd",
+    "_external/sounds/cm9wz3817030k3bs03ql4cn64/sfx_PUP_scoreCount_04.mp3": "897a369c08ae128830bc45419225b9209c15f2ce9dad277db132ee235e5eaea3",
+    "_external/sounds/cm9wz38kt030z3bs03ms5en27/sfx_PUP_scoreCount_03.mp3": "1f3c1866efa57cba61af6b404a5957907690d278798475d1b6efb928f4a5a91e",
+    "_external/sounds/cm9wz393p031k3bs0ccob39x6/sfx_PUP_scoreCount_02.mp3": "6f3cef8b672ebf89f5227baba74c3808bd8fa48c30824583c5ce0b6fc235244f",
+    "_external/sounds/cm9wz39mi031l3bs04t6021iy/sfx_PUP_scoreCount_01.mp3": "cbec4d9903191d4eb6562bdfa0fd5047f49c44300d03c8d8defe33f5cf462273",
+    "_external/sounds/cm9wz3a4f031m3bs01tsx35en/sfx_PUP_totalScoreTicker_isolated.mp3": "67fb785c4dab035ea7ffda940f40b1dbdf42c0f63b4f2f2fd85ecd29fdf83bbd",
+    "delivery-report.json": "ae020bd16886b0c9bb983d33d532d50bbb87603c4a1ca575fe3b3748cde3b41f",
+    "evidence/dedup-intake-guard.json": "8819985904eaf7e8dd22e104cc1570b2313523b34b04940412305c7459040211",
+    "evidence/dedup.json": "24eb121cdfa9412e74c07eab6dcbd521f1e1d9718ab3550291bb2d638f8dd2d2",
+    "evidence/pilepoker-draft-static-audit.json": "7c69b064b0d99d2ed90332cfe0930e11a6d2b206cfbf7a8c83aa150414e45387",
+    "evidence/pilepoker-local-entry-work-proof.json": "8f5dbf7ab61e40126ada0f3aa759b9eae7aa6de5508fda46dd2c3777fa1a607d",
+    "evidence/pilepoker-native-assets-source-receipt.json": "eda3810df3fcb7e5882caebb2930a3aa90bc0c9b30a6e69807175207f09599ca",
+    "evidence/pilepoker-pw-bootstrap-source-receipt.json": "cb6555d606b5693bc14269d3d75344066a88d334eb32723b84aafd1881129dfb",
+    "evidence/pilepoker-terminal-journals.json": "301ce6717de1a00b903e8cfb583257f36001c7dc9d46d54a6906b28beb15b056",
+    "evidence/pilepoker-v1-HTTP-preflight.json": "c216ecd0bef60e88d384372f8af02470230dadcb97cd24bb49d698e1fe661cb9",
+    "evidence/pilepoker-verification-plan.json": "7d169f7ec563ac0fa9771d8eb06318c57b3147275938465803a651564fd75efa",
+    "evidence/pilepokerapi-native-assets-source-receipt.json": "65afed2ded7f67d12eb2396e1756000f77721437fcc306117ced8d84410c4ee4",
+    "evidence/pilepokergame-native-assets-source-receipt.json": "47cf69453b72145a51b21c7fedcc369a841a201460482fdd1d2f7fba2f2bc22f",
+    "evidence/pilepokersounds-native-assets-source-receipt.json": "389061f1614d64035840619bf92af203290f919ef14af0624dc808c159ff096c",
+    "evidence/resource-audit.json": "13707d0898dede7551cda2cc92e5d534b4295cb6f241e3911626b079e647b022",
+    "evidence/runtime-sha256.json": "a55b5074120ba3f4a2f069ed4c29ca7fc00ff466fed750e2da03f9e5aef17628",
+    "evidence/ui-1.json": "73006ff6cd1f2c07784108bca33b142251923863941dff4f67cc5d7616d92b06",
+    "evidence/ui-2.json": "4b4fc6088d69c56457fffdf8f9b34ce5910bc8c0ec957d968ed711581531928d",
+    "evidence/ui-3.json": "594cc236174127ccb9bd5be0278ea93c8beff61399c9ecc098578d7714b74bef",
+    "evidence/ui-4.json": "4049b95fde10a004a349211167c9725bd00bdba9f0d4403849322750e4de0b45",
+    "evidence/ui-5.json": "ec66f317e4b306ea99bf301b027a267c8a30669a7c74c579e41a13366a31edf8",
+    "evidence/validation.json": "e2fb52d2d90ace75a3aceb4ee993bd975e4b92563ac9dc2ae9533768c156cdef",
+    "fonts/Poppins-Bold-subset.ttf": "a582c6bb9a52e66aae5c7804283507eb145b617027931d706e4cb1ebfb783e8d",
+    "fonts/Poppins-Light-subset.ttf": "7ba2fa51249fe54cb3b4da365cb0942a8b75ff4577ff0319fc90ac11b545e4a5",
+    "fonts/Poppins-Medium-subset.ttf": "e1169e892ece8297de2a1f1a26ccd5482969a7a8ea9028541f89f66adb32441c",
+    "fonts/Poppins-Regular-subset.ttf": "954b28b8bb18af897b888e54cb53202ff7a6364a6db6bce3cad713d955e964dc",
+    "fonts/Poppins-SemiBold-subset.ttf": "e615d22aebb5148ae8924ac523c5f6ec37af887efe414192508796a9b30e8f5e",
+    "fonts/Zodiak-ExtraboldItalic-subset.ttf": "7e2563e879eb55e8093a2612489c9710d57a72975d416d3ec0ab2c44df721680",
+    "fonts/Zodiak-Regular-subset.ttf": "fbc332af84d5c10acd90e8c9affdc3ef3698466d1f71327014469ec1d9954eae",
+    "fonts.css": "d4dea64efb61ef3726cf540738a2a3bb1b804b1f36433419bd9942e88e41cec6",
+    "game/assets/pile-up-poker.css": "8b3b78b58dd720410cf299ae0f247ad09d5087268fac0609a1dda43e1ce25580",
+    "game/assets/pile-up-poker.js": "6489d5cfd8f7c1023537b871617aada7d46b9ac7f2f32541bf85914c36dad796",
+    "game-profile.json": "c516426872decb9074d3b54f4acd097d43d0ce281f125dea326c11098b273cc2",
+    "GAME_SPECIFICATION.md": "0779d02a9ba153b6b0c85dcd66de30a365ae59b7e3a005fc779073683a7d5b4f",
+    "index.html": "80d84114c98a86c8cf062a21491e19af0d43517ca23f225618047d0dd8d85a2b",
+    "instructions/pile-up-poker-2x.gif": "78245854b98022d83ee93c8dd0e8d7022f0f44eb7067d87360f6b3ff2da9423f",
+    "instructions.json": "514f6c3d9d9bad33fb62ecd1cdde01e1ae596a44ccca63caf278021197c28a48",
+    "README_二次修改.md": "b757d93886f2731f995a978afcf1a95920f58de8266a5310fddcb1d8d70fe854",
+    "screenshots/001.png": "75350fd82be50a5a977df8db984177d6b078053663816c75a9d3b6404d2b2b55",
+    "screenshots/002.png": "cdd972e288a7513c1d548c383fa731fa2913079b36f2d8f87d2a7dabbac3b3c9",
+    "screenshots/003.png": "6cb6c60f15de89a40bf00f186dba6fda55ad20d3814d78289496e8259e8b82ea",
+    "screenshots/004.png": "9b3643fb48066dfb1c49398ea4a351ebad52c364d9bd41be886d976340280173",
+    "screenshots/005.png": "9ffb2d90b817b330d1215e9a4e2d5c8e059d7760c0146f77dbd9b2c3afc4b8b9"
+  },
+  "status_at_archive": "review",
+  "ui_checkpoints": 5,
+  "site_readback": {
+    "at": "2026-11-18T12:53:42.245108+00:00",
+    "version_id": "v-1cf11c524071",
+    "job_id": "job-291ca66898c8",
+    "status": "review",
+    "cover": "http://127.0.0.1:8766/play/artifact-3289cb86f9df/screenshots/001.png",
+    "sixteen_section_content_exact": true,
+    "runtime_files": [
+      {
+        "path": "_external/sounds/cm9w5mukj2k2c2ok8hwh944oy/sfx_PUP_cardFlip_two.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.063992+00:00",
+        "http": 200,
+        "sha256": "7f11b9ee7b36ed254ea6f60cbc11bc42388123f9365ef4f784087cdad9cfdb88",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5muzz2k2k2ok85n181wtn/sfx_PUP_cardFlip_three.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.070328+00:00",
+        "http": 200,
+        "sha256": "79f4fcdde4ba2688adcd3a463751db2b3c4ce0f438e0c7e0297f432295482971",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5mvhy2npg2ona50wc7gea/sfx_PUP_cardFlip_ten.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.045971+00:00",
+        "http": 200,
+        "sha256": "cce89688cd58e30d36c3167bdf41adb03dd763cf36b33c50d5022d32e9dc12d0",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5mvzn2k2p2ok83n1pdjed/sfx_PUP_cardFlip_six.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.187276+00:00",
+        "http": 200,
+        "sha256": "386b937737fa954927e3a387f0903661b9c38f528173dd78797d8baa3468400b",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5mwht2k2q2ok8ejev1yx5/sfx_PUP_cardFlip_seven.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.188978+00:00",
+        "http": 200,
+        "sha256": "88381da453780e1a83b18da6725dbbfd0ddfb96eaa580a073721a182094f9b95",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5mwz82k2t2ok8dfw077zn/sfx_PUP_cardFlip_queen.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.204176+00:00",
+        "http": 200,
+        "sha256": "6cdda3b52fe4483ec9ed7164797d148919f44b5f42a4e1f57bf6ccd45b912f70",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5mxgs2npw2ona9vpr04jc/sfx_PUP_cardFlip_nine.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.284646+00:00",
+        "http": 200,
+        "sha256": "38a81c204a666b5dfc81ca95fb80e247703b348214ff227feb49549ed27c5405",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5mxxe2npx2ona5wco1ylf/sfx_PUP_cardFlip_king.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.285060+00:00",
+        "http": 200,
+        "sha256": "ec7c334d84d1db71bc4c2e7e93a445648195bdcd382e79b6bff487680c45e50c",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5mydf2k2u2ok8dcuu275u/sfx_PUP_cardFlip_joker.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.285374+00:00",
+        "http": 200,
+        "sha256": "2cc164fd5f38f4293ead843a1a275b387577ad143c75576e1f02401188ceacbf",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5mysy2k2v2ok83cbvepzo/sfx_PUP_cardFlip_jack.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.419261+00:00",
+        "http": 200,
+        "sha256": "ab5d7754e4d00ca5d9a62d22d941c6aebb8a38a51b3bd2a53947cca9818960d7",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5mz8s2k2y2ok80kd51vvf/sfx_PUP_cardFlip_four.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.419544+00:00",
+        "http": 200,
+        "sha256": "cfec15f1cfbcdb7746aaf51175d3f6a73b3be3e5c239516821fe2fdbddd39751",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5n1gw2k342ok89ohbhw7a/sfx_PUP_cardFlip_five.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.424770+00:00",
+        "http": 200,
+        "sha256": "823b894ec20c37afdacc18c6c70578f45369ac9f4fa5a4738380b1fcb02a7197",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5n22l2k372ok80usdej7q/sfx_PUP_cardFlip_eight.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.538357+00:00",
+        "http": 200,
+        "sha256": "1c3820732bdf0a5a07fb64431685eaa5788a746eb51198f61c93783366bcb099",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9w5n2mn2k3c2ok835vlhkk5/sfx_PUP_cardFlip_ace.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.538835+00:00",
+        "http": 200,
+        "sha256": "df8a4a7fd4d240ca0ead8f30486f48bf2646421a804c11ea5c898bd62127cf89",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz2z8f02fv2oktfjqhavnl/sfx_PUP_dealComplete_popUp.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.547339+00:00",
+        "http": 200,
+        "sha256": "5017a3276af4ee21a12cf1e45f10ad2fd505d8734bde81bcd86992f8c8835bc8",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz2zvm02zh3bs07r767x41/sfx_PUP_dealOut.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.684238+00:00",
+        "http": 200,
+        "sha256": "d03bd9d03de4bd6e4fd10ea3c92d3f7d37ae8f05d9964b7f0840f87be16357bc",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz30nu02gg2okt1vf22gxp/sfx_PUP_discard.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.692237+00:00",
+        "http": 200,
+        "sha256": "b1b83270351dad22d76c001ff0d5a7a08ecec4f00db0018003b386ebae93de2f",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz31zo02zi3bs08v2kgs3f/sfx_PUP_nextRound.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.799569+00:00",
+        "http": 200,
+        "sha256": "d5e4647828fc0526e4b1815b49bd9f689c33f3bb4b7ab395b126043ba3f479a5",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz32l502zl3bs08aekg080/sfx_PUP_pickUp.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.799750+00:00",
+        "http": 200,
+        "sha256": "0b37d9afa3d87433801ee0b614d7ed2d0f5fd5697cb7b84ba48c2a12ddb6bc33",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz337402zm3bs06lyqgzlk/sfx_PUP_placeDown.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.892775+00:00",
+        "http": 200,
+        "sha256": "5cd24c3772f938ed1d68dbbb13d4bb0c70983fb82a6040503166523b0815e849",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz33s002zn3bs0drhs22fw/sfx_PUP_scoreCount_12.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.916656+00:00",
+        "http": 200,
+        "sha256": "87e4bc8fad1fd98779b55d29d1a8fe5183d33f42578ede651670edb1b7b1a077",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz34d202h02okt7bj36j1e/sfx_PUP_scoreCount_11.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:40.925973+00:00",
+        "http": 200,
+        "sha256": "fbdeffc742c2c221ba8c597cf1b9fc428a6ab2c8d523f42e01c9fa1a1e251b52",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz34v602zo3bs0gno46lhg/sfx_PUP_scoreCount_10.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.043735+00:00",
+        "http": 200,
+        "sha256": "839f06d5a0e989aab5a9820f79fe1937c2510ad0e0b2a0b5305198a31f6f553e",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz35gg02zp3bs0exx4hc9y/sfx_PUP_scoreCount_09.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.059928+00:00",
+        "http": 200,
+        "sha256": "1b0d35223121ad91e05e7d080ab57b9de1c33953e4dcec77bb01c1eac549bc1b",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz35zg02zq3bs09un976zg/sfx_PUP_scoreCount_08.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.073195+00:00",
+        "http": 200,
+        "sha256": "3391048dd565286d4b588694e7c9d1809a8eb971315d8f190ed735901208846a",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz36io03063bs05jn54517/sfx_PUP_scoreCount_07.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.172400+00:00",
+        "http": 200,
+        "sha256": "801bff4225b2ed164f93a7f6d8d25d0707585f672773f481e2525114c8697eb0",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz371c030i3bs0aklo3ojn/sfx_PUP_scoreCount_06.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.180241+00:00",
+        "http": 200,
+        "sha256": "e2213f8de1e5954982578fcb69018fd4820ba6918424babc6ffa7913aa92ef0d",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz37j8030j3bs0ea771bge/sfx_PUP_scoreCount_05.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.255533+00:00",
+        "http": 200,
+        "sha256": "816749efabe454507bbedbaebc0ab7ef08194778b4bbe4ad3b04e0357e9410bd",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz3817030k3bs03ql4cn64/sfx_PUP_scoreCount_04.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.283133+00:00",
+        "http": 200,
+        "sha256": "897a369c08ae128830bc45419225b9209c15f2ce9dad277db132ee235e5eaea3",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz38kt030z3bs03ms5en27/sfx_PUP_scoreCount_03.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.283340+00:00",
+        "http": 200,
+        "sha256": "1f3c1866efa57cba61af6b404a5957907690d278798475d1b6efb928f4a5a91e",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz393p031k3bs0ccob39x6/sfx_PUP_scoreCount_02.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.360798+00:00",
+        "http": 200,
+        "sha256": "6f3cef8b672ebf89f5227baba74c3808bd8fa48c30824583c5ce0b6fc235244f",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz39mi031l3bs04t6021iy/sfx_PUP_scoreCount_01.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.373942+00:00",
+        "http": 200,
+        "sha256": "cbec4d9903191d4eb6562bdfa0fd5047f49c44300d03c8d8defe33f5cf462273",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "_external/sounds/cm9wz3a4f031m3bs01tsx35en/sfx_PUP_totalScoreTicker_isolated.mp3",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.374178+00:00",
+        "http": 200,
+        "sha256": "67fb785c4dab035ea7ffda940f40b1dbdf42c0f63b4f2f2fd85ecd29fdf83bbd",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "fonts.css",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.436098+00:00",
+        "http": 200,
+        "sha256": "d4dea64efb61ef3726cf540738a2a3bb1b804b1f36433419bd9942e88e41cec6",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "fonts/Poppins-Bold-subset.ttf",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.438700+00:00",
+        "http": 200,
+        "sha256": "a582c6bb9a52e66aae5c7804283507eb145b617027931d706e4cb1ebfb783e8d",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "fonts/Poppins-Light-subset.ttf",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.486367+00:00",
+        "http": 200,
+        "sha256": "7ba2fa51249fe54cb3b4da365cb0942a8b75ff4577ff0319fc90ac11b545e4a5",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "fonts/Poppins-Medium-subset.ttf",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.550314+00:00",
+        "http": 200,
+        "sha256": "e1169e892ece8297de2a1f1a26ccd5482969a7a8ea9028541f89f66adb32441c",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "fonts/Poppins-Regular-subset.ttf",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.559156+00:00",
+        "http": 200,
+        "sha256": "954b28b8bb18af897b888e54cb53202ff7a6364a6db6bce3cad713d955e964dc",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "fonts/Poppins-SemiBold-subset.ttf",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.605561+00:00",
+        "http": 200,
+        "sha256": "e615d22aebb5148ae8924ac523c5f6ec37af887efe414192508796a9b30e8f5e",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "fonts/Zodiak-ExtraboldItalic-subset.ttf",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.653559+00:00",
+        "http": 200,
+        "sha256": "7e2563e879eb55e8093a2612489c9710d57a72975d416d3ec0ab2c44df721680",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "fonts/Zodiak-Regular-subset.ttf",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.653862+00:00",
+        "http": 200,
+        "sha256": "fbc332af84d5c10acd90e8c9affdc3ef3698466d1f71327014469ec1d9954eae",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "game/assets/pile-up-poker.css",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.696995+00:00",
+        "http": 200,
+        "sha256": "8b3b78b58dd720410cf299ae0f247ad09d5087268fac0609a1dda43e1ce25580",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "game/assets/pile-up-poker.js",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.729903+00:00",
+        "http": 200,
+        "sha256": "6489d5cfd8f7c1023537b871617aada7d46b9ac7f2f32541bf85914c36dad796",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "index.html",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.763974+00:00",
+        "http": 200,
+        "sha256": "80d84114c98a86c8cf062a21491e19af0d43517ca23f225618047d0dd8d85a2b",
+        "content_type": "text/html; charset=utf-8"
+      },
+      {
+        "path": "instructions.json",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.790654+00:00",
+        "http": 200,
+        "sha256": "514f6c3d9d9bad33fb62ecd1cdde01e1ae596a44ccca63caf278021197c28a48",
+        "content_type": "application/json"
+      },
+      {
+        "path": "instructions/pile-up-poker-2x.gif",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.904763+00:00",
+        "http": 200,
+        "sha256": "78245854b98022d83ee93c8dd0e8d7022f0f44eb7067d87360f6b3ff2da9423f",
+        "content_type": "image/gif"
+      },
+      {
+        "path": "screenshots/001.png",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:41.922650+00:00",
+        "http": 200,
+        "sha256": "75350fd82be50a5a977df8db984177d6b078053663816c75a9d3b6404d2b2b55",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/002.png",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:42.028653+00:00",
+        "http": 200,
+        "sha256": "cdd972e288a7513c1d548c383fa731fa2913079b36f2d8f87d2a7dabbac3b3c9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/003.png",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:42.049690+00:00",
+        "http": 200,
+        "sha256": "6cb6c60f15de89a40bf00f186dba6fda55ad20d3814d78289496e8259e8b82ea",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/004.png",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:42.060465+00:00",
+        "http": 200,
+        "sha256": "9b3643fb48066dfb1c49398ea4a351ebad52c364d9bd41be886d976340280173",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/005.png",
+        "artifact_id": "artifact-3289cb86f9df",
+        "observed_at": "2026-11-18T12:53:42.111859+00:00",
+        "http": 200,
+        "sha256": "9ffb2d90b817b330d1215e9a4e2d5c8e059d7760c0146f77dbd9b2c3afc4b8b9",
+        "content_type": "image/png"
+      }
+    ],
+    "all_46_runtime_files_5_screenshots_exact": true,
+    "index_csp": "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' http://192.168.56.52:8765",
+    "gameplay_UI_reexecuted": false,
+    "cumulative_UI_steps": 5,
+    "native_first_row_pair_score_verified": true,
+    "browser_exit_code": 0,
+    "next_round_executed": false,
+    "whole_game_completed": false,
+    "storage_reload_verified": false,
+    "CSP_source_compatibility": "46runtimefiles+5originalscreenshots exactHTTPSreadback; nativegame onlytested remotelyunder18865selfCSP, noaddedgameplayunderpublicsiteCSP."
+  },
+  "scope": "Exact normal-review offline game and real evidence. Raw input counts and historical failures remain explicit; no approval, supply, game-state changes or added testing."
+}

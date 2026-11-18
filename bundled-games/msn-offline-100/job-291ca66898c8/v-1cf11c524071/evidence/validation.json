@@ -1,0 +1,1162 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1，原轨迹与截图见validation"
+      },
+      {
+        "type": "drag",
+        "description": "真实累计输入2，原轨迹与截图见validation"
+      },
+      {
+        "type": "drag",
+        "description": "真实累计输入3，原轨迹与截图见validation"
+      },
+      {
+        "type": "drag",
+        "description": "真实累计输入4，原轨迹与截图见validation"
+      },
+      {
+        "type": "drag",
+        "description": "真实累计输入5，原轨迹与截图见validation"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 41,
+    "responses": 41,
+    "tested_revision": "pilepoker-offline-v1",
+    "delivery_revision": "pilepoker-offline-v1",
+    "scope": "累计5次真实玩家输入：首载原生牌局→拖方块6至第一行第一格→拖黑桃6至第二格→拖黑桃K至第三格→拖梅花9至第四格。第3步起原PAIR/得分$5，第5步原下一轮10♥→Discard按钮出现；原生round仍0、弃牌数0、完成false，没有点击下一轮。五张原截图已打开核对，5份原生状态与真实鼠标轨迹保留。未修改牌堆、随机种子、分数、时间或存档，未调用业务handler。未验证下一轮弃牌、整局结算、刷新恢复、新牌局、说明弹窗、声音开关和幻想模式。原DOM包含未显示的Game Complete及背面牌文本，不能作为可见完成或操作依据；本次仅按已打开截图与原生face-up visibleDraw选择当前明牌。真实完成标志始终false，不把第一行得分冒称整局胜利。",
+    "native_first_row_pair_score_verified": true,
+    "next_round_button_visible": true,
+    "next_round_executed": false,
+    "whole_game_completed": false,
+    "storage_reload_verified": false,
+    "cumulative_input_budget": 5
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/pilepoker-offline-v1/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "phase": 1,
+      "action": "drag",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 627,
+          "y": 757
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 625.5833333333334,
+          "y": 743.9166666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 624.1666666666666,
+          "y": 730.8333333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 622.75,
+          "y": 717.75,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 621.3333333333334,
+          "y": 704.6666666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 619.9166666666666,
+          "y": 691.5833333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 618.5,
+          "y": 678.5,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 617.0833333333334,
+          "y": 665.4166666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 615.6666666666666,
+          "y": 652.3333333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 614.25,
+          "y": 639.25,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 612.8333333333334,
+          "y": 626.1666666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 611.4166666666666,
+          "y": 613.0833333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 610,
+          "y": 600,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 607.5,
+          "y": 583.3333333333334,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 605,
+          "y": 566.6666666666666,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 602.5,
+          "y": 550,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 600,
+          "y": 533.3333333333334,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 597.5,
+          "y": 516.6666666666666,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 595,
+          "y": 500,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 592.5,
+          "y": 483.3333333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 590,
+          "y": 466.66666666666663,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 587.5,
+          "y": 450,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 585,
+          "y": 433.33333333333337,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 582.5,
+          "y": 416.66666666666663,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 580,
+          "y": 400,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 579.6666666666666,
+          "y": 380.8333333333333,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 579.3333333333334,
+          "y": 361.6666666666667,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 579,
+          "y": 342.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 578.6666666666666,
+          "y": 323.3333333333333,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 578.3333333333334,
+          "y": 304.1666666666667,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 578,
+          "y": 285,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 577.6666666666666,
+          "y": 265.83333333333337,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 577.3333333333334,
+          "y": 246.66666666666666,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 577,
+          "y": 227.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 576.6666666666666,
+          "y": 208.33333333333334,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 576.3333333333334,
+          "y": 189.16666666666666,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 576,
+          "y": 170,
+          "segment": 3
+        },
+        {
+          "event": "up"
+        }
+      ],
+      "points": [
+        [
+          627,
+          757
+        ],
+        [
+          610,
+          600
+        ],
+        [
+          580,
+          400
+        ],
+        [
+          576,
+          170
+        ]
+      ]
+    },
+    {
+      "step": 3,
+      "phase": 1,
+      "action": "drag",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 768,
+          "y": 755
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 766.5,
+          "y": 742.0833333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 765,
+          "y": 729.1666666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 763.5,
+          "y": 716.25,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 762,
+          "y": 703.3333333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 760.5,
+          "y": 690.4166666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 759,
+          "y": 677.5,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 757.5,
+          "y": 664.5833333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 756,
+          "y": 651.6666666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 754.5,
+          "y": 638.75,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 753,
+          "y": 625.8333333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 751.5,
+          "y": 612.9166666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 750,
+          "y": 600,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 746.6666666666666,
+          "y": 581.6666666666666,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 743.3333333333334,
+          "y": 563.3333333333334,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 740,
+          "y": 545,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 736.6666666666666,
+          "y": 526.6666666666666,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 733.3333333333334,
+          "y": 508.3333333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 730,
+          "y": 490,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 726.6666666666666,
+          "y": 471.66666666666663,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 723.3333333333334,
+          "y": 453.33333333333337,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 435,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 716.6666666666666,
+          "y": 416.66666666666663,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 713.3333333333334,
+          "y": 398.33333333333337,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 710,
+          "y": 380,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 706.8333333333334,
+          "y": 362.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 703.6666666666666,
+          "y": 345,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 700.5,
+          "y": 327.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 697.3333333333334,
+          "y": 310,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 694.1666666666666,
+          "y": 292.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 691,
+          "y": 275,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 687.8333333333334,
+          "y": 257.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 684.6666666666666,
+          "y": 240,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 681.5,
+          "y": 222.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 678.3333333333334,
+          "y": 205,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 675.1666666666666,
+          "y": 187.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 672,
+          "y": 170,
+          "segment": 3
+        },
+        {
+          "event": "up"
+        }
+      ],
+      "points": [
+        [
+          768,
+          755
+        ],
+        [
+          750,
+          600
+        ],
+        [
+          710,
+          380
+        ],
+        [
+          672,
+          170
+        ]
+      ]
+    },
+    {
+      "step": 4,
+      "phase": 1,
+      "action": "drag",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 626,
+          "y": 755
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 628,
+          "y": 740.4166666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 630,
+          "y": 725.8333333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 632,
+          "y": 711.25,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 634,
+          "y": 696.6666666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 636,
+          "y": 682.0833333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 638,
+          "y": 667.5,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 640,
+          "y": 652.9166666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 642,
+          "y": 638.3333333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 644,
+          "y": 623.75,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 646,
+          "y": 609.1666666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 648,
+          "y": 594.5833333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 650,
+          "y": 580,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 655,
+          "y": 560.8333333333334,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 660,
+          "y": 541.6666666666666,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 665,
+          "y": 522.5,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 670,
+          "y": 503.3333333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 675,
+          "y": 484.1666666666667,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 680,
+          "y": 465,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 685,
+          "y": 445.83333333333337,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 690,
+          "y": 426.66666666666663,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 695,
+          "y": 407.5,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 700,
+          "y": 388.33333333333337,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 705,
+          "y": 369.16666666666663,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 710,
+          "y": 350,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 714.8333333333334,
+          "y": 335,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 719.6666666666666,
+          "y": 320,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 724.5,
+          "y": 305,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 729.3333333333334,
+          "y": 290,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 734.1666666666666,
+          "y": 275,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 739,
+          "y": 260,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 743.8333333333334,
+          "y": 245,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 748.6666666666666,
+          "y": 230,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 753.5,
+          "y": 215,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 758.3333333333334,
+          "y": 200,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 763.1666666666666,
+          "y": 185,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 768,
+          "y": 170,
+          "segment": 3
+        },
+        {
+          "event": "up"
+        }
+      ],
+      "points": [
+        [
+          626,
+          755
+        ],
+        [
+          650,
+          580
+        ],
+        [
+          710,
+          350
+        ],
+        [
+          768,
+          170
+        ]
+      ]
+    },
+    {
+      "step": 5,
+      "phase": 1,
+      "action": "drag",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 673,
+          "y": 755
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 677.75,
+          "y": 740.4166666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 682.5,
+          "y": 725.8333333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 687.25,
+          "y": 711.25,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 692,
+          "y": 696.6666666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 696.75,
+          "y": 682.0833333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 701.5,
+          "y": 667.5,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 706.25,
+          "y": 652.9166666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 711,
+          "y": 638.3333333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 715.75,
+          "y": 623.75,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 720.5,
+          "y": 609.1666666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 725.25,
+          "y": 594.5833333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 730,
+          "y": 580,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 736.6666666666666,
+          "y": 560.8333333333334,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 743.3333333333334,
+          "y": 541.6666666666666,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 750,
+          "y": 522.5,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 756.6666666666666,
+          "y": 503.3333333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 763.3333333333334,
+          "y": 484.1666666666667,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 770,
+          "y": 465,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 776.6666666666666,
+          "y": 445.83333333333337,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 783.3333333333334,
+          "y": 426.66666666666663,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 790,
+          "y": 407.5,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 796.6666666666666,
+          "y": 388.33333333333337,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 803.3333333333334,
+          "y": 369.16666666666663,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 810,
+          "y": 350,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 814.5,
+          "y": 335,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 819,
+          "y": 320,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 823.5,
+          "y": 305,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 828,
+          "y": 290,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 832.5,
+          "y": 275,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 837,
+          "y": 260,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 841.5,
+          "y": 245,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 846,
+          "y": 230,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 850.5,
+          "y": 215,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 855,
+          "y": 200,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 859.5,
+          "y": 185,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 864,
+          "y": 170,
+          "segment": 3
+        },
+        {
+          "event": "up"
+        }
+      ],
+      "points": [
+        [
+          673,
+          755
+        ],
+        [
+          730,
+          580
+        ],
+        [
+          810,
+          350
+        ],
+        [
+          864,
+          170
+        ]
+      ]
+    }
+  ],
+  "browser_session": 97295,
+  "node_pid": 30396,
+  "browser_actual_exit_code": 0,
+  "owned_node_absent": true,
+  "final_native_state": {
+    "round": 0,
+    "tableauSize": 4,
+    "score": 5,
+    "hands": 1,
+    "nativeCompleted": false,
+    "invalidState": false,
+    "occupiedTableau": {
+      "tableau-0": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "tableau-1": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "tableau-2": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "tableau-3": [
+        "D-6",
+        "S-6",
+        "S-13",
+        "C-9"
+      ]
+    },
+    "visibleDraw": [
+      "H-10"
+    ],
+    "discardCount": 0
+  },
+  "final_score": 5,
+  "screenshots_opened": true,
+  "state_injection": false,
+  "handler_calls": false,
+  "accounting": {
+    "observation_start": "2026-11-18T12:07:32.632990+00:00",
+    "observation_end": "2026-11-18T12:50:49.850772+00:00",
+    "elapsed_seconds": 2597.217782,
+    "scope": "原公开入口抓取至证据归档经过时间，含分析、资源传输/失败恢复与等待；非纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "observation_caveat": "未验证下一轮弃牌、整局结算、刷新恢复、新牌局、说明弹窗、声音开关和幻想模式。原DOM包含未显示的Game Complete及背面牌文本，不能作为可见完成或操作依据；本次仅按已打开截图与原生face-up visibleDraw选择当前明牌。真实完成标志始终false，不把第一行得分冒称整局胜利。"
+}

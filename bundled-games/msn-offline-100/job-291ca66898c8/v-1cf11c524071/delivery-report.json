@@ -1,0 +1,314 @@
+{
+  "msn_revision": "pilepoker-offline-v1",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1，原轨迹与截图见validation"
+      },
+      {
+        "type": "drag",
+        "description": "真实累计输入2，原轨迹与截图见validation"
+      },
+      {
+        "type": "drag",
+        "description": "真实累计输入3，原轨迹与截图见validation"
+      },
+      {
+        "type": "drag",
+        "description": "真实累计输入4，原轨迹与截图见validation"
+      },
+      {
+        "type": "drag",
+        "description": "真实累计输入5，原轨迹与截图见validation"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 41,
+    "responses": 41,
+    "tested_revision": "pilepoker-offline-v1",
+    "delivery_revision": "pilepoker-offline-v1",
+    "scope": "累计5次真实玩家输入：首载原生牌局→拖方块6至第一行第一格→拖黑桃6至第二格→拖黑桃K至第三格→拖梅花9至第四格。第3步起原PAIR/得分$5，第5步原下一轮10♥→Discard按钮出现；原生round仍0、弃牌数0、完成false，没有点击下一轮。五张原截图已打开核对，5份原生状态与真实鼠标轨迹保留。未修改牌堆、随机种子、分数、时间或存档，未调用业务handler。未验证下一轮弃牌、整局结算、刷新恢复、新牌局、说明弹窗、声音开关和幻想模式。原DOM包含未显示的Game Complete及背面牌文本，不能作为可见完成或操作依据；本次仅按已打开截图与原生face-up visibleDraw选择当前明牌。真实完成标志始终false，不把第一行得分冒称整局胜利。",
+    "native_first_row_pair_score_verified": true,
+    "next_round_button_visible": true,
+    "next_round_executed": false,
+    "whole_game_completed": false,
+    "storage_reload_verified": false,
+    "cumulative_input_budget": 5
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "原MSN宿主、Puzzmo鉴权/每日题/GraphQL/提交/bonus/外站跳转及宿主触觉消费者退役，不加载宿主JS或msn-package.json；不伪造SDK、PuzzleStateDTO、用户/令牌/服务器响应。原ac(state,undefined)本就调用原Math.random→Xs生成本地牌堆，沿原Hs/tc真实输入串保存/恢复逻辑；不指定随机种子或牌序。33处真实Howler音频URL改为同源原MP3。",
+      "evidence": [
+        "game/assets/pile-up-poker.js",
+        "index.html",
+        "evidence/pilepoker-local-entry-work-proof.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "原远端提交/每日题/bonus宿主退役，保留原本地牌型积分。",
+      "evidence": [
+        "game/assets/pile-up-poker.js",
+        "index.html",
+        "evidence/pilepoker-local-entry-work-proof.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "单人牌阵，无房间或对手。",
+      "evidence": [
+        "game/assets/pile-up-poker.js",
+        "index.html",
+        "evidence/pilepoker-local-entry-work-proof.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "本地积分，不提供支付充值。",
+      "evidence": [
+        "game/assets/pile-up-poker.js",
+        "index.html",
+        "evidence/pilepoker-local-entry-work-proof.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "益智 / 牌阵扑克",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "每轮从5张明牌选4张放入牌阵，余1张弃牌；同时经营每行、每列、四角和弃牌堆的扑克牌型，以组合得分和牌型数量倍率提高总分。不是押注换牌扑克、德州扑克AI或接龙。",
+    "core_experience": "",
+    "controls": "原鼠标/触摸拖动当前明牌到空格，原NEXT ROUND确认余牌进入弃牌并推进；原Poker Hands规则表与赔付列表保留。改编提供真实本地New deal、How to play原规则/GIF、Howler Sound开关；这三项本轮没有点击。",
+    "game_loop": "",
+    "content": "原连续牌局和布局配置，不是固定关卡列表。原默认无服务器puzzle时沿原ac→Math.random/Xs生成牌堆，未指定seed；原4/5布局与幻想牌阵规则代码保留。本轮round0，未核对其他模式。",
+    "progression": "",
+    "save": "",
+    "rules": "18个受保护原生绑定规范AST保持、1862个顶层绑定保持；原Sf核心reducer规范AST保持，原oc/ac/ec/tc/Hs/Xs/Ks/sc/Cf/cs/ps/ms/hs/gs/Fs/Js/$s及发牌、牌阵、手牌计算、本地输入编解码保留。服务入口gc/cf/Sf外层/eN/BN修改，不以保留数量冒称全部代码未改。",
+    "systems": "原React组件渲染牌阵/SVG牌面，Redux维护原牌堆/手牌/回合，原选择器计算行列/四角/弃牌分，Framer Motion驱动原拖牌/牌面动画，Howler播放33条同源音效。原MSN宿主、Puzzmo鉴权/每日题/GraphQL/提交/bonus/外站跳转及宿主触觉消费者退役，不加载宿主JS或msn-package.json；不伪造SDK、PuzzleStateDTO、用户/令牌/服务器响应。原ac(state,undefined)本就调用原Math.random→Xs生成本地牌堆，沿原Hs/tc真实输入串保存/恢复逻辑；不指定随机种子或牌序。33处真实Howler音频URL改为同源原MP3。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5次真实玩家输入：首载原生牌局→拖方块6至第一行第一格→拖黑桃6至第二格→拖黑桃K至第三格→拖梅花9至第四格。第3步起原PAIR/得分$5，第5步原下一轮10♥→Discard按钮出现；原生round仍0、弃牌数0、完成false，没有点击下一轮。五张原截图已打开核对，5份原生状态与真实鼠标轨迹保留。未修改牌堆、随机种子、分数、时间或存档，未调用业务handler。远端52实际Chromium观察41个同源请求/41响应均HTTP200，外联/失败/脚本错误0，10条原Howler音频自动播放warning保留；46个运行文件另逐项HTTP和SHA通过。自有浏览器实际退出0，原closed日志5步且Node30396已不存在。未验证下一轮弃牌、整局结算、刷新恢复、新牌局、说明弹窗、声音开关和幻想模式。原DOM包含未显示的Game Complete及背面牌文本，不能作为可见完成或操作依据；本次仅按已打开截图与原生face-up visibleDraw选择当前明牌。真实完成标志始终false，不把第一行得分冒称整局胜利。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "React19.2.7 / Redux / 原生JavaScript",
+    "programming_language": "JavaScript、HTML",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Pile-Up Poker / 堆叠扑克；MSN原生9ndf03k5r2kr、Puzzmo公开v2。HTML/JavaScript、React19.2.7、Redux Toolkit、Framer Motion、Howler，2D SVG/DOM牌面。1440×900远端实际视口，原4×4默认牌阵。",
+        "asset_types": "48个原始静态文件，46运行文件/44原字节保持，改动仅入口与原游戏JS服务边界；原7份Poppins/Zodiak字体、33份原MP3、原CSS、instructions.json与原说明GIF。MSN宿主JS与msn-package.json保留原档但不进入运行包。",
+        "core_challenge": "每轮从5张明牌选4张放入牌阵，余1张弃牌；同时经营每行、每列、四角和弃牌堆的扑克牌型，以组合得分和牌型数量倍率提高总分。不是押注换牌扑克、德州扑克AI或接龙。",
+        "controls": "原鼠标/触摸拖动当前明牌到空格，原NEXT ROUND确认余牌进入弃牌并推进；原Poker Hands规则表与赔付列表保留。改编提供真实本地New deal、How to play原规则/GIF、Howler Sound开关；这三项本轮没有点击。",
+        "behavior_path": "累计5次真实玩家输入：首载原生牌局→拖方块6至第一行第一格→拖黑桃6至第二格→拖黑桃K至第三格→拖梅花9至第四格。第3步起原PAIR/得分$5，第5步原下一轮10♥→Discard按钮出现；原生round仍0、弃牌数0、完成false，没有点击下一轮。五张原截图已打开核对，5份原生状态与真实鼠标轨迹保留。未修改牌堆、随机种子、分数、时间或存档，未调用业务handler。",
+        "game_path": "原随机默认牌局显示5张明牌和16空格→连续4次真实拖放→第一行6♦6♠K♠9♣，原对子$5→余10♥及下一轮弃牌按钮。未验证下一轮弃牌、整局结算、刷新恢复、新牌局、说明弹窗、声音开关和幻想模式。原DOM包含未显示的Game Complete及背面牌文本，不能作为可见完成或操作依据；本次仅按已打开截图与原生face-up visibleDraw选择当前明牌。真实完成标志始终false，不把第一行得分冒称整局胜利。",
+        "progression_path": "原4×4/5×5牌阵与Fantasy条件代码保留，实际本轮只原默认4×4；本地gamelab-pile-up-poker-native-v1保存原Hs输入串、实际经过时间和声音偏好，第5步已观察到真实存储记录，但没有刷新复验。",
+        "core_loop": "原拖牌输入→原reducer更新牌阵/可用明牌→原行列牌型选择器即时重算→原PAIR高亮与得分更新→放满4张后显示NEXT ROUND。到按钮出现的真实子循环已验证，未执行整轮弃牌与下一次发牌。",
+        "gameplay_rules": "18个受保护原生绑定规范AST保持、1862个顶层绑定保持；原Sf核心reducer规范AST保持，原oc/ac/ec/tc/Hs/Xs/Ks/sc/Cf/cs/ps/ms/hs/gs/Fs/Js/$s及发牌、牌阵、手牌计算、本地输入编解码保留。服务入口gc/cf/Sf外层/eN/BN修改，不以保留数量冒称全部代码未改。",
+        "key_numbers": "本轮4×4=16格，每轮5明牌选4弃1；原行4+列4+四角共9手，另算弃牌。原规则四角双倍、弃牌三倍、有效牌型数作为总倍率；实际已证明一组对子$5/牌型数1，未证明其他赔付和全局结算。",
+        "level_configuration": "原连续牌局和布局配置，不是固定关卡列表。原默认无服务器puzzle时沿原ac→Math.random/Xs生成牌堆，未指定seed；原4/5布局与幻想牌阵规则代码保留。本轮round0，未核对其他模式。",
+        "system_design": "原React组件渲染牌阵/SVG牌面，Redux维护原牌堆/手牌/回合，原选择器计算行列/四角/弃牌分，Framer Motion驱动原拖牌/牌面动画，Howler播放33条同源音效。原MSN宿主、Puzzmo鉴权/每日题/GraphQL/提交/bonus/外站跳转及宿主触觉消费者退役，不加载宿主JS或msn-package.json；不伪造SDK、PuzzleStateDTO、用户/令牌/服务器响应。原ac(state,undefined)本就调用原Math.random→Xs生成本地牌堆，沿原Hs/tc真实输入串保存/恢复逻辑；不指定随机种子或牌序。33处真实Howler音频URL改为同源原MP3。",
+        "theme": "原浅灰牌阵、彩色花色和数字、K人像、黄色Poker Hands、PAIR黄线与WINNINGS；实际原牌面与原字体保持，不改占位牌面。五张实拍覆盖空阵、落牌、得分和下一轮按钮。",
+        "progression_economy": "WINNINGS为本地扑克牌型积分显示，未新增真钱下注、支付、奖励广告或在线经济。原牌型赔付/四角与弃牌倍数/手数倍率代码保留；实际对子$5不是现金收益。",
+        "roster": "原扑克牌四花色/A与数字/JQK人像、空格十字、四角框、弃牌预览、扑克手型说明。当前可见6♦6♠K♠9♣与10♥按实际拖放形成，未读取或指定尚未翻开的牌来决定操作。",
+        "monetization": "原MSN宿主、Puzzmo鉴权/每日题/GraphQL/提交/bonus/外站跳转及宿主触觉消费者退役，不加载宿主JS或msn-package.json；不伪造SDK、PuzzleStateDTO、用户/令牌/服务器响应。原ac(state,undefined)本就调用原Math.random→Xs生成本地牌堆，沿原Hs/tc真实输入串保存/恢复逻辑；不指定随机种子或牌序。33处真实Howler音频URL改为同源原MP3。 远端52实际Chromium观察41个同源请求/41响应均HTTP200，外联/失败/脚本错误0，10条原Howler音频自动播放warning保留；46个运行文件另逐项HTTP和SHA通过。自有浏览器实际退出0，原closed日志5步且Node30396已不存在。 未验证下一轮弃牌、整局结算、刷新恢复、新牌局、说明弹窗、声音开关和幻想模式。原DOM包含未显示的Game Complete及背面牌文本，不能作为可见完成或操作依据；本次仅按已打开截图与原生face-up visibleDraw选择当前明牌。真实完成标志始终false，不把第一行得分冒称整局胜利。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原生4×4空牌阵与5张真实明牌"
+      },
+      {
+        "path": "screenshots/002.png",
+        "caption": "方块6真实拖入左上格"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "黑桃6真实拖入第二格，原PAIR计分$5"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "黑桃K真实拖入第三格"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "梅花9真实拖入第四格，原下一轮弃10♥按钮出现，尚未点击"
+      }
+    ]
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "4次真实拖牌、原PAIR/$5即时计分、下一轮按钮出现；未确认下一轮或全局。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "48原始/46运行/44原字节，7字体/33MP3/原GIF/CSS齐备；41实际同源200。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原4×4牌阵、明牌、弃牌预览、手型和计分实际渲染。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "四种花色/数字/人像原组件和空格，4张实际明牌落格。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "本作表现对象为原扑克牌和K人像，无虚构角色；实际画面已核对。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原拖牌跟手/落牌、剩余牌重排、PAIR高亮实际发生；未覆盖全部动画。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "真实拖放4次有响应，分0→5、下一轮按钮可见；未验证按钮点击。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-18T12:07:32.632990+00:00",
+    "observation_end": "2026-11-18T12:50:49.850772+00:00",
+    "elapsed_seconds": 2597.217782,
+    "scope": "原公开入口抓取至证据归档经过时间，含分析、资源传输/失败恢复与等待；非纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}
