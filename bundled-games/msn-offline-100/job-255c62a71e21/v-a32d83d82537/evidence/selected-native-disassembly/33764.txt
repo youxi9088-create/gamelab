@@ -1,0 +1,49 @@
+ALIASES ["SaveManager.RequestCloudLoad"]
+0c8ca5 func[33764]:
+ 0c8ca6: 01 7d                      | local[1] type=f32
+ 0c8ca8: 41 93 e3 e1 03             | i32.const 7893395
+ 0c8cad: 2d 00 00                   | i32.load8_u 0 0
+ 0c8cb0: 45                         | i32.eqz
+ 0c8cb1: 04 40                      | if
+ 0c8cb3: 41 98 f1 f7 02             |   i32.const 6158488
+ 0c8cb8: 10 9f 04                   |   call 543
+ 0c8cbb: 41 e4 80 f8 02             |   i32.const 6160484
+ 0c8cc0: 10 9f 04                   |   call 543
+ 0c8cc3: 41 d0 f3 f7 02             |   i32.const 6158800
+ 0c8cc8: 10 9f 04                   |   call 543
+ 0c8ccb: 41 93 e3 e1 03             |   i32.const 7893395
+ 0c8cd0: 41 01                      |   i32.const 1
+ 0c8cd2: 3a 00 00                   |   i32.store8 0 0
+ 0c8cd5: 0b                         | end
+ 0c8cd6: 41 e4 80 f8 02             | i32.const 6160484
+ 0c8cdb: 28 02 00                   | i32.load 2 0
+ 0c8cde: 10 a1 04                   | call 545
+ 0c8ce1: 41 00                      | i32.const 0
+ 0c8ce3: 10 89 9f 01                | call 20361
+ 0c8ce7: 41 e4 80 f8 02             | i32.const 6160484
+ 0c8cec: 28 02 00                   | i32.load 2 0
+ 0c8cef: 28 02 5c                   | i32.load 2 92
+ 0c8cf2: 22 00                      | local.tee 0
+ 0c8cf4: 41 80 80 80 fc 7b          | i32.const 3212836864
+ 0c8cfa: 36 02 10                   | i32.store 2 16
+ 0c8cfd: 20 00                      | local.get 0
+ 0c8cff: 41 00                      | i32.const 0
+ 0c8d01: 3a 00 09                   | i32.store8 0 9
+ 0c8d04: 20 00                      | local.get 0
+ 0c8d06: 10 b5 1e                   | call 3893
+ 0c8d09: 21 01                      | local.set 1
+ 0c8d0b: 41 e4 80 f8 02             | i32.const 6160484
+ 0c8d10: 28 02 00                   | i32.load 2 0
+ 0c8d13: 28 02 5c                   | i32.load 2 92
+ 0c8d16: 20 01                      | local.get 1
+ 0c8d18: 43 00 00 c0 40             | f32.const 0x1.8p+2
+ 0c8d1d: 92                         | f32.add
+ 0c8d1e: 38 02 0c                   | f32.store 2 12
+ 0c8d21: 41 98 f1 f7 02             | i32.const 6158488
+ 0c8d26: 28 02 00                   | i32.load 2 0
+ 0c8d29: 10 a1 04                   | call 545
+ 0c8d2c: 41 d0 f3 f7 02             | i32.const 6158800
+ 0c8d31: 28 02 00                   | i32.load 2 0
+ 0c8d34: 20 00                      | local.get 0
+ 0c8d36: 10 fb 87 02                | call 33787
+ 0c8d3a: 0b                         | end

@@ -1,0 +1,267 @@
+/* =============================================================================
+   ORIENTATION GATE - the "rotate your device" screen shown to portrait phones.
+
+   WHY THIS LIVES IN CSS AND NOT IN UNITY:
+
+   A player can arrive in portrait, and the gate has to be on screen from the
+   very first painted frame - long before the WASM has downloaded, let alone
+   before a Unity canvas could draw a UI panel. So visibility is decided purely
+   by a media query: the browser evaluates it during the first style pass, and
+   there is no frame in which a portrait player sees the game underneath.
+
+   Unity is told about the state afterwards (orientation-gate.js -> SendMessage
+   -> OrientationGate.cs) only so a live round can be frozen. Nothing about what
+   you see here depends on the engine being alive.
+
+   THE TWO CONDITIONS FOR SHOWING IT:
+
+     html.wd-touch          set by orientation-gate.js in <head>, before first
+                            paint. It means "this is a finger-driven device".
+                            Without it a desktop player who drags their window
+                            tall would be told to rotate a monitor.
+
+     (orientation: portrait) the actual state we are gating on.
+
+   .wd-gate-linger overrides the media query to hold the gate on screen for a
+   beat AFTER the player rotates back, so the round doesn't resume under thumbs
+   that aren't on the controls yet. See RESUME_GRACE_MS in orientation-gate.js.
+
+   Everything is namespaced wd- so it can never collide with Unity's own
+   template markup (#unity-container, #unity-canvas, ...).
+   ========================================================================== */
+
+/* ---- The template palette ------------------------------------------------ */
+
+/* Tune the look from here - nothing below hard-codes a colour.
+
+   These live on :root rather than on the gate because the gate is no longer the
+   only themed chrome outside Unity: the fullscreen button in index.html reads
+   the same tokens, so the two cannot drift into two different greens. This file
+   is linked BEFORE index.html's inline <style>, which is what makes them
+   visible there. Anything else added to the template should use them too. */
+:root {
+  --wd-bg-near: #16211A;         /* centre of the backdrop wash                */
+  --wd-bg-far: #050706;          /* edges of the backdrop wash                 */
+  --wd-accent: #39FF6A;          /* the HUD green the game uses everywhere     */
+  --wd-accent-dim: rgba(57, 255, 106, 0.35);
+  --wd-ink: #EAF6EE;             /* headline white, very slightly green        */
+  --wd-ink-soft: rgba(234, 246, 238, 0.62);
+}
+
+#wd-orientation-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;           /* above the canvas, the loading bar and the fullscreen button */
+
+  display: none;                 /* the media query below is the only thing that opens it */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+
+  padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right))
+           max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+  box-sizing: border-box;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.018) 0px,
+      rgba(255, 255, 255, 0.018) 1px,
+      rgba(0, 0, 0, 0) 1px,
+      rgba(0, 0, 0, 0) 4px
+    ),
+    radial-gradient(ellipse 120% 80% at 50% 42%, var(--wd-bg-near) 0%, var(--wd-bg-far) 72%);
+
+  color: var(--wd-ink);
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+
+  /* Swallow every touch: the canvas is still live underneath, and a stray drag
+     on it would fly the drone the player can't even see. */
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+
+  opacity: 1;
+  transition: opacity 220ms ease;
+}
+
+/* ---- When it shows ------------------------------------------------------- */
+
+@media (orientation: portrait) {
+  html.wd-touch #wd-orientation-gate { display: flex; }
+}
+
+/* The grace period after rotating back: keep it up, but fade it out. The class
+   is added while the gate is ALREADY visible, so there is no frame where the
+   media query has let go before this has taken hold. */
+html.wd-gate-linger #wd-orientation-gate {
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- The HUD frame ------------------------------------------------------- */
+
+/* Two L-brackets, top-left and bottom-right, drawn with borders on a pair of
+   absolutely-positioned pseudo elements. Cheap, and it stops the screen from
+   reading as a browser error page. */
+#wd-orientation-gate::before,
+#wd-orientation-gate::after {
+  content: "";
+  position: absolute;
+  width: clamp(28px, 9vw, 56px);
+  height: clamp(28px, 9vw, 56px);
+  border: 2px solid var(--wd-accent-dim);
+  pointer-events: none;
+}
+
+#wd-orientation-gate::before {
+  top: max(18px, env(safe-area-inset-top));
+  left: max(18px, env(safe-area-inset-left));
+  border-right: 0;
+  border-bottom: 0;
+}
+
+#wd-orientation-gate::after {
+  bottom: max(18px, env(safe-area-inset-bottom));
+  right: max(18px, env(safe-area-inset-right));
+  border-left: 0;
+  border-top: 0;
+}
+
+/* ---- The rotating device ------------------------------------------------- */
+
+.wd-gate-icon {
+  width: clamp(116px, 38vw, 184px);
+  height: auto;
+  margin-bottom: clamp(22px, 6vh, 44px);
+  overflow: visible;
+}
+
+/* The phone body swings from upright to sideways, holds there long enough to
+   read as an instruction, then snaps back and repeats. transform-box/origin
+   keep it turning about its own centre rather than the SVG's. */
+.wd-gate-phone {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: wd-gate-turn 2600ms cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes wd-gate-turn {
+  0%,   18% { transform: rotate(0deg); }
+  42%,  78% { transform: rotate(-90deg); }
+  96%, 100% { transform: rotate(0deg); }
+}
+
+/* The sweep arrow leads the turn: it brightens just before the phone moves and
+   is gone by the time it has landed. */
+.wd-gate-arrow {
+  animation: wd-gate-sweep 2600ms ease-in-out infinite;
+}
+
+@keyframes wd-gate-sweep {
+  0%,  10% { opacity: 0; }
+  22%      { opacity: 1; }
+  46%      { opacity: 0.15; }
+  100%     { opacity: 0; }
+}
+
+.wd-gate-screen { animation: wd-gate-glow 2600ms ease-in-out infinite; }
+
+@keyframes wd-gate-glow {
+  0%,  30% { opacity: 0.10; }
+  55%,  90% { opacity: 0.30; }
+  100%     { opacity: 0.10; }
+}
+
+/* ---- Copy ---------------------------------------------------------------- */
+
+.wd-gate-title {
+  margin: 0;
+  font-size: clamp(19px, 6.2vw, 30px);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px rgba(57, 255, 106, 0.28);
+}
+
+/* The thin rule under the title, brightest in the middle - the same "sensor
+   line" motif the in-game headings use. */
+.wd-gate-rule {
+  width: clamp(120px, 44vw, 260px);
+  height: 2px;
+  margin: clamp(12px, 2.6vh, 18px) 0;
+  background: linear-gradient(to right, transparent, var(--wd-accent), transparent);
+  opacity: 0.75;
+}
+
+.wd-gate-subtitle {
+  margin: 0;
+  max-width: 30ch;
+  font-size: clamp(13px, 3.8vw, 16px);
+  line-height: 1.5;
+  color: var(--wd-ink-soft);
+}
+
+.wd-gate-product {
+  color: var(--wd-accent);
+  font-weight: 700;
+}
+
+/* ---- The fullscreen shortcut --------------------------------------------- */
+
+/* Hidden by default and revealed by orientation-gate.js only where the browser
+   can actually honour screen.orientation.lock() - i.e. Android. An iPhone would
+   get a button that does nothing, which is worse than no button. */
+.wd-gate-action {
+  display: none;
+  margin-top: clamp(22px, 5vh, 40px);
+  padding: 13px 26px;
+  font: inherit;
+  font-size: clamp(12px, 3.4vw, 14px);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wd-accent);
+  background: rgba(57, 255, 106, 0.08);
+  border: 1px solid var(--wd-accent-dim);
+  border-radius: 10px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 140ms ease, transform 80ms ease;
+}
+
+html.wd-gate-can-autorotate .wd-gate-action { display: inline-block; }
+
+.wd-gate-action:active { transform: scale(0.95); background: rgba(57, 255, 106, 0.16); }
+
+/* ---- Reduced motion ------------------------------------------------------ */
+
+/* The instruction has to survive the animation being switched off, so the
+   phone parks SIDEWAYS - the position we're asking the player to copy - rather
+   than upright, which would read as "you're already fine". */
+@media (prefers-reduced-motion: reduce) {
+  .wd-gate-phone {
+    animation: none;
+    transform: rotate(-90deg);
+  }
+  .wd-gate-arrow { animation: none; opacity: 0.85; }
+  .wd-gate-screen { animation: none; opacity: 0.3; }
+  #wd-orientation-gate { transition: none; }
+}
+
+/* ---- Very short viewports ------------------------------------------------ */
+
+/* A portrait phone held in a browser with a lot of chrome, or a foldable's
+   cover screen: drop the icon rather than the words. */
+@media (orientation: portrait) and (max-height: 460px) {
+  .wd-gate-icon { width: clamp(72px, 22vw, 104px); margin-bottom: 14px; }
+  .wd-gate-rule { margin: 8px 0; }
+  .wd-gate-action { margin-top: 16px; padding: 10px 20px; }
+}

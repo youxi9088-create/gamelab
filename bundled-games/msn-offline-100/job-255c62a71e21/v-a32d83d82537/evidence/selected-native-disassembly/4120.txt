@@ -1,0 +1,60 @@
+ALIASES ["SaveManager.SaveGame"]
+0a625a func[4120]:
+ 0a625b: 41 8a e3 e1 03             | i32.const 7893386
+ 0a6260: 2d 00 00                   | i32.load8_u 0 0
+ 0a6263: 45                         | i32.eqz
+ 0a6264: 04 40                      | if
+ 0a6266: 41 e4 80 f8 02             |   i32.const 6160484
+ 0a626b: 10 9f 04                   |   call 543
+ 0a626e: 41 8a e3 e1 03             |   i32.const 7893386
+ 0a6273: 41 01                      |   i32.const 1
+ 0a6275: 3a 00 00                   |   i32.store8 0 0
+ 0a6278: 0b                         | end
+ 0a6279: 41 e4 80 f8 02             | i32.const 6160484
+ 0a627e: 28 02 00                   | i32.load 2 0
+ 0a6281: 21 01                      | local.set 1
+ 0a6283: 20 00                      | local.get 0
+ 0a6285: 45                         | i32.eqz
+ 0a6286: 04 40                      | if
+ 0a6288: 20 01                      |   local.get 1
+ 0a628a: 10 a1 04                   |   call 545
+ 0a628d: 41 e4 80 f8 02             |   i32.const 6160484
+ 0a6292: 28 02 00                   |   i32.load 2 0
+ 0a6295: 22 01                      |   local.tee 1
+ 0a6297: 28 02 5c                   |   i32.load 2 92
+ 0a629a: 28 02 00                   |   i32.load 2 0
+ 0a629d: 21 00                      |   local.set 0
+ 0a629f: 0b                         | end
+ 0a62a0: 20 01                      | local.get 1
+ 0a62a2: 10 a1 04                   | call 545
+ 0a62a5: 02 40                      | block
+ 0a62a7: 20 00                      |   local.get 0
+ 0a62a9: 41 e4 80 f8 02             |   i32.const 6160484
+ 0a62ae: 28 02 00                   |   i32.load 2 0
+ 0a62b1: 22 01                      |   local.tee 1
+ 0a62b3: 28 02 5c                   |   i32.load 2 92
+ 0a62b6: 28 02 00                   |   i32.load 2 0
+ 0a62b9: 47                         |   i32.ne
+ 0a62ba: 0d 00                      |   br_if 0
+ 0a62bc: 20 01                      |   local.get 1
+ 0a62be: 10 a1 04                   |   call 545
+ 0a62c1: 10 dc 59                   |   call 11484
+ 0a62c4: 45                         |   i32.eqz
+ 0a62c5: 0d 00                      |   br_if 0
+ 0a62c7: 41 e4 80 f8 02             |   i32.const 6160484
+ 0a62cc: 28 02 00                   |   i32.load 2 0
+ 0a62cf: 10 a1 04                   |   call 545
+ 0a62d2: 20 00                      |   local.get 0
+ 0a62d4: 20 00                      |   local.get 0
+ 0a62d6: 10 87 9f 01                |   call 20359
+ 0a62da: 37 03 08                   |   i64.store 3 8
+ 0a62dd: 20 00                      |   local.get 0
+ 0a62df: 10 e2 87 02                |   call 33762
+ 0a62e3: 0b                         | end
+ 0a62e4: 41 e4 80 f8 02             | i32.const 6160484
+ 0a62e9: 28 02 00                   | i32.load 2 0
+ 0a62ec: 10 a1 04                   | call 545
+ 0a62ef: 20 00                      | local.get 0
+ 0a62f1: 20 00                      | local.get 0
+ 0a62f3: 10 d9 59                   | call 11481
+ 0a62f6: 0b                         | end

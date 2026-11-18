@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "status": "static_pass",
+  "files": [
+    {
+      "file": "Build/Build.data",
+      "bytes": 38199669,
+      "sha256": "7fcceef08934f3f843d7159c9924e5c1624633f2b7e358084f6c52021585e059"
+    },
+    {
+      "file": "Build/Build.framework.js",
+      "bytes": 460404,
+      "sha256": "bfcbf5985a651cb4d0a78fb4ca4e0a5e531450d3c57e35616a412a74b814f58f"
+    },
+    {
+      "file": "Build/Build.jpg",
+      "bytes": 19850,
+      "sha256": "d7389fcd50329308f10917b2e5a8640470fd462ba984cb20e9f9cfc16d36ec50"
+    },
+    {
+      "file": "Build/Build.loader.js",
+      "bytes": 25778,
+      "sha256": "6ecabdb7048189933ecfe841aa8037a47e5ff17d40a1f38ab74f6da145b69ed1"
+    },
+    {
+      "file": "Build/Build.wasm",
+      "bytes": 34791230,
+      "sha256": "fab44ab00c3d0e873af22de57a37688f61d33b06c2c39acc129cbc9d9432cd11"
+    },
+    {
+      "file": "game-profile.json",
+      "bytes": 10675,
+      "sha256": "35df7943ab1ee0df8d7ff1f977f1fadfee605766c81a5743f8bfcc612d4ee3a0"
+    },
+    {
+      "file": "GAME_SPECIFICATION.md",
+      "bytes": 8227,
+      "sha256": "6130e954c5339f369d1363d0c376ded11499e8a9b94cbdff098673cecdab086a"
+    },
+    {
+      "file": "index.html",
+      "bytes": 11762,
+      "sha256": "67d322d8539cc0d546ee3cdfdca19b04c7df9d51ce19a6a89c90f9f5c9603996"
+    },
+    {
+      "file": "README_二次修改.md",
+      "bytes": 2129,
+      "sha256": "dda3de0058079b3408da4876920b8e66544fa9fba893a819f3ddff14b27b4350"
+    },
+    {
+      "file": "TemplateData/favicon.ico",
+      "bytes": 2305,
+      "sha256": "9c13beb90ee8f70580d52a21d5233970d1c89e71e4a34a462c22610941c3c77f"
+    },
+    {
+      "file": "TemplateData/orientation-gate.css",
+      "bytes": 9411,
+      "sha256": "a40a915893b346b1fb67b16c5b0b810c9a12ea32740a1266149913e24323f50b"
+    },
+    {
+      "file": "TemplateData/orientation-gate.js",
+      "bytes": 11629,
+      "sha256": "dfca25140c035d7f06c824150c8d370d01d3248b56e8eea0ed0bb1592a322e34"
+    },
+    {
+      "file": "TemplateData/progress-bar-empty-dark.png",
+      "bytes": 96,
+      "sha256": "bbee7131afe8a3365906240d89184dc86234c119467f390bc4bc6802328fdb4d"
+    },
+    {
+      "file": "TemplateData/progress-bar-full-dark.png",
+      "bytes": 74,
+      "sha256": "3306a6244dcb3926fca38a28e3ced589df8ff1beed955eb17c0bbf01c918bc62"
+    },
+    {
+      "file": "TemplateData/style.css",
+      "bytes": 823,
+      "sha256": "c236db3eb689769e6115a6552e36acbca916712528041f782919cc27c2a3eb7e"
+    },
+    {
+      "file": "TemplateData/unity-logo-dark.png",
+      "bytes": 3042,
+      "sha256": "c1b72d26c096487dabc948b54bc203f8dac7ed4e3f5733918798e858acb4b159"
+    },
+    {
+      "file": "TemplateData/web-input.js",
+      "bytes": 5782,
+      "sha256": "18a1ae4f1c8608979e47fb0d729cc030ee855c8f782495d8e42677891431d823"
+    }
+  ],
+  "references": [
+    {
+      "file": "index.html",
+      "reference": "TemplateData/style.css"
+    },
+    {
+      "file": "index.html",
+      "reference": "TemplateData/orientation-gate.css"
+    },
+    {
+      "file": "index.html",
+      "reference": "TemplateData/orientation-gate.js"
+    },
+    {
+      "file": "index.html",
+      "reference": "TemplateData/web-input.js"
+    },
+    {
+      "file": "TemplateData/style.css",
+      "reference": "unity-logo-dark.png"
+    },
+    {
+      "file": "TemplateData/style.css",
+      "reference": "progress-bar-empty-dark.png"
+    },
+    {
+      "file": "TemplateData/style.css",
+      "reference": "progress-bar-full-dark.png"
+    }
+  ],
+  "missing": [],
+  "external": [],
+  "backend_endpoints": [],
+  "dynamic_files": [
+    "Build/Build.framework.js",
+    "Build/Build.loader.js"
+  ],
+  "scope": "HTML/CSS、全局 fetch/import 字面量及 assets 路径线索；API 路由单独登记，不视为静态文件。动态拼接、引擎加载、后端依赖和全关卡必须另做运行验证"
+}

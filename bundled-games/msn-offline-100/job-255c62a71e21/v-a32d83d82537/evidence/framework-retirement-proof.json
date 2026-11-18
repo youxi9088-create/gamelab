@@ -1,0 +1,84 @@
+{
+  "source_only": true,
+  "native_executed": false,
+  "original_sha256": "0afd191b3efd27e5359db7b3f0060f5a31af585cbdc587c1c0cecde5fb35a878",
+  "derived_sha256": "bfcbf5985a651cb4d0a78fb4ca4e0a5e531450d3c57e35616a412a74b814f58f",
+  "retired": [
+    "_MSstart_LoadCloudSave",
+    "_MSstart_NotifyMuted",
+    "_MSstart_SaveCloudSave",
+    "_MSstart_ShowAd"
+  ],
+  "bindings": [
+    {
+      "key": "Kd",
+      "original": "_MSstart_LoadCloudSave"
+    },
+    {
+      "key": "Eb",
+      "original": "_MSstart_NotifyMuted"
+    },
+    {
+      "key": "Jd",
+      "original": "_MSstart_SaveCloudSave"
+    },
+    {
+      "key": "Fb",
+      "original": "_MSstart_ShowAd"
+    }
+  ],
+  "edits": [
+    {
+      "start": 161176,
+      "end": 162217,
+      "replacement": "",
+      "reason": "Remove actual platform cloud/ad/telemetry implementation"
+    },
+    {
+      "start": 162217,
+      "end": 162423,
+      "replacement": "",
+      "reason": "Remove actual platform cloud/ad/telemetry implementation"
+    },
+    {
+      "start": 162423,
+      "end": 163330,
+      "replacement": "",
+      "reason": "Remove actual platform cloud/ad/telemetry implementation"
+    },
+    {
+      "start": 163330,
+      "end": 163985,
+      "replacement": "",
+      "reason": "Remove actual platform cloud/ad/telemetry implementation"
+    },
+    {
+      "start": 346410,
+      "end": 346432,
+      "replacement": "_retiredExternalCapability",
+      "reason": "Exact required ABI resolves only to a throwing trap; never returns a fake result/callback"
+    },
+    {
+      "start": 346438,
+      "end": 346458,
+      "replacement": "_retiredExternalCapability",
+      "reason": "Exact required ABI resolves only to a throwing trap; never returns a fake result/callback"
+    },
+    {
+      "start": 346464,
+      "end": 346486,
+      "replacement": "_retiredExternalCapability",
+      "reason": "Exact required ABI resolves only to a throwing trap; never returns a fake result/callback"
+    },
+    {
+      "start": 346492,
+      "end": 346507,
+      "replacement": "_retiredExternalCapability",
+      "reason": "Exact required ABI resolves only to a throwing trap; never returns a fake result/callback"
+    }
+  ],
+  "unrelated_engine_functions_exact": 2046,
+  "original_canvas_focus_preserved": true,
+  "SDK_facade_created": false,
+  "SDK_callbacks_or_success_synthesized": false
+}

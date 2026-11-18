@@ -1,0 +1,611 @@
+{
+  "id": "001",
+  "action": "goto",
+  "error": null,
+  "native": {
+    "title": "Gunship: Angel Of Death",
+    "url": "http://127.0.0.1:18865/gunship-offline-v1/index.html",
+    "visible_text": "",
+    "canvas": [
+      {
+        "width": 1440,
+        "height": 900,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        }
+      }
+    ],
+    "retired_provider_globals_present": []
+  },
+  "observer_error": null,
+  "frame_capture_error": null,
+  "ui_steps": 1,
+  "raw_ui_inputs": 1,
+  "network_events": 28,
+  "console": [
+    {
+      "level": "log",
+      "message": "[UnityMemory] Configuration Parameters - Can be set up in boot.config\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-bucket-allocator-granularity=16\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-bucket-allocator-bucket-count=8\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-bucket-allocator-block-size=4194304\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-bucket-allocator-block-count=1\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-main-allocator-block-size=16777216\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-thread-allocator-block-size=16777216\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-gfx-main-allocator-block-size=16777216\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-gfx-thread-allocator-block-size=16777216\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-cache-allocator-block-size=4194304\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-typetree-allocator-block-size=2097152\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-profiler-bucket-allocator-granularity=16\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-profiler-bucket-allocator-bucket-count=8\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-profiler-bucket-allocator-block-size=4194304\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-profiler-bucket-allocator-block-count=1\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-profiler-allocator-block-size=16777216\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-profiler-editor-allocator-block-size=1048576\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-temp-allocator-size-main=4194304\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-job-temp-allocator-block-size=2097152\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-job-temp-allocator-block-size-background=1048576\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-job-temp-allocator-reduction-small-platforms=262144\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-allocator-temp-initial-block-size-main=262144\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-allocator-temp-initial-block-size-worker=262144\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-temp-allocator-size-nav-mesh-worker=65536\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-temp-allocator-size-audio-worker=65536\"\n"
+    },
+    {
+      "level": "log",
+      "message": "    \"memorysetup-temp-allocator-size-background-worker=32768\"\n"
+    },
+    {
+      "level": "log",
+      "message": "CodeReloadManager initialized\n"
+    },
+    {
+      "level": "log",
+      "message": "Input System module state changed to: Initialized.\n"
+    },
+    {
+      "level": "log",
+      "message": "[Physics::Module] Initialized fallback backend.\n"
+    },
+    {
+      "level": "log",
+      "message": "[Physics::Module] Id: 0xdecafbad\n"
+    },
+    {
+      "level": "log",
+      "message": "Loading player data from data.unity3d\n"
+    },
+    {
+      "level": "log",
+      "message": "Initialize engine version: 6000.4.8f1 (f8b72d3d7343)\n"
+    },
+    {
+      "level": "log",
+      "message": "[Subsystems] Discovering subsystems at path UnitySubsystems\n"
+    },
+    {
+      "level": "log",
+      "message": "Creating WebGL 2.0 context."
+    },
+    {
+      "level": "log",
+      "message": "Renderer: WebKit WebGL\n"
+    },
+    {
+      "level": "log",
+      "message": "Vendor:   WebKit\n"
+    },
+    {
+      "level": "log",
+      "message": "Version:  OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium))\n"
+    },
+    {
+      "level": "log",
+      "message": "GLES:     3\n"
+    },
+    {
+      "level": "log",
+      "message": " EXT_clip_control EXT_color_buffer_float EXT_color_buffer_half_float EXT_conservative_depth EXT_depth_clamp EXT_disjoint_timer_query_webgl2 EXT_float_blend EXT_polygon_offset_clamp EXT_texture_compression_bptc EXT_texture_compression_rgtc EXT_texture_filter_anisotropic EXT_texture_mirror_clamp_to_edge NV_shader_noperspective_interpolation OES_draw_buffers_indexed OES_sample_variables OES_shader_multisample_interpolation OES_texture_float_linear OVR_multiview2 WEBGL_clip_cull_distance WEBGL_compressed_texture_astc WEBGL_compressed_texture_etc WEBGL_compressed_texture_etc1 WEBGL_compressed_texture_s3tc WEBGL_compressed_texture_s3tc_srgb WEBGL_debug_renderer_info WEBGL_debug_shaders WEBGL_lose_context WEBGL_multi_draw WEBGL_polygon_mode WEBGL_stencil_texturing GL_EXT_clip_control GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_conservative_depth GL_EXT_depth_clamp GL_EXT_disjoint_timer_query_webgl2 GL_EXT_float_blend GL_EXT_polygon_offset_clamp GL_EXT_texture_compression_bptc GL_EXT_texture_comp\n"
+    },
+    {
+      "level": "log",
+      "message": "ression_rgtc GL_EXT_texture_filter_anisotropic GL_EXT_texture_mirror_clamp_to_edge GL_NV_shader_noperspective_interpolation GL_OES_draw_buffers_indexed GL_OES_sample_variables GL_OES_shader_multisample_interpolation GL_OES_texture_float_linear GL_OVR_multiview2 GL_WEBGL_clip_cull_distance GL_WEBGL_compressed_texture_astc GL_WEBGL_compressed_texture_etc GL_WEBGL_compressed_texture_etc1 GL_WEBGL_compressed_texture_s3tc GL_WEBGL_compressed_texture_s3tc_srgb GL_WEBGL_debug_renderer_info GL_WEBGL_debug_shaders GL_WEBGL_lose_context GL_WEBGL_multi_draw GL_WEBGL_polygon_mode GL_WEBGL_stencil_texturing\n"
+    },
+    {
+      "level": "log",
+      "message": "OPENGL LOG: Creating OpenGL ES 3.0 graphics device ; Context level  <OpenGL ES 3.0> ; Context handle 1\n"
+    },
+    {
+      "level": "log",
+      "message": "[Physics::Module] Selected backend.\n"
+    },
+    {
+      "level": "log",
+      "message": "[Physics::Module] Name: PhysX\n"
+    },
+    {
+      "level": "log",
+      "message": "[Physics::Module] Id: 0xf2b8ea05\n"
+    },
+    {
+      "level": "log",
+      "message": "[Physics::Module] SDK Version: 4.1.2\n"
+    },
+    {
+      "level": "log",
+      "message": "[Physics::Module] Integration Version: 1.0.0\n"
+    },
+    {
+      "level": "log",
+      "message": "[Physics::Module] Threading Mode: Single-Threaded\n"
+    },
+    {
+      "level": "log",
+      "message": "ERROR: Shader "
+    },
+    {
+      "level": "log",
+      "message": "Hidden/CoreSRP/CoreCopy shader is not supported on this GPU (none of subshaders/fallbacks are suitable)\n"
+    },
+    {
+      "level": "log",
+      "message": "ERROR: Shader "
+    },
+    {
+      "level": "log",
+      "message": "Hidden/Universal Render Pipeline/StencilDitherMaskSeed shader is not supported on this GPU (none of subshaders/fallbacks are suitable)\n"
+    },
+    {
+      "level": "log",
+      "message": "ERROR: Shader "
+    },
+    {
+      "level": "log",
+      "message": "Hidden/Universal/HDRDebugView shader is not supported on this GPU (none of subshaders/fallbacks are suitable)\n"
+    },
+    {
+      "level": "log",
+      "message": "Input Manager initialize...\n"
+    },
+    {
+      "level": "log",
+      "message": "Input System initialize...\n"
+    },
+    {
+      "level": "log",
+      "message": "Trying to get length of sound which is not loaded yet."
+    },
+    {
+      "level": "log",
+      "message": "Trying to get metadata of sound which is not loaded."
+    },
+    {
+      "level": "log",
+      "message": "Trying to get length of sound which is not loaded yet."
+    },
+    {
+      "level": "log",
+      "message": "Trying to get metadata of sound which is not loaded."
+    },
+    {
+      "level": "log",
+      "message": "Trying to get length of sound which is not loaded yet."
+    },
+    {
+      "level": "log",
+      "message": "Trying to get metadata of sound which is not loaded."
+    },
+    {
+      "level": "log",
+      "message": "UnloadTime: 1.300001 ms\n"
+    },
+    {
+      "level": "log",
+      "message": "Game saved successfully using PlayerPrefs (WebGL)\n"
+    },
+    {
+      "level": "log",
+      "message": "No save data found in PlayerPrefs. Created new save data.\n"
+    },
+    {
+      "level": "log",
+      "message": "[DeviceProbe] gpu=\"ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)\" cores=24 memory=32GB mobile=False -> Low\n"
+    },
+    {
+      "level": "log",
+      "message": "[GraphicsAutoTune] device Low, step 2 (Low)\n"
+    },
+    {
+      "level": "log",
+      "message": "[FakeShadows] Scenery pass built nothing from 0 box candidate(s) and 0 mesh candidate(s) - check the size filters on Shadow-Feel.\n"
+    },
+    {
+      "level": "log",
+      "message": "Trying to get length of sound which is not loaded yet."
+    },
+    {
+      "level": "log",
+      "message": "Trying to get metadata of sound which is not loaded."
+    },
+    {
+      "level": "log",
+      "message": "[UnityCache] 'http://127.0.0.1:18865/gunship-offline-v1/Build/Build.data' successfully downloaded and stored in the browser cache"
+    },
+    {
+      "level": "warning",
+      "message": "Shader 'Hidden/Universal Render Pipeline/LensFlareScreenSpace' is not supported (in 'LensFlareScreenSpacePostProcessPass'). PostProcessing render passes will not execute.\n"
+    },
+    {
+      "level": "warning",
+      "message": "Shader 'Hidden/Universal Render Pipeline/LensFlareDataDriven' is not supported (in 'LensFlareDataDrivenPostProcessPass'). PostProcessing render passes will not execute.\n"
+    },
+    {
+      "level": "warning",
+      "message": "Shader 'Hidden/Universal Render Pipeline/Edge Adaptive Spatial Upsampling' is not supported (in 'Blit FSR Upscaling'). PostProcessing render passes will not execute.\n"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "log",
+      "message": "[SaveManager] No cloud save, playing from the local one: {\"description\":\"No answer from the cloud save in time.\"}\n"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "log",
+      "message": "UnloadTime: 3.300000 ms\n"
+    },
+    {
+      "level": "log",
+      "message": "Game saved successfully using PlayerPrefs (WebGL)\n"
+    },
+    {
+      "level": "log",
+      "message": "Game saved successfully using PlayerPrefs (WebGL)\n"
+    },
+    {
+      "level": "log",
+      "message": "Trying to get length of sound which is not loaded yet."
+    },
+    {
+      "level": "log",
+      "message": "Trying to get metadata of sound which is not loaded."
+    },
+    {
+      "level": "log",
+      "message": "Game saved successfully using PlayerPrefs (WebGL)\n"
+    },
+    {
+      "level": "log",
+      "message": "[FakeShadows] Shadow mask for \"Level-1\": 1024x1024 R8 (1.0 MB), 475 units across at 0.46 units per texel, 166 mesh(es) drawn ONCE (0 of them sparse, at 0 strength), 10.2% of it in shadow, V axis as-is (measured). Per frame from here: nothing.\n"
+    },
+    {
+      "level": "log",
+      "message": "[FakeShadows] Scenery shadows for \"Level-1\": 777 non-overlapping ground cell(s) reading the mask, 1554 triangles, 1 draw call, nothing rebuilt per frame.\n"
+    },
+    {
+      "level": "log",
+      "message": "[LevelLoader] Scenery pass on \"Level-1\": combined 1838 of 1838 static renderer(s); left 2 moving object(s) alone. Shadow casters: cut 0 under 1m, kept 1819. Ground stopped casting shadows (1 renderer(s)).\n"
+    },
+    {
+      "level": "warning",
+      "message": "[HudCanvasSplitter] \"Money-HUD\" contains something clickable and was left on the root canvas - splitting it would break its clicks (see the class summary).\n"
+    },
+    {
+      "level": "warning",
+      "message": "Releasing render texture that is set to be RenderTexture.active!\n"
+    },
+    {
+      "level": "warning",
+      "message": "BoxCollider does not support negative scale or size.\nThe effective box size has been forced positive and is likely to give unexpected collision geometry.\nIf you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path \"LevelLoader/Level-1/Props/Buildings/Desert_Building_Destroyed_V2 (9)\"\n"
+    },
+    {
+      "level": "warning",
+      "message": "BoxCollider does not support negative scale or size.\nThe effective box size has been forced positive and is likely to give unexpected collision geometry.\nIf you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path \"LevelLoader/Level-1/Props/Buildings/Desert_Building_Destroyed (9)\"\n"
+    },
+    {
+      "level": "warning",
+      "message": "BoxCollider does not support negative scale or size.\nThe effective box size has been forced positive and is likely to give unexpected collision geometry.\nIf you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path \"LevelLoader/Level-1/Props/Environment Props/sandbag_new (3)/sandbag_new2\"\n"
+    },
+    {
+      "level": "warning",
+      "message": "BoxCollider does not support negative scale or size.\nThe effective box size has been forced positive and is likely to give unexpected collision geometry.\nIf you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path \"LevelLoader/Level-1/Props/Buildings/Desert_Building_Destroyed (11)\"\n"
+    },
+    {
+      "level": "warning",
+      "message": "BoxCollider does not support negative scale or size.\nThe effective box size has been forced positive and is likely to give unexpected collision geometry.\nIf you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path \"LevelLoader/Level-1/Props/Buildings/desert_building_v1 (5)/desert_building_v1_roof\"\n"
+    },
+    {
+      "level": "warning",
+      "message": "BoxCollider does not support negative scale or size.\nThe effective box size has been forced positive and is likely to give unexpected collision geometry.\nIf you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path \"LevelLoader/Level-1/Props/Buildings/Desert_Building_Destroyed\"\n"
+    },
+    {
+      "level": "warning",
+      "message": "BoxCollider does not support negative scale or size.\nThe effective box size has been forced positive and is likely to give unexpected collision geometry.\nIf you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path \"LevelLoader/Level-1/Props/Environment Props/sandbag_compund (8)\"\n"
+    },
+    {
+      "level": "warning",
+      "message": "BoxCollider does not support negative scale or size.\nThe effective box size has been forced positive and is likely to give unexpected collision geometry.\nIf you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path \"LevelLoader/Level-1/Props/Environment Props/sandbag_compund (6)\"\n"
+    },
+    {
+      "level": "warning",
+      "message": "BoxCollider does not support negative scale or size.\nThe effective box size has been forced positive and is likely to give unexpected collision geometry.\nIf you absolutely need to use negative scaling you can use the convex MeshCollider. Scene hierarchy path \"LevelLoader/Level-1/Props/Buildings/Desert_Building_Destroyed (10)\"\n"
+    },
+    {
+      "level": "warning",
+      "message": "[.WebGL-0x2544001de600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "level": "log",
+      "message": "Unloading 5 Unused Serialized files (Serialized files now loaded: 0)\n"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "log",
+      "message": "Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 118753.\n"
+    },
+    {
+      "level": "log",
+      "message": "Total: 57.500000 ms (FindLiveObjects: 7.000000 ms CreateObjectMapping: 6.700000 ms MarkObjects: 42.899999 ms  DeleteObjects: 0.900001 ms)\n\n"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "log",
+      "message": "Game saved successfully using PlayerPrefs (WebGL)\n"
+    },
+    {
+      "level": "log",
+      "message": "[GraphicsAutoTune] 6 fps against a 60 target - stepped down to 1 (Low)\n"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "log",
+      "message": "Audio context resumed after 18.477 seconds."
+    }
+  ],
+  "closed": false
+}

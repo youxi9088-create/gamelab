@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' blob:; media-src 'self' blob:; font-src 'self' data:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Gunship: Angel Of Death</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="stylesheet" href="TemplateData/orientation-gate.css">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- No fullscreen on this template: MSN hosts the game in its own frame. This
+         also stops Editor/WebGLFullscreenButton.cs injecting its toggle. -->
+    <meta name="fullscreen-toggle" content="off">
+
+    <!-- MSN Start Games SDK -> window.$msstart. Pinned: the rc in the filename is
+         the real version ("latest" is only the bucket). Cloud save needs rc.21+.
+         Absent off MSN, which every caller in MSstart.jslib tolerates. -->
+    
+
+    <!-- Landscape only. The manifest asks for it when the game is installed to a
+         home screen; this asks the same of a plain browser tab, on the handful
+         of Android builds that honour it. Neither is reliable on its own, which
+         is what the orientation gate below is for. -->
+    <meta name="screen-orientation" content="landscape">
+
+    <!--
+      Loaded HERE, in the head, and deliberately NOT deferred. It puts .wd-touch
+      on <html> before the first style pass, which is the class the gate's media
+      query keys off - a frame late and a portrait player would see the game
+      flash past before being told to turn the phone. It is a few hundred bytes
+      and touches nothing but the class list, so it costs nothing to load early.
+    -->
+    <script src="TemplateData/orientation-gate.js"></script>
+
+    <!--
+      Browser input fixes for embedding on Poki: stops a mouse-wheel zoom from
+      also scrolling the host page, and makes the first Esc pause the round
+      (the browser swallows Esc while the pointer is locked). See web-input.js.
+      Deferred is fine - it binds on DOMContentLoaded and the pause half only
+      wakes once the engine is handed to it below.
+    -->
+    <script src="TemplateData/web-input.js" defer></script>
+
+    <style>
+      /* Belt-and-braces for the scroll containment in web-input.js: even before
+         that binds, forbid scroll-chaining out of the game and browser gestures
+         on the canvas, so a zoom scroll can't nudge the host Poki page. */
+      html, body { overscroll-behavior: none; overflow: hidden; }
+      #unity-canvas { touch-action: none; }
+    </style>
+  </head>
+  <body>
+    <div id="unity-container">
+      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
+    </div>
+
+    <!-- ====================================================================
+         THE ORIENTATION GATE
+
+         Plain markup rather than something JavaScript builds, so it is in the
+         document from the first byte the browser parses. A player who opens the
+         game holding their phone upright is covered before a single request for
+         the build has gone out, and stays covered if the download fails, the
+         WASM is blocked, or the engine never starts at all.
+
+         Shown and hidden entirely by TemplateData/orientation-gate.css. The
+         script alongside it only mirrors the state into Unity so a round in
+         progress can be frozen; see OrientationGate.cs.
+         ==================================================================== -->
+    <div id="wd-orientation-gate" role="alertdialog" aria-live="assertive" aria-hidden="true"
+         aria-labelledby="wd-gate-title">
+
+      <svg class="wd-gate-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"
+           fill="none" aria-hidden="true" focusable="false">
+
+        <!-- The sweep, leading the turn. Counter-clockwise over the top, which
+             is the direction the phone below travels. -->
+        <g class="wd-gate-arrow" stroke="var(--wd-accent)" stroke-width="4.5"
+           stroke-linecap="round" fill="var(--wd-accent)">
+          <path d="M163.6,60.3 A75,75 0 0,0 36.4,60.3" fill="none" />
+          <polygon points="29.0,72.2 42.8,64.3 30.0,56.3" stroke="none" />
+        </g>
+
+        <!-- The device. Rotated as a whole by the stylesheet, about the centre
+             of the view box - which is why every part of it is laid out
+             symmetrically around (100, 100). -->
+        <g class="wd-gate-phone">
+          <rect x="72" y="46" width="56" height="108" rx="11"
+                stroke="var(--wd-accent)" stroke-width="4" />
+          <rect class="wd-gate-screen" x="79" y="57" width="42" height="86" rx="3"
+                fill="var(--wd-accent)" stroke="none" />
+          <rect x="93" y="50.5" width="14" height="3" rx="1.5"
+                fill="var(--wd-accent)" stroke="none" opacity="0.7" />
+          <rect x="90" y="146" width="20" height="3" rx="1.5"
+                fill="var(--wd-accent)" stroke="none" opacity="0.7" />
+        </g>
+      </svg>
+
+      <h1 class="wd-gate-title" id="wd-gate-title">Rotate your device</h1>
+      <div class="wd-gate-rule"></div>
+      <p class="wd-gate-subtitle">
+        <span class="wd-gate-product">Gunship: Angel Of Death</span> is played in landscape.
+        Turn your device sideways to continue.
+      </p>
+
+      <!-- Hidden unless orientation-gate.js finds a browser that can honour
+           screen.orientation.lock(), i.e. Android. -->
+      <button class="wd-gate-action" id="wd-gate-action" type="button">Rotate for me</button>
+    </div>
+
+    <script>
+      
+
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var warningBanner = document.querySelector("#unity-warning");
+
+      // Shows a temporary message banner/ribbon for a few seconds, or
+      // a permanent error message on top of the canvas if type=='error'.
+      // If type=='warning', a yellow highlight color is used.
+      // Modify or remove this function to customize the visually presented
+      // way that non-critical warnings and error messages are presented to the
+      // user.
+      function unityShowBanner(msg, type) {
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/Build.loader.js";
+      var config = {
+        arguments: [],
+        dataUrl: buildUrl + "/Build.data",
+        frameworkUrl: buildUrl + "/Build.framework.js",
+        codeUrl: buildUrl + "/Build.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Hammerplay",
+        productName: "Gunship: Angel Of Death",
+        productVersion: "0.1.0",
+        showBanner: unityShowBanner,
+        // THE SAVE IS WRITTEN TO INDEXEDDB, AND INDEXEDDB IS NOT WHERE THE GAME WROTE IT.
+        // On WebGL the save file (SaveManager -> PlayerPrefs) lands in an in-memory filesystem that only
+        // becomes durable when it is synced out to IndexedDB. Without this flag that sync is left to the
+        // engine's own deprecated call, so a write made seconds before the tab is closed - the daily reward
+        // claimed, the one-time graphics notice marked as said - can still be in flight when the page goes,
+        // and the next visit reads the version of the save from before it. This makes every write persist as
+        // it happens, which is the behaviour Unity now recommends (its own warning names this flag).
+        autoSyncPersistentDataPath: true,
+        // errorHandler: function(err, url, line) {
+        //    alert("error " + err + " occurred at line " + line);
+        //    // Return 'true' if you handled this error and don't want Unity
+        //    // to process it further, 'false' otherwise.
+        //    return true;
+        // },
+      };
+
+      // By default Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas.
+        // viewport-fit=cover is what makes env(safe-area-inset-*) report real numbers,
+        // which the orientation gate uses to stay clear of notches and home bars.
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes, viewport-fit=cover';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+      }
+
+
+      canvas.style.background = "url('" + buildUrl + "/Build.jpg') center / cover";
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          // MSstart.jslib falls back to this for its callbacks into Unity.
+          window.unityInstance = unityInstance;
+          loadingBar.style.display = "none";
+
+          // Lets the MSN container drop its own loading UI. One-way, harmless off MSN.
+          
+
+          // Hand the engine to the orientation gate, which replays the current
+          // state into it - a player can sit in portrait through the entire
+          // download, and the first thing the game must do is stay frozen.
+          if (window.WarDroneOrientation) WarDroneOrientation.attach(unityInstance);
+
+          // ...and to the input glue, so a released pointer (Esc / lost focus)
+          // can pause the round. The scroll containment is already live.
+          if (window.WarDroneInput) WarDroneInput.attach(unityInstance);
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+
+  </body>
+</html>

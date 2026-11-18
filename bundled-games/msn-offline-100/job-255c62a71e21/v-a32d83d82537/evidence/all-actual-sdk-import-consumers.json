@@ -1,0 +1,121 @@
+{
+  "source_only": true,
+  "game_or_SDK_executed": false,
+  "all_original_defined_functions_scanned": 113966,
+  "SDK_imports": {
+    "137": "_MSstart_FocusCanvas",
+    "252": "_MSstart_LoadCloudSave",
+    "138": "_MSstart_NotifyMuted",
+    "251": "_MSstart_SaveCloudSave",
+    "139": "_MSstart_ShowAd"
+  },
+  "direct_call_instructions": [
+    {
+      "function_index": 20360,
+      "import_function_index": 139,
+      "service": "_MSstart_ShowAd",
+      "source_instruction_offset": 5097022,
+      "disassembly": "4dc63e: 10 8b 01                   | call 139 <a.Fb>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "RequestAd"
+        }
+      ]
+    },
+    {
+      "function_index": 33789,
+      "import_function_index": 137,
+      "service": "_MSstart_FocusCanvas",
+      "source_instruction_offset": 9125851,
+      "disassembly": "8b3fdb: 10 89 01                   | call 137 <a.Db>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "FocusCanvas"
+        }
+      ]
+    },
+    {
+      "function_index": 33794,
+      "import_function_index": 138,
+      "service": "_MSstart_NotifyMuted",
+      "source_instruction_offset": 9127096,
+      "disassembly": "8b44b8: 10 8a 01                   |   call 138 <a.Eb>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "SyncMuted"
+        }
+      ]
+    },
+    {
+      "function_index": 33795,
+      "import_function_index": 251,
+      "service": "_MSstart_SaveCloudSave",
+      "source_instruction_offset": 9127117,
+      "disassembly": "8b44cd: 10 fb 01                   | call 251 <a.Jd>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "MSstart_SaveCloudSave"
+        }
+      ]
+    },
+    {
+      "function_index": 33796,
+      "import_function_index": 252,
+      "service": "_MSstart_LoadCloudSave",
+      "source_instruction_offset": 9127140,
+      "disassembly": "8b44e4: 10 fc 01                   | call 252 <a.Kd>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "MSstart_LoadCloudSave"
+        }
+      ]
+    },
+    {
+      "function_index": 66501,
+      "import_function_index": 137,
+      "service": "_MSstart_FocusCanvas",
+      "source_instruction_offset": 18983983,
+      "disassembly": "121ac2f: 10 89 01                   | call 137 <a.Db>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "MSstart_FocusCanvas"
+        }
+      ]
+    },
+    {
+      "function_index": 66502,
+      "import_function_index": 138,
+      "service": "_MSstart_NotifyMuted",
+      "source_instruction_offset": 18983991,
+      "disassembly": "121ac37: 10 8a 01                   | call 138 <a.Eb>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "MSstart_NotifyMuted"
+        }
+      ]
+    },
+    {
+      "function_index": 66503,
+      "import_function_index": 139,
+      "service": "_MSstart_ShowAd",
+      "source_instruction_offset": 18983999,
+      "disassembly": "121ac3f: 10 8b 01                   | call 139 <a.Fb>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "MSstart_ShowAd"
+        }
+      ]
+    }
+  ],
+  "disassembly_lines_scanned": 12169547,
+  "analysis_elapsed_seconds": 118.62049370000022,
+  "original_wasm_sha256": "ce033fa9f4817847f5dbef1b69704ae1976360297dd1189432051fbc59648804"
+}

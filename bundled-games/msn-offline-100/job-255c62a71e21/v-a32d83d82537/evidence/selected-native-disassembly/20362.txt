@@ -1,0 +1,46 @@
+ALIASES ["SaveManager.OnCloudLoadFailed"]
+0b974e func[20362]:
+ 0b974f: 41 95 e3 e1 03             | i32.const 7893397
+ 0b9754: 2d 00 00                   | i32.load8_u 0 0
+ 0b9757: 45                         | i32.eqz
+ 0b9758: 04 40                      | if
+ 0b975a: 41 cc a0 88 03             |   i32.const 6426700
+ 0b975f: 10 9f 04                   |   call 543
+ 0b9762: 41 e4 80 f8 02             |   i32.const 6160484
+ 0b9767: 10 9f 04                   |   call 543
+ 0b976a: 41 e8 f3 f7 02             |   i32.const 6158824
+ 0b976f: 10 9f 04                   |   call 543
+ 0b9772: 41 95 e3 e1 03             |   i32.const 7893397
+ 0b9777: 41 01                      |   i32.const 1
+ 0b9779: 3a 00 00                   |   i32.store8 0 0
+ 0b977c: 0b                         | end
+ 0b977d: 41 e4 80 f8 02             | i32.const 6160484
+ 0b9782: 28 02 00                   | i32.load 2 0
+ 0b9785: 10 a1 04                   | call 545
+ 0b9788: 10 dc 59                   | call 11484
+ 0b978b: 45                         | i32.eqz
+ 0b978c: 04 40                      | if
+ 0b978e: 41 e4 80 f8 02             |   i32.const 6160484
+ 0b9793: 28 02 00                   |   i32.load 2 0
+ 0b9796: 10 a1 04                   |   call 545
+ 0b9799: 41 01                      |   i32.const 1
+ 0b979b: 10 89 9f 01                |   call 20361
+ 0b979f: 41 e4 80 f8 02             |   i32.const 6160484
+ 0b97a4: 28 02 00                   |   i32.load 2 0
+ 0b97a7: 28 02 5c                   |   i32.load 2 92
+ 0b97aa: 41 00                      |   i32.const 0
+ 0b97ac: 3a 00 09                   |   i32.store8 0 9
+ 0b97af: 41 e8 f3 f7 02             |   i32.const 6158824
+ 0b97b4: 28 02 00                   |   i32.load 2 0
+ 0b97b7: 20 00                      |   local.get 0
+ 0b97b9: 20 00                      |   local.get 0
+ 0b97bb: 10 d0 04                   |   call 592
+ 0b97be: 21 00                      |   local.set 0
+ 0b97c0: 41 cc a0 88 03             |   i32.const 6426700
+ 0b97c5: 28 02 00                   |   i32.load 2 0
+ 0b97c8: 10 a1 04                   |   call 545
+ 0b97cb: 20 00                      |   local.get 0
+ 0b97cd: 20 00                      |   local.get 0
+ 0b97cf: 10 d3 09                   |   call 1235
+ 0b97d2: 0b                         | end
+ 0b97d3: 0b                         | end

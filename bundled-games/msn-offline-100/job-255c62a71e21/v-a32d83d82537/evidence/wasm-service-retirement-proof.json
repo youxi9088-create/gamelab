@@ -1,0 +1,128 @@
+{
+  "source_only": true,
+  "native_or_SDK_executed": false,
+  "original_wasm_sha256": "ce033fa9f4817847f5dbef1b69704ae1976360297dd1189432051fbc59648804",
+  "derived_wasm_sha256": "fab44ab00c3d0e873af22de57a37688f61d33b06c2c39acc129cbc9d9432cd11",
+  "byte_length_unchanged": 34791230,
+  "defined_functions": 113966,
+  "modified_functions": 7,
+  "other_function_bodies_exact": 113959,
+  "actual_SDK_import_calls_scanned": 8,
+  "local_canvas_focus_calls_retained": 2,
+  "external_SDK_import_consumers_retired": 6,
+  "edits": [
+    {
+      "function_index": 20360,
+      "import_function_index": 139,
+      "service": "_MSstart_ShowAd",
+      "source_instruction_offset": 5097022,
+      "disassembly": "4dc63e: 10 8b 01                   | call 139 <a.Fb>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "RequestAd"
+        }
+      ],
+      "reason": "Retire actual direct external import consumer, drop original arguments; no provider/result/callback",
+      "old_hex": "108b01",
+      "new_hex": "1a0101"
+    },
+    {
+      "function_index": 33794,
+      "import_function_index": 138,
+      "service": "_MSstart_NotifyMuted",
+      "source_instruction_offset": 9127096,
+      "disassembly": "8b44b8: 10 8a 01                   |   call 138 <a.Eb>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "SyncMuted"
+        }
+      ],
+      "reason": "Retire actual direct external import consumer, drop original arguments; no provider/result/callback",
+      "old_hex": "108a01",
+      "new_hex": "1a0101"
+    },
+    {
+      "function_index": 33795,
+      "import_function_index": 251,
+      "service": "_MSstart_SaveCloudSave",
+      "source_instruction_offset": 9127117,
+      "disassembly": "8b44cd: 10 fb 01                   | call 251 <a.Jd>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "MSstart_SaveCloudSave"
+        }
+      ],
+      "reason": "Retire actual direct external import consumer, drop original arguments; no provider/result/callback",
+      "old_hex": "10fb01",
+      "new_hex": "1a1a01"
+    },
+    {
+      "function_index": 33796,
+      "import_function_index": 252,
+      "service": "_MSstart_LoadCloudSave",
+      "source_instruction_offset": 9127140,
+      "disassembly": "8b44e4: 10 fc 01                   | call 252 <a.Kd>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "MSstart_LoadCloudSave"
+        }
+      ],
+      "reason": "Retire actual direct external import consumer, drop original arguments; no provider/result/callback",
+      "old_hex": "10fc01",
+      "new_hex": "1a0101"
+    },
+    {
+      "function_index": 66502,
+      "import_function_index": 138,
+      "service": "_MSstart_NotifyMuted",
+      "source_instruction_offset": 18983991,
+      "disassembly": "121ac37: 10 8a 01                   | call 138 <a.Eb>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "MSstart_NotifyMuted"
+        }
+      ],
+      "reason": "Retire actual direct external import consumer, drop original arguments; no provider/result/callback",
+      "old_hex": "108a01",
+      "new_hex": "1a0101"
+    },
+    {
+      "function_index": 66503,
+      "import_function_index": 139,
+      "service": "_MSstart_ShowAd",
+      "source_instruction_offset": 18983999,
+      "disassembly": "121ac3f: 10 8b 01                   | call 139 <a.Fb>",
+      "aliases": [
+        {
+          "class": "SDKManager",
+          "method": "MSstart_ShowAd"
+        }
+      ],
+      "reason": "Retire actual direct external import consumer, drop original arguments; no provider/result/callback",
+      "old_hex": "108b01",
+      "new_hex": "1a0101"
+    },
+    {
+      "function_index": 66692,
+      "aliases": [
+        "GameManager.Awake"
+      ],
+      "reason": "Pass false to original SDKManager.SetAdsEnabled at its actual startup consumer, leaving native unregistration/UI availability rules intact. No success result or reward.",
+      "source_instruction_offset": 19004258,
+      "old_hex": "2000",
+      "new_hex": "4100"
+    }
+  ],
+  "preserved_source_behaviour": [
+    "Original RequestCloudLoad initializes unavailable=false and a six-second deadline; actual external load call is retired, original SDKManager.Update/SaveManager.TickCloudSave deadline reaches original local failure handler.",
+    "Original LoadGame/WriteLocal/PlayerPrefs/IndexedDB path and all cloud availability/settled flags remain byte-exact; no fake cloud callback or data.",
+    "Original SetAdsEnabled(false) unregisters rewarded/interstitial/refill/extra-cash delegates; original local UI availability handling retained.",
+    "Native physics, weapons, enemy AI, missions, local upgrades, rewards earned without ads, timers, tutorial, difficulty, RNG and all native resources are unchanged."
+  ],
+  "runtime_verified": false
+}

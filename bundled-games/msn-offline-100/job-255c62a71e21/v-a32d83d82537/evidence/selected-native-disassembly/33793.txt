@@ -1,0 +1,73 @@
+ALIASES ["SaveManager.TickCloudSave"]
+0c922a func[33793]:
+ 0c922b: 01 7d                      | local[1] type=f32
+ 0c922d: 41 96 e3 e1 03             | i32.const 7893398
+ 0c9232: 2d 00 00                   | i32.load8_u 0 0
+ 0c9235: 45                         | i32.eqz
+ 0c9236: 04 40                      | if
+ 0c9238: 41 e4 80 f8 02             |   i32.const 6160484
+ 0c923d: 10 9f 04                   |   call 543
+ 0c9240: 41 ec f3 f7 02             |   i32.const 6158828
+ 0c9245: 10 9f 04                   |   call 543
+ 0c9248: 41 96 e3 e1 03             |   i32.const 7893398
+ 0c924d: 41 01                      |   i32.const 1
+ 0c924f: 3a 00 00                   |   i32.store8 0 0
+ 0c9252: 0b                         | end
+ 0c9253: 41 00                      | i32.const 0
+ 0c9255: 10 b5 1e                   | call 3893
+ 0c9258: 21 01                      | local.set 1
+ 0c925a: 41 e4 80 f8 02             | i32.const 6160484
+ 0c925f: 28 02 00                   | i32.load 2 0
+ 0c9262: 10 a1 04                   | call 545
+ 0c9265: 02 40                      | block
+ 0c9267: 10 dc 59                   |   call 11484
+ 0c926a: 0d 00                      |   br_if 0
+ 0c926c: 41 e4 80 f8 02             |   i32.const 6160484
+ 0c9271: 28 02 00                   |   i32.load 2 0
+ 0c9274: 10 a1 04                   |   call 545
+ 0c9277: 20 01                      |   local.get 1
+ 0c9279: 41 e4 80 f8 02             |   i32.const 6160484
+ 0c927e: 28 02 00                   |   i32.load 2 0
+ 0c9281: 22 00                      |   local.tee 0
+ 0c9283: 28 02 5c                   |   i32.load 2 92
+ 0c9286: 2a 02 0c                   |   f32.load 2 12
+ 0c9289: 60                         |   f32.ge
+ 0c928a: 45                         |   i32.eqz
+ 0c928b: 0d 00                      |   br_if 0
+ 0c928d: 20 00                      |   local.get 0
+ 0c928f: 10 a1 04                   |   call 545
+ 0c9292: 41 ec f3 f7 02             |   i32.const 6158828
+ 0c9297: 28 02 00                   |   i32.load 2 0
+ 0c929a: 20 00                      |   local.get 0
+ 0c929c: 10 8a 9f 01                |   call 20362
+ 0c92a0: 0b                         | end
+ 0c92a1: 41 e4 80 f8 02             | i32.const 6160484
+ 0c92a6: 28 02 00                   | i32.load 2 0
+ 0c92a9: 10 a1 04                   | call 545
+ 0c92ac: 02 40                      | block
+ 0c92ae: 41 e4 80 f8 02             |   i32.const 6160484
+ 0c92b3: 28 02 00                   |   i32.load 2 0
+ 0c92b6: 22 00                      |   local.tee 0
+ 0c92b8: 28 02 5c                   |   i32.load 2 92
+ 0c92bb: 2a 02 10                   |   f32.load 2 16
+ 0c92be: 43 00 00 00 00             |   f32.const 0x0p+0
+ 0c92c3: 60                         |   f32.ge
+ 0c92c4: 45                         |   i32.eqz
+ 0c92c5: 0d 00                      |   br_if 0
+ 0c92c7: 20 00                      |   local.get 0
+ 0c92c9: 10 a1 04                   |   call 545
+ 0c92cc: 20 01                      |   local.get 1
+ 0c92ce: 41 e4 80 f8 02             |   i32.const 6160484
+ 0c92d3: 28 02 00                   |   i32.load 2 0
+ 0c92d6: 22 00                      |   local.tee 0
+ 0c92d8: 28 02 5c                   |   i32.load 2 92
+ 0c92db: 2a 02 10                   |   f32.load 2 16
+ 0c92de: 60                         |   f32.ge
+ 0c92df: 45                         |   i32.eqz
+ 0c92e0: 0d 00                      |   br_if 0
+ 0c92e2: 20 00                      |   local.get 0
+ 0c92e4: 10 a1 04                   |   call 545
+ 0c92e7: 20 00                      |   local.get 0
+ 0c92e9: 10 db 59                   |   call 11483
+ 0c92ec: 0b                         | end
+ 0c92ed: 0b                         | end

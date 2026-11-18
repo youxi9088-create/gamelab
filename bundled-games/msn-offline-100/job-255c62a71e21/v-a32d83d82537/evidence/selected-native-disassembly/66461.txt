@@ -1,0 +1,20 @@
+ALIASES ["SaveManager.Initialize"]
+0ef1a1 func[66461]:
+ 0ef1a2: 41 85 e3 e1 03             | i32.const 7893381
+ 0ef1a7: 2d 00 00                   | i32.load8_u 0 0
+ 0ef1aa: 45                         | i32.eqz
+ 0ef1ab: 04 40                      | if
+ 0ef1ad: 41 e4 80 f8 02             |   i32.const 6160484
+ 0ef1b2: 10 9f 04                   |   call 543
+ 0ef1b5: 41 85 e3 e1 03             |   i32.const 7893381
+ 0ef1ba: 41 01                      |   i32.const 1
+ 0ef1bc: 3a 00 00                   |   i32.store8 0 0
+ 0ef1bf: 0b                         | end
+ 0ef1c0: 41 e4 80 f8 02             | i32.const 6160484
+ 0ef1c5: 28 02 00                   | i32.load 2 0
+ 0ef1c8: 10 a1 04                   | call 545
+ 0ef1cb: 41 00                      | i32.const 0
+ 0ef1cd: 10 fb 9e 01                | call 20347
+ 0ef1d1: 41 00                      | i32.const 0
+ 0ef1d3: 10 e4 87 02                | call 33764
+ 0ef1d7: 0b                         | end

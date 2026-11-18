@@ -1,0 +1,18 @@
+ALIASES ["SDKManager.Update"]
+0ef773 func[66496]:
+ 0ef774: 41 cd e2 e1 03             | i32.const 7893325
+ 0ef779: 2d 00 00                   | i32.load8_u 0 0
+ 0ef77c: 45                         | i32.eqz
+ 0ef77d: 04 40                      | if
+ 0ef77f: 41 e4 80 f8 02             |   i32.const 6160484
+ 0ef784: 10 9f 04                   |   call 543
+ 0ef787: 41 cd e2 e1 03             |   i32.const 7893325
+ 0ef78c: 41 01                      |   i32.const 1
+ 0ef78e: 3a 00 00                   |   i32.store8 0 0
+ 0ef791: 0b                         | end
+ 0ef792: 41 e4 80 f8 02             | i32.const 6160484
+ 0ef797: 28 02 00                   | i32.load 2 0
+ 0ef79a: 10 a1 04                   | call 545
+ 0ef79d: 41 00                      | i32.const 0
+ 0ef79f: 10 81 88 02                | call 33793
+ 0ef7a3: 0b                         | end

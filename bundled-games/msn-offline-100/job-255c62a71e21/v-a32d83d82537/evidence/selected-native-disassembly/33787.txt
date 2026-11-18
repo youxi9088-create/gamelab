@@ -1,0 +1,21 @@
+ALIASES ["SDKManager.LoadCloudSave"]
+0c917f func[33787]:
+ 0c9180: 41 d8 e2 e1 03             | i32.const 7893336
+ 0c9185: 2d 00 00                   | i32.load8_u 0 0
+ 0c9188: 45                         | i32.eqz
+ 0c9189: 04 40                      | if
+ 0c918b: 41 98 f1 f7 02             |   i32.const 6158488
+ 0c9190: 10 9f 04                   |   call 543
+ 0c9193: 41 d8 e2 e1 03             |   i32.const 7893336
+ 0c9198: 41 01                      |   i32.const 1
+ 0c919a: 3a 00 00                   |   i32.store8 0 0
+ 0c919d: 0b                         | end
+ 0c919e: 41 98 f1 f7 02             | i32.const 6158488
+ 0c91a3: 28 02 00                   | i32.load 2 0
+ 0c91a6: 10 a1 04                   | call 545
+ 0c91a9: 20 00                      | local.get 0
+ 0c91ab: 10 8f 71                   | call 14479
+ 0c91ae: 20 00                      | local.get 0
+ 0c91b0: 20 00                      | local.get 0
+ 0c91b2: 10 84 88 02                | call 33796
+ 0c91b6: 0b                         | end
