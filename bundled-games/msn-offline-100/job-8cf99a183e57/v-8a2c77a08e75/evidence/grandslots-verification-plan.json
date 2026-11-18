@@ -1,0 +1,14 @@
+{
+  "revision": "grandslots-offline-v1",
+  "maximum_cumulative_UI_inputs": 5,
+  "UI_used": 0,
+  "steps": [
+    "1 exact offline entry; original auto SceneGame",
+    "2 one visible native SPIN; wait for natural reels/credit settlement",
+    "3 native visible bet plus once if settled",
+    "4 one native SPIN at changed bet; wait for natural settlement",
+    "5 actual reload to observe native saved credit/bet/theme"
+  ],
+  "no_state_RNG_time_or_business_handler_injection": true,
+  "timer": "Original local5000per60sec remains; distinguish natural timer credit from spin winnings. Do not advance clock or grant ad30000."
+}

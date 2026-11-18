@@ -1,0 +1,214 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1；原失败和修订边界见validation.json"
+      },
+      {
+        "type": "goto",
+        "description": "真实累计输入2；原失败和修订边界见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入3；原失败和修订边界见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入4；原失败和修订边界见validation.json"
+      },
+      {
+        "type": "reload",
+        "description": "真实累计输入5；原失败和修订边界见validation.json"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 785,
+    "responses": 785,
+    "tested_revision": "grandslots-offline-v2",
+    "delivery_revision": "grandslots-offline-v2",
+    "scope": "累计5次真实玩家输入：第1次旧v1首载发现原sport/9.png缺失；原图补齐并冻结v2后，第2次新版本首载→第3次原SPIN→第4次原SPIN→第5次实际刷新。两次SPIN均观察原转轮运动、自然停轮和WIN0输局，按原下注各扣1,000；被动等待和截图不增加输入，无第6次输入。原程序每60秒自动补5,000本地虚拟币，本次观察3次，故30,000−2×1,000+3×5,000=43,000，不能称转轮赢得13,000。刷新原程序读取余额43,000、下注1,000和第二轮转轮位置。未写RNG、结果、筹码、时间或调用业务方法。",
+    "native_spin_motion_verified": true,
+    "two_natural_loss_settlements_verified": true,
+    "native_local_timer_credit_distinguished": true,
+    "native_local_save_verified": true,
+    "storage_reload_verified": true,
+    "winning_payout_runtime_verified": false,
+    "all_themes_or_special_rounds_verified": false,
+    "cumulative_input_budget": 5,
+    "final_revision_inputs": 4,
+    "prior_failed_UI_inputs": 1
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/grandslots-offline-v1/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/grandslots-offline-v2/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 3,
+      "phase": 1,
+      "action": "click",
+      "x": 1270,
+      "y": 765,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 1270,
+          "y": 765
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "phase": 1,
+      "action": "click",
+      "x": 1270,
+      "y": 765,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 1270,
+          "y": 765
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "phase": 1,
+      "action": "reload",
+      "trajectory": []
+    }
+  ],
+  "passive_observations": [
+    "31",
+    "41"
+  ],
+  "first_revision_input_count": 1,
+  "final_revision_input_count": 4,
+  "first_failure": "v1 actual sport/9.png404;原图HTTPS200/SHA修复，历史不清零",
+  "spin_stake": 1000,
+  "round1_win": 0,
+  "round2_win": 0,
+  "initial_wallet": 30000,
+  "native_timer_credits_total": 15000,
+  "wallet_after_reload": 43000,
+  "saved_second_round_positions": [
+    [
+      -1949.5,
+      2506.5,
+      -1949.5,
+      2506.5,
+      -1949.5
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "browser_sessions": [
+    98826,
+    52816
+  ],
+  "browser_actual_exit_code": 0,
+  "state_injection": false,
+  "handler_calls": false,
+  "screenshots_opened": true,
+  "non_atomic_observation_note": "第3步截图为29,000，紧随截图的只读状态为34,000；边界跨过原计时补5,000。第4步存档Money39,000与局内main.money38,000分别是上次保存和当次扣注后状态。最终两者43,000一致。",
+  "accounting": {
+    "observation_start": "2026-11-18T08:39:06.480871+00:00",
+    "observation_end": "2026-11-18T09:25:24.152400+00:00",
+    "elapsed_seconds": 2777.671529,
+    "scope": "本款公开原入口抓取至证据归档经过时间，含静态分析/传输/等待及切换其他候选，不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  }
+}

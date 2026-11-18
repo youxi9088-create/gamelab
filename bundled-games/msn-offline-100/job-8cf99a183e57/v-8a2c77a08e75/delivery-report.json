@@ -1,0 +1,331 @@
+{
+  "msn_revision": "grandslots-offline-v2",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1；原失败和修订边界见validation.json"
+      },
+      {
+        "type": "goto",
+        "description": "真实累计输入2；原失败和修订边界见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入3；原失败和修订边界见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入4；原失败和修订边界见validation.json"
+      },
+      {
+        "type": "reload",
+        "description": "真实累计输入5；原失败和修订边界见validation.json"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 785,
+    "responses": 785,
+    "tested_revision": "grandslots-offline-v2",
+    "delivery_revision": "grandslots-offline-v2",
+    "scope": "累计5次真实玩家输入：第1次旧v1首载发现原sport/9.png缺失；原图补齐并冻结v2后，第2次新版本首载→第3次原SPIN→第4次原SPIN→第5次实际刷新。两次SPIN均观察原转轮运动、自然停轮和WIN0输局，按原下注各扣1,000；被动等待和截图不增加输入，无第6次输入。原程序每60秒自动补5,000本地虚拟币，本次观察3次，故30,000−2×1,000+3×5,000=43,000，不能称转轮赢得13,000。刷新原程序读取余额43,000、下注1,000和第二轮转轮位置。未写RNG、结果、筹码、时间或调用业务方法。",
+    "native_spin_motion_verified": true,
+    "two_natural_loss_settlements_verified": true,
+    "native_local_timer_credit_distinguished": true,
+    "native_local_save_verified": true,
+    "storage_reload_verified": true,
+    "winning_payout_runtime_verified": false,
+    "all_themes_or_special_rounds_verified": false,
+    "cumulative_input_budget": 5,
+    "final_revision_inputs": 4,
+    "prior_failed_UI_inputs": 1
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "真实Inlogic/MSStart/Adinplay广告SDK、初始化、上报、广告覆盖层及消费者物理退役；广告补30,000专用按钮/回调/写币方法移除，不伪造广告成功。原非广告分支每60秒本地补5,000完整保留，原SPIN通过准确的普通开始回调体直接进入原转轮，不保留广告应答接口。",
+      "evidence": [
+        "index.html",
+        "js/game.js",
+        "evidence/retirement.json",
+        "evidence/source-fidelity.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "Inlogic/MSStart外部事件上报/分数上传退役，原本地金额和转轮数据保留。",
+      "evidence": [
+        "index.html",
+        "js/game.js",
+        "evidence/retirement.json",
+        "evidence/source-fidelity.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原单人本地转轮，无在线玩家/房间；全部主题资源随包。",
+      "evidence": [
+        "index.html",
+        "js/game.js",
+        "evidence/retirement.json",
+        "evidence/source-fidelity.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "仅原虚拟筹码与本地奖励，无实际支付/充值/提现服务。",
+      "evidence": [
+        "index.html",
+        "js/game.js",
+        "evidence/retirement.json",
+        "evidence/source-fidelity.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "转轮 / 本地虚拟筹码",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "在五列三行的原转轮上以虚拟筹码下注，停轮后由原50有效赔线、符号倍率与特殊符号规则结算；保留原连胜、免费转轮和奖池系统。本轮两局自然输局WIN0，未人为控制概率或结果。区别于21点、视频扑克、轮盘和方块合并。",
+    "core_experience": "",
+    "controls": "鼠标/触屏点原SPIN开始单次转轮；原长按自动转、加减下注/MAX BET/MIN BET、菜单换主题、说明/设置/全屏保留。实际只普通点SPIN两次与最后刷新，未长按、自动转、改变下注或额外打开菜单。",
+    "game_loop": "",
+    "content": "6原主题：Cars World、Sport World、Army World、Mythology、Wild West、Animals。原10种常规符号加wild/bonus/jackpot素材与Spine动画保留，主题与停位数据使用原SlotsID/SlotsStartPos。原BONUS免费转10/20/30的说明和规则保持，但此次未命中验证，不为了覆盖而刷出特殊结果。",
+    "progression": "",
+    "save": "",
+    "rules": "151原生方法规范AST保持，46个ContainerGame/ContainerWinStreak/GameData核心方法逐项一致；原Phaser/Spine前缀除唯一globalThis全局查找等价替换外字节保持。原Math.random、赔表、5列3行停位、连胜/奖池/免费转触发与存档保持。不据源码随机函数声称公平概率或所有赔率实测。",
+    "systems": "原Phaser3生命周期/场景/输入/定时与补间，原Spine骨骼渲染及Rex文字/形状/抖动插件；ScenePreload→SceneGame、原各Container分工。原GameData读写JSON存档，最终同源静态文件运行；6主题全资源随包，无外部API/账号/广告/房间。运行时动态路径另通过真实图集闭包和网络记录证明。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5次真实玩家输入：第1次旧v1首载发现原sport/9.png缺失；原图补齐并冻结v2后，第2次新版本首载→第3次原SPIN→第4次原SPIN→第5次实际刷新。两次SPIN均观察原转轮运动、自然停轮和WIN0输局，按原下注各扣1,000；被动等待和截图不增加输入，无第6次输入。原程序每60秒自动补5,000本地虚拟币，本次观察3次，故30,000−2×1,000+3×5,000=43,000，不能称转轮赢得13,000。刷新原程序读取余额43,000、下注1,000和第二轮转轮位置。未写RNG、结果、筹码、时间或调用业务方法。远端52真实Chromium，最终v2 785请求/785响应全部同源HTTP200，无外联、失败请求或脚本异常；保留6条原音频自动播放及Canvas2D性能warning。原v1的1条404和全部旧控制台记录另存，不能称全历史零错误。两个游戏浏览器98826/52816均实际BROWSER_EXIT0；开发环境没有执行原游戏或SDK。真实Inlogic/MSStart/Adinplay广告SDK、初始化、上报、广告覆盖层及消费者物理退役；广告补30,000专用按钮/回调/写币方法移除，不伪造广告成功。原非广告分支每60秒本地补5,000完整保留，原SPIN通过准确的普通开始回调体直接进入原转轮，不保留广告应答接口。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "Phaser3 / Spine2D / Rex plugins",
+    "programming_language": "JavaScript、HTML",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Grand Slots Casino / 大转轮；MSN原生9ncv1p6743ns，Inlogic公开v13。原内部名称Lucky Vegas Slots1.0.1，2024-01-24构建。HTML/JavaScript、原Phaser3及Spine2D，1250×720逻辑画布，实测1440×900视口；画面为2D骨骼与图集，不称3D引擎。",
+        "asset_types": "405原上游文件，404运行文件，402原文件字节保持。94个真实Spine图集页面引用全量闭包核对无缺失，保留6主题转轮符号/JSON/atlas/PNG、6背景、50赔线、界面图集、原OTF字体、MP3/OGG和Rex插件。只适配入口及game.js服务边界；加载器原6背景/50赔线路径展开为逐项等价的静态数组，原循环次序/键/路径不变。",
+        "core_challenge": "在五列三行的原转轮上以虚拟筹码下注，停轮后由原50有效赔线、符号倍率与特殊符号规则结算；保留原连胜、免费转轮和奖池系统。本轮两局自然输局WIN0，未人为控制概率或结果。区别于21点、视频扑克、轮盘和方块合并。",
+        "controls": "鼠标/触屏点原SPIN开始单次转轮；原长按自动转、加减下注/MAX BET/MIN BET、菜单换主题、说明/设置/全屏保留。实际只普通点SPIN两次与最后刷新，未长按、自动转、改变下注或额外打开菜单。",
+        "behavior_path": "累计5次真实玩家输入：第1次旧v1首载发现原sport/9.png缺失；原图补齐并冻结v2后，第2次新版本首载→第3次原SPIN→第4次原SPIN→第5次实际刷新。两次SPIN均观察原转轮运动、自然停轮和WIN0输局，按原下注各扣1,000；被动等待和截图不增加输入，无第6次输入。原程序每60秒自动补5,000本地虚拟币，本次观察3次，故30,000−2×1,000+3×5,000=43,000，不能称转轮赢得13,000。刷新原程序读取余额43,000、下注1,000和第二轮转轮位置。未写RNG、结果、筹码、时间或调用业务方法。",
+        "game_path": "原资源加载→直接SceneGame体育主题桌→初始30,000、BET1,000、SPIN可用→第1次真实SPIN转轮运动→自然停轮WIN0/SPIN恢复→第2次真实SPIN运动→自然停轮WIN0/SPIN恢复→刷新后原存档恢复43,000及第二轮位置。六张最终版实拍均已打开检查，含两张被动停轮观察。",
+        "progression_path": "没有编号闯关地图。6套原主题共用转轮循环；原本地inl_lucky_vegas_slots保存Money、Bet、SlotsID、SlotsStartPos、WinStreak、FreeSpins、音频及奖励计时。本次实际证明体育主题的余额/下注/第二轮位置刷新恢复，其余主题和全部特殊局未额外试玩。",
+        "core_loop": "原下注额显示→普通SPIN扣虚拟余额并锁定按钮→原spinDrums/rotateDrum/stopDrum/checkDrums/checkPayline→原结算/动画/余额存档→SPIN恢复可用。两次都从真实输入到自然输局闭环；每60秒原独立本地补币，不属于转轮赔付。",
+        "gameplay_rules": "151原生方法规范AST保持，46个ContainerGame/ContainerWinStreak/GameData核心方法逐项一致；原Phaser/Spine前缀除唯一globalThis全局查找等价替换外字节保持。原Math.random、赔表、5列3行停位、连胜/奖池/免费转触发与存档保持。不据源码随机函数声称公平概率或所有赔率实测。",
+        "key_numbers": "初始30,000虚拟币；本次下注1,000/轮，原允许最小1,000、最大1,000,000并受余额约束。五列三行、50条有效赔线（原数组另有首个哨兵项）、6主题；原3/4/5相同符号倍率表保留，wild原表50/500/2,000。原本地计时60秒补5,000，本次3次补币加两局输1,000，最终43,000。广告专属30,000补充已移除，原初始30,000不变；均为本地虚拟单位。",
+        "level_configuration": "6原主题：Cars World、Sport World、Army World、Mythology、Wild West、Animals。原10种常规符号加wild/bonus/jackpot素材与Spine动画保留，主题与停位数据使用原SlotsID/SlotsStartPos。原BONUS免费转10/20/30的说明和规则保持，但此次未命中验证，不为了覆盖而刷出特殊结果。",
+        "system_design": "原Phaser3生命周期/场景/输入/定时与补间，原Spine骨骼渲染及Rex文字/形状/抖动插件；ScenePreload→SceneGame、原各Container分工。原GameData读写JSON存档，最终同源静态文件运行；6主题全资源随包，无外部API/账号/广告/房间。运行时动态路径另通过真实图集闭包和网络记录证明。",
+        "theme": "原体育主题、蓝绿运动人物背景与五列运动员转轮，金色JACKPOT、右侧WINS IN ROW、底部BET/WIN和绿色SPIN。原人物/球员/手臂等Spine素材、背景、发光和按钮都保留，未换占位画布。当前2D桌面1250×720按原逻辑缩放。",
+        "progression_economy": "虚拟下注余额、原赔表/连胜/免费转与奖池循环；本轮两次输局，各扣1,000，期间原本地计时共补15,000，最后43,000。不是广告奖励或新增离线赠送逻辑。没有人民币、实际充值、提现或真钱交易。真实Inlogic/MSStart/Adinplay广告SDK、初始化、上报、广告覆盖层及消费者物理退役；广告补30,000专用按钮/回调/写币方法移除，不伪造广告成功。原非广告分支每60秒本地补5,000完整保留，原SPIN通过准确的普通开始回调体直接进入原转轮，不保留广告应答接口。",
+        "roster": "五个原转轮、每列三行符号、运动员与其他五主题人物/物件、wild、BONUS、JACKPOT、赔线、虚拟币、SPIN与本地连胜条。本次体育主题原人物正常可见，94图集页面闭包齐备；不宣称六主题逐一点击或全部骨骼动作均已试玩。",
+        "monetization": "真实Inlogic/MSStart/Adinplay广告SDK、初始化、上报、广告覆盖层及消费者物理退役；广告补30,000专用按钮/回调/写币方法移除，不伪造广告成功。原非广告分支每60秒本地补5,000完整保留，原SPIN通过准确的普通开始回调体直接进入原转轮，不保留广告应答接口。远端52真实Chromium，最终v2 785请求/785响应全部同源HTTP200，无外联、失败请求或脚本异常；保留6条原音频自动播放及Canvas2D性能warning。原v1的1条404和全部旧控制台记录另存，不能称全历史零错误。两个游戏浏览器98826/52816均实际BROWSER_EXIT0；开发环境没有执行原游戏或SDK。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "修正版原生转轮桌，初始30,000/下注1,000"
+      },
+      {
+        "path": "screenshots/002.png",
+        "caption": "第一轮SPIN真实转轮运动；截图29,000，原定时补币随后发生"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "第一轮自然输局，WIN0；原定时补币后34,000"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "第二轮SPIN真实运动，WIN0/等待结算"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "第二轮自然输局，WIN0；原定时补币后43,000"
+      },
+      {
+        "path": "screenshots/006.png",
+        "caption": "实际刷新，原程序读回43,000/下注1,000/原转轮位置"
+      }
+    ]
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "两次真实SPIN、原停轮WIN0和按钮恢复；最后真实刷新原存档43,000。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "405上游/404运行、402原字节，94图集页面闭包；最终785同源200，无缺失外联。原v1的404单独保留。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原体育桌/五列三行/背景人物与界面真实显示。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "运动员符号及JACKPOT等原对象可见；两局停位变化并保存。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原体育人物图集与Spine渲染完整，其他主题资源齐备但未逐一试玩。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "两张实际运动截图和两张被动自然停轮截图，原Spine与转轮方法保持。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "原SPIN两次正常响应，运动时按钮锁定、结算后恢复，实际刷新回同一原桌和余额。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/006.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-18T08:39:06.480871+00:00",
+    "observation_end": "2026-11-18T09:25:24.152400+00:00",
+    "elapsed_seconds": 2777.671529,
+    "scope": "本款公开原入口抓取至证据归档经过时间，含静态分析/传输/等待及切换其他候选，不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

@@ -1,0 +1,4183 @@
+{
+  "native": {
+    "canvas": {
+      "x": 0,
+      "y": 35.265625,
+      "width": 1440,
+      "height": 829.4375,
+      "top": 35.265625,
+      "right": 1440,
+      "bottom": 864.703125,
+      "left": 0
+    },
+    "canvasSize": {
+      "width": 1250,
+      "height": 720
+    },
+    "native_flags": {
+      "activeScenes": [
+        "SceneGame"
+      ],
+      "money": 34000,
+      "bet": 1000,
+      "jackpot": 50028500,
+      "winStreak": 0,
+      "freeSpins": 0,
+      "slotsID": 0,
+      "main": {
+        "money": 34000,
+        "win": 0,
+        "spinning": true,
+        "spins": false,
+        "canInteract": true,
+        "stopSpin": false
+      },
+      "spinButton": {
+        "status": "spinningOnce",
+        "active": false
+      },
+      "startPositions": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "profileName": "inl_lucky_vegas_slots"
+    },
+    "visibleText": [
+      "JACKPOT",
+      "50 028 254",
+      "50",
+      "34 000",
+      "TOTAL:",
+      "NEXT REWARD IN",
+      "01:00",
+      "MENU",
+      "REWARD [COLOR=ORANGE]2X[/COLOR]",
+      "4 -",
+      "3 -",
+      "2 -",
+      "1 -",
+      "WINS IN ROW",
+      "BET",
+      "1 000",
+      "WIN",
+      "0",
+      "MAX BET",
+      "MIN BET",
+      "SPINNING!",
+      "WAIT FOR RESULTS",
+      "10",
+      "25",
+      "100",
+      "UNTIL BONUS",
+      "PAYTABLE",
+      "PAYLINES",
+      "HIGH VALUE SYMBOLS",
+      "LOW VALUE SYMBOLS",
+      "SPECIAL SYMBOLS",
+      "5 IN ROW",
+      "4 IN ROW",
+      "3 IN ROW",
+      "2000",
+      "500",
+      "1000",
+      "200",
+      "40",
+      "150",
+      "30",
+      "300",
+      "75",
+      "20",
+      "15",
+      "-",
+      "30 FREE SPINS",
+      "20 FREE SPINS",
+      "10 FREE SPINS",
+      "Can substitute any card except [b][color=#0080ff]BONUS[/color][/b] and [b][color=#F4D178]JACKPOT[/color][/b]",
+      "SELECT SLOT TYPE",
+      "CARS WORLD",
+      "SPORT WORLD",
+      "ARMY WORLD",
+      "MYTHOLOGY",
+      "WILD WEST",
+      "ANIMALS",
+      "PLAY",
+      "SETTINGS",
+      "50%"
+    ],
+    "native_objects": [
+      {
+        "type": "Image",
+        "src": "bg",
+        "frame": "__BASE",
+        "name": "",
+        "x": 1250,
+        "y": 720,
+        "visible": true,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 2500,
+          "height": 1440
+        },
+        "interactive": false
+      },
+      {
+        "type": "Image",
+        "src": "bg0",
+        "frame": "__BASE",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": -270,
+          "y": 0,
+          "width": 3040,
+          "height": 1440
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slotsBG",
+        "frame": "container",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 421.99998766183853,
+          "y": 235.99999353289604,
+          "width": 1656.000024676323,
+          "height": 868.0000129342079
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slotsBG",
+        "frame": "panel",
+        "name": "",
+        "x": -780,
+        "y": 50,
+        "visible": true,
+        "bounds": {
+          "x": 474.79998844861984,
+          "y": 374.39999559521675,
+          "width": 302.40000450611115,
+          "height": 671.2000100016594
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slotsBG",
+        "frame": "panel",
+        "name": "",
+        "x": -390,
+        "y": 50,
+        "visible": true,
+        "bounds": {
+          "x": 786.7999930977821,
+          "y": 374.39999559521675,
+          "width": 302.40000450611115,
+          "height": 671.2000100016594
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slotsBG",
+        "frame": "panel",
+        "name": "",
+        "x": 0,
+        "y": 50,
+        "visible": true,
+        "bounds": {
+          "x": 1098.7999977469444,
+          "y": 374.39999559521675,
+          "width": 302.40000450611115,
+          "height": 671.2000100016594
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slotsBG",
+        "frame": "panel",
+        "name": "",
+        "x": 390,
+        "y": 50,
+        "visible": true,
+        "bounds": {
+          "x": 1410.8000023961067,
+          "y": 374.39999559521675,
+          "width": 302.40000450611115,
+          "height": 671.2000100016594
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slotsBG",
+        "frame": "panel",
+        "name": "",
+        "x": 780,
+        "y": 50,
+        "visible": true,
+        "bounds": {
+          "x": 1722.800007045269,
+          "y": 374.39999559521675,
+          "width": 302.40000450611115,
+          "height": 671.2000100016594
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slotsBG",
+        "frame": "container_jackpot",
+        "name": "",
+        "x": 140,
+        "y": -455,
+        "visible": true,
+        "bounds": {
+          "x": 1146.7999984622002,
+          "y": 264.399993956089,
+          "width": 430.4000064134598,
+          "height": 83.20000123977661
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "topbar",
+        "frame": "chip_total",
+        "name": "",
+        "x": 360,
+        "y": -455,
+        "visible": true,
+        "bounds": {
+          "x": 1516.0000039637089,
+          "y": 279.59999418258667,
+          "width": 44.00000065565109,
+          "height": 52.80000078678131
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bonus",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -291.200013846159,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -68.40002605319023,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -68.40002605319023,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 154.39999225735664,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "2",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 154.39999225735664,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 377.2000105679035,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "4",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 377.2000105679035,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 599.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 599.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 822.799986153841,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "5",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 822.799986153841,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 1045.5999739468098,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 1045.5999739468098,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 1268.4000227749348,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 1268.4000227749348,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 1491.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "4",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 1491.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 1713.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 1713.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 1936.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "3",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 1936.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 2159.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 2159.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 2382.3999007046223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "5",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 2382.3999007046223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 2605.2001936733723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 2605.2001936733723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "jackpot",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 2827.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 3050.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "1",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 3050.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 3273.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "3",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 3273.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 3496.4001448452473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 3496.4001448452473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 3719.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 3719.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 3941.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "5",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 3941.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "wild",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": 4164.799803048372,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -2964.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -2964.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -2742.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -2742.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -2519.1999528110027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "2",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -2519.1999528110027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -2296.4001481235027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -2296.4001481235027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -2073.6000992953777,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "5",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -2073.6000992953777,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bonus",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -1850.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -1628.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -1628.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -1405.2000748813152,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -1405.2000748813152,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -1182.4000260531902,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "4",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -1182.4000260531902,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -959.5999772250652,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "3",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -959.5999772250652,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -736.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "1",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -736.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -514.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 484.3999978899956,
+          "y": -514.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 1268.4000227749348,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 1268.4000227749348,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 1491.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "3",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 1491.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 1713.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "1",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 1713.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 1936.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "4",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 1936.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 2159.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 2159.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 2382.3999007046223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 2382.3999007046223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 2605.2001936733723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "2",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 2605.2001936733723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "jackpot",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 2827.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 3050.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 3050.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 3273.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 3273.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 3496.4001448452473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "1",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 3496.4001448452473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 3719.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "4",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 3719.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 3941.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 3941.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 4164.799803048372,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "2",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 4164.799803048372,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "wild",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -2964.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -2742.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -2742.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -2519.1999528110027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "5",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -2519.1999528110027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -2296.4001481235027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -2296.4001481235027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -2073.6000992953777,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -2073.6000992953777,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -1850.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "4",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -1850.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -1628.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "3",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -1628.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bonus",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -1405.2000748813152,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -1182.4000260531902,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -1182.4000260531902,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -959.5999772250652,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -959.5999772250652,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -736.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -736.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -514.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -514.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -291.200013846159,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "5",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -291.200013846159,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -68.40002605319023,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "3",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": -68.40002605319023,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 154.39999225735664,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 154.39999225735664,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 377.2000105679035,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "1",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 377.2000105679035,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 599.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "2",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 599.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 822.799986153841,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 822.799986153841,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 1045.5999739468098,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 796.3999978899956,
+          "y": 1045.5999739468098,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 3273.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "2",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 3273.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 3496.4001448452473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 3496.4001448452473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 3719.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "5",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 3719.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bonus",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 3941.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 4164.799803048372,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 4164.799803048372,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -2964.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -2964.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -2742.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -2742.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -2519.1999528110027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "2",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -2519.1999528110027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -2296.4001481235027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "4",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -2296.4001481235027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -2073.6000992953777,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -2073.6000992953777,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -1850.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "1",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -1850.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -1628.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "3",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -1628.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -1405.2000748813152,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -1405.2000748813152,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -1182.4000260531902,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -1182.4000260531902,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -959.5999772250652,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -959.5999772250652,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -736.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "4",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -736.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -514.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "5",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -514.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -291.200013846159,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -291.200013846159,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -68.40002605319023,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": -68.40002605319023,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 154.39999225735664,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "3",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 154.39999225735664,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 377.2000105679035,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "2",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 377.2000105679035,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 599.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "4",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 599.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 822.799986153841,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 822.799986153841,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 1045.5999739468098,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 1045.5999739468098,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "jackpot",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 1268.4000227749348,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 1491.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "5",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 1491.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "wild",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 1713.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 1936.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "3",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 1936.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 2159.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 2159.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 2382.3999007046223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 2382.3999007046223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 2605.2001936733723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 2605.2001936733723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 2827.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 2827.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 3050.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "1",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1108.3999978899956,
+          "y": 3050.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -2645.1999528110027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "2",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -2645.1999528110027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -2422.4001481235027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -2422.4001481235027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "wild",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -2199.6000992953777,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bonus",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -1976.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -1754.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -1754.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -1531.1999528110027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -1531.1999528110027,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -1308.4000260531902,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -1308.4000260531902,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -1085.5999772250652,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "4",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -1085.5999772250652,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -862.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "1",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -862.8000504672527,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -640.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "5",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -640.0000016391277,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -417.20007488131523,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -417.20007488131523,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "jackpot",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": -194.40002605319023,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 28.39996173977852,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 28.39996173977852,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 251.1999800503254,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "4",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 251.1999800503254,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 473.99999836087227,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 473.99999836087227,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 696.799986153841,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 696.799986153841,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 919.5999739468098,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "2",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 919.5999739468098,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 1142.4000227749348,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 1142.4000227749348,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 1365.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 1365.1999495327473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 1587.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "3",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 1587.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 1810.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "4",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 1810.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 2033.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "7",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 2033.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 2256.3999007046223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "5",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 2256.3999007046223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 2479.2001936733723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "6",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 2479.2001936733723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 2701.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "3",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 2701.9999983608723,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 2924.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "8",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 2924.8000471889973,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 3147.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "9",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 3147.6000960171223,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      },
+      {
+        "type": "Sprite",
+        "src": "slots_images0",
+        "frame": "bg",
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "bounds": {
+          "x": 1420.3999978899956,
+          "y": 3370.4001448452473,
+          "width": 283.20000422000885,
+          "height": 220.00000327825546
+        },
+        "interactive": false
+      }
+    ],
+    "storage": {
+      "inl_lucky_vegas_slots": "{\"DataVersion\":0.1,\"Money\":34000,\"Bet\":1000,\"Jackpot\":50028500,\"WinStreak\":0,\"FreeSpins\":0,\"SlotsID\":0,\"SlotsStartPos\":[[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],\"lastBets\":[[],[],[]],\"lastBetsPrice\":[0,0,0],\"audioEnabled\":[true,true],\"audioLevel\":[0.5,0.5],\"tutorial\":[true,true,true],\"botMoney\":[0,0,0],\"deckCards\":[[],[]],\"handsPlayer\":[false,\"player\",false],\"rewardTimer\":59601}"
+    },
+    "retired_providers_present": []
+  },
+  "observer_error": null,
+  "frame_capture_error": null,
+  "id": "3",
+  "action": "click",
+  "ui_steps": 3,
+  "checkpoint_phases": {
+    "1": 1,
+    "2": 1,
+    "3": 1
+  },
+  "raw_ui_inputs": 3,
+  "url": "http://127.0.0.1:18865/grandslots-offline-v2/index.html",
+  "error": null,
+  "network_events": 787,
+  "console": [
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    }
+  ],
+  "closed": false
+}

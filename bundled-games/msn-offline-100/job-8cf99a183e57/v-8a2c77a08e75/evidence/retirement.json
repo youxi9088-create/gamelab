@@ -1,0 +1,559 @@
+{
+  "source_only": true,
+  "game_UI": 0,
+  "SDK_executed": false,
+  "original_source_sha256": "4fa7403d6044896bcf6525b019ed74c535e050e36f9f4a63c8f9d456656cc6b0",
+  "adapted_source_sha256": "d5d4f3815d586579b17678362dd68dda24ba373b198f6463a622feef27806e52",
+  "removed_units": [
+    {
+      "index": 27,
+      "head": "inlHelper={VERSION:\"2.0.7a\",ads:null,game:null,rewardAds:null,utilities:null,adsense:null,eventsManager:null};",
+      "sha256": "77f0c9ddee9fa759ea6756bc3404ac120dc0ef7db41fcc8a37a433960e40d779"
+    },
+    {
+      "index": 34,
+      "head": "null!=urlParams.ads_enabled&&(adsConfig.enabled=urlParams.ads_enabled);",
+      "sha256": "02f670e9c3bfed337159f71a2c810bd75f4c396d09320e615144a992e28b026c"
+    },
+    {
+      "index": 35,
+      "head": "null!=urlParams.rew_ads_enabled&&(rewAdsConfig.active=urlParams.rew_ads_enabled);",
+      "sha256": "5a27c8e3d01e232a14835e605cc403a22d8ae9f470a06d7f9d2cf33ec74bbf89"
+    },
+    {
+      "index": 36,
+      "head": "null!=urlParams.ads_cooldown&&(adsConfig.cooldownTimer=1E3*urlParams.ads_cooldown);",
+      "sha256": "bf862354b070045c7b20ebe880de61dcca5b8204ea178ed0824129315ab0796f"
+    },
+    {
+      "index": 37,
+      "head": "null!=urlParams.gameplay_cooldown&&(adsConfig.gameplayAdTimer=1E3*urlParams.gameplay_cooldown);",
+      "sha256": "b58a302682ec4f6b44e8a8822479ab3d6be14402dcf95321fe250403f34a6111"
+    },
+    {
+      "index": 38,
+      "head": "null!=urlParams.afk_cooldown&&(adsConfig.afkTimer=1E3*urlParams.afk_cooldown);",
+      "sha256": "7588e66f0b8437b9139cf8a09a45174e2ba05b9a91495fecfcca5eaa7695bcdf"
+    },
+    {
+      "index": 39,
+      "head": "null!=urlParams.start_cooldown&&(adsConfig.firstAdDelay=1E3*urlParams.start_cooldown);",
+      "sha256": "7a309ffacb827f80e4fa50ca8001781ed2e3519ce3650d6434224df30ee6d8cf"
+    },
+    {
+      "index": 40,
+      "head": "null!=urlParams.test_ads&&(adsConfig.test=urlParams.test_ads);",
+      "sha256": "536f25ef570fcef7f079346ab7d6a39e1cab4a6ea1dc747f0b34e3f052563518"
+    },
+    {
+      "index": 41,
+      "head": "null!=urlParams.test_ads_rewarded&&(rewAdsConfig.test=urlParams.test_ads_rewarded);",
+      "sha256": "800d1074eb2f90943f65f677b6f0227fa5a97997e54d4eb91f20a0f55e56a9f5"
+    },
+    {
+      "index": 43,
+      "head": "class AdHelper{constructor(a){this.config=a;this.lastAdTime=null;this.enabled=a.enabled;this.enableTriggerPoints=a.enabl",
+      "sha256": "fccaffeb8e156a3511878f55e098f50b99f66483ca4d5e8753a817a63048a5dc"
+    },
+    {
+      "index": 45,
+      "head": "class InlogicHelper{constructor(a){this.config=a;this.currentScore=this.currentLevel=0;this.setSoundVolume=this.setMusic",
+      "sha256": "aa7cc7de8aaadc5ea2db21dd150c959dd68bc40c08e6a4aa9b881e2d7b54de3a"
+    },
+    {
+      "index": 46,
+      "head": "class InlRewardAds{constructor(a){this.active=a.active;this.test=a.test;this.lastRewAdTime=null;this.onShowRewardAdListe",
+      "sha256": "c77c940c8d306194476817dace8cd71906aea192646408a7895f1f5f2f6ed42f"
+    },
+    {
+      "index": 47,
+      "head": "class InlUtilities{constructor(){}hasCooldownPassed(a){if(null==a)throw Error(\"Choose AD_TYPE when checking cooldown!\");",
+      "sha256": "a1abc2e7262caaea50e1b17ab22242f8eb3eff22114e6220ac1a3ecce132a071"
+    },
+    {
+      "index": 48,
+      "head": "class InlAdsense{constructor(){this.enabled=!1}enable(){this.enabled=!0;this.initAdsense();this.fullscreenAdVisible=this",
+      "sha256": "957e2d041d0abe5c293834e63c14ac765e7038eaadb9dde8ff7ce847314ea3ae"
+    },
+    {
+      "index": 49,
+      "head": "class InlEvents{constructor(){this.events={AD_IMPRESSION:\"ad_impression\",AD_REWARDED_STARTED:\"ad_reward_started\",AD_REWA",
+      "sha256": "58f30287680b2f01502ec0b8537190c1aaa8128924d04e7c8cc0f70974d86ac5"
+    },
+    {
+      "index": 50,
+      "head": "inlHelper.utilities=new InlUtilities;",
+      "sha256": "e35f2d0f1c66553987b1b6087e6279ba8c7ebeae83a1d80a98abcf2b5683ba19"
+    },
+    {
+      "index": 51,
+      "head": "inlHelper.ads=new AdHelper(adsConfig);",
+      "sha256": "931d6947a58d7f6b444e352f763a6050b8d146ab6e6811b442f8d385fc5f361d"
+    },
+    {
+      "index": 52,
+      "head": "inlHelper.rewardAds=new InlRewardAds(rewAdsConfig);",
+      "sha256": "56bdafc2e01e9a1bcca8be220983246e50f74bbf0b5e76d8ca7b3866db31f94b"
+    },
+    {
+      "index": 53,
+      "head": "inlHelper.game=new InlogicHelper(gameConfig);",
+      "sha256": "5fef079cb0adbb5378897377423eec76dfa4f82cc6006868d073a7939e1e8a0a"
+    },
+    {
+      "index": 54,
+      "head": "inlHelper.adsense=new InlAdsense;",
+      "sha256": "ca1ccd9df6a2cd8524148c8377a58a42ce0c5efb009e1b0726d4d70771affec1"
+    },
+    {
+      "index": 55,
+      "head": "inlHelper.eventsManager=new InlEvents;",
+      "sha256": "54ece2d2b1bbef9ec2ea105f51f4866f1d339a66b3e43aa9c2557cc3423128e3"
+    },
+    {
+      "index": 58,
+      "head": "inlogicLog(\"Module initialized! v\"+inlHelper.VERSION);",
+      "sha256": "6f140851162bf01b8fa79e3e107de36b1773a1716922775af7ebe92b43c1e801"
+    },
+    {
+      "index": 59,
+      "head": "function showToast(a,b){b=void 0===b?3E3:b;if(null!=document.body){var e=document.createElement(\"div\");e.textContent=a;e",
+      "sha256": "49e32dbccde670e672a38c75d901d2cd43acd3f400b1e145faf4b79092011576"
+    },
+    {
+      "index": 60,
+      "head": "inlHelper.ads.showFakeAd=function(a){a=void 0===a?'\"This is a test inlogic ad. Closing in 5 seconds...\"':a;const b=docum",
+      "sha256": "05e304cafb8702f68ff8cabef2e62ae2bc82aca99fcda5e1e1e782b59f360861"
+    },
+    {
+      "index": 61,
+      "head": "inlHelper.rewardAds.showFakeRewAd=function(a,b,e){const h=document.createElement(\"div\");h.id=\"rewardAdOverlay\";h.style.p",
+      "sha256": "638c09463af805a6010fd4b21dfa0698773d43bc8da5b712097352c9e36447db"
+    },
+    {
+      "index": 62,
+      "head": "var ADS_ENABLED=!1,ADS_DELAY=18E4,ADS_DEC=2E4,ADS_MINTIME=9E4,ADS_TIME_DEC_ENABLED=!0,ADS_ON_FIRST_PLAY=!0,ADS_MOBILE_WI",
+      "sha256": "251b798bae1e5796c6c081c2d1ba9ccda67d09c8c4876bace10b51a55fb1b168"
+    },
+    {
+      "index": 63,
+      "head": "function adinplay_init(){if(ADS_ENABLED&&\"undefined\"!==typeof aiptag){var a=\"inlogic\",b=getJsonFromUrl();b.hasOwnPropert",
+      "sha256": "9185b689e0c25d47ab6d8dca1deaec6cc6a4dbb607e5b1d4671414088641b578"
+    },
+    {
+      "index": 64,
+      "head": "function adinplay_playVideoAd(){ADS_ENABLED?\"undefined\"===typeof aiptag?(adinplay_init(),adinplay_enableInput(),adinplay",
+      "sha256": "55b8265e9f8374ec2dd3bcd2c12faa9b3990d588319956b8b2262e7674d3cba7"
+    },
+    {
+      "index": 65,
+      "head": "var adinplay_rew_callbacks=[];",
+      "sha256": "b516610cd7600a8438e9f7d048a3cfc7aacfdc6347ddc35a1a64ad1def820f0a"
+    },
+    {
+      "index": 66,
+      "head": "function adinplay_playRewardedVideo(a,b,e){adinplay_rew_callbacks[0]=a;adinplay_rew_callbacks[1]=b;adinplay_rew_callback",
+      "sha256": "57d1b5a56dc9d3de697808df4427caa9053f39ea76317ace8ec5ce468e6da68b"
+    },
+    {
+      "index": 67,
+      "head": "function adinplay_rewardedPreload(){ADS_ENABLED&&(\"undefined\"===typeof aiptag?adinplay_init():\"undefined\"===typeof adpla",
+      "sha256": "14bcc59f687f81f269dbd36f24cf966510606a7c9ac17b2ed8fd0ed79ddf626d"
+    },
+    {
+      "index": 68,
+      "head": "function adinplay_disableInput(){}",
+      "sha256": "a8176a9c636f550b535afe4913a693e660739177dab4b491ac74c7500edb3ab8"
+    },
+    {
+      "index": 69,
+      "head": "function adinplay_enableInput(){}",
+      "sha256": "516ecf7b53b91cc5cf6ef9c1b835cb7ec345c6b51c99627139e2e31b28ebc85f"
+    },
+    {
+      "index": 70,
+      "head": "function adinplay_pauseMusic(){game.sound.volume=0}",
+      "sha256": "9831728730fbb1ba0f6fc9dd14fd5033376cdfaafaf1496f62ced101781e6e4c"
+    },
+    {
+      "index": 71,
+      "head": "function adinplay_resumeMusic(){game.sound.volume=1}",
+      "sha256": "4d25160d7c3004db5a9a9c39a3314aca5f1823578f57429d427ffd9be1524bb9"
+    },
+    {
+      "index": 72,
+      "head": "function getJsonFromUrl(){for(var a={},b=location.search.substr(1).split(\"&\"),e=0;e<b.length;e++){var h=b[e].indexOf(\"=\"",
+      "sha256": "a498cbdc3e1a7a1080bf311bf7a17f6ab96a6284da47b443e114b06f8048335a"
+    },
+    {
+      "index": 204,
+      "head": "RewardAds={testAd:!1,showRewAd:function(a,b,e,h){this.testAd&&containerAds.showAds(!0,()=>{b.call(h)});const f=b;b=funct",
+      "sha256": "ed54327e0efa81ff81ca14dc1fac248fafc37f33bd04bcf24b699b1a781bda67"
+    },
+    {
+      "index": 205,
+      "head": "var ContainerAds=new Phaser.Class({Extends:Phaser.GameObjects.Container,initialize:function ContainerAds(a){ContainerAds",
+      "sha256": "b9b59dcad8bf501897600e4764a2ed19fb2ff5abb25d513af0efb533e22cd710"
+    },
+    {
+      "index": 211,
+      "head": "adsenseConfig.channelId=\"8118435848\";",
+      "sha256": "337c98e89d6455c543958aa489a381c0221f3e439d21c79c9f5f8b6192b54e79"
+    },
+    {
+      "index": 212,
+      "head": "inlHelper.game.setMute=function(a){game.sound.mute=a};",
+      "sha256": "4bba63cb0e16bb7e4ded51fcf10e46c59d2b0ca37bf673d37f0ba35f489a4361"
+    },
+    {
+      "index": 213,
+      "head": "inlHelper.game.pauseGame=function(){game.scene.getScenes(!0).forEach(a=>{let b,e;null==(e=(b=a.sound).pauseAll)||e.call(",
+      "sha256": "3ba72337c3915b4b661633268fde68cd2371859938cdc2d6784520ce273cf3f7"
+    },
+    {
+      "index": 214,
+      "head": "inlHelper.game.resumeGame=function(){game.scene.getScenes(!1).forEach(a=>{let b,e;null==(e=(b=a.sound).resumeAll)||e.cal",
+      "sha256": "6c1b7198001e2603dfa69e63c6b6f15e2c83cb699415f2429933954722916170"
+    },
+    {
+      "index": 228,
+      "head": "partnerName=\"msstart\";",
+      "sha256": "a4cb3a5b339f0dc2f3c6f5e01cace378900d7aa61571f9722b8dcb2980fb438a"
+    },
+    {
+      "index": 229,
+      "head": "window.partnerName=partnerName;",
+      "sha256": "0c3ecd5e0095897188e45ffee814458267d31066017343356b1f03a31bad6aad"
+    },
+    {
+      "index": 231,
+      "head": "\"serviceWorker\"in navigator&&window.addEventListener(\"load\",function(){navigator.serviceWorker.register(\"./serviceWorker",
+      "sha256": "20a4229eb4022e75b2a5212002cc9cae14c80e984b25bc6b56c4f572ab72b255"
+    },
+    {
+      "index": 232,
+      "head": "storedRewardedAd=storedAdInstance=null;",
+      "sha256": "24e41cde638fad744f79e4d74a84fdea379258f3cbabfc884ef927c3edd3db32"
+    },
+    {
+      "index": 233,
+      "head": "function msLoadAd(){$msstart.loadAdsAsync().then(a=>{console.warn(\"Loaded intertitial ad id:\");storedAdInstance=a}).catc",
+      "sha256": "f9a86b83d6b16732b062265b8b5a81e6e60f86f1bc6dadce890280b743dd193d"
+    },
+    {
+      "index": 234,
+      "head": "function msShowAd(a){storedAdInstance?$msstart.showAdsAsync(storedAdInstance.instanceId).then(b=>{msPause();b.showAdsCom",
+      "sha256": "3fd5e74ad8107516c509dcdcfebaaea74783b70aa9639da034e6772ac6d1b416"
+    },
+    {
+      "index": 235,
+      "head": "function msLoadRewardedAd(){$msstart.loadAdsAsync(!0).then(a=>{console.warn(\"Rewarded ad loaded successfully:\",a);stored",
+      "sha256": "13fdc1b86038bc18a38abdc04da4ede0677458257ecaeec35cf48ac7b3c65498"
+    },
+    {
+      "index": 236,
+      "head": "function msShowRewardedAd(a,b,e){console.warn(\"MS SHOW REWARDED AD\");storedRewardedAd?(msPause(),$msstart.showAdsAsync(s",
+      "sha256": "b587782be94328f92e286bbbf6e4bb2866076e89be124645bb946ec1413ba069"
+    },
+    {
+      "index": 237,
+      "head": "function msShowBannerAd(){$msstart.showDisplayAdsAsync([\"topright:300x250\"]).then(a=>{console.warn(\"Show banner ad\")})}",
+      "sha256": "2a6d8daf394621c5fdb3264b201af716f660e28c47e6ae4a1969fd226a923b29"
+    },
+    {
+      "index": 238,
+      "head": "function msHideBannerAd(){$msstart.hideDisplayAdsAsync().then(a=>{})}",
+      "sha256": "3e8ce780f0f99e1d7deb2aa76ec1dc0a54d17c466dd2098e3392869ed34d06af"
+    },
+    {
+      "index": 239,
+      "head": "function msPause(){game.sound.mute=!0;game.paused=!0;game.sound.pauseAll()}",
+      "sha256": "b3cf44417c1eda6b0f4df3eedff8e1c9cae57f3c1acd161f4a9e9e1726ab178e"
+    },
+    {
+      "index": 240,
+      "head": "function msResume(){game.sound.mute=!1;game.paused=!1;game.sound.resumeAll()}",
+      "sha256": "01398900cbf848279c67acd38d56e5085fea2e5b8219f35f9cb30267ab8e5dff"
+    },
+    {
+      "index": 242,
+      "head": "msLoadRewardedAd();",
+      "sha256": "0b61deccc27d583e3bef9091a59fa0b7abe1420f397a3436e19c916d88b20981"
+    },
+    {
+      "index": 243,
+      "head": "msLoadAd();",
+      "sha256": "8642b9e5419956e77a1bcde7c1ab858b023ba89a5074c1c761037d53141d982c"
+    },
+    {
+      "index": 244,
+      "head": "adsConfig.autoAdSuccessful=!1;",
+      "sha256": "af226f3a19b7473e06ff7ec415c010a686d6ce1b0a09d1023f31206b4c4c8e67"
+    },
+    {
+      "index": 245,
+      "head": "inlHelper.ads.onShowAdListeners.push(msShowAd);",
+      "sha256": "8cd7df99a9fc7ad1fcdfde1571affa6870aeb1373dbbcd0c92c8486f4e566362"
+    },
+    {
+      "index": 246,
+      "head": "inlHelper.rewardAds.onShowRewardAdListeners.push(msShowRewardedAd);",
+      "sha256": "6f3f6dc30ab2a05c2f6f59290076232045cc8b93525fa7743b887d0afd2181b7"
+    },
+    {
+      "index": 247,
+      "head": "adsConfig.enabled=!0;",
+      "sha256": "317194cbb43961ac93ea912a29cc4a26baefbe03038adff0c58fae21263627e2"
+    },
+    {
+      "index": 248,
+      "head": "adsenseConfig.automaticListeners=!1;",
+      "sha256": "4f7779fd084bc0451817319cc1b0af181a21551eb7e4d2bc6d5634281c7236fa"
+    },
+    {
+      "index": 249,
+      "head": "inlHelper.adsense.enable();",
+      "sha256": "ab0a8a9e69924c4f3c7dbcffb6a06262ebafea55bdfd4531235cac8ce0f23445"
+    },
+    {
+      "index": 250,
+      "head": "eventsConfig.local=!1;",
+      "sha256": "97654bbb8cc564a89f15283c2c7d5f0a9fb1413bce665208a29931c30e5cff88"
+    },
+    {
+      "index": 251,
+      "head": "rewAdsConfig.active=!0;",
+      "sha256": "5a3d4601b3dd7290711431e529d524b6db285c1605db318b89123d38f64eae05"
+    }
+  ],
+  "changes": [
+    "inlHelper.ads.triggerAdPoint",
+    "inlHelper.ads.triggerAdPoint",
+    "inlHelper.ads.triggerAdPoint",
+    "inlHelper.ads.triggerAdPoint",
+    "msLoadAd",
+    "Remove actual ad-overlay instance",
+    "containerAds.update",
+    "containerAds.resize",
+    "Resolve original non-ad branch",
+    "Remove actual ad30000reward-only method animWin",
+    "Remove actual ad30000reward-only method pressedReward",
+    "Resolve original non-ad branch",
+    "Resolve original non-ad branch",
+    "Direct exact ordinary spin-start body; no ad operation or acknowledgement",
+    "Resolve original non-ad branch",
+    "Resolve original non-ad branch",
+    "adinplay_init",
+    "adinplay_init"
+  ],
+  "unchanged_native_methods": [
+    "GameData.Reset",
+    "GameData.Load",
+    "GameData.Save",
+    "ScenePreload.initialize",
+    "ScenePreload._loadLanguages",
+    "ScenePreload._loadSplashImg",
+    "ScenePreload.loadAllAssets",
+    "ScenePreload._create",
+    "ScenePreload.loadGfx",
+    "ScenePreload.loadSpines",
+    "ScenePreload.loadAudio",
+    "ScenePreload.create",
+    "ScenePreload.resize",
+    "ScenePreload.loadLanguageSettings",
+    "SceneGame.initialize",
+    "SceneGame.onGameResume",
+    "SceneGame.onGamePause",
+    "SceneGame.showInfo",
+    "SceneGame.updateTexts",
+    "ContainerBG.initialize",
+    "ContainerBG.create",
+    "ContainerBG.createBG",
+    "ContainerBG.updateBG",
+    "ContainerBG.update",
+    "ContainerBG.updateTexts",
+    "ContainerBG.resize",
+    "ContainerTopBar.initialize",
+    "ContainerTopBar.create",
+    "ContainerTopBar.createMenu",
+    "ContainerTopBar.createSettings",
+    "ContainerTopBar.createInfo",
+    "ContainerTopBar.createFullscreen",
+    "ContainerTopBar.menuPressed",
+    "ContainerTopBar.settingsPressed",
+    "ContainerTopBar.infoPressed",
+    "ContainerTopBar.fullscreenPressed",
+    "ContainerTopBar.updateMoney",
+    "ContainerTopBar.updateTexts",
+    "ContainerBottomBar.initialize",
+    "ContainerBottomBar.create",
+    "ContainerBottomBar.createMaxMinBtn",
+    "ContainerBottomBar.createSpinBtn",
+    "ContainerBottomBar.createSpinLabel",
+    "ContainerBottomBar.maxPressed",
+    "ContainerBottomBar.minPressed",
+    "ContainerBottomBar.pressedLabel",
+    "ContainerBottomBar._startGame",
+    "ContainerBottomBar.startGameCallback",
+    "ContainerBottomBar.pressedSpin",
+    "ContainerBottomBar.pressedSpinUp",
+    "ContainerBottomBar.showSpinLabel",
+    "ContainerBottomBar.updateBet",
+    "ContainerBottomBar.createOverlay",
+    "ContainerBottomBar.createBetPanel",
+    "ContainerBottomBar.createWinPanel",
+    "ContainerBottomBar.betMinusPressed",
+    "ContainerBottomBar.betPlusPressed",
+    "ContainerBottomBar.betMinusUp",
+    "ContainerBottomBar.betPlusUp",
+    "ContainerBottomBar.updateBetNum",
+    "ContainerBottomBar.updateWin",
+    "ContainerBottomBar.checkBet",
+    "ContainerBottomBar.addWin",
+    "ContainerBottomBar.update",
+    "ContainerBottomBar.updateTexts",
+    "ContainerBottomBar.resize",
+    "ContainerGame.initialize",
+    "ContainerGame.create",
+    "ContainerGame.skipPayline",
+    "ContainerGame.resetValues",
+    "ContainerGame.createBG",
+    "ContainerGame.createJackpot",
+    "ContainerGame.createPaylines",
+    "ContainerGame.createDrumsMask",
+    "ContainerGame.createDrums",
+    "ContainerGame.rotateDrum",
+    "ContainerGame.stopDrum",
+    "ContainerGame.checkDrums",
+    "ContainerGame.allDrumsStopped",
+    "ContainerGame.saveDrumPos",
+    "ContainerGame.checkBonus",
+    "ContainerGame.addBonus",
+    "ContainerGame.checkPayline",
+    "ContainerGame.animPayline",
+    "ContainerGame.animDrumImages",
+    "ContainerGame.showWinningPayline",
+    "ContainerGame.hideWinningPayline",
+    "ContainerGame.addWin",
+    "ContainerGame.setImageOverlay",
+    "ContainerGame.spinDrums",
+    "ContainerGame.updateDrumsMobile",
+    "ContainerGame.updateDrums",
+    "ContainerGame.bottomBarShow",
+    "ContainerGame.dealCards",
+    "ContainerGame.updateScene",
+    "ContainerGame.bounceDrum",
+    "ContainerGame.updateJackpot",
+    "ContainerGame.preUpdate",
+    "ContainerGame.update",
+    "ContainerGame.updateTexts",
+    "ContainerGame.resize",
+    "ContainerScreen.initialize",
+    "ContainerScreen.create",
+    "ContainerScreen.createOverlay",
+    "ContainerScreen.createScreen",
+    "ContainerScreen.show",
+    "ContainerScreen.screenSkip",
+    "ContainerScreen.screenBonus",
+    "ContainerScreen.screenEN",
+    "ContainerScreen.screenRU",
+    "ContainerScreen.update",
+    "ContainerScreen.updateTexts",
+    "ContainerScreen.resize",
+    "ContainerInfo.initialize",
+    "ContainerInfo.create",
+    "ContainerInfo.createInfo",
+    "ContainerInfo.updateImg",
+    "ContainerInfo.closePressed",
+    "ContainerInfo.update",
+    "ContainerInfo.updateTexts",
+    "ContainerInfo.resize",
+    "ContainerSettings.initialize",
+    "ContainerSettings.create",
+    "ContainerSettings.createOverlay",
+    "ContainerSettings.createSettings",
+    "ContainerSettings.closePressed",
+    "ContainerSettings.btnSoundPressed",
+    "ContainerSettings.btnMusicPressed",
+    "ContainerSettings.show",
+    "ContainerSettings.update",
+    "ContainerSettings.updateTexts",
+    "ContainerSettings.resize",
+    "ContainerMenu.initialize",
+    "ContainerMenu.create",
+    "ContainerMenu.createOverlay",
+    "ContainerMenu.createMenu",
+    "ContainerMenu.createYndxOverlay",
+    "ContainerMenu.closePressed",
+    "ContainerMenu.playPressed",
+    "ContainerMenu.setActiveWorld",
+    "ContainerMenu.show",
+    "ContainerMenu.update",
+    "ContainerMenu.updateTexts",
+    "ContainerMenu.resize",
+    "ContainerWinStreak.initialize",
+    "ContainerWinStreak.create",
+    "ContainerWinStreak.createWinStreak",
+    "ContainerWinStreak.animStreak",
+    "ContainerWinStreak.fullWinStreak",
+    "ContainerWinStreak.update",
+    "ContainerWinStreak.updateTexts",
+    "ContainerWinStreak.resize"
+  ],
+  "critical_native_methods_exact": [
+    "GameData.Reset",
+    "GameData.Load",
+    "GameData.Save",
+    "ContainerGame.initialize",
+    "ContainerGame.create",
+    "ContainerGame.skipPayline",
+    "ContainerGame.resetValues",
+    "ContainerGame.createBG",
+    "ContainerGame.createJackpot",
+    "ContainerGame.createPaylines",
+    "ContainerGame.createDrumsMask",
+    "ContainerGame.createDrums",
+    "ContainerGame.rotateDrum",
+    "ContainerGame.stopDrum",
+    "ContainerGame.checkDrums",
+    "ContainerGame.allDrumsStopped",
+    "ContainerGame.saveDrumPos",
+    "ContainerGame.checkBonus",
+    "ContainerGame.addBonus",
+    "ContainerGame.checkPayline",
+    "ContainerGame.animPayline",
+    "ContainerGame.animDrumImages",
+    "ContainerGame.showWinningPayline",
+    "ContainerGame.hideWinningPayline",
+    "ContainerGame.addWin",
+    "ContainerGame.setImageOverlay",
+    "ContainerGame.spinDrums",
+    "ContainerGame.updateDrumsMobile",
+    "ContainerGame.updateDrums",
+    "ContainerGame.bottomBarShow",
+    "ContainerGame.dealCards",
+    "ContainerGame.updateScene",
+    "ContainerGame.bounceDrum",
+    "ContainerGame.updateJackpot",
+    "ContainerGame.preUpdate",
+    "ContainerGame.update",
+    "ContainerGame.updateTexts",
+    "ContainerGame.resize",
+    "ContainerWinStreak.initialize",
+    "ContainerWinStreak.create",
+    "ContainerWinStreak.createWinStreak",
+    "ContainerWinStreak.animStreak",
+    "ContainerWinStreak.fullWinStreak",
+    "ContainerWinStreak.update",
+    "ContainerWinStreak.updateTexts",
+    "ContainerWinStreak.resize"
+  ],
+  "engine_prefix_all_bytes_except_one_globalThis_fallback_exact": true,
+  "missing_original_InlogicUtility_HTTP404": true,
+  "no_native_reference_to_InlogicUtility": true,
+  "ad_30000_grant_and_UI_retired": true,
+  "original_local_5000_timer_branch_retained": true,
+  "original_Money_Bet_Slots_Paytable_RNG_Spine_exact": true,
+  "remaining_providers": [],
+  "note": "Native no-ad timer5000per60secs preserved byteAST; no ad completion callback, no additionalfreecoins invented. Native starting30000/bet1000/paylines/RNG/save/unlockandfreespinconditions retained. Missing404InlogicUtility never used bybundle; no placeholder."
+}

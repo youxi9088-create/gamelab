@@ -1,0 +1,582 @@
+{
+"skeleton": {
+	"hash": "YeFpbKMpY7s",
+	"spine": "3.8-from-4.0.64",
+	"x": -176.85,
+	"y": -137.33,
+	"width": 355.54,
+	"height": 279.92,
+	"images": "./images/",
+	"audio": ""
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "vsetko", "parent": "root", "length": 173.65, "rotation": 1.59, "x": 1.1, "y": 41.36 },
+	{ "name": "motor", "parent": "vsetko", "length": 87.22, "rotation": -1.05, "x": -0.68, "y": -73.56 },
+	{
+		"name": "hviezdička",
+		"parent": "vsetko",
+		"length": 53.8,
+		"rotation": -2.11,
+		"x": 88.63,
+		"y": 78.24,
+		"scaleX": 0.5,
+		"scaleY": 0.5
+	},
+	{ "name": "wild", "parent": "vsetko", "length": 78.25, "rotation": -1.88, "x": -11.45, "y": -151.62 },
+	{ "name": "bone", "parent": "vsetko", "length": 86.4, "rotation": -1.74, "x": -3.03, "y": -42.38 },
+	{ "name": "bone2", "parent": "vsetko", "length": 99.43, "rotation": 11.4, "x": 1.21, "y": -45.72 },
+	{ "name": "bone3", "parent": "vsetko", "length": 87.86, "rotation": 4.82, "x": 7.94, "y": -43.63 },
+	{ "name": "particle", "parent": "vsetko", "length": 32.8, "rotation": -0.79, "x": -23.59, "y": -110.66 },
+	{ "name": "particle2", "parent": "vsetko", "length": 32.8, "rotation": -0.79, "x": -24.17, "y": -131.35 },
+	{ "name": "particle3", "parent": "vsetko", "length": 32.8, "rotation": -0.79, "x": 1.46, "y": -111.35 },
+	{ "name": "particle4", "parent": "vsetko", "length": 32.8, "rotation": -0.79, "x": -24.12, "y": -129.83 },
+	{ "name": "particle5", "parent": "vsetko", "length": 32.8, "rotation": -0.79, "x": -24.12, "y": -129.83 },
+	{ "name": "particle6", "parent": "vsetko", "length": 32.8, "rotation": -0.79, "x": -24.12, "y": -129.83 },
+	{ "name": "particle7", "parent": "vsetko", "length": 32.8, "rotation": -0.79, "x": -24.12, "y": -129.83 },
+	{
+		"name": "hviezdička2",
+		"parent": "wild",
+		"length": 53.8,
+		"rotation": -0.22,
+		"x": 92.47,
+		"y": 44,
+		"scaleX": 0.5,
+		"scaleY": 0.5
+	}
+],
+"slots": [
+	{ "name": "root", "bone": "vsetko", "attachment": "root" },
+	{ "name": "ziara_1", "bone": "bone", "color": "ffc755ff", "attachment": "ziara_1", "blend": "additive" },
+	{ "name": "ziara_2", "bone": "bone2", "color": "ff6b6bff", "attachment": "ziara_1", "blend": "additive" },
+	{ "name": "bonusi_2", "bone": "bone3", "color": "ffdf7eff", "attachment": "bonusi_2", "blend": "additive" },
+	{ "name": "particle", "bone": "particle", "dark": "ffffff", "attachment": "particle" },
+	{ "name": "particle2", "bone": "particle2", "dark": "ffffff", "attachment": "particle" },
+	{ "name": "particle3", "bone": "particle3", "dark": "ffffff", "attachment": "particle" },
+	{ "name": "particle4", "bone": "particle4", "dark": "ffffff", "attachment": "particle" },
+	{ "name": "particle5", "bone": "particle5", "dark": "ffffff", "attachment": "particle" },
+	{ "name": "particle6", "bone": "particle6", "dark": "ffffff", "attachment": "particle" },
+	{ "name": "particle7", "bone": "particle7", "dark": "ffffff", "attachment": "particle" },
+	{ "name": "motor", "bone": "motor", "attachment": "motor" },
+	{ "name": "wild", "bone": "wild", "attachment": "wild" },
+	{ "name": "hviezdička", "bone": "hviezdička", "color": "ffffff00", "attachment": "hviezdička" },
+	{ "name": "hviezdička2", "bone": "hviezdička2", "color": "ffffff00", "attachment": "hviezdička" },
+	{ "name": "wild cars", "bone": "wild" },
+	{ "name": "motor2", "bone": "motor", "attachment": "motor2" },
+	{ "name": "odlesk", "bone": "motor", "color": "ffffff8b", "attachment": "odlesk", "blend": "additive" },
+	{ "name": "wild2", "bone": "wild", "attachment": "wild2" },
+	{ "name": "wild3", "bone": "wild" },
+	{ "name": "odrazy", "bone": "wild", "attachment": "odrazy", "blend": "additive" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"bonusi_2": {
+				"bonusi_2": {
+					"type": "mesh",
+					"uvs": [ 1, 1, 0, 1, 0, 0, 1, 0 ],
+					"triangles": [ 1, 2, 3, 1, 3, 0 ],
+					"vertices": [ 167.15, -216.66, -216.44, -173.59, -173.37, 210, 210.22, 166.93 ],
+					"hull": 4,
+					"edges": [ 0, 2, 2, 4, 4, 6, 0, 6 ],
+					"width": 386,
+					"height": 386
+				}
+			},
+			"hviezdička": {
+				"hviezdička": {
+					"type": "mesh",
+					"uvs": [ 1, 1, 0, 1, 0, 0, 1, 0 ],
+					"triangles": [ 1, 2, 3, 1, 3, 0 ],
+					"vertices": [ 43.25, -43.38, -41.65, -44.15, -42.42, 40.75, 42.48, 41.52 ],
+					"hull": 4,
+					"edges": [ 0, 2, 2, 4, 4, 6, 0, 6 ],
+					"width": 50,
+					"height": 50
+				}
+			},
+			"hviezdička2": {
+				"hviezdička": {
+					"type": "mesh",
+					"uvs": [ 1, 1, 0, 1, 0, 0, 1, 0 ],
+					"triangles": [ 1, 2, 3, 1, 3, 0 ],
+					"vertices": [ 43.25, -43.38, -41.65, -44.15, -42.42, 40.75, 42.48, 41.52 ],
+					"hull": 4,
+					"edges": [ 0, 2, 2, 4, 4, 6, 0, 6 ],
+					"width": 50,
+					"height": 50
+				}
+			},
+			"motor": {
+				"motor": {
+					"type": "mesh",
+					"uvs": [ 1, 1, 0, 1, 0, 0, 0.10239, 0, 0.67963, 0, 0.93509, 0, 1, 0, 0.12012, 0.78846, 0.66256, 0.83072, 0.92524, 0.77662, 0.67254, 0.34508, 0.67666, 0.14438, 0.81925, 0.14879, 0.93314, 0.15378, 0.66568, 0.67895, 0.8895, 0.37506, 0.91423, 0.28857, 0.81624, 0.12703, 0.79105, 0.07477, 0.67856, 0.05239 ],
+					"triangles": [ 19, 3, 4, 18, 4, 5, 19, 4, 18, 17, 18, 5, 11, 3, 19, 11, 19, 18, 13, 12, 17, 11, 18, 17, 12, 11, 17, 5, 13, 17, 16, 12, 13, 10, 3, 11, 15, 12, 16, 10, 7, 3, 10, 11, 12, 10, 12, 15, 14, 10, 15, 9, 16, 13, 15, 16, 9, 14, 15, 9, 14, 7, 10, 8, 7, 14, 8, 14, 9, 7, 1, 2, 7, 2, 3, 13, 5, 6, 6, 9, 13, 0, 9, 6, 8, 9, 0, 1, 7, 8, 0, 1, 8 ],
+					"vertices": [ 174.21, -106.01, -179.77, -102.7, -177.2, 172.29, -140.96, 171.95, 63.38, 170.04, 153.81, 169.2, 176.78, 168.98, -136.71, -44.92, 55.2, -58.34, 148.32, -44.33, 59.98, 75.17, 61.96, 130.35, 112.42, 128.66, 152.72, 126.91, 56.69, -16.62, 136.7, 66.21, 145.68, 89.91, 111.41, 134.66, 102.63, 149.11, 62.86, 155.64 ],
+					"hull": 7,
+					"edges": [ 0, 2, 2, 4, 0, 12, 4, 6, 6, 14, 14, 16, 6, 8, 8, 10, 10, 12, 18, 16, 22, 20, 22, 24, 10, 26, 26, 18, 24, 26, 16, 28, 30, 32, 32, 24, 34, 36, 8, 38, 38, 22, 36, 38 ],
+					"width": 354,
+					"height": 275
+				}
+			},
+			"motor2": {
+				"motor2": {
+					"type": "clipping",
+					"end": "odlesk",
+					"vertexCount": 31,
+					"vertices": [ 29.41, 131.66, 13.32, 135.11, 25.57, 123.19, 37.86, 114.83, 54.21, 91.51, 61.99, 81.37, 77.1, 81.96, 78.8, 87.35, 83.88, 81.71, 94.4, 81.25, 99.04, 88.07, 101.09, 82.01, 111.89, 81.63, 114.69, 86.28, 118.11, 80.39, 128, 80.48, 129.79, 85.68, 133.5, 80.88, 144.39, 80.87, 143.26, 86.93, 146.39, 88.73, 136.11, 105.67, 132.28, 107.26, 130.03, 111.59, 124.41, 117.23, 119.9, 115.53, 114.41, 115.58, 109.06, 121.03, 109.27, 124.6, 69.28, 126.71, 40.93, 130 ],
+					"color": "ce3a3aff"
+				}
+			},
+			"odlesk": {
+				"odlesk": {
+					"type": "mesh",
+					"uvs": [ 0.90741, 0.38957, 0.59708, 0.38957, 0.59449, 0.11139, 0.90481, 0.11139, 0.62902, 0.1451, 0.71675, 0.3189, 0.89342, 0.32797, 0.75403, 0.14675 ],
+					"triangles": [ 7, 4, 2, 3, 7, 2, 5, 4, 7, 6, 7, 3, 0, 6, 3, 5, 7, 6, 1, 2, 4, 1, 4, 5, 5, 6, 0, 1, 5, 0 ],
+					"vertices": [ 56.5, 64.14, -53.35, 65.16, -53.59, 137.83, 56.27, 136.81, -40.66, 139.05, -6.44, 80.99, 51.7, 80.27, 2.8, 128.07 ],
+					"hull": 4,
+					"edges": [ 0, 2, 2, 4, 4, 6, 0, 6, 8, 10, 10, 12, 12, 14, 14, 8 ],
+					"width": 354,
+					"height": 275
+				}
+			},
+			"odrazy": {
+				"odrazy": {
+					"type": "mesh",
+					"uvs": [ 1, 1, 0, 1, 0, 0, 1, 0 ],
+					"triangles": [ 1, 2, 3, 1, 3, 0 ],
+					"vertices": [ -99.76, -101.16, -289.4, -14.95, -219.58, 138.62, -29.95, 52.4 ],
+					"hull": 4,
+					"edges": [ 0, 2, 2, 4, 4, 6, 0, 6 ],
+					"width": 354,
+					"height": 275
+				}
+			},
+			"particle": {
+				"particle": { "x": 8.99, "y": -19.65, "rotation": -0.8, "width": 24, "height": 28 }
+			},
+			"particle2": {
+				"particle": { "x": 8.99, "y": -19.65, "rotation": -0.8, "width": 24, "height": 28 }
+			},
+			"particle3": {
+				"particle": { "x": 8.99, "y": -19.65, "rotation": -0.8, "width": 24, "height": 28 }
+			},
+			"particle4": {
+				"particle": { "x": 8.99, "y": -19.65, "rotation": -0.8, "width": 24, "height": 28 }
+			},
+			"particle5": {
+				"particle": { "x": 8.99, "y": -19.65, "rotation": -0.8, "width": 24, "height": 28 }
+			},
+			"particle6": {
+				"particle": { "x": 8.99, "y": -19.65, "rotation": -0.8, "width": 24, "height": 28 }
+			},
+			"particle7": {
+				"particle": { "x": 8.99, "y": -19.65, "rotation": -0.8, "width": 24, "height": 28 }
+			},
+			"root": {
+				"root": {
+					"type": "clipping",
+					"end": "particle7",
+					"vertexCount": 4,
+					"vertices": [ -174.6, 101.63, 178.82, 92.2, 172.59, -183.19, -182.83, -173.7 ],
+					"color": "ce3a3aff"
+				}
+			},
+			"wild": {
+				"wild": {
+					"type": "mesh",
+					"uvs": [ 1, 1, 0, 1, 0, 0.64842, 1, 0.64842 ],
+					"triangles": [ 1, 2, 3, 1, 3, 0 ],
+					"vertices": [ 183.94, -25.16, -170.06, -27.01, -170.56, 69.68, 183.44, 71.52 ],
+					"hull": 4,
+					"edges": [ 0, 2, 2, 4, 4, 6, 0, 6 ],
+					"width": 354,
+					"height": 275
+				}
+			},
+			"wild2": {
+				"wild2": {
+					"type": "clipping",
+					"end": "odrazy",
+					"vertexCount": 36,
+					"vertices": [ -73.95, 49.95, -101.7, 50.31, -104.82, 47.67, -105.91, 43.63, -101.23, 36.49, -114.03, -5.45, -110.07, -9.37, -105.52, -11.46, -36.2, -11, -31.38, -6.94, -25.91, -10.24, -10.27, -10.96, -5.25, -6.3, -0.28, -11.22, 46.64, -11.07, 51.37, -7.82, 55.11, -9.72, 89.82, -10.24, 113.39, 8.04, 124.91, 44.43, 123.77, 49.27, 119.72, 51.57, 59.49, 50.95, 55.38, 46.29, 57.42, 40.95, 60.27, 36.73, 53.22, 13.89, 26.38, 14.25, 35.25, 40.43, 36.22, 47.09, 32.06, 51.11, -39.88, 50.53, -44.18, 46.42, -47.13, 50.85, -68.11, 50.43, -70.81, 44.67 ],
+					"color": "ce3a3aff"
+				}
+			},
+			"wild3": {
+				"wild3": {
+					"type": "clipping",
+					"end": "odrazy",
+					"vertexCount": 102,
+					"vertices": [ -130.38, 56.77, -127.33, 58.94, -81.08, 59.68, -77.42, 55.75, -76.97, 50.45, -74.38, 50.47, -73.86, 56.39, -69.74, 59.12, -50.88, 59.73, -47.72, 55.06, -48.43, 37.06, -37.29, 56.9, -34.42, 59.3, -12.43, 59.45, -10.5, 53.29, -7.21, 59.6, 14.03, 59.35, 16.07, 54.5, 15.66, 41.68, 21.4, 51.91, 30.14, 59.17, 47.48, 59.41, 49.63, 56.22, 51.27, 59.07, 69.51, 59.9, 74.4, 56.01, 74.28, 39.07, 87.17, 59.65, 107.52, 59.72, 111.7, 53.45, 115, 58.57, 122.11, 59.68, 118.72, 64.13, 116.12, 71.25, 117.04, 77.57, 120.7, 80.08, 138.03, 79.58, 141.36, 75.57, 141.03, 71.54, 145.82, 71.71, 146.7, 77.25, 150.13, 79.17, 166.39, 79.49, 170.98, 75.93, 170.72, 67.74, 168.3, 63.42, 165.06, 59.5, 171.79, 59.21, 175.07, 55.24, 176.17, -5.7, 173.99, -10.17, 168.93, -13.5, 155.52, -13.31, 150.66, -10.84, 148.68, -6.76, 147.68, 10.86, 137.51, -8.71, 132.06, -13.03, 116.54, -13.08, 113.26, -10.53, 111.92, -6.33, 106.18, -13.39, 90.27, -13, 84.97, -10.07, 84.48, 9.57, 72.06, -9.17, 68.05, -13.53, 53.26, -13.63, 51.01, -10.48, 48.2, -13.49, 30.57, -13.23, 16.16, 5.02, 15.44, -9.26, 10.87, -13.88, -4.57, -13.55, -8.75, -8.93, -9.93, 45.48, -11.52, 26.69, -10.75, -10.07, -16.8, -13.24, -31.77, -12.94, -37.5, -7.45, -37.81, 11.11, -48.8, -8.84, -54.06, -13.41, -68.74, -13.39, -70.41, -8.68, -71.52, -22.43, -77.42, -27.34, -90.61, -27.64, -96.75, -21.75, -96.88, -13.43, -118.79, -13.17, -118.78, -22.45, -124.86, -27.27, -139.17, -26.99, -145.21, -20.71, -143.95, 6.71, -138.06, 11.53, -133.96, 23.09, -131, 40.43, -131.01, 50.69 ],
+					"color": "ce3a3aff"
+				}
+			},
+			"wild cars": {
+				"wild cars": { "x": 17.11, "y": 24.05, "width": 354, "height": 119 }
+			},
+			"ziara_1": {
+				"ziara_1": {
+					"type": "mesh",
+					"uvs": [ 1, 1, 0, 1, 0, 0, 1, 0 ],
+					"triangles": [ 1, 2, 3, 1, 3, 0 ],
+					"vertices": [ 194.89, -180.97, -190.11, -181.98, -191.06, 176.01, 193.94, 177.03 ],
+					"hull": 4,
+					"edges": [ 0, 2, 2, 4, 4, 6, 0, 6 ],
+					"width": 385,
+					"height": 358
+				}
+			},
+			"ziara_2": {
+				"ziara_1": {
+					"type": "mesh",
+					"uvs": [ 1, 1, 0, 1, 0, 0, 1, 0 ],
+					"triangles": [ 1, 2, 3, 1, 3, 0 ],
+					"vertices": [ 147.09, -223.83, -228.07, -137.32, -147.63, 211.52, 227.53, 125.02 ],
+					"hull": 4,
+					"edges": [ 0, 2, 2, 4, 4, 6, 0, 6 ],
+					"width": 385,
+					"height": 358
+				}
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"slots": {
+			"bonusi_2": {
+				"color": [
+					{ "color": "ffdf7e00" },
+					{ "time": 0.1333, "color": "ffdf7eff", "curve": "stepped" },
+					{ "time": 1.9667, "color": "ffdf7eff" },
+					{ "time": 2.1667, "color": "ffdf7e00" }
+				]
+			},
+			"hviezdička": {
+				"color": [
+					{ "time": 1.0667, "color": "ffffff00" },
+					{ "time": 1.1667, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 1.3, "color": "ffffffff" },
+					{ "time": 1.4, "color": "ffffff02" }
+				]
+			},
+			"hviezdička2": {
+				"color": [
+					{ "time": 1.1667, "color": "ffffff00" },
+					{ "time": 1.2667, "color": "fffffffe", "curve": "stepped" },
+					{ "time": 1.4, "color": "ffffffff" },
+					{ "time": 1.5, "color": "ffffff00" }
+				]
+			},
+			"odlesk": {
+				"color": [
+					{ "color": "ffffffcd" }
+				]
+			},
+			"particle": {
+				"twoColor": [
+					{ "light": "ffffffff", "dark": "ffffff", "curve": "stepped" },
+					{ "time": 0.7333, "light": "ffffffff", "dark": "ffffff" },
+					{ "time": 1, "light": "ffffff00", "dark": "ffffff", "curve": "stepped" },
+					{ "time": 1.0333, "light": "ffffff00", "dark": "ffffff" },
+					{ "time": 1.0667, "light": "ffffffff", "dark": "ffffff", "curve": "stepped" },
+					{ "time": 1.6333, "light": "ffffffff", "dark": "ffffff" },
+					{ "time": 1.8333, "light": "ffffff00", "dark": "ffffff" }
+				]
+			},
+			"particle2": {
+				"twoColor": [
+					{ "time": 1.0667, "light": "ffffffff", "dark": "ffffff" },
+					{ "time": 1.3333, "light": "ffffff00", "dark": "ffffff", "curve": "stepped" },
+					{ "time": 1.3667, "light": "ffffff00", "dark": "ffffff" },
+					{ "time": 1.4, "light": "ffffffff", "dark": "ffffff", "curve": "stepped" },
+					{ "time": 1.7667, "light": "ffffffff", "dark": "ffffff" },
+					{ "time": 1.9667, "light": "ffffff00", "dark": "ffffff" }
+				]
+			},
+			"particle3": {
+				"twoColor": [
+					{ "time": 1.3667, "light": "ffffffff", "dark": "ffffff" },
+					{ "time": 1.6667, "light": "ffffff00", "dark": "ffffff" }
+				]
+			},
+			"particle4": {
+				"twoColor": [
+					{ "time": 0.2333, "light": "ffffffff", "dark": "ffffff" },
+					{ "time": 0.4333, "light": "ffffff00", "dark": "ffffff", "curve": "stepped" },
+					{ "time": 0.4667, "light": "ffffff00", "dark": "ffffff" },
+					{ "time": 0.5, "light": "ffffffff", "dark": "ffffff", "curve": "stepped" },
+					{ "time": 1.2, "light": "ffffffff", "dark": "ffffff" },
+					{ "time": 1.5, "light": "ffffff00", "dark": "ffffff", "curve": "stepped" },
+					{ "time": 1.6333, "light": "ffffff00", "dark": "ffffff" },
+					{ "time": 1.8333, "light": "ffffffff", "dark": "ffffff" }
+				]
+			},
+			"particle5": {
+				"twoColor": [
+					{ "time": 0.8667, "light": "ffffffff", "dark": "ffffff" },
+					{ "time": 1.1667, "light": "ffffff00", "dark": "ffffff", "curve": "stepped" },
+					{ "time": 1.2, "light": "ffffff00", "dark": "ffffff" },
+					{ "time": 1.2333, "light": "ffffffff", "dark": "ffffff", "curve": "stepped" },
+					{ "time": 1.7333, "light": "ffffffff", "dark": "ffffff" },
+					{ "time": 1.9667, "light": "ffffff00", "dark": "ffffff" }
+				]
+			},
+			"particle6": {
+				"twoColor": [
+					{ "time": 1.6667, "light": "ffffffff", "dark": "ffffff" },
+					{ "time": 1.9667, "light": "ffffff00", "dark": "ffffff" }
+				]
+			},
+			"particle7": {
+				"twoColor": [
+					{ "time": 1.8, "light": "ffffffff", "dark": "ffffff" },
+					{ "time": 1.9667, "light": "ffffff00", "dark": "ffffff" }
+				]
+			},
+			"wild": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"wild2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"wild3": {
+				"attachment": [
+					{ "name": "wild3" }
+				]
+			},
+			"wild cars": {
+				"attachment": [
+					{ "name": "wild cars" }
+				]
+			},
+			"ziara_1": {
+				"color": [
+					{ "color": "ffc75500" },
+					{ "time": 0.2, "color": "ffc755ff", "curve": "stepped" },
+					{ "time": 1.9667, "color": "ffc755ff" },
+					{ "time": 2.1333, "color": "ffc75500" }
+				]
+			},
+			"ziara_2": {
+				"color": [
+					{ "color": "ff6b6b00" },
+					{ "time": 0.2, "color": "ff6b6bfe", "curve": "stepped" },
+					{ "time": 1.9667, "color": "ff6b6bfe" },
+					{ "time": 2.1, "color": "ff6b6b00" }
+				]
+			}
+		},
+		"bones": {
+			"wild": {
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 2.1667 }
+				]
+			},
+			"bone3": {
+				"rotate": [
+					{},
+					{ "time": 2.1667, "angle": 86.8 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 1.9667 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 1.9667 }
+				]
+			},
+			"bone": {
+				"rotate": [
+					{}
+				],
+				"translate": [
+					{ "x": -41.33, "y": 14.52 }
+				],
+				"scale": [
+					{ "x": 0.593, "y": 0.658 },
+					{ "time": 1.9667, "x": 1.2, "y": 1.2 },
+					{ "time": 2.1667, "x": 0.593, "y": 0.658 }
+				]
+			},
+			"bone2": {
+				"rotate": [
+					{}
+				],
+				"translate": [
+					{ "x": 47.48, "y": 57.08 }
+				],
+				"scale": [
+					{ "x": 0.641, "y": 0.641 },
+					{ "time": 1.9667, "x": 1.1, "y": 1.1 },
+					{ "time": 2.1667, "x": 0.641, "y": 0.641 }
+				]
+			},
+			"motor": {
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 2.1667 }
+				]
+			},
+			"hviezdička": {
+				"rotate": [
+					{ "time": 1.0667 },
+					{ "time": 1.4, "angle": -172.28 }
+				],
+				"translate": [
+					{ "x": 5.03, "y": -30.21 }
+				],
+				"scale": [
+					{ "x": 0.4, "y": 0.4, "curve": "stepped" },
+					{ "time": 1.0667, "x": 0.4, "y": 0.4 },
+					{ "time": 1.2333 },
+					{ "time": 1.4, "x": 0.4, "y": 0.4 }
+				]
+			},
+			"particle": {
+				"translate": [
+					{ "x": 3.51 },
+					{ "time": 1, "x": -259.49, "y": 126.76 },
+					{ "time": 1.0333, "x": -33.11, "y": -17.92 },
+					{ "time": 1.8333, "x": -117.3, "y": 216.57 }
+				],
+				"scale": [
+					{ "x": 0.8, "y": 0.8 }
+				]
+			},
+			"particle2": {
+				"translate": [
+					{ "time": 0.3333 },
+					{ "time": 1.3333, "x": 224.38, "y": 138 },
+					{ "time": 1.3667, "x": 30.43, "y": 33.85 },
+					{ "time": 1.9667, "x": 208.79, "y": 162.32 }
+				],
+				"scale": [
+					{ "x": 0.5, "y": 0.5 }
+				]
+			},
+			"particle4": {
+				"translate": [
+					{ "x": -81.41, "y": 127 },
+					{ "time": 0.4333, "x": -165.26, "y": 202.7 },
+					{ "time": 0.4667, "x": -11.52, "y": 18.54 },
+					{ "time": 1.5, "y": 235.97 },
+					{ "time": 1.6333, "x": -32.07, "y": 49.07 },
+					{ "time": 2.1667, "x": -81.41, "y": 127 }
+				],
+				"scale": [
+					{ "x": 0.5, "y": 0.5, "curve": "stepped" },
+					{ "time": 2.1667, "x": 0.5, "y": 0.5 }
+				]
+			},
+			"particle3": {
+				"translate": [
+					{ "time": 0.6667 },
+					{ "time": 1.6667, "x": 68.12, "y": 187.51 }
+				],
+				"scale": [
+					{ "x": 0.5, "y": 0.5 }
+				]
+			},
+			"particle5": {
+				"translate": [
+					{},
+					{ "time": 1.1667, "x": 150.66, "y": 155.82 },
+					{ "time": 1.2, "x": 10.34, "y": 4.9 },
+					{ "time": 1.9667, "x": -92.56, "y": 215.69 }
+				],
+				"scale": [
+					{ "x": 0.5, "y": 0.5 }
+				]
+			},
+			"particle6": {
+				"translate": [
+					{ "time": 1 },
+					{ "time": 1.9667, "x": -312.63, "y": 71.77 }
+				]
+			},
+			"particle7": {
+				"translate": [
+					{ "time": 1 },
+					{ "time": 1.9667, "x": 264.58, "y": 232.35 }
+				],
+				"scale": [
+					{ "x": 0.4, "y": 0.4 }
+				]
+			},
+			"hviezdička2": {
+				"rotate": [
+					{ "time": 1.1667 },
+					{ "time": 1.5, "angle": 158.14 }
+				],
+				"translate": [
+					{ "x": -79.22 }
+				],
+				"scale": [
+					{ "x": 0.4, "y": 0.4, "curve": "stepped" },
+					{ "time": 1.1667, "x": 0.4, "y": 0.4 },
+					{ "time": 1.3333 },
+					{ "time": 1.5, "x": 0.4, "y": 0.4 }
+				]
+			}
+		},
+		"deform": {
+			"default": {
+				"motor": {
+					"motor": [
+						{}
+					]
+				},
+				"odlesk": {
+					"odlesk": [
+						{ "time": 0.8333 },
+						{
+							"time": 1,
+							"vertices": [ 56.01106, 7.0E-5, 56.01106, 7.0E-5, 56.01106, 7.0E-5, 56.01106, 7.0E-5, 49.05387, -1.60103, 56.01106, 7.0E-5, 12.55267, -0.01026, 25.08388, 3.76024 ]
+						},
+						{
+							"time": 1.1333,
+							"vertices": [ 100.81996, 1.3E-4, 84.09089, 0.4308, 75.87121, 1.46768, 100.81996, 1.3E-4, 78.78608, -4.08541, 77.48875, -1.56486, 83.899, -3.79485, 88.58641, 3.70585 ]
+						},
+						{
+							"time": 1.2667,
+							"vertices": [ 145.62881, 1.9E-4, 140.05246, 0.14374, 137.31258, 0.48937, 145.62881, 1.9E-4, 149.62418, -5.93936, 137.85176, -0.52147, 115.34453, 0.72713, 127.06163, 2.31939 ]
+						},
+						{
+							"time": 1.3333,
+							"vertices": [ 168.03323, 2.2E-4, 168.03323, 2.2E-4, 168.03323, 2.2E-4, 168.03323, 2.2E-4, 168.03323, 2.2E-4, 168.03323, 2.2E-4, 168.03323, 2.2E-4, 168.03323 ]
+						}
+					]
+				},
+				"odrazy": {
+					"odrazy": [
+						{ "time": 0.8333 },
+						{
+							"time": 1.9667,
+							"vertices": [ 395.92804, 0.3162, 395.92804, 0.3162, 395.92804, 0.3162, 395.92804, 0.3162 ]
+						}
+					]
+				}
+			}
+		},
+		"drawOrder": [
+			{
+				"time": 0.0333,
+				"offsets": [
+					{ "slot": "ziara_1", "offset": 3 },
+					{ "slot": "ziara_2", "offset": 0 }
+				]
+			},
+			{ "time": 2.1333 }
+		]
+	}
+}
+}
