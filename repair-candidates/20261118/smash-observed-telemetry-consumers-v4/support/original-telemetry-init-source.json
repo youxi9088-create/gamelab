@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-18T00:50:42.613126+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+  "original_body_hashes": [
+    {
+      "function_index": 26516,
+      "bytes": 293,
+      "sha256": "5de9e890082e9f1adeb890f5027693f6dcfb53106147890d75795b8fe5347536"
+    },
+    {
+      "function_index": 44631,
+      "bytes": 707,
+      "sha256": "21be2bf91b83df1df31b9e2f653ca0058e78f3451bf070f16843585dca6c6635"
+    },
+    {
+      "function_index": 44632,
+      "bytes": 483,
+      "sha256": "4f17e446cd6b43ab503c418f64aae16688fec80e6965a4fe85613adcaeb7b625"
+    }
+  ],
+  "original_source_snippets": [
+    {
+      "function_index": 26516,
+      "source": "function f_wema(a:int_ptr) { // func26516\n  if (eqz(6776879[0]:ubyte)) {\n    f_bw(5620184);\n    f_bw(5621884);\n    f_bw(5627456);\n    f_bw(5697652);\n    f_bw(5634068);\n    6776879[0]:byte = 1;\n  }\n  a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14362]:int;\n  if (eqz(((if (a[29]) {\n              a\n            } else {\n              f_cw(a);\n              d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14362]:int;\n            })[23]:int)[8]:ubyte)) {\n    a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n    if (eqz(a[29])) { f_cw(a) }\n    a = f_xic(f_bgtb(0), d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[33729]:int);\n    var b:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16180]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    if (f_cy(a, 0, 0)) {\n      a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n      if (eqz(a[29])) { f_cw(a) }\n      a = f_agtb(0);\n      b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n      if (eqz(b[29])) { f_cw(b) }\n      f_oz(a, 0);\n      return ;\n    }\n    b = f_qzmb(a, a);\n    a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14362]:int;\n    ((if (a[29]) {\n        a\n      } else {\n        f_cw(a);\n        d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14362]:int;\n      })[23]:int)[8]:byte =\n      b;\n  }\n}\n\n",
+      "source_sha256": "d8812fcf585f2de6de5eed3a775fd0ee1fe92bfd227b419a08ad1618dc5fa859"
+    },
+    {
+      "function_index": 44631,
+      "source": "function f_pzmb(a:int_ptr, b:int_ptr, c:int_ptr, d:int):int { // func44631\n  6236660[0]:int = 0;\n  a = a_c(4086, a);\n  d = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (d == 1) goto B_f;\n  6236660[0]:int = 0;\n  b = a_c(4086, b);\n  d = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (d == 1) goto B_f;\n  6236660[0]:int = 0;\n  c = a_c(4086, c);\n  d = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (d == 1) goto B_f;\n  6236660[0]:int = 0;\n  a_f(4087, a, b, c);\n  d = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (d == 1) goto B_f;\n  6236660[0]:int = 0;\n  f_lca(a);\n  a = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (a == 1) goto B_f;\n  6236660[0]:int = 0;\n  f_lca(b);\n  a = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (a == 1) goto B_f;\n  6236660[0]:int = 0;\n  f_lca(c);\n  a = 6236660[0]:int;\n  6236660[0]:int = 0;\n  b = 1;\n  if (a != 1) goto B_e;\n  label B_f:\n  a = a_a(4837720);\n  if (a_b() != a_j(4837720)) goto B_a;\n  a = a_h(a);\n  6236660[0]:int = 0;\n  b = a_c(325, 5622720);\n  c = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (c == 1) goto B_c;\n  c = (a[0])[0]:int;\n  6236660[0]:int = 0;\n  b = a_d(326, b, c);\n  c = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (c == 1) goto B_c;\n  if (eqz(b)) goto B_d;\n  a = a[0];\n  a_n();\n  b = f_ew(5634068);\n  if (eqz(b[29])) { f_cw(b) }\n  b = 0;\n  a = f_lx(f_yftb(0), call_indirect(a, (a = a[0])[59], a[58]), 0);\n  c = f_ew(5621884);\n  if (eqz(c[29])) { f_cw(c) }\n  f_eba(a, 0);\n  label B_e:\n  return b;\n  label B_d:\n  b = a_o(4);\n  b[0] = a[0];\n  6236660[0]:int = 0;\n  a_f(327, b, 4837720, 0);\n  a = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (a != 1) goto B_b;\n  label B_c:\n  a = a_i();\n  a_b();\n  6236660[0]:int = 0;\n  a_e(58);\n  b = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (b != 1) goto B_a;\n  a_a(0);\n  a_b();\n  f_tw();\n  label B_b:\n  unreachable;\n  label B_a:\n  a_l(a);\n  return unreachable;\n}\n\n",
+      "source_sha256": "e20fbdb6c1782d9fb738b20abe3571845d4324dd0ae8cd87f1d3bb0e267fb0b3"
+    },
+    {
+      "function_index": 44632,
+      "source": "function f_qzmb(a:int_ptr, b:int_ptr):int { // func44632\n  if (eqz(6776911[0]:ubyte)) {\n    f_bw(5619272);\n    f_bw(5620192);\n    f_bw(5621832);\n    f_bw(5621884);\n    f_bw(5634068);\n    6776911[0]:byte = 1;\n  }\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14774]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  var c:long = f_xxb(0);\n  ((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14364]:int)[23]:int)[3]:long = c;\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14134]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  b = f_ypk(0);\n  ((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14364]:int)[23]:int)[2]:int = b;\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  b = f_lx(f_xftb(0), f_ebi(0), 0);\n  ((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14364]:int)[23]:int)[3]:int = b;\n  b = f_bup(0);\n  ((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14364]:int)[23]:int)[5]:int = b;\n  if (eqz({\n            b = a[11];\n            if (b) {\n              0;\n              if (b[2]) goto B_f;\n            }\n            1;\n            label B_f:\n          })) {\n    if (eqz({\n              b = a[10];\n              if (b) {\n                0;\n                if (b[2]) goto B_i;\n              }\n              1;\n              label B_i:\n            })) goto B_e\n  }\n  a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(a[29])) { f_cw(a) }\n  a = f_wftb(0);\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  f_eba(a, 0);\n  return 0;\n  label B_e:\n  return {\n           0;\n           if ({\n                 if (b = a[11]) {\n                   0;\n                   if (b[2]) goto B_n;\n                 }\n                 1;\n                 label B_n:\n               }) goto B_m;\n           0;\n           if ({\n                 if (b = a[10]) {\n                   0;\n                   if (b[2]) goto B_p;\n                 }\n                 1;\n                 label B_p:\n               }) goto B_m;\n           b = (d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14364]:int)[23]:int;\n           b[1] = a[11];\n           b[0] = a[10];\n           a = (d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14364]:int)[23]:int;\n           f_pzmb(a[0], a[1], a[2], a);\n           label B_m:\n         }\n}\n\n",
+      "source_sha256": "66cf34001254c0888766b71070737baf9b00ea02ced0ff8da9d165047870c945"
+    }
+  ]
+}
