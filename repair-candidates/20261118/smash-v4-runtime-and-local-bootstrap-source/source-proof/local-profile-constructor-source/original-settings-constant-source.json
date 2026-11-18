@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-18T01:02:38.335788+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+  "original_body_hashes": [
+    {
+      "function_index": 25900,
+      "bytes": 1059,
+      "sha256": "c3e0dc3118263dd210df4ca85fc1dda4e4082cafa216a3a2034a107c4da513b6"
+    },
+    {
+      "function_index": 43161,
+      "bytes": 442,
+      "sha256": "0611a55d168fa4260b2835cf0790ad1f710b7ae6c58de1ab1f0183ec81702eb1"
+    },
+    {
+      "function_index": 43198,
+      "bytes": 243,
+      "sha256": "d01c3b87d33e95e488ad62ce9b15bcf35449122b8e9f184962ec7fc331201aa4"
+    },
+    {
+      "function_index": 43206,
+      "bytes": 214,
+      "sha256": "f786ef2fc0c90b35a55adcd3bab994f7b9ffe8473025cc3ab747586dc84e7581"
+    }
+  ],
+  "original_source_snippets": [
+    {
+      "function_index": 25900,
+      "source": "function f_ehla(a:int, b:int) { // func25900\n  b = g_a - 144;\n  g_a = b;\n  if (eqz(6780829[0]:ubyte)) {\n    f_bw(5619148);\n    f_bw(5625568);\n    f_bw(5663208);\n    f_bw(5615264);\n    f_bw(5634068);\n    6780829[0]:byte = 1;\n  }\n  f_ala(b + 32, 60, 0);\n  a[13]:int = b[12]:int;\n  a[11]:long@4 = b[5]:long;\n  a[9]:long@4 = b[4]:long;\n  f_nub(b + 128, 0, 0);\n  a[46]:int = b[34]:int;\n  a[44]:long@4 = b[16]:long;\n  f_ala(b + 104, 1, 0);\n  a[51]:int = b[30]:int;\n  a[49]:long@4 = b[14]:long;\n  a[47]:long@4 = b[13]:long;\n  f_ala(b + 80, 1, 0);\n  a[56]:int = b[24]:int;\n  a[54]:long@4 = b[11]:long;\n  a[52]:long@4 = b[10]:long;\n  f_ala(b + 56, 1, 0);\n  a[61]:int = b[18]:int;\n  a[59]:long@4 = (b - -64)[0]:long;\n  a[57]:long@4 = b[7]:long;\n  var c:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15708]:int;\n  if (eqz(c[29])) { f_cw(c) }\n  f_ala(b + 32, select_if(4, 0, f_fqe(0)), 0);\n  a[66]:int = b[12]:int;\n  a[64]:long@4 = b[5]:long;\n  a[62]:long@4 = b[4]:long;\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15708]:int;\n  if (eqz(c[29])) { f_cw(c) }\n  f_sbb(b + 32, select_if(0.6f, 1.0f, f_ielb(0)), 0);\n  a[71]:long@4 = b[6]:long;\n  a[69]:long@4 = b[5]:long;\n  a[67]:long@4 = b[4]:long;\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(c[29])) { f_cw(c) }\n  a[73]:int = f_hw(f_rca(0), 0);\n  a[74]:int = f_hw(f_rca(0), 0);\n  a[75]:int = f_rca(0);\n  a[76]:int = f_hw(f_rca(0), 0);\n  f_ala(b + 104, 0, 0);\n  a[82]:int = b[30]:int;\n  a[80]:long@4 = b[14]:long;\n  a[78]:long@4 = b[13]:long;\n  c = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13132]:int);\n  f_wx(c, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[25118]:int);\n  a[98]:int = c;\n  c = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13132]:int);\n  f_wx(c, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[25118]:int);\n  a[99]:int = c;\n  a[101]:int = f_hw(f_rca(0), 0);\n  a[102]:int = f_hw(f_hpxa(0), 0);\n  c = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13132]:int);\n  f_wx(c, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[25118]:int);\n  a[108]:int = c;\n  c = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13132]:int);\n  f_wx(c, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[25118]:int);\n  a[109]:int = c;\n  c = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13132]:int);\n  f_wx(c, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[25118]:int);\n  a[110]:int = c;\n  f_nub(b + 80, 1, 0);\n  a[126]:int = b[22]:int;\n  a[124]:long@4 = b[10]:long;\n  f_nub(b + 56, 1, 0);\n  a[129]:int = (b - -64)[0]:int;\n  a[127]:long@4 = b[7]:long;\n  f_nub(b + 128, 1, 0);\n  a[132]:int = b[34]:int;\n  a[130]:long@4 = b[16]:long;\n  a[133]:int = f_hw(f_rca(0), 0);\n  a[135]:int =\n    f_hw(((if ((c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14103]:int)[29]) {\n             c\n           } else {\n             f_cw(c);\n             d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14103]:int;\n           })[23]:int)[0]:int,\n         0);\n  f_nub(b + 16, 1, 0);\n  a[143]:int = b[6]:int;\n  a[141]:long@4 = b[2]:long;\n  f_nub(b, 0, 0);\n  a[146]:int = b[2]:int;\n  a[144]:long@4 = b[0]:long;\n  a[147]:int = 1;\n  c = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13132]:int);\n  f_wx(c, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[25118]:int);\n  a[152]:int = c;\n  g_a = b + 144;\n}\n\n",
+      "source_sha256": "d6b59bdd5d5d222cb7dae49a42803a8f7c59d418870a071071a7429934ccf87a"
+    },
+    {
+      "function_index": 43161,
+      "source": "function f_bvkb(a:int, b:{ a:long, b:long, c:long, d:long, e:long, f:int, g:long, h:int, i:long, j:int }) { // func43161\n  b = g_a - 80;\n  g_a = b;\n  if (eqz(6780877[0]:ubyte)) {\n    f_bw(5660676);\n    f_bw(5614760);\n    f_bw(5628464);\n    f_bw(5634068);\n    6780877[0]:byte = 1;\n  }\n  var c:int_ptr = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16432]:int);\n  f_gykb(c, a);\n  a[2]:int = c;\n  f_nub(b - -64, 1, 0);\n  a[37]:int = b.j;\n  a[35]:long@4 = b.i;\n  f_nub(b + 48, 0, 0);\n  a[61]:int = b.h;\n  a[59]:long@4 = b.g;\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(c[29])) { f_cw(c) }\n  a[97]:int = f_hw(f_rca(0), 0);\n  a[98]:int = f_hw(f_rca(0), 0);\n  a[100]:int = f_hw(f_rca(0), 0);\n  a[101]:int = f_hw(f_rca(0), 0);\n  f_ala(b + 24, 0, 0);\n  a[106]:int = b.f;\n  a[104]:long@4 = b.e;\n  a[102]:long@4 = b.d;\n  a[148]:int = f_hw(f_rca(0), 0);\n  a[149]:int = f_hw(f_rca(0), 0);\n  a[155]:int = f_hw(f_rca(0), 0);\n  a[156]:int = f_hw(f_rca(0), 0);\n  f_sbb(b, 1.0f, 0);\n  a[173]:long@4 = b.c;\n  a[171]:long@4 = b.b;\n  a[169]:long@4 = b.a;\n  c = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13006]:int);\n  f_wx(c, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[24485]:int);\n  a[175]:int = c;\n  g_a = b + 80;\n}\n\n",
+      "source_sha256": "d8362935fd6c0e33908da1a1df7083ffc20a1f7462919897df33238f5f1c962e"
+    },
+    {
+      "function_index": 43198,
+      "source": "function f_mwkb(a:int_ptr, b:int_ptr) { // func43198\n  if (eqz(6780831[0]:ubyte)) {\n    f_bw(5623260);\n    f_bw(5663284);\n    f_bw(5663288);\n    f_bw(5628464);\n    6780831[0]:byte = 1;\n  }\n  b = {\n        b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15131]:int;\n        b = ((if (b[29]) {\n                b\n              } else {\n                f_cw(b);\n                d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15131]:int;\n              })[23]:int)[616]:int;\n        if (b) {\n          0;\n          if (b[2]) goto B_b;\n        }\n        1;\n        label B_b:\n      }\n  (a[2])[8]:int =\n    f_hw(\n      {\n        if (eqz(b)) {\n          ((if ((a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15131]:int)[29]) {\n              a\n            } else {\n              f_cw(a);\n              d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15131]:int;\n            })[23]:int)[616]:int;\n          goto B_e;\n        }\n        f_px(a = ((if ((a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16432]:int)[29]) {\n                     a\n                   } else {\n                     f_cw(a);\n                     d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16432]:int;\n                   })[23]:int)[0]:int,\n             f_pua(0, a[3], 0),\n             d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[25138]:int);\n        label B_e:\n      },\n      0);\n}\n\n",
+      "source_sha256": "eecc23222c0449963db88395e73651e67b93cb2f9e2db14a7ec1ac28100a8e1f"
+    },
+    {
+      "function_index": 43206,
+      "source": "function f_uwkb(a:int, b:int) { // func43206\n  b = g_a - 48;\n  g_a = b;\n  if (eqz(6780818[0]:ubyte)) {\n    f_bw(5621832);\n    f_bw(5625568);\n    6780818[0]:byte = 1;\n  }\n  var c:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15708]:int;\n  if (eqz(c[29])) { f_cw(c) }\n  f_nub(b + 8, 0, 0);\n  a[46]:int = b[4]:int;\n  a[44]:long@4 = b[1]:long;\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14774]:int;\n  if (eqz(c[29])) { f_cw(c) }\n  b[0]:long = f_xxb(0);\n  f_hwf(b + 8, f_psm(b, 0), 0);\n  a[16]:long = b[5]:long;\n  a[15]:long = b[4]:long;\n  a[14]:long = b[3]:long;\n  a[13]:long = b[2]:long;\n  a[12]:long = b[1]:long;\n  g_a = b + 48;\n}\n\n",
+      "source_sha256": "e7b810628e9450476541021e4b4012de719dcee3a8bbe0805dd25de2bcf544c5"
+    }
+  ]
+}

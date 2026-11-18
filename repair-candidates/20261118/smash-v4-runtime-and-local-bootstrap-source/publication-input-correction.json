@@ -1,0 +1,6 @@
+{
+  "initial_publication_failed_before_file_writes": true,
+  "cause": "Existing finish helper deliberately prints a compact summary without remaining_runtime_blocker_events; the saved full remote outcome includes that field. Full equality correctly rejected a summary as the complete receipt.",
+  "correction": "Read the already-existing complete outcome and compare full JSON exactly. No runtime, state, ledger or work-log operation repeated.",
+  "complete_outcome_sha256": "2fa51ef7dbc132b8749f01268cd827f1a94a5bd65177595eaccb010d7c7e9516"
+}
