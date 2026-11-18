@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-18T00:36:45.155753+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+  "original_body_hashes": [
+    {
+      "function_index": 23428,
+      "bytes": 1221,
+      "sha256": "0551bd2316a25b765871946d4099e460d1d134e452f92efaf8d372ee70857e37"
+    },
+    {
+      "function_index": 35469,
+      "bytes": 228,
+      "sha256": "329bf0ae2445968ad56eefbd6f8163f73b68259af4a4baf9b6e6af32bc0c9eaa"
+    },
+    {
+      "function_index": 106761,
+      "bytes": 226,
+      "sha256": "dc4a23cf010508c626ec5be51ca8fb2557da39516dc6b3188ef547e3474f5f56"
+    }
+  ],
+  "original_source_snippets": [
+    {
+      "function_index": 23428,
+      "source": "function f_cqha(a:int, b:{ a:int, b:int, c:byte, d:int }, c:{ a:int, b:int, c:int }, d:int):int { // func23428\n  var e:int_ptr;\n  var i:int_ptr = g_a - 16;\n  g_a = i;\n  e = d[7]:int;\n  if (e) goto B_a;\n  f_bw(5674992);\n  f_bw(5613160);\n  f_bw(5605888);\n  f_bw(5628452);\n  f_bw(5629064);\n  f_bw(5607104);\n  f_bw(5607208);\n  f_bw(5631588);\n  f_bw(5723388);\n  f_bw(5768628);\n  e = d[7]:int;\n  if (e) goto B_a;\n  f_ww(d);\n  e = d[7]:int;\n  label B_a:\n  i[3] = 0;\n  d = e[0];\n  e = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17213]:int;\n  if (eqz(e[29])) { f_cw(e) }\n  d = f_ow(d, 0);\n  var h:int = call_indirect(d, (d = d[0]:int)[103]:int, d[102]:int);\n  var f:int_ptr = f_ow(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[10788]:int, 0);\n  e = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[28064]:int;\n  d = e[7];\n  d = (if (d) {\n         d\n       } else {\n         f_ww(e);\n         e[7];\n       })[2]:int;\n  if (eqz(d[189]:ubyte & 1)) { d = f_dw(d) }\n  if (eqz(d[29]:int)) { f_cw(d) }\n  d = (e[7])[2]:int;\n  d = ((if (d[189]:ubyte & 1) { d } else { f_dw(d) })[23]:int)[0]:int;\n  e = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16582]:int);\n  f_phh(e, b, b, h, f, d, 0);\n  b = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16429]:int);\n  b.c = 0;\n  b.d = a[4]:int;\n  e[5] = b;\n  if (eqz({\n            if (c) {\n              0;\n              if (c.c) goto B_g;\n            }\n            1;\n            label B_g:\n          })) {\n    b = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16429]:int);\n    b.c = 1;\n    b.d = a[4]:int;\n    d = c;\n    if (f_idab(d, 0)) { d = f_hdab(c, 0) }\n    i[3] = call_indirect(d, (d = d[0]:int)[53]:int, d[52]:int);\n    d = f_mz(i + 12, 0);\n    h = f_pbob(a,\n               f_az(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[51473]:int,\n                    d,\n                    d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[40163]:int,\n                    0),\n               0);\n    a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[11118]:int;\n    d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17213]:int;\n    if (eqz(d[29]:int)) { f_cw(d) }\n    a = f_ow(a, 0);\n    f = call_indirect(a, (a = a[0]:int)[103]:int, a[102]:int);\n    var g:int = f_ow(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[11092]:int, 0);\n    a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[28064]:int;\n    d = a[7]:int;\n    d = (if (d) {\n           d\n         } else {\n           f_ww(a);\n           a[7]:int;\n         })[2]:int;\n    if (eqz(d[189]:ubyte & 1)) { d = f_dw(d) }\n    if (eqz(d[29]:int)) { f_cw(d) }\n    a = (a[7]:int)[2]:int;\n    var j:int = \n      ((if (a[189]:ubyte & 1) { a } else { f_dw(a) })[23]:int)[0]:int;\n    d = 0;\n    a = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16582]:int);\n    f_phh(a, c, c, f, g, j, 0);\n    a[5]:int = f_xaha(b, 0);\n    c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[12606]:int;\n    c = {\n          f = e[9];\n          g = f[0];\n          var k:int = g[91]:ushort;\n          if (eqz(k)) goto B_q;\n          j = g[22]:int;\n          loop L_r {\n            if (c != (j + (d << 3))[0]:int) {\n              if (k != (d = d + 1)) continue L_r;\n              goto B_q;\n            }\n          }\n          ((j + (d << 3))[1]:int << 3) + g + 208;\n          goto B_p;\n          label B_q:\n          f_jw(f, c, 2);\n          label B_p:\n        }\n    call_indirect(f, a, c.b, c.a);\n    a = f_ow(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[11118]:int, 0);\n    c = call_indirect(a, (a = a[0]:int)[103]:int, a[102]:int);\n    f = f_ow(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[11092]:int, 0);\n    a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[28064]:int;\n    d = a[7]:int;\n    d = (if (d) {\n           d\n         } else {\n           f_ww(a);\n           a[7]:int;\n         })[2]:int;\n    if (eqz(d[189]:ubyte & 1)) { d = f_dw(d) }\n    if (eqz(d[29]:int)) { f_cw(d) }\n    a = (a[7]:int)[2]:int;\n    g = ((if (a[189]:ubyte & 1) { a } else { f_dw(a) })[23]:int)[0]:int;\n    d = 0;\n    a = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16582]:int);\n    f_phh(a, h, h, c, f, g, 0);\n    a[5]:int = f_xaha(b, 0);\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[12606]:int;\n    b = {\n          c = e[9];\n          h = c.a;\n          g = h[91]:ushort;\n          if (eqz(g)) goto B_y;\n          f = h[22]:int;\n          loop L_z {\n            if (b != (f + (d << 3))[0]:int) {\n              if (g != (d = d + 1)) continue L_z;\n              goto B_y;\n            }\n          }\n          ((f + (d << 3))[1]:int << 3) + h + 208;\n          goto B_x;\n          label B_y:\n          f_jw(c, b, 2);\n          label B_x:\n        }\n    call_indirect(c, a, b.b, b.a);\n  }\n  g_a = i + 16;\n  return e;\n}\n\n",
+      "source_sha256": "ab3b3446d4676364ad7cc7d2070f266d55d9ff06617b3ebabe915c598f93d07a"
+    },
+    {
+      "function_index": 35469,
+      "source": "function f_flza(a:int_ptr):int { // func35469\n  if (eqz(6747026[0]:ubyte)) {\n    f_bw(5634068);\n    6747026[0]:byte = 1;\n  }\n  var b:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(b[29])) {\n    f_cw(b);\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  }\n  a = ((b[23])[112088]:int)[83]:int;\n  if (eqz(a)) {\n    if (eqz(b[29])) { f_cw(b) }\n    if (eqz(6746947[0]:ubyte)) {\n      f_bw(5634068);\n      6746947[0]:byte = 1;\n    }\n    b = f_gw(0);\n    a = call_indirect(\n          b,\n          ((if ((a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int)[29]) {\n              a\n            } else {\n              f_cw(a);\n              d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n            })[23]:int)[112087]:int,\n          2203,\n          57,\n          (a = b[0])[123],\n          a[122]);\n    (((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int)[23]:int)[112088]:int)[83]:int =\n      a;\n  }\n  return a;\n}\n\n",
+      "source_sha256": "542bb4facb2e200923afcc4853a6fb0fdb39e5444f0c7338f34a1a76f6a822c1"
+    },
+    {
+      "function_index": 106761,
+      "source": "function f_fxaf(a:int_ptr):int { // func106761\n  if (eqz(6774268[0]:ubyte)) {\n    f_bw(5619064);\n    6774268[0]:byte = 1;\n  }\n  a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14082]:int;\n  if (eqz(a[29])) { f_cw(a) }\n  if (eqz(6795876[0]:ubyte)) {\n    f_bw(5619064);\n    6795876[0]:byte = 1;\n  }\n  a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14082]:int;\n  if (eqz(a[29])) { f_cw(a) }\n  if (eqz(6774360[0]:ubyte)) {\n    f_bw(5619272);\n    f_bw(5723428);\n    6774360[0]:byte = 1;\n  }\n  a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14134]:int;\n  if (eqz(a[29])) { f_cw(a) }\n  a = f_idj(0);\n  if (eqz(6774358[0]:ubyte)) {\n    f_bw(5754956);\n    6774358[0]:byte = 1;\n  }\n  return f_az(a,\n              d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[40173]:int,\n              d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[48055]:int,\n              0);\n}\n\n",
+      "source_sha256": "269d897ebef55fbc18a6e97629a9770c13fd5e677665a05b1331e06c0f45688d"
+    }
+  ]
+}

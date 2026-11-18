@@ -1,0 +1,71 @@
+{
+  "at": "2026-11-18T00:34:44.292717+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+  "original_body_hashes": [
+    {
+      "function_index": 12692,
+      "bytes": 116,
+      "sha256": "62d8d0e359f4f59bf11f6102425f0aa4a91f8ca119898400cbedb569c047abed"
+    },
+    {
+      "function_index": 18037,
+      "bytes": 351,
+      "sha256": "22f38d5a44f27555a7e070944448bcecdcdc0beb27aff62e51c47673a90a2f7a"
+    },
+    {
+      "function_index": 26827,
+      "bytes": 165,
+      "sha256": "0d5e69f30a590a993c02a4bfe6f1633828818d856d5c25d22e51e5ad12aa6e3e"
+    },
+    {
+      "function_index": 45351,
+      "bytes": 174,
+      "sha256": "ff0e16c00667ba1163fcd198ff00542628596ef6db99adf81089b52b1898e877"
+    },
+    {
+      "function_index": 45352,
+      "bytes": 174,
+      "sha256": "84d936e54a27af731f470c4f9ace79b87fb52e93e78612548241d5e1cd4b685f"
+    },
+    {
+      "function_index": 45359,
+      "bytes": 61,
+      "sha256": "602e9c1faae10501326540c3fc2fe8953616341b5087fa81bcdb08afc44f45f7"
+    }
+  ],
+  "original_source_snippets": [
+    {
+      "function_index": 12692,
+      "source": "function f_etr(a:int, b:int):int { // func12692\n  if (eqz(6774553[0]:ubyte)) {\n    f_bw(5674648);\n    f_bw(5619076);\n    f_bw(5612596);\n    6774553[0]:byte = 1;\n  }\n  b = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[12465]:int);\n  f_ipa(b, 0, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[27978]:int, 0);\n  var c:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14085]:int;\n  if (eqz(c[29])) { f_cw(c) }\n  return f_raob(a, 123, 125, b, a);\n}\n\n",
+      "source_sha256": "1d37d89cbce2c83192b58f667913d0633e50917d3597fde5f5f2cd8d50e31c66"
+    },
+    {
+      "function_index": 18037,
+      "source": "function f_tqz(a:int, b:int_ptr, c:int, d:int, e:int, f:{ a:long, b:int, c:long, d:int, e:long, f:int, g:long, h:int }) { // func18037\n  f = g_a + -64;\n  g_a = f;\n  if (eqz(6774378[0]:ubyte)) {\n    f_bw(5674604);\n    f_bw(5642116);\n    f_bw(5612080);\n    f_bw(5697380);\n    f_bw(5709688);\n    f_bw(5634272);\n    6774378[0]:byte = 1;\n  }\n  f.h = 0;\n  f.g = 0L;\n  var g:int = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17884]:int);\n  g[5]:int = e;\n  g[16]:byte = d;\n  g[3]:int = c;\n  g[2]:int = b;\n  c = f_aibb(b, c, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[27967]:int);\n  if (f_fac(b, f)) {\n    c = b[2];\n    f_hhc(f + 16, b, f);\n    b = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[12336]:int);\n    f_wnf(b, g, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[36738]:int, 0);\n    f.b = f.d;\n    f.a = f.c;\n    f_vag(f + 32, c, f, b, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[33661]:int);\n    a[2]:int = f.f;\n    a[0]:long@4 = f.e;\n    goto B_b;\n  }\n  f_rqz(f + 48, b, c, g[5]:int, 0, f);\n  if (g[16]:ubyte) { f_qnf(f + 48, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[19845]:int) }\n  a[0]:long@4 = f.g;\n  a[2]:int = f.h;\n  label B_b:\n  g_a = f - -64;\n}\n\n",
+      "source_sha256": "115e48b1742fa7111fb4fbd5592005c492bd8f06e22256a1b9b1a21c8d827eab"
+    },
+    {
+      "function_index": 26827,
+      "source": "function f_vqma(a:int, b:int_ptr):int { // func26827\n  if (eqz(6774260[0]:ubyte)) {\n    f_bw(5619064);\n    6774260[0]:byte = 1;\n  }\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14082]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  if (eqz(6795876[0]:ubyte)) {\n    f_bw(5619064);\n    6795876[0]:byte = 1;\n  }\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14082]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  if (eqz(6774368[0]:ubyte)) {\n    f_bw(5619076);\n    6774368[0]:byte = 1;\n  }\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14085]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  return f_etr(a, a);\n}\n\n",
+      "source_sha256": "2bc270d4975c79b6edf0646996a0a058b4a8fca44d27fcf0b5f0c4f28fc19398"
+    },
+    {
+      "function_index": 45351,
+      "source": "function f_hbob(a:int, b:int, c:int, d:int, e:{ a:long, b:int }) { // func45351\n  e = g_a - 16;\n  g_a = e;\n  if (eqz(6774285[0]:ubyte)) {\n    f_bw(5619064);\n    6774285[0]:byte = 1;\n  }\n  var f:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14082]:int;\n  if (eqz(f[29])) { f_cw(f) }\n  if (eqz(6795876[0]:ubyte)) {\n    f_bw(5619064);\n    6795876[0]:byte = 1;\n  }\n  f_tqz(e,\n        ((if ((f = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14082]:int)[29]) {\n            f\n          } else {\n            f_cw(f);\n            d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14082]:int;\n          })[23]:int)[1]:int,\n        b,\n        c,\n        d,\n        e);\n  a[2]:int = e.b;\n  a[0]:long@4 = e.a;\n  g_a = e + 16;\n}\n\n",
+      "source_sha256": "1943383aa040aa28848d612937d116ba06eccbcb2b35f61a59d9f054dae5a4d3"
+    },
+    {
+      "function_index": 45352,
+      "source": "function f_ibob(a:int, b:int, c:int, d:{ a:long, b:int }) { // func45352\n  d = g_a - 16;\n  g_a = d;\n  if (eqz(6774284[0]:ubyte)) {\n    f_bw(5619064);\n    6774284[0]:byte = 1;\n  }\n  var e:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14082]:int;\n  if (eqz(e[29])) { f_cw(e) }\n  if (eqz(6795876[0]:ubyte)) {\n    f_bw(5619064);\n    6795876[0]:byte = 1;\n  }\n  f_tqz(d,\n        ((if ((e = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14082]:int)[29]) {\n            e\n          } else {\n            f_cw(e);\n            d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14082]:int;\n          })[23]:int)[1]:int,\n        b,\n        0,\n        c,\n        d);\n  a[2]:int = d.b;\n  a[0]:long@4 = d.a;\n  g_a = d + 16;\n}\n\n",
+      "source_sha256": "a4d69723af2ec4c35f6217216a2948acdab5b7cdc574f10e013f2a0ea8ab05a3"
+    },
+    {
+      "function_index": 45359,
+      "source": "function f_pbob(a:int_ptr, b:int, c:int):int { // func45359\n  if (eqz(6774368[0]:ubyte)) {\n    f_bw(5619076);\n    6774368[0]:byte = 1;\n  }\n  a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14085]:int;\n  if (eqz(a[29])) { f_cw(a) }\n  return f_etr(b, b);\n}\n\n",
+      "source_sha256": "7918938ef105b6157bd52f3bf1c8931058a953a4539cfe3238b1e5016c011abf"
+    }
+  ]
+}
