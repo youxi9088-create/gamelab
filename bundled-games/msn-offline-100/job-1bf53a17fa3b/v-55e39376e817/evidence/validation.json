@@ -1,0 +1,212 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1，坐标轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入2，坐标轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入3，坐标轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入4，坐标轨迹见validation.json"
+      },
+      {
+        "type": "reload",
+        "description": "真实累计输入5，坐标轨迹见validation.json"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 544,
+    "responses": 544,
+    "tested_revision": "roulette-offline-v1",
+    "delivery_revision": "roulette-offline-v1",
+    "scope": "累计5次真实输入：精确离线入口→原PLAY→原默认1筹码押红色外围区→原SPIN并按原时钟等待自然结算→实际刷新。下注后MONEY1000→999、CUR BET0→1，轮盘自然开出黑色24，红色下注落败，原历史出现24/黑圈，CUR BET归0、余额999，原roulette_royale_user_money写999。刷新回原菜单，原CMain读取存档后TOTAL_MONEY为999。没有写RNG、结果、筹码、时间或调用业务处理方法；没有第6次输入。只验证1轮自然输局和本地刷新，其他下注档、组合、赢局/支付、重押、全屏/音频听感未实测，未截取轮盘中间帧。",
+    "native_bet_verified": true,
+    "native_spin_and_loss_settlement_verified": true,
+    "native_history_black24_verified": true,
+    "native_local_save_verified": true,
+    "storage_reload_verified": true,
+    "winning_payout_runtime_verified": false,
+    "all_bet_types_verified": false,
+    "cumulative_input_budget": 5,
+    "final_revision_inputs": 5,
+    "prior_failed_UI_inputs": 0
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/roulette-offline-v1/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "phase": 1,
+      "action": "click",
+      "x": 716,
+      "y": 393,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 716,
+          "y": 393
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "phase": 1,
+      "action": "click",
+      "x": 805,
+      "y": 647,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 805,
+          "y": 647
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "phase": 1,
+      "action": "click",
+      "x": 1294,
+      "y": 750,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 1294,
+          "y": 750
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "phase": 1,
+      "action": "reload",
+      "trajectory": []
+    }
+  ],
+  "bet": "red outside",
+  "bet_amount": 1,
+  "observed_result": 24,
+  "observed_color": "black",
+  "observed_payout": 0,
+  "wallet_before": 1000,
+  "wallet_after_bet": 999,
+  "wallet_after_hand": 999,
+  "wallet_after_reload": 999,
+  "browser_session": 91848,
+  "browser_actual_exit_code": 0,
+  "state_injection": false,
+  "handler_calls": false,
+  "screenshots_opened": true,
+  "wheel_intermediate_frame_screenshot": false,
+  "accounting": {
+    "observation_start": "2026-11-18T05:06:48.065177+00:00",
+    "observation_end": "2026-11-18T05:22:54.846492+00:00",
+    "elapsed_seconds": 966.781315,
+    "scope": "公开原入口抓取至本次证据整理经过时间，含静态分析/传输/等待和其他任务，不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  }
+}

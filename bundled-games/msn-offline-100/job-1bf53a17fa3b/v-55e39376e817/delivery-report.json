@@ -1,0 +1,349 @@
+{
+  "msn_revision": "roulette-offline-v1",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1，坐标轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入2，坐标轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入3，坐标轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入4，坐标轨迹见validation.json"
+      },
+      {
+        "type": "reload",
+        "description": "真实累计输入5，坐标轨迹见validation.json"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 544,
+    "responses": 544,
+    "tested_revision": "roulette-offline-v1",
+    "delivery_revision": "roulette-offline-v1",
+    "scope": "累计5次真实输入：精确离线入口→原PLAY→原默认1筹码押红色外围区→原SPIN并按原时钟等待自然结算→实际刷新。下注后MONEY1000→999、CUR BET0→1，轮盘自然开出黑色24，红色下注落败，原历史出现24/黑圈，CUR BET归0、余额999，原roulette_royale_user_money写999。刷新回原菜单，原CMain读取存档后TOTAL_MONEY为999。没有写RNG、结果、筹码、时间或调用业务处理方法；没有第6次输入。只验证1轮自然输局和本地刷新，其他下注档、组合、赢局/支付、重押、全屏/音频听感未实测，未截取轮盘中间帧。",
+    "native_bet_verified": true,
+    "native_spin_and_loss_settlement_verified": true,
+    "native_history_black24_verified": true,
+    "native_local_save_verified": true,
+    "storage_reload_verified": true,
+    "winning_payout_runtime_verified": false,
+    "all_bet_types_verified": false,
+    "cumulative_input_budget": 5,
+    "final_revision_inputs": 5,
+    "prior_failed_UI_inputs": 0
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "真实广告/SDK/补1000按钮与奖励回调退役，不新增补筹码或成功回调。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/retirement.json",
+        "evidence/source-fidelity.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "save_score等外部上传与通知消费者移除，原本地余额和局内19行HISTORY保持。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/retirement.json",
+        "evidence/source-fidelity.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原单机轮盘与本地结算；更多游戏外链UI和切游戏provider退役，无在线房间。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/retirement.json",
+        "evidence/source-fidelity.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "原$为虚拟筹码单位，无实际支付服务或资金交易；广告补筹码入口已退役。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/retirement.json",
+        "evidence/source-fidelity.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "棋牌 / 轮盘 / 本地虚拟筹码",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "在轮盘盘面选择单号或组合/外围区下注，旋转后按原结果与赔付规则结算，控制虚拟筹码消耗。区别于Jacks五张牌换牌、Blackjack21点与TexasHoldem公共牌。真实本轮默认1筹码押红，结果黑24，原输局余额999。",
+    "core_experience": "",
+    "controls": "鼠标点PLAY、默认筹码、可见数字/红黑等下注区、SPIN；原左右下注热区/邻号/尾号/清上注/清全注/重押、声音/退出/全屏保留。此次仅默认1押红和SPIN，最后实际浏览器刷新；不调用onSpin/_generateWinLoss或钱包方法。",
+    "game_loop": "",
+    "content": "单一轮盘桌，无固定关卡表。原单号/相邻/街/列/12区/红黑/奇偶/高低等热区及邻号/尾号组合保留；本轮仅红色外围1筹码。源码原所有组合表/赔付表保持，不声称全部下注配置和赢局都逐项试玩。",
+    "progression": "",
+    "save": "",
+    "rules": "349原生方法规范AST一致、101核心方法逐项一致；CRouletteSettings/CSeat/CTableController/CWheelAnim/CFinalBetPanel/CNeighborsPanel/CHistory等69整函数字节保持。4个CGame方法仅删除服务通知，独立比较证明其余状态/结算一致。原Math.random与WIN_OCCURRENCE=-1选择代码保持，不据此声称均匀或公平概率。",
+    "systems": "原下注热区/高亮、筹码堆叠、原胜负选择及赔付、200张原预渲染轮盘帧、局内历史、本地余额、声音/全屏/退出与规则配置保持。入口改DOM就绪直达原startGame/CMain，去除真实SDK门禁和服务工作线程注册，未提供假API或假身份。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5次真实输入：精确离线入口→原PLAY→原默认1筹码押红色外围区→原SPIN并按原时钟等待自然结算→实际刷新。下注后MONEY1000→999、CUR BET0→1，轮盘自然开出黑色24，红色下注落败，原历史出现24/黑圈，CUR BET归0、余额999，原roulette_royale_user_money写999。刷新回原菜单，原CMain读取存档后TOTAL_MONEY为999。没有写RNG、结果、筹码、时间或调用业务处理方法；没有第6次输入。只验证1轮自然输局和本地刷新，其他下注档、组合、赢局/支付、重押、全屏/音频听感未实测，未截取轮盘中间帧。远端52实际Chromium；544请求/544响应全部同源HTTP200，无外联/失败请求/脚本异常；保留15条原Canvas2D读回性能warning，不称零warning。浏览器91848实际BROWSER_EXIT0；开发环境没有执行原游戏或SDK。真实SDK初始化/通知/广告/外链/上传和更多游戏UI/图标预加载消费者退役；广告补1000的按钮、说明、applyReward/resetReward及唯一授权写钱入口物理移除，不伪造成功或新增补充。原初始1000虚拟筹码保持；资金耗尽时保留原Exit，不承诺有免费补充。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "CreateJS / EaselJS / TweenJS / Howler",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Roulette Royale / 皇家轮盘；MSN原生9pmdqv93xn3r，CodeThisLab公开v9。HTML/JavaScript/CSS、原CreateJS/EaselJS/TweenJS/Howler；1280×768逻辑画布，实测1440×900视口。画面是预渲染立体轮盘素材与2D Canvas合成，不声称真实3D模型或物理引擎。",
+        "asset_types": "281原上游文件，280运行文件，277原文件字节一致。原轮盘数字100帧及遮罩100帧、6筹码图、牌桌/下注热区/高亮/历史/按钮/字体、6MP3保持。3文件限定适配：入口、main业务服务边界、未被原Howler玩法调用的SoundJS WebAudio探测模块；原vendor其余字节和许可证保持。",
+        "core_challenge": "在轮盘盘面选择单号或组合/外围区下注，旋转后按原结果与赔付规则结算，控制虚拟筹码消耗。区别于Jacks五张牌换牌、Blackjack21点与TexasHoldem公共牌。真实本轮默认1筹码押红，结果黑24，原输局余额999。",
+        "controls": "鼠标点PLAY、默认筹码、可见数字/红黑等下注区、SPIN；原左右下注热区/邻号/尾号/清上注/清全注/重押、声音/退出/全屏保留。此次仅默认1押红和SPIN，最后实际浏览器刷新；不调用onSpin/_generateWinLoss或钱包方法。",
+        "behavior_path": "累计5次真实输入：精确离线入口→原PLAY→原默认1筹码押红色外围区→原SPIN并按原时钟等待自然结算→实际刷新。下注后MONEY1000→999、CUR BET0→1，轮盘自然开出黑色24，红色下注落败，原历史出现24/黑圈，CUR BET归0、余额999，原roulette_royale_user_money写999。刷新回原菜单，原CMain读取存档后TOTAL_MONEY为999。没有写RNG、结果、筹码、时间或调用业务处理方法；没有第6次输入。只验证1轮自然输局和本地刷新，其他下注档、组合、赢局/支付、重押、全屏/音频听感未实测，未截取轮盘中间帧。",
+        "game_path": "原标题→PLAY→1280×768轮盘下注桌→默认1筹码押红，18个红色数字区原高亮→SPIN→原自然黑24结果与历史黑圈→原下注归0/余额999/本地保存→刷新回原标题并读取999。原界面5张截图均已打开检查。",
+        "progression_path": "单桌连续轮盘，没有编号地图关卡或角色升级。原roulette_royale_user_money存余额，本轮真实写999且刷新读取999；界面局内历史最多原19行，本次只观察首条24，不承诺跨刷新保存历史。",
+        "core_loop": "原选择筹码/下注区→合法下注扣余额并显示CUR BET→SPIN→原生成结果和轮盘结束→原CSeat.showWin与界面刷新/本地余额保存→原重置下注表等待下一轮。此次完整一轮输局，未追加第2轮或用广告补筹码。",
+        "gameplay_rules": "349原生方法规范AST一致、101核心方法逐项一致；CRouletteSettings/CSeat/CTableController/CWheelAnim/CFinalBetPanel/CNeighborsPanel/CHistory等69整函数字节保持。4个CGame方法仅删除服务通知，独立比较证明其余状态/结算一致。原Math.random与WIN_OCCURRENCE=-1选择代码保持，不据此声称均匀或公平概率。",
+        "key_numbers": "盘面0–36；原初始1000虚拟筹码，筹码值[1,5,10,25,50,100]；MIN BET1/MAX BET1000；原历史19行，轮盘数字100帧/遮罩100帧。实际押红1，1000→999，开黑24，返还0，余额999，刷新仍999。$仅原虚拟标记，没有现金交易。",
+        "level_configuration": "单一轮盘桌，无固定关卡表。原单号/相邻/街/列/12区/红黑/奇偶/高低等热区及邻号/尾号组合保留；本轮仅红色外围1筹码。源码原所有组合表/赔付表保持，不声称全部下注配置和赢局都逐项试玩。",
+        "system_design": "原下注热区/高亮、筹码堆叠、原胜负选择及赔付、200张原预渲染轮盘帧、局内历史、本地余额、声音/全屏/退出与规则配置保持。入口改DOM就绪直达原startGame/CMain，去除真实SDK门禁和服务工作线程注册，未提供假API或假身份。",
+        "theme": "原红木轮盘与绿色台呢、金色ROULETTE ROYALE标识、0–36红黑绿数字、左侧6筹码、顶部余额/下注、右侧HISTORY和SPIN。按钮/筹码/牌桌和结果截图均原素材，未重画或替换成占位页。",
+        "progression_economy": "虚拟余额用于下注、原赔付规则结算并本地保存；本轮红色下注输1，并非测试脚本扣分或人为设置结果。真实SDK初始化/通知/广告/外链/上传和更多游戏UI/图标预加载消费者退役；广告补1000的按钮、说明、applyReward/resetReward及唯一授权写钱入口物理移除，不伪造成功或新增补充。原初始1000虚拟筹码保持；资金耗尽时保留原Exit，不承诺有免费补充。",
+        "roster": "原0–36数字下注区域、红黑外围、奇偶/高低/12区/列/分注/邻号/尾号热区，6面额筹码、轮盘、球、历史圆标、SPIN与原控制。没有在线玩家或真人庄家，轮盘视觉为原CreateJS帧动画，本次没有额外玩法输入。",
+        "monetization": "真实SDK初始化/通知/广告/外链/上传和更多游戏UI/图标预加载消费者退役；广告补1000的按钮、说明、applyReward/resetReward及唯一授权写钱入口物理移除，不伪造成功或新增补充。原初始1000虚拟筹码保持；资金耗尽时保留原Exit，不承诺有免费补充。远端52实际Chromium；544请求/544响应全部同源HTTP200，无外联/失败请求/脚本异常；保留15条原Canvas2D读回性能warning，不称零warning。浏览器91848实际BROWSER_EXIT0；开发环境没有执行原游戏或SDK。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原皇家轮盘菜单"
+      },
+      {
+        "path": "screenshots/002.png",
+        "caption": "原1000余额/默认1筹码下注桌"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "真实押红1筹码，余额999/下注1"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "自然黑24，红注落败/本地存999"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "实际刷新回原菜单，原程序读回999"
+      }
+    ]
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "真实默认1押红→原SPIN→黑24输局→下注归0/余额999保存，刷新原程序读回999。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "281上游/280运行、277原文件字节一致；544同源200，无缺失或外联。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原红木轮盘标题/绿色下注桌和37数字区、余额/下注/局内历史完整。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原红色下注高亮及1筹码真实出现；原结算黑24圆标与历史行变化。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "无角色操控；原轮盘/球/6筹码及结果圆标保持，实际可见对象原图完整。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原轮盘100数字帧/100遮罩及CWheelAnim字节保持，SPIN后按原时钟自然完成输局；未截取中间旋转帧。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "原PLAY、押红和SPIN有效，实际reload保存；其他面额/组合/重押/全屏不追加点击。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-18T05:06:48.065177+00:00",
+    "observation_end": "2026-11-18T05:22:54.846492+00:00",
+    "elapsed_seconds": 966.781315,
+    "scope": "公开原入口抓取至本次证据整理经过时间，含静态分析/传输/等待和其他任务，不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

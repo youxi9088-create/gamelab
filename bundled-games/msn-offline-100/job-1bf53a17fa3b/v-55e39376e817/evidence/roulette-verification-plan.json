@@ -1,0 +1,15 @@
+{
+  "revision": "roulette-offline-v1",
+  "maximum_cumulative_UI_inputs": 5,
+  "UI_used": 0,
+  "steps": [
+    "1 exact offline entry",
+    "2 original PLAY",
+    "3 place original default1chip on actual visible red/outsidebet",
+    "4 original SPIN, passive wait for natural result/credit/localstorage settlement",
+    "5 actual reload for original local savedcredit readback, if round has genuinely settled"
+  ],
+  "state_RNG_or_time_injection": false,
+  "handler_calls": false,
+  "limitations": "Use native visible bet choice, no forced outcome or wallet write. One natural roulette round only; other bet combinations/fullscreen/audiohearing/ad-recharge not runtime coverage. No sixthinput. If extra menu/interstitial blocks the original path, count it and stop at5."
+}

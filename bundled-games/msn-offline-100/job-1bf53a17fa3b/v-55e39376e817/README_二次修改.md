@@ -1,0 +1,4 @@
+原HTML5运行源码，非原作者编辑器工程。js/main.js内CRouletteSettings/CSeat/CTableController/CWheelAnim/CFinalBetPanel/CNeighborsPanel/CHistory等69整函数保持、349方法规范AST一致。可定位下注热区/多号组合/筹码拆分/原结算和轮盘帧动画，跨项目拆解须适配CreateJS/Tween、Howler、200轮盘帧/字体/热区图集；不称无依赖通用模块。未用SoundJSWebAudioPlugin含fileXHR探测整模块退役，其余vendor和许可证保持；不承诺该可选API。
+累计5次真实输入：精确离线入口→原PLAY→原默认1筹码押红色外围区→原SPIN并按原时钟等待自然结算→实际刷新。下注后MONEY1000→999、CUR BET0→1，轮盘自然开出黑色24，红色下注落败，原历史出现24/黑圈，CUR BET归0、余额999，原roulette_royale_user_money写999。刷新回原菜单，原CMain读取存档后TOTAL_MONEY为999。没有写RNG、结果、筹码、时间或调用业务处理方法；没有第6次输入。只验证1轮自然输局和本地刷新，其他下注档、组合、赢局/支付、重押、全屏/音频听感未实测，未截取轮盘中间帧。
+远端52实际Chromium；544请求/544响应全部同源HTTP200，无外联/失败请求/脚本异常；保留15条原Canvas2D读回性能warning，不称零warning。浏览器91848实际BROWSER_EXIT0；开发环境没有执行原游戏或SDK。
+真实SDK初始化/通知/广告/外链/上传和更多游戏UI/图标预加载消费者退役；广告补1000的按钮、说明、applyReward/resetReward及唯一授权写钱入口物理移除，不伪造成功或新增补充。原初始1000虚拟筹码保持；资金耗尽时保留原Exit，不承诺有免费补充。
