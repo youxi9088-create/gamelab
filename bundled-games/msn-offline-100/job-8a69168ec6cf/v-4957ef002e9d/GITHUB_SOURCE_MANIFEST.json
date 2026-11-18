@@ -1,0 +1,415 @@
+{
+  "title": "Quizmania: Trivia Game",
+  "revision": "quizmania-offline-v1",
+  "job_id": "job-8a69168ec6cf",
+  "version_id": "v-4957ef002e9d",
+  "artifact_id": "artifact-32b0ee4877e9",
+  "artifact_sha256": "f763939b7ce95571c8fd814a7b5b2e7aafbcbaac155d57902fcbd7384ec1bf40",
+  "remote_archive_commit": "c5228e0ec8a4ba559f8db19ef070dd42ee6cfcfb",
+  "files": {
+    "assets/audio/all/Answer_Failure.mp3": "e128fd70ba61b64cea6bcca61ea1edb05929694446e59f004b08b3f702f05747",
+    "assets/audio/all/Answer_Failure.ogg": "91cafa9ed45438209ab121ff23e6d78837860f7162074b321b2c1ccd7b2a1dc0",
+    "assets/audio/all/Answer_Success.mp3": "fa26d9f0c919b369a1741124c1b2b08a359fe4ae82beed131c84cf391f40190c",
+    "assets/audio/all/Answer_Success.ogg": "9426584b1b37a750199ce16909c5c9711538a1408bf3f924c37411a2ddd9bc54",
+    "assets/audio/all/Coins_Add.mp3": "7579e7706166dbef872954050e51225942b93259a4430f8fbd28ddb24d6992ec",
+    "assets/audio/all/Coins_Add.ogg": "66a91a45847176f291296d9bbbfe0809471f378aeef3a567ed068bfd9181a74f",
+    "assets/audio/all/Interface_Button.mp3": "5d02a4ac4d016a2e3455b9a8cb700ced16e7719b8db5520b29a577839c8be7e0",
+    "assets/audio/all/Interface_Button.ogg": "4ec8d07e84f4accb090961d151b1621af4c52b0f45d579356c9e313e18ce66f6",
+    "assets/audio/all/Music_Track.mp3": "aff1404aad2144ba8b82119522c748d358edadac8f0274d3fadae7dfd6aaf54b",
+    "assets/audio/all/Music_Track.ogg": "1549af7b050631bfaa50accc9ff72f99da711f591c32281acae7cdd2f3e6aa8c",
+    "assets/audio/all/Next_Level.mp3": "bcf721f473f40c644cf17eb8ea029d3b40edc7f73e42f9c9d45cb27a3e91fd30",
+    "assets/audio/all/Next_Level.ogg": "dc9e4b35f12bf3947c759a7f525a19a376c310fb9ed4184a6a0d5c162361572a",
+    "assets/audio/all/Progress_Bar_Full.mp3": "1b85fb1b2a0d07e45c9ed7b975598056e568a4d8b4388946d4cede5204ba4ab7",
+    "assets/audio/all/Progress_Bar_Full.ogg": "1d5afe5ec6037f606ca518f8d63c514a806e5056b3907b945e678b4e3ec41e02",
+    "assets/audio/all/Progress_Bar_Loading.mp3": "46a7dc1c978d692a164b2e268053b6aacda12e2da0f9c56acee925803e54499c",
+    "assets/audio/all/Progress_Bar_Loading.ogg": "627ae49c2cf8d675a69ebb0a7075ad743ec92e980fd7605e1cdf1408786c3a38",
+    "assets/dat/lang.isr": "08049b8fc4d8f0fe5350ff22aac63cc3e80a6545c2cd1333aa02d042330b7756",
+    "assets/dat/questions.json": "0509e9cf26374b819be8c77cd3c7b5b16ba18c13b156a3320cc8ac500a646133",
+    "assets/favicon/icon-152x152.png": "83b3b830435127b6683a77b180c8867fe62f793321710816cf3a647a69f48a6a",
+    "assets/favicon/icon-512x512.png": "d2d100f44db9f0b8169d576983f3bcf3fcf2641601977d10cc300e5023f43319",
+    "assets/fnt/Gilroy-Bold.ttf": "ebc275de682ac9a8f2985278e12e00eb92b6ff77831c498d05f7b95568953f8c",
+    "assets/gfx/ad1.png": "c5a971b34895c250e41ae6e799aeafea932f03c085d06a7e1b4173f767e565c8",
+    "assets/gfx/brain.png": "0f3a27928d7d64962024ababce2693cdc82d9f0342621beabef2642378d63fe2",
+    "assets/gfx/game/ingame_ui.json": "7877277509dc563ec15324831e3cf7a931b44ceb9b0aef31e3c9cd626caeead0",
+    "assets/gfx/game/ingame_ui.png": "5847ae4663a9c99a6256d0406e55111f9e7164bd3700e89c7d47cb595fdc1f3b",
+    "assets/gfx/game/level_finished.json": "f4e69b20cdd08c9afd83a8a2caf69533bc26573ac83cd44428a19d04b9d43cde",
+    "assets/gfx/game/level_finished.png": "78a17c0334f45d78dce90a76f3504a4bee887c803da4d492ad04999130553dc0",
+    "assets/gfx/game/settings.json": "619bdcdc74fa8e548933886d54190156f64abe7c97174a5351094470fb4a7dde",
+    "assets/gfx/game/settings.png": "dd9ab1a05723ea0f28cbe086ada32bab40209fbbe61b702c6ff6c1564797168d",
+    "assets/gfx/ingame_bg.png": "754edf19d35bcf5dfa7f56d91a933014d7392315c4e70b6849b529d918c26add",
+    "assets/gfx/ingame_bg_dark.png": "b649af6e8a0f832f6e0b83f5c946ca8c9c829c4456aa058a358d87eae1ce0be3",
+    "assets/gfx/inlogic_logo.png": "be6817b4868502d8e2ee82671c11ccd1b0d9894a82fc5c9ce28ba5dc035af00e",
+    "assets/gfx/loading.json": "3ebd82b8848ea1cb9b39923a65b93da69e0e5abb7e4f33bc6183a4c21cace750",
+    "assets/gfx/loading.png": "54058d0cb519b4448664bd3c34026e56766f4f955cb71ee38e1f8687ecc02712",
+    "assets/gfx/loading_bg.png": "229f1d16acff6196f2fb421935f2e158df730d4348a8805e9fa41d4ec13bb6e6",
+    "assets/gfx/loading_bg2.png": "e6f9b180830c31f58a7cd4f9f26cbcf7c86e83bbd646d8f4744445b97af5470e",
+    "assets/gfx/loading_bg_1.png": "c55749df378e87bf98ab8b5990ce3e06b226e9904bd0e21c6ec4fe4694090793",
+    "assets/gfx/loading_fg.png": "992ebffced4a0e5c02450a6fb0f8ad450106f1e7713f9b628707755aed313d02",
+    "assets/gfx/logo_splash.png": "c6e417218842c8ce28bd0b6fb8d34785300ea5e3e98ef941e1309c8b612af64c",
+    "assets/gfx/logo_splash_rus.png": "61c243199c56d19c0de7209ca2aabf25fbc47c3a9d123325b77a2a5eb26fe8fa",
+    "assets/gfx/lvl_completed_bg.png": "534e2ef6011c6f8c22e23ae73a52874a4f9111e6fe39e166cccb8970f02f0edf",
+    "assets/gfx/lvl_failed_bg.png": "0fd3e8a3b740efbc69d3df83366a5af726c0b33d429a16f758f0e544debae12a",
+    "assets/gfx/splash_bg.png": "9b6f4c0f12c1e7f316b322cb4453cf8d718a14a076934580f262134128dd18d4",
+    "assets/gfx/stars.png": "0a9ad2b7e54fde6ad87555fdbc1dcd158dc8b970d0cc3f7257dc401029f94348",
+    "delivery-report.json": "d8f5d733ff709f13a1e85babd641a5a391a7b1c43c50590296e09ccf22ded71c",
+    "evidence/dedup-intake-guard.json": "1840e230a6945f5ea053ee4348282bddf0c0827395585f5688167517dfebaa50",
+    "evidence/dedup.json": "59344886b2e35a01d554290383b9adc7b5f1ec9f861965d53c7817cb16f5c9f3",
+    "evidence/original-vendor-reference-observations.json": "56e5a0a5bf8fdc7f5a6ef645083347d60985cd82914cdaa5195a408028e87963",
+    "evidence/quizmania-network-console.json": "a444a9b98c017581b9313c6a3373c5b6f43be482080abf68d70644e22908af7b",
+    "evidence/quizmania-playwright-assets-source-receipt.json": "4eda95d8155ac6b31c603d6dff50c802d93921e308b65fc85c0ec0f9c7b50cd8",
+    "evidence/quizmania-pw-bootstrap-source-receipt.json": "52416c6514e78b3ffb8d3232463cd7047e3d80eb2b7a5e2963332b48d5bdfdf2",
+    "evidence/quizmania-verification-plan.json": "c2fe5a7176a6b521ac9c07f23f2b23f2d7b1a1650f6c0f7bb563b4ba33f7df54",
+    "evidence/resource-audit.json": "4a2decd5d405c84287ac58739fb882bbafd0b106a1b54a87bb94a76068e933bd",
+    "evidence/retirement.json": "0ac537e4ab20bfbaa740e7166aaeafc7466f0dca3b75244de99396f529a31374",
+    "evidence/runtime-sha256.json": "271bb36d5d9d7fd76794924cebbb2c20923047175168d6900145b716b70a374f",
+    "evidence/source-fidelity.json": "9443994a97778c116838996689d4bde90a75f4a2b1f058970feac51f8dc6b025",
+    "evidence/source-sha256.json": "8d6b8aaa4d19df53b705508328b504728e65aae3bc53175c0b1256c8f5ce32da",
+    "evidence/static-audit.json": "00dd659054343dacd648ed4b8595c6b3402ad6b04d9f9d4029092eb8da4b3c27",
+    "evidence/ui-001.json": "f247d5c02b579c486b0db2ca980b05ce0d322fd317f742db5bee6dc193af2eaa",
+    "evidence/ui-002.json": "5c7aa250839d78e0cc33eb74cfa0d8be1f20c1976023aac92642981349c537f7",
+    "evidence/ui-003.json": "da6c6848b17e8155959f8f67a6a92e8d37fad86066688f0fb217238ae65b27be",
+    "evidence/ui-004.json": "b68ef1c6e7b25ac064448e6a795fbd900f5e8eed0400f1d784b6509e87253524",
+    "evidence/ui-005.json": "ee46b6e1d29552dffff108817091df46e92bacce2b9fe3151faf2b1efd04b14a",
+    "evidence/validation.json": "fd67c1823de5b24a3ea976e43968886b3d0fc169119c62d72a7444efe3c98b49",
+    "game-profile.json": "2dc5fc4bbe5734485b363470cb4c41ebdece276e06d95647b7ccf80cd26531a5",
+    "GAME_SPECIFICATION.md": "709fea4a1a4d8c4f6fce05e96190468f2ba1ce53f699119553ed8570e4d0f0f0",
+    "index.html": "0218c7f7955eb0f138220e40a47750e378506e983e3e193733b2ca2fcc805832",
+    "js/game.js": "c6666f51cac5c4b043e38d2fb5497fa638970d28c3bd806bd986977b181a2f64",
+    "README_二次修改.md": "4e82d1ec0c00eab71493a6dd5bbd5c2e1ffef6a970e84630bcbb1e8d58fadfb7",
+    "screenshots/001.png": "99908efff96572b4302c06d400feaf6adc53d2b4a7aae41dbe40be3acd717eea",
+    "screenshots/002.png": "15604ef61d4b952497aac5f744d29f79992f6b13ff7c8252f317353c90e0f7f9",
+    "screenshots/003.png": "c932af0ac35400872c30e04a2c86ee34b31fe2059d86f21c17a2d13c640bd205",
+    "screenshots/004.png": "2d5b54b39f07284470d643f8842f78b6482efa7e5fab345de759af95e0d5b67f",
+    "screenshots/005.png": "d1d4324e3ff6b68c68f6cd10f980aef06e9b91443962339afb476af01ff8fa53"
+  },
+  "status_at_archive": "review",
+  "ui_checkpoints": 5,
+  "site_readback": {
+    "at": "2026-11-18T02:16:51.637041+00:00",
+    "version_id": "v-4957ef002e9d",
+    "job_id": "job-8a69168ec6cf",
+    "status": "review",
+    "cover": "http://127.0.0.1:8766/play/artifact-32b0ee4877e9/screenshots/001.png",
+    "sixteen_section_content_exact": true,
+    "runtime_files": [
+      {
+        "path": "assets/audio/all/Answer_Failure.mp3",
+        "http": 200,
+        "sha256": "e128fd70ba61b64cea6bcca61ea1edb05929694446e59f004b08b3f702f05747",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/all/Answer_Failure.ogg",
+        "http": 200,
+        "sha256": "91cafa9ed45438209ab121ff23e6d78837860f7162074b321b2c1ccd7b2a1dc0",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/all/Answer_Success.mp3",
+        "http": 200,
+        "sha256": "fa26d9f0c919b369a1741124c1b2b08a359fe4ae82beed131c84cf391f40190c",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/all/Answer_Success.ogg",
+        "http": 200,
+        "sha256": "9426584b1b37a750199ce16909c5c9711538a1408bf3f924c37411a2ddd9bc54",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/all/Coins_Add.mp3",
+        "http": 200,
+        "sha256": "7579e7706166dbef872954050e51225942b93259a4430f8fbd28ddb24d6992ec",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/all/Coins_Add.ogg",
+        "http": 200,
+        "sha256": "66a91a45847176f291296d9bbbfe0809471f378aeef3a567ed068bfd9181a74f",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/all/Interface_Button.mp3",
+        "http": 200,
+        "sha256": "5d02a4ac4d016a2e3455b9a8cb700ced16e7719b8db5520b29a577839c8be7e0",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/all/Interface_Button.ogg",
+        "http": 200,
+        "sha256": "4ec8d07e84f4accb090961d151b1621af4c52b0f45d579356c9e313e18ce66f6",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/all/Music_Track.mp3",
+        "http": 200,
+        "sha256": "aff1404aad2144ba8b82119522c748d358edadac8f0274d3fadae7dfd6aaf54b",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/all/Music_Track.ogg",
+        "http": 200,
+        "sha256": "1549af7b050631bfaa50accc9ff72f99da711f591c32281acae7cdd2f3e6aa8c",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/all/Next_Level.mp3",
+        "http": 200,
+        "sha256": "bcf721f473f40c644cf17eb8ea029d3b40edc7f73e42f9c9d45cb27a3e91fd30",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/all/Next_Level.ogg",
+        "http": 200,
+        "sha256": "dc9e4b35f12bf3947c759a7f525a19a376c310fb9ed4184a6a0d5c162361572a",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/all/Progress_Bar_Full.mp3",
+        "http": 200,
+        "sha256": "1b85fb1b2a0d07e45c9ed7b975598056e568a4d8b4388946d4cede5204ba4ab7",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/all/Progress_Bar_Full.ogg",
+        "http": 200,
+        "sha256": "1d5afe5ec6037f606ca518f8d63c514a806e5056b3907b945e678b4e3ec41e02",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/all/Progress_Bar_Loading.mp3",
+        "http": 200,
+        "sha256": "46a7dc1c978d692a164b2e268053b6aacda12e2da0f9c56acee925803e54499c",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/all/Progress_Bar_Loading.ogg",
+        "http": 200,
+        "sha256": "627ae49c2cf8d675a69ebb0a7075ad743ec92e980fd7605e1cdf1408786c3a38",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/dat/lang.isr",
+        "http": 200,
+        "sha256": "08049b8fc4d8f0fe5350ff22aac63cc3e80a6545c2cd1333aa02d042330b7756",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/dat/questions.json",
+        "http": 200,
+        "sha256": "0509e9cf26374b819be8c77cd3c7b5b16ba18c13b156a3320cc8ac500a646133",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/favicon/icon-152x152.png",
+        "http": 200,
+        "sha256": "83b3b830435127b6683a77b180c8867fe62f793321710816cf3a647a69f48a6a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/favicon/icon-512x512.png",
+        "http": 200,
+        "sha256": "d2d100f44db9f0b8169d576983f3bcf3fcf2641601977d10cc300e5023f43319",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/fnt/Gilroy-Bold.ttf",
+        "http": 200,
+        "sha256": "ebc275de682ac9a8f2985278e12e00eb92b6ff77831c498d05f7b95568953f8c",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/gfx/ad1.png",
+        "http": 200,
+        "sha256": "c5a971b34895c250e41ae6e799aeafea932f03c085d06a7e1b4173f767e565c8",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/brain.png",
+        "http": 200,
+        "sha256": "0f3a27928d7d64962024ababce2693cdc82d9f0342621beabef2642378d63fe2",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/game/ingame_ui.json",
+        "http": 200,
+        "sha256": "7877277509dc563ec15324831e3cf7a931b44ceb9b0aef31e3c9cd626caeead0",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/game/ingame_ui.png",
+        "http": 200,
+        "sha256": "5847ae4663a9c99a6256d0406e55111f9e7164bd3700e89c7d47cb595fdc1f3b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/game/level_finished.json",
+        "http": 200,
+        "sha256": "f4e69b20cdd08c9afd83a8a2caf69533bc26573ac83cd44428a19d04b9d43cde",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/game/level_finished.png",
+        "http": 200,
+        "sha256": "78a17c0334f45d78dce90a76f3504a4bee887c803da4d492ad04999130553dc0",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/game/settings.json",
+        "http": 200,
+        "sha256": "619bdcdc74fa8e548933886d54190156f64abe7c97174a5351094470fb4a7dde",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/game/settings.png",
+        "http": 200,
+        "sha256": "dd9ab1a05723ea0f28cbe086ada32bab40209fbbe61b702c6ff6c1564797168d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/ingame_bg.png",
+        "http": 200,
+        "sha256": "754edf19d35bcf5dfa7f56d91a933014d7392315c4e70b6849b529d918c26add",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/ingame_bg_dark.png",
+        "http": 200,
+        "sha256": "b649af6e8a0f832f6e0b83f5c946ca8c9c829c4456aa058a358d87eae1ce0be3",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/inlogic_logo.png",
+        "http": 200,
+        "sha256": "be6817b4868502d8e2ee82671c11ccd1b0d9894a82fc5c9ce28ba5dc035af00e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/loading.json",
+        "http": 200,
+        "sha256": "3ebd82b8848ea1cb9b39923a65b93da69e0e5abb7e4f33bc6183a4c21cace750",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/loading.png",
+        "http": 200,
+        "sha256": "54058d0cb519b4448664bd3c34026e56766f4f955cb71ee38e1f8687ecc02712",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/loading_bg.png",
+        "http": 200,
+        "sha256": "229f1d16acff6196f2fb421935f2e158df730d4348a8805e9fa41d4ec13bb6e6",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/loading_bg2.png",
+        "http": 200,
+        "sha256": "e6f9b180830c31f58a7cd4f9f26cbcf7c86e83bbd646d8f4744445b97af5470e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/loading_bg_1.png",
+        "http": 200,
+        "sha256": "c55749df378e87bf98ab8b5990ce3e06b226e9904bd0e21c6ec4fe4694090793",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/loading_fg.png",
+        "http": 200,
+        "sha256": "992ebffced4a0e5c02450a6fb0f8ad450106f1e7713f9b628707755aed313d02",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/logo_splash.png",
+        "http": 200,
+        "sha256": "c6e417218842c8ce28bd0b6fb8d34785300ea5e3e98ef941e1309c8b612af64c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/logo_splash_rus.png",
+        "http": 200,
+        "sha256": "61c243199c56d19c0de7209ca2aabf25fbc47c3a9d123325b77a2a5eb26fe8fa",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/lvl_completed_bg.png",
+        "http": 200,
+        "sha256": "534e2ef6011c6f8c22e23ae73a52874a4f9111e6fe39e166cccb8970f02f0edf",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/lvl_failed_bg.png",
+        "http": 200,
+        "sha256": "0fd3e8a3b740efbc69d3df83366a5af726c0b33d429a16f758f0e544debae12a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/splash_bg.png",
+        "http": 200,
+        "sha256": "9b6f4c0f12c1e7f316b322cb4453cf8d718a14a076934580f262134128dd18d4",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/stars.png",
+        "http": 200,
+        "sha256": "0a9ad2b7e54fde6ad87555fdbc1dcd158dc8b970d0cc3f7257dc401029f94348",
+        "content_type": "image/png"
+      },
+      {
+        "path": "index.html",
+        "http": 200,
+        "sha256": "0218c7f7955eb0f138220e40a47750e378506e983e3e193733b2ca2fcc805832",
+        "content_type": "text/html; charset=utf-8"
+      },
+      {
+        "path": "js/game.js",
+        "http": 200,
+        "sha256": "c6666f51cac5c4b043e38d2fb5497fa638970d28c3bd806bd986977b181a2f64",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "screenshots/001.png",
+        "http": 200,
+        "sha256": "99908efff96572b4302c06d400feaf6adc53d2b4a7aae41dbe40be3acd717eea",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/002.png",
+        "http": 200,
+        "sha256": "15604ef61d4b952497aac5f744d29f79992f6b13ff7c8252f317353c90e0f7f9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/003.png",
+        "http": 200,
+        "sha256": "c932af0ac35400872c30e04a2c86ee34b31fe2059d86f21c17a2d13c640bd205",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/004.png",
+        "http": 200,
+        "sha256": "2d5b54b39f07284470d643f8842f78b6482efa7e5fab345de759af95e0d5b67f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/005.png",
+        "http": 200,
+        "sha256": "d1d4324e3ff6b68c68f6cd10f980aef06e9b91443962339afb476af01ff8fa53",
+        "content_type": "image/png"
+      }
+    ],
+    "all_46_runtime_files_and_5_screenshots_exact": true,
+    "index_csp": "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' http://192.168.56.52:8765",
+    "gameplay_UI_reexecuted": false,
+    "cumulative_UI_steps": 5,
+    "native_extra_guess_verified": true,
+    "native_wrong_answer_verified": true,
+    "native_correct_answer_progress_verified": true,
+    "full_onboarding_verified": false,
+    "ordinary_question_cycle_verified": false,
+    "storage_reload_verified": false,
+    "CSP_source_compatibility": "Actual static audit: original Phaser global lookup changed to real globalThis; no remaining dynamic-code sites. Original local image/font/audio retained. HTTPS 51-file readback is not a second UI run under site CSP."
+  },
+  "scope": "Exact normal-review offline game and real evidence. Raw input counts and historical failures remain explicit; no approval, supply, game-state changes or added testing."
+}

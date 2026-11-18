@@ -1,0 +1,27 @@
+{
+  "at": "2026-11-18T01:50:10.540399+00:00",
+  "status": "retained_original_vendor_reference_observations_not_a_clean_all_API_preflight",
+  "original_source_sha256": "9b3008114f71151578b7b54d6ca4ed2acc436a377c43d5605781be56b78e6a42",
+  "vendor_prefix_characters": 8397546,
+  "vendor_prefix_bytes_unchanged_except_one_globalThis_reference": true,
+  "newly_unbound_identifiers": [],
+  "original_unknown_direct_calls": [
+    {
+      "name": "PointRotateAround",
+      "upstream_location": "rexUI path builder rotate-around, last control point branch"
+    },
+    {
+      "name": "GetElementByName",
+      "upstream_location": "rexUI button-group recursive name lookup"
+    },
+    {
+      "name": "createDefaultTextObject",
+      "upstream_location": "rexUI toast constructor default text"
+    }
+  ],
+  "native_game_rexUI_uses": [
+    "ContainerSettings.createGUI: scene.rexUI.add.slider for music",
+    "ContainerSettings.createGUI: scene.rexUI.add.slider for sound"
+  ],
+  "limits": "All3unknowns are original vendor references preserved in exact prefix; they are not declared fixed or silently allowlisted. Native game only declares slider factories. Runtime must show actual initial slider/UI construction without exceptions; unused path/button-group/toast APIs are not verified or promised for reuse. No game has run yet."
+}

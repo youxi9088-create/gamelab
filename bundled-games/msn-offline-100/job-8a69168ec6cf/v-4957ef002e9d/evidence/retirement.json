@@ -1,0 +1,301 @@
+{
+  "original_main_sha256": "9b3008114f71151578b7b54d6ca4ed2acc436a377c43d5605781be56b78e6a42",
+  "adapted_main_sha256": "c6666f51cac5c4b043e38d2fb5497fa638970d28c3bd806bd986977b181a2f64",
+  "original_engine_prefix_sha256": "37f3b06878562f54de3c49df126b008311295a4d19af7013b1ef945890abf251",
+  "adapted_engine_prefix_sha256": "eee4fc7120ca3139b9e9bcd6d326b05688b49a4d980f6a9c6798572e90933bbc",
+  "engine_global_discovery_replacements": 1,
+  "original_engine_prefix_characters": 8397546,
+  "removed": [
+    {
+      "index": 37,
+      "head": "null!=urlParams.ads_enabled&&(adsConfig.enabled=urlParams.ads_enabled);",
+      "source_sha256": "02f670e9c3bfed337159f71a2c810bd75f4c396d09320e615144a992e28b026c"
+    },
+    {
+      "index": 38,
+      "head": "null!=urlParams.rew_ads_enabled&&(rewAdsConfig.active=urlParams.rew_ads_enabled);",
+      "source_sha256": "5a27c8e3d01e232a14835e605cc403a22d8ae9f470a06d7f9d2cf33ec74bbf89"
+    },
+    {
+      "index": 39,
+      "head": "null!=urlParams.ads_cooldown&&(adsConfig.cooldownTimer=1E3*urlParams.ads_cooldown);",
+      "source_sha256": "bf862354b070045c7b20ebe880de61dcca5b8204ea178ed0824129315ab0796f"
+    },
+    {
+      "index": 40,
+      "head": "null!=urlParams.gameplay_cooldown&&(adsConfig.gameplayAdTimer=1E3*urlParams.gameplay_cooldown);",
+      "source_sha256": "b58a302682ec4f6b44e8a8822479ab3d6be14402dcf95321fe250403f34a6111"
+    },
+    {
+      "index": 41,
+      "head": "null!=urlParams.afk_cooldown&&(adsConfig.afkTimer=1E3*urlParams.afk_cooldown);",
+      "source_sha256": "7588e66f0b8437b9139cf8a09a45174e2ba05b9a91495fecfcca5eaa7695bcdf"
+    },
+    {
+      "index": 42,
+      "head": "null!=urlParams.start_cooldown&&(adsConfig.firstAdDelay=1E3*urlParams.start_cooldown);",
+      "source_sha256": "7a309ffacb827f80e4fa50ca8001781ed2e3519ce3650d6434224df30ee6d8cf"
+    },
+    {
+      "index": 43,
+      "head": "null!=urlParams.test_ads&&(adsConfig.test=urlParams.test_ads);",
+      "source_sha256": "536f25ef570fcef7f079346ab7d6a39e1cab4a6ea1dc747f0b34e3f052563518"
+    },
+    {
+      "index": 44,
+      "head": "null!=urlParams.test_ads_rewarded&&(rewAdsConfig.test=urlParams.test_ads_rewarded);",
+      "source_sha256": "800d1074eb2f90943f65f677b6f0227fa5a97997e54d4eb91f20a0f55e56a9f5"
+    },
+    {
+      "index": 46,
+      "head": "class AdHelper{constructor(a){this.config=a;this.lastAdTime=null;this.enabled=a.enabled;this.enableTriggerPoints=a.enableTriggerPoints;this.onShowAdListeners=[];this.onShowAdSucces",
+      "source_sha256": "876ef997e456bcf54f2b90da1f6aa8ab5e7d8bcd08b4412fc0c32f5b2774263d"
+    },
+    {
+      "index": 49,
+      "head": "class InlRewardAds{constructor(a){this.active=a.active;this.test=a.test;this.lastRewAdTime=null;this.onShowRewardAdListeners=[];this.test&&showToast(\"TEST REW ADS ALLOWED\")}setActi",
+      "source_sha256": "0747fc0bc9227646870e89ea76698c368942ff30ff3ad2f202b3e1eec83b31e3"
+    },
+    {
+      "index": 50,
+      "head": "class InlUtilities{constructor(){}hasCooldownPassed(a){if(null==a)throw Error(\"Choose AD_TYPE when checking cooldown!\");var b=Date.now(),e=inlHelper.ads.config,f=b-inlHelper.ads.st",
+      "source_sha256": "4cbd0c9dbce2a8baf7782b59bd1dd5b25cb7b83a9f64ae033a166281c35f98cd"
+    },
+    {
+      "index": 51,
+      "head": "class InlAdsense{constructor(){this.enabled=!1}enable(){this.enabled=!0;this.initAdsense();this.fullscreenAdVisible=this.loaded=adsConfig.autoAdSuccessful=!1}initAdsense(){this.ena",
+      "source_sha256": "6031f299c3b1e62977fc54025b853c2ddced39d372bc3c16f92ba43378027800"
+    },
+    {
+      "index": 52,
+      "head": "class InlEvents{constructor(){this.events={AD_IMPRESSION:\"ad_impression\",AD_REWARDED_STARTED:\"ad_reward_started\",AD_REWARDED_COMPLETED:\"ad_reward_completed\",AD_REWARDED_DISMISSED:\"",
+      "source_sha256": "49dc1a83eca4f3af10a96671ed094d0364eb730c2e83c7bbcabdb42d20301e38"
+    },
+    {
+      "index": 53,
+      "head": "inlHelper.utilities=new InlUtilities;",
+      "source_sha256": "e35f2d0f1c66553987b1b6087e6279ba8c7ebeae83a1d80a98abcf2b5683ba19"
+    },
+    {
+      "index": 54,
+      "head": "inlHelper.ads=new AdHelper(adsConfig);",
+      "source_sha256": "931d6947a58d7f6b444e352f763a6050b8d146ab6e6811b442f8d385fc5f361d"
+    },
+    {
+      "index": 55,
+      "head": "inlHelper.rewardAds=new InlRewardAds(rewAdsConfig);",
+      "source_sha256": "56bdafc2e01e9a1bcca8be220983246e50f74bbf0b5e76d8ca7b3866db31f94b"
+    },
+    {
+      "index": 57,
+      "head": "inlHelper.adsense=new InlAdsense;",
+      "source_sha256": "ca1ccd9df6a2cd8524148c8377a58a42ce0c5efb009e1b0726d4d70771affec1"
+    },
+    {
+      "index": 58,
+      "head": "inlHelper.eventsManager=new InlEvents;",
+      "source_sha256": "54ece2d2b1bbef9ec2ea105f51f4866f1d339a66b3e43aa9c2557cc3423128e3"
+    },
+    {
+      "index": 63,
+      "head": "inlHelper.ads.showFakeAd=function(a){a=void 0===a?'\"This is a test inlogic ad. Closing in 5 seconds...\"':a;const b=document.createElement(\"div\");b.id=\"adOverlay\";b.style.position=\"",
+      "source_sha256": "485bbdef4b58acf73f8e9cfcd5d63cb8c071d5e415a240c30db9527dfa304b27"
+    },
+    {
+      "index": 64,
+      "head": "inlHelper.rewardAds.showFakeRewAd=function(a,b,e){const f=document.createElement(\"div\");f.id=\"rewardAdOverlay\";f.style.position=\"fixed\";f.style.top=\"0\";f.style.left=\"0\";f.style.wid",
+      "source_sha256": "2413e21a70673d67daea38445aa55d0caf4b0ae564cc090ea09b9140924444d3"
+    },
+    {
+      "index": 65,
+      "head": "var ADS_ENABLED=!1,ADS_DELAY=18E4,ADS_DEC=2E4,ADS_MINTIME=9E4,ADS_TIME_DEC_ENABLED=!0,ADS_ON_FIRST_PLAY=!0,ADS_MOBILE_WIDTH=480,ADS_MOBILE_HEIGHT=800,adinplay_onAdStarted=function(",
+      "source_sha256": "251b798bae1e5796c6c081c2d1ba9ccda67d09c8c4876bace10b51a55fb1b168"
+    },
+    {
+      "index": 66,
+      "head": "function adinplay_init(){if(ADS_ENABLED&&\"undefined\"!==typeof aiptag){var a=\"quizmaniatriviagame_html_portal_sk\",b=getJsonFromUrl();b.hasOwnProperty(\"partner_id\")&&(a=b.partner_id)",
+      "source_sha256": "27e32fb7767ba4e2dc46be2306c40b69cabbb9dcd5b3d482f9cd63c8fb5677a1"
+    },
+    {
+      "index": 67,
+      "head": "function adinplay_playVideoAd(){ADS_ENABLED?\"undefined\"===typeof aiptag?(adinplay_init(),adinplay_enableInput(),adinplay_onAdStarted()):\"undefined\"===typeof adplayer?(adinplay_init",
+      "source_sha256": "55b8265e9f8374ec2dd3bcd2c12faa9b3990d588319956b8b2262e7674d3cba7"
+    },
+    {
+      "index": 68,
+      "head": "var adinplay_rew_callbacks=[];",
+      "source_sha256": "b516610cd7600a8438e9f7d048a3cfc7aacfdc6347ddc35a1a64ad1def820f0a"
+    },
+    {
+      "index": 69,
+      "head": "function adinplay_playRewardedVideo(a,b,e){adinplay_rew_callbacks[0]=a;adinplay_rew_callbacks[1]=b;adinplay_rew_callbacks[2]=e;ADS_ENABLED?\"undefined\"===typeof aiptag?(adinplay_ini",
+      "source_sha256": "57d1b5a56dc9d3de697808df4427caa9053f39ea76317ace8ec5ce468e6da68b"
+    },
+    {
+      "index": 70,
+      "head": "function adinplay_rewardedPreload(){ADS_ENABLED&&(\"undefined\"===typeof aiptag?adinplay_init():\"undefined\"===typeof adplayer?adinplay_init():(!0!==aipAPItag.rewardedSlotEventListene",
+      "source_sha256": "14bcc59f687f81f269dbd36f24cf966510606a7c9ac17b2ed8fd0ed79ddf626d"
+    },
+    {
+      "index": 71,
+      "head": "function adinplay_disableInput(){game.input.enabled=!1}",
+      "source_sha256": "cea8620f625e5207baff4f641ed34dbe10ed5971b24914a79b22b5d5c10b1abc"
+    },
+    {
+      "index": 72,
+      "head": "function adinplay_enableInput(){game.input.enabled=!0}",
+      "source_sha256": "2a62d67aad77c565185f8e0943e75190701d7ec29e10b225026d2ff06635542e"
+    },
+    {
+      "index": 73,
+      "head": "function adinplay_pauseMusic(){game.sound.volume=0}",
+      "source_sha256": "9831728730fbb1ba0f6fc9dd14fd5033376cdfaafaf1496f62ced101781e6e4c"
+    },
+    {
+      "index": 74,
+      "head": "function adinplay_resumeMusic(){game.sound.volume=1}",
+      "source_sha256": "4d25160d7c3004db5a9a9c39a3314aca5f1823578f57429d427ffd9be1524bb9"
+    },
+    {
+      "index": 167,
+      "head": "var ContainerKeepProgress=new Phaser.Class({Extends:Phaser.GameObjects.Container,initialize:function ContainerKeepProgress(a){ContainerKeepProgress.instance=this;Phaser.GameObjects",
+      "source_sha256": "dff74587336feb4d6f2399b10b3f3aad76253499f358b112af0f23a3a14e8ba3"
+    },
+    {
+      "index": 199,
+      "head": "var RewardAds={testAd:!1,showRewAd:function(a,b,e,f){if(this.active){const h=b;b=function(){inlHelper.rewardAds._applyRewardedAdCooldownSmart();\"function\"===typeof h&&h.call(f)};ga",
+      "source_sha256": "c45715c7c22d613ecf2b2f0d29f4a40e78d6f526ebff50a311fd613a74c3d52b"
+    },
+    {
+      "index": 203,
+      "head": "adsenseConfig.channelId=\"7226436282\";",
+      "source_sha256": "7df8426141101e68ca7f7ab26bcdb3f5c9c3b33a9d55060880daf0e1447e3706"
+    },
+    {
+      "index": 218,
+      "head": "\"serviceWorker\"in navigator&&window.addEventListener(\"load\",function(){navigator.serviceWorker.register(\"./serviceWorker.js\").then(a=>console.error(\"service worker registered\",a)).",
+      "source_sha256": "20a4229eb4022e75b2a5212002cc9cae14c80e984b25bc6b56c4f572ab72b255"
+    },
+    {
+      "index": 219,
+      "head": "storedRewardedAd=storedAdInstance=null;",
+      "source_sha256": "24e41cde638fad744f79e4d74a84fdea379258f3cbabfc884ef927c3edd3db32"
+    },
+    {
+      "index": 220,
+      "head": "function msLoadAd(){$msstart.loadAdsAsync().then(a=>{console.warn(\"Loaded intertitial ad id:\");storedAdInstance=a}).catch(a=>{console.error(\"Load error\",a)})}",
+      "source_sha256": "f9a86b83d6b16732b062265b8b5a81e6e60f86f1bc6dadce890280b743dd193d"
+    },
+    {
+      "index": 221,
+      "head": "function msShowAd(a){storedAdInstance?$msstart.showAdsAsync(storedAdInstance.instanceId).then(b=>{msPause();b.showAdsCompletedAsync.then(()=>{console.warn(\"SHOW AD COMPLETED\",b);ms",
+      "source_sha256": "3fd5e74ad8107516c509dcdcfebaaea74783b70aa9639da034e6772ac6d1b416"
+    },
+    {
+      "index": 222,
+      "head": "function msLoadRewardedAd(){$msstart.loadAdsAsync(!0).then(a=>{console.warn(\"Rewarded ad loaded successfully:\",a);storedRewardedAd=a}).catch(a=>{console.error(\"Failed to load rewar",
+      "source_sha256": "13fdc1b86038bc18a38abdc04da4ede0677458257ecaeec35cf48ac7b3c65498"
+    },
+    {
+      "index": 223,
+      "head": "function msShowRewardedAd(a,b,e){console.warn(\"MS SHOW REWARDED AD\");storedRewardedAd?(msPause(),$msstart.showAdsAsync(storedRewardedAd.instanceId).then(f=>{f.showAdsCompletedAsync",
+      "source_sha256": "e15dd6d6d28ed84a6c9f608bc749e7c3bf05afe97f43a9c4dd08d0dbd57db3c9"
+    },
+    {
+      "index": 224,
+      "head": "function msShowBannerAd(){$msstart.showDisplayAdsAsync([\"topright:300x250\"]).then(a=>{console.warn(\"Show banner ad\")})}",
+      "source_sha256": "2a6d8daf394621c5fdb3264b201af716f660e28c47e6ae4a1969fd226a923b29"
+    },
+    {
+      "index": 225,
+      "head": "function msHideBannerAd(){$msstart.hideDisplayAdsAsync().then(a=>{})}",
+      "source_sha256": "3e8ce780f0f99e1d7deb2aa76ec1dc0a54d17c466dd2098e3392869ed34d06af"
+    },
+    {
+      "index": 226,
+      "head": "function msPause(){if(SceneGame.instance)SceneGame.instance.onGamePause()}",
+      "source_sha256": "7d8486e1218aba8dfd1c39045e9a2dd8a5cd2faea840db59f9b82f3f0a763cdc"
+    },
+    {
+      "index": 227,
+      "head": "function msResume(){if(SceneGame.instance)SceneGame.instance.onGameResume()}",
+      "source_sha256": "b479caec9b89d9c7a5c6ca16b6553fe2e1485c62cdab8a2d6e1543534f7b5302"
+    },
+    {
+      "index": 228,
+      "head": "function isMobileDevice(){return/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)}",
+      "source_sha256": "9995dd9b349729284e1534efa03012c25e616e83cf1f1d9ca3b0a956a8f91b04"
+    },
+    {
+      "index": 229,
+      "head": "msLoadRewardedAd();",
+      "source_sha256": "0b61deccc27d583e3bef9091a59fa0b7abe1420f397a3436e19c916d88b20981"
+    },
+    {
+      "index": 230,
+      "head": "msLoadAd();",
+      "source_sha256": "8642b9e5419956e77a1bcde7c1ab858b023ba89a5074c1c761037d53141d982c"
+    },
+    {
+      "index": 231,
+      "head": "adsConfig.autoAdSuccessful=!1;",
+      "source_sha256": "af226f3a19b7473e06ff7ec415c010a686d6ce1b0a09d1023f31206b4c4c8e67"
+    },
+    {
+      "index": 232,
+      "head": "inlHelper.ads.onShowAdListeners.push(msShowAd);",
+      "source_sha256": "8cd7df99a9fc7ad1fcdfde1571affa6870aeb1373dbbcd0c92c8486f4e566362"
+    },
+    {
+      "index": 233,
+      "head": "inlHelper.rewardAds.onShowRewardAdListeners.push(msShowRewardedAd);",
+      "source_sha256": "6f3f6dc30ab2a05c2f6f59290076232045cc8b93525fa7743b887d0afd2181b7"
+    },
+    {
+      "index": 234,
+      "head": "adsConfig.enabled=!0;",
+      "source_sha256": "317194cbb43961ac93ea912a29cc4a26baefbe03038adff0c58fae21263627e2"
+    },
+    {
+      "index": 235,
+      "head": "adsenseConfig.automaticListeners=!1;",
+      "source_sha256": "4f7779fd084bc0451817319cc1b0af181a21551eb7e4d2bc6d5634281c7236fa"
+    },
+    {
+      "index": 236,
+      "head": "inlHelper.adsense.enable();",
+      "source_sha256": "ab0a8a9e69924c4f3c7dbcffb6a06262ebafea55bdfd4531235cac8ce0f23445"
+    },
+    {
+      "index": 237,
+      "head": "eventsConfig.local=!1;",
+      "source_sha256": "97654bbb8cc564a89f15283c2c7d5f0a9fb1413bce665208a29931c30e5cff88"
+    },
+    {
+      "index": 238,
+      "head": "rewAdsConfig.active=!0;",
+      "source_sha256": "5a3d4601b3dd7290711431e529d524b6db285c1605db318b89123d38f64eae05"
+    },
+    "inlHelper.eventsManager.trackEvent",
+    "inlHelper.eventsManager.trackEvent",
+    "Actual watch-ad keep-progress modal construction",
+    "Actual consent-overlay update hook",
+    "this.containerKeepProgress.resize",
+    "this.containerKeepProgress.updateText",
+    "inlHelper.ads.triggerAdPoint",
+    "inlHelper.ads.triggerAdPoint",
+    "inlHelper.ads.triggerAdPoint",
+    "adinplay_init"
+  ],
+  "changed": [
+    "Original local title assignment retained; ad/test environment suffix removed",
+    "Original ordinary non-tutorial PLAY body invoked once, without ad operation or acknowledgement",
+    "One Phaser global-discovery new Function fallback replaced by real browser globalThis; remaining vendor engine/plugin bytes exact, including license comments"
+  ],
+  "original_no_ad_branches_selected": 9,
+  "remaining_providers": [],
+  "scope": "Native local GameData/knowledge/options/correctness/coins/progress/tutorial kept. Original funded hints50/100/250 and first-tutorial free rules retained; no free ad rewards, SDK facade, migration acknowledgement or state/time/RNG injection.",
+  "UI_used": 0,
+  "uploaded": false,
+  "runtime_verified": false
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="" name="description"/>
+
+
+
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
+
+<script>
+        window.addEventListener("load", function () {
+            function onTouchPreventDefault(event) {
+                event.preventDefault();
+            }
+            document.addEventListener("touchmove", onTouchPreventDefault, false);
+            document.addEventListener("touchstart", onTouchPreventDefault, false);}, false);
+    </script>
+
+<style type="text/css">
+
+        @font-face {
+            font-family: 'gameFont';
+            src: url('assets/fnt/Gilroy-Bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <title>Quizmania: Trivia game</title>
+    
+    <link href="assets/favicon/icon-152x152.png" rel="icon" sizes="152x152" type="image/png"/>
+    <link href="assets/favicon/icon-512x512.png" rel="icon" sizes="512x512" type="image/png"/>
+    <link href="assets/favicon/icon-152x152.png" rel="apple-touch-icon" sizes="152x152" type="image/png"/>
+    <link href="assets/favicon/icon-512x512.png" rel="apple-touch-icon" sizes="512x512" type="image/png"/>
+
+
+
+
+
+
+
+    
+    
+    
+
+
+
+
+
+
+</head>
+<style>
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #050505;
+        transition: background-color 140ms ease-in-out;
+        /*background-color: 	#050505;*/
+        /*background-color: #0C1601;*/
+        overflow: hidden;
+        position: relative;
+        touch-action: none;
+        -ms-touch-action: none;
+
+        -webkit-touch-callout: none !important;                /* prevent callout to copy image, etc when tap to hold */
+        -webkit-text-size-adjust: none !important;             /* prevent webkit from resizing text to fit */
+        -webkit-user-select: none !important;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    }
+</style>
+<body>
+
+
+        
+
+
+        <div id="game">
+        <script src="js/game.js"></script>
+        
+        </div>
+<div class="font_preload" style="opacity: 0">
+    <span style="font-family: 'gameFont', 'Arial', normal;"></span>
+</div>
+        
+<script>document.addEventListener("DOMContentLoaded",phaserInit);</script></body>
+</html>
