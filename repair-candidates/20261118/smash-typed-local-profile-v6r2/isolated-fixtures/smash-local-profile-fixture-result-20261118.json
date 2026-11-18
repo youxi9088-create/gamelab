@@ -1,0 +1,22 @@
+{
+  "passed": 14,
+  "checks": [
+    "Adler32 standard vectors",
+    "Unicode snapshot preserves exact original JSON strings",
+    "Corruption fails without deleting or resetting the previous snapshot",
+    "Incompatible schema is rejected without clearing existing data",
+    "Fresh save failure never publishes native profile or fake readiness",
+    "Atomic envelope retains previous generation when current write fails",
+    "Concurrent page changes cannot be silently overwritten",
+    "No-change autosave writes nothing; changed save has a recoverable prior snapshot",
+    "Native context probe does not create an absent service",
+    "Typed native restoration publishes both objects and distinct local identity, preserving ready",
+    "Failed second typed parse publishes neither profile and restores owned stack",
+    "A conflicting native identity is rejected without replacing current native objects",
+    "Autosave rejects a native identity change without touching the local snapshot",
+    "Repeated attachment shares one session and owned listeners/timer stop cleanly"
+  ],
+  "fixture_only": true,
+  "original_game_code_executed": false,
+  "original_game_data_used": false
+}

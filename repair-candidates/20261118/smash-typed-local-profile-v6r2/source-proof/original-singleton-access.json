@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-18T01:51:59.810244+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+  "original_body_hashes": [
+    {
+      "function_index": 644,
+      "bytes": 266,
+      "sha256": "f40fe34d905b5364cb3a5849f1ee5bd82fdbba96c483b12612298af48ae1085a"
+    },
+    {
+      "function_index": 1591,
+      "bytes": 62,
+      "sha256": "01e52f7aa07b96eed6e43f184f0708493a3f222b505904e2721120c5bba7d13c"
+    }
+  ],
+  "original_source_snippets": [
+    {
+      "function_index": 644,
+      "source": "function f_ux(a:int):int { // func644\n  var b:ubyte_ptr = a[4]:int;\n  b = ((if (b[189] & 1) { b } else { f_dw(b) })[24]:int)[2]:int;\n  if (\n    ((if (b[189] & 1) { b } else { f_dw(b) })[23]:int)[0]:int) goto B_a;\n  b = a[4]:int;\n  var c:int = \n    f_bac(((if (b[189] & 1) { b } else { f_dw(b) })[24]:int)[3]:int);\n  b = a[4]:int;\n  b = ((if (b[189] & 1) { b } else { f_dw(b) })[24]:int)[2]:int;\n  ((if (b[189] & 1) { b } else { f_dw(b) })[23]:int)[0]:int = c;\n  b = a[4]:int;\n  b = ((if (b[189] & 1) { b } else { f_dw(b) })[24]:int)[2]:int;\n  if (b[189] & 1) goto B_a;\n  f_dw(b);\n  label B_a:\n  a = a[4]:int;\n  a = ((if (a[189]:ubyte & 1) { a } else { f_dw(a) })[24]:int)[2]:int;\n  return \n    ((if (a[189]:ubyte & 1) { a } else { f_dw(a) })[23]:int)[0]:int;\n}\n\n",
+      "source_sha256": "86d17a5df881b7c703b59341e17ba7a93139c247d20580be409953548e1abdc6"
+    },
+    {
+      "function_index": 1591,
+      "source": "function f_fib(a:int):int { // func1591\n  a = a[4]:int;\n  a = ((if (a[189]:ubyte & 1) { a } else { f_dw(a) })[24]:int)[2]:int;\n  return \n    ((if (a[189]:ubyte & 1) { a } else { f_dw(a) })[23]:int)[0]:int != 0;\n}\n\n",
+      "source_sha256": "9491b221834b7f3727080153d3cfcf36083fb33e3b8d8b19c5656110401abfc5"
+    }
+  ]
+}
