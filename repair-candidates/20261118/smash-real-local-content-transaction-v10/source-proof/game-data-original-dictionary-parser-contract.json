@@ -1,0 +1,63 @@
+{
+  "at": "2026-11-18T03:42:22.429152+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+  "metadata_sha256": "01fcf80701368d9cfd840da074171b85e422f8a3bd440e2f21f635cfb3b3a0c7",
+  "typed_parser": {
+    "method_spec_index": 85852,
+    "method_index": 71098,
+    "class_arguments": -1,
+    "method_arguments": 123,
+    "generic_types": [
+      {
+        "name": "Dictionary<string,object>",
+        "namespace": "System.Collections.Generic",
+        "type_code": 21,
+        "definition": {
+          "name": "Dictionary`2",
+          "namespace": "System.Collections.Generic",
+          "type_code": 18,
+          "type_definition_index": 2464
+        },
+        "arguments": [
+          {
+            "name": "string",
+            "type_code": 14
+          },
+          {
+            "name": "object",
+            "type_code": 28
+          }
+        ],
+        "generic_class_address": 5428088,
+        "generic_instantiation_address": 656072
+      }
+    ]
+  },
+  "verified_metadata_use": {
+    "metadata_use_address": 5690372,
+    "metadata_initializer_callers": [
+      100493,
+      100755,
+      100756
+    ]
+  },
+  "native_shared_deserializer": 2114,
+  "original_data_consumer": {
+    "type_index": 707,
+    "class": "GameDataService",
+    "method_index": 5648,
+    "method": "fxy",
+    "token": 100668945,
+    "function_index": 17602,
+    "table_index": 21655
+  },
+  "limitations": [
+    "Only the original parser type and metadata binding are established; no original functions were executed.",
+    "No dataset was generated, native state assigned, backend response fabricated or completion emitted.",
+    "A future local-content adapter must use genuine original presets and real local state, validate and persist them before the normal typed application transaction.",
+    "This does not establish the safety of all original data-application side effects."
+  ]
+}
