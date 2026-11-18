@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-18T02:35:40.900413+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+  "original_body_hashes": [
+    {
+      "function_index": 771,
+      "bytes": 226,
+      "sha256": "dab9f57d3804f730359d77bec355c4a0fe768050c3d15b94cd05828fff65de2a"
+    },
+    {
+      "function_index": 31571,
+      "bytes": 235,
+      "sha256": "2cc25e4158aa3499b09fa8a450f7911630e5405ecefa1cf5cd597da1ec12ca37"
+    },
+    {
+      "function_index": 31572,
+      "bytes": 236,
+      "sha256": "c78d5540a77a8fd4f96e371dbca16f97ab6722f9eacfb464adf92d687cd8a679"
+    }
+  ],
+  "original_source_snippets": [
+    {
+      "function_index": 771,
+      "source": "function f_rca(a:int_ptr):int { // func771\n  if (eqz(6746967[0]:ubyte)) {\n    f_bw(5634068);\n    6746967[0]:byte = 1;\n  }\n  var b:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(b[29])) {\n    f_cw(b);\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  }\n  a = ((b[23])[112088]:int)[24]:int;\n  if (eqz(a)) {\n    if (eqz(b[29])) { f_cw(b) }\n    if (eqz(6746947[0]:ubyte)) {\n      f_bw(5634068);\n      6746947[0]:byte = 1;\n    }\n    b = f_gw(0);\n    a = call_indirect(\n          b,\n          ((if ((a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int)[29]) {\n              a\n            } else {\n              f_cw(a);\n              d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n            })[23]:int)[112087]:int,\n          519,\n          0,\n          (a = b[0])[123],\n          a[122]);\n    (((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int)[23]:int)[112088]:int)[24]:int =\n      a;\n  }\n  return a;\n}\n\n",
+      "source_sha256": "c203cd7a06f9f90245a8200a5bd6b1d3c9aa2b986e576a1e3bceb54122303259"
+    },
+    {
+      "function_index": 31571,
+      "source": "function f_hrta(a:int_ptr):int { // func31571\n  if (eqz(6748493[0]:ubyte)) {\n    f_bw(5634068);\n    6748493[0]:byte = 1;\n  }\n  var b:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(b[29])) {\n    f_cw(b);\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  }\n  a = ((b[23])[112088]:int + 6212)[0]:int;\n  if (eqz(a)) {\n    if (eqz(b[29])) { f_cw(b) }\n    if (eqz(6746947[0]:ubyte)) {\n      f_bw(5634068);\n      6746947[0]:byte = 1;\n    }\n    b = f_gw(0);\n    a = call_indirect(\n          b,\n          ((if ((a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int)[29]) {\n              a\n            } else {\n              f_cw(a);\n              d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n            })[23]:int)[112087]:int,\n          29131,\n          57,\n          (a = b[0])[123],\n          a[122]);\n    (((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int)[23]:int)[112088]:int +\n     6212)[0]:int =\n      a;\n  }\n  return a;\n}\n\n",
+      "source_sha256": "507a5e82eef98599b63f905030acff82695132e2852a72227a82fecd74a86d10"
+    },
+    {
+      "function_index": 31572,
+      "source": "function f_irta(a:int_ptr):int { // func31572\n  if (eqz(6748492[0]:ubyte)) {\n    f_bw(5634068);\n    6748492[0]:byte = 1;\n  }\n  var b:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(b[29])) {\n    f_cw(b);\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  }\n  a = ((b[23])[112088]:int + 6208)[0]:int;\n  if (eqz(a)) {\n    if (eqz(b[29])) { f_cw(b) }\n    if (eqz(6746947[0]:ubyte)) {\n      f_bw(5634068);\n      6746947[0]:byte = 1;\n    }\n    b = f_gw(0);\n    a = call_indirect(\n          b,\n          ((if ((a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int)[29]) {\n              a\n            } else {\n              f_cw(a);\n              d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n            })[23]:int)[112087]:int,\n          29051,\n          80,\n          (a = b[0])[123],\n          a[122]);\n    (((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int)[23]:int)[112088]:int +\n     6208)[0]:int =\n      a;\n  }\n  return a;\n}\n\n",
+      "source_sha256": "e6c4da7f1fd178e52a2e215221d11d705dd4c0300905e7bf42e3f4a0f8f7f8fa"
+    }
+  ]
+}
