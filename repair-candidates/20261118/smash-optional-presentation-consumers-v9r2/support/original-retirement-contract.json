@@ -1,0 +1,190 @@
+{
+  "at": "2026-11-18T03:11:14.041437+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "core_service_requirements": [
+    {
+      "class": "GameSettingsService",
+      "get_metadata_address": 5669892,
+      "has_metadata_address": 5669884,
+      "ready_byte": 21
+    },
+    {
+      "class": "UserService",
+      "get_metadata_address": 5669972,
+      "has_metadata_address": 5669964,
+      "ready_byte": 80
+    },
+    {
+      "class": "FtueDataService",
+      "get_metadata_address": 5669860,
+      "has_metadata_address": 5669852,
+      "ready_byte": 20
+    }
+  ],
+  "game_data_requirement": {
+    "class": "GameDataService",
+    "get_metadata_address": 5669876,
+    "has_metadata_address": 5669868,
+    "loading_byte": 140,
+    "original_ready_getter": 10177
+  },
+  "verified_generic_metadata": [
+    {
+      "address": 5669884,
+      "method": "HasInstance",
+      "owner": "GameSettingsService",
+      "method_spec_index": 84097
+    },
+    {
+      "address": 5669892,
+      "method": "get_Instance",
+      "owner": "GameSettingsService",
+      "method_spec_index": 84099
+    },
+    {
+      "address": 5669964,
+      "method": "HasInstance",
+      "owner": "UserService",
+      "method_spec_index": 84117
+    },
+    {
+      "address": 5669972,
+      "method": "get_Instance",
+      "owner": "UserService",
+      "method_spec_index": 84119
+    },
+    {
+      "address": 5669852,
+      "method": "HasInstance",
+      "owner": "FtueDataService",
+      "method_spec_index": 84089
+    },
+    {
+      "address": 5669860,
+      "method": "get_Instance",
+      "owner": "FtueDataService",
+      "method_spec_index": 84091
+    },
+    {
+      "address": 5669868,
+      "method": "HasInstance",
+      "owner": "GameDataService",
+      "method_spec_index": 84093
+    },
+    {
+      "address": 5669876,
+      "method": "get_Instance",
+      "owner": "GameDataService",
+      "method_spec_index": 84095
+    }
+  ],
+  "original_game_data_completeness_source": {
+    "function_index": 10177,
+    "name": "GameDataService_fxp_10177",
+    "source_sha256": "b5189032649f8268545b2833c738e19c9c1418948aa4888b39882bc4fdcb8ef3",
+    "source": "function GameDataService_fxp_10177(a:int_ptr, b:int_ptr):int { // func10177\n  return if ({\n               b = a[17];\n               if (b) {\n                 0;\n                 if (b[2]) goto B_a;\n               }\n               1;\n               label B_a:\n             }) {\n           0\n         } else {\n           {\n             a = a[23];\n             if (a) {\n               0;\n               if (a[2]) goto B_d;\n             }\n             1;\n             label B_d:\n           } ^\n           1\n         }\n}\n\n"
+  },
+  "retired_optional_service_names": [
+    "NewsDataService",
+    "CrossPromoDataService"
+  ],
+  "original_startup_request_callers": {
+    "43380": [
+      104933
+    ],
+    "43675": [
+      104933
+    ]
+  },
+  "retired_panel_start_consumers": [
+    {
+      "class": "CrossPromoPanel",
+      "type_index": 435,
+      "method_index": 3116,
+      "name": "Start",
+      "token": 100666413,
+      "function_index": 107124
+    },
+    {
+      "class": "NewsAndFriendsPanel",
+      "type_index": 535,
+      "method_index": 4125,
+      "name": "Start",
+      "token": 100667422,
+      "function_index": 105877
+    },
+    {
+      "class": "NewsPanel",
+      "type_index": 538,
+      "method_index": 4148,
+      "name": "Start",
+      "token": 100667445,
+      "function_index": 105867
+    }
+  ],
+  "component_apis": [
+    {
+      "namespace": "UnityEngine",
+      "type": "Component",
+      "image": "UnityEngine.CoreModule.dll",
+      "method": "get_gameObject",
+      "method_index": 66691,
+      "token": 100666251,
+      "parameter_count": 0,
+      "table_index": 2582,
+      "function_index": 637
+    },
+    {
+      "namespace": "UnityEngine",
+      "type": "GameObject",
+      "image": "UnityEngine.CoreModule.dll",
+      "method": "SetActive",
+      "method_index": 66818,
+      "token": 100666378,
+      "parameter_count": 1,
+      "table_index": 2680,
+      "function_index": 630
+    }
+  ],
+  "original_changed_body_proofs": [
+    {
+      "function_index": 6443,
+      "bytes": 316,
+      "sha256": "1b61f6daf896b40a21644bd93c4ebc992410d020fa2b452caa82398e97d57b73"
+    },
+    {
+      "function_index": 10272,
+      "bytes": 606,
+      "sha256": "36036cf3e6bc45f294539fd1ec68eacfa74413a698359ad0b5bd3fd12ae9afea"
+    },
+    {
+      "function_index": 104933,
+      "bytes": 1083,
+      "sha256": "aadd897c92501b225c19615464a9543fa432d54b2c22f64bc57c442fac9e819b"
+    },
+    {
+      "function_index": 105867,
+      "bytes": 236,
+      "sha256": "c32b3bc6df3cd9941c86fad71d002527d20403cb1d46c1adc7f1e319eeeea229"
+    },
+    {
+      "function_index": 105877,
+      "bytes": 250,
+      "sha256": "0721f992cacd46c1c4f38d43d70e31d27615609b92190be6a832a403aa27652e"
+    },
+    {
+      "function_index": 107124,
+      "bytes": 254,
+      "sha256": "24eb2cf647a9c4952c996f2538da20e5137252ef9d2aae43cd340afee2d7d980"
+    }
+  ],
+  "boundary": [
+    "Core settings, persisted local user, original parsed tutorial and actual GameData completeness remain required.",
+    "Remove optional startup request consumers and optional presentation dependencies together; never mark their services ready or feed fabricated data.",
+    "Only the combined online news/friends/media panel and promotion presentation will be hidden using original GameObject APIs.",
+    "Direct instruction-pattern candidates were checked against the original decompiled loader caller; this is not an exhaustive indirect-call proof.",
+    "No gameplay, authentication, rewards, permissions, task or acceptance gates changed by this source contract."
+  ]
+}

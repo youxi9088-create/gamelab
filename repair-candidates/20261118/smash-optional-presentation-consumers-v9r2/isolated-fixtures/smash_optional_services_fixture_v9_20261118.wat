@@ -1,0 +1,11 @@
+(module
+  (import "native" "metadata_init" (func $meta (param i32)))
+  (import "native" "has_instance" (func $has (param i32) (result i32)))
+  (import "native" "get_instance" (func $get (param i32) (result i32)))
+  (import "native" "game_data_ready" (func $ready (param i32 i32) (result i32)))
+  (import "native" "component_game_object" (func $object (param i32 i32) (result i32)))
+  (import "native" "set_active" (func $active (param i32 i32 i32)))
+  (memory (export "memory") 128)
+  (global (export "stack") (mut i32) (i32.const 7600000))
+  (func (export "fixture_anchor") (result i32) i32.const 73)
+  (func (param i32 i32)))
