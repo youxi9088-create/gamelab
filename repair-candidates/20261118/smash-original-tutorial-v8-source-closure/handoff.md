@@ -1,0 +1,14 @@
+# A组交接：Smash原教程输入已同步，实机仍受桌面访问阻挡
+
+
+### 2026-11-18 Smash v8原教程输入本地化，桌面仍未可控
+
+用户回复已停止操作且52在前台后，工具重新枚举唯一52窗口527928；激活仍实际返回GetCursorPos访问拒绝0x80070005。按computer-use规则只恢复一次：新list/get_window只读截图仍为Windows密码页，缺少窗口边框，不能可靠区分Codex主机或52锁定。没有操作登录页、没有启动游戏/观察器、没有预留或扣第4步；仍3/5剩2。已请求两边均保持解锁，SSH94663仍可执行并有新exit0回执，不重复登录或寻找凭据。
+
+源码侧完成v8：将已取得的原公开Ftue JSON4251字节按SHA原样放入StreamingAssets/aa/ftue-v4.original.json。只替换原getter31571远端URL消费者，调用一个新自编路径函数，使用已证实ABI的原Application.get_streamingAssetsPath6872、String.Ctor67864、String.Concat635构建可迁移同源URL。不硬编码域名/机器/端口，不覆盖57字节RVA或相邻字符串。原FtueDataService43616下载、类型解析、101058非空完成判断保持，不造空列表/成功回调/ready。4项是教程配置不是关卡，3项原usePlayerBots=true不是AI实测，权重/地图/模式/自动开局/奖励/解锁值均不改。
+
+v7全部138250函数体中138249保持，仅31571单消费者变化，另追加1函数/导出；从v5累计8自编函数/7导出，v7档案/真实本地完成事务原字节保留。原type/import/table/global/data/metadata/RVA保持。完整Wasm静态校验exit0，开发机仅执行自编路径fixture：HTTPS目录、带不同端口目录、Unicode目录3项均正确，使用UTF16原字符串拼接并恢复栈；原游戏从未在开发机运行。前17项档案隔离证据继续保留，没有因纯路径修改重跑原游戏。
+
+52独立D:\GameLab\temp\direct-smash-local-ftue-v8-20261118/candidate211文件重建逐SHA，候选清单637fab52df71c0c35e459ed55099d82124583390527ebbfdf38801ed1eee2c68，增量清单1da3a9eeadaed6cd2b8ad719dd80c0f1deeba5384fbdcc1fdccbb91e4865fdad，完整原文件SHA1b63ee72154ddbe90c7f0cb4470031a5c1db80af5a686a80e8d7695f2c168465。原任务blocked/round3/versionnull整行和暂停/历史保持，未接续/入库/下游。GitHub提交c6c0b930ca2c76630013adcbf64f1234b90877a4已25blob核对、push0、ls-remote精确一致。V5.1同步写明原路径/实现事实与未实机范围；状态中的旧user_service_ready_written改为null并分列“本地事务实现”和“运行未知”，避免把代码会调用setter误读为实际游戏ready。
+
+最新测试站直连绕过代理2026-11-18T02:55:45Z：A93仍35completed/1review/45blocked/9queued/3failed，57未达目标，没有本轮新增待验收。最初误把本机测试站helper交给52时在本地路径读取即FileNotFound、未发测试站请求，已改回开发电脑原helper直连并实际成功；不拿该失败当站点故障。其余News/CrossPromo/GameData、云端/SDK消费者、离线房间/玩家/AI及核心玩法仍未完成。不能以211文件SHA或静态校验代替游戏验收。耗时/Token/费用未知null。RustyPick/Craig新追加额度问题仍未回复；B组、其它暂停、跳过/取消、Cow/采集及下游保持。
