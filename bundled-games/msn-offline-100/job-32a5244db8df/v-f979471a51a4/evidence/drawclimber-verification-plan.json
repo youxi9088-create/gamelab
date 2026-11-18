@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-18T13:24:38.991497+00:00",
+  "native_id": "9p6xljvzm6pp",
+  "revision": "drawclimber-offline-v1",
+  "maximum_cumulative_actual_inputs": 5,
+  "prior_UI": 0,
+  "plan": [
+    "1:Original entry and genuine resource readiness",
+    "2:Original visible PLAY if needed",
+    "3:One genuine pointer drawing stroke on visible drawing pad; original physics reacts",
+    "4:Adapt to actual visible result: next ordinary control or redraw",
+    "5:One remaining actual control or reload; never a sixth input"
+  ],
+  "prohibited": [
+    "SDK/server facades",
+    "reward success callback promotion",
+    "coin/level/save/RNG/time/score injection",
+    "native engine execution locally"
+  ],
+  "passive_observations_screenshots_and_close_are_not_inputs": true
+}

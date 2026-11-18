@@ -1,0 +1,461 @@
+{
+  "at": "2026-11-18T13:23:30.025249+00:00",
+  "source_files": 56,
+  "runtime_files": 50,
+  "raw_original_files": 47,
+  "source_hashes": {
+    "index.html": "6f7ec1c38408ae25b5745ca25c7e16357a3c7d89d00dcaabb83c623d0e3f7cdb",
+    "_webapp/webapp.lib.js": "f7a0efe28673ac7a713f1ebcf24cc5a19c5c6031f146656dd630a69fc2d95cdb",
+    "_webapp/webapp.js": "80d8d8a586253edb710d126035f3dc7b2cb7029da275157409d376c45c9a91e7",
+    "fastLib/_bridge.js": "4f61f7b635e43b0924300cdb5fea3b10dc19db70b96f980b156ca6eacfa15d78",
+    "fastLib/_importer.js": "bd89a07169e85da3732450b5265826833690546a5a4a316f093fec3693a8dd11",
+    "fastLib/fastHeader.js": "7bc3e56ae6f48dba15ba2ae1cc83efeb91eef34733f5f1b0eeacde990d385f77",
+    "fetch4apk.js": "72c681d7a61cc33f1dfd88bf7eef594749c55d0db0fca6c7b593c309fc68bbd6",
+    "lib/voodoo-h5sdk.js": "e100d79cae52dd89a3f5c0ea3ec7896f9817187e12f3a0b4019d292b8595249e",
+    "lib/voodoo-regenerator.js": "7bcecbd516f251f473d42b1943c2c6e8b0aba620b9bfc732cba3e26a2a903d95",
+    "main.js": "387ce91a44610d7bae2948763c73a74e88290c9e492c0a0cb8aa7b5ad1448ce8",
+    "assets/gameLogo.png": "a2f1c3da853bd8b421a192125c51c0210c8d68f03bd2831bac8c151f05331eba",
+    "assets/modelsglb/ballsV/scene.glb": "c0c483da6344a10c9e48a5ddd410632ae4cd522b6618a90f43e86b1695004025",
+    "assets/modelsglb/blowfx/scene.glb": "7db5ac718b2dc8ff39b37bd18226ca87eb2ba8d91a7aa95684f68920bce939eb",
+    "assets/modelsglb/char/scene.glb": "635b2294099000b53350e7cbb06166296a8b771c5d7cf37ed2c9bb4d8cb2a3c3",
+    "assets/modelsglb/coin/scene.glb": "57a5c3d297c7d2b5d560f50e81c0d9ef6c764505dce4bed1e9d47de8380b0d37",
+    "assets/modelsglb/coinSolo/scene.glb": "598fe092cb13f501d228b01d852cc9ca1df5dcbed17d65a994029a723755ed39",
+    "assets/modelsglb/crown/scene.glb": "1295d4ba51836e08efe810c07acceafe3aab330ad7dcae31b27a7d958d98ee4a",
+    "assets/modelsglb/flagplane/scene.glb": "781879d201930e3713b978716bb1eefa7382778acddf607db1a4537d1defbe8e",
+    "assets/modelsglb/finalplatform/scene.glb": "0bd68ca7ce4eec00461a97747e8aad695292a9ac024c28582bf9b3006b383488",
+    "assets/modelsglb/level2/scene.glb": "95cd5f115c578a1e9484ee3844c957b06df18fa0226b1fb9009be352900be19a",
+    "assets/modelsglb/level10/scene.glb": "31a02fbfce26dc194679ab324f028bd49073feab8a050c67f08f8c0de8529f7d",
+    "assets/modelsglb/level1/scene.glb": "72423a34b017836a08c49fe3f7679a7f502c169b4f2d5b77f2c5396d145f7fae",
+    "assets/modelsglb/level3/scene.glb": "5a17db571c4c1f5c26e619c21a423e56613661124cc32f5aa59c1678839711d0",
+    "assets/modelsglb/level4/scene.glb": "c78ed2546238a775501404c6bf39450f3d311b66c98112d6e9cc102fb39d9860",
+    "assets/modelsglb/level5/scene.glb": "14d1c733f9d15834ddef9a76cf90cf6334f5415618748e78870e28deb0bb91ef",
+    "assets/modelsglb/level7/scene.glb": "b6142ecdff9bec96a8b3df47cd6c59be67efa0d27105d1d57cad929c4951c241",
+    "assets/modelsglb/level6/scene.glb": "be2ddfcceced737f1a3dad1ee31d6bb9601a01a5144da6a901eb51b4031202f4",
+    "assets/modelsglb/level8/scene.glb": "715853967fc6aa8b5f72360c5701bcfea2c2fee56ecea7dc1188726626013f7d",
+    "assets/modelsglb/level9/scene.glb": "c50c55c1e20afdf66e64d3f325585f0bf78b24d3dcbf2e0190fe680ee7db88d6",
+    "assets/sounds/output.mp3": "8a4979147aa428bf55f3875c3c19598f1a01126ff79f89805c8e4e7aa36374f6",
+    "assets/textures/Logo.png": "6edce9d3582f9b8f107df8e722b6abdc901984ddf9553351f86d62698ca78b59",
+    "assets/textures/endstar.png": "5f1d3509f508430100db2150b8997f026a435ceb785a1bde4a7a88f8325b3d91",
+    "assets/textures/name_bar.png": "5ef69a565a63678d6ab0dae6c4aeafd4214ad1648b0f6ac86087562e6e04d042",
+    "assets/textures/star2.png": "d1c1b8b89ce8c5104fc1cd3367aa1b67a8e75d7776366c128a3e66daec3c2e88",
+    "assets/textures/spritesheet.png": "da47e0d281988d37bb8d2d5234e2a3d0b1547cc6ec4e90fada782f2af2c8314f",
+    "assets/textures/texture1.png": "7da5c5027ca7fa97c2bf5ff23f695f6a0956e7acba555daa142f5a873c7bbfe0",
+    "assets/ui/atlas.png": "13e9a8fbb88ab7ea3dfe9b72576d21d3b95104cc834c070eb2956f926baac409",
+    "assets/ui/atlas.json": "2422f047b502302b356698d8616f4abb3d1df6fc87ce5294e6408c8fe80e7f5b",
+    "assets/ui/draw_kanvas.png": "75b567ee478fd73179d7cb38387d61f117ae9c4a34cfcd9e11e1e0c770901c38",
+    "assets/uiatlas/uiatlas_en.json": "fd758c50c4fed76ed1091304992d1a2141b489c0b7fe06af6ba4a0847cda9ace",
+    "assets/uiatlas/uiatlas_en.png": "16697d129fd3a26dfbd9016e1508b45d14df4778ad7be547f91f04433d0f075d",
+    "assets/uiatlas/uiatlas_fr.json": "fd758c50c4fed76ed1091304992d1a2141b489c0b7fe06af6ba4a0847cda9ace",
+    "assets/uiatlas/uiatlas_fr.png": "16697d129fd3a26dfbd9016e1508b45d14df4778ad7be547f91f04433d0f075d",
+    "benchmarks/d-apple.json": "44ed3d8882fafa11606ab36239f0c2cd74644c599158a52ba2aed372b28b83d8",
+    "benchmarks/d-intel.json": "12dadabea35dfbbcf2de0e01c2be1c1d4e6dc84889f64f2dd957fae9178eedd8",
+    "benchmarks/d-amd.json": "10c302febdc61207aa61f56e43bee95a05de72a585ffa3b8257dfa9b54030535",
+    "benchmarks/d-radeon.json": "2b7af4dac463acc972b0e73ff22772088f3d985ba426da80d064b239ca4beb68",
+    "benchmarks/d-nvidia.json": "d4bfddf79e8e52a213f4326fc0e22d40b2c28f9ef38dab3406f2ff9882d5a110",
+    "benchmarks/d-geforce.json": "98e3e93dbf7aeb662112d41b6d0270ccfb398fbfac7a08e0161524e1fb21da98",
+    "benchmarks/m-adreno.json": "86fc529940421f90a3980e8d826509d3022d1d70b5dbfd72d55a75fcccfd7210",
+    "benchmarks/m-apple.json": "c6e4d37f31c76cf544e8d36a8923c1578983894283f8d2fce80ffd298a150b44",
+    "benchmarks/m-mali-t.json": "8eab9e5c13d5434a18dcc70e53a5a4e64f77dcb05abe4988833a1b573af9a25a",
+    "benchmarks/m-nvidia.json": "74df8faa4a4ea08cdaf66aa6bd22c9733542afd9c8bdb8d5c8bfd34d2d35ae7b",
+    "benchmarks/m-mali.json": "b559699c5a9f5fd8db927c3d639184f614a87b905fa03acbdfe8aef4864f7f95",
+    "benchmarks/m-powervr.json": "bac1d31b7d947b58e8401cfefc1ccd62aea836aa9fc4efe0385f832faccdb40f",
+    "benchmarks/m-apple-ipad.json": "31f5410ad8f99f0729d602132149f22b7fc5f238214f9da32ba9b2b8a710151c"
+  },
+  "runtime_hashes": {
+    "index.html": "2c63e0724865177947ef2600cd09e432cd46d48e3787525b4fb5179a10205e43",
+    "local-start.js": "958a97d24a2de517dab94a8627173ef0990e799c51dc137e0f039b9b0a45f34a",
+    "main.js": "16e5e7e4dee16d5c9ebc9ab8273c93a7b44b6fecd2786d6bb4e0ae9a2800f226",
+    "assets/gameLogo.png": "a2f1c3da853bd8b421a192125c51c0210c8d68f03bd2831bac8c151f05331eba",
+    "benchmarks/d-amd.json": "10c302febdc61207aa61f56e43bee95a05de72a585ffa3b8257dfa9b54030535",
+    "benchmarks/d-apple.json": "44ed3d8882fafa11606ab36239f0c2cd74644c599158a52ba2aed372b28b83d8",
+    "benchmarks/d-geforce.json": "98e3e93dbf7aeb662112d41b6d0270ccfb398fbfac7a08e0161524e1fb21da98",
+    "benchmarks/d-intel.json": "12dadabea35dfbbcf2de0e01c2be1c1d4e6dc84889f64f2dd957fae9178eedd8",
+    "benchmarks/d-nvidia.json": "d4bfddf79e8e52a213f4326fc0e22d40b2c28f9ef38dab3406f2ff9882d5a110",
+    "benchmarks/d-radeon.json": "2b7af4dac463acc972b0e73ff22772088f3d985ba426da80d064b239ca4beb68",
+    "benchmarks/m-adreno.json": "86fc529940421f90a3980e8d826509d3022d1d70b5dbfd72d55a75fcccfd7210",
+    "benchmarks/m-apple-ipad.json": "31f5410ad8f99f0729d602132149f22b7fc5f238214f9da32ba9b2b8a710151c",
+    "benchmarks/m-apple.json": "c6e4d37f31c76cf544e8d36a8923c1578983894283f8d2fce80ffd298a150b44",
+    "benchmarks/m-mali-t.json": "8eab9e5c13d5434a18dcc70e53a5a4e64f77dcb05abe4988833a1b573af9a25a",
+    "benchmarks/m-mali.json": "b559699c5a9f5fd8db927c3d639184f614a87b905fa03acbdfe8aef4864f7f95",
+    "benchmarks/m-nvidia.json": "74df8faa4a4ea08cdaf66aa6bd22c9733542afd9c8bdb8d5c8bfd34d2d35ae7b",
+    "benchmarks/m-powervr.json": "bac1d31b7d947b58e8401cfefc1ccd62aea836aa9fc4efe0385f832faccdb40f",
+    "lib/voodoo-regenerator.js": "7bcecbd516f251f473d42b1943c2c6e8b0aba620b9bfc732cba3e26a2a903d95",
+    "assets/sounds/output.mp3": "8a4979147aa428bf55f3875c3c19598f1a01126ff79f89805c8e4e7aa36374f6",
+    "assets/textures/endstar.png": "5f1d3509f508430100db2150b8997f026a435ceb785a1bde4a7a88f8325b3d91",
+    "assets/textures/Logo.png": "6edce9d3582f9b8f107df8e722b6abdc901984ddf9553351f86d62698ca78b59",
+    "assets/textures/name_bar.png": "5ef69a565a63678d6ab0dae6c4aeafd4214ad1648b0f6ac86087562e6e04d042",
+    "assets/textures/spritesheet.png": "da47e0d281988d37bb8d2d5234e2a3d0b1547cc6ec4e90fada782f2af2c8314f",
+    "assets/textures/star2.png": "d1c1b8b89ce8c5104fc1cd3367aa1b67a8e75d7776366c128a3e66daec3c2e88",
+    "assets/textures/texture1.png": "7da5c5027ca7fa97c2bf5ff23f695f6a0956e7acba555daa142f5a873c7bbfe0",
+    "assets/ui/atlas.json": "2422f047b502302b356698d8616f4abb3d1df6fc87ce5294e6408c8fe80e7f5b",
+    "assets/ui/atlas.png": "13e9a8fbb88ab7ea3dfe9b72576d21d3b95104cc834c070eb2956f926baac409",
+    "assets/ui/draw_kanvas.png": "75b567ee478fd73179d7cb38387d61f117ae9c4a34cfcd9e11e1e0c770901c38",
+    "assets/uiatlas/uiatlas_en.json": "fd758c50c4fed76ed1091304992d1a2141b489c0b7fe06af6ba4a0847cda9ace",
+    "assets/uiatlas/uiatlas_en.png": "16697d129fd3a26dfbd9016e1508b45d14df4778ad7be547f91f04433d0f075d",
+    "assets/uiatlas/uiatlas_fr.json": "fd758c50c4fed76ed1091304992d1a2141b489c0b7fe06af6ba4a0847cda9ace",
+    "assets/uiatlas/uiatlas_fr.png": "16697d129fd3a26dfbd9016e1508b45d14df4778ad7be547f91f04433d0f075d",
+    "assets/modelsglb/ballsV/scene.glb": "c0c483da6344a10c9e48a5ddd410632ae4cd522b6618a90f43e86b1695004025",
+    "assets/modelsglb/blowfx/scene.glb": "7db5ac718b2dc8ff39b37bd18226ca87eb2ba8d91a7aa95684f68920bce939eb",
+    "assets/modelsglb/char/scene.glb": "635b2294099000b53350e7cbb06166296a8b771c5d7cf37ed2c9bb4d8cb2a3c3",
+    "assets/modelsglb/coin/scene.glb": "57a5c3d297c7d2b5d560f50e81c0d9ef6c764505dce4bed1e9d47de8380b0d37",
+    "assets/modelsglb/coinSolo/scene.glb": "598fe092cb13f501d228b01d852cc9ca1df5dcbed17d65a994029a723755ed39",
+    "assets/modelsglb/crown/scene.glb": "1295d4ba51836e08efe810c07acceafe3aab330ad7dcae31b27a7d958d98ee4a",
+    "assets/modelsglb/finalplatform/scene.glb": "0bd68ca7ce4eec00461a97747e8aad695292a9ac024c28582bf9b3006b383488",
+    "assets/modelsglb/flagplane/scene.glb": "781879d201930e3713b978716bb1eefa7382778acddf607db1a4537d1defbe8e",
+    "assets/modelsglb/level1/scene.glb": "72423a34b017836a08c49fe3f7679a7f502c169b4f2d5b77f2c5396d145f7fae",
+    "assets/modelsglb/level10/scene.glb": "31a02fbfce26dc194679ab324f028bd49073feab8a050c67f08f8c0de8529f7d",
+    "assets/modelsglb/level2/scene.glb": "95cd5f115c578a1e9484ee3844c957b06df18fa0226b1fb9009be352900be19a",
+    "assets/modelsglb/level3/scene.glb": "5a17db571c4c1f5c26e619c21a423e56613661124cc32f5aa59c1678839711d0",
+    "assets/modelsglb/level4/scene.glb": "c78ed2546238a775501404c6bf39450f3d311b66c98112d6e9cc102fb39d9860",
+    "assets/modelsglb/level5/scene.glb": "14d1c733f9d15834ddef9a76cf90cf6334f5415618748e78870e28deb0bb91ef",
+    "assets/modelsglb/level6/scene.glb": "be2ddfcceced737f1a3dad1ee31d6bb9601a01a5144da6a901eb51b4031202f4",
+    "assets/modelsglb/level7/scene.glb": "b6142ecdff9bec96a8b3df47cd6c59be67efa0d27105d1d57cad929c4951c241",
+    "assets/modelsglb/level8/scene.glb": "715853967fc6aa8b5f72360c5701bcfea2c2fee56ecea7dc1188726626013f7d",
+    "assets/modelsglb/level9/scene.glb": "c50c55c1e20afdf66e64d3f325585f0bf78b24d3dcbf2e0190fe680ee7db88d6"
+  },
+  "excluded_actual_host_sources": [
+    "_webapp/webapp.lib.js",
+    "_webapp/webapp.js",
+    "fastLib/_bridge.js",
+    "fastLib/_importer.js",
+    "fastLib/fastHeader.js",
+    "fetch4apk.js",
+    "lib/voodoo-h5sdk.js"
+  ],
+  "assets": {
+    "models": 18,
+    "levels": 10,
+    "local_GPU_benchmarks": 13,
+    "ui_languages": [
+      "en",
+      "fr"
+    ],
+    "SFX": "original output.mp3",
+    "unavailable_disabled_BGM": "bg.m4a404; original bgMusicEnabled=false retained, no placeholder"
+  },
+  "resources": {
+    "schema_version": 1,
+    "status": "static_pass",
+    "files": [
+      {
+        "file": "assets/gameLogo.png",
+        "bytes": 24730,
+        "sha256": "a2f1c3da853bd8b421a192125c51c0210c8d68f03bd2831bac8c151f05331eba"
+      },
+      {
+        "file": "assets/modelsglb/ballsV/scene.glb",
+        "bytes": 14168,
+        "sha256": "c0c483da6344a10c9e48a5ddd410632ae4cd522b6618a90f43e86b1695004025"
+      },
+      {
+        "file": "assets/modelsglb/blowfx/scene.glb",
+        "bytes": 52440,
+        "sha256": "7db5ac718b2dc8ff39b37bd18226ca87eb2ba8d91a7aa95684f68920bce939eb"
+      },
+      {
+        "file": "assets/modelsglb/char/scene.glb",
+        "bytes": 6360,
+        "sha256": "635b2294099000b53350e7cbb06166296a8b771c5d7cf37ed2c9bb4d8cb2a3c3"
+      },
+      {
+        "file": "assets/modelsglb/coin/scene.glb",
+        "bytes": 38612,
+        "sha256": "57a5c3d297c7d2b5d560f50e81c0d9ef6c764505dce4bed1e9d47de8380b0d37"
+      },
+      {
+        "file": "assets/modelsglb/coinSolo/scene.glb",
+        "bytes": 39804,
+        "sha256": "598fe092cb13f501d228b01d852cc9ca1df5dcbed17d65a994029a723755ed39"
+      },
+      {
+        "file": "assets/modelsglb/crown/scene.glb",
+        "bytes": 3548,
+        "sha256": "1295d4ba51836e08efe810c07acceafe3aab330ad7dcae31b27a7d958d98ee4a"
+      },
+      {
+        "file": "assets/modelsglb/finalplatform/scene.glb",
+        "bytes": 620052,
+        "sha256": "0bd68ca7ce4eec00461a97747e8aad695292a9ac024c28582bf9b3006b383488"
+      },
+      {
+        "file": "assets/modelsglb/flagplane/scene.glb",
+        "bytes": 10632,
+        "sha256": "781879d201930e3713b978716bb1eefa7382778acddf607db1a4537d1defbe8e"
+      },
+      {
+        "file": "assets/modelsglb/level1/scene.glb",
+        "bytes": 186004,
+        "sha256": "72423a34b017836a08c49fe3f7679a7f502c169b4f2d5b77f2c5396d145f7fae"
+      },
+      {
+        "file": "assets/modelsglb/level10/scene.glb",
+        "bytes": 269864,
+        "sha256": "31a02fbfce26dc194679ab324f028bd49073feab8a050c67f08f8c0de8529f7d"
+      },
+      {
+        "file": "assets/modelsglb/level2/scene.glb",
+        "bytes": 198520,
+        "sha256": "95cd5f115c578a1e9484ee3844c957b06df18fa0226b1fb9009be352900be19a"
+      },
+      {
+        "file": "assets/modelsglb/level3/scene.glb",
+        "bytes": 261716,
+        "sha256": "5a17db571c4c1f5c26e619c21a423e56613661124cc32f5aa59c1678839711d0"
+      },
+      {
+        "file": "assets/modelsglb/level4/scene.glb",
+        "bytes": 271532,
+        "sha256": "c78ed2546238a775501404c6bf39450f3d311b66c98112d6e9cc102fb39d9860"
+      },
+      {
+        "file": "assets/modelsglb/level5/scene.glb",
+        "bytes": 254640,
+        "sha256": "14d1c733f9d15834ddef9a76cf90cf6334f5415618748e78870e28deb0bb91ef"
+      },
+      {
+        "file": "assets/modelsglb/level6/scene.glb",
+        "bytes": 209596,
+        "sha256": "be2ddfcceced737f1a3dad1ee31d6bb9601a01a5144da6a901eb51b4031202f4"
+      },
+      {
+        "file": "assets/modelsglb/level7/scene.glb",
+        "bytes": 241728,
+        "sha256": "b6142ecdff9bec96a8b3df47cd6c59be67efa0d27105d1d57cad929c4951c241"
+      },
+      {
+        "file": "assets/modelsglb/level8/scene.glb",
+        "bytes": 265500,
+        "sha256": "715853967fc6aa8b5f72360c5701bcfea2c2fee56ecea7dc1188726626013f7d"
+      },
+      {
+        "file": "assets/modelsglb/level9/scene.glb",
+        "bytes": 279840,
+        "sha256": "c50c55c1e20afdf66e64d3f325585f0bf78b24d3dcbf2e0190fe680ee7db88d6"
+      },
+      {
+        "file": "assets/sounds/output.mp3",
+        "bytes": 166508,
+        "sha256": "8a4979147aa428bf55f3875c3c19598f1a01126ff79f89805c8e4e7aa36374f6"
+      },
+      {
+        "file": "assets/textures/endstar.png",
+        "bytes": 16584,
+        "sha256": "5f1d3509f508430100db2150b8997f026a435ceb785a1bde4a7a88f8325b3d91"
+      },
+      {
+        "file": "assets/textures/Logo.png",
+        "bytes": 23467,
+        "sha256": "6edce9d3582f9b8f107df8e722b6abdc901984ddf9553351f86d62698ca78b59"
+      },
+      {
+        "file": "assets/textures/name_bar.png",
+        "bytes": 2984,
+        "sha256": "5ef69a565a63678d6ab0dae6c4aeafd4214ad1648b0f6ac86087562e6e04d042"
+      },
+      {
+        "file": "assets/textures/spritesheet.png",
+        "bytes": 245289,
+        "sha256": "da47e0d281988d37bb8d2d5234e2a3d0b1547cc6ec4e90fada782f2af2c8314f"
+      },
+      {
+        "file": "assets/textures/star2.png",
+        "bytes": 973,
+        "sha256": "d1c1b8b89ce8c5104fc1cd3367aa1b67a8e75d7776366c128a3e66daec3c2e88"
+      },
+      {
+        "file": "assets/textures/texture1.png",
+        "bytes": 51460,
+        "sha256": "7da5c5027ca7fa97c2bf5ff23f695f6a0956e7acba555daa142f5a873c7bbfe0"
+      },
+      {
+        "file": "assets/ui/atlas.json",
+        "bytes": 1052,
+        "sha256": "2422f047b502302b356698d8616f4abb3d1df6fc87ce5294e6408c8fe80e7f5b"
+      },
+      {
+        "file": "assets/ui/atlas.png",
+        "bytes": 2316,
+        "sha256": "13e9a8fbb88ab7ea3dfe9b72576d21d3b95104cc834c070eb2956f926baac409"
+      },
+      {
+        "file": "assets/ui/draw_kanvas.png",
+        "bytes": 21246,
+        "sha256": "75b567ee478fd73179d7cb38387d61f117ae9c4a34cfcd9e11e1e0c770901c38"
+      },
+      {
+        "file": "assets/uiatlas/uiatlas_en.json",
+        "bytes": 13919,
+        "sha256": "fd758c50c4fed76ed1091304992d1a2141b489c0b7fe06af6ba4a0847cda9ace"
+      },
+      {
+        "file": "assets/uiatlas/uiatlas_en.png",
+        "bytes": 41652,
+        "sha256": "16697d129fd3a26dfbd9016e1508b45d14df4778ad7be547f91f04433d0f075d"
+      },
+      {
+        "file": "assets/uiatlas/uiatlas_fr.json",
+        "bytes": 13919,
+        "sha256": "fd758c50c4fed76ed1091304992d1a2141b489c0b7fe06af6ba4a0847cda9ace"
+      },
+      {
+        "file": "assets/uiatlas/uiatlas_fr.png",
+        "bytes": 41652,
+        "sha256": "16697d129fd3a26dfbd9016e1508b45d14df4778ad7be547f91f04433d0f075d"
+      },
+      {
+        "file": "benchmarks/d-amd.json",
+        "bytes": 120723,
+        "sha256": "10c302febdc61207aa61f56e43bee95a05de72a585ffa3b8257dfa9b54030535"
+      },
+      {
+        "file": "benchmarks/d-apple.json",
+        "bytes": 753,
+        "sha256": "44ed3d8882fafa11606ab36239f0c2cd74644c599158a52ba2aed372b28b83d8"
+      },
+      {
+        "file": "benchmarks/d-geforce.json",
+        "bytes": 72513,
+        "sha256": "98e3e93dbf7aeb662112d41b6d0270ccfb398fbfac7a08e0161524e1fb21da98"
+      },
+      {
+        "file": "benchmarks/d-intel.json",
+        "bytes": 33340,
+        "sha256": "12dadabea35dfbbcf2de0e01c2be1c1d4e6dc84889f64f2dd957fae9178eedd8"
+      },
+      {
+        "file": "benchmarks/d-nvidia.json",
+        "bytes": 110316,
+        "sha256": "d4bfddf79e8e52a213f4326fc0e22d40b2c28f9ef38dab3406f2ff9882d5a110"
+      },
+      {
+        "file": "benchmarks/d-radeon.json",
+        "bytes": 109462,
+        "sha256": "2b7af4dac463acc972b0e73ff22772088f3d985ba426da80d064b239ca4beb68"
+      },
+      {
+        "file": "benchmarks/m-adreno.json",
+        "bytes": 29111,
+        "sha256": "86fc529940421f90a3980e8d826509d3022d1d70b5dbfd72d55a75fcccfd7210"
+      },
+      {
+        "file": "benchmarks/m-apple-ipad.json",
+        "bytes": 2826,
+        "sha256": "31f5410ad8f99f0729d602132149f22b7fc5f238214f9da32ba9b2b8a710151c"
+      },
+      {
+        "file": "benchmarks/m-apple.json",
+        "bytes": 2761,
+        "sha256": "c6e4d37f31c76cf544e8d36a8923c1578983894283f8d2fce80ffd298a150b44"
+      },
+      {
+        "file": "benchmarks/m-mali-t.json",
+        "bytes": 17737,
+        "sha256": "8eab9e5c13d5434a18dcc70e53a5a4e64f77dcb05abe4988833a1b573af9a25a"
+      },
+      {
+        "file": "benchmarks/m-mali.json",
+        "bytes": 22531,
+        "sha256": "b559699c5a9f5fd8db927c3d639184f614a87b905fa03acbdfe8aef4864f7f95"
+      },
+      {
+        "file": "benchmarks/m-nvidia.json",
+        "bytes": 1013,
+        "sha256": "74df8faa4a4ea08cdaf66aa6bd22c9733542afd9c8bdb8d5c8bfd34d2d35ae7b"
+      },
+      {
+        "file": "benchmarks/m-powervr.json",
+        "bytes": 6593,
+        "sha256": "bac1d31b7d947b58e8401cfefc1ccd62aea836aa9fc4efe0385f832faccdb40f"
+      },
+      {
+        "file": "index.html",
+        "bytes": 1349,
+        "sha256": "2c63e0724865177947ef2600cd09e432cd46d48e3787525b4fb5179a10205e43"
+      },
+      {
+        "file": "lib/voodoo-regenerator.js",
+        "bytes": 24841,
+        "sha256": "7bcecbd516f251f473d42b1943c2c6e8b0aba620b9bfc732cba3e26a2a903d95"
+      },
+      {
+        "file": "local-start.js",
+        "bytes": 163,
+        "sha256": "958a97d24a2de517dab94a8627173ef0990e799c51dc137e0f039b9b0a45f34a"
+      },
+      {
+        "file": "main.js",
+        "bytes": 7208109,
+        "sha256": "16e5e7e4dee16d5c9ebc9ab8273c93a7b44b6fecd2786d6bb4e0ae9a2800f226"
+      }
+    ],
+    "references": [
+      {
+        "file": "index.html",
+        "reference": "lib/voodoo-regenerator.js"
+      },
+      {
+        "file": "index.html",
+        "reference": "main.js"
+      },
+      {
+        "file": "index.html",
+        "reference": "local-start.js"
+      }
+    ],
+    "missing": [],
+    "external": [],
+    "backend_endpoints": [],
+    "dynamic_files": [],
+    "scope": "HTML/CSS、全局 fetch/import 字面量及 assets 路径线索；API 路由单独登记，不视为静态文件。动态拼接、引擎加载、后端依赖和全关卡必须另做运行验证"
+  },
+  "offline": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "pending",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": false,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  },
+  "features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "真实奖励/跳关/社交handler删除；普通非奖励间歇广告继续体移回原条件下。奖励倍增按钮不再有回调，原几何布局对象隐藏并禁用输入。真实付费升级仍扣原游戏币，不免费发升级/倍奖。",
+      "evidence": [
+        "main.js",
+        "index.html"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "MSN/H5SDK通知/外站社交消费者和宿主依赖移除，原本地分数保留。",
+      "evidence": [
+        "main.js",
+        "index.html"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原生对手为本地关卡CPU模型/腿部策略；没有远端房间、网络对手或伪造匹配回包。",
+      "evidence": [
+        "main.js",
+        "index.html"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "原本地coin升级，无真钱充值或支付。",
+      "evidence": [
+        "main.js",
+        "index.html"
+      ]
+    }
+  },
+  "original_literal_table_and_rotation_retained": true,
+  "whole_modules_AST_exact": 1585,
+  "protected_methods_AST_exact": 11,
+  "native_or_SDK_executed_locally": false,
+  "UI": 0,
+  "runtime_verified": false,
+  "admitted": false
+}

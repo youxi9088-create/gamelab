@@ -1,0 +1,566 @@
+{
+  "title": "画腿攀爬",
+  "revision": "drawclimber-offline-v1",
+  "job_id": "job-32a5244db8df",
+  "version_id": "v-f979471a51a4",
+  "artifact_id": "artifact-d0a81cbafed7",
+  "artifact_sha256": "ce45267cdd9bc2da0cf96cfb715f30b4339e16958d6dff4d702280339f34be14",
+  "remote_archive_commit": "055a4457de1eb5257da87a7b7b15a0c751792ffb",
+  "files": {
+    "assets/gameLogo.png": "a2f1c3da853bd8b421a192125c51c0210c8d68f03bd2831bac8c151f05331eba",
+    "assets/modelsglb/ballsV/scene.glb": "c0c483da6344a10c9e48a5ddd410632ae4cd522b6618a90f43e86b1695004025",
+    "assets/modelsglb/blowfx/scene.glb": "7db5ac718b2dc8ff39b37bd18226ca87eb2ba8d91a7aa95684f68920bce939eb",
+    "assets/modelsglb/char/scene.glb": "635b2294099000b53350e7cbb06166296a8b771c5d7cf37ed2c9bb4d8cb2a3c3",
+    "assets/modelsglb/coin/scene.glb": "57a5c3d297c7d2b5d560f50e81c0d9ef6c764505dce4bed1e9d47de8380b0d37",
+    "assets/modelsglb/coinSolo/scene.glb": "598fe092cb13f501d228b01d852cc9ca1df5dcbed17d65a994029a723755ed39",
+    "assets/modelsglb/crown/scene.glb": "1295d4ba51836e08efe810c07acceafe3aab330ad7dcae31b27a7d958d98ee4a",
+    "assets/modelsglb/finalplatform/scene.glb": "0bd68ca7ce4eec00461a97747e8aad695292a9ac024c28582bf9b3006b383488",
+    "assets/modelsglb/flagplane/scene.glb": "781879d201930e3713b978716bb1eefa7382778acddf607db1a4537d1defbe8e",
+    "assets/modelsglb/level1/scene.glb": "72423a34b017836a08c49fe3f7679a7f502c169b4f2d5b77f2c5396d145f7fae",
+    "assets/modelsglb/level10/scene.glb": "31a02fbfce26dc194679ab324f028bd49073feab8a050c67f08f8c0de8529f7d",
+    "assets/modelsglb/level2/scene.glb": "95cd5f115c578a1e9484ee3844c957b06df18fa0226b1fb9009be352900be19a",
+    "assets/modelsglb/level3/scene.glb": "5a17db571c4c1f5c26e619c21a423e56613661124cc32f5aa59c1678839711d0",
+    "assets/modelsglb/level4/scene.glb": "c78ed2546238a775501404c6bf39450f3d311b66c98112d6e9cc102fb39d9860",
+    "assets/modelsglb/level5/scene.glb": "14d1c733f9d15834ddef9a76cf90cf6334f5415618748e78870e28deb0bb91ef",
+    "assets/modelsglb/level6/scene.glb": "be2ddfcceced737f1a3dad1ee31d6bb9601a01a5144da6a901eb51b4031202f4",
+    "assets/modelsglb/level7/scene.glb": "b6142ecdff9bec96a8b3df47cd6c59be67efa0d27105d1d57cad929c4951c241",
+    "assets/modelsglb/level8/scene.glb": "715853967fc6aa8b5f72360c5701bcfea2c2fee56ecea7dc1188726626013f7d",
+    "assets/modelsglb/level9/scene.glb": "c50c55c1e20afdf66e64d3f325585f0bf78b24d3dcbf2e0190fe680ee7db88d6",
+    "assets/sounds/output.mp3": "8a4979147aa428bf55f3875c3c19598f1a01126ff79f89805c8e4e7aa36374f6",
+    "assets/textures/endstar.png": "5f1d3509f508430100db2150b8997f026a435ceb785a1bde4a7a88f8325b3d91",
+    "assets/textures/Logo.png": "6edce9d3582f9b8f107df8e722b6abdc901984ddf9553351f86d62698ca78b59",
+    "assets/textures/name_bar.png": "5ef69a565a63678d6ab0dae6c4aeafd4214ad1648b0f6ac86087562e6e04d042",
+    "assets/textures/spritesheet.png": "da47e0d281988d37bb8d2d5234e2a3d0b1547cc6ec4e90fada782f2af2c8314f",
+    "assets/textures/star2.png": "d1c1b8b89ce8c5104fc1cd3367aa1b67a8e75d7776366c128a3e66daec3c2e88",
+    "assets/textures/texture1.png": "7da5c5027ca7fa97c2bf5ff23f695f6a0956e7acba555daa142f5a873c7bbfe0",
+    "assets/ui/atlas.json": "2422f047b502302b356698d8616f4abb3d1df6fc87ce5294e6408c8fe80e7f5b",
+    "assets/ui/atlas.png": "13e9a8fbb88ab7ea3dfe9b72576d21d3b95104cc834c070eb2956f926baac409",
+    "assets/ui/draw_kanvas.png": "75b567ee478fd73179d7cb38387d61f117ae9c4a34cfcd9e11e1e0c770901c38",
+    "assets/uiatlas/uiatlas_en.json": "fd758c50c4fed76ed1091304992d1a2141b489c0b7fe06af6ba4a0847cda9ace",
+    "assets/uiatlas/uiatlas_en.png": "16697d129fd3a26dfbd9016e1508b45d14df4778ad7be547f91f04433d0f075d",
+    "assets/uiatlas/uiatlas_fr.json": "fd758c50c4fed76ed1091304992d1a2141b489c0b7fe06af6ba4a0847cda9ace",
+    "assets/uiatlas/uiatlas_fr.png": "16697d129fd3a26dfbd9016e1508b45d14df4778ad7be547f91f04433d0f075d",
+    "benchmarks/d-amd.json": "10c302febdc61207aa61f56e43bee95a05de72a585ffa3b8257dfa9b54030535",
+    "benchmarks/d-apple.json": "44ed3d8882fafa11606ab36239f0c2cd74644c599158a52ba2aed372b28b83d8",
+    "benchmarks/d-geforce.json": "98e3e93dbf7aeb662112d41b6d0270ccfb398fbfac7a08e0161524e1fb21da98",
+    "benchmarks/d-intel.json": "12dadabea35dfbbcf2de0e01c2be1c1d4e6dc84889f64f2dd957fae9178eedd8",
+    "benchmarks/d-nvidia.json": "d4bfddf79e8e52a213f4326fc0e22d40b2c28f9ef38dab3406f2ff9882d5a110",
+    "benchmarks/d-radeon.json": "2b7af4dac463acc972b0e73ff22772088f3d985ba426da80d064b239ca4beb68",
+    "benchmarks/m-adreno.json": "86fc529940421f90a3980e8d826509d3022d1d70b5dbfd72d55a75fcccfd7210",
+    "benchmarks/m-apple-ipad.json": "31f5410ad8f99f0729d602132149f22b7fc5f238214f9da32ba9b2b8a710151c",
+    "benchmarks/m-apple.json": "c6e4d37f31c76cf544e8d36a8923c1578983894283f8d2fce80ffd298a150b44",
+    "benchmarks/m-mali-t.json": "8eab9e5c13d5434a18dcc70e53a5a4e64f77dcb05abe4988833a1b573af9a25a",
+    "benchmarks/m-mali.json": "b559699c5a9f5fd8db927c3d639184f614a87b905fa03acbdfe8aef4864f7f95",
+    "benchmarks/m-nvidia.json": "74df8faa4a4ea08cdaf66aa6bd22c9733542afd9c8bdb8d5c8bfd34d2d35ae7b",
+    "benchmarks/m-powervr.json": "bac1d31b7d947b58e8401cfefc1ccd62aea836aa9fc4efe0385f832faccdb40f",
+    "delivery-report.json": "cf43574c27886a362eabf196a558cb2004dabc75f4859879e3dd51412be58744",
+    "evidence/dedup-intake-guard.json": "3f4af481b7adfd723e31b4ef4854d9839503659e2192351a2d746bfca6f8f58e",
+    "evidence/drawclimber-before-source-dedup.json": "855d95b07ecf335d5fb8f3e12bba7fd675449198e5933fd450b7d08ce1e72862",
+    "evidence/drawclimber-draft-static-audit.json": "b0a665ac6602ddccf828daf2b066c6a3c275ff61dbf75062886ac9bcb8d32e05",
+    "evidence/drawclimber-offline-source-proof.json": "29e9fbc36523c83219987ffe09fce74eb4f6bdbc4b55f747aa7886a9bcdb3c71",
+    "evidence/drawclimber-playwright-assets-source-receipt.json": "26f5810918bbe797fa6cda39db891b21003496da833dd425ec87928e4b8d5869",
+    "evidence/drawclimber-pw-bootstrap-source-receipt.json": "d0cbd61fcb107d1cf63177660dd3b297f145c984b1ae36d3ce1ddb06ff2bf26c",
+    "evidence/drawclimber-static-decoding-proof.json": "1d4fb308b0b4152844391c389d882a13eb68dca485fe4ef1c7fd1a0e933e1695",
+    "evidence/drawclimber-terminal-journals.json": "3783818d95dffc5814fbd578a59ad352792e86b5390dffa2da0a0454e9ca0473",
+    "evidence/drawclimber-v1-HTTP-preflight.json": "7e276a437a0629b2b8e2c19600fef5ecba18c89327021ebd022fa71b2cb2c5f8",
+    "evidence/drawclimber-verification-plan.json": "9235744005a490172be7c99b30ad9dc6e03d363f24ea3bc3988cbc562d36f66b",
+    "evidence/drawclimberbench-playwright-assets-source-receipt.json": "430907045b64c8d31790c02dcb93079afd1810496f0c811335386d3469b7d71f",
+    "evidence/drawclimberfull-playwright-assets-source-receipt.json": "995ebebec8348ed53e0d63316ad019fcbb9310e0af3cf6470f6b3fbe48b31f23",
+    "evidence/native-outcome-passive-observation.json": "963f2739d39f4d6558c6deb19ad525c16609e0a396664e1994e8046abc2c307f",
+    "evidence/resource-audit.json": "a728b9cd712408b3601f4dfce209100d00ffba2f1668663d65a4ef88b9749bd8",
+    "evidence/runtime-sha256.json": "24be98d23f1998b11c3787c3a9ffc38c0482a2bfab0e035a986f926207d6bb3a",
+    "evidence/ui-1.json": "29c41b139b497c959b235e72612d84870936502f8cc300291bd1b8711e9b36a1",
+    "evidence/ui-2.json": "3f130753e97e089dd4c577544f1496cf4986a84e28aea1bcfad9f362aa761d89",
+    "evidence/ui-3.json": "b54f7f406f8463ed23656d5db59761d6be897f6ecd53dcf8f18e6a895be9ba34",
+    "evidence/ui-4.json": "044fd88779e01ccdaece16652bd71ef0fb420a80019f9f2e4c7795ef676c9ec7",
+    "evidence/ui-5.json": "dbc8d2fdada76fdad6e39f8ed7277be45348565a5c1bcb12c9f8f3d730b9ad26",
+    "evidence/validation.json": "b0a7715c8582a09ce35b01f279022d2e9937eb8f4773b6382faa449551d2e2bc",
+    "game-profile.json": "b508ccadf5d72021b9259643db2227cea3769012481771209b29fa871f472507",
+    "GAME_SPECIFICATION.md": "f851c1a78e465b39ab75fb79984952fa9e97ef26657b8b9ed519488fcc98d244",
+    "index.html": "2c63e0724865177947ef2600cd09e432cd46d48e3787525b4fb5179a10205e43",
+    "lib/voodoo-regenerator.js": "7bcecbd516f251f473d42b1943c2c6e8b0aba620b9bfc732cba3e26a2a903d95",
+    "local-start.js": "958a97d24a2de517dab94a8627173ef0990e799c51dc137e0f039b9b0a45f34a",
+    "main.js": "16e5e7e4dee16d5c9ebc9ab8273c93a7b44b6fecd2786d6bb4e0ae9a2800f226",
+    "README_二次修改.md": "1ec8aeb69fcc3b737461c04dbd762106ceb0f5b2397a601b1dbaf976e7afc9f6",
+    "screenshots/001.png": "5db2c847d75a6f9d23ecd325f1ac07c3c099a91d5cea01653d8332ba4145f4c8",
+    "screenshots/002.png": "c80290813965de1ecd0f4f45ab074e1d09a9d4723c3b492cb0ce7eacb930b696",
+    "screenshots/003.png": "6953ac07f72e24ab40214ce32eb02716c782be1a198d954a4ae3d397d1589dde",
+    "screenshots/004.png": "22318a2843c29e103e94ad89e14f79f8b05b50339bf71bb7bdf79f79bdd34f91",
+    "screenshots/005.png": "3f7c274bb6fbb94a199e454d5262f4508f9a72387aa7a581caecc4086956b0e6",
+    "screenshots/006.png": "e60c5d223bb8a2728dd7af5970986fe009bef1855c2583935885cb7a66dd94c6"
+  },
+  "status_at_archive": "review",
+  "ui_checkpoints": 5,
+  "site_readback": {
+    "at": "2026-11-18T13:45:38.294467+00:00",
+    "version_id": "v-f979471a51a4",
+    "job_id": "job-32a5244db8df",
+    "status": "review",
+    "cover": "http://127.0.0.1:8766/play/artifact-d0a81cbafed7/screenshots/001.png",
+    "sixteen_section_content_exact": true,
+    "runtime_files": [
+      {
+        "path": "assets/gameLogo.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:35.703369+00:00",
+        "http": 200,
+        "sha256": "a2f1c3da853bd8b421a192125c51c0210c8d68f03bd2831bac8c151f05331eba",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/modelsglb/ballsV/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:35.707763+00:00",
+        "http": 200,
+        "sha256": "c0c483da6344a10c9e48a5ddd410632ae4cd522b6618a90f43e86b1695004025",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/blowfx/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:35.705934+00:00",
+        "http": 200,
+        "sha256": "7db5ac718b2dc8ff39b37bd18226ca87eb2ba8d91a7aa95684f68920bce939eb",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/char/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:35.765988+00:00",
+        "http": 200,
+        "sha256": "635b2294099000b53350e7cbb06166296a8b771c5d7cf37ed2c9bb4d8cb2a3c3",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/coin/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:35.785808+00:00",
+        "http": 200,
+        "sha256": "57a5c3d297c7d2b5d560f50e81c0d9ef6c764505dce4bed1e9d47de8380b0d37",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/coinSolo/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:35.792115+00:00",
+        "http": 200,
+        "sha256": "598fe092cb13f501d228b01d852cc9ca1df5dcbed17d65a994029a723755ed39",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/crown/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:35.842579+00:00",
+        "http": 200,
+        "sha256": "1295d4ba51836e08efe810c07acceafe3aab330ad7dcae31b27a7d958d98ee4a",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/finalplatform/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:35.846497+00:00",
+        "http": 200,
+        "sha256": "0bd68ca7ce4eec00461a97747e8aad695292a9ac024c28582bf9b3006b383488",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/flagplane/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:35.864727+00:00",
+        "http": 200,
+        "sha256": "781879d201930e3713b978716bb1eefa7382778acddf607db1a4537d1defbe8e",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/level1/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:35.894883+00:00",
+        "http": 200,
+        "sha256": "72423a34b017836a08c49fe3f7679a7f502c169b4f2d5b77f2c5396d145f7fae",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/level10/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:35.909564+00:00",
+        "http": 200,
+        "sha256": "31a02fbfce26dc194679ab324f028bd49073feab8a050c67f08f8c0de8529f7d",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/level2/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:35.992677+00:00",
+        "http": 200,
+        "sha256": "95cd5f115c578a1e9484ee3844c957b06df18fa0226b1fb9009be352900be19a",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/level3/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.010449+00:00",
+        "http": 200,
+        "sha256": "5a17db571c4c1f5c26e619c21a423e56613661124cc32f5aa59c1678839711d0",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/level4/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.043696+00:00",
+        "http": 200,
+        "sha256": "c78ed2546238a775501404c6bf39450f3d311b66c98112d6e9cc102fb39d9860",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/level5/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.078601+00:00",
+        "http": 200,
+        "sha256": "14d1c733f9d15834ddef9a76cf90cf6334f5415618748e78870e28deb0bb91ef",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/level6/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.123368+00:00",
+        "http": 200,
+        "sha256": "be2ddfcceced737f1a3dad1ee31d6bb9601a01a5144da6a901eb51b4031202f4",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/level7/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.145903+00:00",
+        "http": 200,
+        "sha256": "b6142ecdff9bec96a8b3df47cd6c59be67efa0d27105d1d57cad929c4951c241",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/level8/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.293520+00:00",
+        "http": 200,
+        "sha256": "715853967fc6aa8b5f72360c5701bcfea2c2fee56ecea7dc1188726626013f7d",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/modelsglb/level9/scene.glb",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.295138+00:00",
+        "http": 200,
+        "sha256": "c50c55c1e20afdf66e64d3f325585f0bf78b24d3dcbf2e0190fe680ee7db88d6",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/sounds/output.mp3",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.305726+00:00",
+        "http": 200,
+        "sha256": "8a4979147aa428bf55f3875c3c19598f1a01126ff79f89805c8e4e7aa36374f6",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/textures/Logo.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.440893+00:00",
+        "http": 200,
+        "sha256": "6edce9d3582f9b8f107df8e722b6abdc901984ddf9553351f86d62698ca78b59",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/textures/endstar.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.441221+00:00",
+        "http": 200,
+        "sha256": "5f1d3509f508430100db2150b8997f026a435ceb785a1bde4a7a88f8325b3d91",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/textures/name_bar.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.445085+00:00",
+        "http": 200,
+        "sha256": "5ef69a565a63678d6ab0dae6c4aeafd4214ad1648b0f6ac86087562e6e04d042",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/textures/spritesheet.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.506826+00:00",
+        "http": 200,
+        "sha256": "da47e0d281988d37bb8d2d5234e2a3d0b1547cc6ec4e90fada782f2af2c8314f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/textures/star2.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.507031+00:00",
+        "http": 200,
+        "sha256": "d1c1b8b89ce8c5104fc1cd3367aa1b67a8e75d7776366c128a3e66daec3c2e88",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/textures/texture1.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.548498+00:00",
+        "http": 200,
+        "sha256": "7da5c5027ca7fa97c2bf5ff23f695f6a0956e7acba555daa142f5a873c7bbfe0",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/ui/atlas.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.592195+00:00",
+        "http": 200,
+        "sha256": "2422f047b502302b356698d8616f4abb3d1df6fc87ce5294e6408c8fe80e7f5b",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/ui/atlas.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.614610+00:00",
+        "http": 200,
+        "sha256": "13e9a8fbb88ab7ea3dfe9b72576d21d3b95104cc834c070eb2956f926baac409",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/ui/draw_kanvas.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.637985+00:00",
+        "http": 200,
+        "sha256": "75b567ee478fd73179d7cb38387d61f117ae9c4a34cfcd9e11e1e0c770901c38",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/uiatlas/uiatlas_en.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.640059+00:00",
+        "http": 200,
+        "sha256": "fd758c50c4fed76ed1091304992d1a2141b489c0b7fe06af6ba4a0847cda9ace",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/uiatlas/uiatlas_en.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.659329+00:00",
+        "http": 200,
+        "sha256": "16697d129fd3a26dfbd9016e1508b45d14df4778ad7be547f91f04433d0f075d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/uiatlas/uiatlas_fr.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.710785+00:00",
+        "http": 200,
+        "sha256": "fd758c50c4fed76ed1091304992d1a2141b489c0b7fe06af6ba4a0847cda9ace",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/uiatlas/uiatlas_fr.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.721039+00:00",
+        "http": 200,
+        "sha256": "16697d129fd3a26dfbd9016e1508b45d14df4778ad7be547f91f04433d0f075d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "benchmarks/d-amd.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.796604+00:00",
+        "http": 200,
+        "sha256": "10c302febdc61207aa61f56e43bee95a05de72a585ffa3b8257dfa9b54030535",
+        "content_type": "application/json"
+      },
+      {
+        "path": "benchmarks/d-apple.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.804753+00:00",
+        "http": 200,
+        "sha256": "44ed3d8882fafa11606ab36239f0c2cd74644c599158a52ba2aed372b28b83d8",
+        "content_type": "application/json"
+      },
+      {
+        "path": "benchmarks/d-geforce.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.862358+00:00",
+        "http": 200,
+        "sha256": "98e3e93dbf7aeb662112d41b6d0270ccfb398fbfac7a08e0161524e1fb21da98",
+        "content_type": "application/json"
+      },
+      {
+        "path": "benchmarks/d-intel.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.878799+00:00",
+        "http": 200,
+        "sha256": "12dadabea35dfbbcf2de0e01c2be1c1d4e6dc84889f64f2dd957fae9178eedd8",
+        "content_type": "application/json"
+      },
+      {
+        "path": "benchmarks/d-nvidia.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.941822+00:00",
+        "http": 200,
+        "sha256": "d4bfddf79e8e52a213f4326fc0e22d40b2c28f9ef38dab3406f2ff9882d5a110",
+        "content_type": "application/json"
+      },
+      {
+        "path": "benchmarks/d-radeon.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.947749+00:00",
+        "http": 200,
+        "sha256": "2b7af4dac463acc972b0e73ff22772088f3d985ba426da80d064b239ca4beb68",
+        "content_type": "application/json"
+      },
+      {
+        "path": "benchmarks/m-adreno.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:36.951309+00:00",
+        "http": 200,
+        "sha256": "86fc529940421f90a3980e8d826509d3022d1d70b5dbfd72d55a75fcccfd7210",
+        "content_type": "application/json"
+      },
+      {
+        "path": "benchmarks/m-apple-ipad.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.014752+00:00",
+        "http": 200,
+        "sha256": "31f5410ad8f99f0729d602132149f22b7fc5f238214f9da32ba9b2b8a710151c",
+        "content_type": "application/json"
+      },
+      {
+        "path": "benchmarks/m-apple.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.040512+00:00",
+        "http": 200,
+        "sha256": "c6e4d37f31c76cf544e8d36a8923c1578983894283f8d2fce80ffd298a150b44",
+        "content_type": "application/json"
+      },
+      {
+        "path": "benchmarks/m-mali-t.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.042530+00:00",
+        "http": 200,
+        "sha256": "8eab9e5c13d5434a18dcc70e53a5a4e64f77dcb05abe4988833a1b573af9a25a",
+        "content_type": "application/json"
+      },
+      {
+        "path": "benchmarks/m-mali.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.092645+00:00",
+        "http": 200,
+        "sha256": "b559699c5a9f5fd8db927c3d639184f614a87b905fa03acbdfe8aef4864f7f95",
+        "content_type": "application/json"
+      },
+      {
+        "path": "benchmarks/m-nvidia.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.094242+00:00",
+        "http": 200,
+        "sha256": "74df8faa4a4ea08cdaf66aa6bd22c9733542afd9c8bdb8d5c8bfd34d2d35ae7b",
+        "content_type": "application/json"
+      },
+      {
+        "path": "benchmarks/m-powervr.json",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.115957+00:00",
+        "http": 200,
+        "sha256": "bac1d31b7d947b58e8401cfefc1ccd62aea836aa9fc4efe0385f832faccdb40f",
+        "content_type": "application/json"
+      },
+      {
+        "path": "index.html",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.135518+00:00",
+        "http": 200,
+        "sha256": "2c63e0724865177947ef2600cd09e432cd46d48e3787525b4fb5179a10205e43",
+        "content_type": "text/html; charset=utf-8"
+      },
+      {
+        "path": "lib/voodoo-regenerator.js",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.157861+00:00",
+        "http": 200,
+        "sha256": "7bcecbd516f251f473d42b1943c2c6e8b0aba620b9bfc732cba3e26a2a903d95",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "local-start.js",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.169997+00:00",
+        "http": 200,
+        "sha256": "958a97d24a2de517dab94a8627173ef0990e799c51dc137e0f039b9b0a45f34a",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "main.js",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.224251+00:00",
+        "http": 200,
+        "sha256": "16e5e7e4dee16d5c9ebc9ab8273c93a7b44b6fecd2786d6bb4e0ae9a2800f226",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "screenshots/001.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.240353+00:00",
+        "http": 200,
+        "sha256": "5db2c847d75a6f9d23ecd325f1ac07c3c099a91d5cea01653d8332ba4145f4c8",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/002.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.240508+00:00",
+        "http": 200,
+        "sha256": "c80290813965de1ecd0f4f45ab074e1d09a9d4723c3b492cb0ce7eacb930b696",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/003.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.520204+00:00",
+        "http": 200,
+        "sha256": "6953ac07f72e24ab40214ce32eb02716c782be1a198d954a4ae3d397d1589dde",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/004.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.786552+00:00",
+        "http": 200,
+        "sha256": "22318a2843c29e103e94ad89e14f79f8b05b50339bf71bb7bdf79f79bdd34f91",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/005.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.791027+00:00",
+        "http": 200,
+        "sha256": "3f7c274bb6fbb94a199e454d5262f4508f9a72387aa7a581caecc4086956b0e6",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/006.png",
+        "artifact_id": "artifact-d0a81cbafed7",
+        "observed_at": "2026-11-18T13:45:37.929198+00:00",
+        "http": 200,
+        "sha256": "e60c5d223bb8a2728dd7af5970986fe009bef1855c2583935885cb7a66dd94c6",
+        "content_type": "image/png"
+      }
+    ],
+    "all_50_runtime_files_6_screenshots_exact": true,
+    "index_csp": "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' http://192.168.56.52:8765",
+    "gameplay_UI_reexecuted": false,
+    "cumulative_UI_steps": 5,
+    "native_leg_geometry_and_physics_progress_verified": true,
+    "native_race_outcome": "loss_to_original_local_CPU",
+    "native_score": 561,
+    "browser_exit_code": 0,
+    "ordinary_retry_verified": true,
+    "refresh_entry_verified": true,
+    "saved_progress_reload_verified": false,
+    "victory_or_claim_verified": false,
+    "CSP_source_compatibility": "50runtimefiles+6originalscreenshots exactHTTPSreadback; nativegame onlytested remotelyunder18865selfCSP, noaddedgameplayunderpublicsiteCSP."
+  },
+  "scope": "Exact normal-review offline game and real evidence. Raw input counts and historical failures remain explicit; no approval, supply, game-state changes or added testing."
+}

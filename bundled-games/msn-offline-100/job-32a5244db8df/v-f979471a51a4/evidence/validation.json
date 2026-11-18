@@ -1,0 +1,530 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1，原轨迹与截图见validation"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入2，原轨迹与截图见validation"
+      },
+      {
+        "type": "drag",
+        "description": "真实累计输入3，原轨迹与截图见validation"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入4，原轨迹与截图见validation"
+      },
+      {
+        "type": "reload",
+        "description": "真实累计输入5，原轨迹与截图见validation"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "SPE.Group: No maxParticleCount specified. Adding emitters after rendering will probably cause errors."
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "SPE.Group: No maxParticleCount specified. Adding emitters after rendering will probably cause errors."
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 52,
+    "responses": 52,
+    "tested_revision": "drawclimber-offline-v1",
+    "delivery_revision": "drawclimber-offline-v1",
+    "scope": "累计5次真实玩家输入：首载→原PLAY→在原画线框连续画弧线→原失败界面普通重试→刷新。第3步原黑色腿形生成、角色跨过赛道坡道、镜头与进度条推进并出现Checkpoint；随后被动观察到原CPU先到终点、FAILED及原普通重试，真实score/bestScore561。第4步重试回PLAY并保留内存561，第5步刷新正常载入原菜单。被动截图/等待/关闭没有增加玩家输入，实际5条鼠标/刷新轨迹全部保留。本轮实际输给原生CPU，不宣称胜利、领取金币、升级或解锁下一关；未测试全部关卡。没有触发原进度保存，localStorage记录始终不存在；刷新按原无档默认level1重新显示LEVEL2，临时score/bestScore回0，不宣称已验证存档恢复。原宿主gameSaveDefault的level1/coin0/speedUpgradeLevel1被原样保留，不是注入进度；未改随机、时间、分数、物理、对手难度，也没有业务handler直调。draw观察字段因只读路径不匹配为null，画线效果以实际截图和原输入轨迹证明，未编造相应内部JSON。",
+    "native_leg_geometry_and_physics_progress_verified": true,
+    "native_checkpoint_visible": true,
+    "native_race_outcome": "loss_to_original_local_CPU",
+    "native_score": 561,
+    "ordinary_retry_verified": true,
+    "refresh_entry_verified": true,
+    "saved_progress_reload_verified": false,
+    "victory_or_claim_verified": false,
+    "all_levels_verified": false,
+    "cumulative_input_budget": 5
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/drawclimber-offline-v1/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "phase": 1,
+      "action": "click",
+      "x": 720,
+      "y": 700,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 700
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "phase": 1,
+      "action": "drag",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 600,
+          "y": 690
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 603.3333333333334,
+          "y": 686.6666666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 606.6666666666666,
+          "y": 683.3333333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 610,
+          "y": 680,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 613.3333333333334,
+          "y": 676.6666666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 616.6666666666666,
+          "y": 673.3333333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 620,
+          "y": 670,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 623.3333333333334,
+          "y": 666.6666666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 626.6666666666666,
+          "y": 663.3333333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 630,
+          "y": 660,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 633.3333333333334,
+          "y": 656.6666666666666,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 636.6666666666666,
+          "y": 653.3333333333334,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 640,
+          "y": 650,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 645,
+          "y": 647.5,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 650,
+          "y": 645,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 655,
+          "y": 642.5,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 660,
+          "y": 640,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 665,
+          "y": 637.5,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 670,
+          "y": 635,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 675,
+          "y": 632.5,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 680,
+          "y": 630,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 685,
+          "y": 627.5,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 690,
+          "y": 625,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 695,
+          "y": 622.5,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 700,
+          "y": 620,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 705,
+          "y": 622.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 710,
+          "y": 625,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 715,
+          "y": 627.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 630,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 725,
+          "y": 632.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 730,
+          "y": 635,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 735,
+          "y": 637.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 740,
+          "y": 640,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 745,
+          "y": 642.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 750,
+          "y": 645,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 755,
+          "y": 647.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 760,
+          "y": 650,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 764.1666666666666,
+          "y": 653.3333333333334,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 768.3333333333334,
+          "y": 656.6666666666666,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 772.5,
+          "y": 660,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 776.6666666666666,
+          "y": 663.3333333333334,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 780.8333333333334,
+          "y": 666.6666666666666,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 785,
+          "y": 670,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 789.1666666666666,
+          "y": 673.3333333333334,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 793.3333333333334,
+          "y": 676.6666666666666,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 797.5,
+          "y": 680,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 801.6666666666666,
+          "y": 683.3333333333334,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 805.8333333333334,
+          "y": 686.6666666666666,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 810,
+          "y": 690,
+          "segment": 4
+        },
+        {
+          "event": "up"
+        }
+      ],
+      "points": [
+        [
+          600,
+          690
+        ],
+        [
+          640,
+          650
+        ],
+        [
+          700,
+          620
+        ],
+        [
+          760,
+          650
+        ],
+        [
+          810,
+          690
+        ]
+      ]
+    },
+    {
+      "step": 4,
+      "phase": 1,
+      "action": "click",
+      "x": 720,
+      "y": 570,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 570
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "phase": 1,
+      "action": "reload",
+      "trajectory": []
+    }
+  ],
+  "passive_outcome_observations": 1,
+  "passive_outcome_did_not_add_input": true,
+  "browser_session": 41936,
+  "node_pid": 29744,
+  "browser_actual_exit_code": 0,
+  "owned_node_absent": true,
+  "temporary_score_before_reload": 561,
+  "final_native_playerData": {
+    "score": 0,
+    "coin": 0,
+    "level": 1,
+    "speedUpgradeLevel": 1,
+    "bestScore": 0,
+    "vibrateOn": true,
+    "soundOn": true
+  },
+  "no_native_save_created_this_run": true,
+  "screenshots_opened": true,
+  "state_injection": false,
+  "handler_calls": false,
+  "accounting": {
+    "observation_start": "2026-11-18T13:00:48.168311+00:00",
+    "observation_end": "2026-11-18T13:41:40.953728+00:00",
+    "elapsed_seconds": 2452.785417,
+    "scope": "公开原入口抓取至证据归档经过时间，含静态解析/移除服务端边界/构建工具纠正、传输、实际试玩及等待；不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "observation_caveat": "本轮实际输给原生CPU，不宣称胜利、领取金币、升级或解锁下一关；未测试全部关卡。没有触发原进度保存，localStorage记录始终不存在；刷新按原无档默认level1重新显示LEVEL2，临时score/bestScore回0，不宣称已验证存档恢复。原宿主gameSaveDefault的level1/coin0/speedUpgradeLevel1被原样保留，不是注入进度；未改随机、时间、分数、物理、对手难度，也没有业务handler直调。draw观察字段因只读路径不匹配为null，画线效果以实际截图和原输入轨迹证明，未编造相应内部JSON。"
+}

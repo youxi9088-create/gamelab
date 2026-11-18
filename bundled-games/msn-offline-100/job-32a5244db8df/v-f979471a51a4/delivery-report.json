@@ -1,0 +1,353 @@
+{
+  "msn_revision": "drawclimber-offline-v1",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1，原轨迹与截图见validation"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入2，原轨迹与截图见validation"
+      },
+      {
+        "type": "drag",
+        "description": "真实累计输入3，原轨迹与截图见validation"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入4，原轨迹与截图见validation"
+      },
+      {
+        "type": "reload",
+        "description": "真实累计输入5，原轨迹与截图见validation"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "SPE.Group: No maxParticleCount specified. Adding emitters after rendering will probably cause errors."
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "SPE.Group: No maxParticleCount specified. Adding emitters after rendering will probably cause errors."
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 52,
+    "responses": 52,
+    "tested_revision": "drawclimber-offline-v1",
+    "delivery_revision": "drawclimber-offline-v1",
+    "scope": "累计5次真实玩家输入：首载→原PLAY→在原画线框连续画弧线→原失败界面普通重试→刷新。第3步原黑色腿形生成、角色跨过赛道坡道、镜头与进度条推进并出现Checkpoint；随后被动观察到原CPU先到终点、FAILED及原普通重试，真实score/bestScore561。第4步重试回PLAY并保留内存561，第5步刷新正常载入原菜单。被动截图/等待/关闭没有增加玩家输入，实际5条鼠标/刷新轨迹全部保留。本轮实际输给原生CPU，不宣称胜利、领取金币、升级或解锁下一关；未测试全部关卡。没有触发原进度保存，localStorage记录始终不存在；刷新按原无档默认level1重新显示LEVEL2，临时score/bestScore回0，不宣称已验证存档恢复。原宿主gameSaveDefault的level1/coin0/speedUpgradeLevel1被原样保留，不是注入进度；未改随机、时间、分数、物理、对手难度，也没有业务handler直调。draw观察字段因只读路径不匹配为null，画线效果以实际截图和原输入轨迹证明，未编造相应内部JSON。",
+    "native_leg_geometry_and_physics_progress_verified": true,
+    "native_checkpoint_visible": true,
+    "native_race_outcome": "loss_to_original_local_CPU",
+    "native_score": 561,
+    "ordinary_retry_verified": true,
+    "refresh_entry_verified": true,
+    "saved_progress_reload_verified": false,
+    "victory_or_claim_verified": false,
+    "all_levels_verified": false,
+    "cumulative_input_budget": 5
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "真实奖励/跳关/社交handler删除；普通非奖励间歇广告继续体移回原条件下。奖励倍增按钮不再有回调，原几何布局对象隐藏并禁用输入。真实付费升级仍扣原游戏币，不免费发升级/倍奖。",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/drawclimber-offline-source-proof.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "MSN/H5SDK通知/外站社交消费者和宿主依赖移除，原本地分数保留。",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/drawclimber-offline-source-proof.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原生对手为本地关卡CPU模型/腿部策略；没有远端房间、网络对手或伪造匹配回包。",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/drawclimber-offline-source-proof.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "原本地coin升级，无真钱充值或支付。",
+      "evidence": [
+        "main.js",
+        "index.html",
+        "evidence/drawclimber-offline-source-proof.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "休闲 / 画腿物理竞速",
+    "dimension": "3D",
+    "perspective": "",
+    "core_gameplay": "在画线框中画出角色的腿形，原几何与物理将线条变成可转动的肢体，推动方块角色攀过弯曲坡道、跨障并与原本地CPU争先到终点。可重新画腿应对地形；不是点击提高速度或修改存档自动通关。",
+    "core_experience": "",
+    "controls": "原PLAY进入画线，鼠标或触摸按住画线框连续移动后释放生成腿。普通重置/重试、速度升级、声音设置保留原实际控件与规则；本轮只PLAY、一个真实连续弧线、普通重试和刷新，未点击升级或声音。",
+    "game_loop": "",
+    "content": "原assets/modelsglb/level1至level10的scene.glb与终点平台/金币/角色/特效模型保留，原selectedLevel1=保存level%10的加载逻辑保留。原关卡类型、敌方腿策略、障碍和金币放置代码仍在原模块；具体最终总关数未核定。实际只默认LEVEL2对应赛道。",
+    "progression": "",
+    "save": "",
+    "rules": "原静态字符串表10945项经自编只读算术恢复旋转426，原checksum目标784553；73742个常量查表调用恢复为字面量用于源码审阅，未在本机执行原脚本。运行包保留原字符串表和原旋转初始化。以解析后的原版为基线，1585模块规范AST相同，11个受保护画线/距离/计分/速度方法AST相同；10个含环境、服务或界面的模块有明确修改。真实源码无遗留SDK消费者、新增未定义变量或SDK响应替身。",
+    "systems": "原Three场景、Cannon实体/碰撞、Phaser输入和HUD、Howler声音精灵共同运行。全部模型、纹理、图集和基准数据同源静态读取，不需要业务服务器。物理移除实际fastBridge/H5SDK/MSStart宿主依赖、云存档调用、通知/追踪、平台社交、奖励跳关及奖励处理器；原普通非奖励间歇广告后继续体移回其原正常胜负/重试条件。X2视频按钮原几何对象仅供普通按钮原布局取边界，已隐藏/禁输入且其真实奖励处理器已删除；没有调用成功回调或赠送奖励。普通游戏币升级仍显示原15起价并沿原扣费；不足金币的广告分支删除。实际存档消费者改为本地真实序列化，不创建SDK/服务器响应/身份或平台flags替身。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5次真实玩家输入：首载→原PLAY→在原画线框连续画弧线→原失败界面普通重试→刷新。第3步原黑色腿形生成、角色跨过赛道坡道、镜头与进度条推进并出现Checkpoint；随后被动观察到原CPU先到终点、FAILED及原普通重试，真实score/bestScore561。第4步重试回PLAY并保留内存561，第5步刷新正常载入原菜单。被动截图/等待/关闭没有增加玩家输入，实际5条鼠标/刷新轨迹全部保留。远端52实际Chromium五步与被动结算观察：52同源请求/52响应HTTP200，外联/失败请求/脚本错误0；16条原Canvas读回、音频自动播放、SPE粒子配置warning保留。50个运行文件另逐项远端HTTP/SHA通过。实际浏览器41936退出0，原closed日志raw5/UI5，Node29744已不存在。本轮实际输给原生CPU，不宣称胜利、领取金币、升级或解锁下一关；未测试全部关卡。没有触发原进度保存，localStorage记录始终不存在；刷新按原无档默认level1重新显示LEVEL2，临时score/bestScore回0，不宣称已验证存档恢复。原宿主gameSaveDefault的level1/coin0/speedUpgradeLevel1被原样保留，不是注入进度；未改随机、时间、分数、物理、对手难度，也没有业务handler直调。draw观察字段因只读路径不匹配为null，画线效果以实际截图和原输入轨迹证明，未编造相应内部JSON。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "Three.js / Cannon / Phaser / 原生JavaScript",
+    "programming_language": "JavaScript、HTML",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Draw Climber / 画腿攀爬；MSN原生9p6xljvzm6pp、Perpetuum公开v3，原内部DrawClimber__。JavaScript/HTML，Three.js三维画面、Cannon物理、Phaser二维HUD、Howler音效；具体引擎版本未核实。3D；本轮远端1440×900。",
+        "asset_types": "56份原始静态文件，50运行文件、47原字节保持；18个原GLB模型含10个关卡场景，GLB2魔数/长度/JSON及外部URI逐项核对，全部无外部URI。原PNG/UI图集、英语/法语图集、原output.mp3声音精灵、13份原本地GPU基准JSON齐备，字体/部分配置随原模块内嵌。原背景音乐bg.m4a上游404，原bgMusicEnabled=false保持，未添占位音频或假下载成功。",
+        "core_challenge": "在画线框中画出角色的腿形，原几何与物理将线条变成可转动的肢体，推动方块角色攀过弯曲坡道、跨障并与原本地CPU争先到终点。可重新画腿应对地形；不是点击提高速度或修改存档自动通关。",
+        "controls": "原PLAY进入画线，鼠标或触摸按住画线框连续移动后释放生成腿。普通重置/重试、速度升级、声音设置保留原实际控件与规则；本轮只PLAY、一个真实连续弧线、普通重试和刷新，未点击升级或声音。",
+        "behavior_path": "累计5次真实玩家输入：首载→原PLAY→在原画线框连续画弧线→原失败界面普通重试→刷新。第3步原黑色腿形生成、角色跨过赛道坡道、镜头与进度条推进并出现Checkpoint；随后被动观察到原CPU先到终点、FAILED及原普通重试，真实score/bestScore561。第4步重试回PLAY并保留内存561，第5步刷新正常载入原菜单。被动截图/等待/关闭没有增加玩家输入，实际5条鼠标/刷新轨迹全部保留。",
+        "game_path": "默认原LEVEL2/PLAY/速度LVL1费用15→PLAY后原画线框与原本地对手→按提示画弧线→原腿生成/跑动/检查点/推进→原CPU先到终点，FAILED与普通重试→重试回PLAY→刷新正常载入同一默认关。本轮实际输给原生CPU，不宣称胜利、领取金币、升级或解锁下一关；未测试全部关卡。没有触发原进度保存，localStorage记录始终不存在；刷新按原无档默认level1重新显示LEVEL2，临时score/bestScore回0，不宣称已验证存档恢复。原宿主gameSaveDefault的level1/coin0/speedUpgradeLevel1被原样保留，不是注入进度；未改随机、时间、分数、物理、对手难度，也没有业务handler直调。draw观察字段因只读路径不匹配为null，画线效果以实际截图和原输入轨迹证明，未编造相应内部JSON。",
+        "progression_path": "原level、coin、speedUpgradeLevel、bestScore、声音和震动偏好进入本地真实序列化消费者；原云无档fallback字面量level1保留，因此原标题level+1显示LEVEL2。源码保留真实进度/普通领取/升级逻辑；本轮没有触发保存，刷新只能证明重载启动，不能证明已保存进度恢复。",
+        "core_loop": "画线原指针采样→原折线/腿部几何→原Cannon碰撞、旋转与推进→原镜头跟随、赛道/检查点/进度条→原胜负计算与计分→普通失败重试回PLAY。实际输了本轮，核心输入、物理推进和失败重试闭环已见；未伪造胜利。",
+        "gameplay_rules": "原静态字符串表10945项经自编只读算术恢复旋转426，原checksum目标784553；73742个常量查表调用恢复为字面量用于源码审阅，未在本机执行原脚本。运行包保留原字符串表和原旋转初始化。以解析后的原版为基线，1585模块规范AST相同，11个受保护画线/距离/计分/速度方法AST相同；10个含环境、服务或界面的模块有明确修改。真实源码无遗留SDK消费者、新增未定义变量或SDK响应替身。",
+        "key_numbers": "真实累计5输入、1次连续5点弧线鼠标轨迹，原检查点后本轮失败计分561；币0、速度等级1、升级原起价15。本轮无奖励/无升级/无新存档，刷新临时成绩0。10个原关卡场景模型是资源数量，不冒称仅10关或全关试玩；13份本地GPU基准不算游戏关卡。",
+        "level_configuration": "原assets/modelsglb/level1至level10的scene.glb与终点平台/金币/角色/特效模型保留，原selectedLevel1=保存level%10的加载逻辑保留。原关卡类型、敌方腿策略、障碍和金币放置代码仍在原模块；具体最终总关数未核定。实际只默认LEVEL2对应赛道。",
+        "system_design": "原Three场景、Cannon实体/碰撞、Phaser输入和HUD、Howler声音精灵共同运行。全部模型、纹理、图集和基准数据同源静态读取，不需要业务服务器。物理移除实际fastBridge/H5SDK/MSStart宿主依赖、云存档调用、通知/追踪、平台社交、奖励跳关及奖励处理器；原普通非奖励间歇广告后继续体移回其原正常胜负/重试条件。X2视频按钮原几何对象仅供普通按钮原布局取边界，已隐藏/禁输入且其真实奖励处理器已删除；没有调用成功回调或赠送奖励。普通游戏币升级仍显示原15起价并沿原扣费；不足金币的广告分支删除。实际存档消费者改为本地真实序列化，不创建SDK/服务器响应/身份或平台flags替身。",
+        "theme": "原粉黄渐变背景、灰白棋盘赛道、蓝色方块角色、原绿方块CPU与旗标/名字、黑色画腿线、紫色PLAY/重试、原3D终点装饰保留。原英语/法语文字和图集齐备，没有中文界面资源。实际6张原实拍覆盖入口/画线/移动/失败/重试/刷新。",
+        "progression_economy": "原游戏内金币、速度升级等级与本地成绩。原升级费用起15且增加规则保留，广告免费升级路径已删除；未发币、未改速度数值或奖励倍率。单轮失败561仅内存bestScore更新，刷新归0已记录；胜利普通领取/新关和保存尚未实测。",
+        "roster": "原蓝色玩家方块、绿色本地CPU、原画成的黑色腿、赛道/斜坡/弯曲段、金币、旗帜、皇冠和终点平台；原身体/腿几何、碰撞和AI策略保留。本轮真实看到本地CPU领先、玩家腿推进、失败与普通重试。没有远程玩家身份或房间数据。",
+        "monetization": "物理移除实际fastBridge/H5SDK/MSStart宿主依赖、云存档调用、通知/追踪、平台社交、奖励跳关及奖励处理器；原普通非奖励间歇广告后继续体移回其原正常胜负/重试条件。X2视频按钮原几何对象仅供普通按钮原布局取边界，已隐藏/禁输入且其真实奖励处理器已删除；没有调用成功回调或赠送奖励。普通游戏币升级仍显示原15起价并沿原扣费；不足金币的广告分支删除。实际存档消费者改为本地真实序列化，不创建SDK/服务器响应/身份或平台flags替身。 远端52实际Chromium五步与被动结算观察：52同源请求/52响应HTTP200，外联/失败请求/脚本错误0；16条原Canvas读回、音频自动播放、SPE粒子配置warning保留。50个运行文件另逐项远端HTTP/SHA通过。实际浏览器41936退出0，原closed日志raw5/UI5，Node29744已不存在。 本轮实际输给原生CPU，不宣称胜利、领取金币、升级或解锁下一关；未测试全部关卡。没有触发原进度保存，localStorage记录始终不存在；刷新按原无档默认level1重新显示LEVEL2，临时score/bestScore回0，不宣称已验证存档恢复。原宿主gameSaveDefault的level1/coin0/speedUpgradeLevel1被原样保留，不是注入进度；未改随机、时间、分数、物理、对手难度，也没有业务handler直调。draw观察字段因只读路径不匹配为null，画线效果以实际截图和原输入轨迹证明，未编造相应内部JSON。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原无存档默认LEVEL2/原PLAY/原付费升级15金币"
+      },
+      {
+        "path": "screenshots/002.png",
+        "caption": "原PLAY后画线框与Draw提示、原本地CPU对手"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "真实画弧线形成腿，原角色前进/赛道滚动/检查点"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "无新增输入，原CPU先到终点/FAILED/普通重试，真实单轮561分"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "普通重试后原PLAY与LEVEL2，内存bestScore561"
+      },
+      {
+        "path": "screenshots/006.png",
+        "caption": "真实刷新重新加载原菜单；无存档，临时成绩归0"
+      }
+    ]
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "真实画弧线形成腿、原物理前进/检查点/CPU竞争、真实失败561分、普通重试闭环，未冒称胜利。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "56原始/50运行/47原字节，18GLB无外部URI/10场景、英法UI、声音精灵/13本地GPU基准；52实际同源200。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原三维入口/坡道/终点与二维画线HUD、原失败横幅实际渲染。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "实际腿形、坡道、进度条和检查点随原物理推进。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原蓝玩家与绿CPU可见并真实竞争，CPU先到终点，不伪造对手协议。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原画线/腿旋转/角色移动/镜头与赛道滚动、普通失败与返回PLAY动画实际出现。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "原PLAY、画线、普通重试、刷新均响应；奖励跳关入口/handler已移除，未点击声音/升级/胜利领取。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-18T13:00:48.168311+00:00",
+    "observation_end": "2026-11-18T13:41:40.953728+00:00",
+    "elapsed_seconds": 2452.785417,
+    "scope": "公开原入口抓取至证据归档经过时间，含静态解析/移除服务端边界/构建工具纠正、传输、实际试玩及等待；不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}
