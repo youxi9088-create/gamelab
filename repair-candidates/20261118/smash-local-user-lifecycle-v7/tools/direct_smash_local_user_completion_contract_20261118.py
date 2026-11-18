@@ -1,0 +1,13 @@
+"""Verify the local data-completion event against original metadata; not an auth callback."""
+from pathlib import Path
+import json,struct,hashlib,datetime
+b=Path(__file__).parent;r=b/'direct-games/job-3db06205247a';a=r/'analysis-20261118';out=a/'native-local-user-completion-contract.json';assert not out.exists()
+src=(b/'direct_smash_profile_address_contract_20261118.py').read_text(encoding='utf8').split('for address,expected_method')[0].replace(';assert not out.exists()','')
+ns={'__file__':str(b/'direct_smash_profile_address_contract_20261118.py')};exec(compile(src,'read-native-completion-contract','exec'),ns)
+m=ns['m'];rd=ns['rd'];reg=ns['registration'];meta=ns['meta'];mt=ns['mt'];tt=ns['tt'];string=ns['string'];address=5673040;encoded=rd(address);assert encoded>>29==6;index=(encoded&0x1fffffff)>>1
+method,ci,gi=struct.unpack_from('<iii',m,rd(reg+36)+12*index);decl=struct.unpack_from('<i',meta,mt+method*36+4)[0];name=string(struct.unpack_from('<I',meta,mt+method*36)[0]);cls=string(struct.unpack_from('<I',meta,tt+decl*88)[0]);args=ns['inst_types'](ci)
+assert name=='Invoke'and cls=='UnityEvent`1'and len(args)==1 and args[0]['name']=='bool'
+d=json.loads((a/'data-services-v2/service-original-source-proof.json').read_bytes());setter=next(x for x in d['original_source_snippets']if x['function_index']==46621);assert 'a[80] = b'in setter['source']
+user=json.loads((a/'native-local-storage-contract-v2.json').read_bytes());event=next(x for x in user['user_fields']if x['native_offset']==72);assert event['type']['name']=='UnityEvent<bool>'
+source=next(x['source']for x in d['original_source_snippets']if x['function_index']==1756);assert 'f_mnc(a[18]:int, e,'in source and '[27576]:int)'in source
+outcome={'at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_only':True,'game_executed':False,'original_modified':False,'metadata_sha256':hashlib.sha256(meta).hexdigest(),'completion_event':{'metadata_use_address':address,'method_spec_index':index,'method_index':method,'class':cls,'method':name,'generic_arguments':args,'original_shared_function_index':2404,'owner_field_byte_offset':72},'original_user_data_ready_setter':setter,'boundary':['This is the user data-change event originally raised by UserService data application, not Firebase authentication/provider success.','The local controller invokes completion only after a checked full local snapshot, original typed restoration, identity match and canonical native snapshot persistence.','It does not set authentication/permission flags or delivery/task status.','Other startup data dependencies and offline room/player/AI remain unresolved.']};out.write_bytes(json.dumps(outcome,ensure_ascii=False,indent=2).encode());print(json.dumps(outcome,ensure_ascii=False))
