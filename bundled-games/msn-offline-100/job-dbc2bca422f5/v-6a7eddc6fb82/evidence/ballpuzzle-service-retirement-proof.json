@@ -1,0 +1,139 @@
+{
+  "source_sha256": "40a51164a4811df5e9972a6aee9ac9be9a37af5116aa5ef0f5ce3800d391fbf0",
+  "rewritten_sha256": "ad6b8112b698b981bd2a22d87a638c517d0b9c51d4921039a80841422645b05f",
+  "original_native_methods": 261,
+  "raw_AST_identical_native_methods": 253,
+  "changed_native_methods": [
+    "ScreenMainMenu.mainMenuPlayButtonClicked",
+    "ScreenPause.homeClicked",
+    "ScreenPause.resetClicked",
+    "ScreenGameOver.menuBtnClicked",
+    "ScreenGameOver.resetBtnClicked",
+    "ScreenGameOver.continueBtnClicked",
+    "ScreenLevelSelection.levelSelected",
+    "GamePlay.startNewGame"
+  ],
+  "removed_native_methods": [],
+  "engine_prefix_raw_exact": true,
+  "service_edits": [
+    {
+      "start": 838427,
+      "end": 864069,
+      "why": "Remove actual shared ads/analytics/providers, fake-ad implementation, Adinplay and their complete constructor/config/startup graph",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 912239,
+      "end": 912297,
+      "why": "Remove nonreward ad trigger without changing native menu/game action",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 917149,
+      "end": 917206,
+      "why": "Remove nonreward ad trigger without changing native menu/game action",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 917310,
+      "end": 917367,
+      "why": "Remove nonreward ad trigger without changing native menu/game action",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 921312,
+      "end": 921369,
+      "why": "Remove nonreward ad trigger without changing native menu/game action",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 921500,
+      "end": 921557,
+      "why": "Remove nonreward ad trigger without changing native menu/game action",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 921967,
+      "end": 922024,
+      "why": "Remove nonreward ad trigger without changing native menu/game action",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 929688,
+      "end": 929747,
+      "why": "Remove final ad-only sequence expression; preserve native level-selection actions",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 970058,
+      "end": 970336,
+      "why": "Lift original ordinary start continuation out of nonreward ad lifecycle; preserve five native statements and original tutorial invocation",
+      "replacement_bytes": 178
+    },
+    {
+      "start": 992538,
+      "end": 992569,
+      "why": "Remove discarded provider identity/config/custom callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 992569,
+      "end": 992606,
+      "why": "Remove discarded provider identity/config/custom callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 992606,
+      "end": 992636,
+      "why": "Remove discarded provider identity/config/custom callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 992636,
+      "end": 992663,
+      "why": "Remove discarded provider identity/config/custom callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 992663,
+      "end": 992700,
+      "why": "Remove discarded provider identity/config/custom callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 992700,
+      "end": 992754,
+      "why": "Remove discarded provider identity/config/custom callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 992754,
+      "end": 992792,
+      "why": "Remove discarded provider identity/config/custom callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 992792,
+      "end": 992831,
+      "why": "Remove discarded provider identity/config/custom callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 993825,
+      "end": 993841,
+      "why": "Remove provider init",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 994996,
+      "end": 997701,
+      "why": "Remove actual service-worker registration, Microsoft ads/banner/reward implementations and SDK footer startup",
+      "replacement_bytes": 0
+    }
+  ],
+  "original_start_continuation_statements": 5,
+  "original_tutorial_invocation_retained": true,
+  "SDK_globals_created": false,
+  "reward_callbacks_or_state_injected": false,
+  "UI": 0
+}

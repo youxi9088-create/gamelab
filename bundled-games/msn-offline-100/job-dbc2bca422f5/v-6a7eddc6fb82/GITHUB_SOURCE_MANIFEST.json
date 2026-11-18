@@ -1,0 +1,461 @@
+{
+  "title": "轨道拼球",
+  "revision": "ballpuzzle-offline-v1",
+  "job_id": "job-dbc2bca422f5",
+  "version_id": "v-6a7eddc6fb82",
+  "artifact_id": "artifact-194bf3e525cf",
+  "artifact_sha256": "aa713833aba6fc61eb4b463d0711a3e97af1ce416364ef0e9c2d0dc95ffd2b42",
+  "remote_archive_commit": "60b1295b7b973498e4119d26bfa2cfe28dc70bcd",
+  "files": {
+    "assets/audio/MUSIC.mp3": "0007a7962624ff91c0c3b278cc04ffae6b9fc358c290699b0268d7ec493116f2",
+    "assets/audio/MUSIC.ogg": "6ac486aaec6184e0d1f7f6b0570dc8fc43e6e173bbe5ed3a0136d314da8810e7",
+    "assets/audio/sounds/ball_end_hit.mp3": "7f3542e0bf70f8b43bc477817ab81fdb2c3920ac443d47fb340d59e7e30c43ac",
+    "assets/audio/sounds/ball_end_hit.ogg": "5e092506349863d6e8fac5da366c4113701b40cc720af21147e7aee731f6bf22",
+    "assets/audio/sounds/button_click.mp3": "b25210b399d84be2e2712c5112f2eeb062fc9659d0dedc1948c7c9f5cec7acf9",
+    "assets/audio/sounds/button_click.ogg": "6744fce8ad02d9373ecd3290ca18778354b53907982d08c2e1b591a787d3e9d8",
+    "assets/audio/sounds/GO-bell1.mp3": "b5ad1a5f393f55de9245379459db067b7e128acc8bce571b86eaf4457f57392d",
+    "assets/audio/sounds/GO-bell1.ogg": "9b7204fb0ff72f8044d792583b5c6c009b48018d6acfc611e2612e505db54693",
+    "assets/audio/sounds/Roll_Slow_single_loud.mp3": "3b85cd96f5d7b8e2120af547f7cac1667162362d7474bc868df69903ecf95213",
+    "assets/audio/sounds/Roll_Slow_single_loud.ogg": "edc8044d63596800a39cbf91df5aa78fc0fde6b15e266e3c54e9adde9138a8af",
+    "assets/audio/sounds/slide-new.mp3": "0e6b75b0585ee2047848ca2a9fd8fa95a086e36ccbfb7e1e0dc3ae6a999c8d51",
+    "assets/audio/sounds/slide-new.ogg": "29d4c183fb8ef2ae828ecdc1d181383046adb2108bc0a0ef40b9eeeacf7dbc6e",
+    "assets/audio/sounds/Star_pickup_1_result.mp3": "94b40e7e59484f9bcc6c8c10a7cf11822c13fb6a83436205e41a8a63e9641a57",
+    "assets/audio/sounds/Star_pickup_1_result.ogg": "b7a7990e3c5e7d4a28387474995666bd6da5b84ebb4cc9165cdbb87b0bffd844",
+    "assets/audio/sounds/Star_pickup_2_result.mp3": "fc8de8f2b440acee5c1731550f2d6801ecec99263610b74cbf76bb0ae74d2b74",
+    "assets/audio/sounds/Star_pickup_2_result.ogg": "42d86363921115d308dd4461b84bce69fc98d0aa358a031c65ba9a4f64d2da3b",
+    "assets/audio/sounds/Star_pickup_3_result.mp3": "6cb7e9b555a9788a3918c3f66685dfb1a3580d287a9c44ae3a098d4602cd32fb",
+    "assets/audio/sounds/Star_pickup_3_result.ogg": "9dd454279e9dd47ec978e64c0bf129b37ba29d77958d2a3cb0561052267a3f30",
+    "assets/audio/sounds/start_roll.mp3": "3c729a35af286c5d51cd691a844257ef9f424fb684d18ad2339caf513db92edf",
+    "assets/audio/sounds/start_roll.ogg": "809927ac9fa0944d63506db7a55ceb3ff3c7463ca0729c656862c87ba51b6d92",
+    "assets/audio/sounds/win.mp3": "d1fe86c025dfff1a523971456f2caa7a1ea30bb68b17581f2284b9253d626308",
+    "assets/audio/sounds/win.ogg": "6defdca90027a97558b1cda753714a8455cb5673e78f86c42bd7aac0501132c7",
+    "assets/favicon/icon-152x152.png": "75467e625033a34590c0a911d79c39b0b51f9b18074ae91f9c7a68c69ea2e38f",
+    "assets/favicon/icon-512x512.png": "17c38432a89776ea07595bd50ba28c63fdaa4f83e956b02894589529a503b1ce",
+    "assets/fnt/Ubuntu-B.ttf": "85180753fa255615b5f5b436c00b203567fb87a271a5af9dd095d43a429c53eb",
+    "assets/Hints.json": "72d5d4846a31d7ee03b1ac42cd33567de94739578bd132e8059cc72b887ddf76",
+    "assets/img/atlas/pak.json": "8bc0878b8a80696693531ca4b1201af1b306ccc70e00b967fcb871268d81919f",
+    "assets/img/atlas/pak.png": "449c83af900aa317994329b90b9037cdff0be81e0eb8def46ae9c8522d71053a",
+    "assets/img/ball-puzzle.png": "17c38432a89776ea07595bd50ba28c63fdaa4f83e956b02894589529a503b1ce",
+    "assets/img/bg.png": "5fb53026717d97b921d0327d54e5bd7fa8a7587b2e1eea989be66a7b9180579a",
+    "assets/img/game-logo.png": "56a782c7ae67c3fda7ca07bcd8b411a18ea46f0f2044bf773a3577ea269c5b97",
+    "assets/img/inlogic-logo.png": "bb1bce3879d20ea4a8d97eb687646d8c9a7caf5b4dd3d4246087ccb0b4e1489b",
+    "assets/img/rotate_screen.png": "9dfe6254d8375b37de0dbb17c9ef906ed29f1257943e100f3028f96d786146ed",
+    "assets/img/void.png": "cb75e86438d9802883e0b2cc52172a3c083e8bfbba5ec1d74b2d68a9c5aafca0",
+    "assets/lang.xml": "dc902f5c289a84b91734c0423979e8af9b4072810272ea53687fffb03a47e351",
+    "assets/Levels.json": "5bcbf3f01a79247c7e82fd3d519fbe6e6a248fa27cd8b0326c2b88005b5752b8",
+    "css/game.css": "cbf62c6ee04a0f7542265ec3c3d7cee65dbe587b4ce7f9beb9eb22635b689b86",
+    "css/normalize.css": "c1bbf1b21bd8bf58af10bfb46ccc66187b2ff2b968f9aa3e715826d0b8ab906b",
+    "delivery-report.json": "373692182c3e2942d634dee2c4b3bde64853177d2ccc14093c0d84bd285801cf",
+    "evidence/ballpuzzle-close-audit.json": "d60cb5c4822b047d11b90eeb6561be1e5e81361f520b8c6d30ac66a0383b57ed",
+    "evidence/ballpuzzle-draft-static-audit.json": "a823e96a1fb31116e550d3490f5c7a0115f9bb9069579739dc7b01183091cb5a",
+    "evidence/ballpuzzle-native-assets-source-receipt.json": "c6f771b0d06d3dbba54e3afa799bac15b437f133fea48f00e483c936a413e412",
+    "evidence/ballpuzzle-pending5-read.json": "f2103df05d2fad42f88f46feefc6646882c374d02b9e870b0a7475b03b2570ea",
+    "evidence/ballpuzzle-pw-bootstrap-source-receipt.json": "0bda2020e0dc096cb1eea18cabeb15afee0d4e9374bc7f135fbd8f44400ae8c9",
+    "evidence/ballpuzzle-service-retirement-proof.json": "fae958702d7a34a6a625a20f2e5d857fd06ceb5b6b6735b6c814c5d121ba3622",
+    "evidence/ballpuzzle-terminal-audit.json": "f0bc94d5ab18661c1f4be9578a2a63cf4fc5d7967938837c4ff4640ad0d09a7a",
+    "evidence/ballpuzzle-verification-plan.json": "37dd479edfdebc60f1015675aeaa8dce57fa9303ec5cb4077d3ec17d3616356f",
+    "evidence/dedup-intake-guard.json": "018de3d9ee848a8480928320792fdcae9b1c6fb2555ead0ca34f5a3c740f5c99",
+    "evidence/dedup.json": "3bd5fb9b49adf52b10f1e30005566df56ed3590eaaf1a4b81c0d6a707fe98f1a",
+    "evidence/original-fifth-frame-and-journals.json": "749b6d85f61119b5017619d75e85af2965c294464f2e6e26e7ccc32dd1bb77de",
+    "evidence/resource-audit.json": "d07568bf3eec757ea56178bfaba45cc7e5acc5b447476f61af488ac5cd83fe75",
+    "evidence/runtime-sha256.json": "d92802605fe902f483318d30970609a48f08127283fce949a6c646dc6cbda131",
+    "evidence/ui-1.json": "51e926aa8beac4641b87b2fdf7abaa6564ae5fc6e34a4cb52833d6b3cac27404",
+    "evidence/ui-2.json": "014cade93ddaaa6c9fadf3042516d70f77f090f969fdbd0fde3ea4c991597b07",
+    "evidence/ui-3.json": "7ee73d6c115d75ab4134f80061bd6ffca1d48da29c7993d6b0c645ec8e62266e",
+    "evidence/ui-4.json": "55cfb1929c7cdaeead4c454db368dc41eed9657263175b98315647e69b856dfb",
+    "evidence/validation.json": "08a2b867dcc9e54de35319741ec9e3adec5528942406fb9d951dccf59d4767d0",
+    "game-profile.json": "17e78812b997e061a34d2c70abe39d531bdf54f74a529af8b1b93e65a33f7126",
+    "GAME_SPECIFICATION.md": "19ee70310d29185238abcfd3d4c1fd4a3cbc7e65de2ca698f9e9bdd1ff12000d",
+    "index.html": "d7b67307d7d71be357b2a987a5ccacd5bc898a8e71b589718888b12037e682a4",
+    "js/game.js": "ad6b8112b698b981bd2a22d87a638c517d0b9c51d4921039a80841422645b05f",
+    "README_二次修改.md": "556cc486ca9c7b1b065e88c6af72d425f032d632fcad9e8db666d49272d03f7a",
+    "screenshots/001.png": "e48506eff21c3cf1df9b953d88136f9a7a99e883ff8895e45ecefc00784fd667",
+    "screenshots/002.png": "ded4ab9d78a5fe28238292c810e13272f3dbe9801702455cdd869a6d50952c3c",
+    "screenshots/003.png": "1db31c3cac5e18c52bb945165b9adc0cd7497136a64b1f6ee3c226efdf233d63",
+    "screenshots/004.png": "10000944e3555d1127416b0d7bd8e47449987c8a5e0d5d5e744056f7fef3bafb",
+    "screenshots/005.png": "d1ff4702bdd34420da33c978bad299fd9bcc219ed6a0e83b9c1b4217f1b82979"
+  },
+  "status_at_archive": "review",
+  "ui_checkpoints": 5,
+  "site_readback": {
+    "at": "2026-11-18T12:00:58.671495+00:00",
+    "version_id": "v-6a7eddc6fb82",
+    "job_id": "job-dbc2bca422f5",
+    "status": "review",
+    "cover": "http://127.0.0.1:8766/play/artifact-194bf3e525cf/screenshots/001.png",
+    "sixteen_section_content_exact": true,
+    "runtime_files": [
+      {
+        "path": "assets/Hints.json",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.092390+00:00",
+        "http": 200,
+        "sha256": "72d5d4846a31d7ee03b1ac42cd33567de94739578bd132e8059cc72b887ddf76",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/Levels.json",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.133615+00:00",
+        "http": 200,
+        "sha256": "5bcbf3f01a79247c7e82fd3d519fbe6e6a248fa27cd8b0326c2b88005b5752b8",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/audio/MUSIC.mp3",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.127062+00:00",
+        "http": 200,
+        "sha256": "0007a7962624ff91c0c3b278cc04ffae6b9fc358c290699b0268d7ec493116f2",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/MUSIC.ogg",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.182181+00:00",
+        "http": 200,
+        "sha256": "6ac486aaec6184e0d1f7f6b0570dc8fc43e6e173bbe5ed3a0136d314da8810e7",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/sounds/GO-bell1.mp3",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.283394+00:00",
+        "http": 200,
+        "sha256": "b5ad1a5f393f55de9245379459db067b7e128acc8bce571b86eaf4457f57392d",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/sounds/GO-bell1.ogg",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.341079+00:00",
+        "http": 200,
+        "sha256": "9b7204fb0ff72f8044d792583b5c6c009b48018d6acfc611e2612e505db54693",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/sounds/Roll_Slow_single_loud.mp3",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.365808+00:00",
+        "http": 200,
+        "sha256": "3b85cd96f5d7b8e2120af547f7cac1667162362d7474bc868df69903ecf95213",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/sounds/Roll_Slow_single_loud.ogg",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.368647+00:00",
+        "http": 200,
+        "sha256": "edc8044d63596800a39cbf91df5aa78fc0fde6b15e266e3c54e9adde9138a8af",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/sounds/Star_pickup_1_result.mp3",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.436318+00:00",
+        "http": 200,
+        "sha256": "94b40e7e59484f9bcc6c8c10a7cf11822c13fb6a83436205e41a8a63e9641a57",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/sounds/Star_pickup_1_result.ogg",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.452505+00:00",
+        "http": 200,
+        "sha256": "b7a7990e3c5e7d4a28387474995666bd6da5b84ebb4cc9165cdbb87b0bffd844",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/sounds/Star_pickup_2_result.mp3",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.479091+00:00",
+        "http": 200,
+        "sha256": "fc8de8f2b440acee5c1731550f2d6801ecec99263610b74cbf76bb0ae74d2b74",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/sounds/Star_pickup_2_result.ogg",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.495166+00:00",
+        "http": 200,
+        "sha256": "42d86363921115d308dd4461b84bce69fc98d0aa358a031c65ba9a4f64d2da3b",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/sounds/Star_pickup_3_result.mp3",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.507102+00:00",
+        "http": 200,
+        "sha256": "6cb7e9b555a9788a3918c3f66685dfb1a3580d287a9c44ae3a098d4602cd32fb",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/sounds/Star_pickup_3_result.ogg",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.558132+00:00",
+        "http": 200,
+        "sha256": "9dd454279e9dd47ec978e64c0bf129b37ba29d77958d2a3cb0561052267a3f30",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/sounds/ball_end_hit.mp3",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.584131+00:00",
+        "http": 200,
+        "sha256": "7f3542e0bf70f8b43bc477817ab81fdb2c3920ac443d47fb340d59e7e30c43ac",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/sounds/ball_end_hit.ogg",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.585458+00:00",
+        "http": 200,
+        "sha256": "5e092506349863d6e8fac5da366c4113701b40cc720af21147e7aee731f6bf22",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/sounds/button_click.mp3",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.657520+00:00",
+        "http": 200,
+        "sha256": "b25210b399d84be2e2712c5112f2eeb062fc9659d0dedc1948c7c9f5cec7acf9",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/sounds/button_click.ogg",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.668920+00:00",
+        "http": 200,
+        "sha256": "6744fce8ad02d9373ecd3290ca18778354b53907982d08c2e1b591a787d3e9d8",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/sounds/slide-new.mp3",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.679867+00:00",
+        "http": 200,
+        "sha256": "0e6b75b0585ee2047848ca2a9fd8fa95a086e36ccbfb7e1e0dc3ae6a999c8d51",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/sounds/slide-new.ogg",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.754096+00:00",
+        "http": 200,
+        "sha256": "29d4c183fb8ef2ae828ecdc1d181383046adb2108bc0a0ef40b9eeeacf7dbc6e",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/sounds/start_roll.mp3",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.758559+00:00",
+        "http": 200,
+        "sha256": "3c729a35af286c5d51cd691a844257ef9f424fb684d18ad2339caf513db92edf",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/sounds/start_roll.ogg",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.824839+00:00",
+        "http": 200,
+        "sha256": "809927ac9fa0944d63506db7a55ceb3ff3c7463ca0729c656862c87ba51b6d92",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/sounds/win.mp3",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.825887+00:00",
+        "http": 200,
+        "sha256": "d1fe86c025dfff1a523971456f2caa7a1ea30bb68b17581f2284b9253d626308",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/sounds/win.ogg",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.827879+00:00",
+        "http": 200,
+        "sha256": "6defdca90027a97558b1cda753714a8455cb5673e78f86c42bd7aac0501132c7",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/favicon/icon-152x152.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.891914+00:00",
+        "http": 200,
+        "sha256": "75467e625033a34590c0a911d79c39b0b51f9b18074ae91f9c7a68c69ea2e38f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/favicon/icon-512x512.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.912760+00:00",
+        "http": 200,
+        "sha256": "17c38432a89776ea07595bd50ba28c63fdaa4f83e956b02894589529a503b1ce",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/fnt/Ubuntu-B.ttf",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.915328+00:00",
+        "http": 200,
+        "sha256": "85180753fa255615b5f5b436c00b203567fb87a271a5af9dd095d43a429c53eb",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/img/atlas/pak.json",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:57.980286+00:00",
+        "http": 200,
+        "sha256": "8bc0878b8a80696693531ca4b1201af1b306ccc70e00b967fcb871268d81919f",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/img/atlas/pak.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.015619+00:00",
+        "http": 200,
+        "sha256": "449c83af900aa317994329b90b9037cdff0be81e0eb8def46ae9c8522d71053a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/img/ball-puzzle.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.039425+00:00",
+        "http": 200,
+        "sha256": "17c38432a89776ea07595bd50ba28c63fdaa4f83e956b02894589529a503b1ce",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/img/bg.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.051349+00:00",
+        "http": 200,
+        "sha256": "5fb53026717d97b921d0327d54e5bd7fa8a7587b2e1eea989be66a7b9180579a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/img/game-logo.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.150260+00:00",
+        "http": 200,
+        "sha256": "56a782c7ae67c3fda7ca07bcd8b411a18ea46f0f2044bf773a3577ea269c5b97",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/img/inlogic-logo.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.163139+00:00",
+        "http": 200,
+        "sha256": "bb1bce3879d20ea4a8d97eb687646d8c9a7caf5b4dd3d4246087ccb0b4e1489b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/img/rotate_screen.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.218876+00:00",
+        "http": 200,
+        "sha256": "9dfe6254d8375b37de0dbb17c9ef906ed29f1257943e100f3028f96d786146ed",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/img/void.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.225973+00:00",
+        "http": 200,
+        "sha256": "cb75e86438d9802883e0b2cc52172a3c083e8bfbba5ec1d74b2d68a9c5aafca0",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/lang.xml",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.267227+00:00",
+        "http": 200,
+        "sha256": "dc902f5c289a84b91734c0423979e8af9b4072810272ea53687fffb03a47e351",
+        "content_type": "text/xml; charset=utf-8"
+      },
+      {
+        "path": "css/game.css",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.297966+00:00",
+        "http": 200,
+        "sha256": "cbf62c6ee04a0f7542265ec3c3d7cee65dbe587b4ce7f9beb9eb22635b689b86",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "css/normalize.css",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.301711+00:00",
+        "http": 200,
+        "sha256": "c1bbf1b21bd8bf58af10bfb46ccc66187b2ff2b968f9aa3e715826d0b8ab906b",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "index.html",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.357281+00:00",
+        "http": 200,
+        "sha256": "d7b67307d7d71be357b2a987a5ccacd5bc898a8e71b589718888b12037e682a4",
+        "content_type": "text/html; charset=utf-8"
+      },
+      {
+        "path": "js/game.js",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.369920+00:00",
+        "http": 200,
+        "sha256": "ad6b8112b698b981bd2a22d87a638c517d0b9c51d4921039a80841422645b05f",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "screenshots/001.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.382767+00:00",
+        "http": 200,
+        "sha256": "e48506eff21c3cf1df9b953d88136f9a7a99e883ff8895e45ecefc00784fd667",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/002.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.414730+00:00",
+        "http": 200,
+        "sha256": "ded4ab9d78a5fe28238292c810e13272f3dbe9801702455cdd869a6d50952c3c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/003.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.480476+00:00",
+        "http": 200,
+        "sha256": "1db31c3cac5e18c52bb945165b9adc0cd7497136a64b1f6ee3c226efdf233d63",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/004.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.517813+00:00",
+        "http": 200,
+        "sha256": "10000944e3555d1127416b0d7bd8e47449987c8a5e0d5d5e744056f7fef3bafb",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/005.png",
+        "artifact_id": "artifact-194bf3e525cf",
+        "observed_at": "2026-11-18T12:00:58.552495+00:00",
+        "http": 200,
+        "sha256": "d1ff4702bdd34420da33c978bad299fd9bcc219ed6a0e83b9c1b4217f1b82979",
+        "content_type": "image/png"
+      }
+    ],
+    "all_40_runtime_files_5_screenshots_exact": true,
+    "index_csp": "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' http://192.168.56.52:8765",
+    "gameplay_UI_reexecuted": false,
+    "cumulative_UI_steps": 5,
+    "native_first_level_victory_screenshot_verified": true,
+    "recorder_exit_code": 134,
+    "fifth_native_state_JSON_missing": true,
+    "storage_reload_verified": false,
+    "all_levels_verified": false,
+    "CSP_source_compatibility": "40runtimefiles+5originalscreenshots exactHTTPSreadback; nativegame onlytested remotelyunder18865selfCSP, noaddedgameplayunderpublicsiteCSP."
+  },
+  "scope": "Exact normal-review offline game and real evidence. Raw input counts and historical failures remain explicit; no approval, supply, game-state changes or added testing."
+}

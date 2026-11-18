@@ -1,0 +1,406 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1，详见原inputs.json与截图"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入2，详见原inputs.json与截图"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入3，详见原inputs.json与截图"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入4，详见原inputs.json与截图"
+      },
+      {
+        "type": "drag",
+        "description": "真实累计输入5，详见原inputs.json与截图"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 29,
+    "responses": 29,
+    "tested_revision": "ballpuzzle-offline-v1",
+    "delivery_revision": "ballpuzzle-offline-v1",
+    "scope": "累计5次真实玩家输入：首载→原PLAY→原教程继续→原提示按钮→按画面高亮将直轨块从第2行第3列向下拖到空位。第5步原截图显示LEVEL COMPLETED、SOLVED IN1MOVES、TARGET1、BEST1；实际鼠标down/move/up轨迹与原截图已取回并打开检查。没有第6次输入、刷新、业务handler调用、关卡/分数/提示/存档/RNG/时间注入。未复验刷新、后续关卡和全部240关。",
+    "native_first_level_victory_screenshot_verified": true,
+    "native_first_four_observations_verified": true,
+    "fifth_native_state_JSON_available": false,
+    "storage_reload_verified": false,
+    "all_levels_verified": false,
+    "cumulative_input_budget": 5,
+    "recorder_diagnostic": "第5步的原截图、network/console/inputs已保存，但记录器在结果JSON序列化时堆内存耗尽，实际Node退出134；完整第5步原生状态JSON缺失，未伪造补值。原图直接证明1步通关，原第1至4步JSON与全部输入轨迹保留。真实本实例Node与Chrome已全部退出；没有把134说成正常exit0，也未因此重跑游戏。共享记录器补共享引用去重与50000对象上限，5项自编数据检查通过，未用额外游戏输入验证该工具修复。"
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/ballpuzzle-offline-v1/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "phase": 1,
+      "action": "click",
+      "x": 720,
+      "y": 628,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 628
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "phase": 1,
+      "action": "click",
+      "x": 720,
+      "y": 785,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 785
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "phase": 1,
+      "action": "click",
+      "x": 927,
+      "y": 850,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 927,
+          "y": 850
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "phase": 1,
+      "action": "drag",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 774,
+          "y": 433
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 435.6666666666667,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 438.3333333333333,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 441,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 443.6666666666667,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 446.3333333333333,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 449,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 451.6666666666667,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 454.3333333333333,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 457,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 459.6666666666667,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 462.3333333333333,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 465,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 468.3333333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 471.6666666666667,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 475,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 478.3333333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 481.6666666666667,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 485,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 488.3333333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 491.6666666666667,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 495,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 498.3333333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 501.6666666666667,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 505,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 508.5833333333333,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 512.1666666666666,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 515.75,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 519.3333333333334,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 522.9166666666666,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 526.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 530.0833333333334,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 533.6666666666666,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 537.25,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 540.8333333333334,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 544.4166666666666,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 774,
+          "y": 548,
+          "segment": 3
+        },
+        {
+          "event": "up"
+        }
+      ],
+      "points": [
+        [
+          774,
+          433
+        ],
+        [
+          774,
+          465
+        ],
+        [
+          774,
+          505
+        ],
+        [
+          774,
+          548
+        ]
+      ]
+    }
+  ],
+  "passive_frame_recovery": "Original shot-5.png recovered from same browser directory, not a new screenshot/input or replay",
+  "original_fifth_frame_sha256": "d1ff4702bdd34420da33c978bad299fd9bcc219ed6a0e83b9c1b4217f1b82979",
+  "browser_session": 92080,
+  "node_pid": 5060,
+  "browser_actual_exit_code": 134,
+  "browser_termination": "recorder_heap_OOM",
+  "owned_process_tree_absent": true,
+  "native_first_level_core_verified_by_original_frame": true,
+  "final_visible_moves": 1,
+  "final_visible_best": 1,
+  "final_native_state_JSON": null,
+  "state_injection": false,
+  "handler_calls": false,
+  "screenshots_opened": true,
+  "accounting": {
+    "observation_start": "2026-11-18T11:36:26.504307+00:00",
+    "observation_end": "2026-11-18T11:58:06.957789+00:00",
+    "elapsed_seconds": 1300.453482,
+    "scope": "本款公开原入口抓取至证据归档经过时间，含分析、传输、等待、记录器故障处置；非纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  }
+}

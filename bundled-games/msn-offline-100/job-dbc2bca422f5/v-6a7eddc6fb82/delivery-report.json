@@ -1,0 +1,293 @@
+{
+  "msn_revision": "ballpuzzle-offline-v1",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1，详见原inputs.json与截图"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入2，详见原inputs.json与截图"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入3，详见原inputs.json与截图"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入4，详见原inputs.json与截图"
+      },
+      {
+        "type": "drag",
+        "description": "真实累计输入5，详见原inputs.json与截图"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 29,
+    "responses": 29,
+    "tested_revision": "ballpuzzle-offline-v1",
+    "delivery_revision": "ballpuzzle-offline-v1",
+    "scope": "累计5次真实玩家输入：首载→原PLAY→原教程继续→原提示按钮→按画面高亮将直轨块从第2行第3列向下拖到空位。第5步原截图显示LEVEL COMPLETED、SOLVED IN1MOVES、TARGET1、BEST1；实际鼠标down/move/up轨迹与原截图已取回并打开检查。没有第6次输入、刷新、业务handler调用、关卡/分数/提示/存档/RNG/时间注入。未复验刷新、后续关卡和全部240关。",
+    "native_first_level_victory_screenshot_verified": true,
+    "native_first_four_observations_verified": true,
+    "fifth_native_state_JSON_available": false,
+    "storage_reload_verified": false,
+    "all_levels_verified": false,
+    "cumulative_input_budget": 5,
+    "recorder_diagnostic": "第5步的原截图、network/console/inputs已保存，但记录器在结果JSON序列化时堆内存耗尽，实际Node退出134；完整第5步原生状态JSON缺失，未伪造补值。原图直接证明1步通关，原第1至4步JSON与全部输入轨迹保留。真实本实例Node与Chrome已全部退出；没有把134说成正常exit0，也未因此重跑游戏。共享记录器补共享引用去重与50000对象上限，5项自编数据检查通过，未用额外游戏输入验证该工具修复。"
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "实际MSStart、Inlogic、Adinplay广告/统计提供者、模拟广告实现、7个广告触发、SDK页脚、serviceWorker及跨域存档迁移入口物理移除。原普通非奖励开始逻辑5条语句从非奖励广告生命周期提取，紧随原新手教程调用；无SDK替身、身份/token、广告成功或奖励注入。原本地5次提示初值与新手不扣提示的规则保持。",
+      "evidence": [
+        "js/game.js",
+        "index.html",
+        "evidence/ballpuzzle-service-retirement-proof.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "absent",
+      "reason": "原本地最佳步数，不使用外部排行榜。",
+      "evidence": [
+        "js/game.js",
+        "index.html",
+        "evidence/ballpuzzle-service-retirement-proof.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原单人轨道谜题，无房间或对手。",
+      "evidence": [
+        "js/game.js",
+        "index.html",
+        "evidence/ballpuzzle-service-retirement-proof.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "没有支付或充值服务；本地提示数保持。",
+      "evidence": [
+        "js/game.js",
+        "index.html",
+        "evidence/ballpuzzle-service-retirement-proof.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "益智 / 空位滑轨拼球",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "在方形棋盘中移动可滑动的直线/转弯轨道块，借空位连接固定起点与终点，使原小球沿连续轨道到达终点；用尽量少的移动获得更好星级。与拉动软管端点接水的已有两款区别为离散空位滑块和轨道连接判定。",
+    "core_experience": "",
+    "controls": "原鼠标/触摸按住轨道块，水平或垂直拖至相邻空位；固定块不可移动。PLAY、LEVELS、暂停、重置、撤销、提示与说明入口保留。本轮只菜单/教程/提示/一条实际拖动，没有直接执行业务方法。",
+    "game_loop": "",
+    "content": "原Levels.json每行前8位为难度/尺寸/金银步数/开始时间，后续每格3位id/方向/可移动标记；240行长度逐项符合8+3×size²。Hints.json为原240行三位动作数据。棋盘包含空位、固定空白、起点/终点、直轨、弯轨；原4×4/5×5布局与难度解锁保持，不用关卡条数冒称全关试玩。",
+    "progression": "",
+    "save": "",
+    "rules": "261原生方法中253个规范AST完全相同；7处仅去掉非奖励广告触发，GamePlay.startNewGame仅移出普通开始体，原教程保留。原Levels解码、GameElements拼块、GamePlay移动/路径/撤销/提示/星级、Pajko小球动画和本地存档原方法保持。Phaser/p2引擎前缀原字节保持。",
+    "systems": "原Phaser生命周期Splash→Preload→GameState；GUI/Screen分工，GamePlay维护棋盘与移动，Levels解析原数字文本，GameElements管理块图与连接，Pajko执行球沿路径动画，MusicPlayer播放本地音频。纯同源静态运行，不依赖账号/在线玩家/服务器存档。实际MSStart、Inlogic、Adinplay广告/统计提供者、模拟广告实现、7个广告触发、SDK页脚、serviceWorker及跨域存档迁移入口物理移除。原普通非奖励开始逻辑5条语句从非奖励广告生命周期提取，紧随原新手教程调用；无SDK替身、身份/token、广告成功或奖励注入。原本地5次提示初值与新手不扣提示的规则保持。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5次真实玩家输入：首载→原PLAY→原教程继续→原提示按钮→按画面高亮将直轨块从第2行第3列向下拖到空位。第5步原截图显示LEVEL COMPLETED、SOLVED IN1MOVES、TARGET1、BEST1；实际鼠标down/move/up轨迹与原截图已取回并打开检查。没有第6次输入、刷新、业务handler调用、关卡/分数/提示/存档/RNG/时间注入。未复验刷新、后续关卡和全部240关。远端52真实Chromium五步观察期间29同源请求/29响应均HTTP200，无外联、失败请求或游戏脚本异常，3条原Canvas/音频自动播放warning保留。完整运行40文件另逐项远端HTTP/SHA核对。第5步的原截图、network/console/inputs已保存，但记录器在结果JSON序列化时堆内存耗尽，实际Node退出134；完整第5步原生状态JSON缺失，未伪造补值。原图直接证明1步通关，原第1至4步JSON与全部输入轨迹保留。真实本实例Node与Chrome已全部退出；没有把134说成正常exit0，也未因此重跑游戏。共享记录器补共享引用去重与50000对象上限，5项自编数据检查通过，未用额外游戏输入验证该工具修复。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "Phaser2.15.1 / 原生JavaScript",
+    "programming_language": "JavaScript、HTML",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Ball Puzzle Mania / 轨道拼球；MSN原生9pb96t7jntff、Inlogic公开v16。原内部Ball Puzzle1.0.0，构建2022-04-01。JavaScript/HTML、Phaser2.15.1，2D；本轮逻辑画布1080×1280、1440×900视口原缩放。",
+        "asset_types": "42原上游静态文件，40运行文件、38原字节保持；仅入口与js/game.js服务边界修改，原SDK脚本/跨域迁移脚本/PWA入口退役。原88帧图集2607×2581、原PNG/Ubuntu-B.ttf、11条声音声明的10种声音双格式及音乐双格式、lang.xml、240关与240提示文本齐备。Levels.json/Hints.json实际为原自定义逐行数字文本，不能按扩展名冒称JSON对象。",
+        "core_challenge": "在方形棋盘中移动可滑动的直线/转弯轨道块，借空位连接固定起点与终点，使原小球沿连续轨道到达终点；用尽量少的移动获得更好星级。与拉动软管端点接水的已有两款区别为离散空位滑块和轨道连接判定。",
+        "controls": "原鼠标/触摸按住轨道块，水平或垂直拖至相邻空位；固定块不可移动。PLAY、LEVELS、暂停、重置、撤销、提示与说明入口保留。本轮只菜单/教程/提示/一条实际拖动，没有直接执行业务方法。",
+        "behavior_path": "累计5次真实玩家输入：首载→原PLAY→原教程继续→原提示按钮→按画面高亮将直轨块从第2行第3列向下拖到空位。第5步原截图显示LEVEL COMPLETED、SOLVED IN1MOVES、TARGET1、BEST1；实际鼠标down/move/up轨迹与原截图已取回并打开检查。没有第6次输入、刷新、业务handler调用、关卡/分数/提示/存档/RNG/时间注入。未复验刷新、后续关卡和全部240关。",
+        "game_path": "加载原菜单→PLAY默认首关→原移动次数说明→原提示能力说明→高亮一块并显示HOLD TO MOVE→普通向下拖动→原一移动通关弹窗及继续/重玩/关卡按钮。5张真实截图已打开检查。",
+        "progression_path": "原60关一组×4难度共240条关卡与对应240条提示数据；原levelProgress、星级、最佳移动次数、提示数、音乐偏好通过rtb-data本地存储。实际首关通关及BEST1画面已证明；保存代码保持，但本轮没有刷新验证存档恢复或第二关解锁。",
+        "core_loop": "原按下记录块坐标/合法空位→逐帧根据真实指针移动→释放后原移动计数/历史记录→沿轨道连接检查→原小球移动→原星级/最佳移动/关卡完成弹窗。首关真实一移动闭环；无为了通过而预设路径或结果。",
+        "gameplay_rules": "261原生方法中253个规范AST完全相同；7处仅去掉非奖励广告触发，GamePlay.startNewGame仅移出普通开始体，原教程保留。原Levels解码、GameElements拼块、GamePlay移动/路径/撤销/提示/星级、Pajko小球动画和本地存档原方法保持。Phaser/p2引擎前缀原字节保持。",
+        "key_numbers": "4难度×60=240关；原首关4×4，目标1步，本次实际1步完成/BEST1。原初始提示5，新手提示不扣次数；本轮提示5保持。原普通关提示消耗、三档星级、重置和撤销规则代码保留，未额外操作。",
+        "level_configuration": "原Levels.json每行前8位为难度/尺寸/金银步数/开始时间，后续每格3位id/方向/可移动标记；240行长度逐项符合8+3×size²。Hints.json为原240行三位动作数据。棋盘包含空位、固定空白、起点/终点、直轨、弯轨；原4×4/5×5布局与难度解锁保持，不用关卡条数冒称全关试玩。",
+        "system_design": "原Phaser生命周期Splash→Preload→GameState；GUI/Screen分工，GamePlay维护棋盘与移动，Levels解析原数字文本，GameElements管理块图与连接，Pajko执行球沿路径动画，MusicPlayer播放本地音频。纯同源静态运行，不依赖账号/在线玩家/服务器存档。实际MSStart、Inlogic、Adinplay广告/统计提供者、模拟广告实现、7个广告触发、SDK页脚、serviceWorker及跨域存档迁移入口物理移除。原普通非奖励开始逻辑5条语句从非奖励广告生命周期提取，紧随原新手教程调用；无SDK替身、身份/token、广告成功或奖励注入。原本地5次提示初值与新手不扣提示的规则保持。",
+        "theme": "原灰色金属框、绿灰轨道、绿色起点/红色终点、小球、木星式通关星与绿色按钮；MOVE/TARGET/BEST、LEVEL/BEGINNER及手势教程保持。原图集与实际截图保留，未改占位图。",
+        "progression_economy": "原星级、最佳步数与提示次数为本地进度。初始5提示、首关新手提示不扣，真实1步通关；没有新增货币、自动赠送、广告奖励、支付或服务器经济。",
+        "roster": "原起点球、终点、直轨/弯轨/固定块/空格、提示轮廓与手指、通关星及原菜单按钮。本轮真实高亮直轨下移和通关画面已见；其他关卡全部对象资源齐备但未逐一操作。",
+        "monetization": "实际MSStart、Inlogic、Adinplay广告/统计提供者、模拟广告实现、7个广告触发、SDK页脚、serviceWorker及跨域存档迁移入口物理移除。原普通非奖励开始逻辑5条语句从非奖励广告生命周期提取，紧随原新手教程调用；无SDK替身、身份/token、广告成功或奖励注入。原本地5次提示初值与新手不扣提示的规则保持。远端52真实Chromium五步观察期间29同源请求/29响应均HTTP200，无外联、失败请求或游戏脚本异常，3条原Canvas/音频自动播放warning保留。完整运行40文件另逐项远端HTTP/SHA核对。第5步的原截图、network/console/inputs已保存，但记录器在结果JSON序列化时堆内存耗尽，实际Node退出134；完整第5步原生状态JSON缺失，未伪造补值。原图直接证明1步通关，原第1至4步JSON与全部输入轨迹保留。真实本实例Node与Chrome已全部退出；没有把134说成正常exit0，也未因此重跑游戏。共享记录器补共享引用去重与50000对象上限，5项自编数据检查通过，未用额外游戏输入验证该工具修复。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原菜单PLAY/LEVELS"
+      },
+      {
+        "path": "screenshots/002.png",
+        "caption": "原首关与移动目标教程"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "原能力按钮教程"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "原提示高亮拼块与目标空位"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "真实下拖后原LEVEL COMPLETED，SOLVED IN1MOVES、TARGET1、BEST1"
+      }
+    ]
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "真实原高亮轨道拖动、MOVE1和一移动通关弹窗，原路径/胜利方法未改。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "42上游/40运行/38原字节；完整240关、240提示、88图集帧、字体与双格式音频。29实际同源200。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单、首关棋盘、原教程和完成弹窗均实际渲染。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原起终点/直弯轨/固定格/空位与小球可见，原直轨真实下移。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原小球及教程手势为本作表现对象，实际棋盘/通关画面可见；不虚构人物。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原手指教程、拼块移动、路径完成与星级完成弹窗实际出现；未覆盖全关动画。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "原PLAY/继续/提示/拖动输入均响应，原菜单/教程不跳过。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-18T11:36:26.504307+00:00",
+    "observation_end": "2026-11-18T11:58:06.957789+00:00",
+    "elapsed_seconds": 1300.453482,
+    "scope": "本款公开原入口抓取至证据归档经过时间，含分析、传输、等待、记录器故障处置；非纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "recorder_failure": {
+    "exit_code": 134,
+    "original_final_state_JSON_missing": true,
+    "native_game_error_observed": false,
+    "original_victory_frame_preserved": true
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}
