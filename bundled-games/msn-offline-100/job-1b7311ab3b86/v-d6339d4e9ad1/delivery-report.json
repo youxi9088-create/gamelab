@@ -1,0 +1,293 @@
+{
+  "msn_revision": "cyclesprint-offline-v2",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1，完整轨迹保留"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入2，完整轨迹保留"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入3，完整轨迹保留"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入4，完整轨迹保留"
+      },
+      {
+        "type": "key",
+        "description": "真实累计输入5，完整轨迹保留"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 134,
+    "responses": 134,
+    "tested_revision": "cyclesprint-offline-v1",
+    "delivery_revision": "cyclesprint-offline-v2",
+    "source_equivalence_evidence": "evidence/local-standings-rename-proof.json",
+    "scope": "累计5次实际输入：原入口、原Play、首次自定义确认、意大利赛事、普通上方向键120ms。原骑手x400保持，y497→446、缩放0.77→0.67，原道路与踏车动画持续；原互动教程未跳过。 仅验证原首赛互动教程内的一次换道。完整正式比赛、冲刺、体力收集、比赛结算、63赛段、其他国家、其他语言、重开和刷新存档未实测；未执行第六次输入。 实玩修订v1；交付修订v2仅把原本地localStorage积分读取函数及唯一调用从getLeaderboard改名readLocalTournamentStandings，其余字节相同，精确逆替换和语法检查通过。原函数体、声明与调用锚点归档；v2未另行加载，不能宣称v2新增运行路径已测。",
+    "native_lane_change_verified": true,
+    "player_y_before": 497,
+    "player_y_after": 446,
+    "regular_race_verified": false,
+    "tutorial_complete_verified": false,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "cumulative_input_budget": 5
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "实际广告SDK、等待、监听和消费调用移除，没有成功回调或奖励替身。",
+      "evidence": [
+        "index.html",
+        "js/main.js"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "平台save_score监听和saveScore上报移除；本地赛事排名与localStorage存储保留，仅本地读取函数准确命名。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/local-standings-rename-proof.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原单人对本地骑手的竞赛，无房间、联网玩家或匹配。",
+      "evidence": [
+        "js/main.js",
+        "index.html"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "原公开单人赛事无真实支付接口；原部件选择不伪造购买。",
+      "evidence": [
+        "js/main.js",
+        "index.html"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "体育 / 自行车赛事",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "在多车道公路上调整车道、控制体力与冲刺，超过本地对手争取赛段排名和赛事累计积分。实测原教程内骑手正常响应上键并完成换道；正式比赛胜负未实测。",
+    "core_experience": "",
+    "controls": "源码CController：上/下方向键切换车道，空格按住冲刺、松开结束；鼠标操作菜单、自定义、国家选择、暂停与原教程下一步。实测只按上方向键，未实测下键、空格、手机控件或教程翻页。",
+    "game_loop": "",
+    "content": "完整原LEVEL_INFOS共63条，意大利/法国/西班牙各21。首意大利赛段max_dist_opponent10000、bg_index6、spawn_stamina_time6000、hill=false；完整原63配置区间另附，未只保留首关。实测只打开意大利首赛教程。",
+    "progression": "",
+    "save": "",
+    "rules": "CGame、CController、CCyclist、道路/背景、体力、雷达、原对手与原教程逻辑保持原字节；14项关键函数中13项最终仍逐字节相同，CTournamentSelection仅本地积分读取调用标识符变更，逆替换完全相同。未改随机、碰撞、速度、体力、得分、难度、关卡或存档。",
+    "systems": "原CreateJS舞台、精灵表、帧循环/补间、骑手分部件渲染、背景/道路、原本地对手/排序、雷达、体力、教程、localStorage赛事积分与自定义保持。实际MSStart宿主脚本/启动等待、通知安排、分数上报监听、广告监听与显示调用、更多游戏与外链点击退役。不提供SDK对象、登录身份、广告完成/奖励或服务端回包。原本地赛事积分榜属于单人赛事排名，原localStorage读写和本地对手保留。 实玩修订v1；交付修订v2仅把原本地localStorage积分读取函数及唯一调用从getLeaderboard改名readLocalTournamentStandings，其余字节相同，精确逆替换和语法检查通过。原函数体、声明与调用锚点归档；v2未另行加载，不能宣称v2新增运行路径已测。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5次实际输入：原入口、原Play、首次自定义确认、意大利赛事、普通上方向键120ms。原骑手x400保持，y497→446、缩放0.77→0.67，原道路与踏车动画持续；原互动教程未跳过。 仅验证原首赛互动教程内的一次换道。完整正式比赛、冲刺、体力收集、比赛结算、63赛段、其他国家、其他语言、重开和刷新存档未实测；未执行第六次输入。 实玩修订v1；交付修订v2仅把原本地localStorage积分读取函数及唯一调用从getLeaderboard改名readLocalTournamentStandings，其余字节相同，精确逆替换和语法检查通过。原函数体、声明与调用锚点归档；v2未另行加载，不能宣称v2新增运行路径已测。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "CreateJS / EaselJS / TweenJS",
+    "programming_language": "JavaScript / HTML / CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Cycle Sprint / 自行车冲刺；MSN原生9mvq9gxf024k、CodeThisLab公开v7；CreateJS/EaselJS/TweenJS、Howler，JavaScript/HTML/CSS。横向2D单人骑行竞赛，远端52桌面1440×900实际运行，手机未实测。",
+        "asset_types": "141运行文件，其中139份保持原字节；含原PNG/JPG骑手部件与精灵表、道路/背景/菜单/教程、六个MP3和Montserrat字体WOFF/WOFF2、七语言CLang和原引擎。133项声明资源下载均HTTP200且SHA核对，全部原部件类型和精灵表范围已展开。",
+        "core_challenge": "在多车道公路上调整车道、控制体力与冲刺，超过本地对手争取赛段排名和赛事累计积分。实测原教程内骑手正常响应上键并完成换道；正式比赛胜负未实测。",
+        "controls": "源码CController：上/下方向键切换车道，空格按住冲刺、松开结束；鼠标操作菜单、自定义、国家选择、暂停与原教程下一步。实测只按上方向键，未实测下键、空格、手机控件或教程翻页。",
+        "behavior_path": "累计5次实际输入：原入口、原Play、首次自定义确认、意大利赛事、普通上方向键120ms。原骑手x400保持，y497→446、缩放0.77→0.67，原道路与踏车动画持续；原互动教程未跳过。",
+        "game_path": "原标题Play→首次自定义确认→国家赛事选择→首赛原三页互动教程→倒计时→普通比赛与结算。实测止于首教程的一次真实换道，不伪称教程完成、比赛开始或过关。",
+        "progression_path": "原三国各21赛段，按赛段存储本地进度、积分和赛事名次。原自定义服装/车架/车把/轮组/肤色/头盔眼镜资源和选择保留；本轮接受原默认配件，未更换或刷新核对。",
+        "core_loop": "源码循环为换道选择线路与对手距离→收集体力→适时冲刺→到达终点与本地名次积分→继续赛段/赛事。实测证据覆盖原菜单进入、原教程运动和普通上键换道，未覆盖结算部分。",
+        "gameplay_rules": "CGame、CController、CCyclist、道路/背景、体力、雷达、原对手与原教程逻辑保持原字节；14项关键函数中13项最终仍逐字节相同，CTournamentSelection仅本地积分读取调用标识符变更，逆替换完全相同。未改随机、碰撞、速度、体力、得分、难度、关卡或存档。",
+        "key_numbers": "原5条车道：y404/446/497/562/647，对应缩放0.60/0.67/0.77/0.87/1；实测第三条→第二条。源码正常背景速度22、冲刺28、体力补充22、体力上限100、出发倒计时4000ms。前15名积分50/35/25/18/14/12/10/8/7/6/5/4/3/2/1；这些为源码事实，不当作已验证结算。",
+        "level_configuration": "完整原LEVEL_INFOS共63条，意大利/法国/西班牙各21。首意大利赛段max_dist_opponent10000、bg_index6、spawn_stamina_time6000、hill=false；完整原63配置区间另附，未只保留首关。实测只打开意大利首赛教程。",
+        "system_design": "原CreateJS舞台、精灵表、帧循环/补间、骑手分部件渲染、背景/道路、原本地对手/排序、雷达、体力、教程、localStorage赛事积分与自定义保持。实际MSStart宿主脚本/启动等待、通知安排、分数上报监听、广告监听与显示调用、更多游戏与外链点击退役。不提供SDK对象、登录身份、广告完成/奖励或服务端回包。原本地赛事积分榜属于单人赛事排名，原localStorage读写和本地对手保留。 实玩修订v1；交付修订v2仅把原本地localStorage积分读取函数及唯一调用从getLeaderboard改名readLocalTournamentStandings，其余字节相同，精确逆替换和语法检查通过。原函数体、声明与调用锚点归档；v2未另行加载，不能宣称v2新增运行路径已测。",
+        "theme": "原公路自行车运动主题，七个部位类别及阴影、车架/车把/车轮/肤色/头盔眼镜/上衣/短裤鞋子资源，三国地图与竞赛背景、原高对比蓝色按钮和教程手势/按键。实拍英语原界面，不替换原美术。",
+        "progression_economy": "原赛段积分、赛事累计分、最高赛段和本地部件选择为进展，不新增金币或付费经济。原leaderboard保留的是本地赛事积分数据，没有联网排名。存档代码保留，但刷新恢复未知。",
+        "roster": "原玩家骑手及本地对手，分部件精灵动画、透视大小和车道排序保留；实测画面显示POS28。对手数量/完成名次不按该界面数字推断已验证，未注入对手或替代AI。",
+        "monetization": "实际MSStart宿主脚本/启动等待、通知安排、分数上报监听、广告监听与显示调用、更多游戏与外链点击退役。不提供SDK对象、登录身份、广告完成/奖励或服务端回包。原本地赛事积分榜属于单人赛事排名，原localStorage读写和本地对手保留。 仅验证原首赛互动教程内的一次换道。完整正式比赛、冲刺、体力收集、比赛结算、63赛段、其他国家、其他语言、重开和刷新存档未实测；未执行第六次输入。 实玩修订v1；交付修订v2仅把原本地localStorage积分读取函数及唯一调用从getLeaderboard改名readLocalTournamentStandings，其余字节相同，精确逆替换和语法检查通过。原函数体、声明与调用锚点归档；v2未另行加载，不能宣称v2新增运行路径已测。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原菜单与原自行车渲染"
+      },
+      {
+        "path": "screenshots/002.png",
+        "caption": "首次骑手与部件自定义"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "原意大利/法国/西班牙各21赛段菜单"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "原意大利首赛互动教程，换道前y497"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "普通上键后的原骑手换道，y446/透视缩放0.67"
+      }
+    ]
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "原互动教程真实上键使原骑手换道，y497→446，未宣称比赛/结算通过。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "141文件/139原字节，原133声明资源全部真实取得；134同源请求全200。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单、自定义、三国地图与首赛教程均真实渲染。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原道路、教程、骑手和部件精灵表渲染，核心配置完整。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原骑手透视缩放0.77→0.67与真实换道对应，无状态注入。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原踏车、道路滚动和换道补间真实运行。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "原Play/自定义确认/意大利和键盘上键均真实响应。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-18T18:43:22.633040+00:00",
+    "observation_end": "2026-11-18T19:01:18.000152+00:00",
+    "elapsed_seconds": 1075.367112,
+    "scope": "本轮来源取证至证据归档经过时间，包含分析/传输/等待/试玩，非独占推理或纯处理工时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

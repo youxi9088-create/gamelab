@@ -1,0 +1,144 @@
+{
+  "native_id": "9mvq9gxf024k",
+  "original_sha256": "f6dc440cf1250154c1b1118c2bdb8ca6c694d94c12b9bf292f8cd32b0b5714f7",
+  "runtime_sha256": "3cae60632d37e3e05cc9235669e812050e526b8e5f972ed5a09ac76db1f43e92",
+  "source_edits": [
+    {
+      "start": 3787,
+      "end": 3847,
+      "text": "/Safari/.test(navigator.userAgent)&&!/Chrome|Chromium|Edg/.test(navigator.userAgent)",
+      "reason": "Use actual browser UA for viewport choice; no provider global"
+    },
+    {
+      "start": 16265,
+      "end": 16280,
+      "text": "void 0",
+      "reason": "Retire actual external advertisement/cross-promotion consumer"
+    },
+    {
+      "start": 16292,
+      "end": 16307,
+      "text": "void 0",
+      "reason": "Retire actual external advertisement/cross-promotion consumer"
+    },
+    {
+      "start": 19916,
+      "end": 19931,
+      "text": "void 0",
+      "reason": "Retire actual external advertisement/cross-promotion consumer"
+    },
+    {
+      "start": 19936,
+      "end": 19951,
+      "text": "void 0",
+      "reason": "Retire actual external advertisement/cross-promotion consumer"
+    },
+    {
+      "start": 24547,
+      "end": 24556,
+      "text": "navigator.onLine",
+      "reason": "Use actual browser network capability in original sound-error branch"
+    },
+    {
+      "start": 29585,
+      "end": 29672,
+      "text": "void 0",
+      "reason": "Retire actual external advertisement/cross-promotion consumer"
+    },
+    {
+      "start": 31146,
+      "end": 31155,
+      "text": "(navigator.language||\"en\").toLowerCase().split(\"-\")[0]",
+      "reason": "Read real browser language at original locale consumer, without SDK"
+    },
+    {
+      "start": 60119,
+      "end": 60176,
+      "text": "void 0",
+      "reason": "Retire original provider outbound credits hyperlink"
+    }
+  ],
+  "changed_functions": [
+    "sizeHandler",
+    "CMenu",
+    "CMain",
+    "CCreditsPanel"
+  ],
+  "protected_functions": [
+    {
+      "name": "CGame",
+      "sha256": "702222011c608e795feadc2a0318cc36efb3bc35e83760c6848658cb8f9f2c85",
+      "byte_exact": true
+    },
+    {
+      "name": "CController",
+      "sha256": "7e96be7b1dcd9c1aa8e5c845274d8652e05cde405a3ad73e9e4d70391738b42a",
+      "byte_exact": true
+    },
+    {
+      "name": "CCyclist",
+      "sha256": "b7e91fae912b3c2120767f3d08ef3089ec2e0aee7eaf93f2dcb7258035c974ae",
+      "byte_exact": true
+    },
+    {
+      "name": "CBackgroundController",
+      "sha256": "0e789cc288e5f29ad74a31a932d7b0571d6e46495f7fd2971f46a2c3aebb90ab",
+      "byte_exact": true
+    },
+    {
+      "name": "CRoadTile",
+      "sha256": "28f24d846067a9bd73608776da5e8206c266ac7c87d064c008733cac581c8342",
+      "byte_exact": true
+    },
+    {
+      "name": "CStaminaController",
+      "sha256": "d6422a5584841f8c5b43157b91592f48169fd05089279b7f0ac3330513a3efd6",
+      "byte_exact": true
+    },
+    {
+      "name": "CStaminaItem",
+      "sha256": "c4e534f1b8659b7c27a1b18dfc0f21307ead6c02fa1caf793699117265c637c5",
+      "byte_exact": true
+    },
+    {
+      "name": "CRadarController",
+      "sha256": "7d306747becad82ceb7273d94e85903ca7199def9cb1807f66eaf5a5fb472c75",
+      "byte_exact": true
+    },
+    {
+      "name": "CLeaderboardController",
+      "sha256": "22398e2cab6fb2df04a440c6cb623524dd3cc3804767831f3521898cc77b20dc",
+      "byte_exact": true
+    },
+    {
+      "name": "CTutorialPanel",
+      "sha256": "a5191f7cd160337d5d8d886f77b0b8214368069d970a0727eadfe7de22e66641",
+      "byte_exact": true
+    },
+    {
+      "name": "CTournamentSelection",
+      "sha256": "b34d0f92b4df26a009bbb084eccca11e31dd884fd9f89595d57bbc257dc1b73c",
+      "byte_exact": true
+    },
+    {
+      "name": "CButTournament",
+      "sha256": "1edbe6e7fa4def8ff78babd992d5499d7d2bf6bf1e33e90b7e09bd281cc25555",
+      "byte_exact": true
+    },
+    {
+      "name": "CPreloader",
+      "sha256": "397dbb80c079a6d196fc3875ae546eef4da4e90f9d5cd3df337fb932131e6ac8",
+      "byte_exact": true
+    },
+    {
+      "name": "CEditorPanel",
+      "sha256": "7cb64c5d205144a198e4967a9e2b64ebb5665b8142472fee556fb8ba123e0ecd",
+      "byte_exact": true
+    }
+  ],
+  "original_functions": 126,
+  "unchanged_functions": 122,
+  "SDK_facade": false,
+  "fake_identity_or_reward": false,
+  "native_or_SDK_executed_locally": false
+}

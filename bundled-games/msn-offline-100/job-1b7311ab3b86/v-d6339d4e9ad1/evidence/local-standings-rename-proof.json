@@ -1,0 +1,21 @@
+{
+  "native_id": "9mvq9gxf024k",
+  "observed_runtime_revision": "cyclesprint-offline-v1",
+  "delivery_revision": "cyclesprint-offline-v2",
+  "observed_runtime_main_sha256": "3cae60632d37e3e05cc9235669e812050e526b8e5f972ed5a09ac76db1f43e92",
+  "delivery_main_sha256": "94df5887ad8d7cdb2b70763ca1ea22af4355830eff982286611a701aa15de004",
+  "only_change": "Native top-level local standings declaration and its single original call renamed getLeaderboard -> readLocalTournamentStandings. Exactly two occurrences, no shadow/dynamic string references. Original localStorage body unchanged.",
+  "exact_byte_reversal_equal": true,
+  "syntax_check_exit_code": 0,
+  "native_function_anchor_from_original_AST_inventory": {
+    "name": "getLeaderboard",
+    "start": 35362,
+    "end": 35540,
+    "length": 178
+  },
+  "additional_gameplay_UI_inputs": 0,
+  "delivery_revision_UI_reloaded": false,
+  "analysis_failures_preserved": "Three local Babel-analysis processes exited3221226505 without stderr, before creating v2; cause unknown, no native game execution. Replaced with exact original AST-span anchor plus two-token rename and syntax check.",
+  "all_other_files_byte_exact_to_observed_runtime": true,
+  "interpretation": "Existing five original UI observations apply through this exact local identifier rename. No claim that v2 was independently reloaded or another gameplay path was tested."
+}
