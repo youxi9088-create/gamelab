@@ -1,0 +1,11 @@
+{
+  "passed": 3,
+  "own_fixture_only": true,
+  "original_game_code_executed": false,
+  "auth_or_permission_success_fabricated": false,
+  "checks": [
+    "original singleton initialization executes exactly once with original arguments; no auth read/configure afterward",
+    "pause retains before/after local clock work while neither cloud refresh nor readiness reset is invoked",
+    "focus retains before/after local clock work while neither cloud refresh nor readiness reset is invoked"
+  ]
+}

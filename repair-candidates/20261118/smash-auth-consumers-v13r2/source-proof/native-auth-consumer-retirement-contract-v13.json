@@ -1,0 +1,173 @@
+{
+  "at": "2026-11-18T05:12:13.807389+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+  "methods": [
+    {
+      "class": "FirebaseAuthService",
+      "image": "Assembly-CSharp.dll",
+      "name": "Awake",
+      "method_index": 5485,
+      "token": 100668782,
+      "parameter_count": 0,
+      "flags": 196,
+      "slot": 4,
+      "return_type_index": 22394,
+      "table_index": 21495,
+      "function_index": 101109
+    },
+    {
+      "class": "FirebaseAuthService",
+      "image": "Assembly-CSharp.dll",
+      "name": "OnApplicationPause",
+      "method_index": 5510,
+      "token": 100668807,
+      "parameter_count": 1,
+      "flags": 129,
+      "slot": 65535,
+      "return_type_index": 22394,
+      "table_index": 21519,
+      "function_index": 101103
+    },
+    {
+      "class": "FirebaseAuthService",
+      "image": "Assembly-CSharp.dll",
+      "name": "OnApplicationFocus",
+      "method_index": 5511,
+      "token": 100668808,
+      "parameter_count": 1,
+      "flags": 129,
+      "slot": 65535,
+      "return_type_index": 22394,
+      "table_index": 21520,
+      "function_index": 101102
+    },
+    {
+      "class": "FirebaseAuthService",
+      "image": "Assembly-CSharp.dll",
+      "name": "ftb",
+      "method_index": 5512,
+      "token": 100668809,
+      "parameter_count": 0,
+      "flags": 129,
+      "slot": 65535,
+      "return_type_index": 22394,
+      "table_index": 21521,
+      "function_index": 26068
+    },
+    {
+      "class": "JavascriptMessageSender",
+      "image": "Assembly-CSharp.dll",
+      "name": "gfg",
+      "method_index": 6025,
+      "token": 100669322,
+      "parameter_count": 0,
+      "flags": 147,
+      "slot": 65535,
+      "return_type_index": 20557,
+      "table_index": 22023,
+      "function_index": 10170
+    }
+  ],
+  "original_body_proofs": [
+    {
+      "function_index": 101102,
+      "bytes": 361,
+      "sha256": "12e4ab0a08f30d54186656eb33f5e0885beef9a860f16ea050fc5d2d80395399"
+    },
+    {
+      "function_index": 101103,
+      "bytes": 362,
+      "sha256": "fbd5ec1401797a2d9709f32460feb646d1bc5226bb1a806502941d126cf6ccb1"
+    },
+    {
+      "function_index": 101109,
+      "bytes": 144,
+      "sha256": "a3bc333b03a431c992323db2fd1911611cbcaec604ea3e1a265fe3ca3918b0f0"
+    }
+  ],
+  "original_base_binding": {
+    "metadata_use": 5670104,
+    "method_spec_index": 84149,
+    "method_index": 7721,
+    "class": "Singleton`1",
+    "method": "Awake",
+    "generic_arguments": [
+      {
+        "name": "FirebaseAuthService",
+        "namespace": "",
+        "type_code": 18,
+        "type_definition_index": 686
+      }
+    ],
+    "shared_function": 4707
+  },
+  "original_sources": [
+    {
+      "function_index": 101109,
+      "source": "function f_vnse(a:int, b:int_ptr) { // func101109\n  if (eqz(6779548[0]:ubyte)) {\n    f_bw(5625568);\n    f_bw(5670104);\n    6779548[0]:byte = 1;\n  }\n  f_byf(a, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26842]:int);\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15708]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  if (eqz({\n            b = f_eao(0);\n            if (b) {\n              0;\n              if (b[2]) goto B_c;\n            }\n            1;\n            label B_c:\n          })) {\n    var c:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15708]:int;\n    if (eqz(c[29])) { f_cw(c) }\n    f_wnla(a, b, f_wdlb(0), a);\n  }\n}\n\n",
+      "source_sha256": "b8b935335112798c8daeab833bd68b132bb43459dfa40f50153714a91f2e6858"
+    },
+    {
+      "function_index": 101102,
+      "source": "function f_onse(a:int, b:int_ptr, c:{ a:long, b:double }) { // func101102\n  var d:double;\n  c = g_a - 16;\n  g_a = c;\n  if (eqz(6779574[0]:ubyte)) {\n    f_bw(5621832);\n    f_bw(5621884);\n    f_bw(5623260);\n    f_bw(5631292);\n    f_bw(5634068);\n    6779574[0]:byte = 1;\n  }\n  if (b) {\n    if (eqz(a[40]:ubyte)) goto B_b;\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14774]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    c.a = f_bfd(f_uja(0), a[4]:long, 0);\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17139]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    c.b = (d = f64_convert_i64_s(c.a) * 0.0);\n    if (\n      eqz(d >\n          f64_promote_f32(\n            ((if ((b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15131]:int)[29]) {\n                b\n              } else {\n                f_cw(b);\n                d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15131]:int;\n              })[23]:int)[30]:float))) goto B_b;\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    b = f_lx(f_zapc(0), f_axf(c + 8, 0), 0);\n    var e:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n    if (eqz(e[29])) { f_cw(e) }\n    f_oz(b, 0);\n    f_qnla(a, c);\n    goto B_b;\n  }\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14774]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  var f:long = f_uja(0);\n  a[40]:byte = 1;\n  a[4]:long = f;\n  label B_b:\n  g_a = c + 16;\n}\n\n",
+      "source_sha256": "081e584c203a583aeeecd24cbf40188b21c7b4bf7200b2a4b2aed344dc92ed0a"
+    },
+    {
+      "function_index": 101103,
+      "source": "function f_pnse(a:int, b:int_ptr, c:{ a:long, b:double }) { // func101103\n  var d:double;\n  c = g_a - 16;\n  g_a = c;\n  if (eqz(6779573[0]:ubyte)) {\n    f_bw(5621832);\n    f_bw(5621884);\n    f_bw(5623260);\n    f_bw(5631292);\n    f_bw(5634068);\n    6779573[0]:byte = 1;\n  }\n  if (eqz(b)) {\n    if (eqz(a[40]:ubyte)) goto B_b;\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14774]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    c.a = f_bfd(f_uja(0), a[3]:long, 0);\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17139]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    c.b = (d = f64_convert_i64_s(c.a) * 0.0);\n    if (\n      eqz(d >\n          f64_promote_f32(\n            ((if ((b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15131]:int)[29]) {\n                b\n              } else {\n                f_cw(b);\n                d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15131]:int;\n              })[23]:int)[30]:float))) goto B_b;\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    b = f_lx(f_gbpc(0), f_axf(c + 8, 0), 0);\n    var e:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n    if (eqz(e[29])) { f_cw(e) }\n    f_oz(b, 0);\n    f_qnla(a, c);\n    goto B_b;\n  }\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14774]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  var f:long = f_uja(0);\n  a[40]:byte = 1;\n  a[3]:long = f;\n  label B_b:\n  g_a = c + 16;\n}\n\n",
+      "source_sha256": "f02db492910c2f6035df01cff8d61066e44c3c9c92fec105672294fb6618f469"
+    },
+    {
+      "function_index": 26068,
+      "source": "function f_qnla(a:int, b:int_ptr) { // func26068\n  if (eqz(6779575[0]:ubyte)) {\n    f_bw(5621884);\n    f_bw(5669972);\n    f_bw(5670112);\n    f_bw(5616480);\n    f_bw(5634068);\n    6779575[0]:byte = 1;\n  }\n  a[40]:byte = 0;\n  if (a[41]:ubyte) {\n    a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13436]:int;\n    if (eqz(a[29]:int)) { f_cw(a) }\n    f_rba(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26844]:int)[41]:byte = 0;\n    a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n    if (eqz(a[29]:int)) { f_cw(a) }\n    a = f_vapc(0);\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    f_oz(a, 0);\n    return ;\n  }\n  f_gad(f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26809]:int), 0);\n}\n\n",
+      "source_sha256": "a65e34417555ccc899b4dca37c4507ed3f20acdb9fc18dc41a1be69534c4627d"
+    },
+    {
+      "function_index": 10170,
+      "source": "function f_eao(a:int_ptr):int { // func10170\n  if (eqz(6780240[0]:ubyte)) {\n    f_bw(5625568);\n    6780240[0]:byte = 1;\n  }\n  a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15708]:int;\n  if (eqz(a[29])) { f_cw(a) }\n  a = a_Hd();\n  var b:int = f_bca(a);\n  f_lca(a);\n  return b;\n}\n\n",
+      "source_sha256": "44683944c64a03b3d02b937bd6028534e5029cacd0bb8983f7ead23353dcf461"
+    },
+    {
+      "function_index": 2736,
+      "source": "function f_gad(a:int, b:int_ptr) { // func2736\n  if (eqz(6776667[0]:ubyte)) {\n    f_bw(5608692);\n    f_bw(5608864);\n    f_bw(5619016);\n    f_bw(5621884);\n    f_bw(5623260);\n    f_bw(5669844);\n    f_bw(5705016);\n    f_bw(5705020);\n    f_bw(5705024);\n    f_bw(5705028);\n    f_bw(5705032);\n    f_bw(5705036);\n    f_bw(5634068);\n    6776667[0]:byte = 1;\n  }\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  b = f_istb(0);\n  var c:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n  if (eqz(c[29])) { f_cw(c) }\n  f_oz(b, 0);\n  if (eqz(6776599[0]:ubyte)) {\n    f_bw(5634068);\n    6776599[0]:byte = 1;\n  }\n  a[40]:byte = 0;\n  a[80]:byte = 0;\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  a[11]:int = f_rca(0);\n  b = f_rca(0);\n  a[20]:byte = 0;\n  a[12]:int = b;\n  a[6]:int = f_rca(0);\n  b = f_rca(0);\n  a[59]:byte = 0;\n  a[7]:int = b;\n  b = f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26777]:int);\n  c = a[17]:int;\n  var d:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15131]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  c = f_thma(c, 0);\n  d = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[11532]:int);\n  f_kva(d, a, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[35571]:int, 0);\n  var e:int = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[11489]:int);\n  f_zba(e, a, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[35572]:int, 0);\n  var f:int = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14070]:int);\n  f_gda(f, a, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[35570]:int, 0);\n  f_wye(b, c, d, e, f, -1.0f, 0);\n  b = f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26777]:int);\n  c = f_cpr(a[17]:int, 0);\n  d = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[11532]:int);\n  f_kva(d, a, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[35573]:int, 0);\n  e = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[11489]:int);\n  f_zba(e, a, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[35574]:int, 0);\n  f = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14070]:int);\n  f_gda(f, a, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[35575]:int, 0);\n  f_wye(b, c, d, e, f, -1.0f, 0);\n}\n\n",
+      "source_sha256": "370483900bfd5e01fa723a7832bb1637ac3b6091d875daaf9f8a5f376f08861c"
+    },
+    {
+      "function_index": 4707,
+      "source": "function f_byf(a:ubyte_ptr, b:int_ptr) { // func4707\n  if (eqz(6810172[0]:ubyte)) {\n    f_bw(5619272);\n    f_bw(5619708);\n    f_bw(5621884);\n    f_bw(5627456);\n    f_bw(5618340);\n    f_bw(5631588);\n    f_bw(5634068);\n    6810172[0]:byte = 1;\n  }\n  var c:int = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14134]:int;\n  if (eqz(c[29]:int)) { f_cw(c) }\n  var d:int_ptr = f_rxa(0);\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14243]:int;\n  ((if (c[29]:int) {\n      c\n    } else {\n      f_cw(c);\n      d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14243]:int;\n    })[23]:int)[20]:byte =\n    d;\n  c = ((b[4])[24]:int)[1]:int;\n  if (eqz(c[189]:ubyte & 1)) { c = f_dw(c) }\n  if (eqz(c[29]:int)) { f_cw(c) }\n  d = (b[4])[24]:int;\n  c = d[1];\n  if (eqz(c[189]:ubyte & 1)) {\n    c = f_dw(c);\n    d = (b[4])[24]:int;\n  }\n  (c[23]:int)[8]:byte = 0;\n  c = d[1];\n  c = ((if (c[189]:ubyte & 1) { c } else { f_dw(c) })[23]:int)[1]:int;\n  d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16180]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  if (f_cy(c, 0, 0)) {\n    d = f_pz(a, ((b[4])[24]:int)[6]:int);\n    c = ((b[4])[24]:int)[1]:int;\n    if (eqz(c[189]:ubyte & 1)) { c = f_dw(c) }\n    if (eqz(c[29]:int)) { f_cw(c) }\n    f_bjta(d, ((b[4])[24]:int)[5]:int);\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14243]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    if (f_atj(0)) goto B_i;\n    if (eqz(a[16])) goto B_i;\n    a = f_nx(f_tzp(f_ly(a, 0), 0), 0);\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16180]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    f_inc(a, 0);\n    return ;\n  }\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14243]:int;\n  if (eqz(c[29]:int)) { f_cw(c) }\n  if (f_atj(0)) goto B_p;\n  if (eqz(a[16])) goto B_p;\n  c = ((b[4])[24]:int)[1]:int;\n  if (eqz(c[189]:ubyte & 1)) { c = f_dw(c) }\n  if (eqz(c[29]:int)) { f_cw(c) }\n  c = ((b[4])[24]:int)[1]:int;\n  c = ((if (c[189]:ubyte & 1) { c } else { f_dw(c) })[23]:int)[1]:int;\n  d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16180]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  if (eqz(f_kx(c, a, 0))) goto B_p;\n  d = ((b[4])[24]:int)[3]:int;\n  c = 0;\n  var e:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17213]:int;\n  if (eqz(e[29])) { f_cw(e) }\n  d = f_ow(d, 0);\n  if (d) { c = call_indirect(d, (c = d[0])[55]:int, c[54]:int) }\n  d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  d = f_lx(c, f_ditb(0), 0);\n  c = f_sw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13901]:int, 5);\n  e = f_citb(0);\n  c[5]:int = d;\n  c[4]:int = e;\n  c[6]:int = f_aitb(0);\n  c[7]:int = f_asa(0);\n  c[8]:int = f_zhtb(0);\n  c = f_rda(c, 0);\n  d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  f_elc(c, a, 0);\n  c = f_nx(a, 0);\n  d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16180]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  f_nra(c, 0);\n  label B_p:\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(c[29]:int)) { f_cw(c) }\n  d = f_yhtb(0);\n  c = ((b[4])[24]:int)[1]:int;\n  if (eqz(c[189]:ubyte & 1)) { c = f_dw(c) }\n  if (eqz(c[29]:int)) { f_cw(c) }\n  b = f_lx(d, f_zda(f_rba(((b[4])[24]:int)[7]:int), 0), 0);\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n  if (eqz(c[29]:int)) { f_cw(c) }\n  f_elc(b, a, 0);\n  label B_i:\n}\n\n",
+      "source_sha256": "79ebc11339ed86aa1bd83a368cb645088472462e673c3958c9a64368a2ac058f"
+    },
+    {
+      "function_index": 26074,
+      "source": "function f_wnla(a:int_ptr, b:int, c:int, d:int_ptr) { // func26074\n  var g:int;\n  var f:byte_ptr = g_a - 16;\n  g_a = f;\n  if (eqz(6779549[0]:ubyte)) {\n    f_bw(5619996);\n    f_bw(5621884);\n    f_bw(5618116);\n    f_bw(5669972);\n    f_bw(5634068);\n    6779549[0]:byte = 1;\n  }\n  var h:int = {\n                d = a[12];\n                if (d) {\n                  0;\n                  if (d[2]) goto B_b;\n                }\n                1;\n                label B_b:\n              }\n  if (eqz(h)) { g = f_dca(a[12], b, 0) }\n  a[12] = b;\n  d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  var i:int = f_wdpc(0);\n  d = f_sw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13845]:int, 4);\n  var e:int_ptr = a[12];\n  if (e) { if (eqz(f_lw(e, (d[0])[8]:int))) goto B_f }\n  d[4] = e;\n  if (b) { if (eqz(f_lw(b, (d[0])[8]:int))) goto B_f }\n  d[5] = b;\n  f[15] = h;\n  e = f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, f + 15);\n  if (e) { if (eqz(f_lw(e, (d[0])[8]:int))) goto B_f }\n  d[6] = e;\n  f[14] = g;\n  e = f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, f + 14);\n  if (e) { if (eqz(f_lw(e, (d[0])[8]:int))) goto B_f }\n  d[7] = e;\n  d = f_bka(i, d, 0);\n  e = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n  if (eqz(e[29])) { f_cw(e) }\n  f_oz(d, 0);\n  if (eqz(6779578[0]:ubyte)) {\n    f_bw(5621884);\n    f_bw(5634068);\n    6779578[0]:byte = 1;\n  }\n  d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  d = f_tbra(0);\n  e = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n  if (eqz(e[29])) { f_cw(e) }\n  f_oz(d, 0);\n  a[11] = 0;\n  f_bdnb(f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26809]:int), b, c, h, g, 0);\n  f_dlma(b, 0);\n  if (eqz(6779550[0]:ubyte)) {\n    f_bw(5635936);\n    6779550[0]:byte = 1;\n  }\n  c = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[18300]:int);\n  c[6]:int = a;\n  c[2]:int = 0;\n  c[5]:int = b;\n  c[16]:byte = g;\n  f_nya(a, c, 0);\n  g_a = f + 16;\n  return ;\n  label B_f:\n  f_iw(f_ix(), 0);\n  unreachable;\n}\n\n",
+      "source_sha256": "b0549da8364f30719f0365dbbc9deee7241eb90c185f2cf298cad5d499c42a8d"
+    }
+  ],
+  "original_instructions": [
+    {
+      "function_index": 101109,
+      "source": "  (func (;101109;) (type 2) (param i32 i32)\n    (local i32)\n    i32.const 6779548\n    i32.load8_u\n    i32.eqz\n    if  ;; label = @1\n      i32.const 5625568\n      call 599\n      i32.const 5670104\n      call 599\n      i32.const 6779548\n      i32.const 1\n      i32.store8\n    end\n    local.get 0\n    i32.const 5670104\n    i32.load\n    call 4707\n    i32.const 5625568\n    i32.load\n    local.tee 1\n    i32.load offset=116\n    i32.eqz\n    if  ;; label = @1\n      local.get 1\n      call 600\n    end\n    block (result i32)  ;; label = @1\n      i32.const 0\n      call 10170\n      local.tee 1\n      if  ;; label = @2\n        i32.const 0\n        local.get 1\n        i32.load offset=8\n        br_if 1 (;@1;)\n        drop\n      end\n      i32.const 1\n    end\n    i32.eqz\n    if  ;; label = @1\n      i32.const 5625568\n      i32.load\n      local.tee 2\n      i32.load offset=116\n      i32.eqz\n      if  ;; label = @2\n        local.get 2\n        call 600\n      end\n      local.get 0\n      local.get 1\n      i32.const 0\n      call 43390\n      local.get 0\n      call 26074\n    end)\n",
+      "sha256": "34c7ab6ea8913f870ba91087d13021f0cc3064117034a6f7f6943b5ee730417b"
+    },
+    {
+      "function_index": 101102,
+      "source": "  (func (;101102;) (type 3) (param i32 i32 i32)\n    (local f64 i32 i64)\n    global.get 0\n    i32.const 16\n    i32.sub\n    local.tee 2\n    global.set 0\n    i32.const 6779574\n    i32.load8_u\n    i32.eqz\n    if  ;; label = @1\n      i32.const 5621832\n      call 599\n      i32.const 5621884\n      call 599\n      i32.const 5623260\n      call 599\n      i32.const 5631292\n      call 599\n      i32.const 5634068\n      call 599\n      i32.const 6779574\n      i32.const 1\n      i32.store8\n    end\n    block  ;; label = @1\n      local.get 1\n      if  ;; label = @2\n        local.get 0\n        i32.load8_u offset=40\n        i32.eqz\n        br_if 1 (;@1;)\n        i32.const 5621832\n        i32.load\n        local.tee 1\n        i32.load offset=116\n        i32.eqz\n        if  ;; label = @3\n          local.get 1\n          call 600\n        end\n        local.get 2\n        i32.const 0\n        call 956\n        local.get 0\n        i64.load offset=32\n        i32.const 0\n        call 2861\n        i64.store\n        i32.const 5631292\n        i32.load\n        local.tee 1\n        i32.load offset=116\n        i32.eqz\n        if  ;; label = @3\n          local.get 1\n          call 600\n        end\n        local.get 2\n        local.get 2\n        i64.load\n        f64.convert_i64_s\n        f64.const 0x1.ad7f29abcaf48p-24 (;=1e-07;)\n        f64.mul\n        local.tee 3\n        f64.store offset=8\n        local.get 3\n        i32.const 5623260\n        i32.load\n        local.tee 1\n        i32.load offset=116\n        if (result i32)  ;; label = @3\n          local.get 1\n        else\n          local.get 1\n          call 600\n          i32.const 5623260\n          i32.load\n        end\n        i32.load offset=92\n        f32.load offset=120\n        f64.promote_f32\n        f64.gt\n        i32.eqz\n        br_if 1 (;@1;)\n        i32.const 5634068\n        i32.load\n        local.tee 1\n        i32.load offset=116\n        i32.eqz\n        if  ;; label = @3\n          local.get 1\n          call 600\n        end\n        i32.const 0\n        call 63595\n        local.get 2\n        i32.const 8\n        i32.add\n        i32.const 0\n        call 4680\n        i32.const 0\n        call 635\n        local.set 1\n        i32.const 5621884\n        i32.load\n        local.tee 4\n        i32.load offset=116\n        i32.eqz\n        if  ;; label = @3\n          local.get 4\n          call 600\n        end\n        local.get 1\n        i32.const 0\n        call 690\n        local.get 0\n        local.get 2\n        call 26068\n        br 1 (;@1;)\n      end\n      i32.const 5621832\n      i32.load\n      local.tee 1\n      i32.load offset=116\n      i32.eqz\n      if  ;; label = @2\n        local.get 1\n        call 600\n      end\n      i32.const 0\n      call 956\n      local.set 5\n      local.get 0\n      i32.const 1\n      i32.store8 offset=40\n      local.get 0\n      local.get 5\n      i64.store offset=32\n    end\n    local.get 2\n    i32.const 16\n    i32.add\n    global.set 0)\n",
+      "sha256": "c56c05d80d5ec7f2c4fc69bdce78bd5610b381aaeb1b707fa0829c32cc50f8e0"
+    },
+    {
+      "function_index": 101103,
+      "source": "  (func (;101103;) (type 3) (param i32 i32 i32)\n    (local f64 i32 i64)\n    global.get 0\n    i32.const 16\n    i32.sub\n    local.tee 2\n    global.set 0\n    i32.const 6779573\n    i32.load8_u\n    i32.eqz\n    if  ;; label = @1\n      i32.const 5621832\n      call 599\n      i32.const 5621884\n      call 599\n      i32.const 5623260\n      call 599\n      i32.const 5631292\n      call 599\n      i32.const 5634068\n      call 599\n      i32.const 6779573\n      i32.const 1\n      i32.store8\n    end\n    block  ;; label = @1\n      local.get 1\n      i32.eqz\n      if  ;; label = @2\n        local.get 0\n        i32.load8_u offset=40\n        i32.eqz\n        br_if 1 (;@1;)\n        i32.const 5621832\n        i32.load\n        local.tee 1\n        i32.load offset=116\n        i32.eqz\n        if  ;; label = @3\n          local.get 1\n          call 600\n        end\n        local.get 2\n        i32.const 0\n        call 956\n        local.get 0\n        i64.load offset=24\n        i32.const 0\n        call 2861\n        i64.store\n        i32.const 5631292\n        i32.load\n        local.tee 1\n        i32.load offset=116\n        i32.eqz\n        if  ;; label = @3\n          local.get 1\n          call 600\n        end\n        local.get 2\n        local.get 2\n        i64.load\n        f64.convert_i64_s\n        f64.const 0x1.ad7f29abcaf48p-24 (;=1e-07;)\n        f64.mul\n        local.tee 3\n        f64.store offset=8\n        local.get 3\n        i32.const 5623260\n        i32.load\n        local.tee 1\n        i32.load offset=116\n        if (result i32)  ;; label = @3\n          local.get 1\n        else\n          local.get 1\n          call 600\n          i32.const 5623260\n          i32.load\n        end\n        i32.load offset=92\n        f32.load offset=120\n        f64.promote_f32\n        f64.gt\n        i32.eqz\n        br_if 1 (;@1;)\n        i32.const 5634068\n        i32.load\n        local.tee 1\n        i32.load offset=116\n        i32.eqz\n        if  ;; label = @3\n          local.get 1\n          call 600\n        end\n        i32.const 0\n        call 63602\n        local.get 2\n        i32.const 8\n        i32.add\n        i32.const 0\n        call 4680\n        i32.const 0\n        call 635\n        local.set 1\n        i32.const 5621884\n        i32.load\n        local.tee 4\n        i32.load offset=116\n        i32.eqz\n        if  ;; label = @3\n          local.get 4\n          call 600\n        end\n        local.get 1\n        i32.const 0\n        call 690\n        local.get 0\n        local.get 2\n        call 26068\n        br 1 (;@1;)\n      end\n      i32.const 5621832\n      i32.load\n      local.tee 1\n      i32.load offset=116\n      i32.eqz\n      if  ;; label = @2\n        local.get 1\n        call 600\n      end\n      i32.const 0\n      call 956\n      local.set 5\n      local.get 0\n      i32.const 1\n      i32.store8 offset=40\n      local.get 0\n      local.get 5\n      i64.store offset=24\n    end\n    local.get 2\n    i32.const 16\n    i32.add\n    global.set 0)\n",
+      "sha256": "44e5206aa01577e2deaa62008c97c38ed15ffc88bf9e1fc105c802196c72d6ae"
+    }
+  ],
+  "retirement_scope": [
+    "Preserve original metadata initialization and the complete original generic singleton Awake call4707; retire only the subsequent cached Firebase-user read/configuration consumer.",
+    "In each original pause/focus method, retire only the actual26068 auth-refresh call, consuming its two already evaluated arguments; retain original time/focus bookkeeping.",
+    "Original26068 calls2736, which clears current data-ready state and sends two actual backend reads. Real local profile snapshots must not be reset by an obsolete cloud-resume consumer.",
+    "No AuthService UID, account/provider/permission flag or SDK success callback is manufactured. Original providers remain byte-identical.",
+    "HTML SDK.init loading-start consumer can be removed independently; Firebase initializeApp and not-yet-audited consumers remain, so this is not a claim of complete SDK retirement."
+  ]
+}
