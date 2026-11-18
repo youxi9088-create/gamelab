@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-17T22:51:02.192752+00:00",
+  "inventory_sha256": "ef9618b5e26c1db5a7fab7a07d20a71ed0ba78bdb5aac39bdd109f08a909d681",
+  "scope": "All candidates including incomplete/manual pause; original page metadata and all meaningful historical profiles retained. Latest empty profile never hides earlier known mechanics.",
+  "candidates_checked": 786,
+  "broad_hits": [
+    {
+      "id": "game-263d4cef0104",
+      "title": "文字三国",
+      "canonical_url": "https://www.4k99.com/detail/62037",
+      "matches": [
+        {
+          "term": "owAre",
+          "context": "字兵种阵地部署\", \"core_gameplay\": \"严格5步：加载原首波战备；普通说明下一段；继续征兵说明到弩兵手势；拖弩兵入阵；拖火炮入阵。原Data.yinDao1→5，nowArea0→1→2个BagItem，最后仍提示部署农夫，没有点击开战或再部署。\", \"controls\": \"严格通过原UI：点击两段说明，按手势从底部兵种拖到原指定阵格。第四步拖弩兵到xuArea.children11，第五步拖火炮到children12；落点来自原手势所指单元格，读取几何坐标只用于正常鼠标拖动，没有调用部署方法、改guide/金钱/棋盘。\", "
+        }
+      ],
+      "reviewed_candidate_sha256": "0cacc15bad09de27237841b37e396360094b627ab162ae3f272e96aca124808b"
+    },
+    {
+      "id": "game-15287c422af5",
+      "title": "Jade Idol Temple on Remix – Play Now & Create Your Own Games",
+      "canonical_url": "https://remix.gg/g/jade-idol-temple",
+      "matches": [
+        {
+          "term": "pit",
+          "context": "控制（需指针锁定）。手柄支持由引擎输入层映射。\", \"rules\": \"目标：夺取神像并逃脱。成功条件：到达室外（escaped）。失败条件：被滚石压扁（squash）或掉入坑中（pit）。计分：以逃脱时间（秒）为成绩，越短越好，并与本地最佳时间比较。\", \"content\": \"单个固定关卡：Jade Idol Temple；包含丛林入口、神殿走廊、神像室、滚石追逐路径等固定场景元素，未见随机生成证据。\", \"systems\": \"角色物理：胶囊体、重力、跳跃、双段跳、冲刺、碰撞与台阶处理；滚石系统：沿路径加速滚动、撞击破坏障碍物、近失判"
+        }
+      ],
+      "reviewed_candidate_sha256": "89cfd779ca07afa0cbfb5ec316c39b84fe46893656f63ad3479e214c2fcb1091"
+    }
+  ],
+  "reviewed_difference": {
+    "game-263d4cef0104": "文字三国 is troop drafting/deployment and combat, with historical archer/cannon onboarding; no seed-sowing pits/stores or Mancala turns.",
+    "game-15287c422af5": "Jade Idol Temple is a 3D movement/escape platformer; pit is a fall hazard, not a Mancala seed pit. Preserve its user cancellation and do not resume it."
+  },
+  "local_source_pool": "PLAYER0_FIRST_PILE declaration search in all native original JavaScript returned only current source 9n88xcbppjjg/scripts/project/scriptsInEvents.js.",
+  "native_mechanics": "Two rows of six pits plus two stores, original seed-sowing/capture/extra-turn and in-process Minimax; original Board/Move/Player/Marble source retained.",
+  "duplicate_found": false,
+  "game_UI": 0,
+  "admitted": false
+}

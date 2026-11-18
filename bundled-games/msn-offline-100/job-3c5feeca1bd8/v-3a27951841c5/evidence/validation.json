@@ -1,0 +1,93 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "原入口"
+      },
+      {
+        "type": "click",
+        "description": "Play"
+      },
+      {
+        "type": "click",
+        "description": "Player vs Computer"
+      },
+      {
+        "type": "click",
+        "description": "Medium"
+      },
+      {
+        "type": "click",
+        "description": "可见合法坑并只读观察CPU回合"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 76,
+    "responses": 76,
+    "network_events": 153,
+    "scope": "累计5次真实输入：导航原入口→点击Play→选择Player vs Computer→选择Medium→点击底排最左方可见合法坑（367,560）。随后仅只读观察原动画和CPU，无第6次游戏输入。初始12坑各4石、两仓0；玩家0号坑4→0，1至4号坑各4→5。原CPU自动连走两次（含原落入己仓的额外回合），最终7号坑0、8至12号坑为5/1/6/6/5，CPU仓13为1，玩家仓6仍0，总石数48不变，画面交回玩家。截图001至005已打开核对，其中005是同一第5步后动画稳定的只读截图；原第5步进行中截图另存证据。未验证整局胜负、吃子、刷新、其余难度、本地双人、手机或声音听感。",
+    "network_scope": "76个请求、76个响应全部本地同源HTTP200；0外联、失败、缺失、脚本异常和控制台警告。$msstart始终不存在，原广告符号、加载标志和广告撤销按钮在实际对局均不存在。浏览器43136已关闭，真实exit0。",
+    "script_exceptions": [],
+    "tested_revision": "mancala-offline-v1",
+    "delivery_revision": "mancala-offline-v1",
+    "native_player_and_CPU_turn_verified": true,
+    "full_match_verified": false,
+    "storage_reload_verified": false
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "read_only_settled_observations": 1,
+  "initial_visible_counters": {
+    "0": 4,
+    "1": 4,
+    "2": 4,
+    "3": 4,
+    "4": 4,
+    "5": 4,
+    "12": 4,
+    "11": 4,
+    "10": 4,
+    "9": 4,
+    "8": 4,
+    "7": 4,
+    "6": 0,
+    "13": 0
+  },
+  "final_visible_counters": {
+    "0": 0,
+    "1": 5,
+    "2": 5,
+    "3": 5,
+    "4": 5,
+    "5": 4,
+    "12": 5,
+    "11": 6,
+    "10": 6,
+    "9": 1,
+    "8": 5,
+    "7": 0,
+    "6": 0,
+    "13": 1
+  },
+  "accounting": {
+    "observation_start": "2026-11-17T22:30:58.896680+00:00",
+    "observation_end": "2026-11-17T23:00:00.061660+00:00",
+    "elapsed_seconds": 1741.16498,
+    "scope": "原入口材料归档至证据整理的经过时间，包含抓取、等待和其他工作；不是纯处理时间。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "browser_channel_exit_code": 0,
+  "browser_session": 43136,
+  "state_injection": false,
+  "observer_scope": "Public runtime layout, scalar globals and existing displayed object fields only; no business handler calls. Initial pileCounterBack numOfStones is an uninitialized visual field, so actual displayed pileCounterText and screenshots are authoritative for the initial count."
+}

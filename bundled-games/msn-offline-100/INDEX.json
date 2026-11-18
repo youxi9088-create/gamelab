@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-17T23:03:53.645452+00:00",
+  "at": "2026-11-18T00:00:36.739150+00:00",
   "target": 100,
   "delivered_archived": 20,
   "base_commit": "6d739e9efd54c05bde0faf15a0a78ff17ef0dfe5",
@@ -229,16 +229,30 @@
     },
     {
       "title": "Classic Mancala",
-      "revision": "mancala-offline-v1",
+      "revision": "mancala-offline-v2",
       "job_id": "job-3c5feeca1bd8",
-      "version_id": "v-d58c5adfd4ed",
-      "artifact_id": "artifact-875794e7e48c",
-      "artifact_sha256": "77423ef496780e21586e41f115cef843cd9612b7e1ce1874c9d273ea0fd01f3c",
-      "remote_archive_commit": "748f08b8f12714a5cdfef9df81ca0efa83dbd34c",
-      "files": 109,
-      "path": "bundled-games/msn-offline-100/job-3c5feeca1bd8/v-d58c5adfd4ed"
+      "version_id": "v-3a27951841c5",
+      "artifact_id": "artifact-a70689b42118",
+      "artifact_sha256": "d64e660286a2860fa3d38196f156e7053643940398ca68d9d0d847b8ae028fc8",
+      "remote_archive_commit": "61e6ad01b3e7f44c06ffed0f6f2ff2c083acd0d3",
+      "candidate_id": "game-61a807409871",
+      "files": 111,
+      "path": "bundled-games/msn-offline-100/job-3c5feeca1bd8/v-3a27951841c5",
+      "previous_revisions": [
+        {
+          "title": "Classic Mancala",
+          "revision": "mancala-offline-v1",
+          "job_id": "job-3c5feeca1bd8",
+          "version_id": "v-d58c5adfd4ed",
+          "artifact_id": "artifact-875794e7e48c",
+          "artifact_sha256": "77423ef496780e21586e41f115cef843cd9612b7e1ce1874c9d273ea0fd01f3c",
+          "remote_archive_commit": "748f08b8f12714a5cdfef9df81ca0efa83dbd34c",
+          "files": 109,
+          "path": "bundled-games/msn-offline-100/job-3c5feeca1bd8/v-d58c5adfd4ed"
+        }
+      ]
     }
   ],
   "unknown_per_game_tokens_or_cost": "null in package accounting; no invented zero",
-  "revision_history_scope": "deliveries holds one current archive per game; previous_revisions retain older immutable packages and provenance, never count as additional games."
+  "revision_history_scope": "One current archive per distinct game; previous_revisions retain immutable history and do not increase game count."
 }
