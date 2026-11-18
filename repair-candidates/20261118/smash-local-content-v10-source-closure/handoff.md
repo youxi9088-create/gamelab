@@ -1,0 +1,18 @@
+# A组交接：真实本地内容事务已同步，v10尚未实机
+
+
+### 2026-11-18 Smash v10真实本地内容事务接入，原完成检查保持
+
+上轮已经核清原GameData协议和七个原生预设，本轮实现真实本地内容事务，不用DEFAULT或ready常量绕过。读取由原客户端真正加载的PlayOptionsData七槽、1493项原物品列表和48组原分组，实际本地用户已保存/ready且身份与GameData UID一致后才接入；地图名称/规则字段完整校验，原JSON原文保留，原生long文本不经JS数字重编码。独立记录键gamelab.smash.local-content.v1绑定原始来源SHA、真实本地身份与实际本机UTC日历日期；明确dayId来源是本地UTC，不声称服务端时间。记录校验、上一代备份、CAS写入与读回均成功后，才用原Dictionary<string,object>解析器5690372/2114解析本地实际数据，交给原17602/43610完整应用/正常事件。适配字典只含实际dayId和实际原生playOptions，不提供未取得的奖励/赛季/挑战/价格/用户刷新键，不拦截Firebase响应或模拟SDK成功。
+
+仅将原数据请求消费者8457接到自编本地排队；原26067沿原链传真实UID，排队函数仅写实际loading140表示任务已发起，绝不写ready。原Firebase提供者、原10177就绪getter、最终完整应用field16/loading140检查、原数据解析/保护字段/事件/错误路径均保留。若解析、原应用或完成失败则不报告成功，恢复自己拥有的栈和临时缓冲。UTC跨日或原本地数据请求会重新派发真实本地事务，错误时停止自己的定时器并显示明确失败，不重复循环造数据。
+
+源码核查纠正两个不能猜的ABI点：Customization服务实际字段类型为CustomizationItemsModel、Dictionary<string,CustomizationGroupModel>和List<ItemData>；没有编译HasInstance<CustomizationDataService>方法/metadata-use，不能拿邻近地址或另一方法身份代替。自编只读探针复制原644/1591声明类/RGCTX/static-fields读取路径，调用原类元数据初始化601，仅读已存在实例，不调用创建分支。List开放泛型字段偏移都是零占位，未将其当实例偏移；实际_size12由闭合List<ItemData>分配类型和原44901八个填充循环的读/写证明。
+
+原43610中10类可选键的ContainsKey<string,object> metadata5648396/原shared784已核查缺键跳转或正分支范围，包括uncollectedRewards、spinHighlights、dailyChallenges、seasonChallenges、seasonData、promos、expiredItemPrices、newlyAwardedSeasonRewards、seasonPoints及numLoopRewardsCollected；本地数据不供应这些键，沿原缺失分支。原公共应用/规范化和其余间接副作用仍须52观察，不将这份静态分析称为完整SDK/玩法验证。
+
+10类自编隔离检查实际通过：真实快照先保存后原类型应用、缺目录不执行、缺/未就绪服务或身份不符不执行、目录探针仅初始化元数据不建实例、保存失败不执行、坏校验/来源不符保留旧档、另身份/另页冲突不覆盖、七槽完整性与原long文本保留、坏解析/原应用未完成不能报告成功且栈/缓冲释放、无效本机时钟拒绝。仅运行自编WAT/JS/mock数据，没有运行原游戏函数或原资产/用户存档。自编链接器只为新桥词汇加入i32.and和i32.store8指令的解析，原函数体从不解码/重写；新完整Wasm静态校验exit0。相对v9r2只改8457，其余138254函数体保持；新增11函数/8导出，从v5共23自编函数/18导出，原type/import/table/global/data/metadata与v7用户档案/v8教程/v9在线展示退役保持。
+
+实际52独立D:\GameLab\temp\direct-smash-local-game-data-v10-20261118/candidate215文件重建逐SHA，候选清单4fd8de62bcb4f191fc0a0f53da338fe7c73becc49eeb5f63f481cc9d6194c802、增量清单5e4d13d075119c182b8d0aa14a7665ad08fd0e5ead2bad600f9987a23eb5974a；原任务blocked/round3/versionnull整行、人工暂停/历史和3/5剩2台账保持，没有接续、入库或供货。GitHub提交1cfb6b7dc43b511ae81582884abb30ed52b62cf0已30blob核对、push0、ls-remote精确一致。V5.1记录实现与真实本地日历来源、未实机范围；原输入来源SHA与候选实际字节SHA分别保存，未知耗时/Token/费用null。
+
+本轮没有新桌面恢复回复，因此没有再次轮询旧锁屏或追加催促；原恢复问题仍待回复。没有运行v10/观察器/第4步预留或玩家输入，最后实际运行仍v4蓝色加载页，3/5剩2。当前完整SDK退役、其它云端更新、原菜单/本地房间/玩家/AI、比赛和存档实际持久化仍待完成/验证，不计待验收。测试站2026-11-18T03:48:18Z直连仍A35completed/1review/45blocked/9queued/3failed，57未达；无本轮新增待验收。RustyPick/Craig额度请求、B组、其它暂停/跳过/Cow/采集/下游保持。

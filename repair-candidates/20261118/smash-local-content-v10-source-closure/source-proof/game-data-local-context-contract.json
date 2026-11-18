@@ -1,0 +1,241 @@
+{
+  "at": "2026-11-18T03:55:34.389442+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "customization_metadata": [
+    {
+      "address": 5669832,
+      "method": "get_Instance",
+      "class_argument": "CustomizationDataService"
+    }
+  ],
+  "original_has_instance_binding_exists": false,
+  "customization_existing_instance_layout": {
+    "get_instance_metadata_use": 5669832,
+    "method_info_declaring_class_offset": 16,
+    "class_flag_byte": 189,
+    "class_flag_mask": 1,
+    "class_rgctx_offset": 96,
+    "rgctx_owner_slot_offset": 8,
+    "class_static_fields_offset": 92,
+    "static_instance_offset": 0,
+    "original_class_metadata_initializer": 601
+  },
+  "original_existing_instance_access_sources": [
+    {
+      "function_index": 644,
+      "source": "function f_ux(a:int):int { // func644\n  var b:ubyte_ptr = a[4]:int;\n  b = ((if (b[189] & 1) { b } else { f_dw(b) })[24]:int)[2]:int;\n  if (\n    ((if (b[189] & 1) { b } else { f_dw(b) })[23]:int)[0]:int) goto B_a;\n  b = a[4]:int;\n  var c:int = \n    f_bac(((if (b[189] & 1) { b } else { f_dw(b) })[24]:int)[3]:int);\n  b = a[4]:int;\n  b = ((if (b[189] & 1) { b } else { f_dw(b) })[24]:int)[2]:int;\n  ((if (b[189] & 1) { b } else { f_dw(b) })[23]:int)[0]:int = c;\n  b = a[4]:int;\n  b = ((if (b[189] & 1) { b } else { f_dw(b) })[24]:int)[2]:int;\n  if (b[189] & 1) goto B_a;\n  f_dw(b);\n  label B_a:\n  a = a[4]:int;\n  a = ((if (a[189]:ubyte & 1) { a } else { f_dw(a) })[24]:int)[2]:int;\n  return \n    ((if (a[189]:ubyte & 1) { a } else { f_dw(a) })[23]:int)[0]:int;\n}\n\n",
+      "source_sha256": "86d17a5df881b7c703b59341e17ba7a93139c247d20580be409953548e1abdc6"
+    },
+    {
+      "function_index": 1591,
+      "source": "function f_fib(a:int):int { // func1591\n  a = a[4]:int;\n  a = ((if (a[189]:ubyte & 1) { a } else { f_dw(a) })[24]:int)[2]:int;\n  return \n    ((if (a[189]:ubyte & 1) { a } else { f_dw(a) })[23]:int)[0]:int != 0;\n}\n\n",
+      "source_sha256": "9491b221834b7f3727080153d3cfcf36083fb33e3b8d8b19c5656110401abfc5"
+    }
+  ],
+  "original_class_metadata_initializer_source": {
+    "at": "2026-11-18T03:54:22.138505+00:00",
+    "source_only": true,
+    "game_executed": false,
+    "original_modified": false,
+    "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+    "original_body_hashes": [
+      {
+        "function_index": 601,
+        "bytes": 32,
+        "sha256": "8added600d103190d90e435dd09a47b2c6bb409cf33943f693610aece379c1b3"
+      }
+    ],
+    "original_source_snippets": [
+      {
+        "function_index": 601,
+        "source": "function f_dw(a:int_ptr):int { // func601\n  f_ybc(a);\n  var b:int = a[27];\n  if (b) {\n    f_gta(f_pna(b), 0);\n    unreachable;\n  }\n  return a;\n}\n\n",
+        "source_sha256": "f94867547fe3ca80eafe905489e0fb2d97fac6a7bd46bd2e41d2acaad7ef2655"
+      }
+    ]
+  },
+  "customization_fields": [
+    {
+      "name": "kdh",
+      "field_index": 867,
+      "native_offset": 12,
+      "type": {
+        "name": "CustomizationItemsModel",
+        "namespace": "",
+        "type_code": 18,
+        "type_definition_index": 142
+      },
+      "attributes": 6
+    },
+    {
+      "name": "kdi",
+      "field_index": 868,
+      "native_offset": 16,
+      "type": {
+        "name": "Dictionary<string,CustomizationGroupModel>",
+        "namespace": "System.Collections.Generic",
+        "type_code": 21,
+        "definition": {
+          "name": "Dictionary`2",
+          "namespace": "System.Collections.Generic",
+          "type_code": 18,
+          "type_definition_index": 2464
+        },
+        "arguments": [
+          {
+            "name": "string",
+            "type_code": 14
+          },
+          {
+            "name": "CustomizationGroupModel",
+            "namespace": "",
+            "type_code": 18,
+            "type_definition_index": 150
+          }
+        ],
+        "generic_class_address": 5427752,
+        "generic_instantiation_address": 658664
+      },
+      "attributes": 6
+    },
+    {
+      "name": "kdj",
+      "field_index": 869,
+      "native_offset": 20,
+      "type": {
+        "name": "List<ItemData>",
+        "namespace": "System.Collections.Generic",
+        "type_code": 21,
+        "definition": {
+          "name": "List`1",
+          "namespace": "System.Collections.Generic",
+          "type_code": 18,
+          "type_definition_index": 2479
+        },
+        "arguments": [
+          {
+            "name": "ItemData",
+            "namespace": "",
+            "type_code": 18,
+            "type_definition_index": 166
+          }
+        ],
+        "generic_class_address": 5470296,
+        "generic_instantiation_address": 656544
+      },
+      "attributes": 6
+    }
+  ],
+  "original_open_generic_list_fields_not_used_as_instance_offsets": [
+    {
+      "name": "DefaultCapacity",
+      "field_index": 15408,
+      "native_offset": 0,
+      "type": {
+        "name": "int",
+        "type_code": 8
+      },
+      "attributes": 32849
+    },
+    {
+      "name": "_items",
+      "field_index": 15409,
+      "native_offset": 0,
+      "type": {
+        "name": "unresolved-native-type-code-29",
+        "type_code": 29
+      },
+      "attributes": 1
+    },
+    {
+      "name": "_size",
+      "field_index": 15410,
+      "native_offset": 0,
+      "type": {
+        "name": "int",
+        "type_code": 8
+      },
+      "attributes": 1
+    },
+    {
+      "name": "_version",
+      "field_index": 15411,
+      "native_offset": 0,
+      "type": {
+        "name": "int",
+        "type_code": 8
+      },
+      "attributes": 1
+    },
+    {
+      "name": "_syncRoot",
+      "field_index": 15412,
+      "native_offset": 0,
+      "type": {
+        "name": "object",
+        "type_code": 28
+      },
+      "attributes": 129
+    },
+    {
+      "name": "s_emptyArray",
+      "field_index": 15413,
+      "native_offset": 0,
+      "type": {
+        "name": "unresolved-native-type-code-29",
+        "type_code": 29
+      },
+      "attributes": 49
+    }
+  ],
+  "actual_list_allocation_type": {
+    "name": "List<ItemData>",
+    "namespace": "System.Collections.Generic",
+    "type_code": 21,
+    "definition": {
+      "name": "List`1",
+      "namespace": "System.Collections.Generic",
+      "type_code": 18,
+      "type_definition_index": 2479
+    },
+    "arguments": [
+      {
+        "name": "ItemData",
+        "namespace": "",
+        "type_code": 18,
+        "type_definition_index": 166
+      }
+    ],
+    "generic_class_address": 5470296,
+    "generic_instantiation_address": 656544
+  },
+  "actual_list_size_offset_from_eight_original_population_loops": 12,
+  "original_catalog_initialization_source": {
+    "function_index": 105066,
+    "name": "CustomizationDataService_Init_105066",
+    "source_sha256": "855d4311a1e6c13119c7f25ee7dafd16d0a7e877ea3a7881a2bdd51a179abb59",
+    "source": "function CustomizationDataService_Init_105066(a:int, b:int_ptr) { // func105066\n  if (eqz(6775928[0]:ubyte)) {\n    f_bw(5621884);\n    f_bw(5647924);\n    f_bw(5610308);\n    f_bw(5669828);\n    f_bw(5634068);\n    6775928[0]:byte = 1;\n  }\n  d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26773]:int;\n  a[8]:byte = 1;\n  a[3]:int = CustomizationDataService_bki_44904(a, a);\n  a[4]:int = (b = CustomizationDataService_bkj_44903(a, a));\n  if (eqz(a[3]:int)) {\n    a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n    if (eqz(a[29]:int)) { f_cw(a) }\n    a = f_mmya(0);\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    f_eba(a, 0);\n    return ;\n  }\n  if (eqz(b)) {\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    b = f_jmya(0);\n    var c:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n    if (eqz(c[29])) { f_cw(c) }\n    f_ica(b, 0);\n    b = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[11893]:int);\n    f_uca(b, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21297]:int);\n    a[4]:int = b;\n  }\n  CustomizationDataService_blc_44902(a, a);\n  CustomizationDataService_bkk_44901(a, a);\n}\n\n"
+  },
+  "original_item_list_population_source": {
+    "function_index": 44901,
+    "name": "CustomizationDataService_bkk_44901",
+    "source_sha256": "e4c9330cec7d3928d40f0d4ddbdbfe450facd7cafd378f42622d2da110da2a5b",
+    "source": "function CustomizationDataService_bkk_44901(a:int_ptr, b:int) { // func44901\n  var g:int_ptr;\n  var d:int;\n  var e:int;\n  var f:int_ptr;\n  b = g_a - 48;\n  g_a = b;\n  if (eqz(6775931[0]:ubyte)) {\n    f_bw(5648276);\n    f_bw(5653880);\n    f_bw(5653884);\n    f_bw(5653888);\n    f_bw(5656476);\n    f_bw(5660732);\n    f_bw(5660728);\n    f_bw(5614776);\n    6775931[0]:byte = 1;\n  }\n  b[5]:long = 0L;\n  b[4]:long = 0L;\n  b[3]:long = 0L;\n  var c:int_ptr = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13010]:int);\n  f_wx(c, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[24498]:int);\n  a[5] = c;\n  f_sra(b, (a[3])[2]:int, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21385]:int);\n  b[5]:long = b[2]:long;\n  b[4]:long = b[1]:long;\n  b[3]:long = b[0]:long;\n  b[0]:int = 0;\n  b[1]:int = b + 24;\n  c = \n    {\n      loop L_n {\n        6236660[0]:int = 0;\n        c = a_d(1749, b + 24, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22787]:int);\n        d = 6236660[0]:int;\n        6236660[0]:int = 0;\n        if (d == 1) goto B_l;\n        if (c) {\n          f = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[24499]:int;\n          d = b[10]:int;\n          c = a[5];\n          c[4] = c[4] + 1;\n          e = c[3];\n          if (e < (g = c[2])[3]) {\n            c[3] = e + 1;\n            g[e + 4]:int = d;\n            continue L_n;\n          }\n          e = ((f[4])[24]:int)[14]:int;\n          6236660[0]:int = 0;\n          a_f(1526, c, d, e);\n          c = 6236660[0]:int;\n          6236660[0]:int = 0;\n          if (c == 1) goto B_m;\n          continue L_n;\n        }\n      }\n      c = b[0]:int;\n      goto B_j;\n      label B_m:\n      a_a(4837720);\n      goto B_k;\n      label B_l:\n      a_a(4837720);\n      label B_k:\n    }\n  if (a_b() != a_j(4837720)) goto B_h;\n  c = a_h(c)[0]:int;\n  6236660[0]:int = 0;\n  b[0]:int = c;\n  a_e(58);\n  d = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (d == 1) goto B_i;\n  label B_j:\n  b[1]:int;\n  d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22786]:int;\n  if (c) goto B_b;\n  f_sra(b, (a[3])[3]:int, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21385]:int);\n  b[5]:long = b[2]:long;\n  b[4]:long = b[1]:long;\n  b[3]:long = b[0]:long;\n  b[0]:int = 0;\n  b[1]:int = b + 24;\n  goto B_g;\n  label B_i:\n  c = a_i();\n  a_b();\n  label B_h:\n  6236660[0]:int = 0;\n  a_c(3798, b);\n  a = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (a == 1) goto B_f;\n  goto B_c;\n  label B_g:\n  c = \n    {\n      loop L_aa {\n        6236660[0]:int = 0;\n        c = a_d(1749, b + 24, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22787]:int);\n        d = 6236660[0]:int;\n        6236660[0]:int = 0;\n        if (d == 1) goto B_y;\n        if (c) {\n          f = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[24499]:int;\n          d = b[10]:int;\n          c = a[5];\n          c[4] = c[4] + 1;\n          e = c[3];\n          if (e < (g = c[2])[3]) {\n            c[3] = e + 1;\n            g[e + 4]:int = d;\n            continue L_aa;\n          }\n          e = ((f[4])[24]:int)[14]:int;\n          6236660[0]:int = 0;\n          a_f(1526, c, d, e);\n          c = 6236660[0]:int;\n          6236660[0]:int = 0;\n          if (c == 1) goto B_z;\n          continue L_aa;\n        }\n      }\n      d = 7;\n      c = b[0]:int;\n      goto B_w;\n      label B_z:\n      a_a(4837720);\n      goto B_x;\n      label B_y:\n      a_a(4837720);\n      label B_x:\n    }\n  if (a_b() != a_j(4837720)) goto B_u;\n  c = a_h(c)[0]:int;\n  d = 0;\n  6236660[0]:int = 0;\n  b[0]:int = c;\n  a_e(58);\n  e = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (e == 1) goto B_v;\n  label B_w:\n  b[1]:int;\n  d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22786]:int;\n  if (c) goto B_b;\n  br_table[B_da, B_s, B_s, B_s, B_s, B_s, B_s, B_da, ..B_s](d)\n  label B_da:\n  f_sra(b, (a[3])[4]:int, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21385]:int);\n  b[5]:long = b[2]:long;\n  b[4]:long = b[1]:long;\n  b[3]:long = b[0]:long;\n  b[0]:int = 0;\n  b[1]:int = b + 24;\n  goto B_t;\n  label B_v:\n  c = a_i();\n  a_b();\n  label B_u:\n  6236660[0]:int = 0;\n  a_c(3799, b);\n  a = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (a != 1) goto B_c;\n  goto B_f;\n  label B_t:\n  c = \n    {\n      loop L_la {\n        6236660[0]:int = 0;\n        c = a_d(1749, b + 24, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22787]:int);\n        d = 6236660[0]:int;\n        6236660[0]:int = 0;\n        if (d == 1) goto B_ja;\n        if (c) {\n          f = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[24499]:int;\n          d = b[10]:int;\n          c = a[5];\n          c[4] = c[4] + 1;\n          e = c[3];\n          if (e < (g = c[2])[3]) {\n            c[3] = e + 1;\n            g[e + 4]:int = d;\n            continue L_la;\n          }\n          e = ((f[4])[24]:int)[14]:int;\n          6236660[0]:int = 0;\n          a_f(1526, c, d, e);\n          c = 6236660[0]:int;\n          6236660[0]:int = 0;\n          if (c == 1) goto B_ka;\n          continue L_la;\n        }\n      }\n      d = 10;\n      c = b[0]:int;\n      goto B_ha;\n      label B_ka:\n      a_a(4837720);\n      goto B_ia;\n      label B_ja:\n      a_a(4837720);\n      label B_ia:\n    }\n  if (a_b() != a_j(4837720)) goto B_fa;\n  c = a_h(c)[0]:int;\n  d = 0;\n  6236660[0]:int = 0;\n  b[0]:int = c;\n  a_e(58);\n  e = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (e == 1) goto B_ga;\n  label B_ha:\n  b[1]:int;\n  d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22786]:int;\n  if (c) goto B_b;\n  br_table[B_oa, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_oa, ..B_s](\n    d)\n  label B_oa:\n  f_sra(b, (a[3])[5]:int, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21385]:int);\n  b[5]:long = b[2]:long;\n  b[4]:long = b[1]:long;\n  b[3]:long = b[0]:long;\n  b[0]:int = 0;\n  b[1]:int = b + 24;\n  goto B_ea;\n  label B_ga:\n  c = a_i();\n  a_b();\n  label B_fa:\n  6236660[0]:int = 0;\n  a_c(3800, b);\n  a = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (a != 1) goto B_c;\n  goto B_f;\n  label B_ea:\n  c = \n    {\n      loop L_wa {\n        6236660[0]:int = 0;\n        c = a_d(1749, b + 24, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22787]:int);\n        d = 6236660[0]:int;\n        6236660[0]:int = 0;\n        if (d == 1) goto B_ua;\n        if (c) {\n          f = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[24499]:int;\n          d = b[10]:int;\n          c = a[5];\n          c[4] = c[4] + 1;\n          e = c[3];\n          if (e < (g = c[2])[3]) {\n            c[3] = e + 1;\n            g[e + 4]:int = d;\n            continue L_wa;\n          }\n          e = ((f[4])[24]:int)[14]:int;\n          6236660[0]:int = 0;\n          a_f(1526, c, d, e);\n          c = 6236660[0]:int;\n          6236660[0]:int = 0;\n          if (c == 1) goto B_va;\n          continue L_wa;\n        }\n      }\n      d = 13;\n      c = b[0]:int;\n      goto B_sa;\n      label B_va:\n      a_a(4837720);\n      goto B_ta;\n      label B_ua:\n      a_a(4837720);\n      label B_ta:\n    }\n  if (a_b() != a_j(4837720)) goto B_qa;\n  c = a_h(c)[0]:int;\n  d = 0;\n  6236660[0]:int = 0;\n  b[0]:int = c;\n  a_e(58);\n  e = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (e == 1) goto B_ra;\n  label B_sa:\n  b[1]:int;\n  d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22786]:int;\n  if (c) goto B_b;\n  br_table[B_za, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_za, ..B_s](\n    d)\n  label B_za:\n  f_sra(b, (a[3])[6]:int, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21385]:int);\n  b[5]:long = b[2]:long;\n  b[4]:long = b[1]:long;\n  b[3]:long = b[0]:long;\n  b[0]:int = 0;\n  b[1]:int = b + 24;\n  goto B_pa;\n  label B_ra:\n  c = a_i();\n  a_b();\n  label B_qa:\n  6236660[0]:int = 0;\n  a_c(3801, b);\n  a = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (a != 1) goto B_c;\n  goto B_f;\n  label B_pa:\n  c = \n    {\n      loop L_hb {\n        6236660[0]:int = 0;\n        c = a_d(1749, b + 24, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22787]:int);\n        d = 6236660[0]:int;\n        6236660[0]:int = 0;\n        if (d == 1) goto B_fb;\n        if (c) {\n          f = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[24499]:int;\n          d = b[10]:int;\n          c = a[5];\n          c[4] = c[4] + 1;\n          e = c[3];\n          if (e < (g = c[2])[3]) {\n            c[3] = e + 1;\n            g[e + 4]:int = d;\n            continue L_hb;\n          }\n          e = ((f[4])[24]:int)[14]:int;\n          6236660[0]:int = 0;\n          a_f(1526, c, d, e);\n          c = 6236660[0]:int;\n          6236660[0]:int = 0;\n          if (c == 1) goto B_gb;\n          continue L_hb;\n        }\n      }\n      c = b[0]:int;\n      goto B_db;\n      label B_gb:\n      a_a(4837720);\n      goto B_eb;\n      label B_fb:\n      a_a(4837720);\n      label B_eb:\n    }\n  if (a_b() != a_j(4837720)) goto B_bb;\n  c = a_h(c)[0]:int;\n  6236660[0]:int = 0;\n  b[0]:int = c;\n  a_e(58);\n  d = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (d == 1) goto B_cb;\n  label B_db:\n  b[1]:int;\n  d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22786]:int;\n  if (c) goto B_b;\n  f_sra(b, (a[3])[7]:int, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21385]:int);\n  b[5]:long = b[2]:long;\n  b[4]:long = b[1]:long;\n  b[3]:long = b[0]:long;\n  b[0]:int = 0;\n  b[1]:int = b + 24;\n  goto B_ab;\n  label B_cb:\n  c = a_i();\n  a_b();\n  label B_bb:\n  6236660[0]:int = 0;\n  a_c(3802, b);\n  a = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (a != 1) goto B_c;\n  goto B_f;\n  label B_ab:\n  c = \n    {\n      loop L_rb {\n        6236660[0]:int = 0;\n        c = a_d(1749, b + 24, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22787]:int);\n        d = 6236660[0]:int;\n        6236660[0]:int = 0;\n        if (d == 1) goto B_pb;\n        if (c) {\n          f = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[24499]:int;\n          d = b[10]:int;\n          c = a[5];\n          c[4] = c[4] + 1;\n          e = c[3];\n          if (e < (g = c[2])[3]) {\n            c[3] = e + 1;\n            g[e + 4]:int = d;\n            continue L_rb;\n          }\n          e = ((f[4])[24]:int)[14]:int;\n          6236660[0]:int = 0;\n          a_f(1526, c, d, e);\n          c = 6236660[0]:int;\n          6236660[0]:int = 0;\n          if (c == 1) goto B_qb;\n          continue L_rb;\n        }\n      }\n      d = 19;\n      c = b[0]:int;\n      goto B_nb;\n      label B_qb:\n      a_a(4837720);\n      goto B_ob;\n      label B_pb:\n      a_a(4837720);\n      label B_ob:\n    }\n  if (a_b() != a_j(4837720)) goto B_lb;\n  c = a_h(c)[0]:int;\n  d = 0;\n  6236660[0]:int = 0;\n  b[0]:int = c;\n  a_e(58);\n  e = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (e == 1) goto B_mb;\n  label B_nb:\n  b[1]:int;\n  d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22786]:int;\n  if (c) goto B_b;\n  br_table[B_ub, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_s, B_ub, ..B_s](\n    d)\n  label B_ub:\n  f_sra(b, (a[3])[8]:int, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21385]:int);\n  b[5]:long = b[2]:long;\n  b[4]:long = b[1]:long;\n  b[3]:long = b[0]:long;\n  b[0]:int = 0;\n  b[1]:int = b + 24;\n  goto B_kb;\n  label B_mb:\n  c = a_i();\n  a_b();\n  label B_lb:\n  6236660[0]:int = 0;\n  a_c(3803, b);\n  a = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (a != 1) goto B_c;\n  goto B_f;\n  label B_kb:\n  c = \n    {\n      loop L_cc {\n        6236660[0]:int = 0;\n        c = a_d(1749, b + 24, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22787]:int);\n        d = 6236660[0]:int;\n        6236660[0]:int = 0;\n        if (d == 1) goto B_ac;\n        if (c) {\n          f = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[24499]:int;\n          d = b[10]:int;\n          c = a[5];\n          c[4] = c[4] + 1;\n          e = c[3];\n          if (e < (g = c[2])[3]) {\n            c[3] = e + 1;\n            g[e + 4]:int = d;\n            continue L_cc;\n          }\n          e = ((f[4])[24]:int)[14]:int;\n          6236660[0]:int = 0;\n          a_f(1526, c, d, e);\n          c = 6236660[0]:int;\n          6236660[0]:int = 0;\n          if (c == 1) goto B_bc;\n          continue L_cc;\n        }\n      }\n      c = 22;\n      d = b[0]:int;\n      goto B_yb;\n      label B_bc:\n      a_a(4837720);\n      goto B_zb;\n      label B_ac:\n      a_a(4837720);\n      label B_zb:\n    }\n  if (a_b() != a_j(4837720)) goto B_wb;\n  d = a_h(c)[0]:int;\n  c = 0;\n  6236660[0]:int = 0;\n  b[0]:int = d;\n  a_e(58);\n  e = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (e == 1) goto B_xb;\n  label B_yb:\n  b[1]:int;\n  d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22786]:int;\n  if (d) goto B_e;\n  if (select_if(c != 22, 0, c)) goto B_s;\n  f_sra(b, (a[3])[9]:int, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21385]:int);\n  b[5]:long = b[2]:long;\n  b[4]:long = b[1]:long;\n  b[3]:long = b[0]:long;\n  b[0]:int = 0;\n  b[1]:int = b + 24;\n  goto B_vb;\n  label B_xb:\n  c = a_i();\n  a_b();\n  label B_wb:\n  6236660[0]:int = 0;\n  a_c(3804, b);\n  a = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (a != 1) goto B_c;\n  goto B_f;\n  label B_vb:\n  c = \n    {\n      loop L_jc {\n        6236660[0]:int = 0;\n        c = a_d(1749, b + 24, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22787]:int);\n        d = 6236660[0]:int;\n        6236660[0]:int = 0;\n        if (d == 1) goto B_hc;\n        if (c) {\n          f = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[24499]:int;\n          d = b[10]:int;\n          c = a[5];\n          c[4] = c[4] + 1;\n          e = c[3];\n          if (e < (g = c[2])[3]) {\n            c[3] = e + 1;\n            g[e + 4]:int = d;\n            continue L_jc;\n          }\n          e = ((f[4])[24]:int)[14]:int;\n          6236660[0]:int = 0;\n          a_f(1526, c, d, e);\n          c = 6236660[0]:int;\n          6236660[0]:int = 0;\n          if (c == 1) goto B_ic;\n          continue L_jc;\n        }\n      }\n      a = b[0]:int;\n      goto B_fc;\n      label B_ic:\n      a_a(4837720);\n      goto B_gc;\n      label B_hc:\n      a_a(4837720);\n      label B_gc:\n    }\n  if (a_b() != a_j(4837720)) goto B_q;\n  a = a_h(c)[0]:int;\n  6236660[0]:int = 0;\n  b[0]:int = a;\n  a_e(58);\n  c = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (c == 1) goto B_r;\n  label B_fc:\n  b[1]:int;\n  d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[22786]:int;\n  if (a) goto B_d;\n  label B_s:\n  g_a = b + 48;\n  return ;\n  label B_r:\n  c = a_i();\n  a_b();\n  label B_q:\n  6236660[0]:int = 0;\n  a_c(3805, b);\n  a = 6236660[0]:int;\n  6236660[0]:int = 0;\n  if (a != 1) goto B_c;\n  label B_f:\n  a_a(0);\n  a_b();\n  f_tw();\n  unreachable;\n  label B_e:\n  f_vw(d);\n  unreachable;\n  label B_d:\n  f_vw(a);\n  unreachable;\n  label B_c:\n  a_l(c);\n  unreachable;\n  label B_b:\n  f_vw(c);\n  unreachable;\n}\n\n"
+  },
+  "original_item_count": 1493,
+  "original_group_count": 48,
+  "original_request_consumer": {
+    "function_index": 8457,
+    "name": "GameDataService_fxw_8457",
+    "source_sha256": "0e01996d22f5d75e2ecec7f76f6ae1d8f5740b76f27ed5e9c28ea46a43a7993b",
+    "source": "function GameDataService_fxw_8457(a:int, b:int_ptr, c:int_ptr) { // func8457\n  if (eqz(6779677[0]:ubyte)) {\n    f_bw(5608392);\n    f_bw(5621884);\n    f_bw(5622636);\n    f_bw(5686996);\n    f_bw(5669972);\n    f_bw(5616448);\n    f_bw(5670124);\n    f_bw(5616484);\n    f_bw(5634068);\n    6779677[0]:byte = 1;\n  }\n  if ({\n        c = a[5]:int;\n        if (c) {\n          0;\n          if (c[2]) goto B_c;\n        }\n        1;\n        label B_c:\n      }) {\n    a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n    if (eqz(a[29]:int)) { f_cw(a) }\n    a = f_rync(0);\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13437]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    f_aad(f_rba(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26847]:int), a, 40, a, f_ujm(0), 0);\n    goto B_b;\n  }\n  c = a[23]:int;\n  var d:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  if (f_jx(c, f_lci(0), 0)) {\n    a[140]:byte = 0;\n    b = a[36]:int;\n    if (eqz(b)) goto B_i;\n    c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14975]:int;\n    if (eqz(c[29])) {\n      f_cw(c);\n      c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14975]:int;\n    }\n    call_indirect(b[8], a, (c[23])[0]:int, b[5], b[3]);\n    return ;\n  }\n  if (eqz(a[140]:ubyte)) goto B_l;\n  if (\n    eqz(f_jx(a[5]:int,\n             f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26809]:int)[17]:int,\n             0))) goto B_l;\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  a = f_lx(f_mync(0), a[5]:int, 0);\n  goto B_b;\n  label B_l:\n  a[140]:byte = 1;\n  if (eqz(b)) {\n    if (\n      eqz(\n        f_dca(\n          a[5]:int,\n          (((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13428]:int)[23]:int)[0]:int)[17]:int,\n          0))) goto B_n\n  }\n  b = \n    (((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13428]:int)[23]:int)[0]:int)[17]:int;\n  a[23]:int = 0;\n  a[5]:int = b;\n  a[17]:int = 0;\n  label B_n:\n  b = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[11414]:int);\n  f_zba(b, a, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[31065]:int, 0);\n  GameDataService_fyg_43611(a, b, a[23]:int, a[17]:int, a);\n  label B_i:\n  return ;\n  label B_b:\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  f_oz(a, 0);\n}\n\n"
+  },
+  "boundary": [
+    "Only read real original native objects after initialization; never manufacture an item list or group dictionary.",
+    "No absent HasInstance MethodInfo is fabricated or substituted with a method of a different identity. The own probe copies the verified class-context reads only, not the instance-creation branch.",
+    "Open-generic zero offset placeholders are explicitly not used as real object offsets; the original closed-list allocation and eight loops prove size offset12.",
+    "The queued local request is separate from Firebase success and does not mark GameData ready.",
+    "Original GameData typed application and its completion/error behavior still require a real input transaction."
+  ]
+}
