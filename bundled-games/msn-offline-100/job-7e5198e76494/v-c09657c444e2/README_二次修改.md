@@ -1,0 +1,4 @@
+原HTML5运行源码，非原作者编辑器工程。可定位js/main.js中CGame/CSeat/CHandController/CCard/CGameSettings/CInterface及本地钱包。329方法保持，13核心方法一致，3核心方法仅移除空服务事件，其余机制AST一致。跨游戏复用牌局/筹码/UI须拆解适配，依赖CreateJS/Tween、Howler、原字体图集。未用SoundJS WebAudioPlugin含fileXHR探测整模块退役，其余vendor字节及许可证保持；不承诺可选SoundJS API。
+累计5次真实输入：离线精确入口→原开始→原入座→点原5筹码→等待原10秒倒计时自动发牌后点击停牌。实际玩家K与9共19点、余额1000→995，原庄家处理后显示“庄家赢牌”，blackjack_user_money实际保存995。一次零输入被动观察确认原清牌并回到等待下一注，余额仍995。未操纵牌序/RNG/计时/余额，未发第6次输入。拿牌、加倍、分牌、保险、玩家赢局、原200筹码补充、刷新读回和听感未实测。
+远端52实际Chromium运行；56请求/56响应全为精确同源HTTP200，无外联、失败请求或脚本异常。14条原Canvas2D getImageData性能warning保留，不宣称零warning；浏览器8636实际BROWSER_EXIT0。开发环境仅静态分析和打包，没有运行游戏或SDK。
+原入口recharge回调直接在本地调用setMoney(200)，没有广告、支付或服务器前提，原按钮和回调逐AST保持；这不是新增免费奖励或支付成功替身。仅退役实际MSN、广告/更多游戏/通知、上传和SW及其消费者。

@@ -1,0 +1,15 @@
+{
+  "revision": "blackjack-offline-v1",
+  "maximum_cumulative_UI_inputs": 5,
+  "UI_used": 0,
+  "steps": [
+    "1 exact original offline entry",
+    "2 original PLAY",
+    "3 original SIT DOWN",
+    "4 one visible original bet chip, wait original10second automatic deal",
+    "5 visible STAND or original insurance choice, selected from actual rendered state"
+  ],
+  "state_or_RNG_or_time_injection": false,
+  "handler_calls": false,
+  "limitations": "Random native hand can need insurance or settle automatically. Never force cards, change timer, call game handlers or send sixth input. Full match/refresh/hearing/local refill only claimed if actually shown."
+}

@@ -1,0 +1,833 @@
+{
+  "native": {
+    "canvas": {
+      "x": -275.578125,
+      "y": 0,
+      "width": 1991,
+      "height": 900,
+      "top": 0,
+      "right": 1715.421875,
+      "bottom": 900,
+      "left": -275.578125
+    },
+    "canvasSize": {
+      "width": 1700,
+      "height": 768
+    },
+    "native_flags": {
+      "menu": false,
+      "game": true,
+      "state": -1,
+      "minBet": 1,
+      "maxBet": 300,
+      "betTime": 10000,
+      "payout": 1.5,
+      "winOccurrence": 35
+    },
+    "visibleText": [
+      "$5",
+      "19",
+      "5",
+      "清注",
+      "再次下注",
+      "等待玩家出牌",
+      "等待您下注 0",
+      "$995.00",
+      "发牌",
+      "拿牌",
+      "停牌",
+      "加倍下注",
+      "分牌",
+      "1",
+      "10",
+      "25",
+      "50",
+      "100"
+    ],
+    "native_objects": [
+      {
+        "src": "bg_game_3.jpg",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 0,
+          "y": 0
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 1700,
+          "height": 768
+        }
+      },
+      {
+        "src": "seat.png",
+        "x": 66,
+        "y": 175,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 937.0220588235295,
+          "y": 626.6335018382354
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 98,
+          "height": 98
+        }
+      },
+      {
+        "src": "but_game_small_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 886.6571231617647,
+          "y": 662.9431066176471
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 184,
+          "height": 30
+        }
+      },
+      {
+        "src": "arrow_hand.png",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 859.7177389705884,
+          "y": 421.6599264705883
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 22,
+          "height": 26
+        }
+      },
+      {
+        "src": "fiche_1.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 0.8198943014705883,
+          "b": 0,
+          "c": 0,
+          "d": 0.8198943014705883,
+          "x": 976.8454963235295,
+          "y": 662.9431066176471
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 45,
+          "height": 42
+        }
+      },
+      {
+        "src": "card_spritesheet.png",
+        "x": 798,
+        "y": 523,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 934.6795036764706,
+          "y": 612.5781709558825
+        },
+        "frame": 38,
+        "bounds": {
+          "x": -22,
+          "y": -31.5,
+          "width": 44,
+          "height": 63
+        }
+      },
+      {
+        "src": "card_spritesheet.png",
+        "x": 788,
+        "y": 180,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 922.9667279411766,
+          "y": 210.82996323529414
+        },
+        "frame": 22,
+        "bounds": {
+          "x": -22,
+          "y": -31.5,
+          "width": 44,
+          "height": 63
+        }
+      },
+      {
+        "src": "card_spritesheet.png",
+        "x": 820,
+        "y": 491.5,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 960.4476102941177,
+          "y": 575.6829273897059
+        },
+        "frame": 47,
+        "bounds": {
+          "x": -22,
+          "y": -31.5,
+          "width": 44,
+          "height": 63
+        }
+      },
+      {
+        "src": "card_spritesheet.png",
+        "x": 834,
+        "y": 180,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 976.8454963235295,
+          "y": 210.82996323529414
+        },
+        "frame": 52,
+        "bounds": {
+          "x": -22,
+          "y": -31.5,
+          "width": 44,
+          "height": 63
+        }
+      },
+      {
+        "src": "but_exit.png",
+        "x": 1423.7133832934437,
+        "y": 41,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 1621.8837316176473,
+          "y": 2.3425551470588237
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 78,
+          "height": 78
+        }
+      },
+      {
+        "src": "audio_icon.png",
+        "x": 1345.7133832934437,
+        "y": 41,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 1576.20390625,
+          "y": 48.02238051470589
+        },
+        "frame": 1,
+        "bounds": {
+          "x": -41,
+          "y": -41,
+          "width": 82,
+          "height": 82
+        }
+      },
+      {
+        "src": "but_fullscreen.png",
+        "x": 1265.7133832934437,
+        "y": 41,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 1482.5017003676471,
+          "y": 48.02238051470589
+        },
+        "frame": 1,
+        "bounds": {
+          "x": -41,
+          "y": -41,
+          "width": 82,
+          "height": 82
+        }
+      },
+      {
+        "src": "display_bg.png",
+        "x": 280,
+        "y": 6,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 327.9577205882353,
+          "y": 7.027665441176471
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 108
+        }
+      },
+      {
+        "src": "bet_bg.png",
+        "x": 340,
+        "y": 624,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 398.23437500000006,
+          "y": 730.877205882353
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 398,
+          "height": 148
+        }
+      },
+      {
+        "src": "but_game_small_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 412.28970588235296,
+          "y": 846.8336856617648
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 184,
+          "height": 30
+        }
+      },
+      {
+        "src": "but_game_small_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 632.4898897058824,
+          "y": 846.8336856617648
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 184,
+          "height": 30
+        }
+      },
+      {
+        "src": "money_bg.png",
+        "x": 1127,
+        "y": 668,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 1320.0298253676472,
+          "y": 782.4134191176471
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 231,
+          "height": 41
+        }
+      },
+      {
+        "src": "but_game_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 1006.1274356617648,
+          "y": 835.1209099264706
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 98,
+          "height": 50
+        }
+      },
+      {
+        "src": "but_game_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 1123.255193014706,
+          "y": 835.1209099264706
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 98,
+          "height": 50
+        }
+      },
+      {
+        "src": "but_game_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 1240.3829503676473,
+          "y": 835.1209099264706
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 98,
+          "height": 50
+        }
+      },
+      {
+        "src": "but_game_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 1357.5107077205882,
+          "y": 835.1209099264706
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 98,
+          "height": 50
+        }
+      },
+      {
+        "src": "but_game_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 1474.6384650735295,
+          "y": 835.1209099264706
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 98,
+          "height": 50
+        }
+      },
+      {
+        "src": "fiche_0.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 453.2844209558824,
+          "y": 780.0708639705883
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 45,
+          "height": 42
+        }
+      },
+      {
+        "src": "fiche_1.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 523.561075367647,
+          "y": 780.0708639705883
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 45,
+          "height": 42
+        }
+      },
+      {
+        "src": "fiche_2.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 593.8377297794118,
+          "y": 780.0708639705883
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 45,
+          "height": 42
+        }
+      },
+      {
+        "src": "fiche_3.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 664.1143841911766,
+          "y": 780.0708639705883
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 45,
+          "height": 42
+        }
+      },
+      {
+        "src": "fiche_4.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 734.3910386029412,
+          "y": 780.0708639705883
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 45,
+          "height": 42
+        }
+      },
+      {
+        "src": "fiche_5.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 804.667693014706,
+          "y": 780.0708639705883
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 45,
+          "height": 42
+        }
+      },
+      {
+        "src": "msg_box.png",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 0,
+          "y": 0
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 1700,
+          "height": 768
+        }
+      },
+      {
+        "src": "but_game_small_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 770.700643382353,
+          "y": 530.5887408088236
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 184,
+          "height": 30
+        }
+      },
+      {
+        "src": "but_game_small_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 1004.9561580882354,
+          "y": 530.5887408088236
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 184,
+          "height": 30
+        }
+      },
+      {
+        "src": "msg_box.png",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 0,
+          "y": 0
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 1700,
+          "height": 768
+        }
+      },
+      {
+        "src": "but_game_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 821.0655790441177,
+          "y": 497.79296875000006
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 98,
+          "height": 50
+        }
+      },
+      {
+        "src": "but_game_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 1055.32109375,
+          "y": 497.79296875000006
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 98,
+          "height": 50
+        }
+      },
+      {
+        "src": "msg_box.png",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1.1712775735294119,
+          "b": 0,
+          "c": 0,
+          "d": 1.1712775735294119,
+          "x": 0,
+          "y": 0
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 1700,
+          "height": 768
+        }
+      }
+    ],
+    "storage": {},
+    "retired_providers_present": [],
+    "scene_objects_read": 94
+  },
+  "observer_error": null,
+  "frame_capture_error": null,
+  "id": "4",
+  "action": "click",
+  "ui_steps": 4,
+  "checkpoint_phases": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "raw_ui_inputs": 4,
+  "url": "http://127.0.0.1:18865/blackjack-offline-v1/index.html",
+  "error": null,
+  "network_events": 113,
+  "console": [
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    }
+  ],
+  "closed": false
+}

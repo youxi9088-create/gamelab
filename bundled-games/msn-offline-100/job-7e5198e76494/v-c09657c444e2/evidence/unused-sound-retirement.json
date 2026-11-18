@@ -1,0 +1,12 @@
+{
+  "source_sha256": "e439bebf8de2df0582273906d2c1dceff2387c661efb2152ef1c28420ce4e7e5",
+  "adapted_sha256": "778572b68fd5fcfe2d6e12e0b9325604d0acd7c23e367af805147aac44fa9b0d",
+  "removed_module_bytes": 3760,
+  "removed_module_sha256": "935b9bea7b4066525ea454f36b0e34ad00f169b472b3ee6358b84f6e24ccbf7f",
+  "all_other_vendor_bytes_exact": true,
+  "license_header_preserved": true,
+  "native_audio": "Original Howler src/loading/volume/unlock and6native MP3 files retained; native game has no SoundJS namespace caller.",
+  "reason": "Remove the entire unused SoundJS WebAudioPlugin provider containing a file:// synchronous XHR capability probe. No fake fail file, readiness function, audio callback or capability value supplied.",
+  "limitations": "This package does not promise optional SoundJS WebAudio API reuse. The original vendor archive remains intact; only actual native CreateJS rendering/Tween and Howler use will be verified by game UI.",
+  "game_UI": 0
+}
