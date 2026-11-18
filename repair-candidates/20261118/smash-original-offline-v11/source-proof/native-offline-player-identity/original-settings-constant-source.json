@@ -1,0 +1,71 @@
+{
+  "at": "2026-11-18T04:40:52.586771+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+  "original_body_hashes": [
+    {
+      "function_index": 846,
+      "bytes": 117,
+      "sha256": "5cfb972902f77ce071b1ebc0ccd14d0043688015dabb7f752ee0a034c8faab54"
+    },
+    {
+      "function_index": 986,
+      "bytes": 7,
+      "sha256": "c0a2279763cc948b214b1eb84ca1349e75850f5b1b72fd9d3489d9618be119fb"
+    },
+    {
+      "function_index": 1351,
+      "bytes": 9,
+      "sha256": "3595a4c7adb694a71fe89000abafb953ff24819249f42ee14685e937bfa13fc4"
+    },
+    {
+      "function_index": 96312,
+      "bytes": 70,
+      "sha256": "2bb11ab8304f891f2fc36f70debf6a9f40eedf96b339dbe90178ba77947c9abe"
+    },
+    {
+      "function_index": 96313,
+      "bytes": 70,
+      "sha256": "492811eb106bff3802e4e0cf0ac0b535d74a02cf23d74acf540fb60def893b2f"
+    },
+    {
+      "function_index": 105269,
+      "bytes": 2012,
+      "sha256": "ff02507261617d28688e5020998f894944e0d098416b3eddd235eec52bbd3afd"
+    }
+  ],
+  "original_source_snippets": [
+    {
+      "function_index": 846,
+      "source": "function f_ofa(a:int_ptr):int { // func846\n  if (eqz(6784780[0]:ubyte)) {\n    f_bw(5627980);\n    6784780[0]:byte = 1;\n  }\n  a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n  if (eqz(a[29])) {\n    f_cw(a);\n    a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n  }\n  var b:int = (a[23])[1]:int;\n  if (eqz(b)) { return 0 }\n  return \n    (if (a[29]) {\n       b\n     } else {\n       f_cw(a);\n       ((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int)[23]:int)[1]:int;\n     })[34]:int;\n}\n\n",
+      "source_sha256": "ded712881504f40e4887ef9d635ed2f2c736680a028ee28f2739d810e9b07dac"
+    },
+    {
+      "function_index": 986,
+      "source": "function f_yka(a:int_ptr, b:int):int { // func986\n  return a[6]\n}\n\n",
+      "source_sha256": "acf511ba41e7edc530d4d4805e170ac12c02cc42de13f12dcf42f6bfcafa8c30"
+    },
+    {
+      "function_index": 1351,
+      "source": "function f_zya(a:int_ptr, b:int, c:int) { // func1351\n  a[6] = b\n}\n\n",
+      "source_sha256": "f2cc65fbb698a3e72caa46f616ad3a9d850a49126477ed1a2d79a3f0c5d77dd2"
+    },
+    {
+      "function_index": 96312,
+      "source": "function f_ille(a:int_ptr):int { // func96312\n  if (eqz(6784785[0]:ubyte)) {\n    f_bw(5627980);\n    6784785[0]:byte = 1;\n  }\n  a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n  return ((if (a[29]) {\n             a\n           } else {\n             f_cw(a);\n             d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n           })[23]:int)[48]:ubyte;\n}\n\n",
+      "source_sha256": "cac0a5eb6f80658b8e63d82f8af23513d5695f1b7c57b13542214d3ab78c0622"
+    },
+    {
+      "function_index": 96313,
+      "source": "function f_jlle(a:int_ptr):int { // func96313\n  if (eqz(6784783[0]:ubyte)) {\n    f_bw(5627980);\n    6784783[0]:byte = 1;\n  }\n  a = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n  return ((if (a[29]) {\n             a\n           } else {\n             f_cw(a);\n             d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n           })[23]:int)[40]:ubyte;\n}\n\n",
+      "source_sha256": "9d892ce94c8e55b55662330aad3e8e354c6c2704927ef7c6893903ffce025f4e"
+    },
+    {
+      "function_index": 105269,
+      "source": "function f_vrye(a:int, b:int) { // func105269\n  b = g_a - 32;\n  g_a = b;\n  if (eqz(6775628[0]:ubyte)) {\n    f_bw(5619996);\n    f_bw(5620632);\n    f_bw(5621884);\n    f_bw(5622868);\n    f_bw(5623260);\n    f_bw(5625568);\n    f_bw(5627456);\n    f_bw(5627968);\n    f_bw(5627980);\n    f_bw(5629400);\n    f_bw(5669972);\n    f_bw(5669820);\n    f_bw(5669892);\n    f_bw(5669860);\n    f_bw(5669876);\n    f_bw(5669924);\n    f_bw(5670112);\n    f_bw(5616480);\n    f_bw(5618340);\n    f_bw(5634068);\n    6775628[0]:byte = 1;\n  }\n  var c:int = a[6]:int;\n  var d:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16180]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  if (f_jba(c, 0)) { if (f_dpb(a[6]:int, 0)) goto B_c }\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n  if ((((if (c[29]:int) {\n           c\n         } else {\n           f_cw(c);\n           d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n         })[23]:int)[1]:int)[20]:int !=\n      15) goto B_e;\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16666]:int;\n  if (eqz(c[29]:int)) { f_cw(c) }\n  if (eqz(f_vmi(0))) goto B_e;\n  c = (d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16308]:int)[23]:int;\n  if (c[0]:ubyte) goto B_c;\n  c[0]:byte = 1;\n  f_znnb(a, b);\n  goto B_c;\n  label B_e:\n  if (a[28]:ubyte) goto B_c;\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n  if (eqz(c[29]:int)) {\n    f_cw(c);\n    c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n  }\n  d = ((c[23]:int)[1]:int)[20]:int;\n  if (d != 14) {\n    if (if (c[29]:int) {\n          d\n        } else {\n          f_cw(c);\n          c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n          ((c[23]:int)[1]:int)[20]:int;\n        }) goto B_c\n  }\n  if (eqz(c[29]:int)) { f_cw(c) }\n  if (eqz(f_qeg(0))) goto B_c;\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n  if (eqz(c[29]:int)) { f_cw(c) }\n  if (eqz(f_ofa(0))) goto B_m;\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n  if (eqz(c[29]:int)) { f_cw(c) }\n  c = f_ofa(0)[6]:int;\n  d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13436]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  if (\n    eqz(\n      f_jx(c, f_lfg(f_rba(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26844]:int), 0), 0))) goto B_m;\n  if (a[8]:int == 11) goto B_m;\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(c[29]:int)) { f_cw(c) }\n  c = f_wruc(0);\n  d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  c = f_lx(c, f_qeg(0)[6]:int, 0);\n  d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  f_oz(c, 0);\n  f_vpib(0);\n  goto B_c;\n  label B_m:\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(c[29]:int)) { f_cw(c) }\n  c = f_sruc(0);\n  d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  c = f_lx(c, f_qeg(0)[6]:int, 0);\n  d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n  if (eqz(d[29])) { f_cw(d) }\n  f_oz(c, 0);\n  f_doy(0);\n  label B_c:\n  d = 1;\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n  if ((((if (c[29]:int) {\n           c\n         } else {\n           f_cw(c);\n           d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n         })[23]:int)[1]:int)[20]:int !=\n      15) goto B_v;\n  if ((a[5]:int)[214]:ubyte) goto B_v;\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16666]:int;\n  if (eqz(c[29]:int)) { f_cw(c) }\n  if (eqz(f_vmi(0))) goto B_v;\n  if (f_tnz(0)) goto B_v;\n  if (f_lkz(0, 0)) goto B_v;\n  if (f_unz(0)) goto B_v;\n  d = 0;\n  if (\n    ((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16308]:int)[23]:int)[1]:ubyte) goto B_v;\n  if (\n    eqz(f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26781]:int)[20]:ubyte)) goto B_v;\n  ((d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16308]:int)[23]:int)[1]:byte = 1;\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15033]:int;\n  if (eqz(c[29]:int)) { f_cw(c) }\n  f_xdo(0, 0);\n  c = f_tmi(0);\n  if (eqz(c)) goto B_v;\n  if (c[58]:ubyte) {\n    if (\n      f_qya(f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26809]:int)[8]:int, 0)) goto B_v;\n    if (f_lqb(0)) {\n      c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15708]:int;\n      if (eqz(c[29]:int)) { f_cw(c) }\n      if (f_flla(0)) goto B_v;\n    }\n    (a[5]:int)[213]:byte = 1;\n  }\n  label B_v:\n  c = a[5]:int;\n  var e:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16180]:int;\n  if (eqz(e[29])) { f_cw(e) }\n  if (f_jba(c, 0)) { f_utnb(a[5]:int, d, 0) }\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15131]:int;\n  if (((if (c[29]:int) {\n          c\n        } else {\n          f_cw(c);\n          d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15131]:int;\n        })[23]:int)[2069]:ubyte) {\n    c = f_sw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[13901]:int, 13);\n    e = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n    if (eqz(e[29])) { f_cw(e) }\n    e = f_nruc(0);\n    b[31]:byte = d;\n    c[4]:int =\n      f_qz(e, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, b + 31), 0);\n    e = f_iruc(0);\n    b[6]:int =\n      (((if ((d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int)[29]) {\n           d\n         } else {\n           f_cw(d);\n           d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16311]:int;\n         })[23]:int)[1]:int)[20]:int;\n    c[5]:int =\n      f_qz(e, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14474]:int, b + 24), 0);\n    d = f_fruc(0);\n    b[23]:byte = (a[5]:int)[214]:ubyte;\n    c[6]:int =\n      f_qz(d, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, b + 23), 0);\n    a = f_cruc(0);\n    d = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[16666]:int;\n    if (eqz(d[29])) { f_cw(d) }\n    b[22]:byte = f_vmi(0);\n    c[7]:int =\n      f_qz(a, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, b + 22), 0);\n    a = f_zquc(0);\n    b[21]:byte =\n      f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26809]:int)[80]:ubyte;\n    c[8]:int =\n      f_qz(a, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, b + 21), 0);\n    a = f_xquc(0);\n    b[20]:byte =\n      f_lao(f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26785]:int), 0);\n    c[9]:int =\n      f_qz(a, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, b + 20), 0);\n    a = f_wquc(0);\n    b[19]:byte =\n      f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26789]:int)[21]:ubyte;\n    c[10]:int =\n      f_qz(a, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, b + 19), 0);\n    a = f_squc(0);\n    b[18]:byte =\n      f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26781]:int)[20]:ubyte;\n    c[11]:int =\n      f_qz(a, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, b + 18), 0);\n    a = f_rquc(0);\n    b[17]:byte =\n      f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26797]:int)[20]:ubyte;\n    c[12]:int =\n      f_qz(a, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, b + 17), 0);\n    a = f_oquc(0);\n    b[16]:byte =\n      f_ux(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[26771]:int)[20]:ubyte;\n    c[13]:int =\n      f_qz(a, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, b + 16), 0);\n    a = f_lquc(0);\n    b[15]:byte = f_tnz(0) ^ 1;\n    c[14]:int =\n      f_qz(a, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, b + 15), 0);\n    a = f_iquc(0);\n    b[14]:byte = f_lkz(0, 0) ^ 1;\n    c[15]:int =\n      f_qz(a, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, b + 14), 0);\n    a = f_gquc(0);\n    b[13]:byte = f_unz(0) ^ 1;\n    (c - -64)[0]:int =\n      f_qz(a, f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, b + 13), 0);\n    a = f_rda(c, 0);\n    c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14787]:int;\n    if (eqz(c[29]:int)) { f_cw(c) }\n    f_ica(a, 0);\n  }\n  g_a = b + 32;\n}\n\n",
+      "source_sha256": "43e046c306da4ea16da813e762c3a4ee90b5d38d80fd06ae9bb2cc9818604e92"
+    }
+  ]
+}

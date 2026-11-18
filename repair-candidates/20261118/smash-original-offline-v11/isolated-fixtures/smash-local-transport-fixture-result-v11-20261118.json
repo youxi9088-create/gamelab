@@ -1,0 +1,20 @@
+{
+  "own_fixture_only": true,
+  "game_executed": false,
+  "original_game_functions_invoked": false,
+  "passed": 12,
+  "checks": [
+    "real local identity and original local transport; only actual Player.UserId mutated; idempotent",
+    "missing or incomplete real core/local content cannot start transport",
+    "foreign or malformed identity rejected without auth/provider mutation",
+    "nonlocal Photon actor never taken over",
+    "existing foreign Player.UserId preserved",
+    "existing online connection refused; only original idle/disconnected states eligible",
+    "real settings/AppSettings/local actor required; no substitute settings",
+    "failed original connect or absent actual offline state stops owner after one attempt",
+    "original real local room/lobby/online state retained; no constant-connected result",
+    "bounded JS ownership, repeat attach idempotent and successful timer cleaned",
+    "waiting for actual data is bounded and reports terminal timeout",
+    "native-call failure not reported as success or retried; no own stack allocation"
+  ]
+}

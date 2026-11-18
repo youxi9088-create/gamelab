@@ -1,0 +1,13 @@
+# 原客户端离线传输接入 v11（尚未实机）
+
+核清原PhotonNetwork本身含离线模式：原ConnectUsingSettings(AppSettings,bool)41676在明确true时调用原OfflineMode setter7186，原setter处理实际本地actor和回调；原Create/JoinRoom25388/41669/41670等保留原离线Room构建10061、真实本地玩家绑定及原房间创建/加入回调。它们都是客户端原有本地分支，不是伪造服务器认证/回执。所有这些提供者、房间属性、关卡规则、玩家/赛车生成、AI及交付门禁都不替换。
+
+原游戏PhotonConnectionManager的Awake105271只读取Firebase身份并配置认证；这个在线身份消费者在本地候选退役。原Update105269原来直接读LoadBalancingClient.State五次，即使原Photon离线getter已有实际大厅15/房间9语义也看不到，可能持续连接中。现在Update前缀要求真实原OfflineMode96313为真；五处raw在线state读取接原NetworkClientState4258，返回的仍是原函数计算出的真实状态，未用常量15或伪造已连接。其余原Update的服务/核心数据/加载UI/推广状态等路径与门禁均保留；原源码、完整指令片段和逐bodySHA存档。
+
+新增本地所有者在原数据适配挂载后250ms等待真实原核心服务、User/Data身份一致、真实目录、原GameData getter和完整应用field16/loading140均满足，才允许本地连接。仅实际已保存的local:UUID身份能接入；使用原Player.UserId getter986/setter1351把同一真实UID传给已存在、isLocal=true的Photon本地actor。另一个玩家的ID或已有活动联网状态都拒绝接管，绝不制造AuthenticationValues、Firebase成功、账号/权限/奖励或网络响应。
+
+原设置对象和AppSettings必须实际存在，只有原idle0/disconnected14可调用41676(settings,true)，不改全局ServerSettings字节，不强断别的连接。原连接失败、异常或调用后实际OfflineMode未成立即停止自己的定时器并明确报错，不把bool返回当成已就绪，不逐帧重试；等待实际输入最长90秒。重复挂载幂等、成功/失败/卸载仅清理自身定时器。真实离线大厅/房间状态仍读原getter；不自动生成房间或伪造比赛/本地AI完成。
+
+12类自编WAT/JS mock隔离检查通过，未实例化或运行任何原游戏函数/资产。完整原Wasm只静态校验exit0；相对v10仅105269/105271变化，其余138264函数体保留，新增2自编函数/2导出，从v5共25自编函数/20导出。原native type/import/table/global/data/metadata字节保持，v7档案/v8教程/v9展示消费者/v10真实本地数据保持。
+
+这版尚未52实机。最后实际运行仍v4蓝色加载，3/5剩2；不将本地传输接入实现称为原菜单/实际房间/赛车与AI/比赛或持久化通过。完整SDK退役和其它运行问题仍待观察，暂无新增待验收。七原生预设、1493物品/48组和162包/44场景变体保持；未知耗时/Token/费用null，原任务/版本/暂停/历史不变，不启动供货。
