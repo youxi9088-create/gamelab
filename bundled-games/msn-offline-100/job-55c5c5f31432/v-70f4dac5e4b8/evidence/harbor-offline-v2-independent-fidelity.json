@@ -1,0 +1,2344 @@
+{
+  "revision": "harbor-offline-v2",
+  "original_sha256": "09184b5d3756f1dcf336a29302760fe1049503d1b9e5776042db6fa796cc7574",
+  "runtime_sha256": "d2735a8aed9e966ee48aaa73d6c531eaa1db8bd9fda326b7c14f047c89688d6c",
+  "canonicalization": "AST data excluding locations/comments/raw spelling; associative &&/|| chains flattened without changing operand order, short-circuit conditions or values. No arithmetic folding or execution.",
+  "module_comparisons": [
+    {
+      "module": "impact.image",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "2dfe5adaeaf201c3dc0ce92fec09f088b18c1b084852091bde97eceb5418a09e",
+      "source_range": [
+        283270,
+        287108
+      ],
+      "adapted_range": [
+        329755,
+        333593
+      ]
+    },
+    {
+      "module": "impact.font",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "e20da746e1927a9a99a047d400b7719f23238e4bb072fbb2cb294e76ab592100",
+      "source_range": [
+        287194,
+        290304
+      ],
+      "adapted_range": [
+        333683,
+        336793
+      ]
+    },
+    {
+      "module": "impact.sound",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "d2d6f3d6d46cba5eb6d9b032704682594f22f71838ffeefdc7e15876b31933a1",
+      "source_range": [
+        290363,
+        300347
+      ],
+      "adapted_range": [
+        336856,
+        346840
+      ]
+    },
+    {
+      "module": "impact.loader",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "7dfce1d6510d5a4828442af8f1db024e02edfbac92a6dc91f18ec2cccb9873c2",
+      "source_range": [
+        300464,
+        302798
+      ],
+      "adapted_range": [
+        346963,
+        349297
+      ]
+    },
+    {
+      "module": "impact.timer",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "d68e11e3232bee38d976fbfb2bb04477661a8ccd7834da59e66d538b2e93bec8",
+      "source_range": [
+        302857,
+        304009
+      ],
+      "adapted_range": [
+        349360,
+        350512
+      ]
+    },
+    {
+      "module": "impact.system",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "015f99ce035a382584fb68f4e1ca9133ec23cb6ae7ac3a67a6b31fc361acdeb7",
+      "source_range": [
+        304112,
+        307112
+      ],
+      "adapted_range": [
+        350620,
+        353620
+      ]
+    },
+    {
+      "module": "impact.input",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "307723eef7a8e815dd2a506ff98c08f90faeb702d9680441d842401f45017da2",
+      "source_range": [
+        307171,
+        313837
+      ],
+      "adapted_range": [
+        353683,
+        360349
+      ]
+    },
+    {
+      "module": "impact.impact",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "bb9130a0c01fe0f0c20bb5375a07c78a423156207bda563cf5bb12925cf1e85e",
+      "source_range": [
+        313984,
+        314362
+      ],
+      "adapted_range": [
+        360504,
+        360882
+      ]
+    },
+    {
+      "module": "impact.animation",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "56a42342a6731b523b8e4cc19cc06668258126bde67a02bd6d59f264987be641",
+      "source_range": [
+        314468,
+        316893
+      ],
+      "adapted_range": [
+        360993,
+        363418
+      ]
+    },
+    {
+      "module": "impact.entity",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "77178b1c2b08b350b39b9baff3a9d5547eb1ad5141e64b9dd31baadcfafb8357",
+      "source_range": [
+        317001,
+        326971
+      ],
+      "adapted_range": [
+        363531,
+        373501
+      ]
+    },
+    {
+      "module": "impact.map",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "e3c6d6eadd222fe55e9f0bf4aa0c93c796a84fb285da199fe92c12f8757f97e2",
+      "source_range": [
+        327028,
+        327991
+      ],
+      "adapted_range": [
+        373562,
+        374525
+      ]
+    },
+    {
+      "module": "impact.collision-map",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "6d8664655da9791ba0b4d816c38635476d3b20382123281395e5cadf31062463",
+      "source_range": [
+        328084,
+        335318
+      ],
+      "adapted_range": [
+        374622,
+        381856
+      ]
+    },
+    {
+      "module": "impact.background-map",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "b76af6f9a8b3d6e52316c572d7c04e1be76a2425e03738e668bdecab5168b1c8",
+      "source_range": [
+        335427,
+        341631
+      ],
+      "adapted_range": [
+        381970,
+        388174
+      ]
+    },
+    {
+      "module": "impact.game",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "de2a0db6bc0b26d051e58a1e29b18a5131938ea25d1cfeeb1f4b08fe9f93d214",
+      "source_range": [
+        341781,
+        348506
+      ],
+      "adapted_range": [
+        388331,
+        395056
+      ]
+    },
+    {
+      "module": "plugins.patches.fps-limit-patch",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "f094ae7d0453aff4f034ca080f0f98c437d27d5ce98de19b2efa0947ec94607a",
+      "source_range": [
+        348629,
+        349882
+      ],
+      "adapted_range": [
+        395184,
+        396437
+      ]
+    },
+    {
+      "module": "plugins.patches.timer-patch",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "773ab7e1c55a4812fc2b13c331598d5a666c588b2381a85929b2b1d0539bded2",
+      "source_range": [
+        349984,
+        350260
+      ],
+      "adapted_range": [
+        396543,
+        396819
+      ]
+    },
+    {
+      "module": "plugins.patches.user-agent-patch",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "84386d35aa35903b343f79c6c001a829fa0d72185e348db77387628603981783",
+      "source_range": [
+        350368,
+        351379
+      ],
+      "adapted_range": [
+        396931,
+        397942
+      ]
+    },
+    {
+      "module": "plugins.patches.webkit-image-smoothing-patch",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "56bc456ef1e8c97a559dde89669b79c38cabd773d5e6fd64885753830a880ec8",
+      "source_range": [
+        351470,
+        352297
+      ],
+      "adapted_range": [
+        398037,
+        398864
+      ]
+    },
+    {
+      "module": "plugins.patches.windowfocus-onMouseDown-patch",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "081caaca2861dc4a70a70b5bbf5b083601448fb4dd354705bbf1721299690f89",
+      "source_range": [
+        352417,
+        353229
+      ],
+      "adapted_range": [
+        398988,
+        399800
+      ]
+    },
+    {
+      "module": "plugins.patches.input-patch",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "1184d0344dbf01d42c60b2d084907a0495a1e9d6cd55bb7d5f97f9977b4c240b",
+      "source_range": [
+        353331,
+        354034
+      ],
+      "adapted_range": [
+        399906,
+        400609
+      ]
+    },
+    {
+      "module": "plugins.data.vector",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "9fe5c0e608732f368f0c6a6012d3c9f67affe9012960ae8267bc47af1a6ef240",
+      "source_range": [
+        354100,
+        358173
+      ],
+      "adapted_range": [
+        400679,
+        404752
+      ]
+    },
+    {
+      "module": "plugins.data.color-rgb",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "20cecc679f10bfd7f8bb00614bffa6ceba428aea10b8e3f8291f293a72baacb7",
+      "source_range": [
+        358242,
+        359240
+      ],
+      "adapted_range": [
+        404825,
+        405823
+      ]
+    },
+    {
+      "module": "plugins.math.sat",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "9fd3068a1cd79612379e700e5f03872575b5fa8082b18c74e373ee4bde0e2478",
+      "source_range": [
+        359303,
+        367582
+      ],
+      "adapted_range": [
+        405890,
+        414169
+      ]
+    },
+    {
+      "module": "plugins.pointer",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "0098848db2ee10b1fb8d3b54fa0107ad86c464daf2b8e4fb18274e34acb91a9a",
+      "source_range": [
+        367687,
+        369038
+      ],
+      "adapted_range": [
+        414279,
+        415630
+      ]
+    },
+    {
+      "module": "game.plugin",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "06da8afb9f25d434103ccf9b43d0a7c6ce33de1806dd7934f9d62726cc140800",
+      "source_range": [
+        369154,
+        375603
+      ],
+      "adapted_range": [
+        415752,
+        422201
+      ]
+    },
+    {
+      "module": "plugins.font.font-info",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "94287f72a2942a99906280330139957e899a4935914daaa5e4c766c8c6a3fc19",
+      "source_range": [
+        375701,
+        377074
+      ],
+      "adapted_range": [
+        422303,
+        423676
+      ]
+    },
+    {
+      "module": "plugins.font.font-loader",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "a87b6c2d34f5ff7e1332468d627e87db4c164baabaebcd1115de9f2fff246498",
+      "source_range": [
+        377215,
+        378311
+      ],
+      "adapted_range": [
+        423823,
+        424919
+      ]
+    },
+    {
+      "module": "plugins.handlers.dom-handler",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "79b44230a2e95f1bb1488fdeeba45b3912c93791cfdcad88807c7b6b5d8b4d61",
+      "source_range": [
+        378386,
+        385030
+      ],
+      "adapted_range": [
+        424998,
+        431642
+      ]
+    },
+    {
+      "module": "plugins.handlers.size-handler",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "13118bf674c33f8883eb697d04fcc6a195ecac73157c53ba298dbd5cbf480bf6",
+      "source_range": [
+        385141,
+        399181
+      ],
+      "adapted_range": [
+        431757,
+        445797
+      ]
+    },
+    {
+      "module": "plugins.handlers.api-handler",
+      "present": false,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "81eff804f2df85be57443094db5960fdf6e8ca0a575e2222c6b67f8e70a0008d",
+      "source_range": [
+        399256,
+        400116
+      ],
+      "adapted_range": null
+    },
+    {
+      "module": "plugins.audio.howler-player",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "0a380d69d15a8be4b7be7b5d56c668be039f5b81606ad318d1015daaba909dd3",
+      "source_range": [
+        400190,
+        403852
+      ],
+      "adapted_range": [
+        445903,
+        449565
+      ]
+    },
+    {
+      "module": "plugins.audio.sound-info",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "368c3328ca0928bce91daa08ecb61ee34a7d69e586a5f46c2ceed24856b5f805",
+      "source_range": [
+        403923,
+        404430
+      ],
+      "adapted_range": [
+        449640,
+        450147
+      ]
+    },
+    {
+      "module": "plugins.audio.sound-handler",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "c0bc9821953a68b4e5adc50d0410f7bcf1f087450b363813ad3d9bd6b88f8a44",
+      "source_range": [
+        404574,
+        406086
+      ],
+      "adapted_range": [
+        450296,
+        451808
+      ]
+    },
+    {
+      "module": "plugins.handlers.visibility-handler",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "7cad5f899680b8f40be2cbac5db2672f0679470e6e61c480309d57e10fac33d6",
+      "source_range": [
+        406211,
+        414309
+      ],
+      "adapted_range": [
+        451937,
+        460035
+      ]
+    },
+    {
+      "module": "plugins.io.storage",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "eadba1ca03d9038fadeda3faf8b33b9467fb5dda7aadf517f90e5afb8e2ceef8",
+      "source_range": [
+        414374,
+        415838
+      ],
+      "adapted_range": [
+        460104,
+        461568
+      ]
+    },
+    {
+      "module": "plugins.io.mouse",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "ca850e9c7938a3748e6963431f5c1312cefb7634906cce5aea1641b3560ea1b5",
+      "source_range": [
+        415936,
+        416802
+      ],
+      "adapted_range": [
+        461670,
+        462536
+      ]
+    },
+    {
+      "module": "plugins.io.keyboard",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "d30d61851e5dec0c72e45bc21cb00547971d824822d33ec4ab1f01a076d5f9cb",
+      "source_range": [
+        416868,
+        417552
+      ],
+      "adapted_range": [
+        462606,
+        463290
+      ]
+    },
+    {
+      "module": "plugins.io.gamepad-input",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "c3c508f3870c24a6f1dd77e229e2677f11db560c3d11327533185f2236344abd",
+      "source_range": [
+        417623,
+        421614
+      ],
+      "adapted_range": [
+        463365,
+        467356
+      ]
+    },
+    {
+      "module": "plugins.io.gamepad",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "a74c2aa65bc07cdda9b7f082b95d5e24f085793417a89729d2c89cc48d69bf3c",
+      "source_range": [
+        421719,
+        422125
+      ],
+      "adapted_range": [
+        467465,
+        467871
+      ]
+    },
+    {
+      "module": "plugins.io.multitouch",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "b850ea21939e3633c03a07639c59cfe7e9afb33e308e7de606c2e8085c921f7b",
+      "source_range": [
+        422193,
+        422647
+      ],
+      "adapted_range": [
+        467943,
+        468397
+      ]
+    },
+    {
+      "module": "plugins.io.multitouch-input",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "a41888ae0ecc45c6c6d37d8c7d3564e2acfad3233b9e06c9bfd17ebfc2407075",
+      "source_range": [
+        422721,
+        432038
+      ],
+      "adapted_range": [
+        468475,
+        477792
+      ]
+    },
+    {
+      "module": "plugins.io.fake-storage",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "5743bbda6643d48caaa5cd0ab53c1a486a36e001905f9bad45c78370c169ba62",
+      "source_range": [
+        432135,
+        433083
+      ],
+      "adapted_range": [
+        477893,
+        478841
+      ]
+    },
+    {
+      "module": "plugins.io.io-manager",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "ac251f6c4a49546f351bc5e25f32f59f4cb8aa0ef91560938ef493eebd127702",
+      "source_range": [
+        433354,
+        436015
+      ],
+      "adapted_range": [
+        479123,
+        481784
+      ]
+    },
+    {
+      "module": "plugins.io.storage-manager",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "647c9a96f2aa218d584ae4aef59fdce5b4cd59f421c23ab6a9035914ad083fef",
+      "source_range": [
+        436139,
+        437898
+      ],
+      "adapted_range": [
+        481913,
+        483672
+      ]
+    },
+    {
+      "module": "plugins.splash-loader",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "0016e536a99c3c293fdac4e55556e6c2c202e56bd360eabf0cae48f4f0d6e9fa",
+      "source_range": [
+        438014,
+        442348
+      ],
+      "adapted_range": [
+        483793,
+        488660
+      ]
+    },
+    {
+      "module": "plugins.tween",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "586b24590b874d36c976c9085051979492bfc92af6f8ae25b5dd92cbf0d02bdf",
+      "source_range": [
+        442437,
+        454347
+      ],
+      "adapted_range": [
+        488753,
+        500663
+      ]
+    },
+    {
+      "module": "plugins.patches.entity-patch",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "6f7025c130933320e846561fc0314d1d87dfe4302f7d64c435bbf9df228ef09f",
+      "source_range": [
+        454451,
+        455767
+      ],
+      "adapted_range": [
+        500771,
+        502087
+      ]
+    },
+    {
+      "module": "plugins.tweens-handler",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "7942a7b124cbd873c92b6fba7cb7c7868d02c8df11535e6e73d3c67b290adcfb",
+      "source_range": [
+        455912,
+        466122
+      ],
+      "adapted_range": [
+        502238,
+        512448
+      ]
+    },
+    {
+      "module": "plugins.url-parameters",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "7c13d547d68d44acf8ae50a88c948c1fd53d2e920f8bc2568afcda6df06175de",
+      "source_range": [
+        466191,
+        466778
+      ],
+      "adapted_range": [
+        512521,
+        513108
+      ]
+    },
+    {
+      "module": "plugins.director",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "ee1c654dd25fded3d6560c2a4e4987c8bc9bcc30b326d2b28b08634562e49d8a",
+      "source_range": [
+        466870,
+        468393
+      ],
+      "adapted_range": [
+        513204,
+        514727
+      ]
+    },
+    {
+      "module": "plugins.impact-storage",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "68c523adf8653ad9dade20ffa81a0430a3d57bae34c346f9968f2a739f60a618",
+      "source_range": [
+        468489,
+        469955
+      ],
+      "adapted_range": [
+        514827,
+        516293
+      ]
+    },
+    {
+      "module": "plugins.fullscreen",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "1c3880780c9028d68dd66915cca8d22f2b9bf9ed9826464b87476f26169635a4",
+      "source_range": [
+        470100,
+        477896
+      ],
+      "adapted_range": [
+        516444,
+        524240
+      ]
+    },
+    {
+      "module": "plugins.multilang",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "14501e8ee3a3c18b97e4f3aa156183fc8f0c23c837fbebd2d962a0a9fdbc283f",
+      "source_range": [
+        478021,
+        493590
+      ],
+      "adapted_range": [
+        524371,
+        539940
+      ]
+    },
+    {
+      "module": "plugins.chat-bubble.factory.text",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "3f74416fe757d40fdcf1b52c7e70f0c4d37294edd70c383fee9e9fecb911eea3",
+      "source_range": [
+        493720,
+        496334
+      ],
+      "adapted_range": [
+        540080,
+        542694
+      ]
+    },
+    {
+      "module": "plugins.chat-bubble.factory.avatar",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "19f8f1e32acacb2200c4c25edbfd53f5d546de46c182b605a5a50eca4bc4354c",
+      "source_range": [
+        496415,
+        497714
+      ],
+      "adapted_range": [
+        542779,
+        544078
+      ]
+    },
+    {
+      "module": "plugins.chat-bubble.factory.bubble",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "bfc38ea0b689389f5877291af222f89c2e9abcdd6ce165ec0a9bf026bd1321f6",
+      "source_range": [
+        497795,
+        505355
+      ],
+      "adapted_range": [
+        544163,
+        551723
+      ]
+    },
+    {
+      "module": "plugins.chat-bubble.chat-bubble-factory",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "e0005df1715dc22634968152eb691d754a569997366c419705f2cd8fd5a71804",
+      "source_range": [
+        505563,
+        507018
+      ],
+      "adapted_range": [
+        551937,
+        553392
+      ]
+    },
+    {
+      "module": "plugins.chat-bubble.chat-bubble",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "02a346095e5df6fdbf652ea6d6d501a8997bf76e83736e51bc1ac2355628fdf9",
+      "source_range": [
+        507167,
+        511439
+      ],
+      "adapted_range": [
+        553546,
+        557818
+      ]
+    },
+    {
+      "module": "plugins.chat-bubble.chat-bubble-manager",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "378201d6f0ae220da7c02f9863a298fb66e9d6d5a48e43bd3645b1cf8bac2ee0",
+      "source_range": [
+        511586,
+        512483
+      ],
+      "adapted_range": [
+        557970,
+        558867
+      ]
+    },
+    {
+      "module": "plugins.microsoft",
+      "present": false,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "ae4cc1a770aed9bb4ed712bb68f63898d43a94b5c2e6454fd2270d9db4fbdf6b",
+      "source_range": [
+        512591,
+        555406
+      ],
+      "adapted_range": null
+    },
+    {
+      "module": "plugins.branding.splash",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "170fbcd2b599c8179a8ae477c3c4b60ff107dea09ea00152a093f53fe543fe94",
+      "source_range": [
+        555551,
+        559665
+      ],
+      "adapted_range": [
+        559046,
+        563160
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "2f58ec211d164af00e05245834fdeca563daf76e1333fcbc509f5ec7633d654e",
+      "source_range": [
+        559797,
+        561306
+      ],
+      "adapted_range": [
+        563297,
+        564806
+      ]
+    },
+    {
+      "module": "plugins.clickable-div-layer",
+      "present": false,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "5f714475eea1ad8946dea1c564e1ca868514e3483234ecf3fcc52b729adeec25",
+      "source_range": [
+        561415,
+        566183
+      ],
+      "adapted_range": null
+    },
+    {
+      "module": "game.entities.buttons.button-branding-logo",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "da92ed13c5dbcd6c7f60d4df0639fa679ba9d89743a8354382a6f18888d0776b",
+      "source_range": [
+        566346,
+        568020
+      ],
+      "adapted_range": [
+        564968,
+        566598
+      ]
+    },
+    {
+      "module": "game.entities.branding-logo-placeholder",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "57ba50022286444e6626a9102aed49473ac31d993a63bf5e432b7ede764f5619",
+      "source_range": [
+        568180,
+        569229
+      ],
+      "adapted_range": [
+        566763,
+        567812
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-more-games",
+      "present": false,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "f987918946baaab5e70a10b46e97ea20e00a133f2e52a3354626c5c37f041847",
+      "source_range": [
+        569389,
+        570415
+      ],
+      "adapted_range": null
+    },
+    {
+      "module": "game.entities.pointer",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "df5e8b94025acd90a737343ca7c0dedb6d47624c3a9ee79dfd118d4e5ba916ba",
+      "source_range": [
+        570512,
+        572919
+      ],
+      "adapted_range": [
+        567941,
+        570348
+      ]
+    },
+    {
+      "module": "game.entities.pointer-selector",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "26a1433e7407bf7f6653473c05b8d37bc2030c1715075abfa28699d8bfbedb40",
+      "source_range": [
+        573033,
+        573295
+      ],
+      "adapted_range": [
+        570466,
+        570728
+      ]
+    },
+    {
+      "module": "game.entities.select",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "12950efdda433376808fcc3f742f79e67ad48ed8afff1d6b1da0b65d52ecb511",
+      "source_range": [
+        573391,
+        576302
+      ],
+      "adapted_range": [
+        570828,
+        573739
+      ]
+    },
+    {
+      "module": "game.entities.demo-control",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "7a2ffcd5ef259e5773bbcf9c5b59bd01a42abc4e6a5bd73ce779ab6b96253b54",
+      "source_range": [
+        576404,
+        580956
+      ],
+      "adapted_range": [
+        573845,
+        579080
+      ]
+    },
+    {
+      "module": "game.levels.demo",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "08818765b27c21dc97e3defd621b0d656b5dbf7b67863a7a927cef2edae5de55",
+      "source_range": [
+        581061,
+        581154
+      ],
+      "adapted_range": [
+        579189,
+        579282
+      ]
+    },
+    {
+      "module": "game.entities.marketjs-splash",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "2ed0e70584897df78d967c123bbaf84e0c7e2f70da7185ef5c4441499bfc772d",
+      "source_range": [
+        581259,
+        585830
+      ],
+      "adapted_range": [
+        579391,
+        583962
+      ]
+    },
+    {
+      "module": "game.levels.opening",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "5d2eef6104e151aa97dd455173a412b17dd4b2e57ca5c3509afc036cbce2762f",
+      "source_range": [
+        585956,
+        586055
+      ],
+      "adapted_range": [
+        584093,
+        584192
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-play",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "e1b22bb511d59960d2a22643279d170a2fede2d250785de09ac20600c3567794",
+      "source_range": [
+        586179,
+        586788
+      ],
+      "adapted_range": [
+        584320,
+        584885
+      ]
+    },
+    {
+      "module": "game.entities.ui.popup",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "4eddc17f07b51cbc88ac9835f6a9c8c45d3dca7c1073af639764c48d9af62f6f",
+      "source_range": [
+        586886,
+        589615
+      ],
+      "adapted_range": [
+        584987,
+        587716
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-popup",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "5666241acc88d29ce3f515b04696d8c8a5f4d7bd4f17df157f6122f2ef0da320",
+      "source_range": [
+        589740,
+        590261
+      ],
+      "adapted_range": [
+        587845,
+        588366
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-back",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "5d013f108c5c37bc1d2cf62d02c1f8bae8984d98b6c8fb6ada6e14aa2ad3908b",
+      "source_range": [
+        590391,
+        590569
+      ],
+      "adapted_range": [
+        588500,
+        588678
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-audio",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "da12b52b0f1c6b7e47a3ca7b5afb1f596e2f79d98548efcdcd5c70cbb1ae9fc6",
+      "source_range": [
+        590700,
+        592515
+      ],
+      "adapted_range": [
+        588813,
+        590628
+      ]
+    },
+    {
+      "module": "game.entities.ui.popup-settings",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "7caccad1d664c813c63bffee50792e1c76ad621fb4a4edec7b00d3fe980990af",
+      "source_range": [
+        592704,
+        593556
+      ],
+      "adapted_range": [
+        590823,
+        591860
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-settings",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "3b12a9ddec5df6ab4ee70ff371a6ec1cb2edd0bd25ccfdf899453a9f80a259fa",
+      "source_range": [
+        593718,
+        594286
+      ],
+      "adapted_range": [
+        592027,
+        592555
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-info",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "689ca7d0546fd6da74c43e0c02f2acb111dccc83585e0380ecf6d232c9ac38f7",
+      "source_range": [
+        594410,
+        594607
+      ],
+      "adapted_range": [
+        592683,
+        592880
+      ]
+    },
+    {
+      "module": "game.entities.ui.canvas-element",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "614e13b58cf76aa42830d0c3ad6dbafd990638a99ec607e58c0a3e5206c198b4",
+      "source_range": [
+        594714,
+        613859
+      ],
+      "adapted_range": [
+        592991,
+        612136
+      ]
+    },
+    {
+      "module": "game.entities.ui.drag-point",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "f359541b5a89dfa482c1ad9fdf02c4f56a08f0a9c53c9a9b1f357f1d65fe195a",
+      "source_range": [
+        613962,
+        622452
+      ],
+      "adapted_range": [
+        612243,
+        620733
+      ]
+    },
+    {
+      "module": "game.entities.spawn-grid",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "bd0d899c14a04a7886ae91de881637adaf065a1b894e43982ab90ec86a32627e",
+      "source_range": [
+        622616,
+        626768
+      ],
+      "adapted_range": [
+        620903,
+        625055
+      ]
+    },
+    {
+      "module": "game.entities.controls.home",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "b234166fc3061ad10ef3ebc49bc8af04877b64abeac4f546eac1d38a67c4a2dd",
+      "source_range": [
+        626994,
+        628444
+      ],
+      "adapted_range": [
+        625288,
+        626870
+      ]
+    },
+    {
+      "module": "game.levels.level-home",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "9a1bfdadee24f5e98bc99a64569fd6d0872db7b0e14a34cf4a2413c7b8c6d795",
+      "source_range": [
+        628556,
+        628642
+      ],
+      "adapted_range": [
+        626986,
+        627072
+      ]
+    },
+    {
+      "module": "game.entities.ui.map",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "e77294259e6fc7c842b5b46df9f757e042e2237611847726ef44610566e6677f",
+      "source_range": [
+        628738,
+        631476
+      ],
+      "adapted_range": [
+        627172,
+        629910
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-home",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "ffa6d513b0f05b9203e5c0f83707f21188b9ee80430840ef31efddc4e9f61a0f",
+      "source_range": [
+        631606,
+        632275
+      ],
+      "adapted_range": [
+        630044,
+        630699
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-map",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "5097636f78d50df3f6cd04fdae5b8191267cf002dfa87b16afd4d59140f07f8d",
+      "source_range": [
+        632398,
+        633361
+      ],
+      "adapted_range": [
+        630826,
+        631789
+      ]
+    },
+    {
+      "module": "game.entities.ui.pointer-events",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "40f1669c14cddc6532c46cdec6662365c8961665b79c6b7dc8603c34d743606c",
+      "source_range": [
+        633468,
+        637571
+      ],
+      "adapted_range": [
+        631900,
+        636003
+      ]
+    },
+    {
+      "module": "game.level-data.coastal-cove",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "98dc3ec9dbca8d3b28ec516af77fac3bcdd4d3e1e61308433b7318a995f22284",
+      "source_range": [
+        637675,
+        639021
+      ],
+      "adapted_range": [
+        636111,
+        637457
+      ]
+    },
+    {
+      "module": "game.level-data.anchor-point",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "002b76bd6d43f49699a12c820d016c2afdf424cb898d600595ff4729fd31db71",
+      "source_range": [
+        639125,
+        641325
+      ],
+      "adapted_range": [
+        637565,
+        639765
+      ]
+    },
+    {
+      "module": "game.level-data.port-city",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "c8adc7c83aae6a7af2b3b0eea89f6e79fde5da3aa16f3599cd28bfa2a3d2a9ab",
+      "source_range": [
+        641426,
+        642796
+      ],
+      "adapted_range": [
+        639870,
+        641240
+      ]
+    },
+    {
+      "module": "game.level-data.st-helens",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "78e75fc76cf0dce0a3ae816b91deab6f83b47c792b25152db1b782666063952c",
+      "source_range": [
+        642897,
+        645426
+      ],
+      "adapted_range": [
+        641345,
+        643874
+      ]
+    },
+    {
+      "module": "game.level-data.river-docks",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "1d70d93dc48b8cca73dd49a04fa8850919c9b8b794cbbf3facc054bad773fb43",
+      "source_range": [
+        645529,
+        647007
+      ],
+      "adapted_range": [
+        643981,
+        645459
+      ]
+    },
+    {
+      "module": "game.level-data.grotrie-port",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "261912a4cdb3b6e4546871c61dc0a915f1bdad0002633d1eaf5c7b84044ac2a8",
+      "source_range": [
+        647111,
+        649380
+      ],
+      "adapted_range": [
+        645567,
+        647836
+      ]
+    },
+    {
+      "module": "game.level-data.bremerhaven",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "cfda0e708790415d0e26fdb2856a62b8d1ba1b3061ae6b23e2569bd65692e96c",
+      "source_range": [
+        649483,
+        652019
+      ],
+      "adapted_range": [
+        647943,
+        650479
+      ]
+    },
+    {
+      "module": "game.level-data.oslo",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "5764c1c2b04dfa5b2cee6126ece3598b914f53307cd335f7d9f5e0be992f618b",
+      "source_range": [
+        652115,
+        654963
+      ],
+      "adapted_range": [
+        650579,
+        653427
+      ]
+    },
+    {
+      "module": "game.level-data.gothenburg",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "a31da3af1ae11e541e1f6ae6fc1695489e85866e65a95d0d985702cd96f43064",
+      "source_range": [
+        655065,
+        657129
+      ],
+      "adapted_range": [
+        653533,
+        655597
+      ]
+    },
+    {
+      "module": "game.level-data.rotterdam",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "c7a6c50a29796099c3e788df8c5fb6345f0fceb9d43161a56a67516b5cd5934e",
+      "source_range": [
+        657230,
+        659247
+      ],
+      "adapted_range": [
+        655702,
+        657719
+      ]
+    },
+    {
+      "module": "game.level-data.shanghai",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "a7bfdb6b5e916a50a23037acd2300313903b7481ca2d913de7f061926bbb5e30",
+      "source_range": [
+        659347,
+        661455
+      ],
+      "adapted_range": [
+        657823,
+        659931
+      ]
+    },
+    {
+      "module": "game.level-data.helsinki",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "dc5ddc0684c5e3a47073ed0e8629b6b0bd4eb238aba84eb22f92935718459b9a",
+      "source_range": [
+        661555,
+        663677
+      ],
+      "adapted_range": [
+        660035,
+        662157
+      ]
+    },
+    {
+      "module": "game.level-data.hamburg",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "2443d5dbb204a26014dce1fd773dc3bb466714f764567bd275294a6fbc385e15",
+      "source_range": [
+        663776,
+        665396
+      ],
+      "adapted_range": [
+        662260,
+        663880
+      ]
+    },
+    {
+      "module": "game.level-data.wilhelmshaven",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "ce5baadf8c0cb9db056f1b32cce949cb6716f78b78240654c882cb522c1c0117",
+      "source_range": [
+        665501,
+        668307
+      ],
+      "adapted_range": [
+        663989,
+        666795
+      ]
+    },
+    {
+      "module": "game.level-data.havre",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "7e214bd3f45a0b1874206d5130101d282fe5a3a218d8a76bd1e7645983f6992a",
+      "source_range": [
+        668404,
+        670208
+      ],
+      "adapted_range": [
+        666896,
+        668700
+      ]
+    },
+    {
+      "module": "game.level-data.rostock",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "e9860eb6ef181592da4f913a18ea82edc8d8ea99d8d785df3ff19f361d38a67b",
+      "source_range": [
+        670307,
+        672186
+      ],
+      "adapted_range": [
+        668803,
+        670682
+      ]
+    },
+    {
+      "module": "game.level-data.antwerp",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "9bb1474b923518cec39aebc04cd5ad5d9814055bb0528508893207d6903fbc82",
+      "source_range": [
+        672285,
+        674223
+      ],
+      "adapted_range": [
+        670785,
+        672723
+      ]
+    },
+    {
+      "module": "game.level-data.amsterdam",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "831ff5553a5aabc1d96cc8647d6c939f4eedbef0673488a99ec39e8f8e10a649",
+      "source_range": [
+        674324,
+        676158
+      ],
+      "adapted_range": [
+        672828,
+        674662
+      ]
+    },
+    {
+      "module": "game.level-data.felixstowe",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "af7569e8f0ea9c3696ed9f2aa79f50d88e8a1621c61263623a93e4a304110e9f",
+      "source_range": [
+        676260,
+        679163
+      ],
+      "adapted_range": [
+        674768,
+        677671
+      ]
+    },
+    {
+      "module": "game.level-data.marseille",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "9a47337ccf9c689f708aaa5ce719b46dee47a47065e34f29a7c6424575e3d952",
+      "source_range": [
+        679264,
+        681444
+      ],
+      "adapted_range": [
+        677776,
+        679956
+      ]
+    },
+    {
+      "module": "game.level-data.game-data",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "939f1b3c00011334a9c35aba68c819d55c0d416b0b3aa39464dfc0ce439212ef",
+      "source_range": [
+        682107,
+        682877
+      ],
+      "adapted_range": [
+        680643,
+        681413
+      ]
+    },
+    {
+      "module": "game.entities.controls.level-select",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "089300df61a5d85c3b8a5dcb9ed6ff2d2cbb78e06cc95b17f51ed2f7a82b6fd9",
+      "source_range": [
+        683192,
+        690863
+      ],
+      "adapted_range": [
+        681738,
+        689409
+      ]
+    },
+    {
+      "module": "game.levels.level-select",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "05622bc86656b0700f91605431f9da93966d10347754fffd7914ffd94373486d",
+      "source_range": [
+        690985,
+        691080
+      ],
+      "adapted_range": [
+        689535,
+        689630
+      ]
+    },
+    {
+      "module": "game.entities.objects.ship",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "410c4fca9d2bd487f6d000aa13fe31477f4bf5b615c9406781339e69a64ca844",
+      "source_range": [
+        691182,
+        724616
+      ],
+      "adapted_range": [
+        689736,
+        723170
+      ]
+    },
+    {
+      "module": "game.entities.objects.dock",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "d99ecb28d4d501cbbbb032eb928ee19c418443363b2fff5e34d34c596a512767",
+      "source_range": [
+        724718,
+        733291
+      ],
+      "adapted_range": [
+        723276,
+        731849
+      ]
+    },
+    {
+      "module": "game.entities.ui.shape-point",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "8bb791ecc3c27247400f973070aa545b6fd77929c0d7a4ef1ec036a12aeb10c1",
+      "source_range": [
+        733395,
+        740517
+      ],
+      "adapted_range": [
+        731957,
+        739079
+      ]
+    },
+    {
+      "module": "game.entities.objects.island",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "0a0508c8d8966b60c2ae06f2aeac191c5bc98b627f6627603ac945f27777b2c3",
+      "source_range": [
+        740682,
+        746282
+      ],
+      "adapted_range": [
+        739250,
+        744850
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-replay",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "720943dbc2ad904f7db79af72a2711d173585f4243779a0ce206f2f3dc2844a9",
+      "source_range": [
+        746414,
+        746907
+      ],
+      "adapted_range": [
+        744986,
+        745433
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-share",
+      "present": false,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "08a1fb47657a36f8b5f039d3fccf0b3398235ee6f067307abb62c362830ece14",
+      "source_range": [
+        747038,
+        747423
+      ],
+      "adapted_range": null
+    },
+    {
+      "module": "game.entities.ui.popup-over",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "8b41d94eb949d63782d9f881c9749c830e4de1b2c064ebecaaa3bce717f41712",
+      "source_range": [
+        747646,
+        751089
+      ],
+      "adapted_range": [
+        745653,
+        749660
+      ]
+    },
+    {
+      "module": "game.entities.objects.typhoon",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "10d512a78f20cec524c4a0e5fd435b9243469d085929e6a9789b1dac9c36da56",
+      "source_range": [
+        751194,
+        755807
+      ],
+      "adapted_range": [
+        749769,
+        754382
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-resume",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "02f2c0b42117b90f4fe5519d4e6f961a5cf2699bb50f4431d2435412526e3599",
+      "source_range": [
+        755939,
+        756129
+      ],
+      "adapted_range": [
+        754518,
+        754708
+      ]
+    },
+    {
+      "module": "game.entities.ui.popup-pause",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "52d746314cf56ccb2bc2a5336dc5d8f256d854ff479774544f864772a3012343",
+      "source_range": [
+        756391,
+        758061
+      ],
+      "adapted_range": [
+        754978,
+        757100
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-revive-yes",
+      "present": false,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "aa85f8f54d928556e31b10b3c57cd1d1b5eea3994e92eb5887cad7850cf77dde",
+      "source_range": [
+        758197,
+        758386
+      ],
+      "adapted_range": null
+    },
+    {
+      "module": "game.entities.buttons.button-revive-no",
+      "present": false,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "e1b8f88360b94f692e6941c93bf6bb78332ed4fdf8e312edd0de4f70caff390f",
+      "source_range": [
+        758521,
+        758758
+      ],
+      "adapted_range": null
+    },
+    {
+      "module": "game.entities.controls.rv-sample-control",
+      "present": false,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "253d2c3745d23d2860938137f232c3f3a39bdcbe76d7baa40be5ba709fe473ab",
+      "source_range": [
+        758874,
+        760059
+      ],
+      "adapted_range": null
+    },
+    {
+      "module": "game.entities.controls.ad-not-available-control",
+      "present": false,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "caea30d40650c4d1d828d5235aea5b01d9a47fb43916daed219706518c9977de",
+      "source_range": [
+        760182,
+        761464
+      ],
+      "adapted_range": null
+    },
+    {
+      "module": "game.entities.ui.popup-revive",
+      "present": false,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "47f807472b522fa3fda1d87133363409d1ea45870d284ed42f943cd9cd4307bb",
+      "source_range": [
+        761791,
+        763257
+      ],
+      "adapted_range": null
+    },
+    {
+      "module": "game.entities.buttons.button-pause",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "ee11182455684937bfc387770c88d9f8d6b7809cc75e2fdb342b0f743362c5cf",
+      "source_range": [
+        763445,
+        764410
+      ],
+      "adapted_range": [
+        757401,
+        758428
+      ]
+    },
+    {
+      "module": "game.entities.buttons.button-speed",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "63fc6b9a62a5abb1dabfdb30dae565995cdc0c4171f7ec84a7787e40375017f4",
+      "source_range": [
+        764535,
+        765379
+      ],
+      "adapted_range": [
+        758557,
+        759401
+      ]
+    },
+    {
+      "module": "game.entities.controls.game",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "55cd15552118209f36009e753c3cdf92a809cd9186ebda3a8319d8ff551a80b1",
+      "source_range": [
+        765842,
+        773847
+      ],
+      "adapted_range": [
+        759846,
+        769532
+      ]
+    },
+    {
+      "module": "game.levels.level-game",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "52a0e09938951f4eaa4b04e88485b0689ae38792d14d8b2b37bb016649e7cbd8",
+      "source_range": [
+        773959,
+        774045
+      ],
+      "adapted_range": [
+        769648,
+        769734
+      ]
+    },
+    {
+      "module": "plugins.textwrapper",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "0c81685b2ecf340456990d2f18e2a3248066d247160353cf5c685e0f36b4e210",
+      "source_range": [
+        774111,
+        775933
+      ],
+      "adapted_range": [
+        769804,
+        771626
+      ]
+    },
+    {
+      "module": "game.entities.controls.tutorial",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "72ef4d6fb0afec2f7062927d342c0951884a7b0912425dd2e4885ca01be133f1",
+      "source_range": [
+        776165,
+        788831
+      ],
+      "adapted_range": [
+        771866,
+        784532
+      ]
+    },
+    {
+      "module": "game.levels.level-tutorial",
+      "present": true,
+      "canonical_AST_exact": true,
+      "source_body_sha256": "7241a20120a8792908ab172ac04609deee4cdcd8b3ae8f31f5f467b2af37474c",
+      "source_range": [
+        788951,
+        789052
+      ],
+      "adapted_range": [
+        784656,
+        784757
+      ]
+    },
+    {
+      "module": "game.main",
+      "present": true,
+      "canonical_AST_exact": false,
+      "source_body_sha256": "44097706e58b14490f131a34638bb328886a8cb05383ddc68bfe24357a8ad6be",
+      "source_range": [
+        790273,
+        809060
+      ],
+      "adapted_range": [
+        785927,
+        807691
+      ]
+    }
+  ],
+  "protected_modules": [
+    {
+      "module": "game.entities.ui.drag-point",
+      "original_sha256": "9c05646c6f2cefed05b1ab0b665214e8537a8548e968bce9cafad3b812514df3",
+      "adapted_sha256": "9c05646c6f2cefed05b1ab0b665214e8537a8548e968bce9cafad3b812514df3",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.entities.spawn-grid",
+      "original_sha256": "e9a5326b9562958899082ce4545bc30b8127a2569f08af1358406ddc10c19af7",
+      "adapted_sha256": "e9a5326b9562958899082ce4545bc30b8127a2569f08af1358406ddc10c19af7",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.entities.ui.pointer-events",
+      "original_sha256": "0bdd404ea49fcd75a26328e85347fb4b203192365496d92b2c0d71cb557ba6b6",
+      "adapted_sha256": "0bdd404ea49fcd75a26328e85347fb4b203192365496d92b2c0d71cb557ba6b6",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.coastal-cove",
+      "original_sha256": "6b3dde9cb7431901be55c9a364214fba50b684cea5023031edad9aec262571a4",
+      "adapted_sha256": "6b3dde9cb7431901be55c9a364214fba50b684cea5023031edad9aec262571a4",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.anchor-point",
+      "original_sha256": "11ebedac59cd6adda47f86b54971ef64b78cf8a1244e83cece4dfbf7cc9f0cad",
+      "adapted_sha256": "11ebedac59cd6adda47f86b54971ef64b78cf8a1244e83cece4dfbf7cc9f0cad",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.port-city",
+      "original_sha256": "c25a8cf36377628fbed2f8635f561edf163047a18cc75f47131a733929cebb20",
+      "adapted_sha256": "c25a8cf36377628fbed2f8635f561edf163047a18cc75f47131a733929cebb20",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.st-helens",
+      "original_sha256": "355cae6c2562ca7ff2e52e796fb0a09efab9061d284952664d882e8b02f96ea1",
+      "adapted_sha256": "355cae6c2562ca7ff2e52e796fb0a09efab9061d284952664d882e8b02f96ea1",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.river-docks",
+      "original_sha256": "3564d02786855ff63944866e70abd31284ccc727f412eb39e1cdc3ff3ba789cd",
+      "adapted_sha256": "3564d02786855ff63944866e70abd31284ccc727f412eb39e1cdc3ff3ba789cd",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.grotrie-port",
+      "original_sha256": "fba9bdb8c9b8373bfa4e4ed1ecbf6e734fe44ad129b9d45aab62a21423526658",
+      "adapted_sha256": "fba9bdb8c9b8373bfa4e4ed1ecbf6e734fe44ad129b9d45aab62a21423526658",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.bremerhaven",
+      "original_sha256": "735c75f387ffb4d1746e61abd465bf7404efdd490e86eb7937563a7e8af00ce0",
+      "adapted_sha256": "735c75f387ffb4d1746e61abd465bf7404efdd490e86eb7937563a7e8af00ce0",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.oslo",
+      "original_sha256": "8ce4cf2e000da2e9b82aa44023d17ea279c657996e5490ce4b164e8fbf21ebe1",
+      "adapted_sha256": "8ce4cf2e000da2e9b82aa44023d17ea279c657996e5490ce4b164e8fbf21ebe1",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.gothenburg",
+      "original_sha256": "140017c8632adf48f3f6edea82bd4dd243209c7873715a22c4e81b709536694f",
+      "adapted_sha256": "140017c8632adf48f3f6edea82bd4dd243209c7873715a22c4e81b709536694f",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.rotterdam",
+      "original_sha256": "f206a65b7be93f255ac91e8cf07440a12245c50d4adb5c9fc109c6023a50392c",
+      "adapted_sha256": "f206a65b7be93f255ac91e8cf07440a12245c50d4adb5c9fc109c6023a50392c",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.shanghai",
+      "original_sha256": "5296ca0eb1594b186ba6ca648d612b94b096a6c7f30624cb7784dd247f0a9a64",
+      "adapted_sha256": "5296ca0eb1594b186ba6ca648d612b94b096a6c7f30624cb7784dd247f0a9a64",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.helsinki",
+      "original_sha256": "c581e0cedf330ca4d7d873e0b03f63db61228bd0a14c2bc960daa8461201c379",
+      "adapted_sha256": "c581e0cedf330ca4d7d873e0b03f63db61228bd0a14c2bc960daa8461201c379",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.hamburg",
+      "original_sha256": "cec535f0353bf7ef63d76a43f6f47e40d0f2c6ca5f0835e08b6d9a2a70bfc522",
+      "adapted_sha256": "cec535f0353bf7ef63d76a43f6f47e40d0f2c6ca5f0835e08b6d9a2a70bfc522",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.wilhelmshaven",
+      "original_sha256": "c476d10c3b6f29a5432bae97c9467afee2789af9e8da1585bcc6951339303a30",
+      "adapted_sha256": "c476d10c3b6f29a5432bae97c9467afee2789af9e8da1585bcc6951339303a30",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.havre",
+      "original_sha256": "d3a5e9f135108c099ca9c46f39eca9e13b6c51c11afa818364bc75acb656f8b6",
+      "adapted_sha256": "d3a5e9f135108c099ca9c46f39eca9e13b6c51c11afa818364bc75acb656f8b6",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.rostock",
+      "original_sha256": "e9b1bbc2ec2ea9a543cce63d1923e40dace397cb8af212347c0d19b302ef12ae",
+      "adapted_sha256": "e9b1bbc2ec2ea9a543cce63d1923e40dace397cb8af212347c0d19b302ef12ae",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.antwerp",
+      "original_sha256": "ab885cb397f4b803e92bb4df2c175d1394b54412f6f866d8fd92cb4b9fc56ab0",
+      "adapted_sha256": "ab885cb397f4b803e92bb4df2c175d1394b54412f6f866d8fd92cb4b9fc56ab0",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.amsterdam",
+      "original_sha256": "e1ac679c3bb49195f13598d7aa6417adaf886d7db9ab4ed948199e9fc88de647",
+      "adapted_sha256": "e1ac679c3bb49195f13598d7aa6417adaf886d7db9ab4ed948199e9fc88de647",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.felixstowe",
+      "original_sha256": "68a92caaebf5946d7220249dd8461c37463eaa3ed7db95d74475fceedab2e709",
+      "adapted_sha256": "68a92caaebf5946d7220249dd8461c37463eaa3ed7db95d74475fceedab2e709",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.marseille",
+      "original_sha256": "5db7a05f746fd06da86db9abc35a5746560f5626594732b2c618a81a18c22604",
+      "adapted_sha256": "5db7a05f746fd06da86db9abc35a5746560f5626594732b2c618a81a18c22604",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.level-data.game-data",
+      "original_sha256": "6c09dccefd746e4efeb7eab04a0fb2f3254bc32600ad7ad980a765f8e4d159c6",
+      "adapted_sha256": "6c09dccefd746e4efeb7eab04a0fb2f3254bc32600ad7ad980a765f8e4d159c6",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.entities.objects.ship",
+      "original_sha256": "3d62ec29e89c2cc8660618ee0da28ce691cb7a3a995e07ad0dff5ff4608ada9a",
+      "adapted_sha256": "3d62ec29e89c2cc8660618ee0da28ce691cb7a3a995e07ad0dff5ff4608ada9a",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.entities.objects.dock",
+      "original_sha256": "ccf5d258aa476e2d362e5f6f39e082d0199449a6231e429d6440783f9f071189",
+      "adapted_sha256": "ccf5d258aa476e2d362e5f6f39e082d0199449a6231e429d6440783f9f071189",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.entities.objects.island",
+      "original_sha256": "f1b56d68a6b9738ce27f21296f425feb0c0b48cfdae7338a4ada4305947d98c0",
+      "adapted_sha256": "f1b56d68a6b9738ce27f21296f425feb0c0b48cfdae7338a4ada4305947d98c0",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.entities.objects.typhoon",
+      "original_sha256": "d36b08b5db0b3aa91295ca8e4c7019cabf4058c60d9d93193b2256496961641a",
+      "adapted_sha256": "d36b08b5db0b3aa91295ca8e4c7019cabf4058c60d9d93193b2256496961641a",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.entities.controls.tutorial",
+      "original_sha256": "dc3f4138c3fca8f4f30018367d1eff83e0958a126d954a6128dd43c1539f5c13",
+      "adapted_sha256": "dc3f4138c3fca8f4f30018367d1eff83e0958a126d954a6128dd43c1539f5c13",
+      "canonical_AST_exact": true
+    },
+    {
+      "module": "game.levels.level-tutorial",
+      "original_sha256": "4676552559577a49a9c2487bb461a0dfb7df2b991d8492d454601bee77fcd0d7",
+      "adapted_sha256": "4676552559577a49a9c2487bb461a0dfb7df2b991d8492d454601bee77fcd0d7",
+      "canonical_AST_exact": true
+    }
+  ],
+  "derived_retired_symbols": [
+    "adContainerChildElement",
+    "shareImage",
+    "EntityButtonMoreGames",
+    "EntityButtonShare",
+    "EntityButtonReviveYes",
+    "EntityButtonReviveNo",
+    "EntityRvSampleControl",
+    "EntityAdNotAvailableControl",
+    "EntityPopupRevive"
+  ],
+  "retired_symbol_residue": [],
+  "methods_compared": 1067,
+  "canonical_AST_exact_methods": 945,
+  "changed_methods": [
+    {
+      "name": "game.plugin/module/mousemove",
+      "sha256": "3a8a45a8accbe9e18601fae489f2f2b078543a5768dd5e2f534f2bc0c47dcc9b",
+      "range": [
+        369188,
+        369273
+      ]
+    },
+    {
+      "name": "plugins.splash-loader/ig.SplashLoader/init",
+      "sha256": "eb6bf36231473d079b3e5bb42a0859d5c204757c710d7cd92176aefd991f545f",
+      "range": [
+        438341,
+        438453
+      ]
+    },
+    {
+      "name": "plugins.multilang/EntitySLShowBtn/clicked",
+      "sha256": "47aa3f7714de18c3511dc53899b11493f8537b829bb09ea667cace146d77ce45",
+      "range": [
+        492141,
+        492211
+      ]
+    },
+    {
+      "name": "game.entities.buttons.button-branding-logo/EntityButtonBrandingLogo/init",
+      "sha256": "402efb763037c70cb4058a1ea794389792e28a04bff2d1721ddd508e5c54cae2",
+      "range": [
+        566740,
+        567679
+      ]
+    },
+    {
+      "name": "game.entities.demo-control/EntityDemoControl/init",
+      "sha256": "04be9de97c2cb4888048d08cd1f862d39d9d704733b4279f84b4b914df9056da",
+      "range": [
+        576592,
+        577352
+      ]
+    },
+    {
+      "name": "game.entities.buttons.button-play/EntityButtonPlay/callback",
+      "sha256": "fc12575bf414d574821f91fcf69e1a3cc0668d27681007535ef5a732ef9d03e1",
+      "range": [
+        586301,
+        586634
+      ]
+    },
+    {
+      "name": "game.entities.ui.popup-settings/EntityPopupSettings/addEntities",
+      "sha256": "01234e1baa7c041a8f0fcc5e58fb49c5d3052b99f065845108e4f8a278622186",
+      "range": [
+        592758,
+        593484
+      ]
+    },
+    {
+      "name": "game.entities.buttons.button-settings/EntityButtonSettings/callback",
+      "sha256": "9e5767a51cb16d65be100fd70a4fd19375ed07c92d3543aea784d3799dec8737",
+      "range": [
+        593848,
+        594202
+      ]
+    },
+    {
+      "name": "game.entities.controls.home/EntityHome/init",
+      "sha256": "e3c07ff33c2a515fbb3e2a3b1703423abb8535332df3e08165fed8b4a168faf5",
+      "range": [
+        627158,
+        628339
+      ]
+    },
+    {
+      "name": "game.entities.buttons.button-home/EntityButtonHome/callback",
+      "sha256": "7cfa7006c714b228135f2ed12c8c228c87d7f2ebcfc361704a4daf5aae790a94",
+      "range": [
+        631733,
+        632034
+      ]
+    },
+    {
+      "name": "game.entities.buttons.button-replay/EntityButtonReplay/callback",
+      "sha256": "ad163d1e25a8b1e52755f8c25db14c072a47e743c9886972e3259c2bbfc38d16",
+      "range": [
+        746545,
+        746846
+      ]
+    },
+    {
+      "name": "game.entities.ui.popup-over/EntityPopupOver/addButtons",
+      "sha256": "87490b3501e4ac683bdbf0557452d6f4bcda9d04b70a8a1a78d295a73b817d69",
+      "range": [
+        747801,
+        748492
+      ]
+    },
+    {
+      "name": "game.entities.ui.popup-over/EntityPopupOver/checkHighScore",
+      "sha256": "3af087443c5880347062264000827db85a513f6e9fd229e0556e22763624589d",
+      "range": [
+        748493,
+        748993
+      ]
+    },
+    {
+      "name": "game.entities.ui.popup-pause/EntityPopupPause/addEntities",
+      "sha256": "57a8ef690bbb6ae6626613819f3ecafde5995d4c0eb6475cf44675119d980891",
+      "range": [
+        756442,
+        757382
+      ]
+    },
+    {
+      "name": "game.entities.buttons.button-pause/EntityButtonPause/callback",
+      "sha256": "9dfb13b4e0906b25cd09c96bf4f50e6da5c246ea968e379a5531dba8f598bf92",
+      "range": [
+        763569,
+        763870
+      ]
+    },
+    {
+      "name": "game.entities.controls.game/EntityGame/endGame",
+      "sha256": "c4939034f0e4e3c8f8d272988fd33d44bb97bfa2d41f50e5c5227717777dda14",
+      "range": [
+        771908,
+        772417
+      ]
+    },
+    {
+      "name": "game.main/MyGame/init",
+      "sha256": "a69073ae11761ec228571a5a73f2cb82f19368644e49707f39e9d10f78005056",
+      "range": [
+        796904,
+        797665
+      ]
+    },
+    {
+      "name": "game.main/MyGame/endGame",
+      "sha256": "8f77bd4bda14358bde8fb89ec993efec08dfce2f98b3479b7465847513eeea53",
+      "range": [
+        800061,
+        800189
+      ]
+    }
+  ],
+  "removed_methods": [
+    "plugins.handlers.api-handler/ig.ApiHandler/apiAvailable.MJSPreroll",
+    "plugins.handlers.api-handler/ig.ApiHandler/apiAvailable.MJSHeader",
+    "plugins.handlers.api-handler/ig.ApiHandler/apiAvailable.MJSFooter",
+    "plugins.handlers.api-handler/ig.ApiHandler/apiAvailable.MJSEnd",
+    "plugins.handlers.api-handler/ig.ApiHandler/run",
+    "plugins.microsoft/ig.MicrosoftAPI/init",
+    "plugins.microsoft/ig.MicrosoftAPI/ready",
+    "plugins.microsoft/ig.MicrosoftAPI/setAlias",
+    "plugins.microsoft/ig.MicrosoftAPI/getQueryVariable",
+    "plugins.microsoft/ig.MicrosoftAPI/getUrlParameters",
+    "plugins.microsoft/ig.MicrosoftAPI/injectElementTag",
+    "plugins.microsoft/ig.MicrosoftAPI/initSDK",
+    "plugins.microsoft/ig.MicrosoftAPI/initCpmstar",
+    "plugins.microsoft/ig.MicrosoftAPI/initGA",
+    "plugins.microsoft/ig.MicrosoftAPI/onSdkReady",
+    "plugins.microsoft/ig.MicrosoftAPI/onloadCpmstar",
+    "plugins.microsoft/ig.MicrosoftAPI/loadAllCpmstarAds",
+    "plugins.microsoft/ig.MicrosoftAPI/loadCpmstarAd",
+    "plugins.microsoft/ig.MicrosoftAPI/removeAdEventListeners",
+    "plugins.microsoft/ig.MicrosoftAPI/removeAllAdEventListeners",
+    "plugins.microsoft/ig.MicrosoftAPI/destroyAd",
+    "plugins.microsoft/ig.MicrosoftAPI/promptInstall",
+    "plugins.microsoft/ig.MicrosoftAPI/showBannerAds",
+    "plugins.microsoft/ig.MicrosoftAPI/hideBannerAds",
+    "plugins.microsoft/ig.MicrosoftAPI/autoHideBannerAds",
+    "plugins.microsoft/ig.MicrosoftAPI/bannerAdCallback",
+    "plugins.microsoft/ig.MicrosoftAPI/getAdTypeByName",
+    "plugins.microsoft/ig.MicrosoftAPI/getAdLoaded",
+    "plugins.microsoft/ig.MicrosoftAPI/getAdRequestStatus",
+    "plugins.microsoft/ig.MicrosoftAPI/getAdProcessStatus",
+    "plugins.microsoft/ig.MicrosoftAPI/getAdCooldownStatus",
+    "plugins.microsoft/ig.MicrosoftAPI/muteAudio",
+    "plugins.microsoft/ig.MicrosoftAPI/unmuteAudio",
+    "plugins.microsoft/ig.MicrosoftAPI/cacheAudio",
+    "plugins.microsoft/ig.MicrosoftAPI/cacheAudioVolume",
+    "plugins.microsoft/ig.MicrosoftAPI/cacheAudioMutedFlag",
+    "plugins.microsoft/ig.MicrosoftAPI/cacheSfxVolume",
+    "plugins.microsoft/ig.MicrosoftAPI/cacheBgmVolume",
+    "plugins.microsoft/ig.MicrosoftAPI/cacheSfxMutedFlag",
+    "plugins.microsoft/ig.MicrosoftAPI/cacheBgmMutedFlag",
+    "plugins.microsoft/ig.MicrosoftAPI/setVolumeFromCache",
+    "plugins.microsoft/ig.MicrosoftAPI/setSfxVolumeFromCache",
+    "plugins.microsoft/ig.MicrosoftAPI/setBgmVolumeFromCache",
+    "plugins.microsoft/ig.MicrosoftAPI/updateAdContainerCSS",
+    "plugins.microsoft/ig.MicrosoftAPI/getShareGameImage",
+    "plugins.microsoft/ig.MicrosoftAPI/shareGame",
+    "plugins.microsoft/ig.MicrosoftAPI/scheduleNotification",
+    "plugins.microsoft/ig.MicrosoftAPI/submitScore",
+    "plugins.microsoft/ig.MicrosoftAPI/delayedLoadAd",
+    "plugins.microsoft/ig.MicrosoftAPI/loadAd",
+    "plugins.microsoft/ig.MicrosoftAPI/showAd",
+    "plugins.microsoft/ig.MicrosoftAPI/showBackfillAd",
+    "plugins.microsoft/ig.MicrosoftAPI/reorientGame",
+    "plugins.microsoft/ig.MicrosoftAPI/onSystemPause",
+    "plugins.microsoft/ig.MicrosoftAPI/onSystemResume",
+    "plugins.microsoft/ig.MicrosoftAPI/pauseGame",
+    "plugins.microsoft/ig.MicrosoftAPI/resumeGame",
+    "plugins.microsoft/ig.MicrosoftAPI/injectCSS",
+    "plugins.microsoft/ig.MicrosoftAPI/showLoadingSpinner",
+    "plugins.microsoft/ig.MicrosoftAPI/hideLoadingSpinner",
+    "plugins.microsoft/ig.MicrosoftAPI/startAdRequestTimeout",
+    "plugins.microsoft/ig.MicrosoftAPI/stopAdRequestTimeout",
+    "plugins.microsoft/ig.MicrosoftAPI/startAdProcessTimeout",
+    "plugins.microsoft/ig.MicrosoftAPI/stopAdProcessTimeout",
+    "plugins.microsoft/ig.MicrosoftAPI/startAdCooldown",
+    "plugins.microsoft/ig.MicrosoftAPI/stopAdCooldown",
+    "plugins.microsoft/ig.MicrosoftAPI/onAdRequest",
+    "plugins.microsoft/ig.MicrosoftAPI/onAdProcess",
+    "plugins.microsoft/ig.MicrosoftAPI/onAdShown",
+    "plugins.microsoft/ig.MicrosoftAPI/onAdHide",
+    "plugins.microsoft/ig.MicrosoftAPI/onAdError",
+    "plugins.microsoft/ig.MicrosoftAPI/whitelabel",
+    "plugins.microsoft/ig.MicrosoftAPI/log",
+    "plugins.clickable-div-layer/ClickableDivLayer/init",
+    "plugins.clickable-div-layer/ClickableDivLayer/createClickableLayer",
+    "plugins.clickable-div-layer/ClickableDivLayer/update",
+    "plugins.clickable-div-layer/ClickableDivLayer/updatePos",
+    "plugins.clickable-div-layer/ClickableDivLayer/createClickableOutboundLayer",
+    "game.entities.buttons.button-more-games/EntityButtonMoreGames/init",
+    "game.entities.buttons.button-more-games/EntityButtonMoreGames/show",
+    "game.entities.buttons.button-more-games/EntityButtonMoreGames/hide",
+    "game.entities.buttons.button-more-games/EntityButtonMoreGames/clicked",
+    "game.entities.buttons.button-more-games/EntityButtonMoreGames/clicking",
+    "game.entities.buttons.button-more-games/EntityButtonMoreGames/released",
+    "game.entities.buttons.button-share/EntityButtonShare/callback",
+    "game.entities.buttons.button-revive-yes/EntityButtonReviveYes/callback",
+    "game.entities.buttons.button-revive-no/EntityButtonReviveNo/callback",
+    "game.entities.controls.rv-sample-control/EntityRvSampleControl/init",
+    "game.entities.controls.rv-sample-control/EntityRvSampleControl/update",
+    "game.entities.controls.rv-sample-control/EntityRvSampleControl/draw",
+    "game.entities.controls.rv-sample-control/EntityRvSampleControl/sample_rv_start",
+    "game.entities.controls.rv-sample-control/EntityRvSampleControl/sample_rv_end",
+    "game.entities.controls.ad-not-available-control/EntityAdNotAvailableControl/init",
+    "game.entities.controls.ad-not-available-control/EntityAdNotAvailableControl/update",
+    "game.entities.controls.ad-not-available-control/EntityAdNotAvailableControl/draw",
+    "game.entities.controls.ad-not-available-control/EntityAdNotAvailableControl/show",
+    "game.entities.controls.ad-not-available-control/EntityAdNotAvailableControl/sample_rv_end",
+    "game.entities.ui.popup-revive/EntityPopupRevive/addEntities",
+    "game.entities.ui.popup-revive/EntityPopupRevive/drawText",
+    "game.entities.ui.popup-revive/EntityPopupRevive/callback",
+    "game.entities.ui.popup-revive/EntityPopupRevive/rv_btn_pressed",
+    "game.entities.ui.popup-revive/EntityPopupRevive/rv_end_success",
+    "game.entities.ui.popup-revive/EntityPopupRevive/rv_end_fail",
+    "game.main/MyGame/setupMarketJsGameCenter"
+  ],
+  "removed_modules": [
+    "plugins.handlers.api-handler",
+    "plugins.microsoft",
+    "plugins.clickable-div-layer",
+    "game.entities.buttons.button-more-games",
+    "game.entities.buttons.button-share",
+    "game.entities.buttons.button-revive-yes",
+    "game.entities.buttons.button-revive-no",
+    "game.entities.controls.rv-sample-control",
+    "game.entities.controls.ad-not-available-control",
+    "game.entities.ui.popup-revive"
+  ],
+  "native_executed_locally": false,
+  "UI_inputs_added": 0
+}

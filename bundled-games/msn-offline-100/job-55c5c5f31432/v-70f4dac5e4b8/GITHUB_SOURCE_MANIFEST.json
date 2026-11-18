@@ -1,0 +1,1528 @@
+{
+  "title": "港口调度",
+  "revision": "harbor-offline-v3",
+  "job_id": "job-55c5c5f31432",
+  "version_id": "v-70f4dac5e4b8",
+  "artifact_id": "artifact-4346dd0c8108",
+  "artifact_sha256": "0bf4ad939476dcc6479573ea575b7c0f889f8a20e6658c55776f299f7d2e9e64",
+  "remote_archive_commit": "17a79cc3d028d47d8c585c0c504d6224b83d2460",
+  "files": {
+    "branding/logo.png": "10d64aef2387f4d842e671f0aa40fec8821ae8298ef14df4e5a5f5c041112413",
+    "branding/splash1.png": "03dfc17dc283d071c1908c2003e3c37b7ff2330e91c66072a732ef5113bd9f7f",
+    "delivery-report.json": "b86e430256c335d857e116ab93748cfa1c07e9ae35c3265b055ba9ca26f09b5f",
+    "evidence/dedup-intake-guard.json": "82b596d3796409dda6465818be946d3939e433ff37c6427f3dbbf1f0155dba3b",
+    "evidence/harbor-font-audio-source-receipt.json": "f7768ab805a9a76d21c996c741c544eb0e0b407fecd22973007be72004e75425",
+    "evidence/harbor-offline-v2-independent-fidelity.json": "f82998055aadf0a1dbef594b6cac49c340c53268faafd276e8d0e62cdb0fa34c",
+    "evidence/harbor-retirement.json": "393dd79724463476ed9b3031df7c095aa193bec04802c1531a2cabde14d3a2a5",
+    "evidence/harbor-source-control-headers-v2-result.json": "b69f2daf1182c9b6769931f2a2a800a32d5b90e17746b464d3cd46a26f9a8dec",
+    "evidence/harbor-v2-source-fidelity.json": "229735be82ae04845de2b928d021644be02da749cee023b508b509a88fa5cb0f",
+    "evidence/harbor-v2-terminal-journals.json": "71e1da1f42d58f809e30146ea11dfbcd6cba8a4e384bc8bb860384f1b1eb5f32",
+    "evidence/harbor-v3-draft-static-audit.json": "43915a81c0b08cc283d4afa720006f522464c376ec509132680ce45c53cebbe6",
+    "evidence/harbor-v3-HTTP-preflight.json": "45c3600baabde996206a05df7dd67c5cec4280ac5100cb29d81fa0fe751cd5aa",
+    "evidence/harbor-v3-resource-closure.json": "8ce74d3e2d9b4c54d4337a5f09c9136bf8937c983081ea6c59e6d026a211aaa7",
+    "evidence/harbor-v3-terminal-journals.json": "f4e18f7df289a58dbdb9da0bafc8509cfc36b5868b5089a854bb1801307822cb",
+    "evidence/harbor-v3-verification-plan.json": "ed2ce354463b98281205941196f9a0fcde007c96eeb8ab7b62a37f34587e38d0",
+    "evidence/initial-v2-failure/input-1.json": "c65f513b2f2f651eb9658a14afdd4585b655f5e1420c7614adf7f327606175de",
+    "evidence/initial-v2-failure/input-1.png": "b4645f2b558285c052ebd0f1d45474037a22d257e5f394fb95a8f83f859e55bc",
+    "evidence/msn_harbor_apply_v2_plan.py": "2b3c95cc2f6217cff4a940df29a900eed9a1d4cf02c9e91d9ad1c034e4aa2482",
+    "evidence/msn_harbor_fidelity_audit.cjs": "a06a305eb08af677e09f5374a0dabec0d81d10c2de11a7c1d69c9b406f12e315",
+    "evidence/msn_harbor_prepare_v2.cjs": "183093a708439f8c86155822122c593833e89e647f298fca0b3f0587e2b6202b",
+    "evidence/msn_harbor_retired_consumer_check.cjs": "e3a64e96dedc998ecd51232fad9b0b5ef670f6b741fd731b73f110bd8cb2e023",
+    "evidence/msn_patch_harbor.cjs": "691b45e61dfdeec78a8b9820ca22b70be1f0dfaaca16604eb0036570211d01af",
+    "evidence/observation-2.json": "d6c47984f40a2cb9f08424f035349540004f3b458c12c9eff547d79ba3cc3b4e",
+    "evidence/observation-3.json": "4fa676f2394fb6df8d4c3ded90f2e7c4a9c574f2635874a35873a93b52604301",
+    "evidence/observation-4.json": "d3c8007ef791109bb4049a47e618394ca6f12aac2116047c3b05f57d53b0e9d4",
+    "evidence/observation-5.json": "28c994630cc23cb8275729c244e396eb632513931633e853af6cb30881b9b8c7",
+    "evidence/passive-before-departure.json": "5b0382573c6e16cf77782cc10f4527d7881be9ac902b1713b7740df089fd72e1",
+    "evidence/resource-audit.json": "30a87020a4cb2dc9ec8b3e212a6de6494ab81fb94e20537366938d3a6aa4c649",
+    "evidence/runtime-sha256.json": "2c82c9ce383177e46fb114f501fd2130ccd9adfb3dd99fafde5f51ec80e7602d",
+    "evidence/upstream-game.js": "09184b5d3756f1dcf336a29302760fe1049503d1b9e5776042db6fa796cc7574",
+    "evidence/upstream-index.html": "775e9c88410d1684594a5ce13c36c2c401cfc64ac10b9b1c90dadf46257d04e7",
+    "evidence/validation.json": "eb9a5fb5cb49aab7037a73e4d5fb7c64d4c290e4af56417b6d7709697c82e0cb",
+    "game-profile.json": "16d3273b5d76e0b98a32ed03937522de8439e89d8f6577a214e13e9ea6502fc2",
+    "game.css": "3d678aa8273b3290f4961a68770f9eaa73fbda19db2bcc13eb4c7990a1beddf6",
+    "game.js": "d2735a8aed9e966ee48aaa73d6c531eaa1db8bd9fda326b7c14f047c89688d6c",
+    "GAME_SPECIFICATION.md": "44e916e6a89f9658b3b55746293c3b157bc357285fe82da618a1b6a231ac11f9",
+    "index.html": "e3c76d19452457dbb51cc4766f5f9a320ee53d5d715324c79fcf6b2582b35e59",
+    "manifest.json": "b81dee7d08cc988922f5fb7ff3de7870855cf8fb1bf51e173a62cf516ce914d5",
+    "media/audio/bgm.mp3": "800f3a210904f2a2221c7537734a57bdea1bc9b7348bec081bdd36cc1c91bb8a",
+    "media/audio/opening/logosplash1.mp3": "1f33df744cb018b9ae058a8d2772ba3c907fa54dd6643a443041f5b7c6d5a1a4",
+    "media/audio/opening/logosplash2.mp3": "5c0eb0bfef68f9e7c85e535039a41ffb4ef912657653a73b79719147b3f95031",
+    "media/audio/play/static.mp3": "46e15ce17af2bdd1ccec19de65b3a2982f634a2be7e3f304cc6bee6a87f67b90",
+    "media/audio/sfx/bell.mp3": "fd02f82fa785584cd3a0665907977e4623d173af318a52cc7314d7ca7482c9ab",
+    "media/audio/sfx/button.mp3": "509cb20cd1143d2f70bb6e3a84436fd523ba718f68cd5b04ac21a667863792a3",
+    "media/audio/sfx/crash.mp3": "6a4092e8063198620578acfc045fb27a25ca23ead05761c0325a4ba8181c3f3c",
+    "media/audio/sfx/gameover.mp3": "2579d7160ebf9a18abba0807f998f97b56f92799261dc805d60027e9a7a134e8",
+    "media/audio/sfx/horn.mp3": "3f21d7b51e780d18acd964f39dfd4be9f4b034949369fa8d4ba05044f2a173be",
+    "media/audio/sfx/landed.mp3": "8fbd36d782d3b20fa3442dc6bcdbcf28dcf82d37c21d96e9aaea948df20db6bf",
+    "media/audio/sfx/landing.mp3": "2f4f48309ac38c560aa0fe93889246ae98410cb71d96f5b9329a4ebce5cd863e",
+    "media/audio/sfx/select.mp3": "1a2fb3ab972f64aff4330cd8e5e9bed0960216ece9c4437d0dd04b52e2e70888",
+    "media/audio/sfx/warning.mp3": "e59a153f189bfa1990ed5d70ede9c303f17c608bf8f3b0743ae23e9c68b7df04",
+    "media/fonts/stencil-std-bold.ttf": "079a39931ed58d3221fd34fa3e1d4962d3471534ae4e06ca5a932e44d6811649",
+    "media/fonts/stencil-std-bold.woff": "3c0126ae55b8002007a96cdf58b793261c2c751c0e669e7e8c8e180d684fcf04",
+    "media/fonts/stencil-std-bold.woff2": "e97f44e8505f4e0362c2c9683f147a4e1ef53d661a48e19bbbee0d3c8eff5f84",
+    "media/graphics/generic-ad/light/close-button.png": "15da4e8ac1f66bd0dc7707132b7141b94d290e21b4c19f38ab8cf4fa196333da",
+    "media/graphics/loading/ajax-loader.gif": "babed8ddf22ed2e66590a4f75773661304242a4f4167d52e165652fee492933e",
+    "media/graphics/misc/enter-fullscreen-transparent.png": "9f38676256185dab01de6473519818594a956f2f64201aacf6ba9124d3eb344b",
+    "media/graphics/misc/enter-fullscreen.png": "9f256c4952592e72a4fb13408ad05c999026ad571ad482ffcf0e4302204e0832",
+    "media/graphics/misc/exit-fullscreen-transparent.png": "f60ffd82a8cd8093189bdeb32c5247442e035567029e3db2b10bdea29ea04f3f",
+    "media/graphics/misc/exit-fullscreen.png": "f12a6ed6b75202c2f54d6c81ccca7897913c10cd8ffd90af3669467fe58c5eae",
+    "media/graphics/misc/invisible.png": "0f7a58912e9a43b1420911ca9a56e5294f819bcd0af516992ce9bf70da6604da",
+    "media/graphics/orientate/portrait.jpg": "cd2ebb812a2bbffd3c6ae3987e4a490c894968680686b87b20dc9b450b01e1fd",
+    "media/graphics/promo/banners/1920x1080.png": "652e4be58683b3940cbe21b62879d5a63ce6a0d61f6dd5db77c69a12d327f6eb",
+    "media/graphics/promo/icons/1080x1080.png": "2568591562b2da292b79e498f504f0da62960982cb6734ea5c2bd53454306790",
+    "media/graphics/promo/icons/512x512.png": "4b357dc2e31482a4ad92370bf17719d45bf5e39d5e67406e01ef914012868f25",
+    "media/graphics/promo/screenshots/1.png": "4cea1d76d52963bec926472a528e942435f6b0131e2d7212e2ef19b128b23810",
+    "media/graphics/promo/screenshots/2.png": "2f65c29683fbaa35089406068cbc80d8bede88c2f7001ffea21d9c8982b5e0a7",
+    "media/graphics/promo/screenshots/3.png": "600b0991194094b7dd7247cb7a97ec8bead0ee595040ddc390cc806ee75f2994",
+    "media/graphics/splash/marketjs/branding-text.png": "72c3d27494615378f004c68747b5a5fb966ae42ca81413186585980f0e4d4db6",
+    "media/graphics/splash/marketjs/letter-m.png": "acb8f4d579d4cd931d500269cd93c069bfe125ac13ac9e4342ed028d6c3ba3a1",
+    "media/graphics/splash/marketjs/logo.png": "b3f7da5e4ea5ce15dab071b0cca988f76adbf8f49ef7cc0e55dc8c9412c2e2e3",
+    "media/graphics/sprites/arrow.png": "93f9e2716f8e7930f2f85950ea745356ce4ec336f7b72ca69526d7411e57db9d",
+    "media/graphics/sprites/arrow2.png": "c0f7422ee0426e0669b79b18a3eda83db97535e04e39ea2ba50d12ab7ed04c77",
+    "media/graphics/sprites/background.png": "868a2a8fcadfa81a19769d1c7821b6b780acb63b5f7cafc6f16168ea4907c756",
+    "media/graphics/sprites/boat-1.png": "0bb95e2fcdca0c2414194b6d015dd21611947bb3ab077b13d8c8531803300ee1",
+    "media/graphics/sprites/boat-2.png": "1f44b8ada0930c9b8722e71f9dc0d08bd5c34886181e03b27b3ff08c87990d63",
+    "media/graphics/sprites/boat-3.png": "d4463dd83327c4fec6b42ca355730a8f978e4298ae0e87d2525d50a13e006be0",
+    "media/graphics/sprites/boat-4.png": "36730e86364194d91cd6c391ab506b45aadab211cbbe44e2e81995bbdeb2922c",
+    "media/graphics/sprites/boat-warning-1.png": "1cfee666e5f6aaf82a3806d217e88ac12156d1949cb55b69e761577799e877be",
+    "media/graphics/sprites/boat-warning-2.png": "7cd1c0c56b7709c79cafd14eda8cf662c41dc7f02b9f206bda1059aab9d35378",
+    "media/graphics/sprites/boat-warning-3.png": "cb1c0d76a4b815bf36ae4e62c021e3c94b02f87b89d9365448604416dbece02d",
+    "media/graphics/sprites/boat-warning-4.png": "3f8e5f1d4af6eb2efdba1690852214b59a6121158a47842b580d317719599cda",
+    "media/graphics/sprites/buttons/bt-back.png": "330074211a560ce8974572c5b13cd2f372514fe0f0316b5338eb8132de8f5615",
+    "media/graphics/sprites/buttons/bt-fast.png": "8d48ad443793385f232e54535379a06a8cfdeb9034e207bdca98030096f6073d",
+    "media/graphics/sprites/buttons/bt-faster.png": "76f8f8c1a6a4dcdbddee255c99130d294bd28a4517687b2193c09672033d6f9e",
+    "media/graphics/sprites/buttons/bt-home.png": "330074211a560ce8974572c5b13cd2f372514fe0f0316b5338eb8132de8f5615",
+    "media/graphics/sprites/buttons/bt-info.png": "ef70952828ccbbf29b87cce0f1eda14d79cbcf2b28bc2fb4da8c4e77fa34d120",
+    "media/graphics/sprites/buttons/bt-more-games.png": "9af1fc2c5d2d7383d1c2503bacb6bf6f2bdfcaadd8e0da17863432ddf5b5a489",
+    "media/graphics/sprites/buttons/bt-normal.png": "c58bfd328dc0e53e54ef2c8909bfd76704dce34d7cab4ec59c3848ee8230a86b",
+    "media/graphics/sprites/buttons/bt-pause.png": "0c357d9f0866d420fa181bd17be8b49c429a17996564ec3e4679e9538bd466bc",
+    "media/graphics/sprites/buttons/bt-play.png": "c735db575698e94c54e34f052518caf549015080c82c77862b0e928159ec5b9c",
+    "media/graphics/sprites/buttons/bt-replay.png": "e027592d48de398ac5175e5ccf810c5baf48e053d87c27d7f48a6e9ac621b902",
+    "media/graphics/sprites/buttons/bt-resume.png": "b72dfbb1ce31e429d40efd91431381685da3eecaaa7c16b8898e6a827db5884e",
+    "media/graphics/sprites/buttons/bt-settings.png": "4b10e2510bc3d501162b351ca9d886c6366e68482714a947d940a2bd0b0508a1",
+    "media/graphics/sprites/buttons/bt-share.png": "4de87449f86159e544b1b19ead25d30b184fdcace98aeb0410309dea7ff0f9a8",
+    "media/graphics/sprites/buttons/no.png": "e7c3e7530e9687688590fe81f48f15f55456729cdd6a6f96c8e1af16b8f1e7ec",
+    "media/graphics/sprites/buttons/off.png": "ddc407714b684ffac52b84b1cec0332e93be1c9b50df470190c53f5b2ff0995c",
+    "media/graphics/sprites/buttons/on.png": "571d55489f4862a685c769b8d17a861dcfabb61d795cecdca29552e5223acec4",
+    "media/graphics/sprites/buttons/yes.png": "9c4c9ba2f1b3ee8e327cc98408893e41203eb79df7a491af951eef3141a45ff2",
+    "media/graphics/sprites/ingame-entity.png": "154beeb16f47a571e5057c432193a63308838772ad75d80c27eb652357b25133",
+    "media/graphics/sprites/islands/amsterdam/bridge.png": "139186ee0ac64bbdd002a9e1f9875181d8bd52a9732365d93e6c3250e1b16fca",
+    "media/graphics/sprites/islands/amsterdam/island1.png": "115a4abf8a41e398e462155eb369d760be16746abad451b261a6f43217c553f9",
+    "media/graphics/sprites/islands/amsterdam/island2.png": "229804d91a32d908b37c284f8e6680576c32246ad9b35c7fa7e17b5288814122",
+    "media/graphics/sprites/islands/amsterdam/island3.png": "997d104d687fb45848747d5a1737bae98b2fff23467f5d84fb301996849a6437",
+    "media/graphics/sprites/islands/anchor-point/island1.png": "d593ca26f76a1aee026c792ef523ce76564178a928aa128eec1278df7bd43673",
+    "media/graphics/sprites/islands/anchor-point/island2.png": "e86051989474aef295874d53ca24d887f4901d2e52127451a444761644f25a50",
+    "media/graphics/sprites/islands/anchor-point/island3.png": "7fd4f20a3f5ff885e591dc0ca5db23ca035a617727259af1f9411264eb2cd740",
+    "media/graphics/sprites/islands/antwerp/island1.png": "6be18df0ef00722b28131fba5fc024b32fdb7c26395e5474c69da63abb26f25f",
+    "media/graphics/sprites/islands/antwerp/island2.png": "19a300e7e485e574723c92f4973b88708f17818e65d7b45812209c932f2c9ec5",
+    "media/graphics/sprites/islands/antwerp/island3.png": "aaceaf26484ed3259365c8d3276e2242d4694a2720ea8e8b05601bd001a03cb9",
+    "media/graphics/sprites/islands/bremerhaven/island1.png": "066cb53f9677d001f9ee2a936d4e60bea87de068f79c8e0f62933441fbab3fe2",
+    "media/graphics/sprites/islands/bremerhaven/island2.png": "9db13555e6cb53f4b630c07cb9b9c152e7e03310f58d2e48e5d18e473a067586",
+    "media/graphics/sprites/islands/coastal-cove/island1.png": "73d767671a41041e7f40e44a25c9847e9f1446336449f83c22333b7e91ef4280",
+    "media/graphics/sprites/islands/coastal-cove/island2.png": "ad95d604d8d4f497d22278ab5c04b1b4d76f384afdd23516706cdfa45bad79e0",
+    "media/graphics/sprites/islands/felixstowe/island1.png": "1e3610e8df647dff02db76dcdd402f4467cbf218c45d5fa70bf105f434477f56",
+    "media/graphics/sprites/islands/felixstowe/island2.png": "2044324c52b7cce52ef7c5f8e4b7d2f17f79e71e9a3949863acf5a8474748c16",
+    "media/graphics/sprites/islands/felixstowe/island3.png": "8c91f5bdfcf587ed8f1a6251258a97e273bbb72b8fb7f4b66ed3206e27eb4d85",
+    "media/graphics/sprites/islands/gothenburg/island1.png": "d9ea313da3360563699669185f12e1dd56fbe2d8afc3509d46d007cb0f76f261",
+    "media/graphics/sprites/islands/gothenburg/island2.png": "5f9fb56f967879ac240db343f92dc8a9cdbbb158f52c80bf328e1b4521e9145f",
+    "media/graphics/sprites/islands/gothenburg/island3.png": "1f6c84db76753586edc77098253d392297946a1389d8f4ed40c57c762a04f13f",
+    "media/graphics/sprites/islands/grotrie-port/island1.png": "cf1e2d94d8099922dc93b65981ece59e690c1b7c7a3b484eae27bc88180d8eb9",
+    "media/graphics/sprites/islands/grotrie-port/island2.png": "78f2c20ba71befddcb4d873b2f4c457f06c877645adc7b18ad256e4b4a1960cb",
+    "media/graphics/sprites/islands/grotrie-port/island3.png": "8cf0c24b5f6e083756348c7d6e305fb2f9a7276e256d574499b42d708f52937b",
+    "media/graphics/sprites/islands/hamburg/island1.png": "79ddea0fbe1ef35ab446db797716a17451870f109c0798c690c3d9c6a959bf28",
+    "media/graphics/sprites/islands/hamburg/island2.png": "c06b1f98497c3444d6ed4c5ed9592738db12973380b58ed6f1be5df98ece81d5",
+    "media/graphics/sprites/islands/hamburg/island3.png": "1b7eb2573607a127f8fbad5865a262b4eeb24d2b5a259dbadfa4e51c6e74ea2b",
+    "media/graphics/sprites/islands/havre/island1.png": "a0d6d8d8b56bf2ab0f9c2fc3d2a169310869986998bc24bd9c88016cf5f6542b",
+    "media/graphics/sprites/islands/havre/island2.png": "75acbb6d68dea75c3b5ca3b083ff61fa340f4641314f8322357960773ad7d778",
+    "media/graphics/sprites/islands/helsinki/island1.png": "9311312aa4514066ee6fd96a324008da67cfa3bca4498b105e9b2d3c48491c81",
+    "media/graphics/sprites/islands/helsinki/island2.png": "29629ed1ab29f931a8871e9aea5bdcd39b1b0238a1c16f62fae8177ddbe5fb98",
+    "media/graphics/sprites/islands/helsinki/island3.png": "ec84591857bd6c27c1a9ff27676d9ca4290063c57f9fe1a29c48c6263fce7798",
+    "media/graphics/sprites/islands/marseille/bridge.png": "f502abac0302016d13241d18a2651fe4ab2e94421ace77b36e0f5aad26772a16",
+    "media/graphics/sprites/islands/marseille/island1.png": "4efde16cda8d8448475e99a9001851da43620fa5ccfa6ee2aa505d3a344b695e",
+    "media/graphics/sprites/islands/marseille/island2.png": "3ec913ba461f9f9d5471d76cac8a27d71976ef95c397b70825f75c77e0d0c035",
+    "media/graphics/sprites/islands/oslo/island1.png": "b55e859e0f36491196d6fe9bb6c479e8aa5fdb834299b3bab6618baf553aff0b",
+    "media/graphics/sprites/islands/oslo/island2.png": "b94a383defafaf55aee4b1b8699ac5b95da563262ecedd3d8da741b2c1344d46",
+    "media/graphics/sprites/islands/port-city/island6.png": "8873fee3d02d7df6d00550c0ed9269ed98ecd198bf5b0bab07ccee2bea0eb910",
+    "media/graphics/sprites/islands/port-city/island7.png": "9bf1ec569c2182b475c856af9764f4f245a2f4e3354fb60beb9cb2aed4e21912",
+    "media/graphics/sprites/islands/river-docks/island1.png": "c07bec1b2d5549ca2a46ea5546cb35376d5e6260fb5724305177f37e379e9c4c",
+    "media/graphics/sprites/islands/river-docks/island2.png": "971ff5ff805b9bb1d5b8e3799de508f2110f9ea1a403bc6ef5c120b43683e7cd",
+    "media/graphics/sprites/islands/rostock/island1.png": "8dd93261394276946a3d09f717a54a0008183c81d280c933941bf8af6f1d2163",
+    "media/graphics/sprites/islands/rostock/island2.png": "e7e6dc9927bfde6b6db57dd5122288866685e981e7c07eb0357d3521b5f7cd1f",
+    "media/graphics/sprites/islands/rostock/island3.png": "0bdf45a184c195e3da7b4e8c30118d8c84825f9cf408c7c4ebbbc45a0fee4f47",
+    "media/graphics/sprites/islands/rotterdam/bridge.png": "183799f7556c7a1dd20e2504c29dce92c98e5b38b60a85b47ba5aa258a9c80ff",
+    "media/graphics/sprites/islands/rotterdam/island1.png": "464fd224646c49fe9f45f1dc8b8d208fc04cf4363c4e7a0642d9e1c6f4250e53",
+    "media/graphics/sprites/islands/rotterdam/island2.png": "2405b692a6a286a9786ed3475cd66d28822a2826cd03515968812bfca534266d",
+    "media/graphics/sprites/islands/rotterdam/island3.png": "8361c7ac49130cda4ba3a66106500d4f0170c9f0b2347ab9b6d002435e8df60f",
+    "media/graphics/sprites/islands/shanghai/island1.png": "98a907ac555a4f6c575b695990cd512a0595652bee80adc3231223f6dab5a80b",
+    "media/graphics/sprites/islands/shanghai/island2.png": "b55e859e0f36491196d6fe9bb6c479e8aa5fdb834299b3bab6618baf553aff0b",
+    "media/graphics/sprites/islands/shanghai/island3.png": "f2ba10ab4d1e7df1ca11ac2ab0436a282987a10e391da3835085adf5da33a27b",
+    "media/graphics/sprites/islands/st-helens/island1.png": "9e11b0fc94d888732594a79470ed00f550315ddf1ca0f788120e7d416cc6a53a",
+    "media/graphics/sprites/islands/st-helens/island2.png": "5c6a2b386600e190d53dc7d54726ccc6c909323eb7bd9adc74fbc2f0f7f43093",
+    "media/graphics/sprites/islands/st-helens/island3.png": "be3d1b6e76fb477175bbd6b9905de0c365baaade3c354dbb7f01de96c191bdc9",
+    "media/graphics/sprites/islands/wilhelmshaven/island1.png": "0ca3cffeb50df852405e0685feaf7d482f19be50a2e6cabb189a592921416535",
+    "media/graphics/sprites/islands/wilhelmshaven/island2.png": "71d070aede3ffaa7aa0237cbd78dbbe00893408cd7c76a3e2549da7f08ce6791",
+    "media/graphics/sprites/maps/amsterdam.png": "d2ab5863e0dba2dc88acdef2aef46eedd480d22f4ce73b1c1cebe409d0be8f85",
+    "media/graphics/sprites/maps/anchor-point.png": "25eafd062d84c93355f497ec33ae684ed2572f76e6e420b7c503ac1adf1d1cbc",
+    "media/graphics/sprites/maps/antwerp.png": "e962dfd0e480db2be5ef79ae3e50a3bd6ef154e40cdb39fca1bee786e7a6091f",
+    "media/graphics/sprites/maps/bremerhaven.png": "67ee1c4c3ae21003d06f86e366a9bb511504eaa5ce3cd341f97172c08f17bb5b",
+    "media/graphics/sprites/maps/coastal-cove.png": "49ff4adaac56fa70f58d8819d217da2e71803aa43e1834cda865b0e67a99c2b8",
+    "media/graphics/sprites/maps/felixstowe.png": "e5ee761acff4b834a9428b843622c2580d294f73b98e2450e30399d390708dd3",
+    "media/graphics/sprites/maps/gothenburg.png": "605c70a4f41d23dc20a7cb1f06f16f1971179536b518fc0d2e986327535d7532",
+    "media/graphics/sprites/maps/grotrie-port.png": "3a9ada1b676b3e154ae5c7c4674a7aa4ab16dce1d7dc5345e54e412889a3d234",
+    "media/graphics/sprites/maps/hamburg.png": "f4c12d729c7c580171b5795fc6bf9fbe80435da69743c4dafe708ccfb69afcd4",
+    "media/graphics/sprites/maps/havre.png": "8f17df879370e6cc8cdd52268b0dead4a7f5722a6d622d7db0c404a1881b7baf",
+    "media/graphics/sprites/maps/helsinki.png": "528c4364b42ef61e3758d291760f0ce6a5bdce685311aaa7db0946351b4375cf",
+    "media/graphics/sprites/maps/map-title.png": "4081fc13572c0d926296cd24c27da96f860b14b2a3eab415bd28a69b8043b142",
+    "media/graphics/sprites/maps/marseille.png": "df6e9fc854b7118aae7281da7801202dff9934e6490e42197e838a2dfd6ed9b0",
+    "media/graphics/sprites/maps/oslo.png": "d88d4a63f879530108fe6105c5177fe907aad902e658ffb4b4e3e14d0f4bfca5",
+    "media/graphics/sprites/maps/port-city.png": "4aeda77dcf79f9767e134746f93b00488a10a78bb5b459e35f2453c6cc703c28",
+    "media/graphics/sprites/maps/river-docks.png": "acc208ae41c1f4072cb5bc53e749a591b392953435bf7e7a5a778ec4bccc6bb9",
+    "media/graphics/sprites/maps/rostock.png": "83b045623f93c5c97154ecb367c33373a112d20309ee507e64071dda391b4185",
+    "media/graphics/sprites/maps/rotterdam.png": "456133552c1418148385788553562dd95918a129ebfb8ec341699a264bed2920",
+    "media/graphics/sprites/maps/shanghai.png": "3b32664897794545605033d7571cf218539348b8a4e3bc11f605250d5cf7677d",
+    "media/graphics/sprites/maps/st-helens.png": "a5f6a13595d79553c6dcc04383cf61a6fb3fb22916b748964f23069d4c6c4a96",
+    "media/graphics/sprites/maps/wilhelmshaven.png": "b5af21e51332a45dc9caa8fdb92360c3b5b36602c159162c26622ec807720445",
+    "media/graphics/sprites/sea.png": "2cffed10e8e6fbb92205abe6f8ab4257d1c0a3ca039124b8ed3e8a6001b05aaa",
+    "media/graphics/sprites/select-effect.png": "99bcebc2ae78f821ebf434e2a1b9018fdd2a16036eca1a2d853dcc10a20f2ff2",
+    "media/graphics/sprites/typhoon.png": "a7629a22af889382f26184bfe7ceb315ba1ec470f540100514e8f06ce83d2cbb",
+    "media/graphics/sprites/ui/bar0.png": "09edc8b8831ae99976b2b5ae923ec197643a123025d3c975ad4b6c45c6a5c3e2",
+    "media/graphics/sprites/ui/bar1.png": "d92ad85ad661e4f6870f82bc98c1a9a01b41c09b41be0044656956cf9d22007e",
+    "media/graphics/sprites/ui/bgm.png": "b787ddf9a323f9c2d125e89461d2b6749461f2990d72391a06f2e2e49570580f",
+    "media/graphics/sprites/ui/hand.png": "b6b55d27ec4b246f1f73a5cf44f482bbfced787f0a7f9f478be45327c851454a",
+    "media/graphics/sprites/ui/popup.png": "7ae6827223b3a8c0553420a0a40a9f29e96cf577af337fe88b8959a7d31ea884",
+    "media/graphics/sprites/ui/score.png": "f6d11bfe0e7558f062e24a6bd48122dc1f31af1e1ed62cd8c07a186ac86afcbf",
+    "media/graphics/sprites/ui/sfx.png": "50dc7d8cc7aafdddb2edf769139109ec65fbd770a756542d75adfd5faffba756",
+    "media/graphics/sprites/ui/title.png": "90bd0db6148cc7fe6ff72f575fcc7923c8009d41ea15ea51b84b796a78938208",
+    "media/graphics/sprites/ui-entity.png": "cb4106b5003a78ee6615044f36e941c0f81dfc09c7833c81a2bc150fd2c5ea89",
+    "media/graphics/sprites/warning-typhoon.png": "64e6560100da982763f69a3717ed2f8096c201f81e333d14085382d380da3f1a",
+    "media/graphics/sprites/warning.png": "a47caed0721ec3d9e75ccbeb08d36b36afc0e2aa581a5329f75affe34f1e1684",
+    "README_二次修改.md": "eb7bb1151acab7c6992b74e71ca333a51eb606cd10a73341d26b5c0196dce171",
+    "screenshots/001.png": "b4645f2b558285c052ebd0f1d45474037a22d257e5f394fb95a8f83f859e55bc",
+    "screenshots/002.png": "7c854e70afbd867c0a15abdff9c209f42bffbcbbf1607e20d9a77feb428f6b9b",
+    "screenshots/003.png": "2ef7abe9a04e90b12def3fbe919a5af6bf910893720de4604949c0f4bbf7531e",
+    "screenshots/004.png": "7854c1b8876fa5841e1f1dffb412e6980ddd1b881508bb8c01d093b068c5a0ee"
+  },
+  "status_at_archive": "review",
+  "ui_checkpoints": 5,
+  "site_readback": {
+    "at": "2026-11-18T17:50:51.013409+00:00",
+    "version_id": "v-70f4dac5e4b8",
+    "job_id": "job-55c5c5f31432",
+    "status": "review",
+    "cover": "http://127.0.0.1:8766/play/artifact-4346dd0c8108/screenshots/001.png",
+    "sixteen_section_content_exact": true,
+    "runtime_files": [
+      {
+        "path": "branding/logo.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:38.872243+00:00",
+        "http": 200,
+        "sha256": "10d64aef2387f4d842e671f0aa40fec8821ae8298ef14df4e5a5f5c041112413",
+        "content_type": "image/png"
+      },
+      {
+        "path": "branding/splash1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:38.901857+00:00",
+        "http": 200,
+        "sha256": "03dfc17dc283d071c1908c2003e3c37b7ff2330e91c66072a732ef5113bd9f7f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "game.css",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:38.901647+00:00",
+        "http": 200,
+        "sha256": "3d678aa8273b3290f4961a68770f9eaa73fbda19db2bcc13eb4c7990a1beddf6",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "game.js",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.028687+00:00",
+        "http": 200,
+        "sha256": "d2735a8aed9e966ee48aaa73d6c531eaa1db8bd9fda326b7c14f047c89688d6c",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "index.html",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.046960+00:00",
+        "http": 200,
+        "sha256": "e3c76d19452457dbb51cc4766f5f9a320ee53d5d715324c79fcf6b2582b35e59",
+        "content_type": "text/html; charset=utf-8"
+      },
+      {
+        "path": "manifest.json",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.063570+00:00",
+        "http": 200,
+        "sha256": "b81dee7d08cc988922f5fb7ff3de7870855cf8fb1bf51e173a62cf516ce914d5",
+        "content_type": "application/json"
+      },
+      {
+        "path": "media/audio/bgm.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.184681+00:00",
+        "http": 200,
+        "sha256": "800f3a210904f2a2221c7537734a57bdea1bc9b7348bec081bdd36cc1c91bb8a",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/audio/opening/logosplash1.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.191601+00:00",
+        "http": 200,
+        "sha256": "1f33df744cb018b9ae058a8d2772ba3c907fa54dd6643a443041f5b7c6d5a1a4",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/audio/opening/logosplash2.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.327854+00:00",
+        "http": 200,
+        "sha256": "5c0eb0bfef68f9e7c85e535039a41ffb4ef912657653a73b79719147b3f95031",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/audio/play/static.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.330015+00:00",
+        "http": 200,
+        "sha256": "46e15ce17af2bdd1ccec19de65b3a2982f634a2be7e3f304cc6bee6a87f67b90",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/audio/sfx/bell.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.509844+00:00",
+        "http": 200,
+        "sha256": "fd02f82fa785584cd3a0665907977e4623d173af318a52cc7314d7ca7482c9ab",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/audio/sfx/button.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.610994+00:00",
+        "http": 200,
+        "sha256": "509cb20cd1143d2f70bb6e3a84436fd523ba718f68cd5b04ac21a667863792a3",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/audio/sfx/crash.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.670590+00:00",
+        "http": 200,
+        "sha256": "6a4092e8063198620578acfc045fb27a25ca23ead05761c0325a4ba8181c3f3c",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/audio/sfx/gameover.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.675749+00:00",
+        "http": 200,
+        "sha256": "2579d7160ebf9a18abba0807f998f97b56f92799261dc805d60027e9a7a134e8",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/audio/sfx/horn.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.826366+00:00",
+        "http": 200,
+        "sha256": "3f21d7b51e780d18acd964f39dfd4be9f4b034949369fa8d4ba05044f2a173be",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/audio/sfx/landed.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.837116+00:00",
+        "http": 200,
+        "sha256": "8fbd36d782d3b20fa3442dc6bcdbcf28dcf82d37c21d96e9aaea948df20db6bf",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/audio/sfx/landing.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.838052+00:00",
+        "http": 200,
+        "sha256": "2f4f48309ac38c560aa0fe93889246ae98410cb71d96f5b9329a4ebce5cd863e",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/audio/sfx/select.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.931923+00:00",
+        "http": 200,
+        "sha256": "1a2fb3ab972f64aff4330cd8e5e9bed0960216ece9c4437d0dd04b52e2e70888",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/audio/sfx/warning.mp3",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.956052+00:00",
+        "http": 200,
+        "sha256": "e59a153f189bfa1990ed5d70ede9c303f17c608bf8f3b0743ae23e9c68b7df04",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "media/fonts/stencil-std-bold.ttf",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:39.956293+00:00",
+        "http": 200,
+        "sha256": "079a39931ed58d3221fd34fa3e1d4962d3471534ae4e06ca5a932e44d6811649",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "media/fonts/stencil-std-bold.woff",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.076594+00:00",
+        "http": 200,
+        "sha256": "3c0126ae55b8002007a96cdf58b793261c2c751c0e669e7e8c8e180d684fcf04",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "media/fonts/stencil-std-bold.woff2",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.113890+00:00",
+        "http": 200,
+        "sha256": "e97f44e8505f4e0362c2c9683f147a4e1ef53d661a48e19bbbee0d3c8eff5f84",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "media/graphics/generic-ad/light/close-button.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.123043+00:00",
+        "http": 200,
+        "sha256": "15da4e8ac1f66bd0dc7707132b7141b94d290e21b4c19f38ab8cf4fa196333da",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/loading/ajax-loader.gif",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.232570+00:00",
+        "http": 200,
+        "sha256": "babed8ddf22ed2e66590a4f75773661304242a4f4167d52e165652fee492933e",
+        "content_type": "image/gif"
+      },
+      {
+        "path": "media/graphics/misc/enter-fullscreen-transparent.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.242291+00:00",
+        "http": 200,
+        "sha256": "9f38676256185dab01de6473519818594a956f2f64201aacf6ba9124d3eb344b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/misc/enter-fullscreen.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.288465+00:00",
+        "http": 200,
+        "sha256": "9f256c4952592e72a4fb13408ad05c999026ad571ad482ffcf0e4302204e0832",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/misc/exit-fullscreen-transparent.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.343857+00:00",
+        "http": 200,
+        "sha256": "f60ffd82a8cd8093189bdeb32c5247442e035567029e3db2b10bdea29ea04f3f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/misc/exit-fullscreen.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.349542+00:00",
+        "http": 200,
+        "sha256": "f12a6ed6b75202c2f54d6c81ccca7897913c10cd8ffd90af3669467fe58c5eae",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/misc/invisible.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.452149+00:00",
+        "http": 200,
+        "sha256": "0f7a58912e9a43b1420911ca9a56e5294f819bcd0af516992ce9bf70da6604da",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/orientate/portrait.jpg",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.461258+00:00",
+        "http": 200,
+        "sha256": "cd2ebb812a2bbffd3c6ae3987e4a490c894968680686b87b20dc9b450b01e1fd",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "media/graphics/promo/banners/1920x1080.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.556654+00:00",
+        "http": 200,
+        "sha256": "652e4be58683b3940cbe21b62879d5a63ce6a0d61f6dd5db77c69a12d327f6eb",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/promo/icons/1080x1080.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.572128+00:00",
+        "http": 200,
+        "sha256": "2568591562b2da292b79e498f504f0da62960982cb6734ea5c2bd53454306790",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/promo/icons/512x512.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.607176+00:00",
+        "http": 200,
+        "sha256": "4b357dc2e31482a4ad92370bf17719d45bf5e39d5e67406e01ef914012868f25",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/promo/screenshots/1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.874659+00:00",
+        "http": 200,
+        "sha256": "4cea1d76d52963bec926472a528e942435f6b0131e2d7212e2ef19b128b23810",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/promo/screenshots/2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.925891+00:00",
+        "http": 200,
+        "sha256": "2f65c29683fbaa35089406068cbc80d8bede88c2f7001ffea21d9c8982b5e0a7",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/promo/screenshots/3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:40.943255+00:00",
+        "http": 200,
+        "sha256": "600b0991194094b7dd7247cb7a97ec8bead0ee595040ddc390cc806ee75f2994",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/splash/marketjs/branding-text.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.155234+00:00",
+        "http": 200,
+        "sha256": "72c3d27494615378f004c68747b5a5fb966ae42ca81413186585980f0e4d4db6",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/splash/marketjs/letter-m.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.184077+00:00",
+        "http": 200,
+        "sha256": "acb8f4d579d4cd931d500269cd93c069bfe125ac13ac9e4342ed028d6c3ba3a1",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/splash/marketjs/logo.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.233413+00:00",
+        "http": 200,
+        "sha256": "b3f7da5e4ea5ce15dab071b0cca988f76adbf8f49ef7cc0e55dc8c9412c2e2e3",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/arrow.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.315899+00:00",
+        "http": 200,
+        "sha256": "93f9e2716f8e7930f2f85950ea745356ce4ec336f7b72ca69526d7411e57db9d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/arrow2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.317875+00:00",
+        "http": 200,
+        "sha256": "c0f7422ee0426e0669b79b18a3eda83db97535e04e39ea2ba50d12ab7ed04c77",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/background.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.352191+00:00",
+        "http": 200,
+        "sha256": "868a2a8fcadfa81a19769d1c7821b6b780acb63b5f7cafc6f16168ea4907c756",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/boat-1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.418935+00:00",
+        "http": 200,
+        "sha256": "0bb95e2fcdca0c2414194b6d015dd21611947bb3ab077b13d8c8531803300ee1",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/boat-2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.440242+00:00",
+        "http": 200,
+        "sha256": "1f44b8ada0930c9b8722e71f9dc0d08bd5c34886181e03b27b3ff08c87990d63",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/boat-3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.488967+00:00",
+        "http": 200,
+        "sha256": "d4463dd83327c4fec6b42ca355730a8f978e4298ae0e87d2525d50a13e006be0",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/boat-4.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.512260+00:00",
+        "http": 200,
+        "sha256": "36730e86364194d91cd6c391ab506b45aadab211cbbe44e2e81995bbdeb2922c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/boat-warning-1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.553480+00:00",
+        "http": 200,
+        "sha256": "1cfee666e5f6aaf82a3806d217e88ac12156d1949cb55b69e761577799e877be",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/boat-warning-2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.646358+00:00",
+        "http": 200,
+        "sha256": "7cd1c0c56b7709c79cafd14eda8cf662c41dc7f02b9f206bda1059aab9d35378",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/boat-warning-3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.694451+00:00",
+        "http": 200,
+        "sha256": "cb1c0d76a4b815bf36ae4e62c021e3c94b02f87b89d9365448604416dbece02d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/boat-warning-4.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.719590+00:00",
+        "http": 200,
+        "sha256": "3f8e5f1d4af6eb2efdba1690852214b59a6121158a47842b580d317719599cda",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-back.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.803151+00:00",
+        "http": 200,
+        "sha256": "330074211a560ce8974572c5b13cd2f372514fe0f0316b5338eb8132de8f5615",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-fast.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.810484+00:00",
+        "http": 200,
+        "sha256": "8d48ad443793385f232e54535379a06a8cfdeb9034e207bdca98030096f6073d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-faster.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.839011+00:00",
+        "http": 200,
+        "sha256": "76f8f8c1a6a4dcdbddee255c99130d294bd28a4517687b2193c09672033d6f9e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-home.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.905666+00:00",
+        "http": 200,
+        "sha256": "330074211a560ce8974572c5b13cd2f372514fe0f0316b5338eb8132de8f5615",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-info.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.947014+00:00",
+        "http": 200,
+        "sha256": "ef70952828ccbbf29b87cce0f1eda14d79cbcf2b28bc2fb4da8c4e77fa34d120",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-more-games.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:41.973894+00:00",
+        "http": 200,
+        "sha256": "9af1fc2c5d2d7383d1c2503bacb6bf6f2bdfcaadd8e0da17863432ddf5b5a489",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-normal.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.028099+00:00",
+        "http": 200,
+        "sha256": "c58bfd328dc0e53e54ef2c8909bfd76704dce34d7cab4ec59c3848ee8230a86b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-pause.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.035765+00:00",
+        "http": 200,
+        "sha256": "0c357d9f0866d420fa181bd17be8b49c429a17996564ec3e4679e9538bd466bc",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-play.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.092546+00:00",
+        "http": 200,
+        "sha256": "c735db575698e94c54e34f052518caf549015080c82c77862b0e928159ec5b9c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-replay.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.133417+00:00",
+        "http": 200,
+        "sha256": "e027592d48de398ac5175e5ccf810c5baf48e053d87c27d7f48a6e9ac621b902",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-resume.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.170355+00:00",
+        "http": 200,
+        "sha256": "b72dfbb1ce31e429d40efd91431381685da3eecaaa7c16b8898e6a827db5884e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-settings.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.232699+00:00",
+        "http": 200,
+        "sha256": "4b10e2510bc3d501162b351ca9d886c6366e68482714a947d940a2bd0b0508a1",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/bt-share.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.260792+00:00",
+        "http": 200,
+        "sha256": "4de87449f86159e544b1b19ead25d30b184fdcace98aeb0410309dea7ff0f9a8",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/no.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.311081+00:00",
+        "http": 200,
+        "sha256": "e7c3e7530e9687688590fe81f48f15f55456729cdd6a6f96c8e1af16b8f1e7ec",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/off.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.354040+00:00",
+        "http": 200,
+        "sha256": "ddc407714b684ffac52b84b1cec0332e93be1c9b50df470190c53f5b2ff0995c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/on.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.376693+00:00",
+        "http": 200,
+        "sha256": "571d55489f4862a685c769b8d17a861dcfabb61d795cecdca29552e5223acec4",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/buttons/yes.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.471252+00:00",
+        "http": 200,
+        "sha256": "9c4c9ba2f1b3ee8e327cc98408893e41203eb79df7a491af951eef3141a45ff2",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/ingame-entity.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.478718+00:00",
+        "http": 200,
+        "sha256": "154beeb16f47a571e5057c432193a63308838772ad75d80c27eb652357b25133",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/amsterdam/bridge.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.492208+00:00",
+        "http": 200,
+        "sha256": "139186ee0ac64bbdd002a9e1f9875181d8bd52a9732365d93e6c3250e1b16fca",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/amsterdam/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.601151+00:00",
+        "http": 200,
+        "sha256": "115a4abf8a41e398e462155eb369d760be16746abad451b261a6f43217c553f9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/amsterdam/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.601419+00:00",
+        "http": 200,
+        "sha256": "229804d91a32d908b37c284f8e6680576c32246ad9b35c7fa7e17b5288814122",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/amsterdam/island3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.614387+00:00",
+        "http": 200,
+        "sha256": "997d104d687fb45848747d5a1737bae98b2fff23467f5d84fb301996849a6437",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/anchor-point/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.825183+00:00",
+        "http": 200,
+        "sha256": "d593ca26f76a1aee026c792ef523ce76564178a928aa128eec1278df7bd43673",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/anchor-point/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.826221+00:00",
+        "http": 200,
+        "sha256": "e86051989474aef295874d53ca24d887f4901d2e52127451a444761644f25a50",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/anchor-point/island3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:42.842662+00:00",
+        "http": 200,
+        "sha256": "7fd4f20a3f5ff885e591dc0ca5db23ca035a617727259af1f9411264eb2cd740",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/antwerp/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.025904+00:00",
+        "http": 200,
+        "sha256": "6be18df0ef00722b28131fba5fc024b32fdb7c26395e5474c69da63abb26f25f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/antwerp/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.027642+00:00",
+        "http": 200,
+        "sha256": "19a300e7e485e574723c92f4973b88708f17818e65d7b45812209c932f2c9ec5",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/antwerp/island3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.041629+00:00",
+        "http": 200,
+        "sha256": "aaceaf26484ed3259365c8d3276e2242d4694a2720ea8e8b05601bd001a03cb9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/bremerhaven/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.222374+00:00",
+        "http": 200,
+        "sha256": "066cb53f9677d001f9ee2a936d4e60bea87de068f79c8e0f62933441fbab3fe2",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/bremerhaven/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.229844+00:00",
+        "http": 200,
+        "sha256": "9db13555e6cb53f4b630c07cb9b9c152e7e03310f58d2e48e5d18e473a067586",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/coastal-cove/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.277919+00:00",
+        "http": 200,
+        "sha256": "73d767671a41041e7f40e44a25c9847e9f1446336449f83c22333b7e91ef4280",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/coastal-cove/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.439733+00:00",
+        "http": 200,
+        "sha256": "ad95d604d8d4f497d22278ab5c04b1b4d76f384afdd23516706cdfa45bad79e0",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/felixstowe/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.454693+00:00",
+        "http": 200,
+        "sha256": "1e3610e8df647dff02db76dcdd402f4467cbf218c45d5fa70bf105f434477f56",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/felixstowe/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.553145+00:00",
+        "http": 200,
+        "sha256": "2044324c52b7cce52ef7c5f8e4b7d2f17f79e71e9a3949863acf5a8474748c16",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/felixstowe/island3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.568939+00:00",
+        "http": 200,
+        "sha256": "8c91f5bdfcf587ed8f1a6251258a97e273bbb72b8fb7f4b66ed3206e27eb4d85",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/gothenburg/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.663330+00:00",
+        "http": 200,
+        "sha256": "d9ea313da3360563699669185f12e1dd56fbe2d8afc3509d46d007cb0f76f261",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/gothenburg/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.840318+00:00",
+        "http": 200,
+        "sha256": "5f9fb56f967879ac240db343f92dc8a9cdbbb158f52c80bf328e1b4521e9145f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/gothenburg/island3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.851182+00:00",
+        "http": 200,
+        "sha256": "1f6c84db76753586edc77098253d392297946a1389d8f4ed40c57c762a04f13f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/grotrie-port/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.869731+00:00",
+        "http": 200,
+        "sha256": "cf1e2d94d8099922dc93b65981ece59e690c1b7c7a3b484eae27bc88180d8eb9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/grotrie-port/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:43.991980+00:00",
+        "http": 200,
+        "sha256": "78f2c20ba71befddcb4d873b2f4c457f06c877645adc7b18ad256e4b4a1960cb",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/grotrie-port/island3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:44.009060+00:00",
+        "http": 200,
+        "sha256": "8cf0c24b5f6e083756348c7d6e305fb2f9a7276e256d574499b42d708f52937b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/hamburg/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:44.056874+00:00",
+        "http": 200,
+        "sha256": "79ddea0fbe1ef35ab446db797716a17451870f109c0798c690c3d9c6a959bf28",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/hamburg/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:44.164287+00:00",
+        "http": 200,
+        "sha256": "c06b1f98497c3444d6ed4c5ed9592738db12973380b58ed6f1be5df98ece81d5",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/hamburg/island3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:44.212232+00:00",
+        "http": 200,
+        "sha256": "1b7eb2573607a127f8fbad5865a262b4eeb24d2b5a259dbadfa4e51c6e74ea2b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/havre/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:44.356891+00:00",
+        "http": 200,
+        "sha256": "a0d6d8d8b56bf2ab0f9c2fc3d2a169310869986998bc24bd9c88016cf5f6542b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/havre/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:44.538560+00:00",
+        "http": 200,
+        "sha256": "75acbb6d68dea75c3b5ca3b083ff61fa340f4641314f8322357960773ad7d778",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/helsinki/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:44.568982+00:00",
+        "http": 200,
+        "sha256": "9311312aa4514066ee6fd96a324008da67cfa3bca4498b105e9b2d3c48491c81",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/helsinki/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:44.807400+00:00",
+        "http": 200,
+        "sha256": "29629ed1ab29f931a8871e9aea5bdcd39b1b0238a1c16f62fae8177ddbe5fb98",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/helsinki/island3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:44.851957+00:00",
+        "http": 200,
+        "sha256": "ec84591857bd6c27c1a9ff27676d9ca4290063c57f9fe1a29c48c6263fce7798",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/marseille/bridge.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:44.872580+00:00",
+        "http": 200,
+        "sha256": "f502abac0302016d13241d18a2651fe4ab2e94421ace77b36e0f5aad26772a16",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/marseille/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:44.991722+00:00",
+        "http": 200,
+        "sha256": "4efde16cda8d8448475e99a9001851da43620fa5ccfa6ee2aa505d3a344b695e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/marseille/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:45.095196+00:00",
+        "http": 200,
+        "sha256": "3ec913ba461f9f9d5471d76cac8a27d71976ef95c397b70825f75c77e0d0c035",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/oslo/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:45.213236+00:00",
+        "http": 200,
+        "sha256": "b55e859e0f36491196d6fe9bb6c479e8aa5fdb834299b3bab6618baf553aff0b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/oslo/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:45.316122+00:00",
+        "http": 200,
+        "sha256": "b94a383defafaf55aee4b1b8699ac5b95da563262ecedd3d8da741b2c1344d46",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/port-city/island6.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:45.362736+00:00",
+        "http": 200,
+        "sha256": "8873fee3d02d7df6d00550c0ed9269ed98ecd198bf5b0bab07ccee2bea0eb910",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/port-city/island7.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:45.655385+00:00",
+        "http": 200,
+        "sha256": "9bf1ec569c2182b475c856af9764f4f245a2f4e3354fb60beb9cb2aed4e21912",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/river-docks/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:45.671942+00:00",
+        "http": 200,
+        "sha256": "c07bec1b2d5549ca2a46ea5546cb35376d5e6260fb5724305177f37e379e9c4c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/river-docks/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:45.765893+00:00",
+        "http": 200,
+        "sha256": "971ff5ff805b9bb1d5b8e3799de508f2110f9ea1a403bc6ef5c120b43683e7cd",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/rostock/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:46.019870+00:00",
+        "http": 200,
+        "sha256": "8dd93261394276946a3d09f717a54a0008183c81d280c933941bf8af6f1d2163",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/rostock/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:46.112650+00:00",
+        "http": 200,
+        "sha256": "e7e6dc9927bfde6b6db57dd5122288866685e981e7c07eb0357d3521b5f7cd1f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/rostock/island3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:46.179222+00:00",
+        "http": 200,
+        "sha256": "0bdf45a184c195e3da7b4e8c30118d8c84825f9cf408c7c4ebbbc45a0fee4f47",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/rotterdam/bridge.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:46.237606+00:00",
+        "http": 200,
+        "sha256": "183799f7556c7a1dd20e2504c29dce92c98e5b38b60a85b47ba5aa258a9c80ff",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/rotterdam/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:46.339355+00:00",
+        "http": 200,
+        "sha256": "464fd224646c49fe9f45f1dc8b8d208fc04cf4363c4e7a0642d9e1c6f4250e53",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/rotterdam/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:46.392731+00:00",
+        "http": 200,
+        "sha256": "2405b692a6a286a9786ed3475cd66d28822a2826cd03515968812bfca534266d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/rotterdam/island3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:46.423742+00:00",
+        "http": 200,
+        "sha256": "8361c7ac49130cda4ba3a66106500d4f0170c9f0b2347ab9b6d002435e8df60f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/shanghai/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:46.587746+00:00",
+        "http": 200,
+        "sha256": "98a907ac555a4f6c575b695990cd512a0595652bee80adc3231223f6dab5a80b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/shanghai/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:46.775507+00:00",
+        "http": 200,
+        "sha256": "b55e859e0f36491196d6fe9bb6c479e8aa5fdb834299b3bab6618baf553aff0b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/shanghai/island3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:46.850197+00:00",
+        "http": 200,
+        "sha256": "f2ba10ab4d1e7df1ca11ac2ab0436a282987a10e391da3835085adf5da33a27b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/st-helens/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:46.852095+00:00",
+        "http": 200,
+        "sha256": "9e11b0fc94d888732594a79470ed00f550315ddf1ca0f788120e7d416cc6a53a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/st-helens/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:47.021172+00:00",
+        "http": 200,
+        "sha256": "5c6a2b386600e190d53dc7d54726ccc6c909323eb7bd9adc74fbc2f0f7f43093",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/st-helens/island3.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:47.026230+00:00",
+        "http": 200,
+        "sha256": "be3d1b6e76fb477175bbd6b9905de0c365baaade3c354dbb7f01de96c191bdc9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/wilhelmshaven/island1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:47.052857+00:00",
+        "http": 200,
+        "sha256": "0ca3cffeb50df852405e0685feaf7d482f19be50a2e6cabb189a592921416535",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/islands/wilhelmshaven/island2.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:47.319761+00:00",
+        "http": 200,
+        "sha256": "71d070aede3ffaa7aa0237cbd78dbbe00893408cd7c76a3e2549da7f08ce6791",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/amsterdam.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:47.329907+00:00",
+        "http": 200,
+        "sha256": "d2ab5863e0dba2dc88acdef2aef46eedd480d22f4ce73b1c1cebe409d0be8f85",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/anchor-point.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:47.477287+00:00",
+        "http": 200,
+        "sha256": "25eafd062d84c93355f497ec33ae684ed2572f76e6e420b7c503ac1adf1d1cbc",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/antwerp.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:47.559768+00:00",
+        "http": 200,
+        "sha256": "e962dfd0e480db2be5ef79ae3e50a3bd6ef154e40cdb39fca1bee786e7a6091f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/bremerhaven.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:47.598570+00:00",
+        "http": 200,
+        "sha256": "67ee1c4c3ae21003d06f86e366a9bb511504eaa5ce3cd341f97172c08f17bb5b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/coastal-cove.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:47.754888+00:00",
+        "http": 200,
+        "sha256": "49ff4adaac56fa70f58d8819d217da2e71803aa43e1834cda865b0e67a99c2b8",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/felixstowe.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:47.826383+00:00",
+        "http": 200,
+        "sha256": "e5ee761acff4b834a9428b843622c2580d294f73b98e2450e30399d390708dd3",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/gothenburg.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:47.848730+00:00",
+        "http": 200,
+        "sha256": "605c70a4f41d23dc20a7cb1f06f16f1971179536b518fc0d2e986327535d7532",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/grotrie-port.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:48.036509+00:00",
+        "http": 200,
+        "sha256": "3a9ada1b676b3e154ae5c7c4674a7aa4ab16dce1d7dc5345e54e412889a3d234",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/hamburg.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:48.052615+00:00",
+        "http": 200,
+        "sha256": "f4c12d729c7c580171b5795fc6bf9fbe80435da69743c4dafe708ccfb69afcd4",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/havre.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:48.087833+00:00",
+        "http": 200,
+        "sha256": "8f17df879370e6cc8cdd52268b0dead4a7f5722a6d622d7db0c404a1881b7baf",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/helsinki.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:48.311968+00:00",
+        "http": 200,
+        "sha256": "528c4364b42ef61e3758d291760f0ce6a5bdce685311aaa7db0946351b4375cf",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/map-title.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:48.349513+00:00",
+        "http": 200,
+        "sha256": "4081fc13572c0d926296cd24c27da96f860b14b2a3eab415bd28a69b8043b142",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/marseille.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:48.476133+00:00",
+        "http": 200,
+        "sha256": "df6e9fc854b7118aae7281da7801202dff9934e6490e42197e838a2dfd6ed9b0",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/oslo.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:48.512492+00:00",
+        "http": 200,
+        "sha256": "d88d4a63f879530108fe6105c5177fe907aad902e658ffb4b4e3e14d0f4bfca5",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/port-city.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:48.573723+00:00",
+        "http": 200,
+        "sha256": "4aeda77dcf79f9767e134746f93b00488a10a78bb5b459e35f2453c6cc703c28",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/river-docks.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:48.738601+00:00",
+        "http": 200,
+        "sha256": "acc208ae41c1f4072cb5bc53e749a591b392953435bf7e7a5a778ec4bccc6bb9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/rostock.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:48.836350+00:00",
+        "http": 200,
+        "sha256": "83b045623f93c5c97154ecb367c33373a112d20309ee507e64071dda391b4185",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/rotterdam.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:48.883344+00:00",
+        "http": 200,
+        "sha256": "456133552c1418148385788553562dd95918a129ebfb8ec341699a264bed2920",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/shanghai.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:48.995730+00:00",
+        "http": 200,
+        "sha256": "3b32664897794545605033d7571cf218539348b8a4e3bc11f605250d5cf7677d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/st-helens.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:49.082010+00:00",
+        "http": 200,
+        "sha256": "a5f6a13595d79553c6dcc04383cf61a6fb3fb22916b748964f23069d4c6c4a96",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/maps/wilhelmshaven.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:49.365319+00:00",
+        "http": 200,
+        "sha256": "b5af21e51332a45dc9caa8fdb92360c3b5b36602c159162c26622ec807720445",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/sea.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:49.382629+00:00",
+        "http": 200,
+        "sha256": "2cffed10e8e6fbb92205abe6f8ab4257d1c0a3ca039124b8ed3e8a6001b05aaa",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/select-effect.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:49.486122+00:00",
+        "http": 200,
+        "sha256": "99bcebc2ae78f821ebf434e2a1b9018fdd2a16036eca1a2d853dcc10a20f2ff2",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/typhoon.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:49.658284+00:00",
+        "http": 200,
+        "sha256": "a7629a22af889382f26184bfe7ceb315ba1ec470f540100514e8f06ce83d2cbb",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/ui-entity.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:49.710088+00:00",
+        "http": 200,
+        "sha256": "cb4106b5003a78ee6615044f36e941c0f81dfc09c7833c81a2bc150fd2c5ea89",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/ui/bar0.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:49.849070+00:00",
+        "http": 200,
+        "sha256": "09edc8b8831ae99976b2b5ae923ec197643a123025d3c975ad4b6c45c6a5c3e2",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/ui/bar1.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:49.925742+00:00",
+        "http": 200,
+        "sha256": "d92ad85ad661e4f6870f82bc98c1a9a01b41c09b41be0044656956cf9d22007e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/ui/bgm.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:49.989646+00:00",
+        "http": 200,
+        "sha256": "b787ddf9a323f9c2d125e89461d2b6749461f2990d72391a06f2e2e49570580f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/ui/hand.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:50.037453+00:00",
+        "http": 200,
+        "sha256": "b6b55d27ec4b246f1f73a5cf44f482bbfced787f0a7f9f478be45327c851454a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/ui/popup.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:50.065573+00:00",
+        "http": 200,
+        "sha256": "7ae6827223b3a8c0553420a0a40a9f29e96cf577af337fe88b8959a7d31ea884",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/ui/score.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:50.137388+00:00",
+        "http": 200,
+        "sha256": "f6d11bfe0e7558f062e24a6bd48122dc1f31af1e1ed62cd8c07a186ac86afcbf",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/ui/sfx.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:50.199296+00:00",
+        "http": 200,
+        "sha256": "50dc7d8cc7aafdddb2edf769139109ec65fbd770a756542d75adfd5faffba756",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/ui/title.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:50.215488+00:00",
+        "http": 200,
+        "sha256": "90bd0db6148cc7fe6ff72f575fcc7923c8009d41ea15ea51b84b796a78938208",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/warning-typhoon.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:50.309691+00:00",
+        "http": 200,
+        "sha256": "64e6560100da982763f69a3717ed2f8096c201f81e333d14085382d380da3f1a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "media/graphics/sprites/warning.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:50.321164+00:00",
+        "http": 200,
+        "sha256": "a47caed0721ec3d9e75ccbeb08d36b36afc0e2aa581a5329f75affe34f1e1684",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/001.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:50.427158+00:00",
+        "http": 200,
+        "sha256": "b4645f2b558285c052ebd0f1d45474037a22d257e5f394fb95a8f83f859e55bc",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/002.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:50.457967+00:00",
+        "http": 200,
+        "sha256": "7c854e70afbd867c0a15abdff9c209f42bffbcbbf1607e20d9a77feb428f6b9b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/003.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:50.468329+00:00",
+        "http": 200,
+        "sha256": "2ef7abe9a04e90b12def3fbe919a5af6bf910893720de4604949c0f4bbf7531e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/004.png",
+        "artifact_id": "artifact-4346dd0c8108",
+        "observed_at": "2026-11-18T17:50:50.811379+00:00",
+        "http": 200,
+        "sha256": "7854c1b8876fa5841e1f1dffb412e6980ddd1b881508bb8c01d093b068c5a0ee",
+        "content_type": "image/png"
+      }
+    ],
+    "all_runtime_and_screenshots_exact": true,
+    "index_csp": "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' http://192.168.56.52:8765",
+    "gameplay_UI_reexecuted": false,
+    "cumulative_UI_steps": 5,
+    "native_docking_unloading_verified": true,
+    "native_departure_verified": true,
+    "native_tutorial_complete_verified": true,
+    "native_score": 1,
+    "regular_mode_verified": false,
+    "browser_exit_code": 0,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "CSP_source_compatibility": "158runtimefiles+4originalscreenshots exactHTTPSreadback; nativegame onlytested remotelyunder18865selfCSP, noaddedgameplayunderpublicsiteCSP."
+  },
+  "scope": "Exact normal-review offline game and real evidence. Raw input counts and historical failures remain explicit; no approval, supply, game-state changes or added testing."
+}

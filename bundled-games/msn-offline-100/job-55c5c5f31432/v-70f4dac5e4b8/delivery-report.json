@@ -1,0 +1,280 @@
+{
+  "msn_revision": "harbor-offline-v3",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计输入1，原动作和失败前缀保留于validation"
+      },
+      {
+        "type": "goto",
+        "description": "累计输入2，原动作和失败前缀保留于validation"
+      },
+      {
+        "type": "click",
+        "description": "累计输入3，原动作和失败前缀保留于validation"
+      },
+      {
+        "type": "drag",
+        "description": "累计输入4，原动作和失败前缀保留于validation"
+      },
+      {
+        "type": "drag",
+        "description": "累计输入5，原动作和失败前缀保留于validation"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 146,
+    "responses": 146,
+    "tested_revision": "harbor-offline-v3",
+    "delivery_revision": "harbor-offline-v3",
+    "scope": "累计5次真实输入：v2首次入口资源缺失计1；v3入口计2，原Play计3，普通连续拖线从船到匹配泊位计4，卸货后普通连续拖线离港计5。原0→1分，船实际靠泊、完成卸货、离开地图，出现原TUTORIAL COMPLETE。额外只读观察不产生输入。 实测为原生交互教程：EntityTutorialShip继承原EntityShip，保留原教程的碰撞重置与特殊规则。不能由教程推断普通多船碰撞、失败、地图解锁或20张地图已经运行通过。未操作完成弹窗、普通地图、加速、设置、刷新；无第六次输入，存档刷新恢复未知。",
+    "native_docking_unloading_verified": true,
+    "native_departure_verified": true,
+    "native_tutorial_complete_verified": true,
+    "native_score": 1,
+    "regular_mode_verified": false,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "cumulative_input_budget": 5
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "实际MSStart/ApiHandler/广告提供者及消费调用退役，原非广告继续和普通失败保留，无观看广告复活和成功/奖励伪造。",
+      "evidence": [
+        "game.js",
+        "index.html"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "平台分数提交/分享/更多游戏/外站点击层退役，原本地最高分和地图解锁保留。",
+      "evidence": [
+        "game.js",
+        "index.html"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原单人动态港口航线与泊位调度，无远端玩家或匹配。",
+      "evidence": [
+        "game.js",
+        "index.html"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "原港口调度分数挑战，无真实支付。",
+      "evidence": [
+        "game.js",
+        "index.html"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "策略 / 港口航线调度",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "为动态船舶规划连续航线，将对应类型货船引导至匹配泊位，卸货后再次规划离港路线；普通模式须避免相撞、岸线及泊位调度冲突。实测原单船教程完成靠泊与离港两次航线。",
+    "core_experience": "",
+    "controls": "鼠标或触摸从船体按下、连续拖动绘制轨迹、松开后原船体沿线航行；匹配泊位自动捕捉，卸货完成后从船再画离港航线。原暂停、速度、菜单及地图按钮保留。本轮只按Play及两次连续拖动，不直接调用业务方法。",
+    "game_loop": "",
+    "content": "20份原地图配置及资源全部保留：amsterdam, anchor-point, antwerp, bremerhaven, coastal-cove, felixstowe, gothenburg, grotrie-port, hamburg, havre, helsinki, marseille, oslo, port-city, river-docks, rostock, rotterdam, shanghai, st-helens, wilhelmshaven。本轮实际运行coastal-cove原教程及其两个泊位；普通地图、台风、多船挑战均未遍历，不把配置数量当已试玩关卡数。",
+    "progression": "",
+    "save": "",
+    "rules": "原30个受保护模块（含20地图、Ship/Dock/Island/Typhoon/Pointer/Tutorial）原字节保留；114个模块体恢复，最终112体仍与上游逐字节相同。泊位类型匹配、轨迹碰岸检查、原运动/转向/卸货/离港、随机船型和计时保持。原教程的特殊碰撞重置不冒充普通规则实测。",
+    "systems": "原Impact模块、Canvas渲染/输入/计时/实体、SAT碰撞、岛岸几何、泊位占用/卸货、船舶轨迹/转向/警告、原菜单/地图选择/本地存储保持。浏览器隔离上下文并阻止外联，158份运行资源自包含；未改RNG、计时、分数、存档或关卡。MSStart/ApiHandler、广告提供者与广告复活弹窗/消费回调、分数上报、分享/更多游戏/外站点击层/游戏中心入口退役；普通结束分支与本地分数、地图、存储保留。只在已下载单机副本退役客户端域名空白跳转，不改变上游登录或授权，不提供SDK、身份、服务端响应、免费复活或奖励替身。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5次真实输入：v2首次入口资源缺失计1；v3入口计2，原Play计3，普通连续拖线从船到匹配泊位计4，卸货后普通连续拖线离港计5。原0→1分，船实际靠泊、完成卸货、离开地图，出现原TUTORIAL COMPLETE。额外只读观察不产生输入。 实测为原生交互教程：EntityTutorialShip继承原EntityShip，保留原教程的碰撞重置与特殊规则。不能由教程推断普通多船碰撞、失败、地图解锁或20张地图已经运行通过。未操作完成弹窗、普通地图、加速、设置、刷新；无第六次输入，存档刷新恢复未知。 远端52原生Chromium经Playwright真实146请求/146响应全同源HTTP200，0外联/请求失败/脚本异常；1条原AudioContext自动播放警告保留，未独立听音。158运行文件预检逐项HTTP与SHA相同。浏览器session48268实际BROWSER_EXIT0，Node17128不存在。原v2资源失败和1次输入完整保留。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "ImpactJS / 原生JavaScript",
+    "programming_language": "JavaScript / HTML / CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Harbor Operator / 港口调度；MSN原生9pbd0qpb8kwz、MarketJS公开v7。原ImpactJS/JavaScript/HTML/CSS，2D俯视Canvas，远端桌面1440×900中原1920×1080画布按比例显示，手机未实测。",
+        "asset_types": "158运行文件，156份除game.js/index.html外原字节保持：136PNG、13MP3、Stencil字体TTF/WOFF/WOFF2、1GIF、1JPG及原CSS/manifest。原海洋、岛屿、船舶、泊位、按钮、地图预览、警告、教程手势和音效保持。完整原始161文件另含采集元数据。",
+        "core_challenge": "为动态船舶规划连续航线，将对应类型货船引导至匹配泊位，卸货后再次规划离港路线；普通模式须避免相撞、岸线及泊位调度冲突。实测原单船教程完成靠泊与离港两次航线。",
+        "controls": "鼠标或触摸从船体按下、连续拖动绘制轨迹、松开后原船体沿线航行；匹配泊位自动捕捉，卸货完成后从船再画离港航线。原暂停、速度、菜单及地图按钮保留。本轮只按Play及两次连续拖动，不直接调用业务方法。",
+        "behavior_path": "累计5次真实输入：v2首次入口资源缺失计1；v3入口计2，原Play计3，普通连续拖线从船到匹配泊位计4，卸货后普通连续拖线离港计5。原0→1分，船实际靠泊、完成卸货、离开地图，出现原TUTORIAL COMPLETE。额外只读观察不产生输入。",
+        "game_path": "原菜单→Play→首次本地教学：原船到港提示→手工画线并沿线行驶→靠泊卸货加1分→原离港提示→再次画线→船离开地图→教程完成弹窗。后续地图选择与普通多船挑战源码存在，本轮未进入；未对流失风险作推断。",
+        "progression_path": "源码含地图选择、原本地最高分和解锁阈值；原unlockScores五项0/20/40/60/80，另有20份地图配置。两者不混称20张均有独立已确认阈值。原教学初始化自行保存tutorial=false，未人为注入或刷新验证。",
+        "core_loop": "目标为安全完成船舶调度；按类型把船引到泊位，原路径/航行/泊位反馈可见，卸货加分后再送船离港释放泊位，普通模式继续接纳新船。实测这一核心闭环在原教程完成，得分1与原完成反馈真实出现。",
+        "gameplay_rules": "原30个受保护模块（含20地图、Ship/Dock/Island/Typhoon/Pointer/Tutorial）原字节保留；114个模块体恢复，最终112体仍与上游逐字节相同。泊位类型匹配、轨迹碰岸检查、原运动/转向/卸货/离港、随机船型和计时保持。原教程的特殊碰撞重置不冒充普通规则实测。",
+        "key_numbers": "源码普通控制初分0、初速率1，首船前计时1.5秒，首船后间隔12秒；分数25时间隔8秒/速率1.1，分数50时间隔6秒/速率1.2。4个船舶tier索引0..3。原Dock捕捉距离80世界单位，靠泊到点距离小于5时加1；本轮仅实测1船、0→1分和完成反馈，不验证高分难度。",
+        "level_configuration": "20份原地图配置及资源全部保留：amsterdam, anchor-point, antwerp, bremerhaven, coastal-cove, felixstowe, gothenburg, grotrie-port, hamburg, havre, helsinki, marseille, oslo, port-city, river-docks, rostock, rotterdam, shanghai, st-helens, wilhelmshaven。本轮实际运行coastal-cove原教程及其两个泊位；普通地图、台风、多船挑战均未遍历，不把配置数量当已试玩关卡数。",
+        "system_design": "原Impact模块、Canvas渲染/输入/计时/实体、SAT碰撞、岛岸几何、泊位占用/卸货、船舶轨迹/转向/警告、原菜单/地图选择/本地存储保持。浏览器隔离上下文并阻止外联，158份运行资源自包含；未改RNG、计时、分数、存档或关卡。MSStart/ApiHandler、广告提供者与广告复活弹窗/消费回调、分数上报、分享/更多游戏/外站点击层/游戏中心入口退役；普通结束分支与本地分数、地图、存储保留。只在已下载单机副本退役客户端域名空白跳转，不改变上游登录或授权，不提供SDK、身份、服务端响应、免费复活或奖励替身。",
+        "theme": "原海港航运主题：蓝色海面、岛岸、仓库/集装箱/起重机、不同船型与颜色泊位；Stencil标题字、原白色航线/手势教学、暂停/速度/原完成面板。英语原界面及原贴图实拍。",
+        "progression_economy": "原本地分数与地图解锁为进展，原最高分和tutorial/map存储代码保留；未确认金币、升级购买或付费经济，不新增货币。原教程保存由原代码完成，刷新持久性未实测。",
+        "roster": "原四种船舶tier及匹配泊位类型、岛屿、台风和警告实体源码/资源保留。实测tier0/type1单船及type1、type2两个泊位；船沿玩家画线自动运动，不存在联网玩家或服务端AI替身。",
+        "monetization": "MSStart/ApiHandler、广告提供者与广告复活弹窗/消费回调、分数上报、分享/更多游戏/外站点击层/游戏中心入口退役；普通结束分支与本地分数、地图、存储保留。只在已下载单机副本退役客户端域名空白跳转，不改变上游登录或授权，不提供SDK、身份、服务端响应、免费复活或奖励替身。 无新增充值、支付、联网榜单或远程业务。实测为原生交互教程：EntityTutorialShip继承原EntityShip，保留原教程的碰撞重置与特殊规则。不能由教程推断普通多船碰撞、失败、地图解锁或20张地图已经运行通过。未操作完成弹窗、普通地图、加速、设置、刷新；无第六次输入，存档刷新恢复未知。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "修订v3原菜单，16份原字体/音频补齐；累计第2次输入"
+      },
+      {
+        "path": "screenshots/002.png",
+        "caption": "原Play进入原交互教程，单船、两个泊位、原画线提示与0分"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "连续画线引航后真实靠泊卸货，原得分1和离港提示"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "连续离港航线后船离开原地图，原TUTORIAL COMPLETE弹窗"
+      }
+    ]
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "原教程普通画线完成靠泊卸货和离港，真实1分及TUTORIAL COMPLETE。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "158运行文件、156原字节，136PNG/13MP3/Stencil三字体格式，146同源200。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单、coastal-cove教学港口、原靠泊卸货及完成面板实拍；普通地图未遍历。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原船、海岸、两个类型泊位、航线和卸货状态实拍。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原tier0/type1船真实沿两次玩家航线运动；其余船仅源码和资源确认。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原船沿线航行、转向、靠泊卸货、出港与原完成面板实拍，无时间/状态注入。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "原Play与两次按下-拖动-松开真实响应，4幅最终修订截图；v2失败截图单列。",
+      "evidence": [
+        "screenshots/001.png",
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-18T17:11:52.352000+00:00",
+    "observation_end": "2026-11-18T17:46:57.861529+00:00",
+    "elapsed_seconds": 2105.509529,
+    "scope": "本轮原来源SHA重新核对到证据归档的经过时间，含源码分析、工具、试玩与等待；不含更早采集，不是纯处理工时",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

@@ -1,0 +1,30 @@
+// Independent source-only comparison of original and an explicit immutable revision.
+const fs=require('fs'),path=require('path'),assert=require('assert'),crypto=require('crypto'),{createRequire}=require('module');
+const req=createRequire(path.resolve('gamelab/executors/package.json')),lib=createRequire(req.resolve('rea-agents/package.json')),P=lib('@babel/parser'),tr=lib('@babel/traverse').default,T=lib('@babel/types');
+const b='deployment-packages/msn-capture-100',revision=process.argv[2]||'harbor-offline-v1';assert(/^harbor-offline-v\d+$/.test(revision));
+const original=fs.readFileSync(b+'/msn-en-us/originals/9pbd0qpb8kwz/game.js','utf8'),adapted=fs.readFileSync(b+'/revisions/'+revision+'/game.js','utf8');
+const prop=n=>n?.property?.name??n?.property?.value,key=n=>n?.key?.name??n?.key?.value,sha=s=>crypto.createHash('sha256').update(s).digest('hex');
+function canonical(n){if(Array.isArray(n))return n.map(canonical);if(!n||typeof n!=='object')return n;
+ // Babel generator flattens parenthesized a&&b&&(c&&d). Same operator,
+ // unchanged operand order and short-circuit behavior; never fold/reorder values.
+ if(n.type==='LogicalExpression'&&['&&','||'].includes(n.operator)){const nodes=[];function collect(x){if(x.type==='LogicalExpression'&&x.operator===n.operator){collect(x.left);collect(x.right);}else nodes.push(canonical(x));}collect(n);return{type:'OrderedLogicalChain',operator:n.operator,operands:nodes};}
+ return Object.fromEntries(Object.keys(n).filter(k=>!['start','end','loc','extra','comments','leadingComments','innerComments','trailingComments'].includes(k)).sort().map(k=>[k,canonical(n[k])]));}
+const norm=n=>sha(JSON.stringify(canonical(n)));
+function moduleName(n){if(!T.isCallExpression(n)||!T.isMemberExpression(n.callee))return null;return prop(n.callee)==='module'?n.arguments[0]?.value:moduleName(n.callee.object);}
+function inspect(source){const ast=P.parse(source),mods=[],methods=[],assignments=[],references=[];
+ tr(ast,{CallExpression(p){if(prop(p.node.callee)==='defines'){const name=moduleName(p.node.callee.object);if(name)mods.push({name,body:p.node.arguments[0]});}}});
+ const ctx=n=>mods.find(m=>m.body.start<=n.start&&n.end<=m.body.end);
+ function ownerName(n){return T.isIdentifier(n)?n.name:T.isMemberExpression(n)?ownerName(n.object)+'.'+prop(n):'module';}
+ tr(ast,{ObjectProperty(p){const m=ctx(p.node);if(!m||!T.isFunction(p.node.value)||p.getFunctionParent()?.node!==m.body)return;const owner=p.findParent(q=>q.isAssignmentExpression()),keys=[];for(let q=p.parentPath;q&&q!==owner;q=q.parentPath)if(q.isObjectProperty())keys.unshift(key(q.node));const name=m.name+'/'+(owner?ownerName(owner.node.left):'module')+'/'+[...keys,key(p.node)].join('.');methods.push({name,sha256:norm(p.node.value),range:[p.node.start,p.node.end]});},AssignmentExpression(p){if(T.isIdentifier(p.node.left)&&!p.scope.getBinding(p.node.left.name))assignments.push({module:ctx(p.node)?.name,symbol:p.node.left.name});},ReferencedIdentifier(p){references.push({symbol:p.node.name,module:ctx(p.node)?.name,offset:p.node.start});}});
+ return{ast,mods,methods,assignments,references};}
+const old=inspect(original),now=inspect(adapted),retirement=JSON.parse(fs.readFileSync(b+'/harbor-retirement.json'));
+const retired=new Set(retirement.removed_modules),symbols=[...new Set(old.assignments.filter(r=>retired.has(r.module)).map(r=>r.symbol))];
+const residue=now.references.filter(r=>symbols.includes(r.symbol));
+const protectedNames=old.mods.filter(m=>m.name.startsWith('game.level-data.')||['game.entities.objects.ship','game.entities.objects.dock','game.entities.objects.island','game.entities.objects.typhoon','game.entities.ui.drag-point','game.entities.ui.pointer-events','game.entities.controls.tutorial','game.levels.level-tutorial','game.entities.spawn-grid'].includes(m.name)).map(m=>m.name);
+const protectedModules=protectedNames.map(name=>{const before=old.mods.find(m=>m.name===name),after=now.mods.find(m=>m.name===name);return{module:name,original_sha256:norm(before.body),adapted_sha256:after?norm(after.body):null,canonical_AST_exact:!!after&&norm(before.body)===norm(after.body)};});
+if(!protectedModules.every(m=>m.canonical_AST_exact))console.log(JSON.stringify({protected_module_differences:protectedModules.filter(m=>!m.canonical_AST_exact)}));
+const current=new Map(now.methods.map(r=>[r.name,r]));const changed=old.methods.filter(m=>current.has(m.name)&&current.get(m.name).sha256!==m.sha256),same=old.methods.filter(m=>current.has(m.name)&&current.get(m.name).sha256===m.sha256);
+const moduleComparisons=old.mods.map(m=>{const n=now.mods.find(n=>n.name===m.name);return{module:m.name,present:!!n,canonical_AST_exact:!!n&&norm(m.body)===norm(n.body),source_body_sha256:sha(original.slice(m.body.start,m.body.end)),source_range:[m.body.start,m.body.end],adapted_range:n?[n.body.start,n.body.end]:null};});
+const out={revision,original_sha256:sha(original),runtime_sha256:sha(adapted),canonicalization:'AST data excluding locations/comments/raw spelling; associative &&/|| chains flattened without changing operand order, short-circuit conditions or values. No arithmetic folding or execution.',module_comparisons:moduleComparisons,protected_modules:protectedModules,derived_retired_symbols:symbols,retired_symbol_residue:residue,methods_compared:old.methods.length,canonical_AST_exact_methods:same.length,changed_methods:changed,removed_methods:old.methods.filter(m=>!current.has(m.name)).map(m=>m.name),removed_modules:old.mods.filter(m=>!now.mods.some(n=>n.name===m.name)).map(m=>m.name),native_executed_locally:false,UI_inputs_added:0};
+fs.writeFileSync(b+'/'+revision+'-independent-fidelity.json',JSON.stringify(out,null,2));console.log(JSON.stringify({protected_modules:protectedModules.length,protected_AST_exact:protectedModules.every(m=>m.canonical_AST_exact),methods:same.length+'/'+old.methods.length,changed:changed.map(m=>m.name),retired_symbols:symbols,retired_symbol_residue:residue}));
+assert(protectedModules.every(m=>m.canonical_AST_exact),'Original protected core module changed; differences retained for actual investigation');

@@ -1,0 +1,3 @@
+const fs=require('fs'),path=require('path'),{createRequire}=require('module'),req=createRequire(path.resolve('gamelab/executors/package.json')),lib=createRequire(req.resolve('rea-agents/package.json')),P=lib('@babel/parser'),tr=lib('@babel/traverse').default;
+const s=fs.readFileSync('deployment-packages/msn-capture-100/revisions/harbor-offline-v2/game.js','utf8'),out=[];
+tr(P.parse(s),{MemberExpression(p){if(p.node.object.type==='UnaryExpression'&&p.node.object.operator==='void')out.push({offset:p.node.start,context:s.slice(p.node.start,p.node.end+80)});},ReferencedIdentifier(p){if(['ClickableDivLayer','_0x2de8c4','_0x5d172c'].includes(p.node.name))out.push({symbol:p.node.name,offset:p.node.start});}});console.log(JSON.stringify(out));if(out.length)process.exitCode=1;

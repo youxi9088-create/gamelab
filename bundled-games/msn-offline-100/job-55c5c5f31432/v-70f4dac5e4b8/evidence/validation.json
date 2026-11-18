@@ -1,0 +1,1035 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计输入1，原动作和失败前缀保留于validation"
+      },
+      {
+        "type": "goto",
+        "description": "累计输入2，原动作和失败前缀保留于validation"
+      },
+      {
+        "type": "click",
+        "description": "累计输入3，原动作和失败前缀保留于validation"
+      },
+      {
+        "type": "drag",
+        "description": "累计输入4，原动作和失败前缀保留于validation"
+      },
+      {
+        "type": "drag",
+        "description": "累计输入5，原动作和失败前缀保留于validation"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 146,
+    "responses": 146,
+    "tested_revision": "harbor-offline-v3",
+    "delivery_revision": "harbor-offline-v3",
+    "scope": "累计5次真实输入：v2首次入口资源缺失计1；v3入口计2，原Play计3，普通连续拖线从船到匹配泊位计4，卸货后普通连续拖线离港计5。原0→1分，船实际靠泊、完成卸货、离开地图，出现原TUTORIAL COMPLETE。额外只读观察不产生输入。 实测为原生交互教程：EntityTutorialShip继承原EntityShip，保留原教程的碰撞重置与特殊规则。不能由教程推断普通多船碰撞、失败、地图解锁或20张地图已经运行通过。未操作完成弹窗、普通地图、加速、设置、刷新；无第六次输入，存档刷新恢复未知。",
+    "native_docking_unloading_verified": true,
+    "native_departure_verified": true,
+    "native_tutorial_complete_verified": true,
+    "native_score": 1,
+    "regular_mode_verified": false,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "cumulative_input_budget": 5
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/harbor-offline-v2/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/harbor-offline-v3/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 3,
+      "phase": 1,
+      "action": "click",
+      "x": 833,
+      "y": 738,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 833,
+          "y": 738
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "phase": 1,
+      "action": "drag",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 565,
+          "y": 495
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 576.25,
+          "y": 495.1666666666667,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 587.5,
+          "y": 495.3333333333333,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 598.75,
+          "y": 495.5,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 610,
+          "y": 495.6666666666667,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 621.25,
+          "y": 495.8333333333333,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 632.5,
+          "y": 496,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 643.75,
+          "y": 496.1666666666667,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 655,
+          "y": 496.3333333333333,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 666.25,
+          "y": 496.5,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 677.5,
+          "y": 496.6666666666667,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 688.75,
+          "y": 496.8333333333333,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 700,
+          "y": 497,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 712.5,
+          "y": 499.0833333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 725,
+          "y": 501.1666666666667,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 737.5,
+          "y": 503.25,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 750,
+          "y": 505.3333333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 762.5,
+          "y": 507.4166666666667,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 775,
+          "y": 509.5,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 787.5,
+          "y": 511.5833333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 800,
+          "y": 513.6666666666666,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 812.5,
+          "y": 515.75,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 825,
+          "y": 517.8333333333334,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 837.5,
+          "y": 519.9166666666666,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 850,
+          "y": 522,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 862.5,
+          "y": 525.8333333333334,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 875,
+          "y": 529.6666666666666,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 887.5,
+          "y": 533.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 900,
+          "y": 537.3333333333334,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 912.5,
+          "y": 541.1666666666666,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 925,
+          "y": 545,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 937.5,
+          "y": 548.8333333333334,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 950,
+          "y": 552.6666666666666,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 962.5,
+          "y": 556.5,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 975,
+          "y": 560.3333333333334,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 987.5,
+          "y": 564.1666666666666,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1000,
+          "y": 568,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1008.75,
+          "y": 571.5833333333334,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1017.5,
+          "y": 575.1666666666666,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1026.25,
+          "y": 578.75,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1035,
+          "y": 582.3333333333334,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1043.75,
+          "y": 585.9166666666666,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1052.5,
+          "y": 589.5,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1061.25,
+          "y": 593.0833333333334,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1070,
+          "y": 596.6666666666666,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1078.75,
+          "y": 600.25,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1087.5,
+          "y": 603.8333333333334,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1096.25,
+          "y": 607.4166666666666,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1105,
+          "y": 611,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1110.25,
+          "y": 613.25,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1115.5,
+          "y": 615.5,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1120.75,
+          "y": 617.75,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1126,
+          "y": 620,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1131.25,
+          "y": 622.25,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1136.5,
+          "y": 624.5,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1141.75,
+          "y": 626.75,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1147,
+          "y": 629,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1152.25,
+          "y": 631.25,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1157.5,
+          "y": 633.5,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1162.75,
+          "y": 635.75,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1168,
+          "y": 638,
+          "segment": 5
+        },
+        {
+          "event": "up"
+        }
+      ],
+      "points": [
+        [
+          565,
+          495
+        ],
+        [
+          700,
+          497
+        ],
+        [
+          850,
+          522
+        ],
+        [
+          1000,
+          568
+        ],
+        [
+          1105,
+          611
+        ],
+        [
+          1168,
+          638
+        ]
+      ]
+    },
+    {
+      "step": 5,
+      "phase": 1,
+      "action": "drag",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 1167,
+          "y": 637
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 1169.75,
+          "y": 627.25,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 1172.5,
+          "y": 617.5,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 1175.25,
+          "y": 607.75,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 1178,
+          "y": 598,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 1180.75,
+          "y": 588.25,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 1183.5,
+          "y": 578.5,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 1186.25,
+          "y": 568.75,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 1189,
+          "y": 559,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 1191.75,
+          "y": 549.25,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 1194.5,
+          "y": 539.5,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 1197.25,
+          "y": 529.75,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 1200,
+          "y": 520,
+          "segment": 1
+        },
+        {
+          "event": "move",
+          "x": 1205,
+          "y": 506.6666666666667,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 1210,
+          "y": 493.3333333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 1215,
+          "y": 480,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 1220,
+          "y": 466.6666666666667,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 1225,
+          "y": 453.3333333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 1230,
+          "y": 440,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 1235,
+          "y": 426.6666666666667,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 1240,
+          "y": 413.3333333333333,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 1245,
+          "y": 400,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 1250,
+          "y": 386.66666666666663,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 1255,
+          "y": 373.33333333333337,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 1260,
+          "y": 360,
+          "segment": 2
+        },
+        {
+          "event": "move",
+          "x": 1265.8333333333333,
+          "y": 348.3333333333333,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1271.6666666666667,
+          "y": 336.6666666666667,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1277.5,
+          "y": 325,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1283.3333333333333,
+          "y": 313.3333333333333,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1289.1666666666667,
+          "y": 301.6666666666667,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1295,
+          "y": 290,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1300.8333333333333,
+          "y": 278.3333333333333,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1306.6666666666667,
+          "y": 266.6666666666667,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1312.5,
+          "y": 255,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1318.3333333333333,
+          "y": 243.33333333333331,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1324.1666666666667,
+          "y": 231.66666666666666,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1330,
+          "y": 220,
+          "segment": 3
+        },
+        {
+          "event": "move",
+          "x": 1335,
+          "y": 210.83333333333334,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1340,
+          "y": 201.66666666666666,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1345,
+          "y": 192.5,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1350,
+          "y": 183.33333333333334,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1355,
+          "y": 174.16666666666666,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1360,
+          "y": 165,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1365,
+          "y": 155.83333333333331,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1370,
+          "y": 146.66666666666669,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1375,
+          "y": 137.5,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1380,
+          "y": 128.33333333333331,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1385,
+          "y": 119.16666666666667,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1390,
+          "y": 110,
+          "segment": 4
+        },
+        {
+          "event": "move",
+          "x": 1394,
+          "y": 105.83333333333333,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1398,
+          "y": 101.66666666666667,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1402,
+          "y": 97.5,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1406,
+          "y": 93.33333333333333,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1410,
+          "y": 89.16666666666667,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1414,
+          "y": 85,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1418,
+          "y": 80.83333333333333,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1422,
+          "y": 76.66666666666666,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1426,
+          "y": 72.5,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1430,
+          "y": 68.33333333333334,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1434,
+          "y": 64.16666666666666,
+          "segment": 5
+        },
+        {
+          "event": "move",
+          "x": 1438,
+          "y": 60,
+          "segment": 5
+        },
+        {
+          "event": "up"
+        }
+      ],
+      "points": [
+        [
+          1167,
+          637
+        ],
+        [
+          1200,
+          520
+        ],
+        [
+          1260,
+          360
+        ],
+        [
+          1330,
+          220
+        ],
+        [
+          1390,
+          110
+        ],
+        [
+          1438,
+          60
+        ]
+      ]
+    }
+  ],
+  "passive_observations": 1,
+  "failed_initial_entry_counted": 1,
+  "browser_session": 48268,
+  "node_pid": 17128,
+  "browser_actual_exit_code": 0,
+  "owned_node_absent": true,
+  "final_observation": {
+    "title": "Harbor Operator",
+    "url": "http://127.0.0.1:18865/harbor-offline-v3/index.html",
+    "canvas_bounds": [
+      {
+        "width": 1920,
+        "height": 1080,
+        "bounds": {
+          "x": 0,
+          "y": 45,
+          "width": 1440,
+          "height": 810,
+          "top": 45,
+          "right": 1440,
+          "bottom": 855,
+          "left": 0
+        }
+      }
+    ],
+    "visible_entities": [
+      {
+        "image": "media/graphics/sprites/islands/coastal-cove/island1.png",
+        "text": null,
+        "x": 550,
+        "y": 240,
+        "width": 16,
+        "height": 16,
+        "isClickable": false,
+        "zIndex": 11
+      },
+      {
+        "image": "media/graphics/sprites/islands/coastal-cove/island2.png",
+        "text": null,
+        "x": 1575,
+        "y": 870,
+        "width": 16,
+        "height": 16,
+        "isClickable": false,
+        "zIndex": 11
+      },
+      {
+        "image": "media/graphics/sprites/buttons/bt-pause.png",
+        "text": null,
+        "x": 1802,
+        "y": 12,
+        "width": 106,
+        "height": 110,
+        "isClickable": true,
+        "zIndex": 600
+      },
+      {
+        "image": "media/graphics/sprites/buttons/bt-normal.png",
+        "text": null,
+        "x": 12,
+        "y": 958,
+        "width": 105,
+        "height": 110,
+        "isClickable": true,
+        "zIndex": 600
+      },
+      {
+        "image": "media/graphics/sprites/ui/popup.png",
+        "text": "COMPLETE",
+        "x": 621.5,
+        "y": 165.5,
+        "width": 677,
+        "height": 749,
+        "isClickable": false,
+        "zIndex": 1000
+      },
+      {
+        "image": "media/graphics/sprites/buttons/bt-replay.png",
+        "text": null,
+        "x": 788,
+        "y": 613.5,
+        "width": 135,
+        "height": 140,
+        "isClickable": true,
+        "zIndex": 1001
+      },
+      {
+        "image": "media/graphics/sprites/buttons/bt-resume.png",
+        "text": null,
+        "x": 1010,
+        "y": 613.5,
+        "width": 135,
+        "height": 140,
+        "isClickable": true,
+        "zIndex": 1001
+      }
+    ],
+    "ships": [],
+    "docks": [
+      {
+        "x": 1557,
+        "y": 790,
+        "angle": 0.9773843811168246,
+        "type": 1,
+        "dockingAlpha": 1
+      },
+      {
+        "x": 775,
+        "y": 400,
+        "angle": 4.276056667386108,
+        "type": 2,
+        "dockingAlpha": 0
+      }
+    ],
+    "score": 1,
+    "scoreText": null,
+    "local_storage_keys": [
+      "MJS-Harbor-Operator-Microsoft-v1.0.0"
+    ],
+    "retired_providers_present": [],
+    "sdk_instance_present": false
+  },
+  "screenshots_opened": true,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "accounting": {
+    "observation_start": "2026-11-18T17:11:52.352000+00:00",
+    "observation_end": "2026-11-18T17:46:57.861529+00:00",
+    "elapsed_seconds": 2105.509529,
+    "scope": "本轮原来源SHA重新核对到证据归档的经过时间，含源码分析、工具、试玩与等待；不含更早采集，不是纯处理工时",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "observation_caveat": "实测为原生交互教程：EntityTutorialShip继承原EntityShip，保留原教程的碰撞重置与特殊规则。不能由教程推断普通多船碰撞、失败、地图解锁或20张地图已经运行通过。未操作完成弹窗、普通地图、加速、设置、刷新；无第六次输入，存档刷新恢复未知。"
+}
