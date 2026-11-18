@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-18T03:29:46.897546+00:00",
+  "source_only": true,
+  "game_executed": false,
+  "original_modified": false,
+  "original_wasm_sha256": "4e5749e7e1047cd30c65ab6294cf2a3566801a97b5954d1fce10f39c6d75a05a",
+  "original_body_hashes": [
+    {
+      "function_index": 5773,
+      "bytes": 13,
+      "sha256": "ea34d20ab58963ce77050a6a6c9182694b4d2012ca6cfe978fe7ba001803dacb"
+    },
+    {
+      "function_index": 43637,
+      "bytes": 551,
+      "sha256": "40b62e1b7f80ba473cd37f9350707193897d600a39810b5fd5751d0c97ba2e9f"
+    },
+    {
+      "function_index": 43638,
+      "bytes": 608,
+      "sha256": "2b6f39fbea1120f2a6f799e51946656a86bd4e641473a5f9da11c91deb467d00"
+    }
+  ],
+  "original_source_snippets": [
+    {
+      "function_index": 5773,
+      "source": "function f_bnh(a:int_ptr, b:int):int { // func5773\n  return f_vza(a[102], 0)\n}\n\n",
+      "source_sha256": "5ce3d94c0c22ac864ba9b7b332254d5a40d19a5ce676d8c0de77af28dbe040b9"
+    },
+    {
+      "function_index": 43637,
+      "source": "function f_jnlb(a:int, b:int_ptr, c:int_ptr, d:int, e:int, f:int) { // func43637\n  f = g_a - 32;\n  g_a = f;\n  if (eqz(6779630[0]:ubyte)) {\n    f_bw(5619996);\n    f_bw(5621832);\n    f_bw(5648388);\n    f_bw(5648380);\n    f_bw(5610404);\n    f_bw(5625296);\n    f_bw(5625568);\n    f_bw(5625616);\n    f_bw(5634068);\n    6779630[0]:byte = 1;\n  }\n  var g:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(g[29])) { f_cw(g) }\n  g = f_dtoc(0);\n  var h:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14774]:int;\n  if (eqz(h[29])) { f_cw(h) }\n  f[3]:long = f_uja(0);\n  f[2]:long = f_efa(f + 24, 0);\n  f_ttb(a, g = f_lx(g, f_lua(f + 16, 0), 0), d, e, f);\n  a = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[11917]:int);\n  f_uca(a, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21411]:int);\n  f_kw(a, f_vsoc(0), b[2], d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  d = f_ksoc(0);\n  f[3]:int = b[3];\n  f_kw(a,\n       d,\n       f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15640]:int, f + 12),\n       d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  f_kw(a, f_wxf(0), b[9], d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  f_kw(a, f_map(0), b[8], d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  b = f_asoc(0);\n  f[11]:byte = c;\n  f_kw(a,\n       b,\n       f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, f + 11),\n       d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  b = f_qee(0);\n  f[1]:int = 410;\n  f_kw(a,\n       b,\n       f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15640]:int, f + 4),\n       d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  f_kw(a, f_pee(0), f_sac(0), d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  b = f_sroc(0);\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15720]:int;\n  if (eqz(c[29])) { f_cw(c) }\n  a = f_sfb(a, 0);\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15708]:int;\n  if (eqz(c[29])) { f_cw(c) }\n  f_jpb(b, a, g, 0);\n  g_a = f + 32;\n}\n\n",
+      "source_sha256": "fc967614589cbf0ec50efe33f1cc8c941c46bb321ec96bd96a704483e88dd56b"
+    },
+    {
+      "function_index": 43638,
+      "source": "function f_knlb(a:int, b:int_ptr, c:int_ptr, d:int, e:int, f:int, g:int, h:int, i:int, j:int) { // func43638\n  j = g_a - 32;\n  g_a = j;\n  if (eqz(6779629[0]:ubyte)) {\n    f_bw(5619996);\n    f_bw(5621832);\n    f_bw(5648388);\n    f_bw(5648380);\n    f_bw(5610404);\n    f_bw(5625296);\n    f_bw(5625568);\n    f_bw(5625616);\n    f_bw(5634068);\n    6779629[0]:byte = 1;\n  }\n  var k:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(k[29])) { f_cw(k) }\n  k = f_utoc(0);\n  var l:int_ptr = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14774]:int;\n  if (eqz(l[29])) { f_cw(l) }\n  j[3]:long = f_uja(0);\n  j[2]:long = f_efa(j + 24, 0);\n  f_ttb(a, k = f_lx(k, f_lua(j + 16, 0), 0), g, h, j);\n  a = f_fw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[11917]:int);\n  f_uca(a, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21411]:int);\n  f_kw(a, f_wxf(0), b, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  f_kw(a, f_map(0), c, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  b = f_qee(0);\n  j[3]:int = 410;\n  f_kw(a,\n       b,\n       f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15640]:int, j + 12),\n       d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  f_kw(a, f_pee(0), f_sac(0), d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  f_kw(a, f_hsda(0), d, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  b = f_ntoc(0);\n  j[11]:byte = e;\n  f_kw(a,\n       b,\n       f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, j + 11),\n       d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  f_kw(a, f_hkp(0), f, d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  if (i) {\n    b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n    if (eqz(b[29])) { f_cw(b) }\n    b = f_jtoc(0);\n    j[12]:byte = 1;\n    f_kw(a,\n         b,\n         f_mw(d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[14315]:int, j + 12),\n         d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[21413]:int);\n  }\n  b = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[17833]:int;\n  if (eqz(b[29])) { f_cw(b) }\n  b = f_etoc(0);\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15720]:int;\n  if (eqz(c[29])) { f_cw(c) }\n  a = f_sfb(a, 0);\n  c = d_3_3_3_30_3_3P_3_3p_3_3_3_3_3[15708]:int;\n  if (eqz(c[29])) { f_cw(c) }\n  f_jpb(b, a, k, 0);\n  g_a = j + 32;\n}\n\n",
+      "source_sha256": "3ce262e0e5b913e2cbadddaae5ac3a7f6e94a183b767061e9fc7beeecf0ec36f"
+    }
+  ]
+}
