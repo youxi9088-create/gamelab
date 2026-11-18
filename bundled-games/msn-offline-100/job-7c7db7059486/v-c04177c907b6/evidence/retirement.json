@@ -1,0 +1,397 @@
+{
+  "source_only": true,
+  "original_SDK_executed": false,
+  "no_fake_sdk": true,
+  "changed_scopes": [
+    "CMain",
+    "CMenu",
+    "CGame",
+    "CGameOver",
+    "CCreditsPanel"
+  ],
+  "removed_providers": [
+    "CButMoreGames",
+    "CMoreGamesButtonsController"
+  ],
+  "changes": [
+    {
+      "scope": "CMain",
+      "reason": "Remove actual provider consumer loadAd"
+    },
+    {
+      "scope": "CMain",
+      "reason": "Use actual navigator connectivity in original sound error path"
+    },
+    {
+      "scope": "CMain",
+      "reason": "Remove actual provider consumer checkMoreGames"
+    },
+    {
+      "scope": "CMain",
+      "reason": "Remove service event game_start"
+    },
+    {
+      "scope": "CMain",
+      "reason": "Remove actual provider consumer notifyMute"
+    },
+    {
+      "scope": "CMain",
+      "reason": "Remove actual provider consumer notifyUnmute"
+    },
+    {
+      "scope": "CMain",
+      "reason": "Read actual browser language"
+    },
+    {
+      "scope": "CMenu",
+      "reason": "Remove moregames controller local"
+    },
+    {
+      "scope": "CMenu",
+      "reason": "Remove actual provider consumer showMoreGames"
+    },
+    {
+      "scope": "CMenu",
+      "reason": "Remove actual provider consumer showDisplayAd"
+    },
+    {
+      "scope": "CMenu",
+      "reason": "Remove moregames controller construction/lifecycle"
+    },
+    {
+      "scope": "CMenu",
+      "reason": "Remove moregames controller method consumer"
+    },
+    {
+      "scope": "CMenu",
+      "reason": "Remove moregames controller construction/lifecycle"
+    },
+    {
+      "scope": "CMenu",
+      "reason": "Remove moregames controller method consumer"
+    },
+    {
+      "scope": "CMenu",
+      "reason": "Remove actual provider consumer hideMoreGames"
+    },
+    {
+      "scope": "CMenu",
+      "reason": "Remove actual provider consumer hideDisplayAd"
+    },
+    {
+      "scope": "CMenu",
+      "reason": "Remove service event start_session"
+    },
+    {
+      "scope": "CMenu",
+      "reason": "Remove moregames controller method consumer"
+    },
+    {
+      "scope": "CGame",
+      "reason": "Remove service event bet_placed"
+    },
+    {
+      "scope": "CGame",
+      "reason": "Remove service event save_score"
+    },
+    {
+      "scope": "CGame",
+      "reason": "Remove service event show_interlevel_ad"
+    },
+    {
+      "scope": "CGame",
+      "reason": "Remove service event share_event"
+    },
+    {
+      "scope": "CGame",
+      "reason": "Remove service event show_interlevel_ad"
+    },
+    {
+      "scope": "CGame",
+      "reason": "Remove service event end_session"
+    },
+    {
+      "scope": "CGameOver",
+      "reason": "Remove actual provider consumer showDisplayAd"
+    },
+    {
+      "scope": "CGameOver",
+      "reason": "Remove actual provider consumer hideDisplayAd"
+    },
+    {
+      "scope": "CGameOver",
+      "reason": "Remove service event recharge"
+    },
+    {
+      "scope": "CGameOver",
+      "reason": "Remove actual provider consumer hideDisplayAd"
+    },
+    {
+      "scope": "CGameOver",
+      "reason": "Remove service event end_session"
+    },
+    {
+      "scope": "CCreditsPanel",
+      "reason": "Remove outgoing credits link listener"
+    },
+    {
+      "scope": "CCreditsPanel",
+      "reason": "Remove outgoing credits link listener"
+    },
+    {
+      "scope": "CCreditsPanel",
+      "reason": "Remove outgoing credits link callback"
+    },
+    {
+      "scope": "CButMoreGames",
+      "reason": "Remove complete unused outgoing game-switch provider"
+    },
+    {
+      "scope": "CMoreGamesButtonsController",
+      "reason": "Remove complete unused outgoing game-switch provider"
+    }
+  ],
+  "unchanged_native_methods": 186,
+  "unchanged_methods": [
+    "CSpriteLibrary.init",
+    "CSpriteLibrary.addSprite",
+    "CSpriteLibrary.getSprite",
+    "CSpriteLibrary._onSpritesLoaded",
+    "CSpriteLibrary._onSpriteLoaded",
+    "CSpriteLibrary.loadSprites",
+    "CSpriteLibrary.setLoaded",
+    "CSpriteLibrary.isLoaded",
+    "CSpriteLibrary.getNumSprites",
+    "CPreloader._init",
+    "CPreloader.unload",
+    "CPreloader._onImagesLoaded",
+    "CPreloader._onAllImagesLoaded",
+    "CPreloader.attachSprites",
+    "CPreloader.refreshLoader",
+    "CMain.soundLoaded",
+    "CMain._initSounds",
+    "CMain._loadImages",
+    "CMain._onImagesLoaded",
+    "CMain.preloaderReady",
+    "CMain._onAllImagesLoaded",
+    "CMain.gotoMenu",
+    "CMain.gotoHelp",
+    "CMain.saveUserMoney",
+    "CMain.getUserMoney",
+    "CMain._update",
+    "CTextButton._init",
+    "CTextButton.unload",
+    "CTextButton.setVisible",
+    "CTextButton.enable",
+    "CTextButton.disable",
+    "CTextButton._initListener",
+    "CTextButton.addEventListener",
+    "CTextButton.addEventListenerWithParams",
+    "CTextButton.inversePulse",
+    "CTextButton.buttonRelease",
+    "CTextButton.buttonDown",
+    "CTextButton.buttonOver",
+    "CTextButton.setTextPosition",
+    "CTextButton.setPosition",
+    "CTextButton.setText",
+    "CTextButton.moveTo",
+    "CTextButton.tremble",
+    "CTextButton.scale",
+    "CTextButton.setX",
+    "CTextButton.setY",
+    "CTextButton.getButtonImage",
+    "CTextButton.getX",
+    "CTextButton.getY",
+    "CTextButton.isDisabled",
+    "CGfxButton._init",
+    "CGfxButton.unload",
+    "CGfxButton.setVisible",
+    "CGfxButton._initListener",
+    "CGfxButton.addEventListener",
+    "CGfxButton.addEventListenerWithParams",
+    "CGfxButton.buttonRelease",
+    "CGfxButton.buttonDown",
+    "CGfxButton.setPosition",
+    "CGfxButton.setX",
+    "CGfxButton.setY",
+    "CGfxButton.enable",
+    "CGfxButton.disable",
+    "CGfxButton.getButtonImage",
+    "CGfxButton.getX",
+    "CGfxButton.getY",
+    "CToggle._init",
+    "CToggle.unload",
+    "CToggle._initListener",
+    "CToggle.addEventListener",
+    "CToggle.setActive",
+    "CToggle.buttonRelease",
+    "CToggle.buttonDown",
+    "CToggle.setPosition",
+    "CMenu._onAudioToggle",
+    "CMenu._onButCreditsRelease",
+    "CMenu.resetFullscreenBut",
+    "CMenu._onFullscreenRelease",
+    "CMenu._onSelectLang",
+    "CGame._init",
+    "CGame.unload",
+    "CGame.resetHand",
+    "CGame.checkMoney",
+    "CGame.changeState",
+    "CGame.placeFakeCardForStarting",
+    "CGame._createCard",
+    "CGame.drawCards",
+    "CGame._checkDeckLength",
+    "CGame.assignWin",
+    "CGame.recharge",
+    "CGame._gameOver",
+    "CGame.setMoney",
+    "CGame.onCardSelected",
+    "CGame._onCardHide",
+    "CGame._changeCardValue",
+    "CGame._onButDealRelease",
+    "CGame._onButLeftRelease",
+    "CGame._onButRightRelease",
+    "CGame._onButBetOneRelease",
+    "CGame._onButBetMaxRelease",
+    "CGame.update",
+    "CInterface._init",
+    "CInterface.unload",
+    "CInterface.refreshButtonPos",
+    "CInterface.setState",
+    "CInterface.resetHand",
+    "CInterface.refreshMoney",
+    "CInterface.refreshWin",
+    "CInterface.refreshBet",
+    "CInterface.showLosePanel",
+    "CInterface._onButLeftRelease",
+    "CInterface._onButRightRelease",
+    "CInterface._onButBetOneRelease",
+    "CInterface._onButBetMaxRelease",
+    "CInterface._onButDealRelease",
+    "CInterface._onExit",
+    "CInterface._onAudioToggle",
+    "CInterface.resetFullscreenBut",
+    "CInterface._onFullscreenRelease",
+    "CGameSettings._init",
+    "CGameSettings.timeToString",
+    "CGameSettings.getShuffledCardDeck",
+    "CGameSettings.getCardValue",
+    "CCard._init",
+    "CCard.unload",
+    "CCard.reset",
+    "CCard.addEventListener",
+    "CCard.changeInfo",
+    "CCard.setValue",
+    "CCard.setHold",
+    "CCard.toggleHold",
+    "CCard.showCard",
+    "CCard.hideCard",
+    "CCard.setBack",
+    "CCard.cardShown",
+    "CCard.cardHidden",
+    "CCard.highlight",
+    "CCard._onSelected",
+    "CCard.getRank",
+    "CCard.getSuit",
+    "CCard.getFotogram",
+    "CCard.isHold",
+    "CGameOver._init",
+    "CGameOver.unload",
+    "CGameOver.hide",
+    "CPayTable._init",
+    "CPayTable.resetHand",
+    "CPayTable.setCreditColumn",
+    "CPayTable.showWinAnim",
+    "CPayTableSettings._init",
+    "CPayTableSettings.getWin",
+    "CHandEvaluator.evaluate",
+    "CHandEvaluator.rankHand",
+    "CHandEvaluator._checkForRoyalFlush",
+    "CHandEvaluator._checkForStraightFlush",
+    "CHandEvaluator._checkForFourOfAKind",
+    "CHandEvaluator._checkForFullHouse",
+    "CHandEvaluator._checkForFlush",
+    "CHandEvaluator._checkForStraight",
+    "CHandEvaluator._checkForThreeOfAKind",
+    "CHandEvaluator._checkForTwoPair",
+    "CHandEvaluator._checkForOnePair",
+    "CHandEvaluator._identifyHighCard",
+    "CHandEvaluator._isFlush",
+    "CHandEvaluator._isRoyalStraight",
+    "CHandEvaluator._isStraight",
+    "CHandEvaluator.compareRank",
+    "CHandEvaluator.getSortedHand",
+    "CHandEvaluator.getCardIndexInCombo",
+    "CCreditsPanel.refreshButtonPos",
+    "CButLang._init",
+    "CButLang.unload",
+    "CButLang.addEventListener",
+    "CButLang.setPosition",
+    "CButLang.setLang",
+    "CButLang._onPress",
+    "CButLang._onChangeLang",
+    "CButLang.getButtonImage",
+    "CLangPanel._init",
+    "CLangPanel.unload",
+    "CLangPanel.addEventListener",
+    "CLangPanel.show",
+    "CLangPanel.hide",
+    "CLangPanel._placeLanguages",
+    "CLangPanel._onPressLang",
+    "CLangPanel._onSelectLang"
+  ],
+  "changed_methods": [
+    "CMain.initContainer",
+    "CMain.tryToLoadSound",
+    "CMain._onRemovePreloader",
+    "CMain.gotoGame",
+    "CMain.stopUpdate",
+    "CMain.startUpdate",
+    "CMenu._init",
+    "CMenu.unload",
+    "CMenu.refreshButtonPos",
+    "CMenu._onButPlayRelease",
+    "CMenu._onChangeLang",
+    "CGame.dealCards",
+    "CGame._onCardShown",
+    "CGame.onExit",
+    "CGameOver.show",
+    "CGameOver._onRecharge",
+    "CGameOver._onExit",
+    "CCreditsPanel._init",
+    "CCreditsPanel.unload"
+  ],
+  "removed_methods": [
+    "CCreditsPanel._onLogoButRelease",
+    "CButMoreGames._init",
+    "CButMoreGames.unload",
+    "CButMoreGames.setVisible",
+    "CButMoreGames.setScale",
+    "CButMoreGames.enable",
+    "CButMoreGames.disable",
+    "CButMoreGames._initListener",
+    "CButMoreGames.addEventListener",
+    "CButMoreGames.addEventListenerWithParams",
+    "CButMoreGames.buttonRelease",
+    "CButMoreGames.buttonDown",
+    "CButMoreGames.buttonOut",
+    "CButMoreGames.setPosition",
+    "CButMoreGames.tweenPosition",
+    "CButMoreGames.changeText",
+    "CButMoreGames.setX",
+    "CButMoreGames.setY",
+    "CButMoreGames.getX",
+    "CButMoreGames.getY",
+    "CButMoreGames.getSprite",
+    "CButMoreGames.getScale",
+    "CMoreGamesButtonsController._init",
+    "CMoreGamesButtonsController.unload",
+    "CMoreGamesButtonsController._getGridConfig",
+    "CMoreGamesButtonsController.refreshPos",
+    "CMoreGamesButtonsController.refreshLang",
+    "CMoreGamesButtonsController._onSelectBut"
+  ],
+  "original_local_100_chip_refill_AST_exact": true,
+  "removed_advertising_200_chip_bonus": true,
+  "scope": "Retire actual SDK/ad notifications, outgoing game-switch UI/providers, score upload, service events and ad200chip bonus callback. Preserve original AUTOMATIC_RECHARGE && s_oGame.recharge(TOTAL_MONEY)100localchip branch/button; no newly introduced reward or ad/payment success. Native draw/hold/deck/evaluation/paytable/localwallet preserved. No runtime claim."
+}

@@ -1,0 +1,15 @@
+{
+  "revision": "jacks-offline-v1",
+  "maximum_cumulative_UI_inputs": 5,
+  "UI_used": 0,
+  "steps": [
+    "1 exact original offline entry",
+    "2 original PLAY",
+    "3 original DEAL with original default bet",
+    "4 click one actual visible card to HOLD",
+    "5 original DRAW and observe native hand evaluation/settlement"
+  ],
+  "state_or_RNG_or_time_injection": false,
+  "handler_calls": false,
+  "limitations": "Choose hold from actual visible cards, no card/RNG/wallet writes or handler calls. Evaluate actual win or loss and next hand controls; no sixth input. Local100refill retained but not promised runtime coverage; ad200bonus removed."
+}

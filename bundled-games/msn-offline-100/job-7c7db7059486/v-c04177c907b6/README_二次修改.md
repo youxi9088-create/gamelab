@@ -1,0 +1,4 @@
+原HTML5运行源码，非原作者编辑器工程。js/main.js中CGame/CGameSettings/CCard/CHandEvaluator/CPayTableSettings/CPayTable/CInterface可定位；186方法、20核心方法及55整函数对照一致。可拆解牌型评估、HOLD/替换和赔付表，但跨项目须适配CreateJS/Tween、Howler、字体/图集，不能当无依赖通用模块。未用SoundJS WebAudioPlugin含fileXHR探测整模块退役，其余vendor字节/许可证保持，不承诺可选SoundJS API。
+累计5次真实输入：精确离线入口→原开始游戏→原默认0.20下注发牌→点第4张黑桃10保留→原抽牌。初手为梅花5/黑桃2/方块2/黑桃10/方块4；原HOLD徽章出现，换牌后第4张黑桃10保持，其余四张变为方块A/黑桃8/梅花A/梅花8，原两对高亮、赢取0.40，余额100→99.80→100.20，jacks_or_better_user_money实际保存100.2，原按钮回到发牌。未写牌序、RNG、钱包或调用处理函数。未发第6次输入；其他牌型、下注档、原本地补充100、刷新读回、其他语言/手机/音频听感未实测。
+远端52实际Chromium运行；58请求/58响应均精确同源HTTP200，无外联、失败请求或脚本异常。保留1条启动前AudioContext限制和1条Canvas2D读回性能warning，不称零warning。浏览器58759实际BROWSER_EXIT0。开发环境没有执行原游戏或SDK。
+原CGameOver._onRecharge中AUTOMATIC_RECHARGE && s_oGame.recharge(TOTAL_MONEY)纯本地100补充及原按钮保持、AST精确一致；原HTML广告成功后额外200的回调和广告事件消费者已物理退役，不伪造成功、不发放该广告奖励。原100补充未实测触发，不能混称广告免费发200。

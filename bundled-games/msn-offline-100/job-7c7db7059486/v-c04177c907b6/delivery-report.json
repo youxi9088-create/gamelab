@@ -1,0 +1,300 @@
+{
+  "msn_revision": "jacks-offline-v1",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1，坐标轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入2，坐标轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入3，坐标轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入4，坐标轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入5，坐标轨迹见validation.json"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 58,
+    "responses": 58,
+    "tested_revision": "jacks-offline-v1",
+    "delivery_revision": "jacks-offline-v1",
+    "scope": "累计5次真实输入：精确离线入口→原开始游戏→原默认0.20下注发牌→点第4张黑桃10保留→原抽牌。初手为梅花5/黑桃2/方块2/黑桃10/方块4；原HOLD徽章出现，换牌后第4张黑桃10保持，其余四张变为方块A/黑桃8/梅花A/梅花8，原两对高亮、赢取0.40，余额100→99.80→100.20，jacks_or_better_user_money实际保存100.2，原按钮回到发牌。未写牌序、RNG、钱包或调用处理函数。未发第6次输入；其他牌型、下注档、原本地补充100、刷新读回、其他语言/手机/音频听感未实测。",
+    "native_deal_verified": true,
+    "native_hold_verified": true,
+    "native_draw_verified": true,
+    "native_pair_evaluation_verified": true,
+    "native_payout_verified": true,
+    "native_local_save_verified": true,
+    "next_deal_button_returned": true,
+    "storage_reload_verified": false,
+    "original_local_refill_runtime_verified": false,
+    "all_hand_types_verified": false,
+    "cumulative_input_budget": 5,
+    "final_revision_inputs": 5,
+    "prior_failed_UI_inputs": 0
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "真实SDK/广告事件和额外200广告奖励回调退役；原独立本地100补充分支不变。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/retirement.json",
+        "evidence/source-fidelity.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "真实save_score上传/消费者退役，保留原本地钱包存档。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/retirement.json",
+        "evidence/source-fidelity.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原单人五张牌本地评估，更多游戏跳转UI/切游戏provider已退役，无在线房间。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/retirement.json",
+        "evidence/source-fidelity.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "无实际支付服务。原本地不足筹码补充100保留，不伪造广告/支付成功，不新增钱。",
+      "evidence": [
+        "index.html",
+        "js/main.js",
+        "evidence/retirement.json",
+        "evidence/source-fidelity.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "棋牌 / 五张牌视频扑克 / 本地牌型结算",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "独立五张牌视频扑克：下注发5张，选择保留，再换掉未保留牌，按最终牌型和原赔付表结算。没有德州扑克公共牌或与庄家比较21点；本轮真实保留黑桃10，换牌得到A和8两对并结算。",
+    "core_experience": "",
+    "controls": "鼠标/触摸点开始、发牌、点单张牌切换HOLD、抽牌，原左右面额、赌注和最大下注按钮保留。此次只用默认0.20和1档列，点一次HOLD与一次抽牌，不程序调用toggleHold/dealCards/drawCards。",
+    "game_loop": "",
+    "content": "原单桌视频扑克，无关卡制；按面额和下注列计算原赔付表。13语言logo素材保留；本轮中文/默认0.2面额、1列，一手自然结果，不伪称全牌型/所有下注配置已验证。",
+    "progression": "",
+    "save": "",
+    "rules": "186原生方法AST一致、20核心方法逐项一致，原CGameSettings/CCard/CHandEvaluator/CPayTableSettings/CPayTable和随机shuffle等55整函数字节保持。原WIN_OCCURRENCE35及原按该值选手牌的逻辑保持，不声称公平随机，也未改胜率或替换牌堆算法。",
+    "systems": "原CreateJS渲染/Tween、Howler、牌堆/52牌及HOLD/替换、原9牌型评估、赔付表高亮、本地钱包、声音/语言/全屏和原不足筹码本地补充。实际外部SDK/广告通知/上传/更多游戏UI和切游戏provider、SW及广告200奖励消费者退役。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5次真实输入：精确离线入口→原开始游戏→原默认0.20下注发牌→点第4张黑桃10保留→原抽牌。初手为梅花5/黑桃2/方块2/黑桃10/方块4；原HOLD徽章出现，换牌后第4张黑桃10保持，其余四张变为方块A/黑桃8/梅花A/梅花8，原两对高亮、赢取0.40，余额100→99.80→100.20，jacks_or_better_user_money实际保存100.2，原按钮回到发牌。未写牌序、RNG、钱包或调用处理函数。未发第6次输入；其他牌型、下注档、原本地补充100、刷新读回、其他语言/手机/音频听感未实测。远端52实际Chromium运行；58请求/58响应均精确同源HTTP200，无外联、失败请求或脚本异常。保留1条启动前AudioContext限制和1条Canvas2D读回性能warning，不称零warning。浏览器58759实际BROWSER_EXIT0。开发环境没有执行原游戏或SDK。原CGameOver._onRecharge中AUTOMATIC_RECHARGE && s_oGame.recharge(TOTAL_MONEY)纯本地100补充及原按钮保持、AST精确一致；原HTML广告成功后额外200的回调和广告事件消费者已物理退役，不伪造成功、不发放该广告奖励。原100补充未实测触发，不能混称广告免费发200。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "CreateJS / EaselJS / TweenJS / Howler",
+    "programming_language": "JavaScript、HTML、CSS",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Jacks or Better – Video Poker（视频扑克），MSN原生9p5vlrc06krk，CodeThisLab公开v6。原中文logo写“骰子或更好”，保留该原图，不据此改成掷骰玩法。HTML/JavaScript/CSS、原CreateJS/EaselJS/TweenJS/Howler，逻辑1920×768，实际远端视口1440×900。",
+        "asset_types": "66份原上游文件；去除安装清单后65运行文件，62原文件字节一致。限定改动入口、主脚本服务消费者及未用SoundJS模块。原牌面/牌背、HOLD与高亮、牌桌/赔付表、数字显示/按钮、13语logo、3个未用引流图标原归档、6原MP3及OpenSans/Digital-7字体保持。",
+        "core_challenge": "独立五张牌视频扑克：下注发5张，选择保留，再换掉未保留牌，按最终牌型和原赔付表结算。没有德州扑克公共牌或与庄家比较21点；本轮真实保留黑桃10，换牌得到A和8两对并结算。",
+        "controls": "鼠标/触摸点开始、发牌、点单张牌切换HOLD、抽牌，原左右面额、赌注和最大下注按钮保留。此次只用默认0.20和1档列，点一次HOLD与一次抽牌，不程序调用toggleHold/dealCards/drawCards。",
+        "behavior_path": "累计5次真实输入：精确离线入口→原开始游戏→原默认0.20下注发牌→点第4张黑桃10保留→原抽牌。初手为梅花5/黑桃2/方块2/黑桃10/方块4；原HOLD徽章出现，换牌后第4张黑桃10保持，其余四张变为方块A/黑桃8/梅花A/梅花8，原两对高亮、赢取0.40，余额100→99.80→100.20，jacks_or_better_user_money实际保存100.2，原按钮回到发牌。未写牌序、RNG、钱包或调用处理函数。未发第6次输入；其他牌型、下注档、原本地补充100、刷新读回、其他语言/手机/音频听感未实测。",
+        "game_path": "原菜单→开始→原5张背牌与赔付表→默认下注发5张→真实点第4张出现HOLD→原抽牌替换其余4张→原牌型识别/中奖牌高亮/余额和本地保存→原发牌按钮返回。实际完整走完一手，未追加第二手输入。",
+        "progression_path": "单桌连续手牌，没有地图关卡或角色等级。原jacks_or_better_user_money保存余额，实际从99.8更新100.2；没有第6次刷新，不称重新打开后的读档已验证。各下注档/语言及原本地不足筹码补充仅源码保留。",
+        "core_loop": "原下注→原发牌→选保留牌→换未保留牌→原CHandEvaluator评估/CPayTable结算→保存余额→下一手发牌。本轮两对得到0.40是原牌型支付，不是广告奖励或强行调整钱包。",
+        "gameplay_rules": "186原生方法AST一致、20核心方法逐项一致，原CGameSettings/CCard/CHandEvaluator/CPayTableSettings/CPayTable和随机shuffle等55整函数字节保持。原WIN_OCCURRENCE35及原按该值选手牌的逻辑保持，不声称公平随机，也未改胜率或替换牌堆算法。",
+        "key_numbers": "原初始100虚拟筹码；7面额[0.2,0.3,0.5,1,2,3,5]、5下注列；9类中奖组合原基础表[250,50,25,9,6,4,3,2,1]。5张牌/HOLD/替换，原牌面52+牌背1帧。实际0.20下注、两对原倍数2→0.40，最终100.20。界面¥为虚拟标记，无真实交易。",
+        "level_configuration": "原单桌视频扑克，无关卡制；按面额和下注列计算原赔付表。13语言logo素材保留；本轮中文/默认0.2面额、1列，一手自然结果，不伪称全牌型/所有下注配置已验证。",
+        "system_design": "原CreateJS渲染/Tween、Howler、牌堆/52牌及HOLD/替换、原9牌型评估、赔付表高亮、本地钱包、声音/语言/全屏和原不足筹码本地补充。实际外部SDK/广告通知/上传/更多游戏UI和切游戏provider、SW及广告200奖励消费者退役。",
+        "theme": "原青绿色纹理牌桌，黑色数字显示、中文赔付表与13语logo，5张大牌、金色HOLD徽章/中奖牌黄框、底部原下注与发牌/抽牌控件。5张实际截图均已打开检查，保留原中文图面，不替图冒充试玩。",
+        "progression_economy": "虚拟筹码用于单手下注，中奖依据原9牌型支付并本地保存；原最高列皇家同花顺1250为原表数值，不按其他扑克规则改成4000。原CGameOver._onRecharge中AUTOMATIC_RECHARGE && s_oGame.recharge(TOTAL_MONEY)纯本地100补充及原按钮保持、AST精确一致；原HTML广告成功后额外200的回调和广告事件消费者已物理退役，不伪造成功、不发放该广告奖励。原100补充未实测触发，不能混称广告免费发200。",
+        "roster": "原52张牌与牌背、HOLD与中奖高亮、赔付表9行/5列、筹码显示、面额左右切换、下注/最大下注/发牌抽牌/退出/语言/全屏/信息。无在线玩家或服务器对手，原动画与本地评估执行。",
+        "monetization": "原CGameOver._onRecharge中AUTOMATIC_RECHARGE && s_oGame.recharge(TOTAL_MONEY)纯本地100补充及原按钮保持、AST精确一致；原HTML广告成功后额外200的回调和广告事件消费者已物理退役，不伪造成功、不发放该广告奖励。原100补充未实测触发，不能混称广告免费发200。远端52实际Chromium运行；58请求/58响应均精确同源HTTP200，无外联、失败请求或脚本异常。保留1条启动前AudioContext限制和1条Canvas2D读回性能warning，不称零warning。浏览器58759实际BROWSER_EXIT0。开发环境没有执行原游戏或SDK。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/001.png",
+        "caption": "原中文视频扑克菜单"
+      },
+      {
+        "path": "screenshots/002.png",
+        "caption": "原赔付表/默认0.20下注/100余额"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "原发5张，余额99.80"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "真实点黑桃10出现HOLD"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "原替换其余4张、A和8两对赢0.40，余额100.20"
+      }
+    ]
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "原默认下注→发5张→真实HOLD黑桃10→换其余4张→两对原支付0.40并保存100.2，原发牌按钮返回。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "66上游/65运行文件、62原文件字节一致，58同源200，无缺失/外联。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原青色牌桌、9行5列赔付表、5张大牌及数字显示完整。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原5牌面/牌背、HOLD徽章、中奖高亮/原按钮在实际点击后变化。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原52牌面图集与大牌完整，HOLD第4张在换牌前后帧48保持，无替换角色或额外在线对手。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原CreateJS发牌翻牌、未保留牌替换、原HOLD显示及中奖高亮自然执行。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "真实开始/发牌/点HOLD/抽牌有效；下注档切换/全屏/语言未追加点击。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-18T03:36:21.344630+00:00",
+    "observation_end": "2026-11-18T03:50:28.384594+00:00",
+    "elapsed_seconds": 847.039964,
+    "scope": "公开原入口取证至本次证据整理经过时间，含静态分析/传输/等待/其他任务，非纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

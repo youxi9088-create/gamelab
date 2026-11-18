@@ -1,0 +1,529 @@
+{
+  "native": {
+    "canvas": {
+      "x": -405,
+      "y": 0,
+      "width": 2250,
+      "height": 900,
+      "top": 0,
+      "right": 1845,
+      "bottom": 900,
+      "left": -405
+    },
+    "canvasSize": {
+      "width": 1920,
+      "height": 768
+    },
+    "native_flags": {
+      "menu": true,
+      "game": false,
+      "money": 100,
+      "initialMoney": 100,
+      "betTypes": [
+        0.2,
+        0.3,
+        0.5,
+        1,
+        2,
+        3,
+        5
+      ],
+      "prizes": [
+        250,
+        50,
+        25,
+        9,
+        6,
+        4,
+        3,
+        2,
+        1
+      ],
+      "automaticRefill": true,
+      "winOccurrence": 35
+    },
+    "visibleText": [
+      "开始游戏"
+    ],
+    "native_objects": [
+      {
+        "src": "bg_menu.jpg",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 0,
+          "y": 0
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 768
+        }
+      },
+      {
+        "src": "but_menu_bg.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1.0008452650295587,
+          "b": 0,
+          "c": 0,
+          "d": 1.0008452650295587,
+          "x": 863.9188545571624,
+          "y": 251.9594272785812
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 192,
+          "height": 96
+        }
+      },
+      {
+        "src": "audio_icon.png",
+        "x": 1536.4,
+        "y": 38,
+        "visible": true,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 1536.4,
+          "y": 38
+        },
+        "frame": 1,
+        "bounds": {
+          "x": -28,
+          "y": -28,
+          "width": 56,
+          "height": 56
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 0,
+        "y": 0,
+        "visible": true,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 1445.4,
+          "y": 11
+        },
+        "frame": 12,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_info.png",
+        "x": 383.6,
+        "y": 38,
+        "visible": true,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 355.1,
+          "y": 10
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 57,
+          "height": 56
+        }
+      },
+      {
+        "src": "but_fullscreen.png",
+        "x": 450.6,
+        "y": 38,
+        "visible": true,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 450.6,
+          "y": 38
+        },
+        "frame": 1,
+        "bounds": {
+          "x": -28.5,
+          "y": -28,
+          "width": 57,
+          "height": 56
+        }
+      },
+      {
+        "src": "logo_12.png",
+        "x": 960,
+        "y": 40,
+        "visible": true,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 751,
+          "y": 40
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 418,
+          "height": 150
+        }
+      },
+      {
+        "src": "msg_box.png",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 704.5,
+          "y": 252
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 511,
+          "height": 264
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 0,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 771,
+          "y": 350
+        },
+        "frame": 0,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 64,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 835,
+          "y": 350
+        },
+        "frame": 1,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 128,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 899,
+          "y": 350
+        },
+        "frame": 2,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 192,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 963,
+          "y": 350
+        },
+        "frame": 3,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 256,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 1027,
+          "y": 350
+        },
+        "frame": 4,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 320,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 1091,
+          "y": 350
+        },
+        "frame": 5,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 384,
+        "y": 0,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 1155,
+          "y": 350
+        },
+        "frame": 6,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 0,
+        "y": 64,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 771,
+          "y": 414
+        },
+        "frame": 7,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 64,
+        "y": 64,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 835,
+          "y": 414
+        },
+        "frame": 8,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 128,
+        "y": 64,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 899,
+          "y": 414
+        },
+        "frame": 9,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 192,
+        "y": 64,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 963,
+          "y": 414
+        },
+        "frame": 10,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 256,
+        "y": 64,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 1027,
+          "y": 414
+        },
+        "frame": 11,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 320,
+        "y": 64,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 1091,
+          "y": 414
+        },
+        "frame": 12,
+        "bounds": {
+          "x": -27,
+          "y": -27,
+          "width": 54,
+          "height": 54
+        }
+      },
+      {
+        "src": "but_exit.png",
+        "x": 494,
+        "y": 17,
+        "visible": false,
+        "world": {
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "d": 1,
+          "x": 1170,
+          "y": 241
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 57,
+          "height": 56
+        }
+      }
+    ],
+    "storage": {},
+    "retired_providers_present": [],
+    "scene_objects_read": 33
+  },
+  "observer_error": null,
+  "frame_capture_error": null,
+  "id": "1",
+  "action": "goto",
+  "ui_steps": 1,
+  "checkpoint_phases": {
+    "1": 1
+  },
+  "raw_ui_inputs": 1,
+  "url": "http://127.0.0.1:18865/jacks-offline-v1/index.html",
+  "error": null,
+  "network_events": 117,
+  "console": [
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    }
+  ],
+  "closed": false
+}
