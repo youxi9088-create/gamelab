@@ -1,0 +1,244 @@
+{
+  "native_id": "9mzf20tzqxx7",
+  "original_sha256": "b88d46b41e069b661139f7565a569139c0f3891ef1228232daea8345416537e5",
+  "adapted_sha256": "2b8c5a10173b78682836853a1b845a0a4dd017173c7e4a7822633fe3f606e898",
+  "engine_prefix_bytes": 299483,
+  "engine_prefix_byte_exact": false,
+  "engine_changes": [
+    {
+      "start": 235648,
+      "end": 235775,
+      "text": "c._generateCapabilities(),null==c.context?!1:!0",
+      "reason": "Retire unsupported file-protocol gate; retain actual AudioContext capability detection"
+    },
+    {
+      "start": 235993,
+      "end": 236599,
+      "text": "",
+      "reason": "Retire file-protocol-only intentional failing XHR probe; supported delivery is HTTP"
+    }
+  ],
+  "all_other_source_bytes_outside_reported_edits_preserved": true,
+  "protected_classes": [
+    {
+      "name": "AppleModel",
+      "sha256": "d276188a4c9c9de01237a5fadb218e74303038c7e21a5ca18e05d1ec449ee52d",
+      "unchanged": true
+    },
+    {
+      "name": "AppleServeModel",
+      "sha256": "bfb2c7fae038deb34c5be48d68c33cf55c79a187abe85370f52d12a6301c90d6",
+      "unchanged": true
+    },
+    {
+      "name": "CatcherModel",
+      "sha256": "10ea8b0ff7175e5ea163608fef349a9654640c1b1b434174187c6ee8f8ce5370",
+      "unchanged": true
+    },
+    {
+      "name": "GameModel",
+      "sha256": "1a04e3c03b8264c468f01007848820658beef5bddcc5f8213bb96b44c25a13cc",
+      "unchanged": true
+    },
+    {
+      "name": "GameTimer",
+      "sha256": "4bceb903cbc40e6e65e8165920615ec1cd3a3ea0cd3372bae221f83a5bad5ea4",
+      "unchanged": true
+    },
+    {
+      "name": "StatsModel",
+      "sha256": "367336efc4a94beb74d9de6482594670d7d0f3ad19b6492922716e27551f3da1",
+      "unchanged": true
+    }
+  ],
+  "unchanged_classes": [
+    "ApplicationContext",
+    "AppEvent",
+    "AboutController",
+    "GameOverController",
+    "MenuController",
+    "PauseScreenController",
+    "ScoreController",
+    "AppleModel",
+    "AppleServeModel",
+    "CatcherModel",
+    "GameModel",
+    "GameTimer",
+    "MainModel",
+    "StatsModel",
+    "AppleView",
+    "CatcherView",
+    "FieldView",
+    "HeaderView",
+    "MainView",
+    "MenuView",
+    "ScoreView",
+    "ClassName"
+  ],
+  "changed_classes": [
+    "GameController",
+    "MainController",
+    "AboutView",
+    "GameOverView",
+    "GameView",
+    "PauseScreenView",
+    "Preloader",
+    "DBService",
+    "SoundManager"
+  ],
+  "edits": [
+    {
+      "start": 235648,
+      "end": 235775,
+      "reason": "Retire unsupported file-protocol gate; retain actual AudioContext capability detection"
+    },
+    {
+      "start": 235993,
+      "end": 236599,
+      "reason": "Retire file-protocol-only intentional failing XHR probe; supported delivery is HTTP"
+    },
+    {
+      "start": 299622,
+      "end": 299629,
+      "reason": "Map actual browser locale into original supported languages"
+    },
+    {
+      "start": 299737,
+      "end": 299856,
+      "reason": "Retire provider setOrientationHandler; Retire provider setResizeHandler"
+    },
+    {
+      "start": 300080,
+      "end": 300097,
+      "reason": "Start only after actual native resource complete event"
+    },
+    {
+      "start": 311517,
+      "end": 311543,
+      "reason": "Retire provider levelStarted"
+    },
+    {
+      "start": 311751,
+      "end": 311820,
+      "reason": "Retire provider levelFinished"
+    },
+    {
+      "start": 316379,
+      "end": 316397,
+      "reason": "Retire provider start"
+    },
+    {
+      "start": 348671,
+      "end": 348707,
+      "reason": "Empty retired social container retains valid layout bounds"
+    },
+    {
+      "start": 348709,
+      "end": 349040,
+      "reason": "Remove social button this._fbButton; Remove social button this._fbButton.x; Remove social child; Remove social button this._twButton; Remove social button this._twButton.x; Remove social child"
+    },
+    {
+      "start": 349359,
+      "end": 349533,
+      "reason": "Remove external-link listener; Remove external-link listener; Remove external-link listener"
+    },
+    {
+      "start": 351162,
+      "end": 351615,
+      "reason": "Remove external-link action b.onCLButtonTriggered; Remove external-link action b.onFBButtonTriggered; Remove external-link action b.onTWButtonTriggered"
+    },
+    {
+      "start": 362611,
+      "end": 362754,
+      "reason": "Retire duplicate game-over telemetry; preserve native result view"
+    },
+    {
+      "start": 371837,
+      "end": 371888,
+      "reason": "Retire provider setPauseHandler"
+    },
+    {
+      "start": 372456,
+      "end": 372497,
+      "reason": "Retire provider setPauseHandler"
+    },
+    {
+      "start": 376759,
+      "end": 376800,
+      "reason": "Retire provider setPauseHandler"
+    },
+    {
+      "start": 393177,
+      "end": 393242,
+      "reason": "Retire provider setUnpauseHandler"
+    },
+    {
+      "start": 393408,
+      "end": 393451,
+      "reason": "Retire provider setUnpauseHandler"
+    },
+    {
+      "start": 405394,
+      "end": 405446,
+      "reason": "Explicit original ten-language asset closure; same locale selection"
+    },
+    {
+      "start": 405543,
+      "end": 405594,
+      "reason": "Explicit original ten-language asset closure; same locale selection"
+    },
+    {
+      "start": 410223,
+      "end": 410263,
+      "reason": "Direct local storage read \"bestScore\"+b"
+    },
+    {
+      "start": 410382,
+      "end": 410425,
+      "reason": "Direct local storage write"
+    },
+    {
+      "start": 410542,
+      "end": 410583,
+      "reason": "Direct local storage read \"totalScore\"+b"
+    },
+    {
+      "start": 410704,
+      "end": 410748,
+      "reason": "Direct local storage write"
+    },
+    {
+      "start": 410869,
+      "end": 410910,
+      "reason": "Direct local storage read \"totalScore\"+b"
+    },
+    {
+      "start": 411037,
+      "end": 411084,
+      "reason": "Direct local storage write"
+    },
+    {
+      "start": 411696,
+      "end": 411733,
+      "reason": "Direct local storage read \"muteSounds\""
+    },
+    {
+      "start": 411905,
+      "end": 411960,
+      "reason": "Direct local storage write"
+    },
+    {
+      "start": 413102,
+      "end": 413282,
+      "reason": "Retire external runGame observer"
+    },
+    {
+      "start": 413285,
+      "end": 413321,
+      "reason": "Retire provider registerObserver"
+    }
+  ],
+  "provider_references": [],
+  "external_actions": [],
+  "native_executed_locally": false
+}

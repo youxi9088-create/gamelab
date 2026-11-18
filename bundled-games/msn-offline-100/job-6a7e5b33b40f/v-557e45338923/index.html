@@ -1,0 +1,46 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>Touch And Catch: Santa</title><style>
+      body {
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        text-align: center;
+        font-family: Arial, Helvetica, Verdana;
+        background-color: #003366;
+      }
+      img#splashScreenImage {
+        display: none;
+        position: absolute;
+      }
+      div#preloaderContainer {
+        position: absolute;
+        width: 50%;
+        top: 50%;
+        left: 25%;
+        border: 3px solid #ffffff;
+        border-radius: 5px;
+        padding: 2px;
+        text-align: left;
+      }
+      div#preloaderIndicator {
+        background-color: #ffffff;
+        height: 7px;
+        width: 1%;
+      }
+      div#rotateScreenDiv {
+        display: none;
+        position: absolute;
+        width: 100%;
+        height: 101%;
+        background-color: #003366;
+      }
+      div#rotateScreenDiv img {
+        height: 100%;
+      }
+    </style><script>window.gameLangs=["en","de","es","fr","it","pt","ru","tr","pl","nl"];</script><script defer src="tcsb.min.js"></script><script defer src="local-start.js"></script></head><body>
+    <img id="splashScreenImage" src="assets/images/splash-screen-image.jpg">
+    <div id="preloaderContainer">
+      <div id="preloaderIndicator"></div>
+    </div>
+    <div id="rotateScreenDiv"><img src="assets/images/rotate-screen-image.jpg"></div>
+    </body></html>

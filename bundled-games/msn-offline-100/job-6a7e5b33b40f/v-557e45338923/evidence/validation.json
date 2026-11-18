@@ -1,0 +1,186 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "真实累计输入1；原指针轨迹和截图见validation"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入2；原指针轨迹和截图见validation"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入3；原指针轨迹和截图见validation"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入4；原指针轨迹和截图见validation"
+      },
+      {
+        "type": "click",
+        "description": "真实累计输入5；原指针轨迹和截图见validation"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 26,
+    "responses": 26,
+    "tested_revision": "santa-offline-v1",
+    "delivery_revision": "santa-offline-v1",
+    "scope": "累计5次真实玩家输入：原入口→原PLAY→三次鼠标落果。前两次漏接仍0分，第三次接住原红果，原生分数50、成功数1、GOOD CATCH、教程退出，原新果实继续生成。没有第六次输入。 本轮未进行整局失败结算、重试、声音切换或刷新，未触发原reviseBest结算保存，因此最高分仍0、实际存储为空；不能宣称存档恢复、整局通关、全果型/全部语言/手机验证。只读观察字段apple.position因原字段为_position而为空，果实位置依据真实可见Sprite和截图，不编造模型字段。",
+    "native_catch_verified": true,
+    "native_score": 50,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "game_over_verified": false,
+    "all_languages_verified": false,
+    "all_levels_verified": false,
+    "cumulative_input_budget": 5
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/santa-offline-v1/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "phase": 1,
+      "action": "click",
+      "x": 720,
+      "y": 260,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 260
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "phase": 1,
+      "action": "click",
+      "x": 446,
+      "y": 354,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 446,
+          "y": 354
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "phase": 1,
+      "action": "click",
+      "x": 987,
+      "y": 323,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 987,
+          "y": 323
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "phase": 1,
+      "action": "click",
+      "x": 418,
+      "y": 217,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 418,
+          "y": 217
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    }
+  ],
+  "passive_timing_observations": 4,
+  "browser_session": 94920,
+  "node_pid": 23636,
+  "browser_actual_exit_code": 0,
+  "owned_node_absent": true,
+  "final_model": {
+    "state": "playState",
+    "score": 50,
+    "best": 0,
+    "success_apples": 1,
+    "perfect_chain_bonus": 10,
+    "catcher": {
+      "x": 519.1558042428284,
+      "y": 600,
+      "frozen": false
+    },
+    "apple": {
+      "position": null
+    }
+  },
+  "native_save_created": false,
+  "screenshots_opened": true,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "accounting": {
+    "observation_start": "2026-11-18T13:53:25.049726+00:00",
+    "observation_end": "2026-11-18T14:23:08.604704+00:00",
+    "elapsed_seconds": 1783.554978,
+    "scope": "公开原入口抓取至证据归档经过时间，含源码审阅/传输/自编工具纠正/真实试玩和等待，不是纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "observation_caveat": "本轮未进行整局失败结算、重试、声音切换或刷新，未触发原reviseBest结算保存，因此最高分仍0、实际存储为空；不能宣称存档恢复、整局通关、全果型/全部语言/手机验证。只读观察字段apple.position因原字段为_position而为空，果实位置依据真实可见Sprite和截图，不编造模型字段。"
+}

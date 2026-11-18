@@ -1,0 +1,206 @@
+{
+  "native": {
+    "ready": true,
+    "language": "en",
+    "visible_objects": [
+      {
+        "animation": null,
+        "text": null,
+        "x": 572,
+        "y": 4,
+        "alpha": 1,
+        "mouseEnabled": true,
+        "bounds": {
+          "x": 572,
+          "y": 4,
+          "width": 68,
+          "height": 72
+        }
+      },
+      {
+        "animation": "soundOnButtonUp.png",
+        "text": null,
+        "x": 0,
+        "y": 0,
+        "alpha": 1,
+        "mouseEnabled": true,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 68,
+          "height": 72
+        }
+      },
+      {
+        "animation": "catcherPants2.png",
+        "text": null,
+        "x": 0,
+        "y": 0,
+        "alpha": 1,
+        "mouseEnabled": true,
+        "bounds": {
+          "x": 12,
+          "y": 124,
+          "width": 136,
+          "height": 80
+        }
+      },
+      {
+        "animation": "catcherBasket2.png",
+        "text": null,
+        "x": 0,
+        "y": 4,
+        "alpha": 1,
+        "mouseEnabled": true,
+        "bounds": {
+          "x": 8,
+          "y": 4,
+          "width": 144,
+          "height": 132
+        }
+      },
+      {
+        "animation": "apple-red",
+        "text": null,
+        "x": 596,
+        "y": 246,
+        "alpha": 1,
+        "mouseEnabled": true,
+        "bounds": {
+          "x": 568,
+          "y": 214,
+          "width": 56,
+          "height": 48
+        }
+      },
+      {
+        "animation": null,
+        "text": null,
+        "x": 0,
+        "y": 4,
+        "alpha": 1,
+        "mouseEnabled": true,
+        "bounds": {
+          "x": 0,
+          "y": 4,
+          "width": 68,
+          "height": 72
+        }
+      },
+      {
+        "animation": "pauseButtonUp.png",
+        "text": null,
+        "x": 0,
+        "y": 0,
+        "alpha": 1,
+        "mouseEnabled": true,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 68,
+          "height": 72
+        }
+      },
+      {
+        "animation": "feedbackNormalCatch-2.png",
+        "text": null,
+        "x": 198,
+        "y": 578,
+        "alpha": 0.17554880863513478,
+        "mouseEnabled": true,
+        "bounds": {
+          "x": 198,
+          "y": 578,
+          "width": 244,
+          "height": 28
+        }
+      }
+    ],
+    "model": {
+      "state": "playState",
+      "score": 50,
+      "best": 0,
+      "success_apples": 1,
+      "perfect_chain_bonus": 10,
+      "catcher": {
+        "x": 519.1558042428284,
+        "y": 600,
+        "frozen": false
+      },
+      "apple": {
+        "position": null
+      }
+    },
+    "canvas_bounds": [
+      {
+        "width": 640,
+        "height": 716,
+        "bounds": {
+          "x": 317.5,
+          "y": 0,
+          "width": 805,
+          "height": 900,
+          "top": 0,
+          "right": 1122.5,
+          "bottom": 900,
+          "left": 317.5
+        }
+      }
+    ],
+    "local_storage": {},
+    "retired_providers_present": []
+  },
+  "observer_error": null,
+  "frame_capture_error": null,
+  "id": "5",
+  "action": "click",
+  "ui_steps": 5,
+  "checkpoint_phases": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1,
+    "5": 1
+  },
+  "raw_ui_inputs": 5,
+  "url": "http://127.0.0.1:18865/santa-offline-v1/index.html",
+  "error": null,
+  "network_events": 53,
+  "console": [
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "level": "warning",
+      "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    }
+  ],
+  "closed": false,
+  "timing_evidence": {
+    "samples": [
+      {
+        "at": 1795011581.9587116,
+        "catcher_x": 585.2217519594682
+      },
+      {
+        "at": 1795011582.279115,
+        "catcher_x": 555.4418747088469
+      }
+    ],
+    "visible_fruit": {
+      "x": 80,
+      "y": 174
+    },
+    "observed_velocity": -92.94496582017297,
+    "fall_ms_from_original_gravity": 467.1511950137164,
+    "wait_seconds": 0.34056971672754643,
+    "input": "one real mouse click through original controller",
+    "state_writes": false,
+    "native_handler_calls": false
+  }
+}
