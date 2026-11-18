@@ -1,0 +1,773 @@
+{
+  "title": "Foosball / 桌上足球",
+  "revision": "foosballctl-offline-v2",
+  "job_id": "job-f12d1a451c3a",
+  "version_id": "v-51a6dda5a01f",
+  "artifact_id": "artifact-ce854900f608",
+  "artifact_sha256": "9dc9be435074edf20ae5bd6567455f364e90fee7273a53002121f5f982951d42",
+  "remote_archive_commit": "893bda821d4864982546633b1084b4e54581616c",
+  "files": {
+    "css/ios_fullscreen.css": "d99ea542ab7b26c53aee3f94ddbc89b2482a63d7331b5972b41153ea51c2d800",
+    "css/main.css": "4d6add9bda9205343fdc3011f63eb605f639a74d5db7620584f2dfd15e7e9cc5",
+    "css/orientation_utils.css": "c87ba53e0bd0857e8b1dd26ec8f45486bbdff574327d1f80cbfd81a38d2616fd",
+    "css/reset.css": "7b5be04e538eb27e858f26694e59bff49ea57d79cc125bdcfb10e35f1a93dfc1",
+    "css/subset-RoundedMplus1c-Bold.ttf": "ca4da99388f20f5e2d0e6389e53ff45c098dac2e2c0e5e5d15e56ebffb515eb9",
+    "css/subset-RoundedMplus1c-Bold.woff": "9b040daaa3dbccae725ab2217e5a666adfe81d5ad8e2a39ad397558df9027167",
+    "css/subset-RoundedMplus1c-Bold.woff2": "211243025683a56da4983c149064c831d6ea0c1e0cf995db89af8ba60d542d39",
+    "delivery-report.json": "25ebc4f9acfd4422456ea6accce0b042b452166140f58dabbc7752d7450403e2",
+    "evidence/dedup-intake-guard.json": "88e69cd9d5bfcb76a2563fe8cc60647f76d16f82639c6f127c44286891f3a9c7",
+    "evidence/dedup.json": "2bdd7569bc8768557c4e412e1c9eeda4c3a3461b5bb7b91b55d9ce550dfc0adb",
+    "evidence/execution-environment.json": "9ff89f2818fc0577b54e3a996d57dcd148de21f150a029933aa3b0c4a938a961",
+    "evidence/foosballctl-browser-ready-proof.json": "572b8b8044c1f3b1f732385bd48232a095f5118e91fb5a20534a89cec63181e1",
+    "evidence/foosballctl-keepalive-source-proof.json": "b121ff05d873827d86edf67d388929e5b2801977ab4ed57cdc8c1e2d6772eaaf",
+    "evidence/foosballctl-network-console.json": "639cc8f45d0b5cc751a0417262e0963e71bb1f8c2a2bcaf5e1733ea7a365ee48",
+    "evidence/foosballctl-one-asset-tls-fallback.json": "e124887232cd5bd8de528a60fddb7fe421c6710f231ce6936edd24349950d808",
+    "evidence/foosballctl-proxy-assets-source-receipt.json": "8d13b3733b976b64e0f4e676183675bdb959942b4b95f141fec10602da63d18b",
+    "evidence/foosballctl-proxy-bootstrap-source-receipt.json": "4e319ce687a31e9287fe7d5ab16ab23c9fcf4ace80529b3a93f7022fb8865acd",
+    "evidence/foosballctl-verification-plan.json": "07254ff8a5df73d5b62e1308aac71d1d9582a9a3957ff6a37a677e06aec01a53",
+    "evidence/passive-goal-observation.json": "8121eb3d9b61d0b6fda76decc4fde97d63aa58458a00f3371bec73d17953d868",
+    "evidence/passive-goal-observation.png": "e2263a3dc6abdb58592ffaec5eeb87ba8cb03f417f4ed03b6db8b357e3c0e76f",
+    "evidence/prior-v1-global-preflight-failure.json": "6cd69bc8c24f8689f14ec605dca74fe864013a729eaf9c50198d072f7a21ef1d",
+    "evidence/resource-audit.json": "a4d751f188de766b698650c2aa2256a0d57a2fd833932a0a53411df31bc86689",
+    "evidence/retirement.json": "7314254067b74b7ea1d3979ab5fffc3d1310336d9f2a348884d419fd7de3ea34",
+    "evidence/runtime-sha256.json": "a10d8e6fd12045abdf3d61ba39fc516a442708d602ed120145da780eaa7f7a3e",
+    "evidence/source-fidelity.json": "118fb370f0e21cf92ed5bee799e228a439c0edc103319db049d8d861a10b0c71",
+    "evidence/source-sha256.json": "0c3f2ed1d7821cbb2775e9a4c8d8a19b8677a8b3beec78307610fea41511930f",
+    "evidence/static-audit.json": "709ae580d6bffbac233b00a7d701c3a8291c15958d5cb4bb8cdd33dc2149447c",
+    "evidence/ui-001.json": "2b20584292b8aa8a1f8c0f0095bb08d3870ee28ca5a12b8027d11bfda5d8f674",
+    "evidence/ui-002.json": "bba2b38dd8625fbcc7b76a001fee7d25c4cb3b1ea05c0947d6bdc29c6513adc1",
+    "evidence/ui-003.json": "f98674e7906efcad0e0861228f94545412a3508122ca8feb610f83ce5260b581",
+    "evidence/ui-004.json": "67f4fb67a526a7240aa47f2f3a33cfcafef1f01cf76d0e8d6b2bb056f2e042e1",
+    "evidence/ui-005.json": "404dcc40b05bf81e8698872ccf7517a33a919caba51a9e4cac706a7a411b1ddb",
+    "evidence/unused-sound-retirement.json": "3e28a6f27178f373edae976aa048e801c4ea1505b684760cf47d0572495d3bab",
+    "evidence/validation.json": "5dec42e3b78625c7c222df5626c7d9ba33a748d08303bd3b64cdcbf49e4718af",
+    "favicon.ico": "cb81dcd183fadf235a4c67a56579a5300cbe3eeb6eab0a61a33904e25934e607",
+    "game-profile.json": "d012ba3d8c46aa75b58194966c4c305e01f59d9ffca3b99e434abade4996a639",
+    "GAME_SPECIFICATION.md": "116395e59746cd7634136a45a5ef0f5a3c49e33a6f3ccbd53508c508ba2f3e86",
+    "index.html": "4897e157d2948d0b2f6e4358885b0658f2b2f0de5b6cafccacb9d101b1c01a16",
+    "js/CLang.min.js": "b340ea0333dc4641d5ceb5f1e184f908813580fbe860cf9ac772b991cec684cc",
+    "js/createjs.min.js": "778572b68fd5fcfe2d6e12e0b9325604d0acd7c23e367af805147aac44fa9b0d",
+    "js/howler.min.js": "9e76a59d642c35efb607628e18248c72bbc862759292b662a5ca6abafe7be894",
+    "js/jquery-3.2.1.min.js": "87083882cc6015984eb0411a99d3981817f5dc5c90ba24f0940420c5548d82de",
+    "js/main.js": "23d867088e93dd89c924709dfdd59d4634ad2b7fdf382132a32bf7866490d52a",
+    "js/screenfull.min.js": "3bfe89c0bb3287db3dc2b1d6cf391d31f7fba8f54cee61c04e9714ec242dd92a",
+    "README_二次修改.md": "bd7eab55e50cc8266025ecc8ebf32fd3090841725d5e0f2217f899466ca19254",
+    "screenshots/001.png": "ea6f70e29ec7145055990a2bdd5dd931932c7d56035bdc439cd1ec88444e1a13",
+    "screenshots/002.png": "bbf3243264519659e32eb4b358d5ec45e53cc411a791653dee304483c5ff59d9",
+    "screenshots/003.png": "fa7d84bac7a301a5697a805214bc7fe4720c8b497107f8bb1ac5b20586afe215",
+    "screenshots/004.png": "554002e1404ee4e7604553d072064349d5cdc9d9155a8177dcecc850168aff1b",
+    "screenshots/005.png": "709998e4d1652ffd4ef54f84846cab715c4e9e6884d6564798df64c379e737e4",
+    "sounds/applause.mp3": "1a8e434ff86a8809148552e68baba9cc7e9824c66d770ed95594c6037643cc03",
+    "sounds/ball_kick.mp3": "c6ae4c9dda02d6e1bc73af976706e7849f0822977e0f8547caff6d13cb1880c9",
+    "sounds/ball_wall.mp3": "af7a04af6848c644212e91d4dc9b887412093af9c7e1a1457561abf861835092",
+    "sounds/game_over.mp3": "6d2a92276bd955d28e79a6e2bd664e05019a6afe47e6d7093ce295d8dddd07a8",
+    "sounds/goal.mp3": "218a70af2ac7e15e2dd06dd7f300207441b0f13614c787860ef2f4d1eee3409b",
+    "sounds/goal_exultance.mp3": "bd9cb9f191afb6a9054960a254864ec01744fd1fdcfeaad663fe4ef3130b89c2",
+    "sounds/miss_goal.mp3": "412696d8865b349db8d19b5d2ac40b9cada65b8b28f4dcc7de3da0cec23e5cd9",
+    "sounds/press_button.mp3": "9b2681bd9960a7394b2b61e8a8b48069eeaa7192673915dcda727e014e081ce2",
+    "sounds/soundtrack.mp3": "3e65bc7b5d1df3ed56c6a57ef4df53129e596b13284cc1c93d961500bbbf5d6b",
+    "sounds/whistle.mp3": "53c392beb406cd3518c968e97eafe7e71e224613b6940398f8d69e339f534832",
+    "sprites/200x200.jpg": "25e248c821f691a9a9f5f954b7ee11732eb87b5c3b20183aa3075ed47a349161",
+    "sprites/arena.png": "f0ef6ba6a844336ad3237cf0a7c075f084dad8bdf4275249ae5bbbccf450e0f3",
+    "sprites/arrow.png": "587bf4ab2ea975c6cc4090532fe3e73bd5467bbd970ac5b7841bc12ee722d890",
+    "sprites/audio_icon.png": "0d20de8a2586f08ed43d48f4b5c763053169364a727993ec1d1959ab267cb482",
+    "sprites/ball.png": "66b6082f7619532dc6a33904834ca36844ae41f159718d3dac06bb4cb7325f81",
+    "sprites/bg_game.jpg": "67784ccf2668bf6bf19bead7c2ef9e1e0449dd4a985512ecebc6d1d2aed08fa8",
+    "sprites/bg_menu.jpg": "ce406d1e90fd307b04d9c23def2ff3b5dd54bf3c7a468a4adc9d1b8c9a16c6bc",
+    "sprites/but_delete_save.png": "968f2b437f9f5d80048de87d90dac50c80dd2ebfcced89e74cdd117deef298d8",
+    "sprites/but_exit.png": "391274a59c58ef263929956385bf49a8212897c0725384c72e1c3f8bc0680d5f",
+    "sprites/but_fullscreen.png": "9aeeb4fd09d2eaf7dde71974d1bde6ac29ae8c45c06afd1d65dd166713ebf017",
+    "sprites/but_help.png": "7064dada2a0f3968310fff0369fca7b3a59b177db43e6e0667ed16f3ab460842",
+    "sprites/but_home.png": "131fce8c1ea9fdb437dfc6eb18377c61146ee4a729ea0957a24d856556035a91",
+    "sprites/but_info.png": "b0d3f2f29dda82f24fe258b7fdb24c9cd833e09467066dae97605e601a7e5642",
+    "sprites/but_kickoff.png": "88490b5a66d6aa3c7dcf95b234eec4a1e7bc92b053e51f4749246a20fb96f83c",
+    "sprites/but_lang.png": "35b4b852635053491430b92bf8a08f8a49b9bd5ea008d0c930ef117e31b168ec",
+    "sprites/but_level.png": "76935cfa46550462453caccad48510d048d3c06e7fc753f14379c0a9bc3ed631",
+    "sprites/but_next.png": "aacc421bec1bcd37b8c6b15fba987df0502792fc98908e97c5f6d300cb42e367",
+    "sprites/but_p1.png": "4eda8d453725ff3be0a7a319f967d3fe90139bafa0d9cbd651301e2fa74b9a2f",
+    "sprites/but_p2.png": "5985333dadd45920ddb75cb9aeb3215884989251d3cce5953db14e2c800b108b",
+    "sprites/but_pause.png": "9f046bc0b8b282214d3894fc49f9aa8fd33068ce6594547a33e320d7ef7eddba",
+    "sprites/but_restart.png": "e16cbdea28318616cd55c6cc937ffdb2df03d1efc255a9187aa64609754a1517",
+    "sprites/but_yes_big.png": "544d125d7d8b21e99a2e01b95c2b4d13e95c240c3db71da73954f8530b414afd",
+    "sprites/ctl_logo.png": "1cd8e5522b9dc5d228dd5247b574427a3214a87e4e2cb04d3182fee8f8f7531c",
+    "sprites/field.png": "929867f442ee04f45fc3706721a0a0067a9294a56f3e38331dd71edc248561f6",
+    "sprites/friendly_mode.png": "2519100a6a84141d02cc4fdb96cd97a4e3c62c19bc573fe07a1350d7388b33fe",
+    "sprites/goal_text_0.png": "bb2a1d8aaec7c6bcaac07eb200f5ec2c1cc8f058042055cfadf6619a3e6f4984",
+    "sprites/goal_text_1.png": "25c59b1100f1215240f59645d76748a040d85be4ad2a80d76e19a9686df2d277",
+    "sprites/goal_text_10.png": "e3e134c7e2665e39546c378bb3537b88f498685ecf02077d12643dafe98b9b0b",
+    "sprites/goal_text_11.png": "2f7e18dc852a86bc605f2014840ef171b7f49c396d23723b53ed2f7813d7cb9d",
+    "sprites/goal_text_12.png": "e9f57090a6f97313a86512b63101c26710ee395dab0174b7a3581b19347046db",
+    "sprites/goal_text_2.png": "c3939f7d5e0f0428292f88b95c3a67fe6be69fce1249043916ad1bbfafdc028a",
+    "sprites/goal_text_3.png": "3e8fe2902922ef789fdc65f916e4e9d916c1075b86d5b2839053e5081f2647cb",
+    "sprites/goal_text_4.png": "9b645129c9fad82af4719a3117a3ed80e7ab1bae81b7dd413b7fad3df87d89d7",
+    "sprites/goal_text_5.png": "a39d0d2234cb8a4787bc234ad0150d223e6e7504978eaa8d8f33d4f82c0dd7d2",
+    "sprites/goal_text_6.png": "bb2a1d8aaec7c6bcaac07eb200f5ec2c1cc8f058042055cfadf6619a3e6f4984",
+    "sprites/goal_text_7.png": "e3e134c7e2665e39546c378bb3537b88f498685ecf02077d12643dafe98b9b0b",
+    "sprites/goal_text_8.png": "1b638ccc3cb11e38778e0ac29a358568f6299a80493dc3efd63688ce4991b441",
+    "sprites/goal_text_9.png": "053c26c098c328987b5345262f19273c930455ad0c5c921f1f71b86fd0283bf8",
+    "sprites/key_down.png": "02051d1d48e44ef0a476362f323c9c576e15d1a56b740209989af70a8ea57aed",
+    "sprites/key_s.png": "3105edaf0b92505d98ddb93b2cff86e3e86960211cac367faef641d9b447540d",
+    "sprites/key_up.png": "8b7f940ff88118921c00ec33efa7e2353cd6ed28e6c7f5ba7fe25dcf0ed7ff69",
+    "sprites/key_w.png": "ec5d9094b6f43f74454cb333e5982b7ac3d114b5e09b7fce0fdf018f172c80bb",
+    "sprites/logo_menu_0.png": "23d88d02fb5c01d2bc24380675b4e28a24c355bcf049b5f3b3bd6f31131994c9",
+    "sprites/logo_menu_1.png": "ff16929321b2be7df4cfc13a14a2feed87180cd110b34c9819b0184ce61d0b3e",
+    "sprites/logo_menu_10.png": "23d88d02fb5c01d2bc24380675b4e28a24c355bcf049b5f3b3bd6f31131994c9",
+    "sprites/logo_menu_11.png": "743d489313eddf3db775e66ff72ca9d1c88bfa00b8719dfb88bcb542453572cc",
+    "sprites/logo_menu_12.png": "566eefbaa87b85fbbfe9752275cdcf00127774e5ebac0a01681034210df73005",
+    "sprites/logo_menu_2.png": "3f7530da1b35602bfe9c26d5f29fe4e7c936a2c7a362415a02f13c728d55535f",
+    "sprites/logo_menu_3.png": "a94ea4fba8d7f2b787f0b58a12525061d91cca112a12bc76ca15e60a3a9f627a",
+    "sprites/logo_menu_4.png": "40b7ac361b5108533d5e3a907cac8001d749c15d13b7ff82e312428c9ebfa410",
+    "sprites/logo_menu_5.png": "ae9f0a59ad265291d917fd115391a9a907e7868ceb37e12342e185b733ddd921",
+    "sprites/logo_menu_6.png": "5e5f1007994a708e723423cca7f8d1bcc9610cef3d701e3599ef9b20bc9e2350",
+    "sprites/logo_menu_7.png": "5afe4f75aa4afc1d48c28e7e6d4705a07e3b1538bed7b3522b4b1575c29ba5f3",
+    "sprites/logo_menu_8.png": "1aa4fbbbc602b58d91438c655d359414e4d1ac75fe96220eb51d1baa759601ff",
+    "sprites/logo_menu_9.png": "552b9e4274c3b36551ce950bbafc21bceb11b2256c7f5eaeb6c228d96b2d94b4",
+    "sprites/msg_box.png": "521f6c44a674faa3a4e9f36e747a56bed859a737c02ef2731065aabb5cbe6dae",
+    "sprites/player_blue.png": "40f5e800abbb5188ab7165c7f2354028d74fff439714f33e499209a38bac1ad9",
+    "sprites/player_red.png": "942128ae3debb987997adc192608a9ea8f333fffed29a128695f2057dc974476",
+    "sprites/player_shadow.png": "72df0e929c57c5051d87454293750a98199488c4b917288f4580c0761bcd7a96",
+    "sprites/progress_bar.png": "6777799286c13469ba418ab23de8a7ce16a5b1664d7e852b9731a8df28b23890",
+    "sprites/score_cube_blue.png": "9271ec473d56c15d7d989a43cf72e4f4f7ded7029bdb2dd1e12dd131dbc024ea",
+    "sprites/score_cube_red.png": "8016ec6029b0ca37aac9a2c86c4b0dddb10c371e1e7217bf79d029a0b04c9534",
+    "sprites/score_panel.png": "846644c92c3e391667af494e2646ddbad882cd1f5c9780737e3160274cbd50ef",
+    "sprites/score_rod_blue.png": "29558c1edc55f52916edf80125f2f9c662993fe9535bef7e945b0d2864c5d1ae",
+    "sprites/score_rod_red.png": "d488e246ba0e13098de1695f620f872445a4b48e66adee9eb8a1c64de130f864",
+    "sprites/skip_arrow.png": "19c1eebbfab05248280f9873b3c5ae9620bfbb14cb6a0d8946e040cf96807f3f",
+    "sprites/skip_arrow_left.png": "d54708aa917f697ba52d411d8c82adabdfc60822cd717be3d48eb2ff534738dc",
+    "sprites/stick.png": "856af4d763211bbb5751abeee2e2184e041a2147d60d972d38fd7ae1572d5a2d",
+    "sprites/swipe.png": "20cbb3b8aa44e40a38d92ce334641cc51aae42dd4e3db598ff597d7068efe207",
+    "sprites/tournament_mode.png": "ca920520984f376a83363db3194551b5bbac3c967cb2907893f73a8c05f47af5"
+  },
+  "status_at_archive": "review",
+  "ui_checkpoints": 5,
+  "site_readback": {
+    "at": "2026-11-18T03:14:24.345365+00:00",
+    "version_id": "v-51a6dda5a01f",
+    "job_id": "job-f12d1a451c3a",
+    "status": "review",
+    "cover": "http://127.0.0.1:8766/play/artifact-ce854900f608/screenshots/001.png",
+    "sixteen_section_content_exact": true,
+    "runtime_files": [
+      {
+        "path": "css/ios_fullscreen.css",
+        "http": 200,
+        "sha256": "d99ea542ab7b26c53aee3f94ddbc89b2482a63d7331b5972b41153ea51c2d800",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "css/main.css",
+        "http": 200,
+        "sha256": "4d6add9bda9205343fdc3011f63eb605f639a74d5db7620584f2dfd15e7e9cc5",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "css/orientation_utils.css",
+        "http": 200,
+        "sha256": "c87ba53e0bd0857e8b1dd26ec8f45486bbdff574327d1f80cbfd81a38d2616fd",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "css/reset.css",
+        "http": 200,
+        "sha256": "7b5be04e538eb27e858f26694e59bff49ea57d79cc125bdcfb10e35f1a93dfc1",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "css/subset-RoundedMplus1c-Bold.ttf",
+        "http": 200,
+        "sha256": "ca4da99388f20f5e2d0e6389e53ff45c098dac2e2c0e5e5d15e56ebffb515eb9",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "css/subset-RoundedMplus1c-Bold.woff",
+        "http": 200,
+        "sha256": "9b040daaa3dbccae725ab2217e5a666adfe81d5ad8e2a39ad397558df9027167",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "css/subset-RoundedMplus1c-Bold.woff2",
+        "http": 200,
+        "sha256": "211243025683a56da4983c149064c831d6ea0c1e0cf995db89af8ba60d542d39",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "favicon.ico",
+        "http": 200,
+        "sha256": "cb81dcd183fadf235a4c67a56579a5300cbe3eeb6eab0a61a33904e25934e607",
+        "content_type": "image/x-icon"
+      },
+      {
+        "path": "index.html",
+        "http": 200,
+        "sha256": "4897e157d2948d0b2f6e4358885b0658f2b2f0de5b6cafccacb9d101b1c01a16",
+        "content_type": "text/html; charset=utf-8"
+      },
+      {
+        "path": "js/CLang.min.js",
+        "http": 200,
+        "sha256": "b340ea0333dc4641d5ceb5f1e184f908813580fbe860cf9ac772b991cec684cc",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/createjs.min.js",
+        "http": 200,
+        "sha256": "778572b68fd5fcfe2d6e12e0b9325604d0acd7c23e367af805147aac44fa9b0d",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/howler.min.js",
+        "http": 200,
+        "sha256": "9e76a59d642c35efb607628e18248c72bbc862759292b662a5ca6abafe7be894",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/jquery-3.2.1.min.js",
+        "http": 200,
+        "sha256": "87083882cc6015984eb0411a99d3981817f5dc5c90ba24f0940420c5548d82de",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/main.js",
+        "http": 200,
+        "sha256": "23d867088e93dd89c924709dfdd59d4634ad2b7fdf382132a32bf7866490d52a",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/screenfull.min.js",
+        "http": 200,
+        "sha256": "3bfe89c0bb3287db3dc2b1d6cf391d31f7fba8f54cee61c04e9714ec242dd92a",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "sounds/applause.mp3",
+        "http": 200,
+        "sha256": "1a8e434ff86a8809148552e68baba9cc7e9824c66d770ed95594c6037643cc03",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/ball_kick.mp3",
+        "http": 200,
+        "sha256": "c6ae4c9dda02d6e1bc73af976706e7849f0822977e0f8547caff6d13cb1880c9",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/ball_wall.mp3",
+        "http": 200,
+        "sha256": "af7a04af6848c644212e91d4dc9b887412093af9c7e1a1457561abf861835092",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/game_over.mp3",
+        "http": 200,
+        "sha256": "6d2a92276bd955d28e79a6e2bd664e05019a6afe47e6d7093ce295d8dddd07a8",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/goal.mp3",
+        "http": 200,
+        "sha256": "218a70af2ac7e15e2dd06dd7f300207441b0f13614c787860ef2f4d1eee3409b",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/goal_exultance.mp3",
+        "http": 200,
+        "sha256": "bd9cb9f191afb6a9054960a254864ec01744fd1fdcfeaad663fe4ef3130b89c2",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/miss_goal.mp3",
+        "http": 200,
+        "sha256": "412696d8865b349db8d19b5d2ac40b9cada65b8b28f4dcc7de3da0cec23e5cd9",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/press_button.mp3",
+        "http": 200,
+        "sha256": "9b2681bd9960a7394b2b61e8a8b48069eeaa7192673915dcda727e014e081ce2",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/soundtrack.mp3",
+        "http": 200,
+        "sha256": "3e65bc7b5d1df3ed56c6a57ef4df53129e596b13284cc1c93d961500bbbf5d6b",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/whistle.mp3",
+        "http": 200,
+        "sha256": "53c392beb406cd3518c968e97eafe7e71e224613b6940398f8d69e339f534832",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sprites/200x200.jpg",
+        "http": 200,
+        "sha256": "25e248c821f691a9a9f5f954b7ee11732eb87b5c3b20183aa3075ed47a349161",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "sprites/arena.png",
+        "http": 200,
+        "sha256": "f0ef6ba6a844336ad3237cf0a7c075f084dad8bdf4275249ae5bbbccf450e0f3",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/arrow.png",
+        "http": 200,
+        "sha256": "587bf4ab2ea975c6cc4090532fe3e73bd5467bbd970ac5b7841bc12ee722d890",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/audio_icon.png",
+        "http": 200,
+        "sha256": "0d20de8a2586f08ed43d48f4b5c763053169364a727993ec1d1959ab267cb482",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/ball.png",
+        "http": 200,
+        "sha256": "66b6082f7619532dc6a33904834ca36844ae41f159718d3dac06bb4cb7325f81",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/bg_game.jpg",
+        "http": 200,
+        "sha256": "67784ccf2668bf6bf19bead7c2ef9e1e0449dd4a985512ecebc6d1d2aed08fa8",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "sprites/bg_menu.jpg",
+        "http": 200,
+        "sha256": "ce406d1e90fd307b04d9c23def2ff3b5dd54bf3c7a468a4adc9d1b8c9a16c6bc",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "sprites/but_delete_save.png",
+        "http": 200,
+        "sha256": "968f2b437f9f5d80048de87d90dac50c80dd2ebfcced89e74cdd117deef298d8",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_exit.png",
+        "http": 200,
+        "sha256": "391274a59c58ef263929956385bf49a8212897c0725384c72e1c3f8bc0680d5f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_fullscreen.png",
+        "http": 200,
+        "sha256": "9aeeb4fd09d2eaf7dde71974d1bde6ac29ae8c45c06afd1d65dd166713ebf017",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_help.png",
+        "http": 200,
+        "sha256": "7064dada2a0f3968310fff0369fca7b3a59b177db43e6e0667ed16f3ab460842",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_home.png",
+        "http": 200,
+        "sha256": "131fce8c1ea9fdb437dfc6eb18377c61146ee4a729ea0957a24d856556035a91",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_info.png",
+        "http": 200,
+        "sha256": "b0d3f2f29dda82f24fe258b7fdb24c9cd833e09467066dae97605e601a7e5642",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_kickoff.png",
+        "http": 200,
+        "sha256": "88490b5a66d6aa3c7dcf95b234eec4a1e7bc92b053e51f4749246a20fb96f83c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_lang.png",
+        "http": 200,
+        "sha256": "35b4b852635053491430b92bf8a08f8a49b9bd5ea008d0c930ef117e31b168ec",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_level.png",
+        "http": 200,
+        "sha256": "76935cfa46550462453caccad48510d048d3c06e7fc753f14379c0a9bc3ed631",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_next.png",
+        "http": 200,
+        "sha256": "aacc421bec1bcd37b8c6b15fba987df0502792fc98908e97c5f6d300cb42e367",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_p1.png",
+        "http": 200,
+        "sha256": "4eda8d453725ff3be0a7a319f967d3fe90139bafa0d9cbd651301e2fa74b9a2f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_p2.png",
+        "http": 200,
+        "sha256": "5985333dadd45920ddb75cb9aeb3215884989251d3cce5953db14e2c800b108b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_pause.png",
+        "http": 200,
+        "sha256": "9f046bc0b8b282214d3894fc49f9aa8fd33068ce6594547a33e320d7ef7eddba",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_restart.png",
+        "http": 200,
+        "sha256": "e16cbdea28318616cd55c6cc937ffdb2df03d1efc255a9187aa64609754a1517",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_yes_big.png",
+        "http": 200,
+        "sha256": "544d125d7d8b21e99a2e01b95c2b4d13e95c240c3db71da73954f8530b414afd",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/ctl_logo.png",
+        "http": 200,
+        "sha256": "1cd8e5522b9dc5d228dd5247b574427a3214a87e4e2cb04d3182fee8f8f7531c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/field.png",
+        "http": 200,
+        "sha256": "929867f442ee04f45fc3706721a0a0067a9294a56f3e38331dd71edc248561f6",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/friendly_mode.png",
+        "http": 200,
+        "sha256": "2519100a6a84141d02cc4fdb96cd97a4e3c62c19bc573fe07a1350d7388b33fe",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_0.png",
+        "http": 200,
+        "sha256": "bb2a1d8aaec7c6bcaac07eb200f5ec2c1cc8f058042055cfadf6619a3e6f4984",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_1.png",
+        "http": 200,
+        "sha256": "25c59b1100f1215240f59645d76748a040d85be4ad2a80d76e19a9686df2d277",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_10.png",
+        "http": 200,
+        "sha256": "e3e134c7e2665e39546c378bb3537b88f498685ecf02077d12643dafe98b9b0b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_11.png",
+        "http": 200,
+        "sha256": "2f7e18dc852a86bc605f2014840ef171b7f49c396d23723b53ed2f7813d7cb9d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_12.png",
+        "http": 200,
+        "sha256": "e9f57090a6f97313a86512b63101c26710ee395dab0174b7a3581b19347046db",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_2.png",
+        "http": 200,
+        "sha256": "c3939f7d5e0f0428292f88b95c3a67fe6be69fce1249043916ad1bbfafdc028a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_3.png",
+        "http": 200,
+        "sha256": "3e8fe2902922ef789fdc65f916e4e9d916c1075b86d5b2839053e5081f2647cb",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_4.png",
+        "http": 200,
+        "sha256": "9b645129c9fad82af4719a3117a3ed80e7ab1bae81b7dd413b7fad3df87d89d7",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_5.png",
+        "http": 200,
+        "sha256": "a39d0d2234cb8a4787bc234ad0150d223e6e7504978eaa8d8f33d4f82c0dd7d2",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_6.png",
+        "http": 200,
+        "sha256": "bb2a1d8aaec7c6bcaac07eb200f5ec2c1cc8f058042055cfadf6619a3e6f4984",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_7.png",
+        "http": 200,
+        "sha256": "e3e134c7e2665e39546c378bb3537b88f498685ecf02077d12643dafe98b9b0b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_8.png",
+        "http": 200,
+        "sha256": "1b638ccc3cb11e38778e0ac29a358568f6299a80493dc3efd63688ce4991b441",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/goal_text_9.png",
+        "http": 200,
+        "sha256": "053c26c098c328987b5345262f19273c930455ad0c5c921f1f71b86fd0283bf8",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/key_down.png",
+        "http": 200,
+        "sha256": "02051d1d48e44ef0a476362f323c9c576e15d1a56b740209989af70a8ea57aed",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/key_s.png",
+        "http": 200,
+        "sha256": "3105edaf0b92505d98ddb93b2cff86e3e86960211cac367faef641d9b447540d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/key_up.png",
+        "http": 200,
+        "sha256": "8b7f940ff88118921c00ec33efa7e2353cd6ed28e6c7f5ba7fe25dcf0ed7ff69",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/key_w.png",
+        "http": 200,
+        "sha256": "ec5d9094b6f43f74454cb333e5982b7ac3d114b5e09b7fce0fdf018f172c80bb",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_0.png",
+        "http": 200,
+        "sha256": "23d88d02fb5c01d2bc24380675b4e28a24c355bcf049b5f3b3bd6f31131994c9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_1.png",
+        "http": 200,
+        "sha256": "ff16929321b2be7df4cfc13a14a2feed87180cd110b34c9819b0184ce61d0b3e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_10.png",
+        "http": 200,
+        "sha256": "23d88d02fb5c01d2bc24380675b4e28a24c355bcf049b5f3b3bd6f31131994c9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_11.png",
+        "http": 200,
+        "sha256": "743d489313eddf3db775e66ff72ca9d1c88bfa00b8719dfb88bcb542453572cc",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_12.png",
+        "http": 200,
+        "sha256": "566eefbaa87b85fbbfe9752275cdcf00127774e5ebac0a01681034210df73005",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_2.png",
+        "http": 200,
+        "sha256": "3f7530da1b35602bfe9c26d5f29fe4e7c936a2c7a362415a02f13c728d55535f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_3.png",
+        "http": 200,
+        "sha256": "a94ea4fba8d7f2b787f0b58a12525061d91cca112a12bc76ca15e60a3a9f627a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_4.png",
+        "http": 200,
+        "sha256": "40b7ac361b5108533d5e3a907cac8001d749c15d13b7ff82e312428c9ebfa410",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_5.png",
+        "http": 200,
+        "sha256": "ae9f0a59ad265291d917fd115391a9a907e7868ceb37e12342e185b733ddd921",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_6.png",
+        "http": 200,
+        "sha256": "5e5f1007994a708e723423cca7f8d1bcc9610cef3d701e3599ef9b20bc9e2350",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_7.png",
+        "http": 200,
+        "sha256": "5afe4f75aa4afc1d48c28e7e6d4705a07e3b1538bed7b3522b4b1575c29ba5f3",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_8.png",
+        "http": 200,
+        "sha256": "1aa4fbbbc602b58d91438c655d359414e4d1ac75fe96220eb51d1baa759601ff",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo_menu_9.png",
+        "http": 200,
+        "sha256": "552b9e4274c3b36551ce950bbafc21bceb11b2256c7f5eaeb6c228d96b2d94b4",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/msg_box.png",
+        "http": 200,
+        "sha256": "521f6c44a674faa3a4e9f36e747a56bed859a737c02ef2731065aabb5cbe6dae",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/player_blue.png",
+        "http": 200,
+        "sha256": "40f5e800abbb5188ab7165c7f2354028d74fff439714f33e499209a38bac1ad9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/player_red.png",
+        "http": 200,
+        "sha256": "942128ae3debb987997adc192608a9ea8f333fffed29a128695f2057dc974476",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/player_shadow.png",
+        "http": 200,
+        "sha256": "72df0e929c57c5051d87454293750a98199488c4b917288f4580c0761bcd7a96",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/progress_bar.png",
+        "http": 200,
+        "sha256": "6777799286c13469ba418ab23de8a7ce16a5b1664d7e852b9731a8df28b23890",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/score_cube_blue.png",
+        "http": 200,
+        "sha256": "9271ec473d56c15d7d989a43cf72e4f4f7ded7029bdb2dd1e12dd131dbc024ea",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/score_cube_red.png",
+        "http": 200,
+        "sha256": "8016ec6029b0ca37aac9a2c86c4b0dddb10c371e1e7217bf79d029a0b04c9534",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/score_panel.png",
+        "http": 200,
+        "sha256": "846644c92c3e391667af494e2646ddbad882cd1f5c9780737e3160274cbd50ef",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/score_rod_blue.png",
+        "http": 200,
+        "sha256": "29558c1edc55f52916edf80125f2f9c662993fe9535bef7e945b0d2864c5d1ae",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/score_rod_red.png",
+        "http": 200,
+        "sha256": "d488e246ba0e13098de1695f620f872445a4b48e66adee9eb8a1c64de130f864",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/skip_arrow.png",
+        "http": 200,
+        "sha256": "19c1eebbfab05248280f9873b3c5ae9620bfbb14cb6a0d8946e040cf96807f3f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/skip_arrow_left.png",
+        "http": 200,
+        "sha256": "d54708aa917f697ba52d411d8c82adabdfc60822cd717be3d48eb2ff534738dc",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/stick.png",
+        "http": 200,
+        "sha256": "856af4d763211bbb5751abeee2e2184e041a2147d60d972d38fd7ae1572d5a2d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/swipe.png",
+        "http": 200,
+        "sha256": "20cbb3b8aa44e40a38d92ce334641cc51aae42dd4e3db598ff597d7068efe207",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/tournament_mode.png",
+        "http": 200,
+        "sha256": "ca920520984f376a83363db3194551b5bbac3c967cb2907893f73a8c05f47af5",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/001.png",
+        "http": 200,
+        "sha256": "ea6f70e29ec7145055990a2bdd5dd931932c7d56035bdc439cd1ec88444e1a13",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/002.png",
+        "http": 200,
+        "sha256": "bbf3243264519659e32eb4b358d5ec45e53cc411a791653dee304483c5ff59d9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/003.png",
+        "http": 200,
+        "sha256": "fa7d84bac7a301a5697a805214bc7fe4720c8b497107f8bb1ac5b20586afe215",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/004.png",
+        "http": 200,
+        "sha256": "554002e1404ee4e7604553d072064349d5cdc9d9155a8177dcecc850168aff1b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/005.png",
+        "http": 200,
+        "sha256": "709998e4d1652ffd4ef54f84846cab715c4e9e6884d6564798df64c379e737e4",
+        "content_type": "image/png"
+      },
+      {
+        "path": "evidence/passive-goal-observation.png",
+        "http": 200,
+        "sha256": "e2263a3dc6abdb58592ffaec5eeb87ba8cb03f417f4ed03b6db8b357e3c0e76f",
+        "content_type": "image/png"
+      }
+    ],
+    "all_95_runtime_files_5_screenshots_and_passive_goal_exact": true,
+    "index_csp": "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' http://192.168.56.52:8765",
+    "gameplay_UI_reexecuted": false,
+    "cumulative_UI_steps": 5,
+    "native_kickoff_verified": true,
+    "native_ball_motion_verified": true,
+    "native_CPU_motion_verified": true,
+    "native_goal_and_reset_verified": true,
+    "player_rod_input_verified": false,
+    "full_match_verified": false,
+    "tournament_verified": false,
+    "storage_reload_verified": false,
+    "CSP_source_compatibility": "Native renderer and Howler resources retained; exact local runtime validated in5inputs. HTTPS101-file readback is not a second browser/gameplay run under site CSP; no extraUI was executed."
+  },
+  "scope": "Exact normal-review offline game and real evidence. Raw input counts and historical failures remain explicit; no approval, supply, game-state changes or added testing."
+}

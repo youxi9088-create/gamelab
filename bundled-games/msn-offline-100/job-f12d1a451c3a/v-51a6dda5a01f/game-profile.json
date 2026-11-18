@@ -1,0 +1,96 @@
+{
+  "category": "体育 / 桌上足球 / 本地人机",
+  "dimension": "2D",
+  "perspective": "",
+  "core_gameplay": "控制己方桌上足球摇杆上下移动，让原球员与足球发生物理接触，与本地电脑竞争进球；球可沿桌边反弹，先达原目标进球数的一方获胜。此次实际验证开球、球体运动、CPU跟随及CPU一方得分/回到待开球，不宣称已验证玩家操作进球。",
+  "core_experience": "",
+  "controls": "原鼠标点选友谊赛/人机/教程跳过/哨子开球。源码中W/S和方向键控制摇杆，空格可开球；本轮只点哨子，没有输入这些按键或修改场景字段。原本地双人和移动按钮保留但未实测。",
+  "game_loop": "",
+  "content": "同一原桌面球场，锦标赛保留20档points_to_win/cpu_speed_sticks/ball_speed表，菜单原每页1行5列。20档不称20张不同地图；本轮友谊赛，没有篡改选择状态或跳过原菜单以挤入步数。",
+  "progression": "",
+  "save": "",
+  "rules": "原CGame/CStick/CBall的开球、按键、AI、边界/球员碰撞、进球判定、回中及更新逻辑保持；14个关键方法逐项一致，274个原生方法AST未变。原随机函数和20档关卡表保持，不改速度、碰撞体、难度或输赢条件。友谊赛实际HTML配置5球获胜，保留5，不按目录简介的7球改写。",
+  "systems": "原SpriteLibrary图片、Howler声音、CreateJS渲染/Tween、球杆/足球/场边几何、CPU、比分/计分珠、锦标赛/存档、教程、暂停、语言与全屏。实际退役MSN/更多游戏/广告/通知接入、完成事件、排行上传、SW安装及对应调用者；使用真实navigator语言/连通状态，不伪造SDK或服务器准备。",
+  "ui_flow": "",
+  "level_design": "",
+  "verification": "累计5次真实输入：精确离线入口→原友谊赛握手按钮→原人机单人按钮→原教程跳过按钮→原哨子开球。实际球体由隐藏变可见并移动/滚动，红方CPU球员随原AI上下移动。之后仅一次零输入被动截图，比分由0:0变为0:1，原球隐藏并重新出现开球按钮；这是原CPU一方进球，不称玩家手动进球。未发第6次按键/点击，未验证玩家摇杆移动、完整5球胜负、锦标赛20档、本地双人、刷新、其他语言、手机或音频听感。最终93请求/93响应均同源HTTP200，无外联、失败请求或脚本异常；1条启动前AudioContext限制和1条Canvas2D readback性能提示原样保留，不宣称零warning。浏览器17274实际BROWSER_EXIT0。实际游戏和SDK没有在开发环境执行。游戏原声音使用Howler，未调用SoundJS。物理删除CreateJS中未使用的WebAudioPlugin整模块（含file://下同步XHR探测WebAudioPluginTest.fail），其余引擎字节和许可证头保持；没有提供假探测文件、广告/声音回执或能力替身。可复用的范围以实际原CreateJS渲染/Tween及Howler为准，不承诺额外SoundJS API。",
+  "evidence": "",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "engine": "CreateJS / EaselJS / TweenJS / Howler",
+  "programming_language": "JavaScript、HTML、CSS",
+  "game_summary": "",
+  "resource_types": "",
+  "engine_asset_system": "",
+  "core_challenge_details": "",
+  "core_challenge_type": "",
+  "input_elements": "",
+  "app_suitability": "",
+  "core_loop": "",
+  "churn_risk": "",
+  "progression_loop": "",
+  "core_closure": "",
+  "loop_completeness": "",
+  "playability": "",
+  "key_numbers": "",
+  "level_structure": "",
+  "system_completeness": "",
+  "theme_details": "",
+  "theme_position": "",
+  "economy": "",
+  "roles": "",
+  "roster_summary": "",
+  "monetization_details": "",
+  "monetization": "",
+  "specification": {
+    "template_version": "5.1",
+    "sections": {
+      "basic_facts": "Foosball（原中文标题“桌上足球”），MSN原生9pncqrbdtqn2，CodeThisLab公开v5构建。原CreateJS/EaselJS/TweenJS、Howler，JavaScript/HTML/CSS，逻辑1920×1080；实际远端52 Chromium视口1440×900，开发环境仅静态审阅和打包。",
+      "asset_types": "96份上游原文件，另有本地采集元数据；去除安装清单后95份运行文件，92份原文件字节保持，入口/主脚本/未用SoundJS模块作限定退役。原球场、桌框/摇杆、红蓝球员、足球/阴影、比分/计分珠、13语标题及进球图、按钮/教程、10份原MP3和RoundedMplus1c字体保持。",
+      "core_challenge": "控制己方桌上足球摇杆上下移动，让原球员与足球发生物理接触，与本地电脑竞争进球；球可沿桌边反弹，先达原目标进球数的一方获胜。此次实际验证开球、球体运动、CPU跟随及CPU一方得分/回到待开球，不宣称已验证玩家操作进球。",
+      "controls": "原鼠标点选友谊赛/人机/教程跳过/哨子开球。源码中W/S和方向键控制摇杆，空格可开球；本轮只点哨子，没有输入这些按键或修改场景字段。原本地双人和移动按钮保留但未实测。",
+      "behavior_path": "累计5次真实输入：精确离线入口→原友谊赛握手按钮→原人机单人按钮→原教程跳过按钮→原哨子开球。实际球体由隐藏变可见并移动/滚动，红方CPU球员随原AI上下移动。之后仅一次零输入被动截图，比分由0:0变为0:1，原球隐藏并重新出现开球按钮；这是原CPU一方进球，不称玩家手动进球。未发第6次按键/点击，未验证玩家摇杆移动、完整5球胜负、锦标赛20档、本地双人、刷新、其他语言、手机或音频听感。",
+      "game_path": "原菜单（友谊赛/锦标赛）→友谊赛→人机或本地双人选择→首次教学与原跳过→球场待开球→正常哨子开球→原球体/碰撞/AI更新→进球→原回中与再次待开球。完整胜局与结算界面仅源码确认，未追加试玩。",
+      "progression_path": "锦标赛原20档配置和原关卡/分数localStorage读取保存函数保持，字段按原GAME_NAME使用；本轮仅原ls_available探测和友谊赛，不宣称锦标赛解锁、刷新存档或通关已验证。",
+      "core_loop": "等待开球→原随机初速发球→玩家/CPU摇杆与球接触、边界反射→原球门判定→比分和计分珠更新→原再次开球或整局结束。本轮实际0:0→红方1分并重现哨子，未人为设置分数或球体位置。",
+      "gameplay_rules": "原CGame/CStick/CBall的开球、按键、AI、边界/球员碰撞、进球判定、回中及更新逻辑保持；14个关键方法逐项一致，274个原生方法AST未变。原随机函数和20档关卡表保持，不改速度、碰撞体、难度或输赢条件。友谊赛实际HTML配置5球获胜，保留5，不按目录简介的7球改写。",
+      "key_numbers": "原逻辑画布1920×1080，原13语言，20档锦标赛配置。友谊赛目标5球、CPU速度参数5，本轮实际BALL_SPEED参数18；锦标赛原目标从5逐渐至10，CPU速度从5至100，球速从15至30（源码值，不换算为米/秒）。实际被动观察比分0:1，不是完整一局。",
+      "level_configuration": "同一原桌面球场，锦标赛保留20档points_to_win/cpu_speed_sticks/ball_speed表，菜单原每页1行5列。20档不称20张不同地图；本轮友谊赛，没有篡改选择状态或跳过原菜单以挤入步数。",
+      "system_design": "原SpriteLibrary图片、Howler声音、CreateJS渲染/Tween、球杆/足球/场边几何、CPU、比分/计分珠、锦标赛/存档、教程、暂停、语言与全屏。实际退役MSN/更多游戏/广告/通知接入、完成事件、排行上传、SW安装及对应调用者；使用真实navigator语言/连通状态，不伪造SDK或服务器准备。",
+      "theme": "原木桌/绿茵俯视场景、红蓝球员与金属摇杆、顶部0:0/0:1比分、两侧计分珠，中文原图片标题、原键盘教程和蓝色哨子。五张输入截图及一张零输入进球截图均已打开检查；2D Canvas以原素材表现桌面层次，不称真正3D场景引擎。",
+      "progression_economy": "原友谊赛以进球决胜；锦标赛原胜分100×己方进球−50×对方进球及本地累计分数函数保留（源码）。无充值、真实货币交易、奖励广告或新增道具经济。此次没有领取或伪造奖励，也未验证锦标赛结算。",
+      "roster": "原红蓝两队球员/四类摇杆，门将、后卫、中场、前锋，足球、球场边界/球门、比分、计分珠、开球哨子与暂停/帮助等原控件。实际看到双方原球员、球体和红方CPU位移；玩家摇杆按键、本地双人未验证。",
+      "monetization": "实际广告/更多游戏/通知SDK脚本和消费者、广告完成事件、静音服务通知、分数上传和安装SW退役；原本地计分/存档及同机双人保留，原玩法不依赖后台、账号、联机匹配或真实购买。最终93请求/93响应均同源HTTP200，无外联、失败请求或脚本异常；1条启动前AudioContext限制和1条Canvas2D readback性能提示原样保留，不宣称零warning。浏览器17274实际BROWSER_EXIT0。实际游戏和SDK没有在开发环境执行。"
+    }
+  },
+  "illustrations": [
+    {
+      "path": "screenshots/001.png",
+      "caption": "原中文桌上足球菜单"
+    },
+    {
+      "path": "screenshots/002.png",
+      "caption": "原友谊赛人机/本地双人选择"
+    },
+    {
+      "path": "screenshots/003.png",
+      "caption": "原首次键盘教程与跳过按钮"
+    },
+    {
+      "path": "screenshots/004.png",
+      "caption": "原球场待开球，比分0:0"
+    },
+    {
+      "path": "screenshots/005.png",
+      "caption": "原开球后足球运动，CPU跟随"
+    }
+  ]
+}

@@ -1,0 +1,604 @@
+{
+  "native": {
+    "canvas": {
+      "x": -80,
+      "y": 0,
+      "width": 1600,
+      "height": 900,
+      "top": 0,
+      "right": 1520,
+      "bottom": 900,
+      "left": -80
+    },
+    "canvasSize": {
+      "width": 1920,
+      "height": 1080
+    },
+    "stageScale": {
+      "x": 0.8333333333333334,
+      "y": 0.8333333333333334
+    },
+    "native_flags": {
+      "menu": true,
+      "selectPlayers": false,
+      "game": false,
+      "twoPlayers": false,
+      "firstPlay": true,
+      "goalsToWin": 1,
+      "friendlyGoals": 5,
+      "ballSpeed": 18,
+      "levels": 20
+    },
+    "visibleText": [],
+    "native_objects": [
+      {
+        "src": "bg_menu.jpg",
+        "x": 0,
+        "y": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": true,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 0,
+          "y": 0
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      {
+        "src": "friendly_mode.png",
+        "x": 735,
+        "y": 780,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": true,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 495.4166666666667,
+          "y": 529.1666666666667
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 281,
+          "height": 290
+        }
+      },
+      {
+        "src": "tournament_mode.png",
+        "x": 1185,
+        "y": 780,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": true,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 870,
+          "y": 528.75
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 282,
+          "height": 291
+        }
+      },
+      {
+        "src": "but_info.png",
+        "x": 166,
+        "y": 70,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": true,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 89.16666666666667,
+          "y": 8.333333333333334
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 118,
+          "height": 120
+        }
+      },
+      {
+        "src": "but_delete_save.png",
+        "x": 1639,
+        "y": 70,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": true,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 1316.6666666666667,
+          "y": 8.333333333333334
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 118,
+          "height": 120
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 0,
+        "y": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": true,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 1211.6666666666667,
+          "y": 9.166666666666668
+        },
+        "frame": 12,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "logo_menu_12.png",
+        "x": 960,
+        "y": 340,
+        "scaleX": 0.9119078082789608,
+        "scaleY": 0.9119078082789608,
+        "visible": true,
+        "world": {
+          "a": 0.7599231735658006,
+          "b": 0,
+          "c": 0,
+          "d": 0.7599231735658006,
+          "x": 484.6318829701928,
+          "y": 162.88551032315394
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 830,
+          "height": 317
+        }
+      },
+      {
+        "src": "audio_icon.png",
+        "x": 1764,
+        "y": 70,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": true,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 1470,
+          "y": 58.333333333333336
+        },
+        "frame": 1,
+        "bounds": {
+          "x": -59,
+          "y": -60,
+          "width": 118,
+          "height": 120
+        }
+      },
+      {
+        "src": "but_fullscreen.png",
+        "x": 294,
+        "y": 70,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": true,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 245,
+          "y": 58.333333333333336
+        },
+        "frame": 1,
+        "bounds": {
+          "x": -59,
+          "y": -60,
+          "width": 118,
+          "height": 120
+        }
+      },
+      {
+        "src": "msg_box.png",
+        "x": 0,
+        "y": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 455.83333333333337,
+          "y": 220
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 826,
+          "height": 552
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 0,
+        "y": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 616.6666666666667,
+          "y": 358.33333333333337
+        },
+        "frame": 0,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 120,
+        "y": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 716.6666666666667,
+          "y": 358.33333333333337
+        },
+        "frame": 1,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 240,
+        "y": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 816.6666666666667,
+          "y": 358.33333333333337
+        },
+        "frame": 2,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 360,
+        "y": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 916.6666666666667,
+          "y": 358.33333333333337
+        },
+        "frame": 3,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 480,
+        "y": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 1016.6666666666667,
+          "y": 358.33333333333337
+        },
+        "frame": 4,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 0,
+        "y": 120,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 616.6666666666667,
+          "y": 458.33333333333337
+        },
+        "frame": 5,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 120,
+        "y": 120,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 716.6666666666667,
+          "y": 458.33333333333337
+        },
+        "frame": 6,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 240,
+        "y": 120,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 816.6666666666667,
+          "y": 458.33333333333337
+        },
+        "frame": 7,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 360,
+        "y": 120,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 916.6666666666667,
+          "y": 458.33333333333337
+        },
+        "frame": 8,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 480,
+        "y": 120,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 1016.6666666666667,
+          "y": 458.33333333333337
+        },
+        "frame": 9,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 0,
+        "y": 240,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 616.6666666666667,
+          "y": 558.3333333333334
+        },
+        "frame": 10,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 120,
+        "y": 240,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 716.6666666666667,
+          "y": 558.3333333333334
+        },
+        "frame": 11,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_lang.png",
+        "x": 240,
+        "y": 240,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 816.6666666666667,
+          "y": 558.3333333333334
+        },
+        "frame": 12,
+        "bounds": {
+          "x": -55,
+          "y": -55,
+          "width": 110,
+          "height": 110
+        }
+      },
+      {
+        "src": "but_exit.png",
+        "x": 826,
+        "y": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "visible": false,
+        "world": {
+          "a": 0.8333333333333334,
+          "b": 0,
+          "c": 0,
+          "d": 0.8333333333333334,
+          "x": 1095,
+          "y": 170
+        },
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 118,
+          "height": 120
+        }
+      }
+    ],
+    "storage": {
+      "ls_available": "ok"
+    },
+    "retired_providers_present": [],
+    "scene_objects_read": 32
+  },
+  "observer_error": null,
+  "frame_capture_error": null,
+  "id": "1",
+  "action": "goto",
+  "ui_steps": 1,
+  "checkpoint_phases": {
+    "1": 1
+  },
+  "raw_ui_inputs": 1,
+  "url": "http://127.0.0.1:18865/foosballctl-offline-v2/index.html",
+  "error": null,
+  "network_events": 187,
+  "console": [
+    {
+      "level": "warning",
+      "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    }
+  ],
+  "closed": false
+}

@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-18T02:56:06.638471+00:00",
+  "revision": "foosballctl-offline-v1",
+  "UI_used": 0,
+  "original_global_preflight": {
+    "scripts": 7,
+    "unknown_direct_global_calls": [
+      {
+        "file": "js/createjs.min.js",
+        "name": "define",
+        "line": 16
+      },
+      {
+        "file": "js/main.js",
+        "name": "notifyMute",
+        "line": 324
+      },
+      {
+        "file": "js/main.js",
+        "name": "notifyUnmute",
+        "line": 332
+      }
+    ]
+  },
+  "actual_provider_gaps": [
+    "CMain.stopUpdate notifyMute",
+    "CMain.startUpdate notifyUnmute"
+  ],
+  "correction": "Retire the two notification consumers in new v2, preserving original pause/Ticker/Howler operations. v1runtime/evidence remains immutable and never navigated.",
+  "vendor_define": "Original JSON3 b&&define call: constant local b initialized by function==typeof define&&define.amd. AST positive-guard recognizer checked6self-authored guarded/unguarded/mutated/else fixtures; no vendor capability or SDK stub supplied."
+}

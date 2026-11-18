@@ -1,0 +1,4 @@
+原HTML5运行源码，非原作者编辑器工程。可定位修改js/main.js的CGame/CStick/CBall、CMain.preloaderReady二十档、CLevelSettings/CScoreRod、CPanelTutorial及CLang.min.js。274原生方法和14核心方法对照，随机/几何/原存档函数保持。需保留CreateJS渲染、Tween、原Howler和原字体图集；跨项目复用需要拆解适配，不能把混合导出包当通用模块。
+累计5次真实输入：精确离线入口→原友谊赛握手按钮→原人机单人按钮→原教程跳过按钮→原哨子开球。实际球体由隐藏变可见并移动/滚动，红方CPU球员随原AI上下移动。之后仅一次零输入被动截图，比分由0:0变为0:1，原球隐藏并重新出现开球按钮；这是原CPU一方进球，不称玩家手动进球。未发第6次按键/点击，未验证玩家摇杆移动、完整5球胜负、锦标赛20档、本地双人、刷新、其他语言、手机或音频听感。
+最终93请求/93响应均同源HTTP200，无外联、失败请求或脚本异常；1条启动前AudioContext限制和1条Canvas2D readback性能提示原样保留，不宣称零warning。浏览器17274实际BROWSER_EXIT0。实际游戏和SDK没有在开发环境执行。
+游戏原声音使用Howler，未调用SoundJS。物理删除CreateJS中未使用的WebAudioPlugin整模块（含file://下同步XHR探测WebAudioPluginTest.fail），其余引擎字节和许可证头保持；没有提供假探测文件、广告/声音回执或能力替身。可复用的范围以实际原CreateJS渲染/Tween及Howler为准，不承诺额外SoundJS API。

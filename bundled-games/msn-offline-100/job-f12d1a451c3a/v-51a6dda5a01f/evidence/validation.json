@@ -1,0 +1,192 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计输入1，完整真实mouse轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "累计输入2，完整真实mouse轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "累计输入3，完整真实mouse轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "累计输入4，完整真实mouse轨迹见validation.json"
+      },
+      {
+        "type": "click",
+        "description": "累计输入5，完整真实mouse轨迹见validation.json"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "missing": [],
+    "required_external": [],
+    "unresolved_missing": [],
+    "requests": 93,
+    "responses": 93,
+    "tested_revision": "foosballctl-offline-v2",
+    "delivery_revision": "foosballctl-offline-v2",
+    "scope": "累计5次真实输入：精确离线入口→原友谊赛握手按钮→原人机单人按钮→原教程跳过按钮→原哨子开球。实际球体由隐藏变可见并移动/滚动，红方CPU球员随原AI上下移动。之后仅一次零输入被动截图，比分由0:0变为0:1，原球隐藏并重新出现开球按钮；这是原CPU一方进球，不称玩家手动进球。未发第6次按键/点击，未验证玩家摇杆移动、完整5球胜负、锦标赛20档、本地双人、刷新、其他语言、手机或音频听感。",
+    "native_kickoff_verified": true,
+    "native_ball_motion_verified": true,
+    "native_CPU_motion_verified": true,
+    "native_goal_and_reset_verified": true,
+    "player_rod_input_verified": false,
+    "player_scored_goal_verified": false,
+    "full_match_verified": false,
+    "tournament_verified": false,
+    "local_two_player_verified": false,
+    "storage_reload_verified": false,
+    "cumulative_input_budget": 5,
+    "final_revision_inputs": 5,
+    "prior_failed_UI_inputs": 0
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/foosballctl-offline-v2/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "phase": 1,
+      "action": "click",
+      "x": 530,
+      "y": 650,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 530,
+          "y": 650
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "phase": 1,
+      "action": "click",
+      "x": 530,
+      "y": 445,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 530,
+          "y": 445
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "phase": 1,
+      "action": "click",
+      "x": 720,
+      "y": 610,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 610
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "phase": 1,
+      "action": "click",
+      "x": 720,
+      "y": 698,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 698
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    }
+  ],
+  "passive_observation": {
+    "id": 50,
+    "raw_inputs_before": 5,
+    "raw_inputs_after": 5,
+    "observed_scoreboard_pixels": {
+      "blue": 0,
+      "red": 1
+    },
+    "source": "Agent opened actual passive screenshot; numeric scoreboard is not exported as observer text. No goal handler called.",
+    "ball_hidden_again": true,
+    "kickoff_visible_again": true
+  },
+  "browser_session": 17274,
+  "browser_actual_exit_code": 0,
+  "state_injection": false,
+  "handler_calls": false,
+  "screenshots_opened": true,
+  "accounting": {
+    "observation_start": "2026-11-18T02:33:53.346251+00:00",
+    "observation_end": "2026-11-18T03:11:15.936381+00:00",
+    "elapsed_seconds": 2242.59013,
+    "scope": "公开原入口取证至本次证据整理的经过时间，含资源传输、等待、静态修复和其他工具操作，非纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  },
+  "actual_final_native_flags": {
+    "menu": false,
+    "selectPlayers": false,
+    "game": true,
+    "friendly": true,
+    "twoPlayers": false,
+    "firstPlay": false,
+    "goalsToWin": 5,
+    "friendlyGoals": 5,
+    "cpuSpeed": 5,
+    "ballSpeed": 18,
+    "levels": 20
+  }
+}
