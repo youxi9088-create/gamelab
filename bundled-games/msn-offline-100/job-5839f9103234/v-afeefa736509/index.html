@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="skijump" />
+    <meta name="theme-color" content="#202020" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="google" content="notranslate" />
+    
+    <link rel="icon" type="image/png" href="assets/favicon.vkNxGNh.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/icon60x60.df3XLJS.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/icon76x76.BD3AEXQ.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/icon120x120.svvQaxD.png" />
+    <link rel="apple-touch-icon" sizes="196x196" href="assets/icon196x196.yMVHiGk.png" />
+    <link rel="apple-touch-icon" sizes="256x256" href="assets/icon256x256.jt9zpdV.png" />
+    <link rel="apple-touch-icon" sizes="1024x1024" href="assets/icon1024x1024.5FRBzds.png" />
+    <title>Ski Jump FRVR</title>
+    <style>
+      body {
+        background: #c8c8c8;
+        overflow: hidden;
+        position: fixed;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        border: 0px;
+        padding: 0px;
+        margin: 0px;
+        width: 100%;
+        height: 100%;
+        padding-top: constant(safe-area-inset-top);
+        overscroll-behavior: none;
+      }
+
+      preloader {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: #fefefe;
+        position: fixed;
+        z-index: 5;
+      }
+      preloader.dark {
+        background: #1c1c1c;
+      }
+      preloader canvas,
+      preloader img {
+        position: fixed;
+      }
+      preloader loadbar {
+        display: none;
+        position: fixed;
+        border: 1px solid #a4a4a4;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      preloader loadbar div {
+        display: block;
+        width: 0%;
+        height: 100%;
+        background-color: #02bdff;
+      }
+
+      iframe {
+        border: 0px;
+        width: 100%;
+        height: 100%;
+      }
+
+      #gameCanvas {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 0px;
+        height: 0px;
+        background-color: #000000;
+      }
+
+      #overlay {
+        position: absolute;
+        z-index: 3;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        visibility: hidden;
+        bottom: 3px;
+        overflow: hidden;
+        text-align: center;
+      }
+      #overlay div {
+        float: left;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Speed down the in-run and tap at the right moment to launch your jump. In the air, use the rotation buttons to keep a good angle against the wind, because leaning too far means a crash. Every jump earns coins and is measured against a ghost of your best attempt. Spend coins on faster skis with more lift and on boosts for the in-run or the flight, and spin the prize wheel every few jumps for extra rewards."
+    />
+    <meta property="og:title" content="Ski Jump FRVR" />
+    <meta
+      property="og:description"
+      content="Speed down the in-run and tap at the right moment to launch your jump. In the air, use the rotation buttons to keep a good angle against the wind, because leaning too far means a crash. Every jump earns coins and is measured against a ghost of your best attempt. Spend coins on faster skis with more lift and on boosts for the in-run or the flight, and spin the prize wheel every few jumps for extra rewards."
+    />
+    <meta name="twitter:title" content="Ski Jump FRVR" />
+    <meta
+      name="twitter:description"
+      content="Speed down the in-run and tap at the right moment to launch your jump. In the air, use the rotation buttons to keep a good angle against the wind, because leaning too far means a crash. Every jump earns coins and is measured against a ghost of your best attempt. Spend coins on faster skis with more lift and on boosts for the in-run or the flight, and spin the prize wheel every few jumps for extra rewards."
+    />
+    
+    
+    
+    <style id="frvr-loader-styles">
+      #frvr-loader-preloader {
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 80px;
+        box-sizing: border-box;
+      }
+
+      #frvr-loader-container {
+        width: 100%;
+        max-width: 750px;
+        max-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+      }
+
+      #frvr-loader-logo {
+        width: 100%;
+        height: auto;
+        max-height: 100%;
+        flex-shrink: 1;
+      }
+
+      #frvr-loader-loadbar {
+        width: 100%;
+        height: 16px;
+        border: 1px solid #000;
+        border-radius: 3px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      #frvr-loader-progressbar {
+        display: block;
+        height: 100%;
+        width: 0%;
+        background-color: #02bdff;
+      }
+    </style>
+    
+    
+    
+  </head>
+  <body>
+    <!-- prettier-ignore -->
+    
+
+    <div id="debug" style="position: absolute; color: red; left: 40px; z-index: 9999999"></div>
+    
+    
+    <canvas id="gameCanvas"></canvas>
+    
+    <div id="overlay"></div>
+    <div id="overlay"></div>
+    
+    
+    
+  <script>
+      window.__antialias = !1;
+    window.__FRVR={startTime:Date.now(),gameIsLoaded:false};window.frvrEnv="prod";var r=window.location.href;window.__FRVR.getQueryString=function(e){var n=r;e=e.replace(/[\[\]]/g,"\\</body>");var t=new RegExp("[?&]"+e+"(=([^&#]*)|&|#|$)","i").exec(n);return t?t[2]?decodeURIComponent(t[2].replace(/\+/g," ")):"":null;};window.__FRVR.platformIs=new function(e,r,n,t){var o,a=this;a.android=/(android)/i.test(n)&&!/(Windows)/i.test(n),a.androidVersion=(o=navigator.userAgent.toLowerCase().match(/android\s([0-9\.]*)/),parseFloat(o?o[1]:0)),a.aaos="car"==window.__FRVR.getQueryString("aaos"),a.ci="1"==window.__FRVR.getQueryString("ci_run"),a.firefoxMobile=/(Mobile)/i.test(n)&&/(Firefox)/i.test(n),a.slow=a.android&&a.androidVersion<6,a.iOS=/(ipod|iphone|ipad)/i.test(n)||/(Macintosh)/i.test(n)&&"ontouchend"in document,a.windowsMobile=/(IEMobile)/i.test(n),a.silk=/(silk)/i.test(n),a.clay=/(clay\.io)/i.test(t),a.facebookApp=/(fb_canvas)/i.test(t),a.facebookAppWeb=/(fb_canvas_web)/i.test(t),a.iframed=e.top!==e.self,a.frvrEmbed=a.iframed&&null!=window.__FRVR.getQueryString("frvr_embed"),a.standalone="standalone"in r&&r.standalone,a.mobileiOSDevice=n.match(/iPhone/i)||n.match(/iPod/i),a.kongregate=/(kongregateiframe)/i.test(t),a.kik=/(kik_canvas)/i.test(t),a.twitter=/(twitter)/gi.test(n),a.chrome=/Chrome\//.test(n),a.safari=!!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/),a.badWebkit=/AppleWebKit\/605\.1\.15/i.test(n)&&/iPhone OS 15_[0|1|2]/i.test(n),a.secureConnection=0==window.location.protocol.indexOf("https"),a.facebookInstant=!!window.FBInstant,a.facebookRooms=window.isFacebookRooms,a.facebookInstantShield=!(!window.FBInstant||!(window.FBInstant.player&&"function"!=typeof window.FBInstant.player.getPhoto||(parseInt(window.FBInstant.getSDKVersion&&window.FBInstant.getSDKVersion(),10)||0)>=8)),a.spilGamesWrapper=/(spilgames)/i.test(t),a.social="on"==window.__FRVR.getQueryString("social"),a.advertisementIsDisabled="off"==window.__FRVR.getQueryString("ads"),a.advertisementInterstitialDisabled="off"==window.__FRVR.getQueryString("int"),a.advertisementOverlayEnabled=!a.iframed||a.spilGamesWrapper||window.__FRVR.getQueryString("partnerid"),a.nosoc="1"==window.__FRVR.getQueryString("nosoc"),a.development=null!=window.__FRVR.getQueryString("development")?"true"==window.__FRVR.getQueryString("development"):null,a.facebookAd=/(\/\?fb)/i.test(t),a.mobile=a.android||a.windowsMobile||a.iOS||a.silk||a.firefoxMobile,a.mobileWrapper=e.iOSWrapper||e.androidWrapper||!1,a.iOSWrapper=e.iOSWrapper||!1,a.iPhoneXOrLater="true"==window.__FRVR.getQueryString("iPhoneXOrLater"),a.iMessageContext="true"==window.__FRVR.getQueryString("iMessage"),a.androidWrapper=e.androidWrapper||!1,a.chromeWrapper=e.isChromeWrapper||!1,a.samsungAppStore="samsung"==window.__FRVR.getQueryString("androidStore"),a.appWrapper=e.iOSWrapper||e.androidWrapper||a.samsungAppStore,a.usingWebGLRenderer=!1,a.usingCanvasRenderer=!1,a.jioStb=!!a["jio-stb"],a.myJio=!!a.myjio,a.jioGameslite=!!a["jio-gameslite"],a.jio=a.jioStb||a.myJio||a.jioGameslite,a.twitch=""==window.__FRVR.getQueryString("twitch"),a.vkru=""==window.__FRVR.getQueryString("vkru"),a.okru=""==window.__FRVR.getQueryString("okru"),a.tMobile=""==window.__FRVR.getQueryString("tmobile"),a.pwa=""==window.__FRVR.getQueryString("pwa"),a.windowsApp=""==window.__FRVR.getQueryString("windowsapp"),a.microsoftPwa=window.document&&window.document.referrer&&-1!==document.referrer.indexOf("app-info://platform/microsoft-store")||""==window.__FRVR.getQueryString("mspwa")||window.__FRVR.getQueryString("msstart_sdk_init"),a.youtube="youtube"===window.__FRVR.buildTimePlatform||""==window.__FRVR.getQueryString("youtube"),a.enableAppStoreLinks=!0,a.samsungGalaxyStorePWA=""==window.__FRVR.getQueryString("samsung")&&"galaxystore"==window.__FRVR.getQueryString("source"),a.samsungGameLauncherPWA=(""==window.__FRVR.getQueryString("pwa")||""==window.__FRVR.getQueryString("samsung"))&&"gamelauncher"==window.__FRVR.getQueryString("source"),a.samsungGameLauncher=!!window.FRVRInstant||""==window.__FRVR.getQueryString("gamelauncher")||"gamelauncher"==window.__FRVR.getQueryString("source"),a.samsungBixby=""==window.__FRVR.getQueryString("samsung")&&!a.samsungGalaxyStorePWA,a.samsungBrowserUK=""==window.__FRVR.getQueryString("samsungbuk"),a.samsungBrowserUS=""==window.__FRVR.getQueryString("samsungbus"),a.samsungBrowserSEA=""==window.__FRVR.getQueryString("samsungbsea"),a.samsungBrowser=""==window.__FRVR.getQueryString("samsungbrowser"),a.samsungGLFallback=""==window.__FRVR.getQueryString("gl_fallback"),a.samsungInstantPlay=!!window.GSInstant,a.samsung=a.samsungGalaxyStorePWA||a.samsungGameLauncherPWA||a.samsungGameLauncher||a.samsungBixby||a.samsungBrowserUK||a.samsungBrowserUK||a.samsungBrowserUS||a.samsungBrowserSEA||a.samsungBrowser||a.samsungGLFallback||a.samsungInstantPlay,a.rcs=window.__FRVR.getQueryString("rcsid"),a.snapchat=!!window.sc,a.rcsKr=""==window.__FRVR.getQueryString("rcskr"),a.huaweiquickapp=""==window.__FRVR.getQueryString("huaweiquickapp"),a.huawei=""==window.__FRVR.getQueryString("huawei")||a.huaweiquickapp,a.mozilla=""==window.__FRVR.getQueryString("mozilla"),a.miniclip=""==window.__FRVR.getQueryString("miniclip"),a.chromeOSDevice="true"==window.__FRVR.getQueryString("isChromeOSDevice"),a.opera=!!e.opr&&!!e.opr.addons||!!e.opera||n.indexOf(" OPR/")>=0,a.yandex=!!window.YaGames,a.firefox=void 0!==e.InstallTrigger,a.edge=/(edge|edgios|edga)\/((\d+)?[\w\.]+)/i.test(n),a.oppoGlobal=""==window.__FRVR.getQueryString("oppo"),a.lgtv=""==window.__FRVR.getQueryString("lgtv"),a.crazyGames="8289067739"==window.__FRVR.getQueryString("partnerid"),a.mynet=""==window.__FRVR.getQueryString("mynet"),a.ufone="8416254215"==window.__FRVR.getQueryString("partnerid"),a.game8=""==window.__FRVR.getQueryString("game8"),a.mailonline="6794212012"==window.__FRVR.getQueryString("partnerid"),a.disableNativeBridge=""==window.__FRVR.getQueryString("disableNativeBridge"),a.partnerWrapper=!a.disableNativeBridge&&(a.mynet||a.tMobile||a.ufone||a.mailonline)&&(a.iOS||a.android),a.rocketChat=""==window.__FRVR.getQueryString("rocketchat"),a.discord="discord"===window.__FRVR.buildTimePlatform,a.harman=""==window.__FRVR.getQueryString("harman"),a.progressiveWebAppEnabled=!(a.chromeOSDevice||a.iframed||a.appWrapper||a.twitch||a.vkru||a.okru||a.facebookInstant||a.partnerWrapper),a.tv=a.jioStb||a.lgTV;}(window,navigator,navigator.userAgent,document.location);(function(){var e={version:"2.0.4",name:"skijump",gaPath:"skijump/2.0.4/",vpath:"./",configJs:{id:"skijump",version:"2.0.4",build:"261019292",gaId:null,gaGameId:null,usesFeatures:!1},jsSize:5e5,supportedLanguages:["en-US"],cohortName:"default"};window.__FRVR.cohort=function(){return e;};})();(function(){var e=0;window.htmlprogress=function(r,n){e=Math.max(n/r,e);};var r=0,n=setInterval(function(){e<0.5&&(e+=(0.5-e)/100),r+=(e-r)/10;},50);window.htmlclean=function(){window.__FRVR.gameIsLoaded=!0,preloader&&preloader.parentNode&&preloader.parentNode.removeChild(preloader),clearInterval(n);};})();window.Host={Localize:{languages:window.__FRVR.cohort().supportedLanguages},dataUrlsSupported:function(){var e=document.createElement("canvas");return e.toDataURL&&0==e.toDataURL("image/png").indexOf("data:image/png");}()};window.gameid=window.__FRVR.cohort().name;window.version=window.__FRVR.cohort().version;window.vpath=window.__FRVR.cohort().vpath;window.initTime=window.__FRVR.startTime;window.LEGACY_COORD_SYSTEM=false;window.embeddedFiles={};window.embeddedAssets={};window.embedFiles=function(e,r){for(var n=0;n<e.length;n++){var t=r[n];window.embeddedFiles[e[n]]=t;}};window.loadAssets=function(e,r,n){for(var t=0;t<e.length;t++){var o=e[t],a=r[t];window.embeddedAssets[o]=a?[a,n[t]]:n[t];}};var preloader=document.createElement("preloader");preloader.textContent="Loading...";document.body.appendChild(preloader);
+      var cs = document.getElementById("gameCanvas").style;
+      cs.width = cs.height = "100%";
+    </script><script src="assets/bootstrapper-24fd5770.js"></script></body>
+</html>

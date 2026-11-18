@@ -1,0 +1,169 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计输入1；详见原记录"
+      },
+      {
+        "type": "goto",
+        "description": "累计输入2；详见原记录"
+      },
+      {
+        "type": "click",
+        "description": "累计输入3；详见原记录"
+      },
+      {
+        "type": "click",
+        "description": "累计输入4；详见原记录"
+      },
+      {
+        "type": "reload",
+        "description": "累计输入5；详见原记录"
+      }
+    ],
+    "external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "required_external": [],
+    "requests": 53,
+    "responses": 53,
+    "scope": "累计5次真实输入：v1入口出现原图集绘制兼容失败（原截图保留）；v2入口沿原直接SVG备用绘图路径显示完整原场景；点击PLAY开始，未及时起跳，原Too late/falloff跌落并自动重置；再次点击PLAY，原SKJ_INRUN滑行和计时条正常；最后真实刷新，原跌落规则累计金币6和初始装备持久化。起跳点击的自动守卫因当时x7170未到原允许区间8100而没有发送，不能算起跳成功。成功起跳/落地、旋转操作、道具使用、商店购买和手机未验证，不得宣称通过。",
+    "network_scope": "最终v2会话含一次真实刷新，共53请求/53响应均同源HTTP200，0外联/请求失败/脚本异常。两次页面初始化共8条AudioContext手势限制警告原样保留；不宣称零警告或音频听感通过。v1图集画面失败保留，不并入最终画面通过口径。两个自有浏览器均实际exit0。",
+    "tested_revision": "skijump-offline-v2",
+    "delivery_revision": "skijump-offline-v2",
+    "native_start_and_slide_verified": true,
+    "native_falloff_reset_verified": true,
+    "storage_reload_verified": true,
+    "successful_takeoff_verified": false,
+    "successful_landing_verified": false,
+    "full_tutorial_verified": false,
+    "cumulative_input_budget": 5,
+    "final_revision_inputs": 4,
+    "prior_failed_inputs": 1
+  },
+  "checkpoints": 5,
+  "raw_inputs": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/skijump-offline-v1/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/skijump-offline-v2/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 3,
+      "phase": 1,
+      "action": "click",
+      "x": 720,
+      "y": 635,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 635
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "phase": 1,
+      "action": "click",
+      "x": 720,
+      "y": 635,
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 635
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "phase": 1,
+      "action": "reload",
+      "trajectory": []
+    }
+  ],
+  "final_revision_inputs": 4,
+  "prior_failed_inputs": 1,
+  "all_browser_exit_codes": [
+    0,
+    0
+  ],
+  "browser_sessions": [
+    91378,
+    23262
+  ],
+  "guarded_takeoff_was_not_sent": true,
+  "state_injection": false,
+  "screenshots_opened": true,
+  "accounting": {
+    "observation_start": "2026-11-17T16:22:11.771600+00:00",
+    "observation_end": "2026-11-18T01:22:17.131057+00:00",
+    "elapsed_seconds": 32405.359457,
+    "scope": "原包抓取回执至证据整理经过时间，含等待、其他游戏处理和启动修复，非纯处理耗时。",
+    "tokens": null,
+    "price": null,
+    "pure_processing_seconds": null
+  }
+}
