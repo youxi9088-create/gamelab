@@ -1,0 +1,413 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计原输入1"
+      },
+      {
+        "type": "drag",
+        "description": "累计原输入2"
+      },
+      {
+        "type": "goto",
+        "description": "累计原输入3"
+      },
+      {
+        "type": "drag",
+        "description": "累计原输入4"
+      },
+      {
+        "type": "drag",
+        "description": "累计原输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 638,
+    "responses": 638,
+    "tested_revision": "carrom-offline-v2",
+    "delivery_revision": "carrom-offline-v2",
+    "native_tutorial_pocket_and_menu_verified": true,
+    "scope": "累计5次真实输入：v1载入、原滑杆拖动；发现原字体遗漏后，v2载入、原滑杆拖动、原击球子720,605→780,716连续拖放。第5步后原教程自行结束并进入MetaOptimized主菜单，显示原Reward Calendar。原RefereeTutorial只在棋子入袋且击球子未入袋时保存TutorialPlayed并退出到菜单；失败路径仍留在教程重置棋子。未脚本调用业务handler、改状态或伪造广告结果。 仅验证原教程移动击球子、拖放发射、棋子入袋后原生结束与主菜单接续；未打开主菜单对局、未实测Bot/计时/84挑战/Trickshot/商店/奖励领取/跨会话刷新或移动触屏。原第1版缺失字体404保留；第2版638请求与638响应均同源200、无错误/缺失/外联，1条首次用户手势前音频自动播放限制警告保留，听感未验证。没有第6次输入。",
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "full_bot_match_verified": false,
+    "cumulative_input_budget": 5,
+    "warnings_scope": "1条原AudioContext在首次用户手势前受浏览器自动播放政策限制；未验证音质。"
+  },
+  "raw_inputs": 5,
+  "checkpoints": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/carrom-offline-v1/index.html",
+      "at": "2026-11-18T22:42:37.026Z",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "action": "drag",
+      "points": [
+        [
+          720,
+          742
+        ],
+        [
+          810,
+          742
+        ]
+      ],
+      "at": "2026-11-18T22:43:20.017Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 742
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 725.625,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 731.25,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 736.875,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 742.5,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 748.125,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 753.75,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 759.375,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 765,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 770.625,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 776.25,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 781.875,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 787.5,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 793.125,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 798.75,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 804.375,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 810,
+          "y": 742
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/carrom-offline-v2/index.html",
+      "at": "2026-11-18T22:47:37.567Z",
+      "trajectory": []
+    },
+    {
+      "step": 4,
+      "action": "drag",
+      "points": [
+        [
+          720,
+          742
+        ],
+        [
+          810,
+          742
+        ]
+      ],
+      "at": "2026-11-18T22:48:24.089Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 742
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 725.625,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 731.25,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 736.875,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 742.5,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 748.125,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 753.75,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 759.375,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 765,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 770.625,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 776.25,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 781.875,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 787.5,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 793.125,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 798.75,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 804.375,
+          "y": 742
+        },
+        {
+          "event": "move",
+          "x": 810,
+          "y": 742
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "action": "drag",
+      "points": [
+        [
+          720,
+          605
+        ],
+        [
+          780,
+          716
+        ]
+      ],
+      "at": "2026-11-18T22:48:59.452Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 605
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 723.75,
+          "y": 611.9375
+        },
+        {
+          "event": "move",
+          "x": 727.5,
+          "y": 618.875
+        },
+        {
+          "event": "move",
+          "x": 731.25,
+          "y": 625.8125
+        },
+        {
+          "event": "move",
+          "x": 735,
+          "y": 632.75
+        },
+        {
+          "event": "move",
+          "x": 738.75,
+          "y": 639.6875
+        },
+        {
+          "event": "move",
+          "x": 742.5,
+          "y": 646.625
+        },
+        {
+          "event": "move",
+          "x": 746.25,
+          "y": 653.5625
+        },
+        {
+          "event": "move",
+          "x": 750,
+          "y": 660.5
+        },
+        {
+          "event": "move",
+          "x": 753.75,
+          "y": 667.4375
+        },
+        {
+          "event": "move",
+          "x": 757.5,
+          "y": 674.375
+        },
+        {
+          "event": "move",
+          "x": 761.25,
+          "y": 681.3125
+        },
+        {
+          "event": "move",
+          "x": 765,
+          "y": 688.25
+        },
+        {
+          "event": "move",
+          "x": 768.75,
+          "y": 695.1875
+        },
+        {
+          "event": "move",
+          "x": 772.5,
+          "y": 702.125
+        },
+        {
+          "event": "move",
+          "x": 776.25,
+          "y": 709.0625
+        },
+        {
+          "event": "move",
+          "x": 780,
+          "y": 716
+        },
+        {
+          "event": "up"
+        }
+      ]
+    }
+  ],
+  "browser_session": 18977,
+  "node_pid": 36736,
+  "browser_actual_exit_code": 0,
+  "owned_node_absent": true,
+  "screenshots_opened": true,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "accounting": {
+    "observation_start": "2026-11-18T22:22:15.320253+00:00",
+    "observation_end": "2026-11-18T22:54:53.063460+00:00",
+    "elapsed_seconds": 1957.743207,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "来源抓取至证据归档真实经过时间，含诊断/传输/等待/试玩；逐游戏Token/实际工时/费用归属不可靠，留未知不填0。"
+  },
+  "visual_result": "第4图原单棋子入袋教程→第5步普通拖放后MetaOptimized原菜单日历；原教程只在成功入袋且击球子未入袋时触发该路径。",
+  "observation_caveat": "仅验证原教程移动击球子、拖放发射、棋子入袋后原生结束与主菜单接续；未打开主菜单对局、未实测Bot/计时/84挑战/Trickshot/商店/奖励领取/跨会话刷新或移动触屏。原第1版缺失字体404保留；第2版638请求与638响应均同源200、无错误/缺失/外联，1条首次用户手势前音频自动播放限制警告保留，听感未验证。没有第6次输入。"
+}
