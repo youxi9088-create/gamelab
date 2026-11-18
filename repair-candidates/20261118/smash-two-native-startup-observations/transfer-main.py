@@ -1,0 +1,21 @@
+from pathlib import Path
+import json,hashlib,zipfile,sys,copy
+r=Path('D:/GameLab/app');sys.path.insert(0,str(r));from controlplane.atomic_files import write_bytes
+from controlplane.service import Service
+svc=Service(r/'data',r/'game-library','http://127.0.0.1:8766')
+with svc.store.read()as db:before=copy.deepcopy(svc.get(db,'jobs','job-3db06205247a'))
+s=Path('D:/GameLab/temp/direct-smash-runtime-uri-v3-20261118');target=s/'runtime-validation-closure';target.mkdir(exist_ok=True)
+candidate_raw=(s/'CANDIDATE_MANIFEST.json').read_bytes();candidate_manifest=json.loads(candidate_raw)
+for n,h in candidate_manifest.items():assert hashlib.sha256((s/'candidate'/n).read_bytes()).hexdigest()==h,n
+parent=Path('D:/GameLab/temp/direct-smash-resources-localized-v1-20261118/validation-resources-v1-20261118');ledger=json.loads((parent/'ui-ledger.json').read_bytes());assert ledger['used']==2 and ledger['remaining']==3 and ledger['steps'][-1]['status']=='observed_partial'
+with zipfile.ZipFile(sys.argv[0])as z:
+    raw_manifest=z.read('MANIFEST.json');manifest=json.loads(raw_manifest)
+    for n,h in manifest.items():
+        raw=z.read(n);assert hashlib.sha256(raw).hexdigest()==h;p=(target/n).resolve();assert p.is_relative_to(target.resolve());p.parent.mkdir(parents=True,exist_ok=True)
+        if p.exists():assert p.read_bytes()==raw
+        else:write_bytes(p,raw)
+    write_bytes(target/'MANIFEST.json',raw_manifest)
+p=r/'docs/DIRECT_REPAIR_COORDINATION_20261112/AI_A_PROGRESS.md';old=p.read_bytes();note='\n\n### 2026-11-18 Smash真实两步启动与原生URI因果修复\n\n用户本轮确认52解锁，并在界面持续输入/52与97遮挡后确认停止手动操作，随后实际恢复52Chrome。未操作97、Codex应用或系统安全设置；前置打开浏览器、恢复RDP视口不冒充游戏步骤。原0/5未用旧Level Devil授权或重置；两次实际导航分别登记step1/step2，累计2/5剩3。Chrome立即截图有异步滞后，之后新截图与实际HTTP事件闭合，不因即时画面未变重复Enter。\n\n首个观察服务PID35408真实启动/__diagnostic200后，SSH命令结束即进程不存在、端口10061；未把观察超时当终止，另查Get-Process和监听后才用独立一次专属SYSTEM计划任务恢复，旧回执保留。PID38476观察v2真实第1步：原WASM/框架/桌面数据和3份StreamingAssets启动配置实际加载；59唯一连续事件按seq集合核对（HTTP并发到达顺序不是丢失）。原TextDataProvider明确拒绝相对游戏目录，实际未请求该目录，首次因果缺口已定位。Firebase、Unity与ByteBrew外联仍真实存在，CSP阻断并非已退役。未绕过权限或原生站点授权。\n\nv3仅改源格式57字节RVA前缀为{UnityEngine.AddressableAssets.Addressables.RuntimePath}/。原getter35469末尾追加调用原ResolveInternalId26827，原138243函数中其他138242函数体逐SHA一致，完整Wasm经wabt静态校验exit0、不是执行原游戏。原ContentCatalogData.CreateLocator12681源码本来就调用26827解析目录内每条ID，因此两原游戏目录各83项同用原运行时属性，原162bundle逐SHA不变，移至StreamingAssets/aa；目录.hash按实际新内容重算，其他校验/玩法/SDK/账号标志未动。不绑定端口/localhost，不用假provider成功。\n\n真实52 D:\\GameLab\\temp\\direct-smash-runtime-uri-v3-20261118/candidate完整205文件逐SHA；候选清单bd5c8eda7d5134b38b4addab19f9434b9202c8a0415e6e0e4afdc659903a63e4，增量清单c329796400f0aedbf29c8299d91362e16e5f617f1108e3ae49d0b06f0afb5c6c，GitHub f596647778d9fd28584f89f9108198972e1ca86c已23blob核对/push0/ls-remote一致。原v1/v2与失败首轮保留，用户历史任务整行/版本/人工暂停不改、不安装/接续/入库或供货。\n\n第2步v3真实启动ResourceTiming核对5份HTTP200：settings.json、初始catalog.json/.hash、catalog_2026.09.29.17.09.42.json/.hash；此前Invalid path消失，单getter因果修复已生效。51条实际事件完整唯一连续，无bufferfull，不把有序性误判丢包。仍为蓝色加载页，未进菜单/核心对局，未观察bundle请求或本地玩家/AI；真实Firebase认证/数据库/analytics、Unity与ByteBrew等外联失败继续保留，不能以消失一个错误宣称完整转换。桌面版实证不冒充移动版/全地图通过。\n\n两轮都通过正常Ctrl+W关闭本次游戏页，最后专属v3任务停止、PID11660实际不存在、57602监听0；旧任务Ready且未设周期触发，未全局关闭其他Chrome/Python。未知独占处理时间/Token/缓存/费用null，源V5.1不可变候选之外新增实测补充，不覆盖历史规格。最新测试站北京时间08:47直连A93仍35completed/1review/45blocked/9queued/3failed，57未达目标、暂无新增待验收。\n\n下一步保留剩3步，先沿本次真实Firebase/SDK初始化栈和原服务门禁源码定位本地初始化缺口。不要重复首轮URI失败策略或盲赋ready/账号/奖励；支持包存在、URI局部修复及菜单外壳均不等于整款待验收。52锁屏阻断已解除，不再要求解锁或把旧授权重用；Little Alchemy v3/跑酷SDKv2各自额外5步问题仍待答，其他实际暂停、B组、跳过/取消均保持。全A目标active，本轮有真实运行证据和修复，不标完成或再次以旧锁屏为由blocked。\n'
+if '### 2026-11-18 Smash真实两步启动与原生URI因果修复' not in old.decode('utf8'):write_bytes(p,old+note.encode())
+with svc.store.read()as db:assert svc.get(db,'jobs','job-3db06205247a')==before
+out={'complete':True,'stage':str(target),'manifest_sha256':hashlib.sha256(raw_manifest).hexdigest(),'files_verified':len(manifest),'candidate_files_post_runtime_sha_verified':len(candidate_manifest),'coordination_appended':True,'job_unchanged':True,'manual_pause_preserved':True,'game_executed':False,'prior_runtime_game_executed':True,'sync_scope':'Evidence/material publication only; actual earlier game runs are recorded inside evidence','ready_review':False,'ui_steps_used':2,'ui_steps_remaining':3,'new_player_inputs':0};write_bytes(target/'receipt.json',json.dumps(out,indent=2).encode());print(json.dumps(out))
