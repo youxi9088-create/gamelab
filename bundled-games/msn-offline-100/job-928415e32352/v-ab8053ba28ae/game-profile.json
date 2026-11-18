@@ -1,0 +1,96 @@
+{
+  "category": "益智 / 绘线搭桥物理",
+  "dimension": "2D",
+  "perspective": "",
+  "core_gameplay": "用鼠标连续画出实体桥面，使动力车辆能越过沟槽、收集星星并到达终点旗帜；桥面形状和落点影响原刚体运动。实际首关画出近水平桥，车辆成功通过并三星结算。",
+  "core_experience": "",
+  "controls": "鼠标点击菜单、关卡和原播放按钮；按下、移动并松开形成连续线段。第4步是一次连续6点轨迹470,500→970,500；第5步点击原播放201,111。未点击下一关或修改绘线规则。",
+  "game_loop": "",
+  "content": "完整原1至90编号布局、场景实例、车辆/轮胎/实体线/旗帜、星星、地面、尖刺、锯和障碍物配置保留。只实际运行第一关；其他关卡机关和难度属于源码保留，不能称全关已过。",
+  "progression": "",
+  "save": "",
+  "rules": "原93布局中只去掉广告/外链实例；其余初始实例、刚体和所有非事件项目字段深比较一致。原Box2D绑定与二进制相同；C3引擎除10个退役脚本引用槽外所有字节保持，正常HTML5分支原字节保持。没有放宽碰撞、通关条件或画线约束。",
+  "systems": "Construct原事件系统、WebGL2渲染、DOM输入、Box2D物理、声效和LocalStorage保存保持。实际广告跳关/奖励事件和消费者、93个广告或外链UI实例、Ads事件页、13个广告暂停导航条件、10个广告/宿主脚本引用及其加载项移除；引用槽为空而非可调用SDK替身。正常菜单、绘线、物理、普通胜负、关卡解锁与localStorage路径保留。 原预览专用Worker上游404；本包原导出类型html5且主Worker开关false，保留原HTML5分支、移除发布包未提供的编辑器预览分支，没有占位Worker。",
+  "ui_flow": "",
+  "level_design": "",
+  "verification": "累计5次真实输入：载入原菜单、点击原Play、选择原第一关、一次连续拖线、点击关内原播放。原线条生成桥面，原车辆/轮胎越过沟槽，到达旗帜，实际截图出现原三星结算。无业务handler调用、SDK响应、状态/随机数/计时/分数注入。 只实际完成第一关。未点击继续、重试、其他车辆或商店；刷新/存档恢复、第二至第90关、随机关卡与移动端未实测。没有第六次输入。",
+  "evidence": "",
+  "gameplay_signature": "",
+  "session_mechanism": "",
+  "replay_mechanism": "",
+  "drive_mechanism": "",
+  "goal_mechanism": "",
+  "achievement_mechanism": "",
+  "feedback_mechanism": "",
+  "continuation_mechanism": "",
+  "motivation_mechanism": "",
+  "core_goal_reachability": "",
+  "engine": "Construct 3 / Box2D WASM",
+  "programming_language": "JavaScript / JSON / HTML / WebAssembly",
+  "game_summary": "",
+  "resource_types": "",
+  "engine_asset_system": "",
+  "core_challenge_details": "",
+  "core_challenge_type": "",
+  "input_elements": "",
+  "app_suitability": "",
+  "core_loop": "",
+  "churn_risk": "",
+  "progression_loop": "",
+  "core_closure": "",
+  "loop_completeness": "",
+  "playability": "",
+  "key_numbers": "",
+  "level_structure": "",
+  "system_completeness": "",
+  "theme_details": "",
+  "theme_position": "",
+  "economy": "",
+  "roles": "",
+  "roster_summary": "",
+  "monetization_details": "",
+  "monetization": "",
+  "specification": {
+    "template_version": "5.1",
+    "sections": {
+      "basic_facts": "Draw the Bridge / 画线搭桥；MSN原生9nvq40981t9r，FreezeNova公开v2，项目com.freezenova.drawthebridge。Construct导出HTML/JavaScript/JSON、Box2D WASM，2D侧视单人绘桥物理益智。原视口854×480；52机器1440×900实测，实际画布1440×809。",
+      "asset_types": "38运行文件，其中34原字节相同。原11种图片引用闭包、7个WebM音频、图集和Box2D WASM齐全；原offline.json声明文件均已取得。全部原始文件和SHA在证据ZIP保留；两处上游非运行依赖404及其原因保留，不造占位素材。",
+      "core_challenge": "用鼠标连续画出实体桥面，使动力车辆能越过沟槽、收集星星并到达终点旗帜；桥面形状和落点影响原刚体运动。实际首关画出近水平桥，车辆成功通过并三星结算。",
+      "controls": "鼠标点击菜单、关卡和原播放按钮；按下、移动并松开形成连续线段。第4步是一次连续6点轨迹470,500→970,500；第5步点击原播放201,111。未点击下一关或修改绘线规则。",
+      "behavior_path": "累计5次真实输入：载入原菜单、点击原Play、选择原第一关、一次连续拖线、点击关内原播放。原线条生成桥面，原车辆/轮胎越过沟槽，到达旗帜，实际截图出现原三星结算。无业务handler调用、SDK响应、状态/随机数/计时/分数注入。",
+      "game_path": "原菜单→关卡选择→原第一关→绘线规划桥面→点击原播放→车辆行驶/星星接触→旗帜成功或原失败→普通继续/重试。实测到原三星结算，未操作结算后的继续或重试。",
+      "progression_path": "原90个编号关卡和Store/Menu/LevelSelect共93布局保留。关卡选择初始只第一关可用，未改原锁定；原通关/星数/本地解锁事件保持。解锁后的继续与刷新恢复未实测。",
+      "core_loop": "观察地形、星星和终点→画实体路面→启动原动力车辆→观察桥面/轮胎/车辆与原地形的物理交互→原星数结算→选择普通继续或重试。首关完整循环至三星结果已实际发生。",
+      "gameplay_rules": "原93布局中只去掉广告/外链实例；其余初始实例、刚体和所有非事件项目字段深比较一致。原Box2D绑定与二进制相同；C3引擎除10个退役脚本引用槽外所有字节保持，正常HTML5分支原字节保持。没有放宽碰撞、通关条件或画线约束。",
+      "key_numbers": "源码90个编号关卡、原视口854×480、93布局。实际第一关3颗星且结算3星；原源记录共46文件（含2份采集元数据），运行38文件/34原字节。31次请求和31次响应均同源200，0外联/缺失/错误/警告。其余数值不推定。",
+      "level_configuration": "完整原1至90编号布局、场景实例、车辆/轮胎/实体线/旗帜、星星、地面、尖刺、锯和障碍物配置保留。只实际运行第一关；其他关卡机关和难度属于源码保留，不能称全关已过。",
+      "system_design": "Construct原事件系统、WebGL2渲染、DOM输入、Box2D物理、声效和LocalStorage保存保持。实际广告跳关/奖励事件和消费者、93个广告或外链UI实例、Ads事件页、13个广告暂停导航条件、10个广告/宿主脚本引用及其加载项移除；引用槽为空而非可调用SDK替身。正常菜单、绘线、物理、普通胜负、关卡解锁与localStorage路径保留。 原预览专用Worker上游404；本包原导出类型html5且主Worker开关false，保留原HTML5分支、移除发布包未提供的编辑器预览分支，没有占位Worker。",
+      "theme": "保留原森林山地、卡通橙色车辆、沟槽/草地、星星/旗帜、木质按钮和原手势引导、美术图集、声音与版权标识。原原型工程未恢复，没有替换原美术或另写仿制关卡。",
+      "progression_economy": "原关卡星星、进度、车辆/Store界面及本地记录保持。实际三星结果不代表已验证商店、消费价格、其他车辆、跨会话解锁或完整经济；这些未实测。没有新增金币、钻石或付费成功回包。",
+      "roster": "原车辆Vehicle/轮胎Btire以及Car家族绑定保留；第一关实际为橙色小车。其他车辆/皮肤来源于原配置，未逐项试玩。没有替代角色、注入AI或自动通关。",
+      "monetization": "实际广告跳关/奖励事件和消费者、93个广告或外链UI实例、Ads事件页、13个广告暂停导航条件、10个广告/宿主脚本引用及其加载项移除；引用槽为空而非可调用SDK替身。正常菜单、绘线、物理、普通胜负、关卡解锁与localStorage路径保留。 原跳关脚本含直接置adReward的回调，整条消费链已移除，不沿用为离线奖励。原包没有真实支付/联网房间/排名插件或业务请求；没有添加这些功能。只实际完成第一关。未点击继续、重试、其他车辆或商店；刷新/存档恢复、第二至第90关、随机关卡与移动端未实测。没有第六次输入。"
+    }
+  },
+  "illustrations": [
+    {
+      "path": "screenshots/001.png",
+      "caption": "原菜单、原画面与普通播放入口"
+    },
+    {
+      "path": "screenshots/002.png",
+      "caption": "原关卡选择：第一关可用、其他原锁定保持"
+    },
+    {
+      "path": "screenshots/003.png",
+      "caption": "原第一关：车辆、沟槽、三颗星和终点旗帜"
+    },
+    {
+      "path": "screenshots/004.png",
+      "caption": "连续普通拖线生成实体桥面，尚未发车"
+    },
+    {
+      "path": "screenshots/005.png",
+      "caption": "原播放后车辆抵达终点、原三星结算；未点击继续"
+    }
+  ]
+}

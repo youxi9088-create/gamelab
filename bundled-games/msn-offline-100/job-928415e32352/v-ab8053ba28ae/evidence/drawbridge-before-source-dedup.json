@@ -1,0 +1,147 @@
+{
+  "history_count": 924,
+  "history_at": "2026-11-18T19:43:48.983133+00:00",
+  "related": [
+    {
+      "id": "game-29f342835ee8",
+      "title": "Rainbow Rescue",
+      "url": "https://play.js13kgames.com/rainbow-rescue",
+      "description": "普通PLAY，首关input→在云内640,120→640,190向下画线→原go循环路径救起独角兽→自然进入第2关input。",
+      "profiles": [
+        {
+          "core": "普通PLAY，首关input→在云内640,120→640,190向下画线→原go循环路径救起独角兽→自然进入第2关input。",
+          "rules": "原gMouseMove/gPixelLine/gClickEnd/gPathDraw/gPathGoDone/gGemsDone/gLevelWinDone；正常画线触原判定，未调用方法或直接设置关卡。"
+        }
+      ]
+    },
+    {
+      "id": "game-ccd41c257c04",
+      "title": "Harbor Operator / 港口调度",
+      "url": "https://marketjs.cdn.msnfun.com/9pbd0qpb8kwz/v7/index.html",
+      "description": "MSN原生9pbd0qpb8kwz/MarketJS v7。158运行文件、156原字节，136PNG/13MP3/Stencil三字体格式齐备。原船舶/泊位/岛屿/指针/教程及20地图30受保护模块原字节保持，实际SDK及服务消费退役，无身份或奖励替身。累计5输入含首次v2资源失败：v3原菜单/Play/连续画线靠泊卸货/连续画线离港，原0→1分、TUTORIAL COMPLETE。仅原交互教程，不宣称普通多船碰撞、20地图或刷新存档已验证。146同源200/0外联缺失异常，1原音频warning；浏览器exit0/Node17128不存在。195包文件SHA、V5.1十六维与4实拍，首次失败和完整资源补齐过程保留。Token/价格/纯处理时间未知。",
+      "profiles": [
+        {
+          "core": "为动态船舶规划连续航线，将对应类型货船引导至匹配泊位，卸货后再次规划离港路线；普通模式须避免相撞、岸线及泊位调度冲突。实测原单船教程完成靠泊与离港两次航线。",
+          "rules": "原30个受保护模块（含20地图、Ship/Dock/Island/Typhoon/Pointer/Tutorial）原字节保留；114个模块体恢复，最终112体仍与上游逐字节相同。泊位类型匹配、轨迹碰岸检查、原运动/转向/卸货/离港、随机船型和计时保持。原教程的特殊碰撞重置不冒充普通规则实测。"
+        }
+      ]
+    },
+    {
+      "id": "game-d37f257f400c",
+      "title": "Draw Climber / 画腿攀爬",
+      "url": "https://perpetuum.cdn.msnfun.com/9p6xljvzm6pp/v3/index.html",
+      "description": "MSN原生9p6xljvzm6pp/Perpetuum v3。56原始/50运行/47原字节，18GLB含10场景、英法UI、原声音精灵/13本地GPU数据齐备。1585模块/11画线计分方法规范AST保持；真实宿主/SDK/奖励跳关/社交/云调用退役，本地真实序列化，无SDK或服务器响应替身。累计5输入：原入口→PLAY→真实弧线画腿→普通失败重试→刷新。实际腿/物理推进与检查点，CPU先到终点、原FAILED及561分；普通重试回PLAY，刷新正常。未触发原进度保存，临时成绩刷新归0，不宣称存档恢复、胜利领取或全关通过。52同源200、无外联/失败/脚本错误，16原warning保留。浏览器实际exit0/Node29744已退出。V5.1十六维/6实拍/完整SHA。Token/价格/纯处理耗时未知。",
+      "profiles": [
+        {
+          "core": "在画线框中画出角色的腿形，原几何与物理将线条变成可转动的肢体，推动方块角色攀过弯曲坡道、跨障并与原本地CPU争先到终点。可重新画腿应对地形；不是点击提高速度或修改存档自动通关。",
+          "rules": "原静态字符串表10945项经自编只读算术恢复旋转426，原checksum目标784553；73742个常量查表调用恢复为字面量用于源码审阅，未在本机执行原脚本。运行包保留原字符串表和原旋转初始化。以解析后的原版为基线，1585模块规范AST相同，11个受保护画线/距离/计分/速度方法AST相同；10个含环境、服务或界面的模块有明确修改。真实源码无遗留SDK消费者、新增未定义变量或SDK响应替身。"
+        }
+      ]
+    },
+    {
+      "id": "game-67821435187f",
+      "title": "LOST AMONG DOTS",
+      "url": "https://play.js13kgames.com/lost-among-dots",
+      "description": "加载→PLAY→普通填写first=11→普通填写second=12→DRAW LINE，chance0→1，arr[11][12]0→1，PLAYER1 turn→PLAYER2 turn，双方0分。累计5步。",
+      "profiles": [
+        {
+          "core": "加载→PLAY→普通填写first=11→普通填写second=12→DRAW LINE，chance0→1，arr[11][12]0→1，PLAYER1 turn→PLAYER2 turn，双方0分。累计5步。",
+          "rules": "原check用11..55的行列编码，禁对角和跨点；画线后chance递增，完成相邻方格按当前玩家加分。保留原重复边/输入边界处理，不新增规则。"
+        }
+      ]
+    },
+    {
+      "id": "game-0be000a94497",
+      "title": "Sky Bridge Classic",
+      "url": "https://cdn.ludigames.com/microsoft/start-skyBridge/20-cdn",
+      "description": "MSN原Sky Bridge Classic20-cdn，Cocos2.0.5。原按住增长/松开转桥/屋顶长度判定、角色移动/原随机间距/本地经验与最佳分保留；37模块整段原字节一致，6云数据/排行/在线里程碑模块与广告/服务按钮移除，只有3模块定向改动，97运行文件94原字节一致。5检查点5输入：菜单、Play、原辅助教程桥PERFECT4分、下一手动桥过长正常GameOver4分、刷新。前四步92请求92同源200无脚本异常；第五步刷新2条本地音频ERR_CONNECTION_REFUSED，未加载场景，刷新/存档恢复明确未通过。原错误与失败截图全保留；之后只读HTTP两文件200/SHA仅证明文件存在，不冒充刷新复验。43骨骼数据原已内嵌，81实际原资源完整、UUID闭包无缺失。V5.1十六维、真实图、SHA与计时边界齐全；Token/费用/纯处理耗时未知null。提交基础玩法待人工验收，不声明全局/所有角色/无辅助过桥通过，不触发供货。",
+      "profiles": [
+        {
+          "core": "观察屋顶间距，按住使桥梁生长、松开让桥梁转落；桥长落在目标平台范围才可通行，过短或过长按原判定坠落。教程有原生标尺和长度上限辅助；本轮只实际通过教程桥，第二次非教程桥失败。",
+          "rules": "原BridgeControl.compareBridgeLength按平台中心距、半宽和padding分过短/过长/普通/完美；按住增长、松开转落、通过才推进ColumnGeneration，角色碰撞/坠落/动画和随机楼高/间距未改。教程自身使用getPerfectDistance上限和可见标尺，未删除教程或人为降低难度。"
+        }
+      ]
+    },
+    {
+      "id": "game-f908a1ccf723",
+      "title": "拯救狗狗大作战",
+      "url": "https://www.4k99.com/detail/505",
+      "description": "原菜单体力10→开始→选第一关，体力9→在狗头上方普通画线→原10秒倒计时与蜜蜂启动→线倾倒且狗被蜂攻击，失败→第5步重载。",
+      "profiles": [
+        {
+          "core": "原菜单体力10→开始→选第一关，体力9→在狗头上方普通画线→原10秒倒计时与蜜蜂启动→线倾倒且狗被蜂攻击，失败→第5步重载。",
+          "rules": "原GridCtrl采集画线，lineLogic用原点生成碰撞多边形，PlayerCtrl处理狗被攻击，EnemyAI/FSM推进蜜蜂；GameView监听showFail展示FailView。判定、碰撞、倒计时、寻路全部原件。"
+        }
+      ]
+    },
+    {
+      "id": "game-7b4a925a84aa",
+      "title": "帮帮猫猫星人",
+      "url": "https://www.4k99.com/detail/2757",
+      "description": "原菜单→开始进入原第一关→普通拖动画线→原物理线段移动与饼干下落→第4步重载回菜单→第5步重新进入第一关。累计5步，未通关。",
+      "profiles": [
+        {
+          "core": "原菜单→开始进入原第一关→普通拖动画线→原物理线段移动与饼干下落→第4步重载回菜单→第5步重新进入第一关。累计5步，未通关。",
+          "rules": "GraphicsContro拒绝从现有碰撞体内部起笔，线段射线撞物时显示警告，采样点间距离至少5；GameView初始墨水1500，checkInk要求足额，松手创建刚体并把饼干重力设1、初速(0,-300)。Cat与cookie/fish碰撞后吃食，动画完成才gameEnd；水滴累计10触发完成。后两类规则来自代码，没有实机覆盖。"
+        }
+      ]
+    },
+    {
+      "id": "game-d6606e314b73",
+      "title": "画线停车",
+      "url": "https://www.4k99.com/detail/1883",
+      "description": "Codex直接转换批次B。已核对原入口及业务脚本，尚未完成实机验证或版本交付。来源分类：休闲",
+      "profiles": []
+    },
+    {
+      "id": "game-8064a9283877",
+      "title": "画线大聪明",
+      "url": "https://www.4k99.com/detail/2599",
+      "description": "菜单→开始→原关卡1教程→关闭教程→普通画斜线→原线条受重力落下、圆球运动→刷新菜单。",
+      "profiles": [
+        {
+          "core": "菜单→开始→原关卡1教程→关闭教程→普通画斜线→原线条受重力落下、圆球运动→刷新菜单。",
+          "rules": "LineViewCtrl.onTouchStart/onTouchMove记录原触摸点；onTouchEnd调用DrawPathOver，原RigidBody重力倍率2，LinePhysicsCollider由线段点构建，friction=.2/density=2，发出lineEnd。原规则未改。"
+        }
+      ]
+    },
+    {
+      "id": "game-4942bdf22934",
+      "title": "心动水杯",
+      "url": "https://www.4k99.com/detail/1085",
+      "description": "普通领取每日福利→开始第一关→观察出水口、平台和杯→沿教程斜线拖动→原水流与接水完成→原幸运转盘。",
+      "profiles": [
+        {
+          "core": "普通领取每日福利→开始第一关→观察出水口、平台和杯→沿教程斜线拖动→原水流与接水完成→原幸运转盘。",
+          "rules": "drawlines普通触摸创建Graphics/RigidBody/Collider线段，释放后启用动态物理并spawnWater；glass.onBeginContact计数到WorldController.winWaterNum后设置原win=true，切换杯表情并进入转盘/试用。没有调用这些业务方法。"
+        }
+      ]
+    },
+    {
+      "id": "game-3e2c1ef6204d",
+      "title": "Play Save the Ball from Bees - Free Online Game | Rosebud",
+      "url": "https://rosebud.ai/play/save-the-ball-from-bees",
+      "description": "",
+      "profiles": [
+        {
+          "core": "在球周围画线生成物理护盾，抵挡从蜂巢飞出的蜜蜂，倒计时结束球未被蜇即过关",
+          "rules": "目标：保护球15秒内不被蜜蜂碰到；成功：倒计时结束存活，+50币（仅首过）；失败：蜂球碰撞即STUNG；墨量上限1400，画线限时30秒，画线不能穿过球体"
+        }
+      ]
+    },
+    {
+      "id": "game-20bb87b17a34",
+      "title": "Squadron",
+      "url": "https://remix.gg/g/squadron",
+      "description": "",
+      "profiles": [
+        {
+          "core": "玩家驾驶星际战机攻击一艘大型无畏舰（dreadnought）。按任务简报顺序：先摧毁两个护盾穹顶（shield dome）以解除偏护盾；再摧毁机库舱（hangar bay）与舰桥塔（bridge tower）；最后攻击暴露的反应堆核心（reactor core），在敌舰跳跃前完成突袭。支持单人立即开始，宣称联机模式最多 12 名飞行员，需 Remix app。",
+          "rules": "目标：1) 摧毁 2 个护盾穹顶；2) 护盾失效后摧毁 2 个机库舱与 1 个舰桥塔；3) 反应堆暴露后摧毁反应堆核心。成功条件：反应堆被摧毁且敌舰未完成跳跃。失败条件：玩家生命值归零，或敌舰跳跃倒计时结束。计分公式与阈值：未在源码或实机中确认；伤害数值、目标血量、跳跃倒计时、敌机数量均为未确认。"
+        }
+      ]
+    }
+  ],
+  "UI_used": 0,
+  "whole_loop_requires_original_source": true
+}

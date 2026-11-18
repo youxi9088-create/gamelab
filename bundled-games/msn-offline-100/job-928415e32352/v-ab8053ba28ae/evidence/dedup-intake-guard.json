@@ -1,0 +1,144 @@
+{
+  "regex": "9nvq40981t9r|draw[ _-]*(?:the[ _-]*)?bridge|画线|画桥|bridge|drawing.*(?:road|path)|绘制.*(?:道路|路径)",
+  "source_sha256": "0d7c12741ed9db78bdbc29d0d9c47b3ff46641881208808c84416072f9da0c3c",
+  "all_historical_candidates": 924,
+  "at": "2026-11-18T20:22:55.300685+00:00",
+  "whole_loop_review_complete": true,
+  "reviewed_related": [
+    {
+      "id": "game-29f342835ee8",
+      "title": "Rainbow Rescue",
+      "row_sha256": "f522d3f4ce54c6402d74b9940dd2561272fa3e69002c0de87b0598b7e8bea0f9",
+      "finding": "画路线救援独角兽，非轮式车辆与实体桥面刚体交互。"
+    },
+    {
+      "id": "game-ccd41c257c04",
+      "title": "Harbor Operator / 港口调度",
+      "row_sha256": "42e29cbe5b7e406cde4f4b8c72a24da045fa52da2895b0586a17e496a3b6539b",
+      "finding": "为船画航迹靠泊、卸货与离港，线条是导航路径，不是实体桥面。"
+    },
+    {
+      "id": "game-d37f257f400c",
+      "title": "Draw Climber / 画腿攀爬",
+      "row_sha256": "8eb12106f311c96236cdb32d407147ccc23a8a00ecee0aae2e85e728c9e46880",
+      "finding": "绘线生成旋转肢体，推动方块攀坡竞速；不是给原轮式车建造道路。"
+    },
+    {
+      "id": "game-3b664b237b1c",
+      "title": "Endless Rainbow Qix",
+      "row_sha256": "6e57a0cad5cdfbb4b5a09e5f7b3fda45d5ba22518de176a0324c520c69e63e98",
+      "finding": "Qix封闭区域占领与避敌，非轮式车辆建桥。"
+    },
+    {
+      "id": "game-67821435187f",
+      "title": "LOST AMONG DOTS",
+      "row_sha256": "eb2f5e771b8a790a3c4811490e1137777d124a93db27e01000242e0ff2d6f843",
+      "finding": "点阵连边占格计分，非自由绘制刚体桥梁。"
+    },
+    {
+      "id": "game-0be000a94497",
+      "title": "Sky Bridge Classic",
+      "row_sha256": "c17f3b22f08cca0a09929458d3f143c380556c6fb3988d5ed78e3a1a2bd35298",
+      "finding": "按住增长固定转轴桥杆、松开转落，角色过屋顶；不是任意实体线条承载轮式车辆。"
+    },
+    {
+      "id": "game-86c2bd0c7022",
+      "title": "天天军棋",
+      "row_sha256": "fb24d4a5c676dedf7557b431265b861a78c574fdf758388f42cbe188ac00dcdf",
+      "finding": "已读原有全部有意义规格：棋牌、挂机战斗、箭头移出、摩托战斗、篮球投射、优惠券、纸飞机或跑酷。宽词命中不构成轮式车辆与自建刚体桥面的相同完整循环。"
+    },
+    {
+      "id": "game-f908a1ccf723",
+      "title": "拯救狗狗大作战",
+      "row_sha256": "785ac7e077e2ce0d063f94e63e8bf67fdfbfa27a0c01e3f0d7c14d7d50e0dcfa",
+      "finding": "实体线护盾保护狗不被蜜蜂攻击；目标和连续物理交互不同。"
+    },
+    {
+      "id": "game-ad2e3fdc4a8b",
+      "title": "磨叽蘑菇",
+      "row_sha256": "3ec9ef421bcebdfabe2a1a5917201ebd85ba2f72740546d56e3cb4a4b55da49e",
+      "finding": "已读原有全部有意义规格：棋牌、挂机战斗、箭头移出、摩托战斗、篮球投射、优惠券、纸飞机或跑酷。宽词命中不构成轮式车辆与自建刚体桥面的相同完整循环。"
+    },
+    {
+      "id": "game-7b4a925a84aa",
+      "title": "帮帮猫猫星人",
+      "row_sha256": "517201d076e7b99e4781c2047f50a596747f1dfe733b4af4eb6b99d3386508b8",
+      "finding": "物理线条引导饼干/食物下落到猫，非动力轮式车辆跨沟。"
+    },
+    {
+      "id": "game-d6606e314b73",
+      "title": "画线停车",
+      "row_sha256": "a0421293cc7e1b1133728aff64ee21ceaa460471ab43b46692fd8bf1988d88f9",
+      "finding": "原候选无版本且source_path为空。公开原站 https://www.4k99.com/detail/1883 描述的是规划多辆车到停车位的行进路线与路线冲突；区别于本包以实体线条承载车辆跨沟的刚体桥面。仅只读查询，无B组修改。"
+    },
+    {
+      "id": "game-8064a9283877",
+      "title": "画线大聪明",
+      "row_sha256": "76f43dd16f44307f28de54dc16e439921a8eb1edc1d4438bf40ea0dfb78f41a3",
+      "finding": "物理线条与自由落球拼图，非动力车辆/轮胎/旗帜终点。"
+    },
+    {
+      "id": "game-4942bdf22934",
+      "title": "心动水杯",
+      "row_sha256": "c98b1df874c38f4bcd732d560bd62fb12f67d7ad8d624761c9c026002a229c33",
+      "finding": "用线条引导水流进入杯子；不是道路承载动力车辆。"
+    },
+    {
+      "id": "game-7643614b2383",
+      "title": "箭了又箭",
+      "row_sha256": "b49023445180243344aed3fd89aa1a935eda81a60075d27eba57a8c208aaaf4a",
+      "finding": "已读原有全部有意义规格：棋牌、挂机战斗、箭头移出、摩托战斗、篮球投射、优惠券、纸飞机或跑酷。宽词命中不构成轮式车辆与自建刚体桥面的相同完整循环。"
+    },
+    {
+      "id": "game-c69cce06f149",
+      "title": "Play Throttle Riot - Free Online Game | Rosebud",
+      "row_sha256": "f689ae31b5f1a530d671241e10a9a49e66d30998c20b60bfbb2cdfd83ab442ac",
+      "finding": "已读原有全部有意义规格：棋牌、挂机战斗、箭头移出、摩托战斗、篮球投射、优惠券、纸飞机或跑酷。宽词命中不构成轮式车辆与自建刚体桥面的相同完整循环。"
+    },
+    {
+      "id": "game-8d3089542fcd",
+      "title": "Play Whip Worm - Free Online Game | Rosebud",
+      "row_sha256": "7e7f0c418351e0b73efe29bf3f0d4462e1f4b5e37a2f82bce64911f73fe58029",
+      "finding": "发射抓钩摆荡过沟，非绘制承载桥面。"
+    },
+    {
+      "id": "game-3e2c1ef6204d",
+      "title": "Play Save the Ball from Bees - Free Online Game | Rosebud",
+      "row_sha256": "268c04a37238ba327354344aef80b3c61924d722ebaf58fc01c8feb22543aa36",
+      "finding": "物理线盾抵挡蜜蜂，非桥面承载车辆。"
+    },
+    {
+      "id": "game-fed9938654f1",
+      "title": "Basketball REAL",
+      "row_sha256": "d59e1da1006e2630803838a44492db13c29f66fe5e1e6f088f48f1cabd7f3fe3",
+      "finding": "已读原有全部有意义规格：棋牌、挂机战斗、箭头移出、摩托战斗、篮球投射、优惠券、纸飞机或跑酷。宽词命中不构成轮式车辆与自建刚体桥面的相同完整循环。"
+    },
+    {
+      "id": "game-e005fd428187",
+      "title": "🎮 Super Coupon Club: Origins 🕹️ Play on CrazyGames",
+      "row_sha256": "ae8d84142d61af991113bffcbaa16df6f7646f9c8dad168f01112cd2ad588122",
+      "finding": "已读原有全部有意义规格：棋牌、挂机战斗、箭头移出、摩托战斗、篮球投射、优惠券、纸飞机或跑酷。宽词命中不构成轮式车辆与自建刚体桥面的相同完整循环。"
+    },
+    {
+      "id": "game-03d6a3473bf4",
+      "title": "Paper Grove on Remix – Play Now & Create Your Own Games",
+      "row_sha256": "6c85b0f8c84751a945163308675283972af57b81fc28ba2baf9786945d27d9f1",
+      "finding": "已读原有全部有意义规格：棋牌、挂机战斗、箭头移出、摩托战斗、篮球投射、优惠券、纸飞机或跑酷。宽词命中不构成轮式车辆与自建刚体桥面的相同完整循环。"
+    },
+    {
+      "id": "game-037d37ab7f62",
+      "title": "Grow Run 3D",
+      "row_sha256": "768523afbce8c8cd075633bf0f25b8f467a8f43883c4473a4b7d6fcdb949b080",
+      "finding": "已读原有全部有意义规格：棋牌、挂机战斗、箭头移出、摩托战斗、篮球投射、优惠券、纸飞机或跑酷。宽词命中不构成轮式车辆与自建刚体桥面的相同完整循环。"
+    },
+    {
+      "id": "game-20bb87b17a34",
+      "title": "Squadron",
+      "row_sha256": "210b0c1993aaf4d43fbcf94b1d1611cd4f10e506188fab0bc07dfb3a6a038adb",
+      "finding": "星际战机分阶段攻击敌舰目标；bridge为舰桥对象。"
+    }
+  ],
+  "unreviewed_broad_hits": [],
+  "exact_native_identity_hits": [],
+  "native_loop": "原动力车辆/轮胎在玩家绘制的实体桥面上行驶，收集星星并触碰终点旗帜；90原关卡布局、碰撞、绘线与胜负逻辑保持。"
+}
