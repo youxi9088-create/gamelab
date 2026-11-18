@@ -1,0 +1,21 @@
+{
+  "revision": "curling-offline-v1",
+  "maximum_cumulative_UI_inputs": 5,
+  "UI_used": 0,
+  "steps": [
+    "1 exact native offline entry",
+    "2 original visible Start or target overview-to-stone input if needed",
+    "3 original visible aim/throw drag when native stone is in view",
+    "4 original tutorial broom/shot gesture as available",
+    "5 original next tutorial gesture or reload only if useful within remaining budget"
+  ],
+  "drag_allowed_steps": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "original_tutorial_retained": true,
+  "no_game_state_injection": true,
+  "observer": "Read-only display-tree own data and actual localStorage only. No game handlers, score/RNG/time overrides, ad rewards or fake backend callbacks."
+}

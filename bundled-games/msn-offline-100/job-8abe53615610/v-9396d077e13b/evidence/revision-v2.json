@@ -1,0 +1,9 @@
+{
+  "base": "curling-offline-v1",
+  "changed": [
+    "index.html"
+  ],
+  "reason": "Retain the actual original query-string reader closure var r=window.location.href; no SDK or fake identity. First failed UI input retained, cumulative1/5; next navigation will be input2.",
+  "UI_used_before": 1,
+  "maximum": 5
+}

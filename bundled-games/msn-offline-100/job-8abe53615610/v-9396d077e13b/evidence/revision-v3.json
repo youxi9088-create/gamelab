@@ -1,0 +1,9 @@
+{
+  "base": "curling-offline-v2",
+  "changed": [
+    "index.html"
+  ],
+  "reason": "Physically remove the original FRVR SDK loader DOM together with its already removed SDK cleanup callback. Native canvas, physics, tutorial, save and gameplay unchanged. Actual v2 loaded native game behind provider overlay, with no JS exception; do not count it as playable.",
+  "UI_used_before": 2,
+  "maximum": 5
+}
