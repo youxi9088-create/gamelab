@@ -1,0 +1,548 @@
+{
+  "native_id": "9nz2qk71khpd",
+  "original_sha256": "317b9b01a2e6947769e6b5a59f5f13afba4ee277d4e841d1cce8df6f8e467e0d",
+  "adapted_sha256": "fabe9d43d89059d800a90a61fedcf0bcab95ad8a1a517ecd830ff5f17a9265fb",
+  "edits": [
+    {
+      "start": 402035,
+      "end": 402952,
+      "text": "void 0",
+      "reason": "Retire actual SDK/ad/share provider or ad-only control"
+    },
+    {
+      "start": 402970,
+      "end": 445888,
+      "text": "void 0",
+      "reason": "Retire actual SDK/ad/share provider or ad-only control"
+    },
+    {
+      "start": 639019,
+      "end": 643878,
+      "text": "void 0",
+      "reason": "Retire actual SDK/ad/share provider or ad-only control"
+    },
+    {
+      "start": 664414,
+      "end": 665964,
+      "text": "void 0",
+      "reason": "Retire actual SDK/ad/share provider or ad-only control"
+    },
+    {
+      "start": 745198,
+      "end": 749386,
+      "text": "void 0",
+      "reason": "Retire actual SDK/ad/share provider or ad-only control"
+    },
+    {
+      "start": 819010,
+      "end": 820432,
+      "text": "void 0",
+      "reason": "Retire actual SDK/ad/share provider or ad-only control"
+    },
+    {
+      "start": 836706,
+      "end": 840601,
+      "text": "void 0",
+      "reason": "Retire actual SDK/ad/share provider or ad-only control"
+    },
+    {
+      "start": 840619,
+      "end": 842097,
+      "text": "void 0",
+      "reason": "Retire actual SDK/ad/share provider or ad-only control"
+    },
+    {
+      "start": 908373,
+      "end": 910240,
+      "text": "void 0",
+      "reason": "Retire actual SDK/ad/share provider or ad-only control"
+    },
+    {
+      "start": 927962,
+      "end": 928747,
+      "text": "void 0",
+      "reason": "Retire actual SDK/ad/share provider or ad-only control"
+    },
+    {
+      "start": 14,
+      "end": 377,
+      "text": "",
+      "reason": "Remove legacy ad configuration"
+    },
+    {
+      "start": 2582,
+      "end": 3368,
+      "text": "",
+      "reason": "Remove legacy ad configuration"
+    },
+    {
+      "start": 3473,
+      "end": 3492,
+      "text": "\"\"",
+      "reason": "Remove outbound link configuration"
+    },
+    {
+      "start": 3507,
+      "end": 3511,
+      "text": "false",
+      "reason": "Remove branding external navigation permission"
+    },
+    {
+      "start": 3626,
+      "end": 3645,
+      "text": "\"\"",
+      "reason": "Remove outbound link configuration"
+    },
+    {
+      "start": 3660,
+      "end": 3664,
+      "text": "false",
+      "reason": "Remove branding external navigation permission"
+    },
+    {
+      "start": 3734,
+      "end": 3738,
+      "text": "false",
+      "reason": "Retire outbound service configuration"
+    },
+    {
+      "start": 3746,
+      "end": 3789,
+      "text": "\"\"",
+      "reason": "Remove outbound link configuration"
+    },
+    {
+      "start": 4228,
+      "end": 12803,
+      "text": "",
+      "reason": "Remove legacy ad implementation"
+    },
+    {
+      "start": 371253,
+      "end": 372140,
+      "text": "{}",
+      "reason": "Remove legacy ad layout",
+      "module": "plugins.handlers.size-handler"
+    },
+    {
+      "start": 567382,
+      "end": 567419,
+      "text": "void 0",
+      "reason": "Remove actual service call without reward or success callback",
+      "module": "plugins.splash-loader"
+    },
+    {
+      "start": 643896,
+      "end": 644028,
+      "text": "ig['module']('game.entities.buttons.button-branding-logo').requires(\"game.entities.buttons.button\")",
+      "reason": "Remove retired module dependency"
+    },
+    {
+      "start": 645195,
+      "end": 645245,
+      "text": "void 0",
+      "reason": "Retire outbound clickable branding layer, preserve original logo graphics",
+      "module": "game.entities.buttons.button-branding-logo"
+    },
+    {
+      "start": 807364,
+      "end": 807709,
+      "text": "function(){this.isClickable=false;this.currentAnim=this.locked;this.textPosOffset.x=-5;this.textPosOffset.y=10;this.updateText('LEVEL MAX');this.removeBubble();}",
+      "reason": "Retire ad-only prestige/reset affordance at native level cap; no prestige grant or level change",
+      "module": "game.entities.buttons.button-show-field-upgrade"
+    },
+    {
+      "start": 810849,
+      "end": 810956,
+      "text": "void 0",
+      "reason": "Remove actual service call without reward or success callback",
+      "module": "game.entities.buttons.button-show-field-upgrade"
+    },
+    {
+      "start": 813671,
+      "end": 813712,
+      "text": "void 0",
+      "reason": "Remove actual service call without reward or success callback",
+      "module": "game.entities.buttons.button-show-warehouse-upgrade"
+    },
+    {
+      "start": 825849,
+      "end": 825875,
+      "text": "'normal'",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-intruder"
+    },
+    {
+      "start": 826029,
+      "end": 826205,
+      "text": "this['textWrapper']['setTextAlign']('center'),this['textPosOffset']['x']=0x0",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-intruder"
+    },
+    {
+      "start": 826305,
+      "end": 826733,
+      "text": "ig['soundHandler']['sfxPlayer']['soundList']['coin']&&ig['soundHandler']['sfxPlayer']['play']('coin'),this['popup']['tweenOut'](ig['controllers']['idle']['addMoney']['bind'](ig['controllers']['idle'],this['earning'])),ig['rlog']['debug']('Normal\\x20Button\\x20Clicked')",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-intruder"
+    },
+    {
+      "start": 827186,
+      "end": 827411,
+      "text": "this['pos']['x']+0.5*this['size']['x']-0.5*this['coinIconImg']['width']-0.5*this['textWrapper']['measureTextWidth'](this['earningText'])-0x5",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-intruder"
+    },
+    {
+      "start": 829338,
+      "end": 829381,
+      "text": "false",
+      "reason": "Retired service popup cannot be present; remove obsolete UI exclusion check",
+      "module": "game.entities.buttons.button-fever"
+    },
+    {
+      "start": 832094,
+      "end": 832528,
+      "text": "this['textPosOffset']['x']=0x0,this['textWrapper']['setTextAlign']('center'),this['updateText'](_STRINGS['Buttons']['FeverClaim']['replace']('%s',ig['controllers']['idle']['FEVER_BOOST_MULTIPLIER_NORMAL']))",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-fever"
+    },
+    {
+      "start": 832647,
+      "end": 833105,
+      "text": "ig['soundHandler']['sfxPlayer']['soundList']['achievement']&&ig['soundHandler']['sfxPlayer']['play']('achievement'),this['popup']['tweenOut'](ig['controllers']['idle']['onFeverBoost']['bind'](ig['controllers']['idle'],ig['controllers']['idle']['FEVER_BOOST_MULTIPLIER_NORMAL'])),ig['rlog']['debug']('Normal\\x20Button\\x20Clicked')",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-fever"
+    },
+    {
+      "start": 834311,
+      "end": 834337,
+      "text": "'normal'",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-level-up-reward"
+    },
+    {
+      "start": 834462,
+      "end": 834638,
+      "text": "this['textWrapper']['setTextAlign']('center'),this['textPosOffset']['x']=0x0",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-level-up-reward"
+    },
+    {
+      "start": 834667,
+      "end": 834957,
+      "text": "void 0",
+      "reason": "Remove ad bubble and retired button field use",
+      "module": "game.entities.buttons.button-claim-level-up-reward"
+    },
+    {
+      "start": 835210,
+      "end": 835542,
+      "text": "this['popup']['tweenOut'](ig['controllers']['idle']['upgradeGameLevel']['bind'](ig['controllers']['idle'],this['earning'])),ig['rlog']['debug']('Normal\\x20Button\\x20Clicked')",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-level-up-reward"
+    },
+    {
+      "start": 835995,
+      "end": 836220,
+      "text": "this['pos']['x']+0.5*this['size']['x']-0.5*this['coinIconImg']['width']-0.5*this['textWrapper']['measureTextWidth'](this['earningText'])-0x5",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-level-up-reward"
+    },
+    {
+      "start": 842898,
+      "end": 842924,
+      "text": "'normal'",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-offline"
+    },
+    {
+      "start": 843078,
+      "end": 843254,
+      "text": "this['textWrapper']['setTextAlign']('center'),this['textPosOffset']['x']=0x0",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-offline"
+    },
+    {
+      "start": 843283,
+      "end": 843628,
+      "text": "void 0",
+      "reason": "Remove ad bubble and retired button field use",
+      "module": "game.entities.buttons.button-claim-offline"
+    },
+    {
+      "start": 843881,
+      "end": 844306,
+      "text": "ig['soundHandler']['sfxPlayer']['soundList']['coin']&&ig['soundHandler']['sfxPlayer']['play']('coin'),this['popup']['tweenOut'](ig['controllers']['idle']['addMoney']['bind'](ig['controllers']['idle'],this['earning'])),ig['rlog']['debug']('Normal\\x20Button\\x20Clicked')",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-offline"
+    },
+    {
+      "start": 844759,
+      "end": 844984,
+      "text": "this['pos']['x']+0.5*this['size']['x']-0.5*this['coinIconImg']['width']-0.5*this['textWrapper']['measureTextWidth'](this['earningText'])-0x5",
+      "reason": "Keep native normal claim/animation/layout branch; remove ad alternative",
+      "module": "game.entities.buttons.button-claim-offline"
+    },
+    {
+      "start": 845914,
+      "end": 845955,
+      "text": "void 0",
+      "reason": "Remove actual service call without reward or success callback",
+      "module": "game.entities.buttons.button-play"
+    },
+    {
+      "start": 846515,
+      "end": 846556,
+      "text": "void 0",
+      "reason": "Remove actual service call without reward or success callback",
+      "module": "game.entities.buttons.button-settings"
+    },
+    {
+      "start": 847305,
+      "end": 847346,
+      "text": "void 0",
+      "reason": "Remove actual service call without reward or success callback",
+      "module": "game.entities.buttons.button-settings"
+    },
+    {
+      "start": 862320,
+      "end": 862471,
+      "text": "void 0",
+      "reason": "Remove ad-only or external control creation",
+      "module": "game.entities.objects.popup-field-upgrade"
+    },
+    {
+      "start": 900241,
+      "end": 900846,
+      "text": "function(scale){this.parent(scale);if(this.buttonClaimNormal){var button=this.buttonClaimNormal;button.pos.x=this.pos.x+0.5*this.size.x-0.5*button.size.x*scale;button.pos.y=this.pos.y+this.size.y*scale-button.size.y*scale-40*scale;button.updateScale(scale);}}",
+      "reason": "Center surviving native ordinary claim; remove ad sibling layout dereference",
+      "module": "game.entities.objects.popup-claim-base"
+    },
+    {
+      "start": 901689,
+      "end": 901743,
+      "text": "void 0",
+      "reason": "Remove ad bubble and retired button field use",
+      "module": "game.entities.objects.popup-claim-base"
+    },
+    {
+      "start": 904539,
+      "end": 904696,
+      "text": "void 0",
+      "reason": "Remove real service instance or ad-only button instance",
+      "module": "game.entities.objects.popup-intruder"
+    },
+    {
+      "start": 906161,
+      "end": 906295,
+      "text": "void 0",
+      "reason": "Remove real service instance or ad-only button instance",
+      "module": "game.entities.objects.popup-fever"
+    },
+    {
+      "start": 907831,
+      "end": 907993,
+      "text": "void 0",
+      "reason": "Remove real service instance or ad-only button instance",
+      "module": "game.entities.objects.popup-game-level-up"
+    },
+    {
+      "start": 911464,
+      "end": 911620,
+      "text": "void 0",
+      "reason": "Remove real service instance or ad-only button instance",
+      "module": "game.entities.objects.popup-offline-earning"
+    },
+    {
+      "start": 927627,
+      "end": 927668,
+      "text": "void 0",
+      "reason": "Remove actual service call without reward or success callback",
+      "module": "game.entities.buttons.button-home"
+    },
+    {
+      "start": 954257,
+      "end": 954380,
+      "text": "void 0",
+      "reason": "Remove ad-only or external control creation",
+      "module": "game.entities.controllers.menu-controller"
+    },
+    {
+      "start": 963298,
+      "end": 963473,
+      "text": "void 0",
+      "reason": "Remove real service instance or ad-only button instance",
+      "module": "game.entities.controllers.game-controller"
+    },
+    {
+      "start": 963599,
+      "end": 963759,
+      "text": "void 0",
+      "reason": "Remove real service instance or ad-only button instance",
+      "module": "game.entities.controllers.game-controller"
+    },
+    {
+      "start": 967166,
+      "end": 967288,
+      "text": "void 0",
+      "reason": "Remove real service instance or ad-only button instance",
+      "module": "game.entities.controllers.game-controller"
+    },
+    {
+      "start": 967363,
+      "end": 967425,
+      "text": "void 0",
+      "reason": "Remove ad bubble and retired button field use",
+      "module": "game.entities.controllers.game-controller"
+    },
+    {
+      "start": 973107,
+      "end": 976963,
+      "text": "ig['module']('game.main').requires(\"impact.game\",\"plugins.packer.packer-plugin\",\"plugins.patches.fps-limit-patch\",\"plugins.patches.timer-patch\",\"plugins.patches.user-agent-patch\",\"plugins.patches.webkit-image-smoothing-patch\",\"plugins.patches.windowfocus-onMouseDown-patch\",\"plugins.patches.input-patch\",\"plugins.data.vector\",\"plugins.data.color-rgb\",\"plugins.responsive\",\"plugins.pointer\",\"game.plugin\",\"plugins.font.font-loader\",\"plugins.handlers.dom-handler\",\"plugins.handlers.size-handler\",\"plugins.handlers.visibility-handler\",\"plugins.audio.sound-handler\",\"plugins.io.io-manager\",\"plugins.io.storage-manager\",\"plugins.splash-loader\",\"plugins.tween\",\"plugins.tweens-handler\",\"plugins.url-parameters\",\"plugins.director\",\"plugins.impact-storage\",\"plugins.fullscreen\",\"plugins.custom-timer\",\"plugins.textwrapper\",\"plugins.scale\",\"plugins.notification\",\"plugins.animation-scale\",\"plugins.number-animator\",\"plugins.spotlight\",\"plugins.branding.splash\",\"game.entities.branding-logo-placeholder\",\"game.entities.others.utils\",\"game.entities.others.signals\",\"game.entities.others.utility\",\"game.entities.others.trigger\",\"game.entities.others.trigger-constant\",\"game.entities.others.scroll-detector\",\"game.entities.controllers.field-controller\",\"game.entities.controllers.conveyor-controller\",\"game.entities.controllers.business-controller\",\"game.entities.controllers.livestock-controller\",\"game.entities.controllers.idle-controller\",\"game.entities.objects.field\",\"game.entities.objects.conveyor\",\"game.entities.objects.warehouse\",\"game.entities.objects.truck\",\"game.entities.objects.market\",\"game.entities.objects.livestock\",\"game.entities.objects.product\",\"game.entities.objects.shed\",\"game.entities.objects.money\",\"game.entities.objects.warehouse-entrance\",\"game.entities.objects.field-upgrade-icon\",\"game.entities.objects.field-upgrade-star\",\"game.entities.objects.field-upgrade-livestock-count\",\"game.entities.objects.field-upgrade-produce-speed\",\"game.entities.buttons.button-show-field-upgrade\",\"game.entities.buttons.button-show-warehouse-upgrade\",\"game.entities.buttons.button-warehouse-upgrade\",\"game.entities.buttons.button-field-upgrade\",\"game.entities.buttons.button-level-upgrade\",\"game.entities.buttons.button-claim-intruder\",\"game.entities.buttons.button-fever\",\"game.entities.buttons.button-claim-fever\",\"game.entities.buttons.button-claim-level-up-reward\",\"game.entities.buttons.button-claim-offline\",\"game.entities.buttons.button-play\",\"game.entities.buttons.button-settings\",\"game.entities.others.container-field-upgrade\",\"game.entities.others.popup-base\",\"game.entities.objects.popup-field-upgrade\",\"game.entities.objects.popup-field-upgrade-star\",\"game.entities.objects.popup-warehouse-upgrade\",\"game.entities.objects.popup-intruder\",\"game.entities.objects.popup-fever\",\"game.entities.objects.popup-game-level-up\",\"game.entities.objects.popup-offline-earning\",\"game.entities.objects.popup-tutorial\",\"game.entities.objects.popup-settings\",\"game.entities.objects.popup-tip\",\"game.entities.buttons.button-audio-sfx\",\"game.entities.buttons.button-audio-bgm\",\"game.entities.buttons.button-close-popup\",\"game.entities.buttons.button-home\",\"game.entities.objects.bubble\",\"game.entities.objects.upgrade-arrow\",\"game.entities.objects.glow\",\"game.entities.objects.intruder\",\"game.entities.others.floating-text\",\"game.entities.objects.floating-text-coin\",\"game.entities.objects.floating-text-egg\",\"game.entities.others.transition\",\"game.levels.opening\",\"game.levels.menu\",\"game.levels.game\")",
+      "reason": "Remove retired module dependency"
+    },
+    {
+      "start": 977476,
+      "end": 977509,
+      "text": "void 0",
+      "reason": "Remove outbound gamecenter startup",
+      "module": "game.main"
+    },
+    {
+      "start": 978004,
+      "end": 978720,
+      "text": "",
+      "reason": "Remove outbound gamecenter method",
+      "module": "game.main"
+    },
+    {
+      "start": 980105,
+      "end": 980138,
+      "text": "void 0",
+      "reason": "Remove actual service call without reward or success callback",
+      "module": "game.main"
+    },
+    {
+      "start": 987133,
+      "end": 987172,
+      "text": "void 0",
+      "reason": "Remove real service instance or ad-only button instance",
+      "module": "game.main"
+    },
+    {
+      "start": 256554,
+      "end": 259878,
+      "text": "",
+      "reason": "Retire isolated client distribution-host blank redirect from standalone copy"
+    },
+    {
+      "start": 259878,
+      "end": 259889,
+      "text": "void 0",
+      "reason": "Remove one-shot caller of retired distribution hook"
+    },
+    {
+      "start": 810532,
+      "end": 810546,
+      "text": "this['idle']",
+      "reason": "Remove ad icon from native waiting-for-unlock state",
+      "module": "game.entities.buttons.button-show-field-upgrade"
+    },
+    {
+      "start": 810655,
+      "end": 810681,
+      "text": "\"WAIT\"",
+      "reason": "Timed unlock remains; no advertising skip action",
+      "module": "game.entities.buttons.button-show-field-upgrade"
+    }
+  ],
+  "protected_modules": [
+    {
+      "module": "game.entities.controllers.idle-controller",
+      "sha256": "f834c992df1ae28b1c956529b83bb27896a1059a0d80da8975080805b3c732f7",
+      "byte_exact": true
+    },
+    {
+      "module": "game.entities.controllers.field-controller",
+      "sha256": "1c7ca85ca8eb83ee6416e47df33fa4d1482af6d78edec7c5dc66e918860f16de",
+      "byte_exact": true
+    },
+    {
+      "module": "game.entities.controllers.conveyor-controller",
+      "sha256": "297cabbdffe3d1bf92f98a04fdbbaaa77f675d77c950a7cf5a2dbf8c850a6b5c",
+      "byte_exact": true
+    },
+    {
+      "module": "game.entities.controllers.business-controller",
+      "sha256": "b4fcdeb18335f8727f9185ba0433f0a4c4e467f62c7cf18a1b4c8ce60079c494",
+      "byte_exact": true
+    },
+    {
+      "module": "game.entities.controllers.livestock-controller",
+      "sha256": "8b16c7dbab2e96372402b971f2950644ffd8fccb7e4c05d038237c70557437dc",
+      "byte_exact": true
+    },
+    {
+      "module": "game.entities.objects.shed",
+      "sha256": "c3b178f2955aa0bfc2660b33e421c3cc2359f9b716c5e2ff563b146cd10471e3",
+      "byte_exact": true
+    },
+    {
+      "module": "game.entities.objects.livestock",
+      "sha256": "4048e369a518fef9641f2fb7b7010c46ca7a465fa6e372f2bebb4f72dc2b87f8",
+      "byte_exact": true
+    },
+    {
+      "module": "game.entities.objects.product",
+      "sha256": "8c554d6d494ba286b2a339b3c753b201d1ed1d1b528d166a9d39f985fcfb0c8e",
+      "byte_exact": true
+    },
+    {
+      "module": "game.entities.objects.truck",
+      "sha256": "1393f50cf349f2557292c08090a9788b402a801c937f88760c02f8e998533668",
+      "byte_exact": true
+    },
+    {
+      "module": "game.entities.objects.market",
+      "sha256": "ad67850c6af73d1166e915b36db35dc8f11950cdc03cc7a13b385d38340de6d3",
+      "byte_exact": true
+    },
+    {
+      "module": "game.entities.objects.warehouse",
+      "sha256": "434e0a76e905d1d96b0757d9cba7ca2ab28531549ebea26ba36a0a65c5639f8b",
+      "byte_exact": true
+    },
+    {
+      "module": "game.entities.buttons.button-field-upgrade",
+      "sha256": "3d6c3357cb1228a6912754c27a4774e98a53c0250fc8f36ee7f4e9d7b190a3bd",
+      "byte_exact": true
+    },
+    {
+      "module": "game.entities.buttons.button-warehouse-upgrade",
+      "sha256": "86edbc753f8478a64ce62265ef16af1b1aa23e0e269f9f3a83d311f3053186bd",
+      "byte_exact": true
+    },
+    {
+      "module": "game.levels.game",
+      "sha256": "e9893a7a64acca65cdd3151245158dce126fbe956a7ee2ad2d34d1c181d85ee4",
+      "byte_exact": true
+    }
+  ],
+  "retired_modules": [
+    "plugins.microsoft",
+    "plugins.handlers.api-handler",
+    "game.entities.controllers.ads-controller",
+    "game.entities.buttons.button-share",
+    "game.entities.buttons.button-more-games",
+    "game.entities.buttons.button-field-prestige",
+    "game.entities.buttons.button-profit-boost",
+    "game.entities.buttons.button-claim-profit-boost",
+    "game.entities.objects.popup-profit-boost",
+    "plugins.clickable-div-layer"
+  ],
+  "provider_residue": [],
+  "no_native_execution_local": true,
+  "no_fake_sdk_identity_or_reward": true,
+  "no_state_clock_rng_save_injection": true
+}
