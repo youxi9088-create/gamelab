@@ -1,0 +1,1592 @@
+{
+  "title": "直线竞速城市",
+  "revision": "dragrace-offline-v2",
+  "job_id": "job-9717c83dc76e",
+  "version_id": "v-7b324e8d0879",
+  "artifact_id": "artifact-501ec05a51e4",
+  "artifact_sha256": "2d75adae02849b07a074692b925129300e894f15ea13941fc1bb7a01dbd1a468",
+  "remote_archive_commit": "380f909578c693ef8398ccd835f5cf2609407870",
+  "files": {
+    "delivery-report.json": "caf3236e51d45b9a88e8c621c063799071801f76f5d0a15db37a34a5b83f3ff9",
+    "game-profile.json": "ef4bcd8ffc43ab4b8cc7b4638ee37cc1f8bac8501f1405a12d62292adab2809b",
+    "GAME_SPECIFICATION.md": "6e72282fc0200afc34761155985411a91d4c209490873d8b02753c3d965a8628",
+    "index.html": "5e4b13d38523787e74fe58e77f38afb49cf274c7bc09265be325fdaf5546ba1c",
+    "README_二次修改.md": "e129e8e8178aeb1b7fda9f41d97931e6783570c5da3875d60e6185a3e256a1de",
+    "evidence/dedup-intake-guard.json": "edc3b5c1108aeb73f85a3419f314234fd0536b7333d03e17f0975641c4b3edc2",
+    "evidence/dragrace-HTTP-preflight.json": "041b6d9d3d7d28e70b78de9fa2b7d3ee87693c0b0adce38a77c097056d4e1b5e",
+    "evidence/dragrace-native-assets-plan.json": "7ec8636fb934dd458a080d915b6b50c6340da09c6b0ee3a97358b88181209a56",
+    "evidence/dragrace-playwright-assets-source-receipt.json": "23d774fbb77ecdcc67fae87b53d7a99f1a845d1fb13f2285adcf6a8ef2cbfd15",
+    "evidence/dragrace-pw-bootstrap-source-receipt.json": "414edd5f28f693db7670c5498a40f5b4f0c9b05c4ef568843de1c001b6fa845d",
+    "evidence/dragrace-related-hillclimb-source.json": "a1bd617f48042cb3855f6aca244d14e0561b3ff9110b2e0e5038b3b3ba0709be",
+    "evidence/dragrace-v1-terminal-journals.json": "38363b70f9e1017034cd09f14b710b624bde35bf1a3da77fbeb42ad1a20ce304",
+    "evidence/dragrace-v2-HTTP-preflight.json": "8ae3a8c19007749bcfee2e8cea46c4d110f9bd62fe2f47400044cd1c91c000b4",
+    "evidence/dragrace-v2-terminal-journals.json": "c61be6c69ff38824ecc646f0ba2917dd045541c75a31cdb49f79612f8efaedcf",
+    "evidence/msn_dragrace_retire_services.cjs": "097e36cc57c00d2ec8f3292b35cb21d19c0424ae0a153fa4cf32e27852b5f252",
+    "evidence/msn_dragrace_retire_services_v2.cjs": "c439706664436509a87709ab20ceedf0a2105dc48e1be44278b33faf510d69d4",
+    "evidence/msn_dragrace_source_inventory.cjs": "4e399d4182dfa0003c681273860fff11a0fcdcf8917d7c8b2fde9ebc654d800f",
+    "evidence/msn_prepare_dragrace.py": "8835b522d84436643ea2e5db79c58fd801c97878eb2a133964c54cf3940cc432",
+    "evidence/msn_prepare_dragrace_v2.py": "80fd6563a2f60dafc3e5a3898222775873ae964da0f0c50007cfb258d802efb6",
+    "evidence/nov19-browser-resumed-testsite.json": "e8f6c1d6a55d73fd2f63fc678e9ae50d7b19138fc98d318041c105557dc3152f",
+    "evidence/observation-1.json": "2b13a0aedc9802616dbde7630cf1c5511fe78915123d43506a7217de1a0997cd",
+    "evidence/observation-101.json": "63d53cdb657060dfd5b33ad5d76dfa8df8d4d04be4698a7294db5d668ce7cef8",
+    "evidence/observation-102.json": "f634c740e74688a290358f6193a8f264697ee6614d9dc29a55586fb82c44f6b2",
+    "evidence/observation-2.json": "0a0c16f0c2403ab8573251c2da423fdbd0769e67f835f340f5dae77587dd798d",
+    "evidence/observation-3.json": "3eab492c380baca04e4de381d97c5bd544d092632ab2457cd17085e2b94e54b9",
+    "evidence/observation-4.json": "ca76a96bdb4809afc3ab2c42dc55f5b61b707efad73147cf921124d25d087ae9",
+    "evidence/observation-5.json": "60db3d14f2b0aa66f4443e2646671f4bd5c76279cd641a95d878564bf26ed99d",
+    "evidence/offline-v1-build-proof.json": "2ad23ddb5f8df3fdd8f850ffc3e40a017cac71ecda4d0af784c556bb2e76105d",
+    "evidence/original-source-sha256.json": "f59e47214b52e18ae0774e4d8cd8319c0e1c0efffef53f4a277e2869b910a863",
+    "evidence/original-source.zip": "a241f041360ba9113d8780188adf6c6a67258349f268bfc128be40c294b5494c",
+    "evidence/resource-audit.json": "76feab2aa48bd2643b8195618a9964fc5355ca3a1a5e69b7edbfa52321335f0c",
+    "evidence/runtime-sha256.json": "b54fe50af9064535e831a76f06038a260fed9c99a5e39fc285889ff09a1bbb12",
+    "evidence/service-retirement-proof-v2.json": "d8bd642acce37f7b78047968235dc5848992f12a1d17ac7ae7d40010da06d9a0",
+    "evidence/service-retirement-proof.json": "1df19fb045b52c596724bbb0b49b7e574411f7775e9f1e5d87f70ac697d8bbfe",
+    "evidence/validation.json": "7fb9d8a44f518ba4ca9edeb6d6602d7a70ca6ef09a644796006983a1f58b7393",
+    "js/game.js": "76c392a304943987b1b1e74063fb7fe891e44208b18d6a2eee04a6e75920cae0",
+    "screenshots/000-cover.png": "a36af0b6b1d9a766b1b080c79844db1784a5dc9f63b6ad84deb3d613d242a494",
+    "screenshots/001.png": "640e4729e01a874afbd06d524d8128b84c474e221aacd98b3d9617159e7e6f0e",
+    "screenshots/002.png": "966f34ac400c1f746abe8779b37404dd253e3bd5f67928a2205de485397abf2e",
+    "screenshots/003.png": "47aafb5da541436b95a2b71dc9a8c7959d37b62de81253d09829a3defae5dc2e",
+    "screenshots/004.png": "3b5c6cece16cfe44378256be6e70e39f6f498ffc1a37de3b738ef227d0c6dbf3",
+    "screenshots/005.png": "a36af0b6b1d9a766b1b080c79844db1784a5dc9f63b6ad84deb3d613d242a494",
+    "screenshots/101.png": "640e4729e01a874afbd06d524d8128b84c474e221aacd98b3d9617159e7e6f0e",
+    "screenshots/102.png": "b410e1062758ac4e7d7eb4460854564d5f26c0bd1378fb1ba66effffabe485a1",
+    "js/Libs/rexbbcodetextplugin.min.js": "6e6cb3261ff8cb2e7fa08ccde5f8275da53a4b707928a91a3ceb8e5f8b92ca6b",
+    "assets/audio/button.mp3": "6f8059df2eb33a69a285ddb071da5b141a5acb7486bbf26456781acccc5c68f6",
+    "assets/audio/button.ogg": "9db5de72e682ba19d8db2e3b4d9368ab1cbcef5c924697290faa51c847537317",
+    "assets/audio/engine1.mp3": "15f44487b99051730c870f114dfe8533a7f66e0fa18fa06391770edaef9e6063",
+    "assets/audio/engine1.ogg": "cc63984addae66871f0673e19cb913ed32cf631fdd37102f33635d0dde9bdb75",
+    "assets/audio/engine2.mp3": "78ed099f6239d7fd3292aeb670e7d306599405b52190df3c723f027112796599",
+    "assets/audio/engine2.ogg": "3db488313b04c681524b2c47452b75308dbe68f8cbbc636e96a9d983bf479033",
+    "assets/audio/engine3.mp3": "abcf6921007b43f24cf5459ae61635c94ef2efe01b04a8ec8af61c4459e3ad6f",
+    "assets/audio/engine3.ogg": "df9e4766167080ab72e0b14e36324d45a8e0e286d85475ee90b193161b2b2090",
+    "assets/audio/engine4.mp3": "89f00927a63ec0fa63ca878d5d48bdbd84032ba5de8ef451a576ef3299aeb3a2",
+    "assets/audio/engine4.ogg": "c8ad4cfbc3d032798b51c3baabf92b35d25769177e39bd5413471a9d9339008e",
+    "assets/audio/engine5.mp3": "1e3161e3f7f5e2e06bcc44c1e7b68be93b4f9d6a97bde133fc99579ddf84570e",
+    "assets/audio/engine5.ogg": "06795ac7be7012c7337ef43f884abaeb7ef11984711f6b58c59c4521529d4ebe",
+    "assets/audio/engine6.mp3": "1f066f024af1a9dde7a2e53605a7e57506f8cfa24daf97421db2d5a8c4455cd4",
+    "assets/audio/engine6.ogg": "f4c97e5a88ef0e3ebc2403f9e24cd63b23abcbca72bf247881b895cec2aa9dae",
+    "assets/audio/engine7.mp3": "3b1015797c0c5143d98de66b51a900c7e74d614ded9cf60da7445dfe3529ca49",
+    "assets/audio/engine7.ogg": "d62afbc37454bb91e16b2a5d9d99051d6291b3a116be7a3f58d54c80edbcdb5b",
+    "assets/audio/engine8.mp3": "b2ad4cc74b8f5b78adab88c4e0b17aa0d2a3437b62229680841784ef646ab203",
+    "assets/audio/engine8.ogg": "7adfc4036ea86d7be207fb82ce9d0bbf8ec634aa2b5f4172634f77520dd601d4",
+    "assets/audio/engine9.mp3": "ea4dd82971f8890fc00cf468af4e1b9b3bb3bcf7351de6caf45198c2f991fe3c",
+    "assets/audio/engine9.ogg": "091b18c20899e2e65bf767370505bfbb183f31028ec08d72924562d332f87f73",
+    "assets/audio/engineT1.mp3": "0241ee5ad9a30ef98d889bd41842c3aa0f9c2e8541bfd7ed591792295c762ad9",
+    "assets/audio/engineT1.ogg": "7edc3416f9fed6467a9338ec9f073de963a815970e92c963984e7aa474533163",
+    "assets/audio/engineT3.mp3": "49caefbe3d40486d080e4bca706ef0b67a629b567838c8d350fc08b400b5c0e7",
+    "assets/audio/engineT3.ogg": "6835d5f19683e427454674ddfb31252f7483021688831e10c6c194a4b239fddd",
+    "assets/audio/engineV8.mp3": "c726f9b93dd17c5c0ffcc1aa205f615b81bbdeac77c4ba4082fbe6eb0dd75b37",
+    "assets/audio/engineV8.ogg": "e2b4dc3057d78431801d9c4bacbc39c7255dbdec2cc10c04b09b3e947b548471",
+    "assets/audio/gearChange.mp3": "e03cfebbcb7b6e56de11ada060810de961bc41ce7e3d8fcd08fae11b86f3df4c",
+    "assets/audio/gearChange.ogg": "3dd268cb5a0a6ee1991ed89046ef0dbfe5659f0274eea15854ad2f387f2ec762",
+    "assets/audio/kaching.mp3": "e8e3afafc1a80d83f268348c4f5019a7e4417a08021d7c4ec9092f187713036d",
+    "assets/audio/kaching.ogg": "8478941244999cc9f3a2ac47e2903a95b0ad72220fc4f017060f922a617cea5c",
+    "assets/audio/music_game.mp3": "2f1d50013d762075d6c5f01be6d82d1fa26e9195f136177e89c42e9374123366",
+    "assets/audio/music_game.ogg": "32d3b92895ca8e8e884ebde297a183a3df3173888039dd73e2a47c3145db0ce1",
+    "assets/audio/music_menu.mp3": "0bafbca68805e23e6e51721b69da4649690dcf9f1fa5e181fd39eed1db035828",
+    "assets/audio/music_menu.ogg": "1333823a27ceb3596d666592984596b6004bfe6c74a398d92805ee8befe9aab9",
+    "assets/audio/nitroLoop.mp3": "8e5000cf0a939b56f17548d70b297b902348ff095bdbb93830986d409569475a",
+    "assets/audio/nitroLoop.ogg": "92edf6f61463af405ec7499ab4e99bca59cb4e438911373121ec652928a94a6d",
+    "assets/audio/nitroStart.mp3": "26de7886966c560957b762a31cdc6869fd7c8e6984bfb9323726378f50c7066a",
+    "assets/audio/nitroStart.ogg": "0cbfd2a227cdbf8d1fdda70853ec00502a972558a4375035fb11b90fd3627bb3",
+    "assets/audio/not_enough_money.mp3": "ee12445457a2933641f989e28c8691f96a7590181ff48c6c46be0585953b604d",
+    "assets/audio/not_enough_money.ogg": "537a23e2147c0021d0c4aedbd904e8e71f7ca1aa2ca0da7ce26dabdca17a35e8",
+    "assets/audio/paint.mp3": "aa14f8e302337b453b2e3e55843c86f37a56281aef24a393a07189250f2c9e22",
+    "assets/audio/paint.ogg": "1d078af84291e744dc3b69fb2f3e045e6c6355063a0f079652adef6c87b91cb2",
+    "assets/audio/paintSelect.mp3": "302a299cd89126647f5272fb17e24def8c9f4bda3d77943f565b858a7407b6e2",
+    "assets/audio/paintSelect.ogg": "ed9c7ac5d219295f6bc901e22d7be2a63f72c3fa326b823a7af292f7f5bd48a6",
+    "assets/audio/skid.mp3": "532606e1d5d73d5074d0beee62fd58253addd0ec77af77ac527faa93f72e069f",
+    "assets/audio/skid.ogg": "f991525a2a5dc0df4cb8cad5316c1637872c25a264026805f1df8f1b01332c8d",
+    "assets/audio/upgrade.mp3": "abe92827a0587ed143f0845c07f04097f44af4d644a1bb1c83e37e817a7d663e",
+    "assets/audio/upgrade.ogg": "df31537fedbbcda7759e9bce1a63c949a3839316d892cf686f818e35bff7a750",
+    "assets/audio/upgrade_neon.mp3": "c5aa574ee4df98502c7caafb92c39ed1275aca1a9b2c7b888cc52059d09bcc27",
+    "assets/audio/upgrade_neon.ogg": "9473e626b8977c06c474cf42711aef9574d21cb289acc12cdd51b04bc3f96546",
+    "assets/audio/upgrade_wheels.mp3": "ef02e86fb346985383bc1827a90d44ed2368416222e10cbae8c2ab342a86bb22",
+    "assets/audio/upgrade_wheels.ogg": "d0b97a49b2540731c391269a7ed097292b11b0845de5c16a72cef97d705b7398",
+    "assets/audio/whoosh.mp3": "21ef7c9d9ab98629b5646dfe39173a318c3081e6f01432b83cbcd2d089f1be60",
+    "assets/audio/whoosh.ogg": "89ea3d33d0dc0b65e623bff06c1fdd890c39eabbd677582a29e407d156cac9b3",
+    "assets/dat/m.isr": "ba638ea5c05e971274fe6448bdf44dd870c073683b4d96ac67a5a66c18d98405",
+    "assets/favicon/icon-144x144.png": "f7158d4e038fa77d11faf1f6760e8a65cfcf4ac17ba5fa1b16a4e085cca5474b",
+    "assets/favicon/icon-152x152.png": "f1d88260f7e52cb5c79cf7fe70a546949747151d214ff740cdc39e1db8d46785",
+    "assets/favicon/icon-192x192.png": "d5ca4bfee1e8700096acba8502720ba866d690154f9e3b2aef34ccb62bc5fd8b",
+    "assets/favicon/icon-36x36.png": "e3bb3186bcd8af6ee46b3781efd8963f1124f2203d371fabdccd6916e59d5267",
+    "assets/favicon/icon-48x48.png": "4d9fc290f17538eb6cd471a7d762a90ffc3bfebaa1b399beade9e8f9b1f68921",
+    "assets/favicon/icon-512x512.png": "1f2da1b4f337b3c317ccc1e676bafef42739a964bf22cb339da7f7690a924669",
+    "assets/favicon/icon-72x72.png": "fca10385d6d4c1af1c82790116a688ac770ae8730ad93f2f992be55d9ff5a0c6",
+    "assets/favicon/icon-96x96.png": "7a29808528a3d3639f91955508f640112dad9f99b5a97ab6f9df3bf8b1f7bb45",
+    "assets/fnt/gamefont.ttf": "fcb1113f266fce091a68fa754a9c6e97bb2fd9f050f99ae3760106e4838246d9",
+    "assets/fnt/menufont.ttf": "4463a5eeeb1290f16f930c40847679998d84727c5dd26fac147fcd1d671db571",
+    "assets/gfx/inl_logo.png": "3c4a55734bb0f3870bdbe758f0cec980f74b6d9d763c55dc211ed710642606bd",
+    "assets/gfx/rotate_screen.png": "1b77c08548412de4d377450e4934796d3aa1373b429772b1691bcfaeed90cc56",
+    "assets/gfx/splash.jpg": "6e85bd34076f313c4b581679f4b0a9357922be5d429d9b4b4f7bed80e01388f5",
+    "assets/gfx/cars/c01_01.json": "ae5f14b0ad834681847cb88630136f580d8b9f7320ebda818ad095610042c3ed",
+    "assets/gfx/cars/c01_01.png": "5324c7963cdb93d33600680f78585418fe55493d30e6558eec4fba57eeb7e5e0",
+    "assets/gfx/cars/c01_02.json": "a202620de035b4a75810b67001b29af7ed99dd1de3ec442a47802f034bd3ceca",
+    "assets/gfx/cars/c01_02.png": "19e5e4ba9c88fd9cbd449d35b409e18114932e0b83cf420e6b9b307c97ae1b53",
+    "assets/gfx/cars/c01_03.json": "ca0785e985c06efbb80d760b9da89ed193137f495bb33aa706f041ddc5a21749",
+    "assets/gfx/cars/c01_03.png": "a4dd35cc89157da9fb4640c6d334e466801ccff44dc503015d276d5a340163cb",
+    "assets/gfx/cars/c01_04.json": "b6c73d8df841be6d4172611535adb40bbc2f734887c85e0fffbffd21ded06cfd",
+    "assets/gfx/cars/c01_04.png": "85e48b41ef3eea6d455e83ccacc4075554987311a54120e2e7db8e60a554f24f",
+    "assets/gfx/cars/c01_05.json": "d4cbecaa134c9dddd9e661a4f32a77ff8419c83678f11690c7e3cfb5fe10ae54",
+    "assets/gfx/cars/c01_05.png": "a558e0080d38d8fff0518a5b8d746a4667e4ae8c0a6be5b131df610d5f4e4a1a",
+    "assets/gfx/cars/c01_06.json": "88788638c9c5480611fe0b528238a1e6ecf759deb21d8dc47e56433cc65a3020",
+    "assets/gfx/cars/c01_06.png": "46dd686341167c62b3a67fedfcd873905ad63a8a7bbdda1f8801b9091fe57a70",
+    "assets/gfx/cars/c01_07.json": "8ecdc86150c17c0e2bdad6a77110258b449f304dfe59c8014b77c4c89728be61",
+    "assets/gfx/cars/c01_07.png": "1dc3ac923fab365b7d20d3b69d7ae498c79c747866b111aa169e74159c87d087",
+    "assets/gfx/cars/c01_08.json": "57108592da408dad349a4726bb06019ce64d7b51a877181ef8dc3d4256d3f7bd",
+    "assets/gfx/cars/c01_08.png": "0a9692e55ac2f501933dc739e6c7c29c03eca407d6de41f1afd9cb6b93eb7cc7",
+    "assets/gfx/cars/c02_01.json": "f1571c656e0a62ffae4d561159dc639767335f3623c34f778f9d8f2e5232a6d5",
+    "assets/gfx/cars/c02_01.png": "bb6d7f3f5e56975516cc87e33d4553732aab9ba1c32f26b42574076407795bed",
+    "assets/gfx/cars/c02_02.json": "7093295ce187b5e33df6c28be41beac4c260d6b46947cce354542f7dc122a6ec",
+    "assets/gfx/cars/c02_02.png": "3098da06250629f4dddd0ac3fbedaaa4cc62de540a52b828f2b96d86e7b3f6c8",
+    "assets/gfx/cars/c02_03.json": "75393ed62436abe3946baa44fbeae3332c32207c342a3577c9abc25eedbbb91c",
+    "assets/gfx/cars/c02_03.png": "129c76525da305964990353ed7033118daccd44ad875199c5f708791c5d55048",
+    "assets/gfx/cars/c02_04.json": "466234afac3fa87c92eef30202bf4e77d3e8247d1aa637155785435fbc2feb61",
+    "assets/gfx/cars/c02_04.png": "20fe7865c9f62def53a625871734e004ff9ea941fbf5b2876b945d17ed1a0cf5",
+    "assets/gfx/cars/c02_05.json": "40d7afe553bb749c9e80413012a24ebadbb3e6f81f723538996492e47295d7ae",
+    "assets/gfx/cars/c02_05.png": "fe7dd389577e3cdee3887c9b5ad4c00a0a4af85c8ac4e9dc8605587efaefc645",
+    "assets/gfx/cars/c02_06.json": "dd746f2887dca721c77d3b1a159768d0769f1ac9511688441a3269626ac4082d",
+    "assets/gfx/cars/c02_06.png": "088ded7e34236ea38985524c4fa2b9f6bc6a0ca54a464014935412e93cfe049d",
+    "assets/gfx/cars/c02_07.json": "bd94719a515d28f866ef5aa0ec22b5706f3a0445f92b1c8c97503cc0a90e4964",
+    "assets/gfx/cars/c02_07.png": "f18fdd004e60c14320ab5d6dff49a70c2e3e6f3ce316cebba0e3393e7414a2de",
+    "assets/gfx/cars/c02_08.json": "6af30ca0b26b74ae680324be14a245418d55f29cfb5a0257be36022e1ebf50f3",
+    "assets/gfx/cars/c02_08.png": "ee0a5fd58246c9d3f124c87314a76268660b5d5f6bca7a575c9f70503d6a7203",
+    "assets/gfx/cars/c03_01.json": "239698699d570d9c9a3f8f8583d01f46541e906b3048d5b1057b2fb2bdc0f4b8",
+    "assets/gfx/cars/c03_01.png": "77d64b7561b6236ae1e7c8c6a3f6c0e9d18536d099d2e1be40c2fcd8d39a8f1e",
+    "assets/gfx/cars/c03_02.json": "9d70e48b4cc12807849852d88852d60606c0290b94bc0ce71176ac68590cfa03",
+    "assets/gfx/cars/c03_02.png": "77f5b353e1c9cd061fc1f8a00f5151b80118fb148583c164399fc55091a11a71",
+    "assets/gfx/cars/c03_03.json": "9d095c5966bd43f5849a4235cebf2d11a682fcb08f6c32f6cb5152fc37a527c9",
+    "assets/gfx/cars/c03_03.png": "c428ef9f2d6e3398700b01efe7e899494da44031133f9e469631d683bc06cd86",
+    "assets/gfx/cars/c03_04.json": "9f8b0ae2029d6332aeee2d56e4fc7c6ea0e939fb4ccac62f988a0d4971b26b23",
+    "assets/gfx/cars/c03_04.png": "ca7de1a6b78b063a3c5cda7c98acd263bf8637d3ee3490ee213daa80e0c8e45c",
+    "assets/gfx/cars/c03_05.json": "d4b1922df9dc3f4fc9982bc1a5b9860ae810a5e2113c97b37da97346e72f7f25",
+    "assets/gfx/cars/c03_05.png": "da70e80506c7c1f618d9b19d2b9cd6d900092ff082f793009f2304aa175477d6",
+    "assets/gfx/cars/c03_06.json": "57ad3e8e27f94bb7ba38034a40d37ffd5a8d615bb1cd23d7d94e85bfd2f5c749",
+    "assets/gfx/cars/c03_06.png": "2c7bf5d8fc400174c354a02af91c834e4d769e89f984070b0efc778b44912c5b",
+    "assets/gfx/cars/c03_07.json": "4b661e92ea14586be7e9f53c0097e121b9ec3317074b162576b667da06a4fd24",
+    "assets/gfx/cars/c03_07.png": "07bcc49e4db1a6a7d7918316c273ab01094c534abc2db3a06de76c6fb6b98b5a",
+    "assets/gfx/cars/c03_08.json": "a7f183cd4a11f44e0b7e4eb8aa6108fc41c32ed4cc075d071a768cc9fc6de2db",
+    "assets/gfx/cars/c03_08.png": "0d5ffc5561c2019adce943c4c1f58c584be2d67239a296bd365fbd5637754d6e",
+    "assets/gfx/cars/c04_01.json": "579dc913874428251e03dde453659501149a0ccadd1f2b328b35b67f67df29b5",
+    "assets/gfx/cars/c04_01.png": "37746799a079a9965384b43f6eb0595920145f4980e190d57f620bc87902c7a9",
+    "assets/gfx/cars/c04_02.json": "39316f2f3ea93eb7131d8724dfbe133cb9e373a2663b6dc05b72bf4204f14836",
+    "assets/gfx/cars/c04_02.png": "8b538c4fdb8b8a62b7cb2463030be056a7215055bdff9283a960bf7494fc9c6a",
+    "assets/gfx/cars/c04_03.json": "e214b7a324f11d9f83cbff405581a2a45b9bf34575eb4925fa64c9d54910ec18",
+    "assets/gfx/cars/c04_03.png": "fd2db826f1f7cb1a5f9873af66076a35768b8bff518fd6719ed2b485772563b7",
+    "assets/gfx/cars/c04_04.json": "ffb1940feec0b299f678b4b0112c50b321842bfdcfc07797d7d40d2c5689371d",
+    "assets/gfx/cars/c04_04.png": "28dff66b10484668ecc86051f567c9200efc5c8d5e92180ca4ac091e46b0c756",
+    "assets/gfx/cars/c04_05.json": "554ca7be43a278da4dabef163bbb7e2cdf673e79b54ed2eb07bffb3f96fba6fc",
+    "assets/gfx/cars/c04_05.png": "5071725e74a05f0a38fd8cf87832c51b005d38716a7e8c1a8453371181566981",
+    "assets/gfx/cars/c04_06.json": "145b4318aec09f7b4b5b5f69e678f387a43775a17703f936b96433468fe5a440",
+    "assets/gfx/cars/c04_06.png": "a074e876ebb4b3c55afc0e6ac2adc4f5368abc6ad60c12bba45cf2fbd6837958",
+    "assets/gfx/cars/c04_07.json": "2c640347cc8c41b7cc87facdc785225757843d0c532a42223d34859c4cf63f8f",
+    "assets/gfx/cars/c04_07.png": "9ced5b95b6dfadd8074e67855df0467edc431c9aeedcfc19ac82ffd83be570c9",
+    "assets/gfx/cars/c04_08.json": "5f49095353e823dda17a58698cab15d1235aa3891d97105fe2603aa247c324e0",
+    "assets/gfx/cars/c04_08.png": "9faf5bb4e2c7c22d55f63cc52b8936ebed5d4cec54239b4ec8570138b1df8920",
+    "assets/gfx/dealer/dealer.json": "0b1b7944376e157d6abdf078ee2e6c0f70d28cffbd1682dc27bf11e14e5f7ac6",
+    "assets/gfx/dealer/dealer.png": "b36ac477ea1bba7ba56ec17aba8d924b54e4fe2100c8afd6d7be2ffc06c2ef1b",
+    "assets/gfx/dealer/dealer_showroom.png": "372a9b8bbf98a6969525e1130e63c3ef8eecae9c5c6ddb95265de93895021fdb",
+    "assets/gfx/dealer/dealer_sky.jpg": "9322fe9bc0f42da0bae1f4f6fe5844d2fdaf48c0e193b58f84461fc7e25101f2",
+    "assets/gfx/game/enviro1.json": "0a130aeef46b08c2ff4f8bbdd922d63ab2d26e5280fce77d928342bce3b60050",
+    "assets/gfx/game/enviro1.png": "a8b0e2270d5a004640aa136c761248f70d57928552e6a722ec9e387ff27df3f2",
+    "assets/gfx/game/enviro2.json": "0f90c6ad0331348a6af73e0802e72ab7b22696d3e9b317f7f58c4ce0afce6a14",
+    "assets/gfx/game/enviro2.png": "66af842c762f809d826e9c7068f0a1fda22d4bcbe2888406278db70bfa079d17",
+    "assets/gfx/game/enviro3.json": "3464806dbc916ba421bf2a3a8a894faf19087bf9ff6cbc99ad9d31cbe478967c",
+    "assets/gfx/game/enviro3.png": "9f0f7448da4d05b83d8aa3512a9d7d44933a7b776d69bd00f977ec800409e733",
+    "assets/gfx/game/enviro4.json": "35d7edaadca202a7b9dfac49fd270cc63f5cdc3e06c64ed99729bd4eec496b0c",
+    "assets/gfx/game/enviro4.png": "72fbc299270b1b225639da0880b8c38573ba9d56095bee0078e408ce2e1b5355",
+    "assets/gfx/game/game.json": "fc1cf94a49f6e05d64df0935bd31c8b9106954e9adefa800f1762dc3accde091",
+    "assets/gfx/game/game.png": "43fbeb8b37398db7b7646c3eaeb369fe55d7a888cce7d564de232e6d442c6c5c",
+    "assets/gfx/game/pak.json": "4502f95a9c88db8f98be2c1afe73cb19f0cbec6daed130ad61304fe7cae19fcf",
+    "assets/gfx/game/pak.png": "65a40ef6c098626a1e2e6148df90b15dd7b0c91c12dacc20816c028c8e88dc28",
+    "assets/gfx/garage/garage.json": "9b580ef71b79141d5379552c2196e027ef5e5d055ae996c4eab14f3c88798d48",
+    "assets/gfx/garage/garage.png": "7219f2565ebe307dc910f768d01cba70e3e0e86879019cbdbef1fe7713cf725c",
+    "assets/gfx/garage/g_exterier_1.jpg": "1a5e09076300f2e8231f37eadba08d86f99cc02e858ca19330e212d9fddf54e9",
+    "assets/gfx/garage/g_interier_1.png": "22df656f19fccb75fa810bfe1641ce8650603d2dfe6afb9447d81049dc02c023",
+    "assets/gfx/map/bg_map_1.jpg": "c196a4472ccaebfde950d006884bbd9efaa514cc0bfb44341d73d55faa3f1d78",
+    "assets/gfx/map/bg_map_2.jpg": "fec220efde9d164970021b301c25ee289494754fde495acaf1c67c655760535d",
+    "assets/gfx/map/bg_map_3.jpg": "aa32b3d2abaa2e0df3689f55a315b149fe1eb2af81a837da882b2251e6f7913c",
+    "assets/gfx/map/bg_map_4.jpg": "863b475b8f73d3a6cd0e249dce0d15ae6004b7fa55b57c2efe7e3b8bd80c23af",
+    "assets/gfx/map/map.json": "f253f9ac7e8b860424b12b600ec477936d8d8f7522a8527871686130bdf75499",
+    "assets/gfx/map/map.png": "1405bd43f68865cf60d7d880030c3af17274cbddbc685805439f9abf2e830e6f"
+  },
+  "status_at_archive": "review",
+  "ui_checkpoints": 5,
+  "site_readback": {
+    "at": "2026-11-18T22:09:04.198282+00:00",
+    "version_id": "v-7b324e8d0879",
+    "job_id": "job-9717c83dc76e",
+    "status": "review",
+    "cover": "http://127.0.0.1:8766/play/artifact-501ec05a51e4/screenshots/000-cover.png",
+    "sixteen_section_content_exact": true,
+    "runtime_files": [
+      {
+        "path": "assets/audio/button.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.289423+00:00",
+        "http": 200,
+        "sha256": "6f8059df2eb33a69a285ddb071da5b141a5acb7486bbf26456781acccc5c68f6",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/button.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.311815+00:00",
+        "http": 200,
+        "sha256": "9db5de72e682ba19d8db2e3b4d9368ab1cbcef5c924697290faa51c847537317",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/engine1.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.312062+00:00",
+        "http": 200,
+        "sha256": "15f44487b99051730c870f114dfe8533a7f66e0fa18fa06391770edaef9e6063",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/engine1.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.385992+00:00",
+        "http": 200,
+        "sha256": "cc63984addae66871f0673e19cb913ed32cf631fdd37102f33635d0dde9bdb75",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/engine2.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.388648+00:00",
+        "http": 200,
+        "sha256": "78ed099f6239d7fd3292aeb670e7d306599405b52190df3c723f027112796599",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/engine2.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.424888+00:00",
+        "http": 200,
+        "sha256": "3db488313b04c681524b2c47452b75308dbe68f8cbbc636e96a9d983bf479033",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/engine3.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.495051+00:00",
+        "http": 200,
+        "sha256": "abcf6921007b43f24cf5459ae61635c94ef2efe01b04a8ec8af61c4459e3ad6f",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/engine3.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.507605+00:00",
+        "http": 200,
+        "sha256": "df9e4766167080ab72e0b14e36324d45a8e0e286d85475ee90b193161b2b2090",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/engine4.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.515032+00:00",
+        "http": 200,
+        "sha256": "89f00927a63ec0fa63ca878d5d48bdbd84032ba5de8ef451a576ef3299aeb3a2",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/engine4.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.585957+00:00",
+        "http": 200,
+        "sha256": "c8ad4cfbc3d032798b51c3baabf92b35d25769177e39bd5413471a9d9339008e",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/engine5.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.607629+00:00",
+        "http": 200,
+        "sha256": "1e3161e3f7f5e2e06bcc44c1e7b68be93b4f9d6a97bde133fc99579ddf84570e",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/engine5.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.635025+00:00",
+        "http": 200,
+        "sha256": "06795ac7be7012c7337ef43f884abaeb7ef11984711f6b58c59c4521529d4ebe",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/engine6.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.680606+00:00",
+        "http": 200,
+        "sha256": "1f066f024af1a9dde7a2e53605a7e57506f8cfa24daf97421db2d5a8c4455cd4",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/engine6.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.691393+00:00",
+        "http": 200,
+        "sha256": "f4c97e5a88ef0e3ebc2403f9e24cd63b23abcbca72bf247881b895cec2aa9dae",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/engine7.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.712720+00:00",
+        "http": 200,
+        "sha256": "3b1015797c0c5143d98de66b51a900c7e74d614ded9cf60da7445dfe3529ca49",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/engine7.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.744374+00:00",
+        "http": 200,
+        "sha256": "d62afbc37454bb91e16b2a5d9d99051d6291b3a116be7a3f58d54c80edbcdb5b",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/engine8.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.763978+00:00",
+        "http": 200,
+        "sha256": "b2ad4cc74b8f5b78adab88c4e0b17aa0d2a3437b62229680841784ef646ab203",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/engine8.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.765619+00:00",
+        "http": 200,
+        "sha256": "7adfc4036ea86d7be207fb82ce9d0bbf8ec634aa2b5f4172634f77520dd601d4",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/engine9.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.829604+00:00",
+        "http": 200,
+        "sha256": "ea4dd82971f8890fc00cf468af4e1b9b3bb3bcf7351de6caf45198c2f991fe3c",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/engine9.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.856317+00:00",
+        "http": 200,
+        "sha256": "091b18c20899e2e65bf767370505bfbb183f31028ec08d72924562d332f87f73",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/engineT1.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.859947+00:00",
+        "http": 200,
+        "sha256": "0241ee5ad9a30ef98d889bd41842c3aa0f9c2e8541bfd7ed591792295c762ad9",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/engineT1.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.893476+00:00",
+        "http": 200,
+        "sha256": "7edc3416f9fed6467a9338ec9f073de963a815970e92c963984e7aa474533163",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/engineT3.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.919159+00:00",
+        "http": 200,
+        "sha256": "49caefbe3d40486d080e4bca706ef0b67a629b567838c8d350fc08b400b5c0e7",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/engineT3.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.925421+00:00",
+        "http": 200,
+        "sha256": "6835d5f19683e427454674ddfb31252f7483021688831e10c6c194a4b239fddd",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/engineV8.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.964701+00:00",
+        "http": 200,
+        "sha256": "c726f9b93dd17c5c0ffcc1aa205f615b81bbdeac77c4ba4082fbe6eb0dd75b37",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/engineV8.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.973710+00:00",
+        "http": 200,
+        "sha256": "e2b4dc3057d78431801d9c4bacbc39c7255dbdec2cc10c04b09b3e947b548471",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/gearChange.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:56.975294+00:00",
+        "http": 200,
+        "sha256": "e03cfebbcb7b6e56de11ada060810de961bc41ce7e3d8fcd08fae11b86f3df4c",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/gearChange.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.039315+00:00",
+        "http": 200,
+        "sha256": "3dd268cb5a0a6ee1991ed89046ef0dbfe5659f0274eea15854ad2f387f2ec762",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/kaching.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.058183+00:00",
+        "http": 200,
+        "sha256": "e8e3afafc1a80d83f268348c4f5019a7e4417a08021d7c4ec9092f187713036d",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/kaching.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.059240+00:00",
+        "http": 200,
+        "sha256": "8478941244999cc9f3a2ac47e2903a95b0ad72220fc4f017060f922a617cea5c",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/music_game.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.077976+00:00",
+        "http": 200,
+        "sha256": "2f1d50013d762075d6c5f01be6d82d1fa26e9195f136177e89c42e9374123366",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/music_game.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.122866+00:00",
+        "http": 200,
+        "sha256": "32d3b92895ca8e8e884ebde297a183a3df3173888039dd73e2a47c3145db0ce1",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/music_menu.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.134173+00:00",
+        "http": 200,
+        "sha256": "0bafbca68805e23e6e51721b69da4649690dcf9f1fa5e181fd39eed1db035828",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/music_menu.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.360331+00:00",
+        "http": 200,
+        "sha256": "1333823a27ceb3596d666592984596b6004bfe6c74a398d92805ee8befe9aab9",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/nitroLoop.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.380036+00:00",
+        "http": 200,
+        "sha256": "8e5000cf0a939b56f17548d70b297b902348ff095bdbb93830986d409569475a",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/nitroLoop.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.380622+00:00",
+        "http": 200,
+        "sha256": "92edf6f61463af405ec7499ab4e99bca59cb4e438911373121ec652928a94a6d",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/nitroStart.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.452143+00:00",
+        "http": 200,
+        "sha256": "26de7886966c560957b762a31cdc6869fd7c8e6984bfb9323726378f50c7066a",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/nitroStart.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.467614+00:00",
+        "http": 200,
+        "sha256": "0cbfd2a227cdbf8d1fdda70853ec00502a972558a4375035fb11b90fd3627bb3",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/not_enough_money.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.503584+00:00",
+        "http": 200,
+        "sha256": "ee12445457a2933641f989e28c8691f96a7590181ff48c6c46be0585953b604d",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/not_enough_money.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.508514+00:00",
+        "http": 200,
+        "sha256": "537a23e2147c0021d0c4aedbd904e8e71f7ca1aa2ca0da7ce26dabdca17a35e8",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/paint.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.557257+00:00",
+        "http": 200,
+        "sha256": "aa14f8e302337b453b2e3e55843c86f37a56281aef24a393a07189250f2c9e22",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/paint.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.557586+00:00",
+        "http": 200,
+        "sha256": "1d078af84291e744dc3b69fb2f3e045e6c6355063a0f079652adef6c87b91cb2",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/paintSelect.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.569054+00:00",
+        "http": 200,
+        "sha256": "302a299cd89126647f5272fb17e24def8c9f4bda3d77943f565b858a7407b6e2",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/paintSelect.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.609780+00:00",
+        "http": 200,
+        "sha256": "ed9c7ac5d219295f6bc901e22d7be2a63f72c3fa326b823a7af292f7f5bd48a6",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/skid.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.621537+00:00",
+        "http": 200,
+        "sha256": "532606e1d5d73d5074d0beee62fd58253addd0ec77af77ac527faa93f72e069f",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/skid.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.644267+00:00",
+        "http": 200,
+        "sha256": "f991525a2a5dc0df4cb8cad5316c1637872c25a264026805f1df8f1b01332c8d",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/upgrade.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.696500+00:00",
+        "http": 200,
+        "sha256": "abe92827a0587ed143f0845c07f04097f44af4d644a1bb1c83e37e817a7d663e",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/upgrade.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.696656+00:00",
+        "http": 200,
+        "sha256": "df31537fedbbcda7759e9bce1a63c949a3839316d892cf686f818e35bff7a750",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/upgrade_neon.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.756663+00:00",
+        "http": 200,
+        "sha256": "c5aa574ee4df98502c7caafb92c39ed1275aca1a9b2c7b888cc52059d09bcc27",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/upgrade_neon.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.759861+00:00",
+        "http": 200,
+        "sha256": "9473e626b8977c06c474cf42711aef9574d21cb289acc12cdd51b04bc3f96546",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/upgrade_wheels.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.804706+00:00",
+        "http": 200,
+        "sha256": "ef02e86fb346985383bc1827a90d44ed2368416222e10cbae8c2ab342a86bb22",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/upgrade_wheels.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.821873+00:00",
+        "http": 200,
+        "sha256": "d0b97a49b2540731c391269a7ed097292b11b0845de5c16a72cef97d705b7398",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/whoosh.mp3",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.882333+00:00",
+        "http": 200,
+        "sha256": "21ef7c9d9ab98629b5646dfe39173a318c3081e6f01432b83cbcd2d089f1be60",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/whoosh.ogg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.886553+00:00",
+        "http": 200,
+        "sha256": "89ea3d33d0dc0b65e623bff06c1fdd890c39eabbd677582a29e407d156cac9b3",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/dat/m.isr",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.966068+00:00",
+        "http": 200,
+        "sha256": "ba638ea5c05e971274fe6448bdf44dd870c073683b4d96ac67a5a66c18d98405",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/favicon/icon-144x144.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:57.969138+00:00",
+        "http": 200,
+        "sha256": "f7158d4e038fa77d11faf1f6760e8a65cfcf4ac17ba5fa1b16a4e085cca5474b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/favicon/icon-152x152.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.039650+00:00",
+        "http": 200,
+        "sha256": "f1d88260f7e52cb5c79cf7fe70a546949747151d214ff740cdc39e1db8d46785",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/favicon/icon-192x192.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.057811+00:00",
+        "http": 200,
+        "sha256": "d5ca4bfee1e8700096acba8502720ba866d690154f9e3b2aef34ccb62bc5fd8b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/favicon/icon-36x36.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.065863+00:00",
+        "http": 200,
+        "sha256": "e3bb3186bcd8af6ee46b3781efd8963f1124f2203d371fabdccd6916e59d5267",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/favicon/icon-48x48.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.112463+00:00",
+        "http": 200,
+        "sha256": "4d9fc290f17538eb6cd471a7d762a90ffc3bfebaa1b399beade9e8f9b1f68921",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/favicon/icon-512x512.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.130978+00:00",
+        "http": 200,
+        "sha256": "1f2da1b4f337b3c317ccc1e676bafef42739a964bf22cb339da7f7690a924669",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/favicon/icon-72x72.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.135675+00:00",
+        "http": 200,
+        "sha256": "fca10385d6d4c1af1c82790116a688ac770ae8730ad93f2f992be55d9ff5a0c6",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/favicon/icon-96x96.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.161499+00:00",
+        "http": 200,
+        "sha256": "7a29808528a3d3639f91955508f640112dad9f99b5a97ab6f9df3bf8b1f7bb45",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/fnt/gamefont.ttf",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.196947+00:00",
+        "http": 200,
+        "sha256": "fcb1113f266fce091a68fa754a9c6e97bb2fd9f050f99ae3760106e4838246d9",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/fnt/menufont.ttf",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.224928+00:00",
+        "http": 200,
+        "sha256": "4463a5eeeb1290f16f930c40847679998d84727c5dd26fac147fcd1d671db571",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/gfx/cars/c01_01.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.243852+00:00",
+        "http": 200,
+        "sha256": "ae5f14b0ad834681847cb88630136f580d8b9f7320ebda818ad095610042c3ed",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c01_01.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.276169+00:00",
+        "http": 200,
+        "sha256": "5324c7963cdb93d33600680f78585418fe55493d30e6558eec4fba57eeb7e5e0",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c01_02.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.359854+00:00",
+        "http": 200,
+        "sha256": "a202620de035b4a75810b67001b29af7ed99dd1de3ec442a47802f034bd3ceca",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c01_02.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.479392+00:00",
+        "http": 200,
+        "sha256": "19e5e4ba9c88fd9cbd449d35b409e18114932e0b83cf420e6b9b307c97ae1b53",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c01_03.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.481916+00:00",
+        "http": 200,
+        "sha256": "ca0785e985c06efbb80d760b9da89ed193137f495bb33aa706f041ddc5a21749",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c01_03.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.488075+00:00",
+        "http": 200,
+        "sha256": "a4dd35cc89157da9fb4640c6d334e466801ccff44dc503015d276d5a340163cb",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c01_04.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.567817+00:00",
+        "http": 200,
+        "sha256": "b6c73d8df841be6d4172611535adb40bbc2f734887c85e0fffbffd21ded06cfd",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c01_04.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.580215+00:00",
+        "http": 200,
+        "sha256": "85e48b41ef3eea6d455e83ccacc4075554987311a54120e2e7db8e60a554f24f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c01_05.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.631635+00:00",
+        "http": 200,
+        "sha256": "d4cbecaa134c9dddd9e661a4f32a77ff8419c83678f11690c7e3cfb5fe10ae54",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c01_05.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.634651+00:00",
+        "http": 200,
+        "sha256": "a558e0080d38d8fff0518a5b8d746a4667e4ae8c0a6be5b131df610d5f4e4a1a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c01_06.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.682072+00:00",
+        "http": 200,
+        "sha256": "88788638c9c5480611fe0b528238a1e6ecf759deb21d8dc47e56433cc65a3020",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c01_06.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.696434+00:00",
+        "http": 200,
+        "sha256": "46dd686341167c62b3a67fedfcd873905ad63a8a7bbdda1f8801b9091fe57a70",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c01_07.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.739233+00:00",
+        "http": 200,
+        "sha256": "8ecdc86150c17c0e2bdad6a77110258b449f304dfe59c8014b77c4c89728be61",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c01_07.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.744223+00:00",
+        "http": 200,
+        "sha256": "1dc3ac923fab365b7d20d3b69d7ae498c79c747866b111aa169e74159c87d087",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c01_08.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.793570+00:00",
+        "http": 200,
+        "sha256": "57108592da408dad349a4726bb06019ce64d7b51a877181ef8dc3d4256d3f7bd",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c01_08.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.820669+00:00",
+        "http": 200,
+        "sha256": "0a9692e55ac2f501933dc739e6c7c29c03eca407d6de41f1afd9cb6b93eb7cc7",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c02_01.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.839709+00:00",
+        "http": 200,
+        "sha256": "f1571c656e0a62ffae4d561159dc639767335f3623c34f778f9d8f2e5232a6d5",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c02_01.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.874708+00:00",
+        "http": 200,
+        "sha256": "bb6d7f3f5e56975516cc87e33d4553732aab9ba1c32f26b42574076407795bed",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c02_02.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.884125+00:00",
+        "http": 200,
+        "sha256": "7093295ce187b5e33df6c28be41beac4c260d6b46947cce354542f7dc122a6ec",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c02_02.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.906124+00:00",
+        "http": 200,
+        "sha256": "3098da06250629f4dddd0ac3fbedaaa4cc62de540a52b828f2b96d86e7b3f6c8",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c02_03.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.940977+00:00",
+        "http": 200,
+        "sha256": "75393ed62436abe3946baa44fbeae3332c32207c342a3577c9abc25eedbbb91c",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c02_03.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:58.943103+00:00",
+        "http": 200,
+        "sha256": "129c76525da305964990353ed7033118daccd44ad875199c5f708791c5d55048",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c02_04.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.009931+00:00",
+        "http": 200,
+        "sha256": "466234afac3fa87c92eef30202bf4e77d3e8247d1aa637155785435fbc2feb61",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c02_04.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.021982+00:00",
+        "http": 200,
+        "sha256": "20fe7865c9f62def53a625871734e004ff9ea941fbf5b2876b945d17ed1a0cf5",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c02_05.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.031760+00:00",
+        "http": 200,
+        "sha256": "40d7afe553bb749c9e80413012a24ebadbb3e6f81f723538996492e47295d7ae",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c02_05.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.079463+00:00",
+        "http": 200,
+        "sha256": "fe7dd389577e3cdee3887c9b5ad4c00a0a4af85c8ac4e9dc8605587efaefc645",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c02_06.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.100686+00:00",
+        "http": 200,
+        "sha256": "dd746f2887dca721c77d3b1a159768d0769f1ac9511688441a3269626ac4082d",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c02_06.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.118530+00:00",
+        "http": 200,
+        "sha256": "088ded7e34236ea38985524c4fa2b9f6bc6a0ca54a464014935412e93cfe049d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c02_07.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.166515+00:00",
+        "http": 200,
+        "sha256": "bd94719a515d28f866ef5aa0ec22b5706f3a0445f92b1c8c97503cc0a90e4964",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c02_07.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.179099+00:00",
+        "http": 200,
+        "sha256": "f18fdd004e60c14320ab5d6dff49a70c2e3e6f3ce316cebba0e3393e7414a2de",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c02_08.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.233043+00:00",
+        "http": 200,
+        "sha256": "6af30ca0b26b74ae680324be14a245418d55f29cfb5a0257be36022e1ebf50f3",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c02_08.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.280484+00:00",
+        "http": 200,
+        "sha256": "ee0a5fd58246c9d3f124c87314a76268660b5d5f6bca7a575c9f70503d6a7203",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c03_01.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.280653+00:00",
+        "http": 200,
+        "sha256": "239698699d570d9c9a3f8f8583d01f46541e906b3048d5b1057b2fb2bdc0f4b8",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c03_01.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.347305+00:00",
+        "http": 200,
+        "sha256": "77d64b7561b6236ae1e7c8c6a3f6c0e9d18536d099d2e1be40c2fcd8d39a8f1e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c03_02.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.353010+00:00",
+        "http": 200,
+        "sha256": "9d70e48b4cc12807849852d88852d60606c0290b94bc0ce71176ac68590cfa03",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c03_02.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.406586+00:00",
+        "http": 200,
+        "sha256": "77f5b353e1c9cd061fc1f8a00f5151b80118fb148583c164399fc55091a11a71",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c03_03.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.448640+00:00",
+        "http": 200,
+        "sha256": "9d095c5966bd43f5849a4235cebf2d11a682fcb08f6c32f6cb5152fc37a527c9",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c03_03.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.452356+00:00",
+        "http": 200,
+        "sha256": "c428ef9f2d6e3398700b01efe7e899494da44031133f9e469631d683bc06cd86",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c03_04.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.537635+00:00",
+        "http": 200,
+        "sha256": "9f8b0ae2029d6332aeee2d56e4fc7c6ea0e939fb4ccac62f988a0d4971b26b23",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c03_04.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.591342+00:00",
+        "http": 200,
+        "sha256": "ca7de1a6b78b063a3c5cda7c98acd263bf8637d3ee3490ee213daa80e0c8e45c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c03_05.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.660328+00:00",
+        "http": 200,
+        "sha256": "d4b1922df9dc3f4fc9982bc1a5b9860ae810a5e2113c97b37da97346e72f7f25",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c03_05.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.675585+00:00",
+        "http": 200,
+        "sha256": "da70e80506c7c1f618d9b19d2b9cd6d900092ff082f793009f2304aa175477d6",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c03_06.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.718427+00:00",
+        "http": 200,
+        "sha256": "57ad3e8e27f94bb7ba38034a40d37ffd5a8d615bb1cd23d7d94e85bfd2f5c749",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c03_06.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.760857+00:00",
+        "http": 200,
+        "sha256": "2c7bf5d8fc400174c354a02af91c834e4d769e89f984070b0efc778b44912c5b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c03_07.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.773725+00:00",
+        "http": 200,
+        "sha256": "4b661e92ea14586be7e9f53c0097e121b9ec3317074b162576b667da06a4fd24",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c03_07.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.784687+00:00",
+        "http": 200,
+        "sha256": "07bcc49e4db1a6a7d7918316c273ab01094c534abc2db3a06de76c6fb6b98b5a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c03_08.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.838262+00:00",
+        "http": 200,
+        "sha256": "a7f183cd4a11f44e0b7e4eb8aa6108fc41c32ed4cc075d071a768cc9fc6de2db",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c03_08.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.852393+00:00",
+        "http": 200,
+        "sha256": "0d5ffc5561c2019adce943c4c1f58c584be2d67239a296bd365fbd5637754d6e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c04_01.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.877225+00:00",
+        "http": 200,
+        "sha256": "579dc913874428251e03dde453659501149a0ccadd1f2b328b35b67f67df29b5",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c04_01.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.888582+00:00",
+        "http": 200,
+        "sha256": "37746799a079a9965384b43f6eb0595920145f4980e190d57f620bc87902c7a9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c04_02.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.916059+00:00",
+        "http": 200,
+        "sha256": "39316f2f3ea93eb7131d8724dfbe133cb9e373a2663b6dc05b72bf4204f14836",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c04_02.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.930677+00:00",
+        "http": 200,
+        "sha256": "8b538c4fdb8b8a62b7cb2463030be056a7215055bdff9283a960bf7494fc9c6a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c04_03.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.969070+00:00",
+        "http": 200,
+        "sha256": "e214b7a324f11d9f83cbff405581a2a45b9bf34575eb4925fa64c9d54910ec18",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c04_03.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:08:59.979489+00:00",
+        "http": 200,
+        "sha256": "fd2db826f1f7cb1a5f9873af66076a35768b8bff518fd6719ed2b485772563b7",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c04_04.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.087279+00:00",
+        "http": 200,
+        "sha256": "ffb1940feec0b299f678b4b0112c50b321842bfdcfc07797d7d40d2c5689371d",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c04_04.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.116549+00:00",
+        "http": 200,
+        "sha256": "28dff66b10484668ecc86051f567c9200efc5c8d5e92180ca4ac091e46b0c756",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c04_05.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.118077+00:00",
+        "http": 200,
+        "sha256": "554ca7be43a278da4dabef163bbb7e2cdf673e79b54ed2eb07bffb3f96fba6fc",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c04_05.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.171269+00:00",
+        "http": 200,
+        "sha256": "5071725e74a05f0a38fd8cf87832c51b005d38716a7e8c1a8453371181566981",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c04_06.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.317219+00:00",
+        "http": 200,
+        "sha256": "145b4318aec09f7b4b5b5f69e678f387a43775a17703f936b96433468fe5a440",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c04_06.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.321571+00:00",
+        "http": 200,
+        "sha256": "a074e876ebb4b3c55afc0e6ac2adc4f5368abc6ad60c12bba45cf2fbd6837958",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c04_07.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.452704+00:00",
+        "http": 200,
+        "sha256": "2c640347cc8c41b7cc87facdc785225757843d0c532a42223d34859c4cf63f8f",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c04_07.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.487257+00:00",
+        "http": 200,
+        "sha256": "9ced5b95b6dfadd8074e67855df0467edc431c9aeedcfc19ac82ffd83be570c9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/cars/c04_08.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.493291+00:00",
+        "http": 200,
+        "sha256": "5f49095353e823dda17a58698cab15d1235aa3891d97105fe2603aa247c324e0",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/cars/c04_08.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.511949+00:00",
+        "http": 200,
+        "sha256": "9faf5bb4e2c7c22d55f63cc52b8936ebed5d4cec54239b4ec8570138b1df8920",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/dealer/dealer.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.550956+00:00",
+        "http": 200,
+        "sha256": "0b1b7944376e157d6abdf078ee2e6c0f70d28cffbd1682dc27bf11e14e5f7ac6",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/dealer/dealer.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.595818+00:00",
+        "http": 200,
+        "sha256": "b36ac477ea1bba7ba56ec17aba8d924b54e4fe2100c8afd6d7be2ffc06c2ef1b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/dealer/dealer_showroom.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.637114+00:00",
+        "http": 200,
+        "sha256": "372a9b8bbf98a6969525e1130e63c3ef8eecae9c5c6ddb95265de93895021fdb",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/dealer/dealer_sky.jpg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:00.663058+00:00",
+        "http": 200,
+        "sha256": "9322fe9bc0f42da0bae1f4f6fe5844d2fdaf48c0e193b58f84461fc7e25101f2",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "assets/gfx/game/enviro1.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:01.026382+00:00",
+        "http": 200,
+        "sha256": "0a130aeef46b08c2ff4f8bbdd922d63ab2d26e5280fce77d928342bce3b60050",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/game/enviro1.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.176834+00:00",
+        "http": 200,
+        "sha256": "a8b0e2270d5a004640aa136c761248f70d57928552e6a722ec9e387ff27df3f2",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/game/enviro2.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.329507+00:00",
+        "http": 200,
+        "sha256": "0f90c6ad0331348a6af73e0802e72ab7b22696d3e9b317f7f58c4ce0afce6a14",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/game/enviro2.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.384048+00:00",
+        "http": 200,
+        "sha256": "66af842c762f809d826e9c7068f0a1fda22d4bcbe2888406278db70bfa079d17",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/game/enviro3.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.399144+00:00",
+        "http": 200,
+        "sha256": "3464806dbc916ba421bf2a3a8a894faf19087bf9ff6cbc99ad9d31cbe478967c",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/game/enviro3.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.418315+00:00",
+        "http": 200,
+        "sha256": "9f0f7448da4d05b83d8aa3512a9d7d44933a7b776d69bd00f977ec800409e733",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/game/enviro4.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.490963+00:00",
+        "http": 200,
+        "sha256": "35d7edaadca202a7b9dfac49fd270cc63f5cdc3e06c64ed99729bd4eec496b0c",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/game/enviro4.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.600226+00:00",
+        "http": 200,
+        "sha256": "72fbc299270b1b225639da0880b8c38573ba9d56095bee0078e408ce2e1b5355",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/game/game.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.607061+00:00",
+        "http": 200,
+        "sha256": "fc1cf94a49f6e05d64df0935bd31c8b9106954e9adefa800f1762dc3accde091",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/game/game.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.616407+00:00",
+        "http": 200,
+        "sha256": "43fbeb8b37398db7b7646c3eaeb369fe55d7a888cce7d564de232e6d442c6c5c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/game/pak.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.721976+00:00",
+        "http": 200,
+        "sha256": "4502f95a9c88db8f98be2c1afe73cb19f0cbec6daed130ad61304fe7cae19fcf",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/game/pak.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.763452+00:00",
+        "http": 200,
+        "sha256": "65a40ef6c098626a1e2e6148df90b15dd7b0c91c12dacc20816c028c8e88dc28",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/garage/g_exterier_1.jpg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.787940+00:00",
+        "http": 200,
+        "sha256": "1a5e09076300f2e8231f37eadba08d86f99cc02e858ca19330e212d9fddf54e9",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "assets/gfx/garage/g_interier_1.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.825302+00:00",
+        "http": 200,
+        "sha256": "22df656f19fccb75fa810bfe1641ce8650603d2dfe6afb9447d81049dc02c023",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/garage/garage.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.867094+00:00",
+        "http": 200,
+        "sha256": "9b580ef71b79141d5379552c2196e027ef5e5d055ae996c4eab14f3c88798d48",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/garage/garage.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.900906+00:00",
+        "http": 200,
+        "sha256": "7219f2565ebe307dc910f768d01cba70e3e0e86879019cbdbef1fe7713cf725c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/inl_logo.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.933360+00:00",
+        "http": 200,
+        "sha256": "3c4a55734bb0f3870bdbe758f0cec980f74b6d9d763c55dc211ed710642606bd",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/map/bg_map_1.jpg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:02.946860+00:00",
+        "http": 200,
+        "sha256": "c196a4472ccaebfde950d006884bbd9efaa514cc0bfb44341d73d55faa3f1d78",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "assets/gfx/map/bg_map_2.jpg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.008562+00:00",
+        "http": 200,
+        "sha256": "fec220efde9d164970021b301c25ee289494754fde495acaf1c67c655760535d",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "assets/gfx/map/bg_map_3.jpg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.031217+00:00",
+        "http": 200,
+        "sha256": "aa32b3d2abaa2e0df3689f55a315b149fe1eb2af81a837da882b2251e6f7913c",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "assets/gfx/map/bg_map_4.jpg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.073748+00:00",
+        "http": 200,
+        "sha256": "863b475b8f73d3a6cd0e249dce0d15ae6004b7fa55b57c2efe7e3b8bd80c23af",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "assets/gfx/map/map.json",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.113466+00:00",
+        "http": 200,
+        "sha256": "f253f9ac7e8b860424b12b600ec477936d8d8f7522a8527871686130bdf75499",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/gfx/map/map.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.132318+00:00",
+        "http": 200,
+        "sha256": "1405bd43f68865cf60d7d880030c3af17274cbddbc685805439f9abf2e830e6f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/rotate_screen.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.194624+00:00",
+        "http": 200,
+        "sha256": "1b77c08548412de4d377450e4934796d3aa1373b429772b1691bcfaeed90cc56",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/gfx/splash.jpg",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.224272+00:00",
+        "http": 200,
+        "sha256": "6e85bd34076f313c4b581679f4b0a9357922be5d429d9b4b4f7bed80e01388f5",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "index.html",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.296097+00:00",
+        "http": 200,
+        "sha256": "5e4b13d38523787e74fe58e77f38afb49cf274c7bc09265be325fdaf5546ba1c",
+        "content_type": "text/html; charset=utf-8"
+      },
+      {
+        "path": "js/Libs/rexbbcodetextplugin.min.js",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.412528+00:00",
+        "http": 200,
+        "sha256": "6e6cb3261ff8cb2e7fa08ccde5f8275da53a4b707928a91a3ceb8e5f8b92ca6b",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/game.js",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.438231+00:00",
+        "http": 200,
+        "sha256": "76c392a304943987b1b1e74063fb7fe891e44208b18d6a2eee04a6e75920cae0",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "screenshots/001.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.491810+00:00",
+        "http": 200,
+        "sha256": "640e4729e01a874afbd06d524d8128b84c474e221aacd98b3d9617159e7e6f0e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/002.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.574651+00:00",
+        "http": 200,
+        "sha256": "966f34ac400c1f746abe8779b37404dd253e3bd5f67928a2205de485397abf2e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/003.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.651597+00:00",
+        "http": 200,
+        "sha256": "47aafb5da541436b95a2b71dc9a8c7959d37b62de81253d09829a3defae5dc2e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/004.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.696947+00:00",
+        "http": 200,
+        "sha256": "3b5c6cece16cfe44378256be6e70e39f6f498ffc1a37de3b738ef227d0c6dbf3",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/005.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.768713+00:00",
+        "http": 200,
+        "sha256": "a36af0b6b1d9a766b1b080c79844db1784a5dc9f63b6ad84deb3d613d242a494",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/000-cover.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.980856+00:00",
+        "http": 200,
+        "sha256": "a36af0b6b1d9a766b1b080c79844db1784a5dc9f63b6ad84deb3d613d242a494",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/101.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:03.996897+00:00",
+        "http": 200,
+        "sha256": "640e4729e01a874afbd06d524d8128b84c474e221aacd98b3d9617159e7e6f0e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/102.png",
+        "artifact_id": "artifact-501ec05a51e4",
+        "observed_at": "2026-11-18T22:09:04.028397+00:00",
+        "http": 200,
+        "sha256": "b410e1062758ac4e7d7eb4460854564d5f26c0bd1378fb1ba66effffabe485a1",
+        "content_type": "image/png"
+      }
+    ],
+    "all_runtime_and_screenshots_exact": true,
+    "index_csp": "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' http://192.168.56.52:8765",
+    "gameplay_UI_reexecuted": false,
+    "cumulative_UI_steps": 5,
+    "native_first_race_shift_verified": true,
+    "full_race_verified": false,
+    "tested_revision": "dragrace-offline-v2",
+    "delivery_revision": "dragrace-offline-v2",
+    "browser_exit_code": 0,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "CSP_source_compatibility": "161runtimefiles+8actualscreenshots exactHTTPSreadback; actualnativegameplay remotelytestedunder18865selfCSP, noaddedUIunderpublicsiteCSP."
+  },
+  "scope": "Exact normal-review offline game and real evidence. Raw input counts and historical failures remain explicit; no approval, supply, game-state changes or added testing."
+}

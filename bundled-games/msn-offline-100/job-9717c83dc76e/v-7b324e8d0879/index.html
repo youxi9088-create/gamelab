@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' blob:; media-src 'self' blob:; font-src 'self' data:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
+
+    <script>
+        window.addEventListener("load", function () {
+            function onTouchPreventDefault(event) {
+                event.preventDefault();
+            }
+            document.addEventListener("touchmove", onTouchPreventDefault, false);
+            document.addEventListener("touchstart", onTouchPreventDefault, false);}, false);
+    </script>
+
+    <style type="text/css">
+
+        @font-face {
+            font-family: 'gameFont';
+            src: url('assets/fnt/gamefont.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'menuFont';
+            src: url('assets/fnt/menufont.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+    </style>
+
+    <title>Drag Racing City</title>
+
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="icon" type="image/png" href="assets/favicon/icon-36x36.png" sizes="36x36">
+    <link rel="icon" type="image/png" href="assets/favicon/icon-48x48.png" sizes="48x48">
+    <link rel="icon" type="image/png" href="assets/favicon/icon-72x72.png" sizes="72x72">
+    <link rel="icon" type="image/png" href="assets/favicon/icon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="assets/favicon/icon-144x144.png" sizes="144x144">
+    <link rel="icon" type="image/png" href="assets/favicon/icon-152x152.png" sizes="152x152">
+    <link rel="icon" type="image/png" href="assets/favicon/icon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="assets/favicon/icon-512x512.png" sizes="512x512">
+
+    <link rel="apple-touch-icon" type="image/png" href="assets/favicon/icon-36x36.png" sizes="36x36">
+    <link rel="apple-touch-icon" type="image/png" href="assets/favicon/icon-48x48.png" sizes="48x48">
+    <link rel="apple-touch-icon" type="image/png" href="assets/favicon/icon-72x72.png" sizes="72x72">
+    <link rel="apple-touch-icon" type="image/png" href="assets/favicon/icon-96x96.png" sizes="96x96">
+    <link rel="apple-touch-icon" type="image/png" href="assets/favicon/icon-144x144.png" sizes="144x144">
+    <link rel="apple-touch-icon" type="image/png" href="assets/favicon/icon-152x152.png" sizes="152x152">
+    <link rel="apple-touch-icon" type="image/png" href="assets/favicon/icon-512x512.png" sizes="512x512">
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+</head>
+<style>
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #071D2B;
+        overflow: hidden;
+        position: relative;
+        touch-action: none;
+        -ms-touch-action: none;
+
+        -webkit-touch-callout: none !important;                /* prevent callout to copy image, etc when tap to hold */
+        -webkit-text-size-adjust: none !important;             /* prevent webkit from resizing text to fit */
+        -webkit-user-select: none !important;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    }
+</style>
+
+<body>
+
+
+
+
+
+    <div id="game">
+
+
+        <script src="js/game.js"></script>
+        
+
+    </div>
+
+    <div id="wrongRotation" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:15;background-color:#071D2B;touch-action:none;">
+        <img src="assets/gfx/rotate_screen.png" alt="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:100vw;max-height:100vh;object-fit:contain;"/>
+    </div>
+
+
+
+    <div class="font_preload" style="opacity: 0">
+        <span style="font-family: 'gameFont', 'Arial', normal;"></span>
+        <span style="font-family: 'menuFont', 'Arial', normal;"></span>
+    </div>
+
+
+
+    
+
+</body>
+</html>
