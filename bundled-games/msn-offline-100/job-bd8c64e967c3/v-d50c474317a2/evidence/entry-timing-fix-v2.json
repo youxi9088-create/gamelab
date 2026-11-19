@@ -1,0 +1,8 @@
+{
+  "source_only": true,
+  "actual_failure": "thief-action-001.json: original Ee constructor tries appendChild on null body because immediate initialization was in head.",
+  "only_changed_file": "index.html",
+  "change": "Move same original ThiefPuzzle.main() call to inside body after its creation; retain exact offline native JS and all448 assets. No synthetic readiness, SDK or game state.",
+  "prior_inputs_spent": 1,
+  "remaining": 4
+}

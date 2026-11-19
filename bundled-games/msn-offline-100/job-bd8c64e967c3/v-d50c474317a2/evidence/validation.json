@@ -1,0 +1,243 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计原输入1"
+      },
+      {
+        "type": "goto",
+        "description": "累计原输入2"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入3"
+      },
+      {
+        "type": "drag",
+        "description": "累计原输入4"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 31,
+    "responses": 31,
+    "tested_revision": "thief-offline-v2",
+    "delivery_revision": "thief-offline-v2",
+    "native_level1_win_verified": true,
+    "native_next_level2_verified": true,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "scope": "累计5次真实输入：第1次入口主调用早于body而失败，完整保留；仅移动HTML调用位置后，第2次载入原菜单，第3次普通Play进入Level1，第4次从原手部到公文包的一次连续拖拽，出现原Perfect!成功画面、角色拿回包，第5次普通Next进入原Level2公交车场景。没有第6次输入。 实际完成第1关并进入第2关；400份原关卡均已下载、解压容器和哈希核对，但没有逐关试玩。未验证第2关解法、失败/重试、设置、跨刷新进度恢复、触屏或可听音效。",
+    "cumulative_input_budget": 5
+  },
+  "raw_inputs": 5,
+  "checkpoints": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/thief-offline-v1/index.html",
+      "at": "2026-11-19T04:26:25.653Z",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/thief-offline-v2/index.html",
+      "at": "2026-11-19T04:28:56.122Z",
+      "trajectory": []
+    },
+    {
+      "step": 3,
+      "action": "click",
+      "x": 720,
+      "y": 540,
+      "at": "2026-11-19T04:29:29.429Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 540
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "action": "drag",
+      "points": [
+        [
+          585,
+          238
+        ],
+        [
+          603,
+          790
+        ]
+      ],
+      "at": "2026-11-19T04:30:07.855Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 585,
+          "y": 238
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 586.125,
+          "y": 272.5
+        },
+        {
+          "event": "move",
+          "x": 587.25,
+          "y": 307
+        },
+        {
+          "event": "move",
+          "x": 588.375,
+          "y": 341.5
+        },
+        {
+          "event": "move",
+          "x": 589.5,
+          "y": 376
+        },
+        {
+          "event": "move",
+          "x": 590.625,
+          "y": 410.5
+        },
+        {
+          "event": "move",
+          "x": 591.75,
+          "y": 445
+        },
+        {
+          "event": "move",
+          "x": 592.875,
+          "y": 479.5
+        },
+        {
+          "event": "move",
+          "x": 594,
+          "y": 514
+        },
+        {
+          "event": "move",
+          "x": 595.125,
+          "y": 548.5
+        },
+        {
+          "event": "move",
+          "x": 596.25,
+          "y": 583
+        },
+        {
+          "event": "move",
+          "x": 597.375,
+          "y": 617.5
+        },
+        {
+          "event": "move",
+          "x": 598.5,
+          "y": 652
+        },
+        {
+          "event": "move",
+          "x": 599.625,
+          "y": 686.5
+        },
+        {
+          "event": "move",
+          "x": 600.75,
+          "y": 721
+        },
+        {
+          "event": "move",
+          "x": 601.875,
+          "y": 755.5
+        },
+        {
+          "event": "move",
+          "x": 603,
+          "y": 790
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "action": "click",
+      "x": 891,
+      "y": 788,
+      "at": "2026-11-19T04:30:54.039Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 891,
+          "y": 788
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    }
+  ],
+  "browser_sessions": [
+    62399,
+    21392
+  ],
+  "browser_actual_exit_codes": [
+    0,
+    0
+  ],
+  "owned_node_absent": true,
+  "node_pids": [
+    24832,
+    32616
+  ],
+  "screenshots_opened": true,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "accounting": {
+    "observation_start": "2026-11-19T04:09:03.756963+00:00",
+    "observation_end": "2026-11-19T04:33:17.241844+00:00",
+    "elapsed_seconds": 1453.484881,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "首次成功原始HTML回执至本证据归档的经过区间，含静态抓取/开发/传输/等待/试玩；不包含首次成功回执前的来源探测，非纯工时。逐游戏Token/费用没有实测归属，未知不填0。"
+  },
+  "visual_result": "第1关普通拖拽原Perfect!和取回公文包；普通Next进入Level2。",
+  "prior_revision_error_retained": "v1主调用早于body，已归档；v2只移动同一调用，游戏JS/448资产不变。"
+}
