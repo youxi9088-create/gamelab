@@ -1,0 +1,155 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计原输入1"
+      },
+      {
+        "type": "goto",
+        "description": "累计原输入2"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入3"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入4"
+      },
+      {
+        "type": "reload",
+        "description": "累计原输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 442,
+    "responses": 442,
+    "tested_revision": "cannonballs-offline-v4",
+    "delivery_revision": "cannonballs-offline-v4",
+    "native_stage_clear_verified": true,
+    "native_score36_ammo9_visible": true,
+    "whole_level_win_verified": false,
+    "reload_verified": true,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "scope": "累计5次真实输入：v3首次载入停99%保留失败；修复静态退役规则后第2次载入原首页，第3次点原手势区进入第1关，第4次普通按住900ms后释放，实际只发1弹，弹药10→9、首组木块清除、原UI得分0→36、阶段1→2，第5次刷新原首页正常恢复。无第6次输入。 仅实玩第1关首阶段通关并自动进入第2阶段；未完成该关全部5阶段、整关结算、全部关卡、设置/暂停、炸弹或移动端。刷新回到原第1关首页，不宣称跨刷新保存阶段2或36分。只读旧GameplayController.currentScores字段为0，不用作真实得分依据；原计分由ScoreManager.instance.currentScores驱动，截图004的原UI实际显示36。",
+    "cumulative_input_budget": 5
+  },
+  "raw_inputs": 5,
+  "checkpoints": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/cannonballs-offline-v3/index.html",
+      "at": "2026-11-19T11:49:16.624Z",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/cannonballs-offline-v4/index.html",
+      "at": "2026-11-19T11:53:31.525Z",
+      "trajectory": []
+    },
+    {
+      "step": 3,
+      "action": "click",
+      "x": 720,
+      "y": 590,
+      "at": "2026-11-19T11:54:41.729Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 590
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "action": "click",
+      "x": 713,
+      "y": 477,
+      "at": "2026-11-19T11:55:31.549Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 713,
+          "y": 477
+        },
+        {
+          "event": "down",
+          "hold_ms": 900
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "action": "reload",
+      "at": "2026-11-19T11:56:42.062Z",
+      "trajectory": []
+    }
+  ],
+  "browser_sessions": [
+    51547,
+    80251
+  ],
+  "browser_actual_exit_codes": [
+    0,
+    0
+  ],
+  "owned_node_absent": true,
+  "node_pids": [
+    16716,
+    43220
+  ],
+  "screenshots_opened": true,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "accounting": {
+    "observation_start": "2026-11-19T11:23:27.355000+00:00",
+    "observation_end": "2026-11-19T12:00:46.973825+00:00",
+    "elapsed_seconds": 2239.618825,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "首次原生入口静态捕获至本交付证据生成的经过区间，含源码分析/资源传输/环境等待/修复和试玩；不是纯人工工时。逐游戏Token和费用没有可归属实测，未知不填0。"
+  },
+  "visual_result": "原首组木块清除、进度1→2、原UI36分、弹药9；刷新原首页正常",
+  "prior_revision_error_retained": "v3静态AST范围过大误删包含服务调用的原函数，声音初始化失败；v4收窄为表达式调用且严格拒绝非服务方法丢失，累计预算保持。"
+}

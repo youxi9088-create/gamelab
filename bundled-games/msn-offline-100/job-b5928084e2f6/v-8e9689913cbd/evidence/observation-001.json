@@ -1,0 +1,57 @@
+{
+  "id": "001",
+  "action": "goto",
+  "error": null,
+  "native": {
+    "title": "Cannon Balls 3D",
+    "url": "http://127.0.0.1:18865/cannonballs-offline-v3/index.html",
+    "visible_text": "99%",
+    "native_readonly": {
+      "level": 1,
+      "stage": 1,
+      "totalStages": 0,
+      "premiumBalls": 0
+    },
+    "canvas": [
+      {
+        "width": 1440,
+        "height": 900,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        }
+      }
+    ],
+    "retired_provider_globals_present": []
+  },
+  "observer_error": null,
+  "frame_capture_error": null,
+  "ui_steps": 1,
+  "raw_ui_inputs": 1,
+  "network_events": 378,
+  "console": [
+    {
+      "level": "log",
+      "message": "Preloading compressed config.json.pack..."
+    },
+    {
+      "level": "log",
+      "message": "unpacking config.json.pack..."
+    },
+    {
+      "level": "log",
+      "message": "config.json.pack decompressed in 426 ms"
+    },
+    {
+      "level": "error",
+      "message": "Error while loading scene JSON 2340452.json: this.fireSoundStateChangedEvent is not a function\nTypeError: this.fireSoundStateChangedEvent is not a function\n    at SoundController.setSFXVolume (http://127.0.0.1:18865/cannonballs-offline-v3/__game-scripts.js:1527:10)\n    at SoundController.initialize (http://127.0.0.1:18865/cannonballs-offline-v3/__game-scripts.js:1313:14)\n    at i._scriptMethod (http://127.0.0.1:18865/cannonballs-offline-v3/playcanvas-stable.min.js:9:1383481)\n    at i._onInitialize (http://127.0.0.1:18865/cannonballs-offline-v3/playcanvas-stable.min.js:9:1383661)\n    at i._callComponentMethod (http://127.0.0.1:18865/cannonballs-offline-v3/playcanvas-stable.min.js:9:1391797)\n    at i._onInitialize (http://127.0.0.1:18865/cannonballs-offline-v3/playcanvas-stable.min.js:9:1391923)\n    at e.fire (http://127.0.0.1:18865/cannonballs-offline-v3/playcanvas-stable.min.js:9:16513)\n    at n.start (http://127.0.0.1:18865/cannonballs-offline-v3/playcanvas-stable.min.js:9:918762)\n    at http://127.0.0.1:18865/cannonballs-offline-v3/__start__.js:303:29\n    at http://127.0.0.1:18865/cannonballs-offline-v3/playcanvas-stable.min.js:9:909759"
+    }
+  ],
+  "closed": false
+}

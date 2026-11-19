@@ -1,0 +1,72 @@
+{
+  "at": "2026-11-19T11:46:44.463441+00:00",
+  "source_history": "2026-11-19T11:14:40.261811+00:00",
+  "candidates_checked": 936,
+  "native_id": "9mvgbr9fjlm5",
+  "exact_source_native_identity_match": false,
+  "comparisons": [
+    {
+      "id": "game-d583194ea91f",
+      "title": "Battlezone / 战区坦克",
+      "profiles": [
+        {
+          "category": "街机 / 第一人称履带坦克",
+          "core_gameplay": "原说明为分别驱动左右履带改变坦克位置/方向，通过第一人称准星对准目标并用炮击对抗敌方火力，在战场维持生存和原计分。实际进入ENEMY IN RANGE战场并看到生命减少；未取得本轮命中/得分证明。"
+        }
+      ]
+    },
+    {
+      "id": "game-946f303874a0",
+      "title": "Bounce It Back",
+      "profiles": [
+        {
+          "category": "射击 / 双人炮弹对战",
+          "core_gameplay": "加载原控制弹窗→普通PLAY启用键盘→S原发射→原弹丸位置/速度与回合状态改变。"
+        }
+      ]
+    },
+    {
+      "id": "game-2d8f77103b8b",
+      "title": "Tower of Colors",
+      "profiles": [
+        {
+          "category": "3D物理益智 / 旋转彩色塔",
+          "core_gameplay": "旋转三维彩色塔，观察当前球颜色，点击可见同色塔块以触发原球命中及相邻同色移除，在有限弹药内使塔坍塌清除；本轮两次合法命中及转动真实通过，整关目标尚未完成。"
+        }
+      ]
+    },
+    {
+      "id": "game-c579abab2eb7",
+      "title": "打炮打炮",
+      "profiles": [
+        {
+          "category": "物理益智 / 炮弹入桶",
+          "core_gameplay": "原home本地初始化/音效/预制体加载→原mainScreen→原开始→level1。只读炮弹40/40、桶0/20、addShellCount0/isBucketFull false、原61条关卡存储第1关0其余-1。随后第三次射击尝试未获得截图/日志/状态，后续恢复调用失败，没有新可靠进度证据。"
+        }
+      ]
+    },
+    {
+      "id": "game-509540c78b5e",
+      "title": "坦克怼坦克",
+      "profiles": [
+        {
+          "category": "动作 / 坦克射击",
+          "core_gameplay": "本地包加载菜单→点击“点击屏幕开始游戏”区域→进入Level:1、敌人计数5→右上拖动摇杆→反向拖动→敌人计数4、金币20→刷新→菜单金币40。本轮未捕获第二笔金币增加瞬间，不能把20和40写成同一时点的数值。原普通战斗/自动射击真实运行。"
+        }
+      ]
+    },
+    {
+      "id": "game-b9f1d661d1c3",
+      "title": "涂色方块",
+      "profiles": [
+        {
+          "category": "益智 / 炮弹涂色",
+          "core_gameplay": "第1关指引→启用原输入→普通点炮→原挑战成功→宿主别名修复后刷新第1关。"
+        }
+      ]
+    }
+  ],
+  "mechanic_decision": "Distinct native PlayCanvas fixed-cannon continuous shots with finite ammunition and rigidbody stack knockdown/stages. Tower of Colors requires matching current ball color to adjacent-color elimination plus tower rotation, whereas this game has no color-match elimination rule; painter requires matching block colors to a target picture and barrel game collects balls into a bucket. Full-loop inputs/goals/progression compared, shared projectile theme alone is not identity.",
+  "UI_used": 0,
+  "admitted": false
+}

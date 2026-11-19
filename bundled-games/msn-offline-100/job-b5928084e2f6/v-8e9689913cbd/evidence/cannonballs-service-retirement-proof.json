@@ -1,0 +1,768 @@
+{
+  "at": "2026-11-19T11:50:34.804Z",
+  "native_id": "9mvgbr9fjlm5",
+  "source_only": true,
+  "original_sha256": "ff0c125c1cd1a5245a82620cc8725f9d85dc001e881d61f1c6389b6d53185ad7",
+  "derived_sha256": "017ccc3c947067118cd2f311fa9a72eb779288b3ff0d37242440f727f60103e5",
+  "loading_original_sha256": "de25acf71024802baed0ae4cdbcc80cf2d80764dab75b6a44346a0411712efe5",
+  "loading_derived_sha256": "13cb70bdc11f7c93b3457767b1aad17f7041ab15c6e4f5c65c571f00c45f2ab5",
+  "physically_removed_service_modules": [
+    "reviveWindow.js",
+    "shopWindow.js",
+    "ShopPackage.js",
+    "purchaseSuccessfulWindow.js",
+    "gdprController.js",
+    "PauseOverlay.js",
+    "IAPManager.js",
+    "NoAdsOfferWindow.js",
+    "shopButton.js",
+    "ShopManager.js",
+    "discountBadge.js",
+    "discountCountdown.js",
+    "PriceBeforeDiscount.js"
+  ],
+  "removed_service_methods": [
+    "SoundController.prototype.reportMuteStatus",
+    "GameplayController.prototype.activateNoAdsMode",
+    "WindowManager.showPurchaseSuccessful",
+    "WindowManager.showShop",
+    "WindowManager.showShopRevive",
+    "WindowManager.hideShop",
+    "WindowManager.showRevive",
+    "WindowManager.showNoAdsOffer",
+    "ReviveWindow.prototype.initialize",
+    "ReviveWindow.prototype.show",
+    "ReviveWindow.prototype.hide",
+    "ReviveWindow.prototype.update",
+    "ReviveWindow.prototype.checkRewardedAdAvailability",
+    "ReviveWindow.prototype.revivePressed",
+    "ReviveWindow.prototype.skipPressed",
+    "PowerupContainer.prototype.watchVideoPressed",
+    "ShopWindow.prototype.initialize",
+    "ShopWindow.prototype.show",
+    "ShopWindow.prototype.showRevive",
+    "ShopWindow.prototype._resetState",
+    "ShopWindow.prototype._showCommon",
+    "ShopWindow.prototype._showReviveGroup",
+    "ShopWindow.prototype._showShopHeading",
+    "ShopWindow.prototype._showPackages",
+    "ShopWindow.prototype.hasNoAdPackages",
+    "ShopWindow.prototype.hasBallsPackages",
+    "ShopWindow.prototype.onClosePressed",
+    "ShopWindow.prototype._showCloseButton",
+    "ShopWindow.prototype.hide",
+    "ShopWindow.prototype.onDiscountExpired",
+    "ShopWindow.prototype._randomizeHeadingTexts",
+    "ShopWindow.prototype.update",
+    "PauseOverlay.prototype.initialize",
+    "PauseOverlay.prototype.postInitialize",
+    "PauseOverlay.prototype.setPaused",
+    "PauseOverlay.prototype.update",
+    "ShopPackage.prototype.initialize",
+    "ShopPackage.prototype.initializePackage",
+    "ShopPackage.prototype.loadProductData",
+    "ShopPackage.prototype.updateTexts",
+    "ShopPackage.prototype.updateNoAdIcon",
+    "ShopPackage.prototype.show",
+    "ShopPackage.prototype.hide",
+    "ShopPackage.prototype.purchasePressed",
+    "ShopPackage.prototype.updateRewardedAvailability",
+    "ShopPackage.prototype.checkAvailability",
+    "PurchaseSuccessfulWindow.prototype.initialize",
+    "PurchaseSuccessfulWindow.prototype.show",
+    "PurchaseSuccessfulWindow.prototype.hide",
+    "PurchaseSuccessfulWindow.prototype.claimPressed",
+    "PurchaseSuccessfulWindow.prototype.update",
+    "GdprController.prototype.initialize",
+    "GdprController.prototype.update",
+    "GdprController.prototype.onGDPRClicked",
+    "NoAdsOfferWindow.prototype.initialize",
+    "NoAdsOfferWindow.prototype.onDiscountExpired",
+    "NoAdsOfferWindow.prototype.onNoAdsActivated",
+    "NoAdsOfferWindow.prototype.show",
+    "NoAdsOfferWindow.prototype._resetState",
+    "NoAdsOfferWindow.prototype._showCommon",
+    "NoAdsOfferWindow.prototype._showHeading",
+    "NoAdsOfferWindow.prototype._showOptions",
+    "NoAdsOfferWindow.prototype.onPlayWithAdsChosen",
+    "NoAdsOfferWindow.prototype.onClosePressed",
+    "NoAdsOfferWindow.prototype._showCloseButton",
+    "NoAdsOfferWindow.prototype.hide",
+    "NoAdsOfferWindow.prototype.update",
+    "ShopButton.prototype.initialize",
+    "ShopButton.prototype.show",
+    "ShopButton.prototype.hide",
+    "ShopButton.prototype._updateVisibility",
+    "ShopButton.prototype._updateSprite",
+    "ShopButton.prototype.update",
+    "ShopButton.prototype.onPressed",
+    "DiscountBadge.prototype.initialize",
+    "DiscountBadge.prototype.update",
+    "DiscountBadge.prototype._updateBadgeVisibility",
+    "DiscountCountdown.prototype.initialize",
+    "DiscountCountdown.prototype.update",
+    "DiscountCountdown.prototype._updateCountdownVisibility",
+    "PriceBeforeDiscount.prototype.initialize",
+    "PriceBeforeDiscount.prototype._updateVisibility",
+    "PriceBeforeDiscount.prototype._getPreviousPriceText"
+  ],
+  "preserved_native_methods": 635,
+  "changed_native_methods": [
+    "Utils.prototype.injectMeshCollisionSystem",
+    "Utils.log",
+    "Utils.warn",
+    "Utils.error",
+    "SoundController.prototype.initialize",
+    "SoundController.prototype.playSfx",
+    "SoundController.prototype.playMusic",
+    "SoundController.prototype.fireSoundStateChangedEvent",
+    "SoundController.prototype.fireMusicStateChangedEvent",
+    "LevelBuilder.prototype.loadStage",
+    "GameplayController.prototype.initGameProperties",
+    "GameplayController.prototype.startLevel",
+    "GameplayController.prototype.startFromMainMenu",
+    "GameplayController.prototype.exitToMainMenu",
+    "GameplayController.prototype.loadStage",
+    "GameplayController.prototype.handleStageCompleted",
+    "GameplayController.prototype.handleStageFailed",
+    "GameplayController.prototype.proceedToDefeat",
+    "LevelController.prototype.handleReviveEarned",
+    "LevelController.prototype.updateLevelProgress",
+    "ScoreManager.prototype.addScores",
+    "ScoreManager.prototype.onLevelCompleted",
+    "LevelProgressContainer.prototype.update",
+    "LocalStorageController.prototype.initialize",
+    "ResultsWindow.prototype.initialize",
+    "ResultsWindow.prototype.nextPressed",
+    "WindowManager.prototype.initialize",
+    "WindowManager.hideAll",
+    "WindowManager.hasOpenedWindows",
+    "DefeatWindow.prototype.initialize",
+    "DefeatWindow.prototype.restartPressed",
+    "SettingsPanel.prototype.initialize",
+    "SettingsPanel.prototype.openSettingsWindow",
+    "MainMenu.prototype.initialize",
+    "LevelUi.prototype.initialize",
+    "LevelUi.prototype.showTutorialHand",
+    "ScoresEffectManager.prototype.addParticle",
+    "PowerupContainer.prototype.initialize",
+    "PowerupContainer.prototype.updateProgress",
+    "PowerupContainer.prototype.update",
+    "PowerupContainer.prototype.updateRewardedVideoButton",
+    "FamobiSafeArea.prototype.initialize",
+    "FamobiSafeArea.prototype._updateCanvasSizeAndPosition",
+    "FamobiCopyright.prototype.initialize",
+    "FamobiCopyright.prototype.updateColorAndOpacity",
+    "SettingsWindow.prototype.restartPressed",
+    "PauseManager.prototype.pauseGame",
+    "PauseManager.prototype.resumeGame",
+    "VersionInfo.prototype.initialize",
+    "LocalizationManager.getClientLanguage"
+  ],
+  "edits": [
+    {
+      "start": 231016,
+      "end": 235968,
+      "why": "Remove complete service-only module reviveWindow.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 360203,
+      "end": 368970,
+      "why": "Remove complete service-only module shopWindow.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 374073,
+      "end": 374745,
+      "why": "Remove complete service-only module PauseOverlay.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 383095,
+      "end": 390451,
+      "why": "Remove complete service-only module ShopPackage.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 392845,
+      "end": 399207,
+      "why": "Remove complete service-only module purchaseSuccessfulWindow.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 399578,
+      "end": 400250,
+      "why": "Remove complete service-only module gdprController.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 414451,
+      "end": 425756,
+      "why": "Remove complete service-only module IAPManager.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 454183,
+      "end": 459240,
+      "why": "Remove complete service-only module NoAdsOfferWindow.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 459909,
+      "end": 462221,
+      "why": "Remove complete service-only module shopButton.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 465300,
+      "end": 471564,
+      "why": "Remove complete service-only module ShopManager.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 483410,
+      "end": 485708,
+      "why": "Remove complete service-only module discountBadge.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 489478,
+      "end": 490590,
+      "why": "Remove complete service-only module discountCountdown.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 492727,
+      "end": 495351,
+      "why": "Remove complete service-only module PriceBeforeDiscount.js",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 54735,
+      "end": 54759,
+      "why": "Remove listener/call into physically retired service entry",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 54947,
+      "end": 54971,
+      "why": "Remove listener/call into physically retired service entry",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 56015,
+      "end": 56346,
+      "why": "Remove service-only consumer method SoundController.prototype.reportMuteStatus",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 135667,
+      "end": 135896,
+      "why": "Remove service-only consumer method GameplayController.prototype.activateNoAdsMode",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 140669,
+      "end": 140721,
+      "why": "Remove no-ads sale offer from normal win/defeat path",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 140922,
+      "end": 141584,
+      "why": "Retire ad/purchase revive selection; preserve original no-revive defeat continuation",
+      "replacement_bytes": 29
+    },
+    {
+      "start": 141659,
+      "end": 141711,
+      "why": "Remove no-ads sale offer from normal win/defeat path",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 221941,
+      "end": 222014,
+      "why": "Remove registration or hide call for retired service window",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 222237,
+      "end": 222318,
+      "why": "Remove registration or hide call for retired service window",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 222323,
+      "end": 222392,
+      "why": "Remove registration or hide call for retired service window",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 222397,
+      "end": 222494,
+      "why": "Remove registration or hide call for retired service window",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 222917,
+      "end": 222951,
+      "why": "Remove registration or hide call for retired service window",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 223074,
+      "end": 223112,
+      "why": "Remove registration or hide call for retired service window",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 223117,
+      "end": 223149,
+      "why": "Remove registration or hide call for retired service window",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 223154,
+      "end": 223200,
+      "why": "Remove registration or hide call for retired service window",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 223247,
+      "end": 223440,
+      "why": "Remove service-only consumer method WindowManager.showPurchaseSuccessful",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 223442,
+      "end": 223525,
+      "why": "Remove service-only consumer method WindowManager.showShop",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 223527,
+      "end": 223622,
+      "why": "Remove service-only consumer method WindowManager.showShopRevive",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 223624,
+      "end": 223707,
+      "why": "Remove service-only consumer method WindowManager.hideShop",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 223978,
+      "end": 224061,
+      "why": "Remove service-only consumer method WindowManager.showRevive",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 224063,
+      "end": 224158,
+      "why": "Remove service-only consumer method WindowManager.showNoAdsOffer",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 224603,
+      "end": 224896,
+      "why": "Remove retired service windows from open-window query",
+      "replacement_bytes": 121
+    },
+    {
+      "start": 258454,
+      "end": 258486,
+      "why": "Remove listener/call into physically retired service entry",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 258677,
+      "end": 258709,
+      "why": "Remove listener/call into physically retired service entry",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 266425,
+      "end": 266503,
+      "why": "Remove listener/call into physically retired service entry",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 270209,
+      "end": 270512,
+      "why": "Remove ad availability polling and hide retired ad-only entry; earned normal powerup remains",
+      "replacement_bytes": 45
+    },
+    {
+      "start": 270516,
+      "end": 270933,
+      "why": "Remove service-only consumer method PowerupContainer.prototype.watchVideoPressed",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 16721,
+      "end": 16736,
+      "why": "Keep original diagnostic log locally",
+      "replacement_bytes": 11
+    },
+    {
+      "start": 37174,
+      "end": 37189,
+      "why": "Keep original diagnostic log locally",
+      "replacement_bytes": 11
+    },
+    {
+      "start": 37341,
+      "end": 37356,
+      "why": "Keep original diagnostic log locally",
+      "replacement_bytes": 11
+    },
+    {
+      "start": 37520,
+      "end": 37535,
+      "why": "Keep original diagnostic log locally",
+      "replacement_bytes": 11
+    },
+    {
+      "start": 48281,
+      "end": 48337,
+      "why": "Remove provider forced-mute multiplier; native master/SFX/music controls remain",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 48364,
+      "end": 48549,
+      "why": "Remove actual remote event onAudioStateChange",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 50719,
+      "end": 50734,
+      "why": "Keep original diagnostic log locally",
+      "replacement_bytes": 11
+    },
+    {
+      "start": 52445,
+      "end": 52460,
+      "why": "Keep original diagnostic log locally",
+      "replacement_bytes": 11
+    },
+    {
+      "start": 117604,
+      "end": 117619,
+      "why": "Keep original diagnostic log locally",
+      "replacement_bytes": 11
+    },
+    {
+      "start": 134909,
+      "end": 134934,
+      "why": "Remove actual remote event disableAds",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 136307,
+      "end": 136347,
+      "why": "Remove actual remote event gameStart",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 136662,
+      "end": 136723,
+      "why": "Remove actual remote event trackLevelStart",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 137002,
+      "end": 137063,
+      "why": "Remove actual remote event trackLevelStart",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 137068,
+      "end": 137129,
+      "why": "Remove actual remote event gameStart",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 137134,
+      "end": 137196,
+      "why": "Remove actual remote event stageStart",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 137494,
+      "end": 137524,
+      "why": "Remove actual remote event stageQuit",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 137529,
+      "end": 137558,
+      "why": "Remove actual remote event gameQuit",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 137891,
+      "end": 137932,
+      "why": "Remove actual remote event stageStart",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 139863,
+      "end": 139897,
+      "why": "Remove actual remote event stageComplete",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 139936,
+      "end": 140001,
+      "why": "Remove actual remote event trackLevelEnd",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 140070,
+      "end": 140103,
+      "why": "Remove actual remote event gameComplete",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 140372,
+      "end": 140438,
+      "why": "Remove actual remote event trackLevelEnd",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 140443,
+      "end": 140473,
+      "why": "Remove actual remote event stageOver",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 140478,
+      "end": 140507,
+      "why": "Remove actual remote event gameOver",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 148305,
+      "end": 148370,
+      "why": "Remove actual remote event trackLevelUpdate",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 150578,
+      "end": 150629,
+      "why": "Remove actual remote event sendProgress",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 154253,
+      "end": 154299,
+      "why": "Remove actual remote event sendLiveScore",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 155704,
+      "end": 155738,
+      "why": "Remove actual remote event sendLevelScore",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 155743,
+      "end": 155792,
+      "why": "Remove actual remote event sendTotalScore",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 194325,
+      "end": 194355,
+      "why": "Replace remote/cloud storage binding with actual browser localStorage; retain original game schema and keys",
+      "replacement_bytes": 19
+    },
+    {
+      "start": 215498,
+      "end": 215599,
+      "why": "Lift original ordinary buttons animation out of non-reward ad; no SDK success callback",
+      "replacement_bytes": 17
+    },
+    {
+      "start": 219882,
+      "end": 219942,
+      "why": "Remove non-reward ad wait; retain ordinary native action",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 223952,
+      "end": 224053,
+      "why": "Lift original ordinary buttons animation out of non-reward ad; no SDK success callback",
+      "replacement_bytes": 17
+    },
+    {
+      "start": 228185,
+      "end": 228247,
+      "why": "Remove non-reward ad wait; retain ordinary native action",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 249168,
+      "end": 249220,
+      "why": "Remove non-reward ad wait; retain ordinary native action",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 250544,
+      "end": 250576,
+      "why": "Read actual browser locale directly",
+      "replacement_bytes": 28
+    },
+    {
+      "start": 251328,
+      "end": 251343,
+      "why": "Keep original diagnostic log locally",
+      "replacement_bytes": 11
+    },
+    {
+      "start": 353405,
+      "end": 353420,
+      "why": "Keep original diagnostic log locally",
+      "replacement_bytes": 11
+    },
+    {
+      "start": 363667,
+      "end": 363731,
+      "why": "Remove non-reward ad wait; retain ordinary native action",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 375412,
+      "end": 375442,
+      "why": "Remove actual remote event gamePause",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 375598,
+      "end": 375629,
+      "why": "Remove actual remote event gameResume",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 386430,
+      "end": 386462,
+      "why": "Read actual browser locale directly",
+      "replacement_bytes": 28
+    },
+    {
+      "start": 189142,
+      "end": 189229,
+      "why": "Remove platform UI feature gate using original local default branch",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 189239,
+      "end": 189359,
+      "why": "Remove platform UI feature gate using original local default branch",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 215659,
+      "end": 218318,
+      "why": "Remove platform UI feature gate using original local default branch",
+      "replacement_bytes": 2559
+    },
+    {
+      "start": 223970,
+      "end": 226476,
+      "why": "Remove platform UI feature gate using original local default branch",
+      "replacement_bytes": 2406
+    },
+    {
+      "start": 246629,
+      "end": 246767,
+      "why": "Remove platform UI feature gate using original local default branch",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 246822,
+      "end": 246894,
+      "why": "Retain original local UI visibility without platform feature lookup",
+      "replacement_bytes": 5
+    },
+    {
+      "start": 249742,
+      "end": 249961,
+      "why": "Remove platform UI feature gate using original local default branch",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 250656,
+      "end": 250685,
+      "why": "Retain original local UI visibility without platform feature lookup",
+      "replacement_bytes": 4
+    },
+    {
+      "start": 253692,
+      "end": 253786,
+      "why": "Remove platform UI feature gate using original local default branch",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 255092,
+      "end": 255136,
+      "why": "Remove platform UI feature gate using original local default branch",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 258039,
+      "end": 258097,
+      "why": "Remove platform UI feature gate using original local default branch",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 263845,
+      "end": 263909,
+      "why": "Remove platform UI feature gate using original local default branch",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 264401,
+      "end": 264486,
+      "why": "Remove platform UI feature gate using original local default branch",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 380474,
+      "end": 380504,
+      "why": "Retain original local UI visibility without platform feature lookup",
+      "replacement_bytes": 4
+    },
+    {
+      "start": 278418,
+      "end": 278751,
+      "why": "Remove platform offset APIs; preserve original browser viewport listener and zero-offset local layout",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 280649,
+      "end": 280904,
+      "why": "Remove platform offset APIs; preserve original browser viewport listener and zero-offset local layout",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 349224,
+      "end": 350271,
+      "why": "Preserve original attribution branch with captured native copyright PNG",
+      "replacement_bytes": 947
+    },
+    {
+      "start": 348760,
+      "end": 348818,
+      "why": "Exact original provider static filename, original dark_medium128; captured same-origin original bytes",
+      "replacement_bytes": 33
+    }
+  ],
+  "SDK_globals_created": false,
+  "SDK_success_reward_identity_injected": false,
+  "native_rules_scores_levels_unchanged": true,
+  "UI_steps": 0
+}

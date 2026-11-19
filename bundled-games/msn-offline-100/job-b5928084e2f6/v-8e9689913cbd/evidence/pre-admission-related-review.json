@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-19T12:06:42.580423+00:00",
+  "source_observation": "2026-11-19T12:04:41.793925+00:00",
+  "candidates_checked": 936,
+  "broad_raw_metadata_matches": 84,
+  "read_only": true,
+  "findings": {
+    "Draw Climber": "Cannon is its physics library; actual draw-legs geometry/racing loop differs.",
+    "Weird Cannon": "18-row numerical pattern placement/turns, not 3D rigidbody target knockdown.",
+    "Tower of Colors": "Color-match adjacent removal plus tower rotation; Cannon Balls fixed cannon has no color-matching elimination.",
+    "打炮打炮": "2D physics balls into target bucket, different goal from clearing all rigidbody structures.",
+    "涂色方块": "Color targets must match a pattern picture, not knockdown.",
+    "Bounce It Back": "Turn-based two-cannon opposing projectile duel, not stack clearance."
+  },
+  "technical_keyword_false_positive": "Whole source metadata mentions Cannon physics or historical notes in unrelated games. Do not use generic engine name as identity; exact native uid/source still checked across full candidate+version records. Actual gameplay projection uses title/category/core loop, including candidate-only profiles.",
+  "input_clarification": "900ms bounded press produced one native shot; original pre-UI continuous-shot phrasing was not verified and is not a gameplay claim. Final specification records ordinary pointer press/release and observed ammo10→9.",
+  "normal_admission_first_attempt": "Stopped before any mutation on engine-name false positive game-d37f257f400c; no game/version/job created by failed precheck."
+}
