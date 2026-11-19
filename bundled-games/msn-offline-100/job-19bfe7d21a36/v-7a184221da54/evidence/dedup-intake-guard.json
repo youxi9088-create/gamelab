@@ -1,0 +1,3061 @@
+{
+  "at": "2026-11-19T00:55:03.993832+00:00",
+  "inventory_candidates": 928,
+  "inventory_projection": "2026-11-19-candidate-draft-profiles",
+  "native_id": "9nmj2s1n0x52",
+  "exact_source_identity_matches": [],
+  "broad_matches": [
+    {
+      "id": "game-615a3d62e1c5",
+      "title": "Prism Pony Deluxe",
+      "canonical_url": "https://play.js13kgames.com/prism-pony-rainbow-rush",
+      "description": "加载原封面→普通START创建无初始三连的7×7棋盘→只读数字副本计算可行相邻交换→普通拖动形成第1行颜色5三连→原消除、下落补块、72分。",
+      "profiles": [
+        {
+          "version_id": "v-9b3b414a0ed6",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "消除 / 彩虹顺序",
+            "core_gameplay": "加载原封面→普通START创建无初始三连的7×7棋盘→只读数字副本计算可行相邻交换→普通拖动形成第1行颜色5三连→原消除、下落补块、72分。",
+            "controls": "普通START，拖动正交相邻格或依次点两格交换；可选择BRUSH/BREAK/BURST再点目标；Sound/Again原按钮。本轮3步load/START/普通相邻拖动(0,5)→(1,5)，moves30→29、score0→72。",
+            "rules": "原swap/matches/resolve/burst/fill，颜色c/特殊s/灰云-1，170ms递归连锁，邻接消除可清灰云；useTool和endCheck原样。只读计划只修改副本局部数组，不调用游戏方法。",
+            "content": "原自适应Canvas七色渐变宝石/灰云、彩虹天空、粒子、特殊宝石/工具按钮、Moves/Score/Best/Rainbows及开始/结束界面，原WebAudio合成反馈，无外部媒体。",
+            "systems": "全局b格数组、moves/score/step/runs、busy/over、tools/tool、particles；pointer按放读取屏幕格坐标，RAF绘UI/棋盘，resolve延时连锁，localStorage pp_best。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-073dc9ad7787",
+      "title": "Elementalist",
+      "canonical_url": "https://play.js13kgames.com/elementalist",
+      "description": "加载菜单→只读Canvas像素确认原随机棋盘及可行交换→普通点击开始→普通两次格点击形成三连→原更新循环消除、下落补块和增加进度。",
+      "profiles": [
+        {
+          "version_id": "v-7edc40462cef",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "消除 / 相邻交换",
+            "core_gameplay": "加载菜单→只读Canvas像素确认原随机棋盘及可行交换→普通点击开始→普通两次格点击形成三连→原更新循环消除、下落补块和增加进度。",
+            "controls": "普通点击开始，再依次点击相邻格交换；无三连则换回。本轮4步load/开始/选第0行第0列/相邻第0行第1列，形成第1列前三格棕色三连，消除补块，橙条可见像素0→23。",
+            "rules": "原d相邻、Q交换、A/tr/N三连、nr消除/计分、p补块；闭包未暴露状态，按原Canvas像素只读核对。",
+            "content": "640×960 Canvas四种颜色元素格、白边、绿色计时条/橙色关卡进度、等级/历史最佳和原开始遮罩，无外部媒体。",
+            "systems": "browserify私有s数组为棋盘、G运行、rr/O双进度、S等级、Z/$选择；RAF按1/60步长更新，原Canvas绘制和click处理。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-7f700db4c8cb",
+      "title": "看谁下的快",
+      "canonical_url": "https://www.4k99.com/detail/61258",
+      "description": "原三次滑动旋转、下落失败与普通重玩成立，实际0分，最高分默认读取已修复。",
+      "profiles": [
+        {
+          "version_id": "v-5d3bacce69fc",
+          "status": "review",
+          "profile": {
+            "engine": "Three.js / 原自定义游戏",
+            "category": "益智动作 / 旋转下落",
+            "core_gameplay": "原资源Promise完成→原球柱/滑动移动与避免红色区域提示→第一拖拽隐藏教学并旋转→第二、三拖拽继续旋转/球下落→原失败结果覆盖层显示0→第5步普通点击开始关闭结果并重置球柱。原最高分读取曾被误退役显示false，之后改真实本地存储并技术加载确认0。",
+            "controls": "普通5步：导航→从(551,451)拖至(757,451)→从(455,451)拖至(822,451)→同向再拖一次→失败页点击开始普通重玩。原鼠标mousedown/move/up与touch映射保留，未用脚本动作、修改分数/关卡。技术复查1次/0输入，仅加载和只读检查。",
+            "rules": "原滑动速度/平台旋转、球重力、缺口/红区碰撞和重置规则保持。原_touchStartHandler/_touchMoveHandler/_touchEndHandler、球/平台更新与失败事件由原代码处理。三个拖拽有平台朝向变化和球下落；未捕捉红区碰撞逐帧数据，不虚填伤害/穿层数。",
+            "content": "原源码按平台/高度、level/count等配置生成环形关卡并选用原配色，原随机选择保留而无新增关卡模板。只观察当前一次下降/失败与重置，未统计完整关卡数、全配色或难度进程，不把模板配置当通关证明。",
+            "systems": "43项适配范围：移除Voodoo/Crazy/渠道SDK及广告回调、真实资源入口与原普通重玩解耦、真实本地score读写、两处原白色0xffffff字符串改合法#ffffff表示。原混淆脚本只按Acorn/字面量表算术静态定位，277次有界旋转核对/21511常量调用仅用于检查，不执行/不替换成解码副本。最终技术加载4同源或data/blob资源、游戏warnerror0、宿主直接归因。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-e59ce736d129",
+      "title": "Mr.13lackie",
+      "canonical_url": "https://play.js13kgames.com/mr13lackie",
+      "description": "加载菜单并只读原可见第一关位置→普通点击第一关→普通按住释放跳跃→原跳跃计数及负竖速反馈→自然坠落，出现原失败状态g。",
+      "profiles": [
+        {
+          "version_id": "v-7f3741049d34",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "平台 / 按住跳跃",
+            "core_gameplay": "加载菜单并只读原可见第一关位置→普通点击第一关→普通按住释放跳跃→原跳跃计数及负竖速反馈→自然坠落，出现原失败状态g。",
+            "controls": "原Canvas pointerdown记录performance.now，pointerup按持续时间触发菜单或跳跃；Escape回菜单。本轮load/选可见第一关/普通按住释放共3步，jump计数0→1、竖速0→-15，截图猫已离开棕平台。",
+            "rules": "原h.u调用C.R并执行关卡输入回调；l.I按块类型处理平台/死亡/过关，o.U推进关卡并保存原进度。没有修改时长、物理、失败或存档。",
+            "content": "768×432逻辑Canvas黑猫、棕平台、红危险块、绿目标、原选关菜单；WebAudio与可选speechSynthesis。原语言与音频逻辑保持。",
+            "systems": "s管理菜单，h管理关卡，a是猫，l是块；原o实例调度场景、指针时长、音频与存档。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-70c764b6f86e",
+      "title": "Perfect Piano",
+      "canonical_url": "https://famobi.cdn.msnfun.com/9nprcsghz6j6/v9/index.html",
+      "description": "MSN原Perfect Piano v9，57原运行文件/50声明资源本地化；108谱面、7专辑和88内嵌钢琴采样保留。717原类方法AST相同，162重点方法中159不变/3仅日志出口，44原设置不变。物理退役发行SDK/广告/统计/外链/存储接口；MIDI选原webaudio分支；Phaser11个窗口几何别名改真实window。累计5输入包含旧v2黑屏失败，最终v3菜单→原教程→两短音符后推进长按示意，音频上下文运行/88采样解码；31同源请求全200、0外联/缺失/脚本异常。正式曲目未进入，分数0、教程仍未完成；完整曲目/正式计分/长按/结算/星级/刷新未验证。V5.1十六维、原/修订SHA与失败证据完整，耗时为观测窗口，Token/费用/纯处理耗时未知。",
+      "profiles": [
+        {
+          "version_id": "v-d78e3a9c04bf",
+          "status": "review",
+          "profile": {
+            "engine": "Phaser 2.10.5 / MIDI.js / Canvas",
+            "category": "音乐节奏 / 四道钢琴音符",
+            "core_gameplay": "跟随四道下落音符及时点击短音符和按住长音符，依据原时机和谱面获得计分/星级，再解锁歌曲和专辑。实际仅完成原教程前两个短音符，正式曲目计分未验证。",
+            "controls": "原教程画面提示F/G/H/J或点击四道音符。实测鼠标按提示分别点第一道和第三道短音符，原指导继续下一项；长按、键盘和手机触摸未追加验证。点击均是真实mouse move/down/up，累计输入含旧启动失败共5次。",
+            "rules": "781个原类方法中717个AST相同；162个重点落块/按键触摸/谱面/速度/心形/音符/歌曲存储方法中159个AST相同，另外3个仅发行日志改console，规则体相同。44项原设置逐项一致，AUTOPLAY/GOD_MODE保持false；没有改谱面、速度、判定、生命、随机、分数和解锁。",
+            "content": "108个原谱面及7个专辑星数门槛保留，教程包括短按和长按。实际只进入教程并完成前两个短按；未完整教程/选择歌曲/逐首实玩，不能把配置数量当成全部曲目验收。",
+            "systems": "100处主脚本精确范围改动，物理退役发行SDK/广告/统计/更多游戏/平台暂停音量回调和存储命名空间。普通非奖励广告继续直连同一原无参继续函数；保留浏览器原生可见性、音量、本地存储。MIDI.loadPlugin显式选原库自带webaudio分支，原MP3音色与MIDI算法不变；Phaser11处fenster.innerWidth/Height改真实window读取，精确反向编辑可恢复原引擎。无SDK替身。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-84b1d19a7a63",
+      "title": "NetShark",
+      "canonical_url": "https://play.js13kgames.com/netshark",
+      "description": "load/点击alias/a/Enter/h累计5步。04 startedtrue/alias a/currentnull/house剩5/detection0%；05 currenthouse/剩4，h DOM popAnimation且黄色、packet:house、detection0%。",
+      "profiles": [
+        {
+          "version_id": "v-dcb0581c197a",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "益智 / 单词打字与检测条",
+            "core_gameplay": "load/点击alias/a/Enter/h累计5步。04 startedtrue/alias a/currentnull/house剩5/detection0%；05 currenthouse/剩4，h DOM popAnimation且黄色、packet:house、detection0%。",
+            "controls": "普通点击alias，正常键入a并Enter触发原onchange开始，然后普通H输入house首字母。每个键独立计额度，不使用fill/dispatchEvent/start方法。",
+            "rules": "初9词house/today/games/computer/water/films/artist/music/light；三行下落动画13/12/11秒；完整词进度约length/2.2×2.05，漏词检测length/5×2.05，UI条宽205代表100%；4套固定词波，未测试完整循环。",
+            "content": "原2018 js13kGames NetShark，黑底SVG红色键盘、下落单词、黄色uploaded条/蓝色detection条、alias/login/packet提示；这是原游戏内虚构网络界面，实机CDP只访问本地文件。仅宿主1240×780适配完整1200×700内容。",
+            "systems": "原HTML/JavaScript完整字节保持，index映射game.html，新增iframe宿主；首次导航前CDP覆盖全部累计输入，不调用业务方法/状态写入，只读可见结果或原截图像素。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-fe86fdf00bd4",
+      "title": "Fat Kids on Trampoline",
+      "canonical_url": "https://play.js13kgames.com/fat-kids-on-trampoline",
+      "description": "load/focus/Right80/Left200共4步；03图出现P2且Kids3/15，04图P2较前图左移；纵向明显下落来自原重力，不当作左键直接效果。闭包未直接读取坐标/得分。",
+      "profiles": [
+        {
+          "version_id": "v-5aeec1628fc3",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "动作 / 蹦床碰撞",
+            "core_gameplay": "load/focus/Right80/Left200共4步；03图出现P2且Kids3/15，04图P2较前图左移；纵向明显下落来自原重力，不当作左键直接效果。闭包未直接读取坐标/得分。",
+            "controls": "P1用WASD、P2用方向键，首次对应方向输入会加入玩家；原P暂停/ESC重置。本次普通聚焦、Right80ms加入P2、Left200ms移向左，未测试P1/暂停/重置。",
+            "rules": "原物理按mass/动量分解进行碰撞，速度差>500可使角色stun3秒，lastHitBy记10秒；只要玩家存活就按时间生成NPC。所有碰撞、惯性与AI字节保留，未验证得分归属正确性。",
+            "content": "原2019 js13kGames Fat Kids on Trampoline，原1200×760 Canvas、圆形孩子角色/P1/P2标识、帽子眼镜等饰品、蹦床、Kids数量和原合成碰撞声音。仅新增1240×800适配宿主。",
+            "systems": "原HTML/JavaScript字节全部保持，原入口index.html映射game.html，新增iframe宿主。完整累计CDP零游戏运行/HTTP错误，未调用原业务方法或修改状态。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-6935952c5b7b",
+      "title": "Time of enjoy",
+      "canonical_url": "https://play.js13kgames.com/time-of-enjoy",
+      "description": "加载→普通聚焦→右键紫T整体右移35px→左键左移35px返回原横位；期间原800ms计时使其下落35px。累计4步；原闭包未直接读取，使用截图像素证据。",
+      "profiles": [
+        {
+          "version_id": "v-370ef3f64ebb",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "益智 / 方块消行",
+            "core_gameplay": "加载→普通聚焦→右键紫T整体右移35px→左键左移35px返回原横位；期间原800ms计时使其下落35px。累计4步；原闭包未直接读取，使用截图像素证据。",
+            "controls": "方向左/右平移，上旋转，下加速下落；也有原左/旋转/下/右触控按钮。实机普通聚焦、Right80ms、Left80ms。",
+            "rules": "保留原旋转回退/边缘调整、碰撞、满行删除和七种形状。一次消n行加200×(n-1)+100；最高分仅在原失败后点击重开路径存储，未验证存档读回。",
+            "content": "原2020 js13kGames Time of enjoy，独立Webpack闭包俄罗斯方块工程，原8×12场地、七种彩色块、下一块预览、分数/最佳分和下方四个Canvas按钮。与Tetris Monochrome原工程业务指纹独立。",
+            "systems": "原HTML/JavaScript和合成音频逻辑字节保持；index.html映射game.html，新增iframe宿主。全部累计CDP无运行/HTTP错误/外部依赖；普通鼠标键盘输入，纯只读观察，不调用业务API或改状态。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-8a6d49da5e2a",
+      "title": "Emoji Swap",
+      "canonical_url": "https://play.js13kgames.com/emoji-swap",
+      "description": "加载input状态，swaps4/day1/hp4→普通水平拖动首两格，kind.name[128142,128375]→[128375,128142]、swaps3，day1/hp4/state1不变。累计2步。",
+      "profiles": [
+        {
+          "version_id": "v-0a814cb083de",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "益智 / 交换合成塔防",
+            "core_gameplay": "加载input状态，swaps4/day1/hp4→普通水平拖动首两格，kind.name[128142,128375]→[128375,128142]、swaps3，day1/hp4/state1不变。累计2步。",
+            "controls": "普通鼠标拖动相邻格，位移超过0.5格释放即交换且消耗次数。实机(415,135)→(505,135)，没有调用gclickstart/gmapget等原函数。",
+            "rules": "原gtilekindtower/cannon/ballista有不同射击方向和冷却，升级按2^(level-1)缩短冷却；宝箱合成可增加交换。原匹配/下落/射击规则完整保持。",
+            "content": "原2018 js13kGames Emoji Swap，6×6表情格、绿棋盘/蓝背景、四生命、交换次数、日期、城堡及原塔防表情/怪物/弹丸，Segoe UI Emoji原字体表现。",
+            "systems": "原HTML/JavaScript和合成音频逻辑字节保持；index.html映射game.html，新增iframe宿主。全部累计CDP无运行/HTTP错误/外部依赖；普通鼠标键盘输入，纯只读观察，不调用业务API或改状态。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-cdfdb35a40c3",
+      "title": "Lucky 13",
+      "canonical_url": "https://play.js13kgames.com/lucky-13",
+      "description": "加载→普通Canvas聚焦→Space开始→普通右键200ms，playing=true、angle0→0.4799999999999999，points0、下落点数1→2为自动生成。累计4步。",
+      "profiles": [
+        {
+          "version_id": "v-eb07b0cda425",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "动作 / 精确收集",
+            "core_gameplay": "加载→普通Canvas聚焦→Space开始→普通右键200ms，playing=true、angle0→0.4799999999999999，points0、下落点数1→2为自动生成。累计4步。",
+            "controls": "Space开始，左右箭头或Z/X调整角度，P暂停、Q/ESC停止。本次普通聚焦、Space80ms和右键200ms；未测其他键。",
+            "rules": "原左右控制每帧±0.04，左右边界约±0.7；场景横移-0.01×sin(I)，收集条件y0.85..0.95且x落在0.5±2R。全部音乐长度、原动画/计分逻辑保持。",
+            "content": "原2012 js13kGames Lucky 13，Canvas、绿色场地、黑色双翼玩家形状、灰色下落点、标题/结算文字和原合成WAV音乐/效果音。未从形状推断具体生物物种。",
+            "systems": "原HTML/JavaScript和合成音频逻辑字节保持；index.html映射game.html，新增iframe宿主。全部累计CDP无运行/HTTP错误/外部依赖；普通鼠标键盘输入，纯只读观察，不调用业务API或改状态。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-3280594049c2",
+      "title": "Little adventure of Mr Cat",
+      "canonical_url": "https://play.js13kgames.com/little-adventure-of-mr-cat",
+      "description": "加载自动下落→普通点击聚焦→普通右键，原x640→752.4549999999996、lives9、endedfalse。累计3步。",
+      "profiles": [
+        {
+          "version_id": "v-78902f36464d",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "动作 / 猫下落避障",
+            "core_gameplay": "加载自动下落→普通点击聚焦→普通右键，原x640→752.4549999999996、lives9、endedfalse。累计3步。",
+            "controls": "普通点击画布聚焦后方向键左右转向；原上下键/WASD可调整下落速度。本次只按ArrowRight200ms，未调用u/m或写猫坐标。",
+            "rules": "原左右450×dt改变x并限制在边界；基础速度按下落距离分段增加，重力50×dt；碰障r--，未耗尽则vy=-20并移出障碍，耗尽f=true。业务规则字节保留。",
+            "content": "原猫、随机障碍、两侧楼体、星空、粒子、Lives/Score/Distance/Speed/Base及心形生命HUD；程序绘制与合成声音，无外部图片或音频文件。",
+            "systems": "原x角色、M障碍、p键盘状态、u更新和requestAnimationFrame/WebAudio全部字节保留；新增iframe宿主，原index.html映射game.html。完整3步CDP无运行/HTTP错误。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-0e4f10bdb78e",
+      "title": "Reversed Ice Throwers",
+      "canonical_url": "https://play.js13kgames.com/reversed-ice-throwers",
+      "description": "加载菜单→普通Play→普通ArrowRight，原player.alien.x100→120、isPlaying=true、isDead=false、score0。累计3步。",
+      "profiles": [
+        {
+          "version_id": "v-54854955c0c6",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "动作 / 避冰到门",
+            "core_gameplay": "加载菜单→普通Play→普通ArrowRight，原player.alien.x100→120、isPlaying=true、isDead=false、score0。累计3步。",
+            "controls": "普通点击Play后，左右方向键控制角色横坐标；纵向移动由原程序自动处理。本次ArrowRight200ms令x100→120，未调用checkDirection或写坐标。",
+            "rules": "原checkKey只映射37/39，checkDirection按player.speed增减横坐标；原平台接触改变angle，到门范围使isPlaying=false并绘制You Win。规则与冰运动字节保留。",
+            "content": "原800×600 Canvas、角色、上下落冰装置、6块平台、终点门、雪粒背景、Play菜单与You Win文字；原程序绘制，无外部图片/音频。",
+            "systems": "原Player/IceThrowers/Door、startGame/loop/checkKey及碰撞逻辑保留；仅新增iframe宿主和index.html→game.html映射。完整3步CDP无运行/HTTP错误。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-c9c239e32e43",
+      "title": "Tetris monochrome",
+      "canonical_url": "https://play.js13kgames.com/tetris-monochrome",
+      "description": "初次加载→普通右侧点击，活动块右移但横屏棋盘下部裁切→仅改宿主360×640并重载→普通画布控制/焦点点击→普通ArrowRight，活动T块右移一列。累计5步。",
+      "profiles": [
+        {
+          "version_id": "v-ebc477afe508",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "益智 / 下落方块",
+            "core_gameplay": "初次加载→普通右侧点击，活动块右移但横屏棋盘下部裁切→仅改宿主360×640并重载→普通画布控制/焦点点击→普通ArrowRight，活动T块右移一列。累计5步。",
+            "controls": "原keydown37/39移动左右，40下降，81/87旋转；原document click根据点击相对方向移动或旋转。实机普通鼠标点击右侧产生水平右移，宿主适配后普通焦点点击与ArrowRight再次使活动T块右移一列。未调用原x/g/p等函数或写闭包状态。",
+            "rules": "原s检查碰撞，x修改pos.x并在碰撞时回退；p推进下落并在接触后合并、生成下一块；g旋转并尝试横向修正；满行清理后依次增加10倍递增分数。上述算法原字节保留，仅横向移动有实机验证。",
+            "content": "原单色块、12列20行棋盘框、下一块预览、Score与Time文字；全部由Canvas绘制，无外部图像或声音文件。定位：_raw/index.html、04/05截图。",
+            "systems": "保留原单HTML和Canvas业务字节，原index.html以game.html交付。原按窗口宽度计算格尺寸，横屏会裁棋盘下部；只用native_portrait_host.py提供360×640等比iframe宿主，使原12×20棋盘完整显示，不改棋盘或判定。全部5步原CDP无错误、无外部请求。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-0be000a94497",
+      "title": "Sky Bridge Classic",
+      "canonical_url": "https://cdn.ludigames.com/microsoft/start-skyBridge/20-cdn",
+      "description": "MSN原Sky Bridge Classic20-cdn，Cocos2.0.5。原按住增长/松开转桥/屋顶长度判定、角色移动/原随机间距/本地经验与最佳分保留；37模块整段原字节一致，6云数据/排行/在线里程碑模块与广告/服务按钮移除，只有3模块定向改动，97运行文件94原字节一致。5检查点5输入：菜单、Play、原辅助教程桥PERFECT4分、下一手动桥过长正常GameOver4分、刷新。前四步92请求92同源200无脚本异常；第五步刷新2条本地音频ERR_CONNECTION_REFUSED，未加载场景，刷新/存档恢复明确未通过。原错误与失败截图全保留；之后只读HTTP两文件200/SHA仅证明文件存在，不冒充刷新复验。43骨骼数据原已内嵌，81实际原资源完整、UUID闭包无缺失。V5.1十六维、真实图、SHA与计时边界齐全；Token/费用/纯处理耗时未知null。提交基础玩法待人工验收，不声明全局/所有角色/无辅助过桥通过，不触发供货。",
+      "profiles": [
+        {
+          "version_id": "v-a33f9eb663be",
+          "status": "review",
+          "profile": {
+            "engine": "Cocos Creator2.0.5",
+            "category": "休闲 / 按住造桥测距",
+            "core_gameplay": "观察屋顶间距，按住使桥梁生长、松开让桥梁转落；桥长落在目标平台范围才可通行，过短或过长按原判定坠落。教程有原生标尺和长度上限辅助；本轮只实际通过教程桥，第二次非教程桥失败。",
+            "controls": "原Play按钮开始，空白玩法区域普通鼠标按住与松开控制桥长；原Input绑定TOUCH_START/END/CANCEL/MOVE并由引擎处理浏览器输入，未调用游戏输入或桥梁业务函数。音量/说明/角色面板入口保留未操作。",
+            "rules": "原BridgeControl.compareBridgeLength按平台中心距、半宽和padding分过短/过长/普通/完美；按住增长、松开转落、通过才推进ColumnGeneration，角色碰撞/坠落/动画和随机楼高/间距未改。教程自身使用getPerfectDistance上限和可见标尺，未删除教程或人为降低难度。",
+            "content": "实际走通原引导过桥及普通失败结算；第二次桥没有过关，不把失败写成第二次成功。第五步刷新停在原加载图，未验证存档恢复。长局、角色选择、其他楼顶布局、重玩和手机均未测。",
+            "systems": "46原模块中37完整函数体保持原字节，6云数据/排行榜及在线里程碑模块移除，仅ButtonBehaviour/GameManager/ScoreManager三模块定向修改。桥梁/输入/角色移动/列生成/普通角色成长/本地存储原模块完整保留。场景包197条目不移位，195资产对象完全相同，仅服务组件/入口关联修改，剩余对象引用无悬空。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-76bfe71911ef",
+      "title": "Depth Charge",
+      "canonical_url": "https://play.js13kgames.com/depth-charge",
+      "description": "加载自动巡航场景→普通画布点击获取焦点→普通Space投下原炸弹→观察drop=true、炸弹下落与舰船继续横移。",
+      "profiles": [
+        {
+          "version_id": "v-213d9abdc8af",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "街机 / 深水炸弹",
+            "core_gameplay": "加载自动巡航场景→普通画布点击获取焦点→普通Space投下原炸弹→观察drop=true、炸弹下落与舰船继续横移。",
+            "controls": "普通Space或ArrowUp调用keyboardControl，在drop=false时将drop设true。实测点击原画布获取焦点后按Space100ms，drop false→true，炸弹由跟舰状态转为独立下落，bulletY67.5→76.5。",
+            "rules": "原30Hz循环调用moveBullet/moveBall/moveSubRight/moveSubLeft/三种碰撞/checkScore。炸弹落出场地后drop=false；原判定全部保留，未纠正页面与代码胜利阈值差异。",
+            "content": "Canvas蓝色水域、自动巡航红色矩形驱逐舰、黑黄圆形潜艇、绿色深水炸弹和Score。页面含原英文说明，没有独立媒体。",
+            "systems": "全局drop/bulletX/bulletY维护唯一炸弹；keyboardControl是输入入口，moveBullet切换跟舰和下落；独立函数处理两艇与计分。原HTML业务字节保持。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-d60fefda10d8",
+      "title": "Falling Blocks",
+      "canonical_url": "https://play.js13kgames.com/falling-blocks",
+      "description": "加载原说明→点击Lets Play→右箭头移动→上箭头换色，仍未显示Play Again。",
+      "profiles": [
+        {
+          "version_id": "v-cfe3ebc155ff",
+          "status": "review",
+          "profile": {
+            "engine": "原生Web / JavaScript",
+            "category": "街机 / 躲避与颜色切换",
+            "core_gameplay": "加载原说明→点击Lets Play→右箭头移动→上箭头换色，仍未显示Play Again。",
+            "controls": "左右箭头每次移动50px；上箭头切换黑白。实测start后left200px，右箭头变250px，上箭头从rgb(0,0,0)变rgb(255,255,255)。",
+            "rules": "createEnemy每150ms随机9列及黑白颜色；enemyAttacks在top550、列相同、颜色不等时置玩家红色并停止interval。原同色穿过、异色失败条件保持；仅移动与换色实测。",
+            "content": "原灰底、黑白玩家方块、黑白下落方块、说明、Lets Play及Play Again；CSS矩形，无独立图像音频。",
+            "systems": "onLoad绑定原按钮，startGame显示战场并绑定键盘；checkKeyPressed控制位置/颜色，createEnemy与enemyAttacks控制随机块及原失败。无业务网络。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-2d8f77103b8b",
+      "title": "Tower of Colors",
+      "canonical_url": "https://marketjs.cdn.msnfun.com/9mvrrp2z8ks8/v4/index.html",
+      "description": "MSN原Tower of Colors v4/Island Edition，原ImpactHUD及custom Babylon/Ammo三维物理，15塔布局循环与原难度/颜色/弹药生成保留。358方法328归一AST相同、15服务方法退役、15服务范围改变；31原3D/物理/关卡/普通每日/Packer/vendor节点经修改前结构验证后原字节保全3407682字节，41核心模块/数据指纹相同。5检查点5输入，实际原Play、青色命中1分29弹药、正常拖动转视角、橙色命中2分28弹药，金币150不变，下一黄色球；无游戏状态或时钟注入。38请求38响应全本地200，含原wasm/场景/材质，0外联/缺失/异常，1自动播放警告保留。原普通每日和50/100金币道具保留未领取/购买，平台/广告/免费金币/分享退役。首关通关、结算、刷新存档与全部布局未实测。V5.1十六维与真实截图/SHA/耗时范围齐全，Token费用纯处理耗时未知null。已核对全候选同色/旋转/塔相关玩法，不同于下落穿层/弹跳攀高/2D泡泡或炮台合成。",
+      "profiles": [
+        {
+          "version_id": "v-23bd29555700",
+          "status": "review",
+          "profile": {
+            "engine": "ImpactJS / Babylon.js / Ammo.js / WebGL",
+            "category": "3D物理益智 / 旋转彩色塔",
+            "core_gameplay": "旋转三维彩色塔，观察当前球颜色，点击可见同色塔块以触发原球命中及相邻同色移除，在有限弹药内使塔坍塌清除；本轮两次合法命中及转动真实通过，整关目标尚未完成。",
+            "controls": "原Play进入；点击塔块由原窗口输入/Babylon拾取/原球发射处理；鼠标按住拖动调整绕塔角度。实际3次普通点击均move→100ms→down→80ms→up；旋转一次为12段move的真实拖拽。原暂停、缩放与50/100金币道具按钮在教程结束后保留，本轮没有点这些按钮。",
+            "rules": "原LevelManager pickBlock仅处理未冻结/有物理体且高于底部的块；原Ball颜色判定与相邻同色遍历、块破坏/坍塌、分数和弹药不改。每破坏块通过原tallyDestroyedBlock计分；原combo换金币及能量炮阈值机制仅源码保留，本轮没有触发奖励或免费道具。",
+            "content": "原本地level/score/highscore/coin、首次点击与滑动教程标志、关卡切换、难度递增和正常存储路径保留。实际在关1，教程步骤自然前进与当前最高分2可见；没有刷新持久化、后续关卡或结算实测。",
+            "systems": "358游戏/字体/3D方法中328归一AST一致、15平台/广告/外链方法退役、15方法仅服务调用/控件范围修改。31个原3D/物理/关卡/普通每日奖励/Packer及vendor节点经修改前结构AST相同后采用原字节保全，共3407682字节；完整Babylon/Ammo vendor和41数据/模块指纹保持。失败v1生成器补括号及v2过宽visitor触及vendor证据保留；v3将vendor从退役visitor排除，不以放宽哈希掩盖修改。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-001c35730b6c",
+      "title": "Snakes and Ladders",
+      "canonical_url": "https://codethislab.cdn.msnfun.com/9n9xf62dpf3h/v2/index.html",
+      "description": "MSN原生100格蛇梯棋，双板型/2～6人/原CPU及同机玩法保留。累计5检查点、9原始输入，原蛇棋2人对CPU首轮实测玩家0→5、CPU0→38、回合返回玩家，未整局或全部模式。181原生核心方法175AST相同，6处只删服务事件；PlayerIO/网络房间/在线Bot/广告报分与实际调用退役，无伪造SDK。完整98请求98响应全部本地200、0失败/脚本异常，保留1性能警告。原素材与真实截图、V5.1十六维及未知Token/费用按null归档。",
+      "profiles": [
+        {
+          "version_id": "v-0a880debd466",
+          "status": "review",
+          "profile": {
+            "engine": "CreateJS / Canvas2D / Howler",
+            "category": "棋牌 / 蛇梯棋掷骰竞速",
+            "core_gameplay": "通过原随机骰子在100格棋盘竞速，利用梯子上升、避开蛇下降，并按精确点数到终点；运气型回合竞赛。实测玩家和CPU各完成首轮移动，不宣称完整胜负。",
+            "controls": "鼠标点击原START、Local、棋盘模式、对手、人数、颜色、说明跳过和骰子；原CreateJS触控代码保留。只实测鼠标；未实测手机、声音/设置/全屏/重开按钮。",
+            "rules": "原PERFECT_SCORE=true，超过100按剩余步数回退；掷6额外掷骰，蛇/滑梯下降、梯上升，原棋子占位和回合动画保留。181个原生核心方法中175个AST相同、6个只删平台事件/广告；没有更改骰点、CPU、棋盘图、结算或奖励。",
+            "content": "原蛇棋与滑梯两种板型、2～6名棋子、CPU或同设备轮流的配置保留；不是闯关合集。本次只进入蛇棋、2名、人对CPU配置，其余配置没有试玩。",
+            "systems": "保留CreateJS场景/原加载器/Howler/原screenfull、棋盘/骰子/CPU与本地统计。移除PlayerIO SDK、网络管理和消息转发、房间GUI、多人网络/假在线Bot场景及原实例、广告/报分/遥测调用，启动直接等待原字体后创建原CMain；getLang调用改为实际浏览器语言。未定义假SDK、身份或广告成功回调。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-7b4a925a84aa",
+      "title": "帮帮猫猫星人",
+      "canonical_url": "https://www.4k99.com/detail/2757",
+      "description": "原菜单→开始进入原第一关→普通拖动画线→原物理线段移动与饼干下落→第4步重载回菜单→第5步重新进入第一关。累计5步，未通关。",
+      "profiles": [
+        {
+          "version_id": "v-78eaa1f78be6",
+          "status": "review",
+          "profile": {
+            "engine": "Cocos Creator 2.4.x",
+            "category": "益智 / 画线物理",
+            "core_gameplay": "原菜单→开始进入原第一关→普通拖动画线→原物理线段移动与饼干下落→第4步重载回菜单→第5步重新进入第一关。累计5步，未通关。",
+            "controls": "普通点击开始进入第一关，按住鼠标从(575,590)拖到(790,455)绘制斜线。GraphicsContro在空白物理区域记录采样点，拖动消耗墨水；松手创建刚体并执行cookieDrop。实际13个点、墨水约1029.475；未用提示/跳关/广告或调试编辑。定位GraphicsContro.touch_start/touch_move/touch_end/createRigibody。",
+            "rules": "GraphicsContro拒绝从现有碰撞体内部起笔，线段射线撞物时显示警告，采样点间距离至少5；GameView初始墨水1500，checkInk要求足额，松手创建刚体并把饼干重力设1、初速(0,-300)。Cat与cookie/fish碰撞后吃食，动画完成才gameEnd；水滴累计10触发完成。后两类规则来自代码，没有实机覆盖。",
+            "content": "原白猫骨骼动画、饼干/鱼/水滴、草地/城市/滑梯背景、物理线段与墨水条、金币/体力/提示、暂停/重开/跳关/关卡/商店及胜负面板。定位原assets/main/index.a704c.js的Cat、GraphicsContro、GameView、LevelConfig及原prefab/贴图/骨骼资源；截图02-board、03-settled。",
+            "systems": "GameView负责关卡/资源HUD/目标，GraphicsContro与MyPhysicsCollider生成画线刚体，Cat处理碰撞及动画，LevelConfig静态关卡，UserManager/LocalStorage用原XXTEA写10226_CAT_LOCAL_USERDATA2。第4步重载读取power9，证实本轮体力记录恢复；不推断跨设备存档。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-55d58f6826fa",
+      "title": "苹果贪吃蛇",
+      "canonical_url": "https://www.4k99.com/detail/48165",
+      "description": "首次加载菜单，原横屏加载GIF的外链被CSP阻止→只把已采集原GIF改为本地路径→第2步重载→第3步开始并出现关卡列表→第4步选择原第1关→第5步点击右按钮。首轮失败完整保留，修复后片段单独审计。",
+      "profiles": [
+        {
+          "version_id": "v-442c6c2fa48d",
+          "status": "review",
+          "profile": {
+            "engine": "Cocos Creator 2.x",
+            "category": "益智 / 平台蛇",
+            "core_gameplay": "首次加载菜单，原横屏加载GIF的外链被CSP阻止→只把已采集原GIF改为本地路径→第2步重载→第3步开始并出现关卡列表→第4步选择原第1关→第5步点击右按钮。首轮失败完整保留，修复后片段单独审计。",
+            "controls": "原Control组件在TOUCH_START发出BTN_EVENT，事件参数为原按钮名；PlayerMgr.onBtnEvent仅在isGameClick时接受UP/DOWN/LEFT/RIGHT，再由MapInfo.judgeNextPos判断移动。本轮普通点击右按钮，不调用控制方法或写坐标。",
+            "rules": "PlayerMgr在isMove时拒绝新方向操作；onControl从蛇头格加方向向量，调用MapInfo.judgeNextPos。原moveNormal按新格位置移动各身体段；moveDown按判定len下落，moveSend走原传送路径。onMoveResult按typeResult发出PROP_STARS、GAME_END(true)、GAME_END(false)或PROP_SEND。成功分支更新tongLevel，失败不更新；未改任何地图判定。定位：原game/index.d7795.js的PlayerMgr、LoadMap、PropConfig和GameUIPanel。",
+            "content": "原蓝天、水面、草地平台、绿色蛇头与水果身体、红色果实、锯齿危险物、出口/门、上下左右按钮、体力、关卡、重开、提示和皮肤商店。定位：原game/home/common包与04-board-ready、05-feedback。",
+            "systems": "原common/index.32e4a.js的GameDataCenter/Store管理Power、Skin、tongLevel与当前关；game/index.d7795.js管理输入、蛇身、地图/道具与结算；home/index.4f110.js管理菜单、体力和皮肤。原Store保存与原通关逻辑保留，但本轮未验证跨重载通关保存。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-c429ecdeca63",
+      "title": "我火力贼猛",
+      "canonical_url": "https://www.4k99.com/detail/55385",
+      "description": "在原平台战场移动和施放技能对抗本地AI敌人的小游戏。",
+      "profiles": [
+        {
+          "version_id": "v-ba5bdeac00a9",
+          "status": "review",
+          "profile": {
+            "engine": "Cocos 2.x",
+            "category": "动作 / 平台技能对战",
+            "core_gameplay": "加载battle首关对白1；下一步对白2；下一步对白3；下一步对白4；下一步结束对白并启动原倒计时/战场。敌方原AI canUpdate true/isMoving true/monsterId101、释放间隔2；玩家HP持续下降，gameOver false。五步后不再操作。",
+            "controls": "严格5步为加载与4次普通下一步，逐一播放原4段对白并结束开场。摇杆/技能/瞄准按钮原样显示，但本轮没有点击；未调用伤害、AI、进度或技能方法，没有注入生命/等级/关卡。",
+            "rules": "BattleUI.showTalkDis按原4句配置轮流显示，对话结束调用原doTimeAnim。PlayerNode原update按deltaTime更新速度/重力，y<0回到0并切none，不把残留speedY负值误判持续坠落；被击时原Global.lockHp=true分支实际执行BigNumberHelper.minus扣HP，该命名不代表本轮无敌。原规则与数值未改。",
+            "content": "当前原首关、森林双侧平台、monster101，原4句talkDis完整保留。原其他英雄/怪物/技能/地图/关卡配置保留，未全关卡验证，不按资源或配置行数推断可玩关卡总数。",
+            "systems": "Global/Player管理本地数据；ResourceManager按原bundle加载角色/弹道/UI；BattleScene组织本地保存与场景，BattleUI/PlayerNode/AIPlayer处理战斗。纯SDK/HTTP/WebSocket/真实好友房间、分享/榜单/广告与远程头像退役，原Stage和本地AI匹配代码保留。updateServerInfo仅保留原dirtyPlayer，不伪造serverVersion成功。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-92620989ee42",
+      "title": "公主爱拼豆",
+      "canonical_url": "https://www.4k99.com/detail/62032",
+      "description": "选择原图案后拖动镊子按色号落豆、完成拼豆与成品收集的游戏。",
+      "profiles": [
+        {
+          "version_id": "v-2f69caf8f857",
+          "status": "review",
+          "profile": {
+            "engine": "Cocos 2.x",
+            "category": "益智 / 像素拼豆",
+            "core_gameplay": "首次原图鉴首页→补原远端封面后一次纯技术重载并只读确认→选择香蕉猫→第一拖3豆→第二拖无增加→第三拖14豆。五步后的只读快照isFail false，截图剩37秒；未等或点击失败/复活、未重开。",
+            "controls": "原镊子拖动，BeadLevel._onDragItem/_onMoveDrag/_onEndDrag按真实touchID与拖动采样检查路径；handlePickMatch只在色号相同且未放豆时placeBean并增加filledBeansCount。原触摸/角度/归位/镜头缩放均保留。第二次拖动发生在已自动归位后的空白区域，没有落豆，仍计入五步。",
+            "rules": "原匹配色号/未放豆判定保留，guide2→-1，gridList399、实际带BeadGrid组件162个。filledBeansCount与可见豆0→3→14，ironed0。原100秒倒计时开始后继续下降，无时间修改、无状态注入。",
+            "content": "原InitSpr/BaseSpr/Level_1/Level_1418/Level_1480/Level_1481等包与本地图案数据保留；本轮只进ID4。原BaseData报告9/23/26/1482/1483/1485/1494/1545有配置但不在总列表，未把这些当可玩关卡。远端封面备用分支只补实际访问2张，其余未验。",
+            "systems": "原GameResManager分包加载，LevelManager与BaseData组织原关卡，BeadMaterialManager/Manifest管理豆资源，BeadGrid负责放置与熨烫状态，BeadBoardView处理缩放，LocalStorageManager保持原数据。clipper/poly2tri/polybool原插件未改。764资源全本地、缓冲10000/初始3；11条原诊断逐条源审阅，旧4远端错误原样保留。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-09a3548774a1",
+      "title": "割绳子",
+      "canonical_url": "https://www.4k99.com/detail/1091",
+      "description": "首关原绳球瓶罐→一次横划→原物理下落与通关成功→下一关→再次横划→第二关成功→刷新恢复第三关。",
+      "profiles": [
+        {
+          "version_id": "v-e88e8d231938",
+          "status": "approved",
+          "profile": {
+            "engine": "Cocos Creator 2.2.0",
+            "category": "益智 / 割绳碰撞",
+            "core_gameplay": "首关原绳球瓶罐→一次横划→原物理下落与通关成功→下一关→再次横划→第二关成功→刷新恢复第三关。",
+            "controls": "普通按下横划并松开切绳；点击原下一关按钮。",
+            "rules": "原物理绳索切断、球体下落与瓶罐碰撞规则；没有调用胜利方法、设置瓶子、关卡或分数。sceneMediator根据原highLevel记录加载后续关卡。",
+            "content": "原绳索、悬球、锚点、瓶罐、斜坡、关卡数字、教程剪刀/手指、设置、重开和下一关按钮。",
+            "systems": "旧Cocos AssetLibrary加载res/import与res/raw-assets；原sceneMediator和Tool保存关卡。只增加离线等比宿主与本地平台SDK边界，核心脚本字节相同。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-31d1af2bd2d6",
+      "title": "国王逃脱",
+      "canonical_url": "https://www.4k99.com/detail/53166",
+      "description": "5步：启动原主页200币/5体力/闯关0；普通开始原70秒/剩余石头70棋盘；右列普通向上交换触发三连消失/石块下落；相邻列普通交换再次消除/石块继续下落；刷新原主页200币/4体力/闯关0。",
+      "profiles": [
+        {
+          "version_id": "v-2892f85198c0",
+          "status": "approved",
+          "profile": {
+            "engine": "Cocos Creator 3.8.6",
+            "category": "益智消除 / 三连与落石救援",
+            "core_gameplay": "5步：启动原主页200币/5体力/闯关0；普通开始原70秒/剩余石头70棋盘；右列普通向上交换触发三连消失/石块下落；相邻列普通交换再次消除/石块继续下落；刷新原主页200币/4体力/闯关0。",
+            "controls": "普通点开始游戏，拖相邻绿色/黄色交换；不调用交换/消除/计分/胜利方法。",
+            "rules": "原引导手指缓动方块、3连消除；代码判断行列同色三连，石块落至阈值后d得分执行；未验证石头完全移除、救援成功与超时失败。",
+            "content": "原红黄绿方块（带圆形+纹）、上方石块、推盾国王/尖刺、70秒倒计时、剩余石头70、体力/金币及原刷新/飞镖视频入口。",
+            "systems": "mishixiaochuTS棋盘与三连/倒计时、shitouTS落石/计数、TSkaishichangjing开始/体力、SJTS缓存、原国王骨骼/音频及广告入口。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-f2c212204941",
+      "title": "俄罗斯方块2",
+      "canonical_url": "https://www.4k99.com/detail/2601",
+      "description": "双模式首页→普通经典→普通点→普通下拖堆叠与新块→刷新首页。",
+      "profiles": [
+        {
+          "version_id": "v-cd690e75a403",
+          "status": "approved",
+          "profile": {
+            "engine": "Cocos Creator 3.7.1",
+            "category": "益智消除 / 方块落块",
+            "core_gameplay": "双模式首页→普通经典→普通点→普通下拖堆叠与新块→刷新首页。",
+            "controls": "原UI触摸点旋转、横拖左右、向下拖超过原设计180快速落块；原W旋转/S快落/A左/D右有代码，本轮只点与下拖。",
+            "rules": "本轮普通经典模式，块自然下落并叠放，半透明投影与下一块可见；没有消行不记正分。",
+            "content": "原彩色卡通四格方块、落点投影、竖棋盘/下一块、分数/等级/全服最高标签和双模式首页。 原load/tetris场景与SpriteFrame、音频。",
+            "systems": "GameManager网格/游戏状态、TetrisBlock方块、GamePage/UI输入/显示、PoolManager复用、LocalStorage存储，保持原业务。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-963c56f7755d",
+      "title": "流沙俄罗斯方块",
+      "canonical_url": "https://www.4k99.com/detail/46137",
+      "description": "主页→无尽挑战→普通下落→蓝沙堆/下一橙块→暂停页→刷新主页。",
+      "profiles": [
+        {
+          "version_id": "v-3be60497bfa9",
+          "status": "approved",
+          "profile": {
+            "engine": "Cocos Creator 3.8.3",
+            "category": "益智 / 流沙下落方块",
+            "core_gameplay": "主页→无尽挑战→普通下落→蓝沙堆/下一橙块→暂停页→刷新主页。",
+            "controls": "普通点无尽挑战、下落按钮、暂停，再刷新；未调用游戏业务方法。",
+            "rules": "保留原沙粒下落和清除判定代码；实际一次普通下落蓝沙堆、下一块生成、分数0；清除得分与失败未覆盖。",
+            "content": "原像素彩块/沙粒、方块预览、按钮/道具格、分数/暂停UI、字体音频；img_game60/prefabs8/panels392和Main.scene。",
+            "systems": "GameMgr/s_game状态、s_pixelShape形状、s_pixelContainer/s_sandPixelDataModel沙粒、s_gamePanel控制、原暂停面板；宿主不修改逻辑。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-9cb8b9e49343",
+      "title": "方块大爆炸",
+      "canonical_url": "https://www.4k99.com/detail/748",
+      "description": "初始教学→右移黄色长块→落下填底行清除得8→右拖蓝块→暂停8→刷新0。",
+      "profiles": [
+        {
+          "version_id": "v-1076ab9602e9",
+          "status": "approved",
+          "profile": {
+            "engine": "Cocos Creator 2.4.8",
+            "category": "益智 / 水平滑块满行消除",
+            "core_gameplay": "初始教学→右移黄色长块→落下填底行清除得8→右拖蓝块→暂停8→刷新0。",
+            "controls": "普通水平拖动原黄色长块，再拖蓝块；普通点击暂停。未操作激励按钮。",
+            "rules": "滑块在行内横移，空位允许重力下落，满行触发清除并推进下方新行；本轮黄色3格块移至底行空位后得8，暂停仍8，未测所有块型/连击。",
+            "content": "原表情滑块、棋盘、下一行条、背景卡通/木牌、得分/历史/暂停/道具UI、音频；resources.loadDir445项。",
+            "systems": "MainView输入/引导/分数，GameManager网格/下落/满行，Block滑块表现，LocalInfo本地记录，GamePause暂停；SDK不返回广告成功。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-3548506348c1",
+      "title": "合成大西瓜",
+      "canonical_url": "https://www.4k99.com/detail/1374",
+      "description": "Start普通模式→顶部葡萄→第一次投果落底→第二次红果落底→下一果橘子→刷新回Start；分数0。",
+      "profiles": [
+        {
+          "version_id": "v-d8a2635eaf13",
+          "status": "approved",
+          "profile": {
+            "engine": "Cocos Creator 2.4.9",
+            "category": "休闲 / 水果下落合成",
+            "core_gameplay": "Start普通模式→顶部葡萄→第一次投果落底→第二次红果落底→下一果橘子→刷新回Start；分数0。",
+            "controls": "普通点击普通模式，两次在容器内点击投果已测；原拖动/触屏未测。",
+            "rules": "Game处理投果与下一果，Ball处理原碰撞/合成，普通模式入口标不限时间，竞技入口标5分钟但未测。两次不同果落底不构成合成成功。",
+            "content": "原水果、玻璃容器、卡通角色、室内背景、主题、成就/存档/UI、音频和配置；resources.loadDir348项。",
+            "systems": "Game/GameMgr/Ball负责玩法，PlayerMgr/SaveMgr为本地数据，DataManager配置，Start菜单初始化；宿主明确离线玩家且保留原loadData，NetMgr的排行读写不可用，不伪造奖励/排名。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-df7400a594e3",
+      "title": "方块坠落",
+      "canonical_url": "https://www.4k99.com/detail/409",
+      "description": "初始教学→第3列落块/同数合并→第2列引导→原自动落块继续合并→暂停累计124→刷新当前0最高124。",
+      "profiles": [
+        {
+          "version_id": "v-4299fc981c8c",
+          "status": "approved",
+          "profile": {
+            "engine": "Cocos Creator 2.4.6",
+            "category": "益智 / 数字坠落合并",
+            "core_gameplay": "初始教学→第3列落块/同数合并→第2列引导→原自动落块继续合并→暂停累计124→刷新当前0最高124。",
+            "controls": "普通点击第3列、第2列与暂停已测，源代码onTouchMove/End处理列选择；原教学与自动落块也会推进，不声称全为手动成绩。",
+            "rules": "MainView.onTouchEnd选列，runCombineStart/runCombine与GameCacule计算合并；教学GuideConfig/GuideIdx限制落点，未完成教学前不能把任意列输入当成功；本轮实际引导合并运行。",
+            "content": "原数字块、网格、下一块、手/箭头、星星、道具、暂停UI与音频；resources.loadDir106项。",
+            "systems": "MainView处理输入/计分/道具/教学，GameCacule处理网格与合并，PropView负责移动，LocalInfo存档，GamePause暂停；SDK不发广告奖励、不上传排行。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-f0cf11eb69d5",
+      "title": "欢乐球球",
+      "canonical_url": "https://servicewechat.com/wxf872ea5294e051c0/213",
+      "description": "原版Three.js97dev+PIXI4.8.2客户端、UI、模型、材质、粒子与连续楼层生成器本地化。435份困难模式配置完整落地，不等同经典主线总关数。广告、账号、支付、排行榜、组队和在线活动退役，服务器门票门槛改为本地原图进入确认。仅按5步上限验证原版开局与一次旋转下落；最终后台心跳和营销入口移除经静态核对，未追加实测。附原版运行封面、16维度V5.1规格、真实耗时和token时段统计，以及独立原材料归档；可修改编译后JS和适配层，未恢复完整作者工程。",
+      "profiles": [
+        {
+          "version_id": "v-07212ece89b5",
+          "status": "published",
+          "profile": {
+            "engine": "Three.js97dev + PIXI4.8.2",
+            "category": "敏捷",
+            "core_gameplay": "观察平台缺口与落点 → 按住横向拖动旋转柱体 → 球体接触平台或穿过缺口 → 观察下落与得分 → 继续旋转。",
+            "controls": "按下画面中央并左右拖动。原xN每次横移增量乘0.02，单次旋转增量限制为±π/2；原版PIXI开始/困难列表/返回控件保留。浏览器鼠标与触摸转换到原触摸输入。",
+            "rules": "",
+            "content": "经典连续生成器完整保留。expertMode表435条，全部对应435份expertDifficulty本地文件；ID1也为原配置，不累计成经典模式关数。目录全量保存，未逐图通关。原全局、普通难度、皮肤、物品、helixStage以及附加模式配置保留；在线每日轮换、组队、擂台等入口退役，不宣称还原原后台赛程。",
+            "systems": ""
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-9f6c68959721",
+      "title": "俄罗斯方块",
+      "canonical_url": "https://www.4k99.com/detail/420",
+      "description": "移动和旋转下落方块，填满横行后消除并得分；避免方块堆到顶部。",
+      "profiles": [
+        {
+          "version_id": "v-7e1ca3223925",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "消除 / 益智 / 方块堆叠",
+            "core_gameplay": "移动和旋转下落方块，填满横行后消除并得分；避免方块堆到顶部。",
+            "controls": "点击开始。A 左移、D 右移、S 下移、W 快速下落、空格旋转；原版屏幕按钮提供相应操作。手机仅验证390×844布局，未验证实体触屏。",
+            "rules": "方块落下并固定，填满横行消除；实测单行增加10分，累计9行90分，堆到顶部结束。其他多行奖励和完整速度曲线未逐项验证。",
+            "content": "保留原版俄罗斯方块形状、棋盘、下一块预览、分数、消行数、等级、计时、结算、原始图片和13份音频资源。",
+            "systems": "方块生成、移动旋转、堆叠碰撞、消行计分、下一块预览、等级和计时、结束结算、最高分本地保存。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-ddabbefb5c22",
+      "title": "Play Roll & Reload - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/rollshot-arena",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-7ab1ee30db48",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "射击 / 竞技",
+            "core_gameplay": "玩家作为带炮管的球体在封闭草地竞技场中移动、观察、瞄准并射击BOT。弹丸有速度与下坠，地形、树木和岩石可阻挡弹丸；开火后要切换仍有弹的炮管或重新装填，不能无限连续发射。BATTLE为玩家加5个原BOT争取10杀；TEAM BATTLE使用原队伍分配和20团队击杀目标。死亡不是立刻结束整场：显示击杀者、5秒后复活继续原对局。",
+            "controls": "OFFLINE→BATTLE/TEAM BATTLE → 正常选择原离线模式。\n点击场景 → 锁定鼠标 → 桌面移动/瞄准的前提，已实测。\nW/A/S/D或方向键 → 相对视线前后/横向滚动 → 已锁定且存活。\n移动鼠标 → 改变水平/俯仰视角 → 已锁定且存活，已实测。\n左键 → 有弹时开火 → 已实测原枪口/空膛反馈。\n左键 → 空膛时切下一炮管，全部用尽则装填 → 原优先链。\n右键 → 切换瞄准状态 → 原存活有效状态；本次未实操。\nR → 按已打空炮管数装填 → 不在切管/装填中；已实测。\nEsc → 浏览器解除指针锁定 → 不宣称为游戏暂停。\n自定义按钮 → 选颜色、口径或炮管数 → 写入原个人设置。\n手机触控 → 原独立移动/瞄准控制存在 → 本次未真实触控。",
+            "rules": "生命：[源码] 玩家上限300；存活时连续10秒未受伤才开始每秒恢复25生命，上限300。出生保护4秒；死亡显示击杀者，原5秒倒计时后复活。\n胜负：[源码] BATTLE目标10个人击杀，TEAM BATTLE团队目标20杀；团队伤害按原队伍识别。未在本轮取得完整整局胜负，不把生命归零复活当成最终比赛结算。\n基础弹道：[源码] 基准速度60、基准伤害55、基准下坠6。Lo/Med/Hi伤害分别35/55/85；速度倍率0.8/1/1.4，下坠倍率1.6/1/2.4。实际命中还受弹道、障碍、出生保护和队伍判断影响。\n装填：[源码] 时间=1.5秒×已耗空炮管数×口径装填倍率；Lo/Med/Hi倍率0.75/1/1.3。因此默认Hi单管完整装填1.95秒，Med双管全空为3秒，不是固定45发弹匣。\n射击：[源码] 每个炮管一次待发；左键优先开火、其次旋转到可用炮管、最后装填；R可按已空管数装填。",
+            "content": "固定系统：1套封闭户外竞技场、草地/丘陵、围墙、树木和岩石；障碍散布使用原种子/随机逻辑，每次离线新局可产生不同布局，不将模型文件数当作关卡数。\n模式2种：BATTLE和TEAM BATTLE。离线1个人类席位配5个BOT，共6席；团队模式保留原分队算法：当前离线入口将玩家分红队，5个BOT中的前3个为红、后2个为绿，初始为4红对2绿（源码核对，未作团队完整对局验证）；不将TEAM_SIZE常量3直接当作实机已证实3对3。\n外观16种：8种纯色和8种迷彩。\n口径3种：Lo-Cal、Med-Cal、Hi-Cal。\n炮管4种：单、双、三、四管。\n在线大厅、创建/加入/搜索房间、网络Presence/Topic和InstantDB初始化已退役；不提供模拟在线玩家。",
+            "systems": "球体/视角系统：原球体速度、摩擦、重力、碰撞和第一人称相对移动；鼠标锁定只管理输入条件，不改变伤害/分数。\n武器系统：口径配置、炮管轮转、单管弹膛状态、累计装填时间和后坐/烟雾/音频反馈。\n弹道系统：本地弹丸和BOT弹丸均受地形与障碍检测，不能穿地形当作命中。\nBOT系统：原AI移动、目标和开火/换弹，BOT之间也能产生真实战绩。\n生命系统：出生保护、受击/方向提示、延迟回血、死亡音/视觉和5秒复活。\n比赛系统：个人或团队目标、局内战绩前三名、原胜者覆盖层及返回菜单。\n个人配置：皮肤/口径/炮管/灵敏度；在线模块已从启动依赖和调用移除。"
+          }
+        },
+        {
+          "version_id": "v-9aa1ef34c301",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D第一人称竞技场射击游戏（Roll & Reload）",
+            "core_gameplay": "在围墙围合的草地竞技场中滚动移动，锁定鼠标后用准星瞄准并射击BOT球体，耗尽弹药需装填，先达击杀目标获胜",
+            "controls": "点击画面 → 锁定鼠标视角 → 战斗界面提示需先锁定（实机验证）\nW/A/S/D → 球体前后左右滚动 → 指针锁定后生效（实机验证W/A/D）\n鼠标移动 → 转动视角/瞄准 → 指针锁定状态（实机验证）\n鼠标左键 → 开火 → 弹药耗尽时显示RELOAD [R]（实机验证）\nR → 装填弹药 → 显示装填倒计时约1.5秒（实机验证）\n手机触控 → 移动控制 → 仅菜单文字提示，未实机验证",
+            "rules": "目标：率先取得10次击杀；弹药有限（实测装填后45发），血量300归零规则未实测；计分按击杀逐个+1计入右侧榜单",
+            "content": "单一竞技场场景（围墙、草地、岩石）；离线模式含BATTLE与TEAM BATTLE两种，另有ONLINE、CUSTOMIZE SPHERE、SETTINGS入口；BOT对手数量据HUD至少5个，具体波次与关卡数未验证",
+            "systems": "对象：玩家球体+炮管、BOT球体、墙体/岩石障碍；状态：弹药数、装填倒计时、血量、击杀榜；触发：开火命中BOT产生击杀播报；系统交互：射击-装填循环与击杀排行联动"
+          }
+        },
+        {
+          "version_id": "v-c7a4f538631f",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D第一人称竞技场射击游戏（Roll & Reload）",
+            "core_gameplay": "在围墙围合的草地竞技场中滚动移动，锁定鼠标后用准星瞄准并射击BOT球体，耗尽弹药需装填，先达击杀目标获胜",
+            "controls": "点击画面 → 锁定鼠标视角 → 战斗界面提示需先锁定（实机验证）\nW/A/S/D → 球体前后左右滚动 → 指针锁定后生效（实机验证W/A/D）\n鼠标移动 → 转动视角/瞄准 → 指针锁定状态（实机验证）\n鼠标左键 → 开火 → 弹药耗尽时显示RELOAD [R]（实机验证）\nR → 装填弹药 → 显示装填倒计时约1.5秒（实机验证）\n手机触控 → 移动控制 → 仅菜单文字提示，未实机验证",
+            "rules": "目标：率先取得10次击杀；弹药有限（实测装填后45发），血量300归零规则未实测；计分按击杀逐个+1计入右侧榜单",
+            "content": "单一竞技场场景（围墙、草地、岩石）；离线模式含BATTLE与TEAM BATTLE两种，另有ONLINE、CUSTOMIZE SPHERE、SETTINGS入口；BOT对手数量据HUD至少5个，具体波次与关卡数未验证",
+            "systems": "对象：玩家球体+炮管、BOT球体、墙体/岩石障碍；状态：弹药数、装填倒计时、血量、击杀榜；触发：开火命中BOT产生击杀播报；系统交互：射击-装填循环与击杀排行联动"
+          }
+        },
+        {
+          "version_id": "v-0c4ed9c3b078",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D第一人称竞技场射击游戏（Roll & Reload）",
+            "core_gameplay": "在围墙围合的草地竞技场中滚动移动，锁定鼠标后用准星瞄准并射击BOT球体，耗尽弹药需装填，先达击杀目标获胜",
+            "controls": "点击画面 → 锁定鼠标视角 → 战斗界面提示需先锁定（实机验证）\nW/A/S/D → 球体前后左右滚动 → 指针锁定后生效（实机验证W/A/D）\n鼠标移动 → 转动视角/瞄准 → 指针锁定状态（实机验证）\n鼠标左键 → 开火 → 弹药耗尽时显示RELOAD [R]（实机验证）\nR → 装填弹药 → 显示装填倒计时约1.5秒（实机验证）\n手机触控 → 移动控制 → 仅菜单文字提示，未实机验证",
+            "rules": "目标：率先取得10次击杀；弹药有限（实测装填后45发），血量300归零规则未实测；计分按击杀逐个+1计入右侧榜单",
+            "content": "单一竞技场场景（围墙、草地、岩石）；离线模式含BATTLE与TEAM BATTLE两种，另有ONLINE、CUSTOMIZE SPHERE、SETTINGS入口；BOT对手数量据HUD至少5个，具体波次与关卡数未验证",
+            "systems": "对象：玩家球体+炮管、BOT球体、墙体/岩石障碍；状态：弹药数、装填倒计时、血量、击杀榜；触发：开火命中BOT产生击杀播报；系统交互：射击-装填循环与击杀排行联动"
+          }
+        },
+        {
+          "version_id": "v-79b22dde45ed",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D第一人称竞技场射击游戏（Roll & Reload）",
+            "core_gameplay": "在围墙围合的草地竞技场中滚动移动，锁定鼠标后用准星瞄准并射击BOT球体，耗尽弹药需装填，先达击杀目标获胜",
+            "controls": "点击画面 → 锁定鼠标视角 → 战斗界面提示需先锁定（实机验证）\nW/A/S/D → 球体前后左右滚动 → 指针锁定后生效（实机验证W/A/D）\n鼠标移动 → 转动视角/瞄准 → 指针锁定状态（实机验证）\n鼠标左键 → 开火 → 弹药耗尽时显示RELOAD [R]（实机验证）\nR → 装填弹药 → 显示装填倒计时约1.5秒（实机验证）\n手机触控 → 移动控制 → 仅菜单文字提示，未实机验证",
+            "rules": "目标：率先取得10次击杀；弹药有限（实测装填后45发），血量300归零规则未实测；计分按击杀逐个+1计入右侧榜单",
+            "content": "单一竞技场场景（围墙、草地、岩石）；离线模式含BATTLE与TEAM BATTLE两种，另有ONLINE、CUSTOMIZE SPHERE、SETTINGS入口；BOT对手数量据HUD至少5个，具体波次与关卡数未验证",
+            "systems": "对象：玩家球体+炮管、BOT球体、墙体/岩石障碍；状态：弹药数、装填倒计时、血量、击杀榜；触发：开火命中BOT产生击杀播报；系统交互：射击-装填循环与击杀排行联动"
+          }
+        },
+        {
+          "version_id": "v-1a460f668a6c",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D第一人称竞技场射击游戏（Roll & Reload）",
+            "core_gameplay": "在围墙围合的草地竞技场中滚动移动，锁定鼠标后用准星瞄准并射击BOT球体，耗尽弹药需装填，先达击杀目标获胜",
+            "controls": "点击画面 → 锁定鼠标视角 → 战斗界面提示需先锁定（实机验证）\nW/A/S/D → 球体前后左右滚动 → 指针锁定后生效（实机验证W/A/D）\n鼠标移动 → 转动视角/瞄准 → 指针锁定状态（实机验证）\n鼠标左键 → 开火 → 弹药耗尽时显示RELOAD [R]（实机验证）\nR → 装填弹药 → 显示装填倒计时约1.5秒（实机验证）\n手机触控 → 移动控制 → 仅菜单文字提示，未实机验证",
+            "rules": "目标：率先取得10次击杀；弹药有限（实测装填后45发），血量300归零规则未实测；计分按击杀逐个+1计入右侧榜单",
+            "content": "单一竞技场场景（围墙、草地、岩石）；离线模式含BATTLE与TEAM BATTLE两种，另有ONLINE、CUSTOMIZE SPHERE、SETTINGS入口；BOT对手数量据HUD至少5个，具体波次与关卡数未验证",
+            "systems": "对象：玩家球体+炮管、BOT球体、墙体/岩石障碍；状态：弹药数、装填倒计时、血量、击杀榜；触发：开火命中BOT产生击杀播报；系统交互：射击-装填循环与击杀排行联动"
+          }
+        },
+        {
+          "version_id": "v-ad9b54e3e461",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D第一人称竞技场射击游戏（Roll & Reload）",
+            "core_gameplay": "在围墙围合的草地竞技场中滚动移动，锁定鼠标后用准星瞄准并射击BOT球体，耗尽弹药需装填，先达击杀目标获胜",
+            "controls": "点击画面 → 锁定鼠标视角 → 战斗界面提示需先锁定（实机验证）\nW/A/S/D → 球体前后左右滚动 → 指针锁定后生效（实机验证W/A/D）\n鼠标移动 → 转动视角/瞄准 → 指针锁定状态（实机验证）\n鼠标左键 → 开火 → 弹药耗尽时显示RELOAD [R]（实机验证）\nR → 装填弹药 → 显示装填倒计时约1.5秒（实机验证）\n手机触控 → 移动控制 → 仅菜单文字提示，未实机验证",
+            "rules": "目标：率先取得10次击杀；弹药有限（实测装填后45发），血量300归零规则未实测；计分按击杀逐个+1计入右侧榜单",
+            "content": "单一竞技场场景（围墙、草地、岩石）；离线模式含BATTLE与TEAM BATTLE两种，另有ONLINE、CUSTOMIZE SPHERE、SETTINGS入口；BOT对手数量据HUD至少5个，具体波次与关卡数未验证",
+            "systems": "对象：玩家球体+炮管、BOT球体、墙体/岩石障碍；状态：弹药数、装填倒计时、血量、击杀榜；触发：开火命中BOT产生击杀播报；系统交互：射击-装填循环与击杀排行联动"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-4c181f8deefd",
+      "title": "Play Finger Haunt – Haunted Survival FPS - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/finger-haunt-haunted-hotel-survival-fps",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-e96a3e264047",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "射击/动作",
+            "core_gameplay": "在被幽灵占据的豪宅大厅中以第一人称视角进行波次射击：锁定指针转动视角、点击发射弹药击中幽灵，承受攻击并管理生命与弹药，逐波推进直至死亡或通关。",
+            "controls": "鼠标移动 → 转动视角 → 点击画面锁定指针后生效【实机验证】\n鼠标左键点击 → 发射弹药攻击准星方向敌人 → 弹匣有余量时【实机验证】\n键盘移动键 → 在大厅内移动与碰撞 → 仅源码确认，具体键位未逐项实机验证\n装填 → 弹匣耗尽后约1.15秒装填 → 仅源码确认\n冲刺/闪避 → 短距位移躲避攻击 → 仅源码确认，未实机验证",
+            "rules": "目标：在每波中消灭全部敌人并生存，菜单声明共20波与4个Boss；失败：生命归零进入死亡结算；计分：击杀计数与经验值升级；难度阈值：Relaxed承受60%伤害、Standard正常、Nightmare承受140%伤害（菜单与源码确认）。",
+            "content": "固定单一场景：豪宅大厅THE GRAND HALL；敌人类型源码定义多种（管家、冲锋客、施法者、飞行体、史莱姆及4个Boss形态）；菜单声明20波、4个纪念品槽、4个Boss与可选无尽模式；波次按规则程序生成，未逐波实机穷举。",
+            "systems": "玩家对象（生命/弹药/等级/经验/射速）；敌人生成与波次计划系统；投射物命中判定；受击方向指示与红闪反馈；升级纪念品选择；环境危害（吊灯坠落、地面打击）；看护者与座位互动元素；难度与无尽模式开关。"
+          }
+        },
+        {
+          "version_id": "v-4768607f393f",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "第一人称射击/波次生存（轻度恐怖喜剧）",
+            "core_gameplay": "在酒店大厅中抵御一波波不肯退房的幽灵客人：用点击射击驱散灵魂，管理弹药与生命，在20波中生存并面对Boss",
+            "controls": "鼠标点击 → 发射驱魔弹命中正前方灵魂 → 需指针锁定进入战斗（实机验证）\nR → 装填弹药 → 弹药耗尽或需要时（HUD标注，实机可见）\nShift → 冲刺闪避 → 战斗中（HUD标注，实机可见）\nSpace → 跳跃 → 战斗中（HUD标注，实机可见）\n移动键位 → 未单独验证，HUD未列出具体按键\n菜单按钮点击 → 开始/练习/控制说明/声音/ credits → 主菜单（实机验证）",
+            "rules": "目标：在波次中驱散所有灵魂并存活；失败：生命降至0，班次被取消；已查证数值：初始生命100，弹药12发，接触伤害约10、光球约9，难度影响伤害（Relaxed 60%/Standard 100%/Nightmare 140%）；驱散计数与ectoplasm（0/4起）在HUD实时显示；胜利通关20波的具体奖励未验证",
+            "content": "固定内容：20波、4个Boss、4个keepsake槽、3页开场剧情、大厅场景与具名敌人类型（菜单与源码标注）；程序生成部分（波次内敌人组合与走位）未完全确认；无尽模式为可选",
+            "systems": "对象：玩家特工、多种灵魂敌人（含冲刺客、烛台看守等具名类型）、远程光球、ectoplasm资源、keepsake槽位（4个）；状态：生命/弹药/波次/驱散计数/计时；触发：接触与光球命中扣血、射击命中驱散敌人、死亡触发结算；波次系统含20波、4个Boss与可选无尽模式（菜单标注，后续波次未实机覆盖）"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-0d0812f60f88",
+      "title": "Play Don't Trust the Game - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/dont-trust-the-game-1",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-e6e7e0291ae9",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "解谜",
+            "core_gameplay": "每关给出一条指令和若干可点击图形或卡片，指令可能撒谎；玩家结合可靠度提示、倒计时、记忆与自身行为统计判断真正应点的对象，点对过关，点错退回检查点。",
+            "controls": "点击NEW GAME → 开始新游戏 → 主菜单显示时\n点击CONTINUE → 从存档关卡继续 → 存在本地存档时（实机验证）\n点击关卡内图形/卡片按钮 → 提交本关判断 → 关卡进行中（实机验证）\n点击Next level → 进入下一关 → 结算浮层出现后（实机验证）\n点击Restart Level → 重玩当前关 → 任意时刻\n点击New Game / EXIT TO MENU → 重开或回主菜单 → 任意时刻\n点击♪ → 静音或恢复音乐 → 任意时刻\n不点击等待 → 部分等待类关卡自动过关（第3关实机验证）",
+            "rules": "目标：依据真正可靠的线索选出正确对象。成功：点对对象或满足特殊条件（如等待倒计时结束），显示Correct并过关。失败：点错或在陷阱时机点击，退回检查点。计分：准确率=成功决策数÷总决策数×100%，无分数制。已查证阈值：第3关等待约13.5秒自动成功；第4关倒计时约2.6秒后目标才可点。",
+            "content": "固定30关，源码关卡数组共30项；前20关围绕信任、观察、记忆与界面陷阱，第21–30关为基于玩家历史决策统计的谜题；全部固定设计，非程序生成。",
+            "systems": "对象：图形按钮（圆/方/三角）、统计卡片、计时器、虚假提示文字。状态：菜单、进行中、成功、错误四种。触发：点击带动作标记的元素或关卡定时器到期。系统交互：行为历史驱动第21–30关统计谜题与个性化预测；检查点系统决定失败回退位置；音频系统播放成功、失败音效与循环背景乐。"
+          }
+        },
+        {
+          "version_id": "v-95554a681876",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "元叙事益智解谜（点击选择类）",
+            "core_gameplay": "每关给出一条指令和两个可点对象，玩家须判断指令是否可信并点击真正正确的对象；点错会被惩罚退回前面的关。",
+            "controls": "鼠标点击图形按钮（CIRCLE/SQUARE等） → 提交本关选择 → 关卡进行中\n鼠标点击 Next level → 进入下一关 → 结算浮层出现后\n鼠标点击 CONTINUE → 恢复已存进度 → 主菜单存在存档时\n鼠标点击 NEW GAME → 开始新游戏 → 主菜单\n鼠标点击 ↻ Restart Level → 重开当前关 → 关卡进行中\n鼠标点击 New Game / EXIT TO MENU → 重开或回主菜单 → 关卡进行中\n鼠标点击 ♪ → 静音切换 → 任意界面（实机未点按验证）",
+            "rules": "目标：按真实规则点击正确对象。成功：显示Correct.与LEVEL COMPLETE并可进下一关。失败：点错准确率下降，第2关点错TRUST ME后被退回第1关（实机观察）。计分：准确率随对错变化（50%/67%/75%已观察），公式未确认。可靠度0%时指令不可信。",
+            "content": "顶部HUD显示共30关（LEVEL xx / 30）；已实机验证第1关（按指令点圆形）与第2关（指令说谎，正确解为NOT THIS）；第3–30关未验证，关卡由包内levels.js配置，未逐关核对。",
+            "systems": "指令可信度系统：GAME RELIABILITY决定指令真伪；暗示文本系统：每关底部一句提示；统计系统：准确率/用时/可靠度实时更新；存档系统：localStorage自动保存关卡进度；惩罚系统：错误选择退回前关。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-8d3089542fcd",
+      "title": "Play Whip Worm - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/whip-worm",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-5609a8aa3550",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "跑酷",
+            "core_gameplay": "控制蚯蚓在无尽横向关卡中滚动前进，用鞭子抓钩锚点摆荡越过平台间隙；坠落到画面底部或碰到尖刺即结束，以跨越平台数计分",
+            "controls": "ArrowLeft/A键或左侧◀按钮 → 向左滚动 → 游戏画面中；ArrowRight/D键或右侧▶按钮 → 向右滚动 → 游戏画面中；Space/ArrowUp键或WHIP按钮 → 抓钩最近锚点并摆荡，松开脱钩 → 游戏画面中且鞭子未附着；Escape或暂停按钮 → 暂停/恢复 → 游戏画面中；Enter键 → 菜单开始游戏 → 主菜单；点击输入名字+SAVE SCORE → 保存本地分数 → 结算界面且分数进top-10",
+            "rules": "目标：尽可能跨越更多平台间隙；成功：越过一个平台+1分；失败：虫体y坐标超过900（坠落）或碰撞尖刺→本局结束；计分：score=跨越平台数，无公式加成；阈值：10分解锁树冠障碍、20-25分解锁移动平台、30分季节更替",
+            "content": "无尽程序生成关卡：平台间隙、锚点、树冠障碍、尖刺随机布置；固定4个季节主题（夏/秋/冬/春）每30分轮换；分数10解锁树冠、20-25分解锁移动平台；无固定关卡数",
+            "systems": "物理系统：重力1500、滚动加速度、鞭子绳约束摆荡、脱钩向上加速；关卡生成系统：程序生成平台/锚点/树冠/尖刺；季节系统：按分数切换4套配色与天气粒子；本地计分系统：top-10排序写入localStorage；设置系统：音乐/音效音量、按钮透明度、抓钩倒计时显示"
+          }
+        },
+        {
+          "version_id": "v-17834b64825d",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "无尽摆荡平台跳跃",
+            "core_gameplay": "操控圆虫在程序生成平台间滚动，发射鞭索勾住锚点摆荡跨越沟壑得分",
+            "controls": "←/A → 向左滚动；→/D → 向右滚动；空格/↑按住 → 发射并保持鞭索，松开释放；点击右侧WHIP按钮按住 → 同上；Esc → 暂停；触屏◀▶按钮 → 移动",
+            "rules": "目标为尽可能远；坠落或碰尖刺结束；每越过一沟得1分；进入本地前10可署名上榜",
+            "content": "程序生成无尽平台与锚点；得分10后树冠、20-25后移动平台、每30分季节更替（夏/秋/冬/春），高分段含尖刺；具体规模未穷举",
+            "systems": "重力物理、绳索约束摆荡、程序地形生成、季节主题切换、粒子与彩带反馈、本地排行存储"
+          }
+        },
+        {
+          "version_id": "v-0bf951cd9f05",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "动作街机（无尽抓钩摆荡跑酷）",
+            "core_gameplay": "控制蠕虫滚动加速，用抓钩钩住沟壑上方锚点摆荡，在动量高点释放落到下一平台得分，无尽推进",
+            "controls": "方向键左/右或A/D（或屏幕左下箭头按钮）→ 左右滚动/摆荡泵速 → 游戏画面中生效\n空格或上箭头（或右下WHIP大按钮）→ 按住发射抓钩附着最近锚点、松开释放并获向上小加速 → 需锚点在300范围内\nEscape（或右上暂停按钮）→ 暂停/恢复 → 游戏画面中\n右上喇叭按钮 → 静音切换 → 任意游戏画面\n菜单画面按Enter或点击开始 → 开始一局 → 主菜单\n（移动、抓钩、暂停、结算按钮为实机验证；其余键位仅源码确认）",
+            "rules": "目标：不断跨越沟壑获得更高分。计分：角色水平位置越过平台id即得该分（awardGapsCrossed按platformId顺序记分），源码确认无公式加成。失败：坠落（y>900）或碰到尖刺立即结束本局进入结算。已查证阈值：抓钩范围300、持续3秒并缓慢收绳、释放向上加速180；重力1500；得分10解锁树冠、20-25随机解锁移动平台、每30分季节更替（均源码确认）。",
+            "content": "程序生成无尽关卡：起始固定平台一块，之后沟壑宽度185起步逐沟增至350、平台高度与宽度随机、锚点位于沟壑上方（实机确认起始段）；得分10后解锁树冠通道、20-25分解锁移动平台、每30分切换夏/秋/冬/春季节外观与天气（仅源码确认，未实机到达）；固定关卡数不适用（无尽生成）。",
+            "systems": "物理：重力、平台碰撞、绳索约束摆荡与收绳、方向键泵速；生成：ensureCourseAhead按镜头前方距离持续生成平台/锚点/尖刺/树冠并裁剪身后内容；解锁：树冠/移动平台/季节按分数阈值触发横幅提示；表现：粒子、彩带、屏幕震动、眨眼与表情状态；音频：循环音乐与合成音效，可静音与调音量；排行：本地排序取前10。"
+          }
+        },
+        {
+          "version_id": "v-ce79d87ffe73",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "休闲物理摆荡类无尽跑酷（Canvas 2D网页游戏）",
+            "core_gameplay": "控制小虫滚动并用鞭子抓钩锚点摆荡，越过平台间沟壑，按越过平台数计分，坠落则本局结束",
+            "controls": "ArrowRight/D → 向右滚动加速 → 对局中按住生效（实机验证）\nArrowLeft/A → 向左滚动 → 对局中按住生效（实机验证）\nSpace/ArrowUp按住 → 抓钩附着范围内最近锚点并摆荡 → 对局中存在锚点（实机验证）\n松开Space → 释放抓钩并保留惯性上抛 → 抓钩附着中（实机验证）\n点击WHIP按钮 → 同抓钩/松开 → 对局中（实机验证）\n点击左下◀▶按钮 → 触屏移动 → 对局中（实机验证）\nEscape/暂停按钮 → 暂停并显示菜单 → 对局中（仅源码确认）\nEnter → 主菜单开始新局 → 菜单界面（仅源码确认）",
+            "rules": "目标：尽可能越过更多平台；成功：越过平台id即得1分；失败：坠落谷底或触碰尖刺即本局结束；计分：每越过一个平台+1分，无连击公式；进入前十才可留名",
+            "content": "程序生成的无尽平台/沟壑/锚点；分数达到阈值后出现低矮树冠与侧面尖刺，再后平台开始移动；季节按分数区间轮换（仅源码确认，阈值数值未实机到达）",
+            "systems": "对象：虫（位置/速度/落地状态）、平台、锚点、树冠、尖刺；状态：菜单/对局/暂停/结算；抓钩系统：范围检测、附着、绳长约束、倒计时自动脱钩并销毁锚点；计分系统按平台id发放；音频系统含音乐与音效音量设置"
+          }
+        },
+        {
+          "version_id": "v-6bf2a2d4d17f",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "休闲物理摆荡类无尽跑酷（Canvas 2D网页游戏）",
+            "core_gameplay": "控制小虫滚动并用鞭子抓钩锚点摆荡，越过平台间沟壑，按越过平台数计分，坠落则本局结束",
+            "controls": "ArrowRight/D → 向右滚动加速 → 对局中按住生效（实机验证）\nArrowLeft/A → 向左滚动 → 对局中按住生效（实机验证）\nSpace/ArrowUp按住 → 抓钩附着范围内最近锚点并摆荡 → 对局中存在锚点（实机验证）\n松开Space → 释放抓钩并保留惯性上抛 → 抓钩附着中（实机验证）\n点击WHIP按钮 → 同抓钩/松开 → 对局中（实机验证）\n点击左下◀▶按钮 → 触屏移动 → 对局中（实机验证）\nEscape/暂停按钮 → 暂停并显示菜单 → 对局中（仅源码确认）\nEnter → 主菜单开始新局 → 菜单界面（仅源码确认）",
+            "rules": "目标：尽可能越过更多平台；成功：越过平台id即得1分；失败：坠落谷底或触碰尖刺即本局结束；计分：每越过一个平台+1分，无连击公式；进入前十才可留名",
+            "content": "程序生成的无尽平台/沟壑/锚点；分数达到阈值后出现低矮树冠与侧面尖刺，再后平台开始移动；季节按分数区间轮换（仅源码确认，阈值数值未实机到达）",
+            "systems": "对象：虫（位置/速度/落地状态）、平台、锚点、树冠、尖刺；状态：菜单/对局/暂停/结算；抓钩系统：范围检测、附着、绳长约束、倒计时自动脱钩并销毁锚点；计分系统按平台id发放；音频系统含音乐与音效音量设置"
+          }
+        },
+        {
+          "version_id": "v-ea16f14db4b5",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "休闲动作/物理摆荡",
+            "core_gameplay": "控制小虫滚动并在沟前发射抓钩挂住锚点摆荡过沟得分",
+            "controls": "A/D或←/→→左右滚动→实机验证\nSpace或WHIP按钮→发射/释放抓钩→实机验证\n点击START→进入场景→实机验证\n结算页输入名字+SAVE SCORE→保存本地排行→实机验证",
+            "rules": "目标：摆荡过沟得分；失败：坠落触发RUN OVER；计分以过沟计，已实测得分1；前十可入榜",
+            "content": "起始场景含沟壑与锚点；后续场景与完整物件集未穷举，未确认关卡总数",
+            "systems": "角色滚动/抓钩/摆荡物理；沟壑与锚点布置；HUD计分、BEST、暂停与音效；结算与本地排行榜"
+          }
+        },
+        {
+          "version_id": "v-94ffc380a12b",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "动作闯关/平台跳跃",
+            "core_gameplay": "玩家控制角色向右移动，借助抓钩（甩鞭）挂住空中锚点摆荡，跨越沟壑与平台间隙，尽量前进更远以获得高分",
+            "controls": "实机验证：右箭头键按住→角色向右移动→需在游戏画面聚焦后；Space按住→抓钩/甩鞭动作→用于挂住锚点摆荡；点击屏幕WHIP按钮→等同抓钩动作；点击左右箭头按钮→等同左右移动；点击暂停/音效按钮→暂停与静音切换。仅源码确认：无。未确认：左移在玩法中的实际用途",
+            "rules": "目标：尽可能远地前进得分；失败：掉入沟壑即RUN OVER；计分公式与阈值未确认，结算提示需进入前10名方可上榜",
+            "content": "实机确认：起始场景、沟壑、空中锚点、金币状物件（画面右侧圆形物，未确认作用）；程序生成或固定关卡数量未验证",
+            "systems": "角色移动系统；抓钩/摆荡物理系统；沟壑失败判定；计分与排行界面系统；暂停与音效开关"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-1248b7d58504",
+      "title": "Play Trenchwing - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/trenchwing",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-938c46f3d10f",
+          "status": "approved",
+          "profile": {
+            "engine": "原Three.js0.184.0，原生JavaScript世界/飞机与CPU模拟。",
+            "category": "飞行战斗 / 原生单人CPU战场",
+            "core_gameplay": "原模式/阵营/地图配置→点机场出生→步行/登机→跑道信号倒计时/起飞→原战场战斗或坠毁/重生→本局结算和本地生涯。",
+            "controls": "本轮实测菜单按钮、一次滚动、点击原地图蓝机场、E登机，原自动倒计时后离地。原Board/Exit/Fire/POV/BailOut/EmergencyLand、飞行/步行控制保留，其他键位/触控本轮未验证，不从历史画面猜按键。",
+            "rules": "原GreatWar两阵营、SquadBattle四队、Bonanza自由混战及飞机物理、武器锁定、伤害/票数/时限、重生/商店规则保持；原单人场景及CPU逻辑保留，不伪造网络对手。",
+            "content": "原GreatWar/SquadBattle/Bonanza三模式，trenches/fjords/playroom三战区，Blue/Red九机型定义、原生涯/任务/升级与外观；原程序生成/布局配置全保留。原NPC队伍实时排名不计在线全服排行。",
+            "systems": "原飞行/地面运动、登机/出机/起飞信号、原飞机/地面/NPC、武器/弹药/伤害/机场锁定、战线/占领/票数、重生/商店/任务/生涯、天气/地图/渲染/音频与原菜单。真正退役PeerJS传输、在线大厅/准备/邀请/同步与在线每日任务，不模拟服务器。"
+          }
+        },
+        {
+          "version_id": "v-517c57476f94",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "飞行战斗射击（一战题材空中/地面协同战场）",
+            "core_gameplay": "选择出击模式、阵营与战场后在机场出生，步行登机、按信号起飞，驾驶双翼机参与两阵营前线争夺；坠毁后可重生继续。",
+            "controls": "鼠标点击 → 菜单按钮与出生点选择 → 按钮在画面中可见时（实机验证）\nW（按住）→ 地面步行前进 → 出生后在地面状态时（实机验证）\nE → 登机 / 离机 / 坠毁后重生 → 靠近飞机或出现对应提示时（实机验证）\n飞行转向、爬升、俯冲键位 → 未确认（起飞后很快坠毁，未系统验证）\nFIRE按钮 → 武器开火（按钮存在，起飞后提示武器3秒后解锁；实际命中未验证）\n页面滚动 → 浏览出击设置下方内容（实机验证）",
+            "rules": "默认蓝红双方各100重生票、15分钟战斗时长；时间与重生票独立，后方预备机场不可摧毁；坠毁即计入AIRCRAFT LOSSES并扣本队票数；整场比赛胜负条件未完整验证（未打完一场）。",
+            "content": "三种出击模式：GREAT WAR、SQUAD BATTLE、BONANZA；两个阵营：Aurelian Air Corps 与 Vesperian Air Service；三个战场：trenches、fjords、playroom；可调队伍规模5v5/10v10/15v15、战斗时长3–30分钟、每阵营重生票10–200；另有限览战场与ONLINE联机简报室入口（未验证）。以上为固定选项，是否存在程序生成内容未验证。",
+            "systems": "出生点/机场选择系统；登机与跑道指挥起飞倒计时；飞机状态（Ammo 1000/1000、Hull 8/8、高度）；区域控制计分（BLUE 3 SECTORS）；罗盘朝向指示；战场SHOP与INTEL入口；暂停、POV切换、跳伞、紧急降落按钮；生涯档案（战绩、勋带、徽章）。"
+          }
+        },
+        {
+          "version_id": "v-c6b4e03d9f4d",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "飞行战斗射击（一战题材空中/地面协同战场）",
+            "core_gameplay": "选择出击模式、阵营与战场后在机场出生，步行登机、按信号起飞，驾驶双翼机参与两阵营前线争夺；坠毁后可重生继续。",
+            "controls": "鼠标点击 → 菜单按钮与出生点选择 → 按钮在画面中可见时（实机验证）\nW（按住）→ 地面步行前进 → 出生后在地面状态时（实机验证）\nE → 登机 / 离机 / 坠毁后重生 → 靠近飞机或出现对应提示时（实机验证）\n飞行转向、爬升、俯冲键位 → 未确认（起飞后很快坠毁，未系统验证）\nFIRE按钮 → 武器开火（按钮存在，起飞后提示武器3秒后解锁；实际命中未验证）\n页面滚动 → 浏览出击设置下方内容（实机验证）",
+            "rules": "默认蓝红双方各100重生票、15分钟战斗时长；时间与重生票独立，后方预备机场不可摧毁；坠毁即计入AIRCRAFT LOSSES并扣本队票数；整场比赛胜负条件未完整验证（未打完一场）。",
+            "content": "三种出击模式：GREAT WAR、SQUAD BATTLE、BONANZA；两个阵营：Aurelian Air Corps 与 Vesperian Air Service；三个战场：trenches、fjords、playroom；可调队伍规模5v5/10v10/15v15、战斗时长3–30分钟、每阵营重生票10–200；另有限览战场与ONLINE联机简报室入口（未验证）。以上为固定选项，是否存在程序生成内容未验证。",
+            "systems": "出生点/机场选择系统；登机与跑道指挥起飞倒计时；飞机状态（Ammo 1000/1000、Hull 8/8、高度）；区域控制计分（BLUE 3 SECTORS）；罗盘朝向指示；战场SHOP与INTEL入口；暂停、POV切换、跳伞、紧急降落按钮；生涯档案（战绩、勋带、徽章）。"
+          }
+        },
+        {
+          "version_id": "v-54d95f3cdaea",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "飞行战斗射击（一战题材空中/地面协同战场）",
+            "core_gameplay": "选择出击模式、阵营与战场后在机场出生，步行登机、按信号起飞，驾驶双翼机参与两阵营前线争夺；坠毁后可重生继续。",
+            "controls": "鼠标点击 → 菜单按钮与出生点选择 → 按钮在画面中可见时（实机验证）\nW（按住）→ 地面步行前进 → 出生后在地面状态时（实机验证）\nE → 登机 / 离机 / 坠毁后重生 → 靠近飞机或出现对应提示时（实机验证）\n飞行转向、爬升、俯冲键位 → 未确认（起飞后很快坠毁，未系统验证）\nFIRE按钮 → 武器开火（按钮存在，起飞后提示武器3秒后解锁；实际命中未验证）\n页面滚动 → 浏览出击设置下方内容（实机验证）",
+            "rules": "默认蓝红双方各100重生票、15分钟战斗时长；时间与重生票独立，后方预备机场不可摧毁；坠毁即计入AIRCRAFT LOSSES并扣本队票数；整场比赛胜负条件未完整验证（未打完一场）。",
+            "content": "三种出击模式：GREAT WAR、SQUAD BATTLE、BONANZA；两个阵营：Aurelian Air Corps 与 Vesperian Air Service；三个战场：trenches、fjords、playroom；可调队伍规模5v5/10v10/15v15、战斗时长3–30分钟、每阵营重生票10–200；另有限览战场与ONLINE联机简报室入口（未验证）。以上为固定选项，是否存在程序生成内容未验证。",
+            "systems": "出生点/机场选择系统；登机与跑道指挥起飞倒计时；飞机状态（Ammo 1000/1000、Hull 8/8、高度）；区域控制计分（BLUE 3 SECTORS）；罗盘朝向指示；战场SHOP与INTEL入口；暂停、POV切换、跳伞、紧急降落按钮；生涯档案（战绩、勋带、徽章）。"
+          }
+        },
+        {
+          "version_id": "v-57fff740594b",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "飞行战斗射击（一战题材空中/地面协同战场）",
+            "core_gameplay": "选择出击模式、阵营与战场后在机场出生，步行登机、按信号起飞，驾驶双翼机参与两阵营前线争夺；坠毁后可重生继续。",
+            "controls": "鼠标点击 → 菜单按钮与出生点选择 → 按钮在画面中可见时（实机验证）\nW（按住）→ 地面步行前进 → 出生后在地面状态时（实机验证）\nE → 登机 / 离机 / 坠毁后重生 → 靠近飞机或出现对应提示时（实机验证）\n飞行转向、爬升、俯冲键位 → 未确认（起飞后很快坠毁，未系统验证）\nFIRE按钮 → 武器开火（按钮存在，起飞后提示武器3秒后解锁；实际命中未验证）\n页面滚动 → 浏览出击设置下方内容（实机验证）",
+            "rules": "默认蓝红双方各100重生票、15分钟战斗时长；时间与重生票独立，后方预备机场不可摧毁；坠毁即计入AIRCRAFT LOSSES并扣本队票数；整场比赛胜负条件未完整验证（未打完一场）。",
+            "content": "三种出击模式：GREAT WAR、SQUAD BATTLE、BONANZA；两个阵营：Aurelian Air Corps 与 Vesperian Air Service；三个战场：trenches、fjords、playroom；可调队伍规模5v5/10v10/15v15、战斗时长3–30分钟、每阵营重生票10–200；另有限览战场与ONLINE联机简报室入口（未验证）。以上为固定选项，是否存在程序生成内容未验证。",
+            "systems": "出生点/机场选择系统；登机与跑道指挥起飞倒计时；飞机状态（Ammo 1000/1000、Hull 8/8、高度）；区域控制计分（BLUE 3 SECTORS）；罗盘朝向指示；战场SHOP与INTEL入口；暂停、POV切换、跳伞、紧急降落按钮；生涯档案（战绩、勋带、徽章）。"
+          }
+        },
+        {
+          "version_id": "v-1e5b863dad92",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "飞行战斗射击（一战题材空中/地面协同战场）",
+            "core_gameplay": "选择出击模式、阵营与战场后在机场出生，步行登机、按信号起飞，驾驶双翼机参与两阵营前线争夺；坠毁后可重生继续。",
+            "controls": "鼠标点击 → 菜单按钮与出生点选择 → 按钮在画面中可见时（实机验证）\nW（按住）→ 地面步行前进 → 出生后在地面状态时（实机验证）\nE → 登机 / 离机 / 坠毁后重生 → 靠近飞机或出现对应提示时（实机验证）\n飞行转向、爬升、俯冲键位 → 未确认（起飞后很快坠毁，未系统验证）\nFIRE按钮 → 武器开火（按钮存在，起飞后提示武器3秒后解锁；实际命中未验证）\n页面滚动 → 浏览出击设置下方内容（实机验证）",
+            "rules": "默认蓝红双方各100重生票、15分钟战斗时长；时间与重生票独立，后方预备机场不可摧毁；坠毁即计入AIRCRAFT LOSSES并扣本队票数；整场比赛胜负条件未完整验证（未打完一场）。",
+            "content": "三种出击模式：GREAT WAR、SQUAD BATTLE、BONANZA；两个阵营：Aurelian Air Corps 与 Vesperian Air Service；三个战场：trenches、fjords、playroom；可调队伍规模5v5/10v10/15v15、战斗时长3–30分钟、每阵营重生票10–200；另有限览战场与ONLINE联机简报室入口（未验证）。以上为固定选项，是否存在程序生成内容未验证。",
+            "systems": "出生点/机场选择系统；登机与跑道指挥起飞倒计时；飞机状态（Ammo 1000/1000、Hull 8/8、高度）；区域控制计分（BLUE 3 SECTORS）；罗盘朝向指示；战场SHOP与INTEL入口；暂停、POV切换、跳伞、紧急降落按钮；生涯档案（战绩、勋带、徽章）。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-677de80809a1",
+      "title": "Play Spinted Postal - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/spinted-postal",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-7768aebd43cb",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "驾驶/模拟",
+            "core_gameplay": "驾驶货车在芬兰乡村道路接取包裹订单，选择投递方式（邮筒/邮局/自提柜），驱车前往红色目标点按E完成取送并结算奖励。分类依据：核心循环为车辆驾驶与投递经营管理，实测全程为驾驶操作。",
+            "controls": "W/↑ → 油门加速 → 实机验证\nS/↓ → 刹车，停稳后倒车 → 界面与源码确认\nA/D或←/→ → 转向（车辆需在移动中） → 实机验证\nSpace → 手刹/强力刹车 → 界面确认\nE → 在目标点取送交互 → 实机验证\nM → 开关大地图 → 实机验证\nEsc → 暂停 → 仅源码确认\n鼠标点击 → 菜单/投递方式/保存等按钮 → 实机验证",
+            "rules": "目标：将5个包裹送达所选类型投递点；成功：E交互正确点位触发结算弹窗并更新统计；失败：油量或神经值耗尽结束本局（源码确认，未实测触发）；计分含投递分数与神经值加成，具体公式未确认",
+            "content": "固定5个包裹/局；投递点含邮筒、邮局、自提柜三类；地图含道路、河流、桥梁与建筑；包裹有易碎等特性影响要求；电台4首本地曲目；后续内容规模未验证",
+            "systems": "驾驶物理(加速/刹车/转向)、油耗、车况(轮胎/引擎)、神经值、电台音乐、昼夜时钟、订单系统、NPC行人与交通碰撞、保存恢复；物流任务板存在但未实测"
+          }
+        },
+        {
+          "version_id": "v-d32a9b604e8a",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "俯视驾驶投递模拟",
+            "core_gameplay": "驾驶货车在乡村道路接取包裹订单，选择投递方式（邮筒/邮局/自提柜），驱车前往红色目标点，按E完成取送并结算奖励",
+            "controls": "W/↑：油门加速 → 实机验证；S/↓：刹车/倒车 → 界面与源码确认；A/D或←/→：转向 → 实机验证；Space：手刹 → 界面确认；E：在目标点交互取送 → 实机验证；M：开关地图 → 实机验证；鼠标点击：菜单/投递方式/保存按钮 → 实机验证",
+            "rules": "目标：将包裹送达所选类型投递点；成功：E交互正确点位触发结算弹窗并更新统计；失败条件未实测；计分含分数、神经值、XP奖励，具体公式未确认",
+            "content": "固定5个包裹/局，投递点含邮筒、邮局、自提柜三类；地图含道路、河流、桥梁与建筑，包裹易碎等特性影响要求；后续关卡与升级规模未验证",
+            "systems": "驾驶物理(加速/刹车/转向)、油耗(9.0L)、车况与轮胎/引擎状态、神经值、电台音乐、昼夜时钟、订单系统、保存恢复系统；交通/动物事件有碰撞反馈"
+          }
+        },
+        {
+          "version_id": "v-38e64da39e76",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "俯视驾驶投递模拟",
+            "core_gameplay": "驾驶货车在乡村道路接取包裹订单，选择投递方式（邮筒/邮局/自提柜），驱车前往红色目标点，按E完成取送并结算奖励",
+            "controls": "W/↑：油门加速 → 实机验证；S/↓：刹车/倒车 → 界面与源码确认；A/D或←/→：转向 → 实机验证；Space：手刹 → 界面确认；E：在目标点交互取送 → 实机验证；M：开关地图 → 实机验证；鼠标点击：菜单/投递方式/保存按钮 → 实机验证",
+            "rules": "目标：将包裹送达所选类型投递点；成功：E交互正确点位触发结算弹窗并更新统计；失败条件未实测；计分含分数、神经值、XP奖励，具体公式未确认",
+            "content": "固定5个包裹/局，投递点含邮筒、邮局、自提柜三类；地图含道路、河流、桥梁与建筑，包裹易碎等特性影响要求；后续关卡与升级规模未验证",
+            "systems": "驾驶物理(加速/刹车/转向)、油耗(9.0L)、车况与轮胎/引擎状态、神经值、电台音乐、昼夜时钟、订单系统、保存恢复系统；交通/动物事件有碰撞反馈"
+          }
+        },
+        {
+          "version_id": "v-30acba23026c",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "俯视角乡村驾驶送货模拟",
+            "core_gameplay": "驾驶车辆在芬兰乡村道路上接取包裹订单，前往取件点取件并按时完好送达目的地",
+            "controls": "W/↑：油门加速；S/↓：刹车/倒车；A/D或←/→：转向；Space：手刹；E：在取件/送达点旁交互；M：开/关地图；底部按钮：TALLENNA保存、VIE导出、TUO导入、TILASTOT统计、ÄÄNET声音、RADIO电台、VALIKKO菜单",
+            "rules": "目标：按时将包裹完好送达。碰撞树木扣HERMOT（观察-3）并损伤车况；易碎品受颠簸影响；超时或损毁会降低报酬；具体计分公式未确认",
+            "content": "固定地图区域（KOUVOLA·MYLLYKOSKI·INKEROINEN），订单含物品价值、易碎属性与时限；每轮5件包裹；随机事件含动物穿行等；后续关卡内容未穷举验证",
+            "systems": "驾驶物理（速度/刹车/转向）、油耗（9.0L起随里程下降）、车况与轮胎磨损、神经值、天气与时间系统、电台音乐、地图导航标记、订单/投递方式系统（邮筒/邮局/自提柜）"
+          }
+        },
+        {
+          "version_id": "v-32dc3b824a4f",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "俯视视角驾驶配送模拟",
+            "core_gameplay": "驾驶邮车在芬兰乡村道路上接取并配送包裹：选择配送方式、按地图红色目标点前往取件/送达、按E在目标点交互，管理油量、车况、神经值与配送时限。",
+            "controls": "W/↑：油门前进→实机验证；S/↓：刹车/倒车→界面提示，未单独验证；A/D或←/→：转向→实机验证；E：目标点交互（取件/送达）→界面提示，到达条件未实机完成；Space：手刹→界面提示；M：打开/关闭地图→实机验证；底部按钮TALLENNA手动保存→实机验证。",
+            "rules": "目标：限时内将包裹完好送达；碰撞树木扣神经并损伤车辆；超时包裹转入延迟取件且评价下降；具体计分公式数值未完整确认。",
+            "content": "首单为陶瓷杯（易碎）3.90€；包裹计数1/5；地图含KOUVOLA、MYLLYKOSKI、INKEROINEN等区域；维修点H、咖啡馆K标注于地图；后续订单与区域规模为程序生成，未穷举。",
+            "systems": "驾驶物理（加速/刹车/转向）、油耗与费用、车辆耐久、神经值、天气/时间系统、电台（可切换曲目）、地图导航、订单与易碎品时限、随机道路事件（麋鹿穿行）。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-f47cb1635501",
+      "title": "Play Jose’s Kingdom - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/joses-kingdom",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-5e4320c72225",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "解谜/休闲",
+            "core_gameplay": "交换相邻棋子形成三连及以上消除，在限定步数内清除指定数量格子；含多击城墙、闸门、投石车、3x3城堡、囚笼与章节Boss等障碍机制（深层机制仅源码确认）",
+            "controls": "拖动棋子至相邻格 → 交换并触发三连消除 → 两子相邻且交换后形成匹配（实机验证）\n点击棋子再点相邻子 → 交换（选中高亮）→ 同上（实机验证）\n♪/⌂/⟳/?四角按钮 → 静音/主页/重开/帮助 → 界面存在，⌂实测有效",
+            "rules": "目标：限步数内清除指定格数（L1为204格/38步）；三连计清除；直线4连铸Twin Lance、5连铸Royal Tempest（源码）；步数耗尽未达标判失败；计分公式未确认",
+            "content": "固定关卡：Jose's Kingdom 415关分多章（界面实证）；Siege Lands 26攻城与Marie's Palace 30密室（源码确认，未进入）；无程序生成证据",
+            "systems": "6色棋子；特殊棋子Twin Lance/TNT/Spinner/Tempest；障碍：1-3击城墙、闸门、投石车、城堡、囚笼；Boss：龙/弓箭手/Gob/冰巫（章节机制）；道具4种有上限；消除后棋子下落补充并级联"
+          }
+        },
+        {
+          "version_id": "v-aa80180ca799",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "关卡制三消益智游戏",
+            "core_gameplay": "交换相邻棋子形成三连及以上消除，在限定步数内清除指定数量格子",
+            "controls": "拖动棋子至相邻格 → 交换位置并触发三连消除 → 两子相邻且交换后形成匹配\n点击棋子再点相邻子 → 交换（选中高亮已实证） → 同上\n♪/⌂/⟳/?按钮 → 静音/主页/重开/帮助 → 界面存在，效果未逐一实证",
+            "rules": "目标：限步数内清除指定格子数（Level1为204格/38步）；三连及以上消除计清除数；步数耗尽未达标判失败（失败结算未实证）；具体计分公式未确认",
+            "content": "固定关卡：Jose's Kingdom 界面标注415关，分The Kingdom/The Siege/The War等多章，每关清除目标与步数不同；另有Siege Lands 26攻城（未进入）；无程序生成证据",
+            "systems": "棋子对象：红宝石、骷髅、炸弹、药水瓶、盾牌、蓝宝石等；状态：剩余步数、已清除格数、补给车倒计时；道具栏五种道具显示剩余数量；消除后棋子下落补充"
+          }
+        },
+        {
+          "version_id": "v-ce67e3f076d5",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "关卡制三消益智游戏",
+            "core_gameplay": "交换相邻棋子形成三连及以上消除，在限定步数内清除指定数量格子",
+            "controls": "拖动棋子至相邻格 → 交换位置并触发三连消除 → 两子相邻且交换后形成匹配\n点击棋子再点相邻子 → 交换（选中高亮已实证） → 同上\n♪/⌂/⟳/?按钮 → 静音/主页/重开/帮助 → 界面存在，效果未逐一实证",
+            "rules": "目标：限步数内清除指定格子数（Level1为204格/38步）；三连及以上消除计清除数；步数耗尽未达标判失败（失败结算未实证）；具体计分公式未确认",
+            "content": "固定关卡：Jose's Kingdom 界面标注415关，分The Kingdom/The Siege/The War等多章，每关清除目标与步数不同；另有Siege Lands 26攻城（未进入）；无程序生成证据",
+            "systems": "棋子对象：红宝石、骷髅、炸弹、药水瓶、盾牌、蓝宝石等；状态：剩余步数、已清除格数、补给车倒计时；道具栏五种道具显示剩余数量；消除后棋子下落补充"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-f8c1c3d4abaf",
+      "title": "Play Gaster: Fractured Pattern - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/gaster-fractured-pattern",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-c26ab9284668",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "动作/射击",
+            "core_gameplay": "弹幕躲避型Boss耐力战：操控灵魂在竞技场中躲避骨头、斩击、裂隙波、星扇等弹幕，存活至倒计时结束即胜利；可拾取信号碎片与擦弹加分",
+            "controls": "Enter → 标题开局/结算后重试 → 标题或结算界面（实机验证）\n方向键 → 移动灵魂 → 战斗中（实机验证）\nE → 冲刺闪避 → 冷却就绪时（HUD显示E DASH READY，实机验证）\nSpace按住 → 绿魂格挡，但承受30%额外伤害 → 绿魂模式（实机验证按住）\nQ → 切换灵魂模式（红/蓝/绿/黄） → 战斗中（实机验证）\nP → 暂停/恢复 → 战斗中（实机验证）\nM → 静音切换 → 任意时刻（源码确认，未单独实测）\n射击/蓄力 → 源码存在玩家子弹与蓄力逻辑，具体按键未确认",
+            "rules": "目标：存活至倒计时归零（实测从约109秒递减，精确时长未确认）。失败：HP（上限92）被弹幕/斩击命中扣减至0即阵亡。计分：随时间按(20+阶段×10)/秒累积，擦弹与碎片加分；胜利最终分=分数+剩余HP×50（源码确认）",
+            "content": "固定单一Boss战（GASTER // THE SIGNAL BETWEEN），共6个阶段；弹幕由脚本化模式（斩击序列、裂隙波、星扇、重力脉冲等）与随机元素组合生成，非固定关卡列表",
+            "systems": "灵魂模式系统：红/蓝/绿/黄四模式，蓝魂带重力下坠（提示HOLD UP TO RESIST）、绿魂可格挡、黄魂蓄力连射（源码确认）；弹幕系统：骨头、斩击（带预警线与SLASH序号）、裂隙波（标SAFE GAP安全道）、星扇（VOID CONSTELLATION预警）、混沌预警；拾取系统：信号碎片提供SIGNAL LINK加分；冲刺带短暂无敌（源码确认）"
+          }
+        },
+        {
+          "version_id": "v-23a707e02a54",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "弹幕躲避动作游戏（Boss生存战）",
+            "core_gameplay": "在矩形竞技场内操控灵魂躲避GASTER的骨头弹幕、斩击、波次与星扇攻击，坚持到计时结束获胜",
+            "controls": "方向键 → 移动灵魂 → 战斗中（实机验证）；E → 冲刺（短暂无敌位移）→ 冷却就绪时（实机验证）；Q → 切换红/蓝魂模式（蓝魂带重力）→ 战斗中（实机验证）；P → 暂停/恢复 → 战斗中（实机验证）；Enter → 标题开局/阵亡后重连 → 对应界面（实机验证）；Space射击、M静音等仅源码确认未实测",
+            "rules": "目标为在计时（约107秒起倒数）内存活；被弹幕命中扣HP，HP 0/92判负；计时归零判胜，胜利分数=生存得分+剩余HP×50并写入最佳分；阶段随时间推进（实测Phase 1/6）；擦弹与拾取信号碎片加分（仅源码确认阈值）",
+            "content": "固定单场Boss战，含6个阶段的弹幕组合（实测至Phase 1，后续阶段未验证）；无关卡选择",
+            "systems": "对象：玩家灵魂、Boss、骨头、斩击、裂隙波、星扇、信号碎片；状态：标题/战斗/暂停/阵亡/胜利；触发：受击扣血、冲刺冷却与无敌帧、蓝魂重力下坠需按住上抵抗、阶段推进改变弹幕组合；系统交互：拾取碎片加分、冲刺躲避斩击窗口"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-9418903b0dd7",
+      "title": "Play Elemental Oddities - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/elemental-oddities",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-97de5e43b638",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "沙盒/合成/解谜",
+            "core_gameplay": "像素下落沙盒：选择元素在画布绘制，元素间按配方反应生成新物质与生物；收集画布遗迹中隐藏的六个符文字母并排列成词解锁隐藏元素",
+            "controls": "鼠标左键拖动 → 用当前选中元素绘制 → 需先点击左侧元素按钮选择；鼠标右键拖动 → 擦除画布内容 → 无需预条件；滚轮 → 调整笔刷大小1-9 → 悬停画布；M键 → 静音开关 → 任意时刻；点击元素按钮 → 选择绘制元素 → 按钮位于左栏；点击符文 → 收集符文字母 → 需绘制接近符文位置；riddle输入框+Solve → 提交字母排列答案 → 需集齐6个符文；MOD WORKSHOP按钮 → 打开生物工坊 → 实机验证；GENERATE → 本地随机生成新生物预览 → 实机验证；ADD AS CREATURE → 将预览生物加入元素栏 → 实机验证",
+            "rules": "目标：尽可能多地发现物质并完成图鉴与成就；失败：无失败状态，自由沙盒；隐藏目标：集齐6符文按正确顺序排列字母（答案AETHER）解锁隐藏元素；计分：以发现数量与成就数计",
+            "content": "98种可发现物质/生物（源码发现计数98），16条以上显式配方提示，6个隐藏符文，生物工坊可本地生成新生物；固定配方非程序生成关卡",
+            "systems": "元素系统：固态/液态/气体/生物像素按规则下落与交互；反应系统：两种元素接触按配方表转换为新元素；发现系统：首次生成记录到图鉴；成就系统：按发现进度解锁；符文系统：画布遗迹藏6字母，集齐后可解谜；工坊系统：本地随机组合生成新生物定义加入元素栏"
+          }
+        },
+        {
+          "version_id": "v-a948b86a4850",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "沙盒模拟（落沙/元素合成）",
+            "core_gameplay": "在像素画布上用笔刷绘制元素粉末/液体/气体，元素按密度下落流动并概率触发合成反应，发现新材料与生物，收集图鉴与成就。",
+            "controls": "左键按住/拖动 → 用当前选中元素绘制 → 需先点击左侧元素按钮选中；右键绘制 → 擦除格子与附近生物；滚轮 → 调整笔刷大小1-12；M键 → 静音切换；点击符文 → 收集废墟中的字母。",
+            "rules": "目标为发现全部97种条目与收集六枚符文解锁aether；相邻不同元素接触有概率触发配方反应（实机观察约0.3），生成生物类结果另有约0.15二次概率；无失败与计分，发现数与成就为进度指标。",
+            "content": "固定内容：97种可发现条目（元素与生物）、6项成就、6枚符文谜题、内置元素与配方链；MOD工坊允许玩家自定义扩展，数量不固定。",
+            "systems": "元素注册表与反应表驱动合成；粉末/液体/气体/固体/火按密度与方向规则运动；生物具移动方式（走/爬/游/飞）、双帧动画及与元素的转化反应；成就六项按发现进度解锁；符文谜题收集六字母后输入解锁aether；MOD工坊支持自定义元素与配方。"
+          }
+        },
+        {
+          "version_id": "v-330be4c3505d",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "沙盒模拟（落沙/元素合成）",
+            "core_gameplay": "在像素画布上用笔刷绘制元素粉末/液体/气体，元素按密度下落流动并概率触发合成反应，发现新材料与生物，收集图鉴与成就。",
+            "controls": "左键按住/拖动 → 用当前选中元素绘制 → 需先点击左侧元素按钮选中；右键绘制 → 擦除格子与附近生物；滚轮 → 调整笔刷大小1-12；M键 → 静音切换；点击符文 → 收集废墟中的字母。",
+            "rules": "目标为发现全部97种条目与收集六枚符文解锁aether；相邻不同元素接触有概率触发配方反应（实机观察约0.3），生成生物类结果另有约0.15二次概率；无失败与计分，发现数与成就为进度指标。",
+            "content": "固定内容：97种可发现条目（元素与生物）、6项成就、6枚符文谜题、内置元素与配方链；MOD工坊允许玩家自定义扩展，数量不固定。",
+            "systems": "元素注册表与反应表驱动合成；粉末/液体/气体/固体/火按密度与方向规则运动；生物具移动方式（走/爬/游/飞）、双帧动画及与元素的转化反应；成就六项按发现进度解锁；符文谜题收集六字母后输入解锁aether；MOD工坊支持自定义元素与配方。"
+          }
+        },
+        {
+          "version_id": "v-33c18e9d69e4",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "沙盒模拟（落沙/元素合成）",
+            "core_gameplay": "在像素画布上用笔刷绘制元素粉末/液体/气体，元素按密度下落流动并概率触发合成反应，发现新材料与生物，收集图鉴与成就。",
+            "controls": "左键按住/拖动 → 用当前选中元素绘制 → 需先点击左侧元素按钮选中；右键绘制 → 擦除格子与附近生物；滚轮 → 调整笔刷大小1-12；M键 → 静音切换；点击符文 → 收集废墟中的字母。",
+            "rules": "目标为发现全部97种条目与收集六枚符文解锁aether；相邻不同元素接触有概率触发配方反应（实机观察约0.3），生成生物类结果另有约0.15二次概率；无失败与计分，发现数与成就为进度指标。",
+            "content": "固定内容：97种可发现条目（元素与生物）、6项成就、6枚符文谜题、内置元素与配方链；MOD工坊允许玩家自定义扩展，数量不固定。",
+            "systems": "元素注册表与反应表驱动合成；粉末/液体/气体/固体/火按密度与方向规则运动；生物具移动方式（走/爬/游/飞）、双帧动画及与元素的转化反应；成就六项按发现进度解锁；符文谜题收集六字母后输入解锁aether；MOD工坊支持自定义元素与配方。"
+          }
+        },
+        {
+          "version_id": "v-9086e1ef2222",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "沙盒模拟（落沙/元素合成）",
+            "core_gameplay": "在像素画布上用笔刷绘制元素粉末/液体/气体，元素按密度下落流动并概率触发合成反应，发现新材料与生物，收集图鉴与成就。",
+            "controls": "左键按住/拖动 → 用当前选中元素绘制 → 需先点击左侧元素按钮选中；右键绘制 → 擦除格子与附近生物；滚轮 → 调整笔刷大小1-12；M键 → 静音切换；点击符文 → 收集废墟中的字母。",
+            "rules": "目标为发现全部97种条目与收集六枚符文解锁aether；相邻不同元素接触有概率触发配方反应（实机观察约0.3），生成生物类结果另有约0.15二次概率；无失败与计分，发现数与成就为进度指标。",
+            "content": "固定内容：97种可发现条目（元素与生物）、6项成就、6枚符文谜题、内置元素与配方链；MOD工坊允许玩家自定义扩展，数量不固定。",
+            "systems": "元素注册表与反应表驱动合成；粉末/液体/气体/固体/火按密度与方向规则运动；生物具移动方式（走/爬/游/飞）、双帧动画及与元素的转化反应；成就六项按发现进度解锁；符文谜题收集六字母后输入解锁aether；MOD工坊支持自定义元素与配方。"
+          }
+        },
+        {
+          "version_id": "v-106406ed0e8a",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "沙盒模拟（落沙/粉末物理）",
+            "core_gameplay": "在像素画布上用画笔放置不同元素粒子（土、水、气、火、时间等），粒子按密度与类型（粉末/液体/气体/火焰/固体）进行下落、流动、扩散模拟；相邻元素按配方表概率（30%）发生反应生成新元素并解锁图鉴。",
+            "controls": "左键按住/拖动 → 以当前笔刷在画布绘制所选元素粒子 → 需先在左侧列表选择元素；右键按住/拖动 → 擦除粒子及附近生物 → 无附加条件；鼠标滚轮 → 调整笔刷大小（1–12）→ 悬停画布上；点击元素按钮 → 切换当前绘制元素 → 该元素须已在列表；M键 → 切换音乐静音 → 输入焦点不在文本框时；点击CLEAR → 清空画布网格与生物 → 无附加条件。（均经实机验证绘制与反应生效；滚轮与M键仅源码确认）",
+            "rules": "目标：尽可能多地发现97种元素/配方并收集6枚符文。反应规则：相邻两格不同元素每帧按30%概率尝试按配方表反应，生成结果元素；结果以@开头时另有15%概率生成对应生物并消耗两格。粉末下落、液体流动、气体/火焰上升，固体静止；void缓慢吞噬周围；火焰有寿命衰减。失败条件：无失败状态，属开放沙盒。计分：无分值，仅图鉴计数与成就进度。",
+            "content": "固定内容：源码定义的元素与生物精灵、固定反应配方表、6枚符文谜题；总量97项发现。程序生成部分：粒子模拟行为与反应出现时机由随机数驱动；未发现可枚举关卡。",
+            "systems": "元素注册表（名称/类型/颜色/寿命/可燃等）驱动粒子模拟；反应配方表控制两两元素转换；生物系统含自定义两帧像素精灵与行走/爬行/游泳/飞行移动模式，并可与元素发生转换反应；发现图鉴记录已解锁元素并驱动成就；符文谜题：画布两侧废墟中收集6个字母解锁aether；Mod工坊允许导入自定义元素与反应；本地合成面板可融合新元素并持久化。（生物与合成实机未触发，仅源码确认）"
+          }
+        },
+        {
+          "version_id": "v-47dab45c47c3",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "沙盒模拟（落沙/元素反应实验）",
+            "core_gameplay": "在像素沙盒画布上绘制土、水、气、火、时间等元素，相邻格子按配方概率触发反应生成新元素或生物，目标是发现并记录全部97种元素与隐藏生物。",
+            "controls": "鼠标左键按住/拖动 → 在画布绘制当前选中元素 → 需先点击左侧元素按钮选择\n鼠标右键按住/拖动 → 擦除格子和附近生物 → 无前置条件\n鼠标滚轮 → 调整笔刷半径（1–12）→ 指针悬停在画布上\nM键 → 切换音乐静音 → 焦点不在文本输入框时\n点击发光字母 → 收集废墟符文 → 符文出现在画布两侧石构上",
+            "rules": "目标为发现全部97种元素与隐藏生物、完成符文谜题；无失败与计分，属于非对抗沙盒。反应按预定义配方在相邻异种格子间触发（源码概率0.3），生物配方额外以0.15概率生成且场上生物上限120；成就含记录20种材料、遇见3种生物等固定阈值（源码确认）。",
+            "content": "固定内容：97种可发现元素（5种起始）、20余种固定精灵生物、6个成就、6字母符文谜题、固定天空与废墟场景；无程序生成关卡；玩家可经工坊/合成扩展自定义元素与配方（源码确认，未实机覆盖）。",
+            "systems": "元素注册表（powder/liquid/gas/solid/fire类型、密度、寿命、颜色）；反应表驱动相邻格子转化；生物系统含精灵两帧动画与行走/爬行/游动/飞行AI及生物-元素反应；发现图鉴与成就系统；六字母符文谜题（集齐后排序解锁aether）；模组工坊支持导入自定义元素与反应；合成系统可本地推断并创建新元素。"
+          }
+        },
+        {
+          "version_id": "v-d6acd1922b98",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "沙盒模拟（落沙/元素反应）",
+            "core_gameplay": "在240×135网格画布上用圆笔刷绘制元素粉末/液体/气体/火焰，元素按密度沉降、流动、上升并两两反应生成新物质或概率生成生物",
+            "controls": "左键按住/拖动 → 以当前笔刷绘制所选元素 → 需先点击左栏元素按钮选中\n右键 → 擦除格子与附近生物 → 无需选中\n滚轮 → 调整笔刷大小1-12 → 悬停画布上\nM → 音乐静音切换 → 焦点不在输入框\n点击左栏按钮 → 切换元素/打开面板 → 实机验证点击与拖动绘制有效",
+            "rules": "目标：尽可能多地发现物质与生物；无失败与计分；相邻异种元素每帧30%概率按反应表转化，@结果再15%概率生成生物（上限120只）；部分元素有寿命衰减",
+            "content": "97项可发现条目（元素与@前缀生物，实机达10/97）；固定反应表含矿物、海洋、生命链（源码确认）；6字母符文谜题、MOD工坊、本地合成等扩展系统未实机覆盖",
+            "systems": "粒子系统：按密度（气-1/液1/粉2/固9）沉降交换；反应系统：四邻随机配对查表；生物系统：walk/swim/fly移动、遇火焚毁、可转化；发现/成就/符文/合成/模组系统相互联动（后三者未实机验证）"
+          }
+        },
+        {
+          "version_id": "v-884b668faff5",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "沙盒模拟（落沙/元胞自动机）与收集图鉴",
+            "core_gameplay": "在像素画布上绘制不同元素，观察粉末/液体/气体/固体/火的物理运动，相邻异种元素概率反应生成新物质与生物，目标是扩展发现图鉴。",
+            "controls": "鼠标左键按住/拖动 → 以当前选中元素绘制，需先点左侧元素按钮（实机验证）\n点击左侧元素按钮 → 切换绘制元素（实机验证）\n鼠标右键拖动 → 擦除格子与生物（仅源码确认）\n滚轮 → 调整笔刷大小1-12（仅源码确认）\nM键 → 静音开关（仅源码确认）\nCLEAR按钮 → 清空画布（仅源码确认，未实机点击）",
+            "rules": "无胜负与失败惩罚；目标为发现全部条目（界面显示总量97，含生物）；相邻异种元素按约30%概率反应，生物生成再经约15%概率；成就按固定阈值解锁，如首个新配方1次、图鉴记录20种、遇见3种生物；笔刷范围1-12。",
+            "content": "固定注册的元素与反应配方（发现总量97含生物条目）；生物含普通与隐藏种；MOD工坊允许玩家自定义扩展；无程序生成内容。",
+            "systems": "元胞网格模拟：按密度交换实现粉末下落、液体流动、气体上升；反应系统：固定配方加本地合成配方；生物系统：反应生成带移动AI与专属反应的生物，含隐藏种；符文谜题：画布两侧废墟藏6个字母，集齐可解锁aether（未实机验证）；成就与toast提示；MOD工坊与本地融合支持自定义元素、配方并持久化。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-4f641750199b",
+      "title": "Play Drop or Don’t - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/drop-or-dont",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-3a2bd25f551d",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "休闲/动作",
+            "core_gameplay": "单指点击切换重力方向：blob在竖直洞穴中持续下落，点击屏幕让其吸附到对侧岩壁或脱离，躲避红色尖刺、拾取能量球得分，存活60秒即胜利。",
+            "controls": "点击/触摸屏幕任意处 → 翻转重力方向使blob换侧吸附 → 对局进行中有效\n标题界面点击任意处 → 开始新一局\n结算界面点击SHARE YOUR RUN → 调用系统分享或复制链接（deadTime>0.5后）\n结算界面点击其他任意处 → 重新开始\n右上角音符按钮 → 切换静音并写入dod-muted",
+            "rules": "目标：存活60秒并获得尽量高分；失败：blob与尖刺碰撞即死亡；计分：拾取能量球+10×min(combo,10)，错过能量球连击清零，存活满60秒+500并胜利；判定：碰撞半径取角色半径0.7的宽容判定。",
+            "content": "单一无尽下落场景：洞穴背景、能量球、悬空尖刺与墙面尖刺随机布置；无多关卡。固定资源：1个主角、1种拾取物、2类障碍、4张图片、3段音频。",
+            "systems": "角色：blob具备吸附侧、下落速度与死亡碎裂状态；障碍：尖刺/墙刺随机生成随深度变化；拾取：能量球触发连击、粒子与音效；UI：HUD实时显示分数、BEST、倒计时与进度条；结算：死亡/胜利卡片含分数、深度、最佳纪录与分享按钮。"
+          }
+        },
+        {
+          "version_id": "v-bead3822273a",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "休闲街机反应游戏",
+            "core_gameplay": "点按切换重力方向，让粉色角色在两侧岩壁之间上下翻转，躲避墙面尖刺并拾取宝珠得分，撞到尖刺立即结束",
+            "controls": "鼠标点击/触屏点按 → 标题界面开始游戏 → 处于标题或结算界面时生效；鼠标点击/触屏点按 → 切换角色重力方向（换墙吸附）→ 对局进行中生效；鼠标点击/触屏点按 → 死亡结算后重新开始 → 结算界面生效（以上均经实机验证）",
+            "rules": "目标：尽可能存活并得分；成功：躲避尖刺、拾取宝珠累计得分（单颗宝珠分值未确认，实机验证过得分10与30）；失败：角色接触尖刺立即死亡并结算，无续命机制",
+            "content": "单一无尽垂直洞穴场景；尖刺与宝珠沿两侧岩壁分布并随进程滚动出现，具体生成规则未验证；无独立关卡",
+            "systems": "对象：玩家角色、宝珠、尖刺、两侧岩壁；状态：标题→对局→结算；触发：点按切换重力方向、角色与尖刺碰撞检测触发死亡、拾取宝珠加分、结算时比较并更新最高分；音乐开关按钮位于右上角（功能未逐项验证）"
+          }
+        },
+        {
+          "version_id": "v-fdc0d88ce3c9",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "休闲街机反应游戏",
+            "core_gameplay": "点按切换重力方向，让粉色角色在两侧岩壁之间上下翻转，躲避墙面尖刺并拾取宝珠得分，撞到尖刺立即结束",
+            "controls": "鼠标点击/触屏点按 → 标题界面开始游戏 → 处于标题或结算界面时生效；鼠标点击/触屏点按 → 切换角色重力方向（换墙吸附）→ 对局进行中生效；鼠标点击/触屏点按 → 死亡结算后重新开始 → 结算界面生效（以上均经实机验证）",
+            "rules": "目标：尽可能存活并得分；成功：躲避尖刺、拾取宝珠累计得分（单颗宝珠分值未确认，实机验证过得分10与30）；失败：角色接触尖刺立即死亡并结算，无续命机制",
+            "content": "单一无尽垂直洞穴场景；尖刺与宝珠沿两侧岩壁分布并随进程滚动出现，具体生成规则未验证；无独立关卡",
+            "systems": "对象：玩家角色、宝珠、尖刺、两侧岩壁；状态：标题→对局→结算；触发：点按切换重力方向、角色与尖刺碰撞检测触发死亡、拾取宝珠加分、结算时比较并更新最高分；音乐开关按钮位于右上角（功能未逐项验证）"
+          }
+        },
+        {
+          "version_id": "v-8c347f738d78",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "休闲街机反应游戏",
+            "core_gameplay": "点按切换重力方向，让粉色角色在两侧岩壁之间上下翻转，躲避墙面尖刺并拾取宝珠得分，撞到尖刺立即结束",
+            "controls": "鼠标点击/触屏点按 → 标题界面开始游戏 → 处于标题或结算界面时生效；鼠标点击/触屏点按 → 切换角色重力方向（换墙吸附）→ 对局进行中生效；鼠标点击/触屏点按 → 死亡结算后重新开始 → 结算界面生效（以上均经实机验证）",
+            "rules": "目标：尽可能存活并得分；成功：躲避尖刺、拾取宝珠累计得分（单颗宝珠分值未确认，实机验证过得分10与30）；失败：角色接触尖刺立即死亡并结算，无续命机制",
+            "content": "单一无尽垂直洞穴场景；尖刺与宝珠沿两侧岩壁分布并随进程滚动出现，具体生成规则未验证；无独立关卡",
+            "systems": "对象：玩家角色、宝珠、尖刺、两侧岩壁；状态：标题→对局→结算；触发：点按切换重力方向、角色与尖刺碰撞检测触发死亡、拾取宝珠加分、结算时比较并更新最高分；音乐开关按钮位于右上角（功能未逐项验证）"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-b878598c196d",
+      "title": "Play Chubby Knight: Food and Glory - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/knightfall-castle-1",
+      "description": "授权：gcy；范围：本游戏代码与素材（按用户声明登记，原始来源及第三方许可保留）。",
+      "profiles": [
+        {
+          "version_id": "v-d2fea19fc730",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "平台跳跃/冒险",
+            "core_gameplay": "横版平台移动与跳跃，在森林/城堡场景中搜集食物维持饥饿值、拾取盔甲与武器、与敌人战斗；饥饿耗尽或受击失去全部装备则死亡，可用灵魂复活或重试。",
+            "controls": "方向键←/→ → 左右移动 → 焦点在游戏画面（实机验证）；↑或跳跃键 → 跳跃/斜跳（实机验证位移）；屏幕虚拟方向按钮 → 移动/跳跃（截图可见）；暂停按钮 → 打开暂停菜单（实机验证）。",
+            "rules": "目标：搜集食物维持生存并战斗取胜；失败：饥饿耗尽（Died of starvation）或失去全部装备；计分：灵魂货币，胜利+10、复活-25（源码确认阈值）。",
+            "content": "已确认第0关森林场景（Whispering Woods）含城门、平台、食物与多种敌人贴图；后续关卡数量未验证。",
+            "systems": "饥饿系统（随时间扣减，食物回复）、装备系统（5件装备，受击随机掉落）、战斗系统（近战攻击冷却0.48s）、灵魂货币系统、教程分阶段提示（food/armor/battle）。"
+          }
+        },
+        {
+          "version_id": "v-a56bffd3f6df",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "平台跳跃/冒险",
+            "core_gameplay": "横版平台移动与跳跃，在森林/城堡场景中搜集食物维持饥饿值、拾取盔甲与武器、与敌人战斗；饥饿耗尽或受击失去全部装备则死亡，可用灵魂复活或重试。",
+            "controls": "方向键←/→ → 左右移动 → 焦点在游戏画面（实机验证）；↑或跳跃键 → 跳跃/斜跳（实机验证位移）；屏幕虚拟方向按钮 → 移动/跳跃（截图可见）；暂停按钮 → 打开暂停菜单（实机验证）。",
+            "rules": "目标：搜集食物维持生存并战斗取胜；失败：饥饿耗尽（Died of starvation）或失去全部装备；计分：灵魂货币，胜利+10、复活-25（源码确认阈值）。",
+            "content": "已确认第0关森林场景（Whispering Woods）含城门、平台、食物与多种敌人贴图；后续关卡数量未验证。",
+            "systems": "饥饿系统（随时间扣减，食物回复）、装备系统（5件装备，受击随机掉落）、战斗系统（近战攻击冷却0.48s）、灵魂货币系统、教程分阶段提示（food/armor/battle）。"
+          }
+        },
+        {
+          "version_id": "v-eeee204599ed",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "动作平台跳跃（含生存与收集要素）",
+            "core_gameplay": "操控骑士在平台间斜向跳跃，收集食物维持饥饿条、收集盔甲与武器，装备剑后攻击敌人；饥饿耗尽或受致命攻击则死亡，可消耗灵魂复活或重试。",
+            "controls": "方向左/右或A/D → 向对应方向斜跳 → 关卡进行中；方向下/S → 快速下落穿过平台 → 关卡进行中；空格 → 挥剑攻击 → 须已拾取剑；Escape → 暂停/恢复或返回 → 任意界面；点击画面圆形按钮 → 与按键等效 → 触屏操作。以上均实机验证（空格攻击仅源码确认，未拾取到剑）。",
+            "rules": "目标：生存并推进关卡。失败：饥饿条归零死亡（实机验证，提示Died of starvation）或无装备时受击死亡。饥饿上限30秒、每份食物+7秒（源码）；复活消耗25灵魂并短暂无敌；通关奖励+10灵魂（源码，未实机触发）。",
+            "content": "源码确认7个关卡（0森林引导关+1-6城堡关，逐关解锁）；食物10种、装备5件、敌人家族多类（实机仅见第0关）；黄金宝箱奖励5种（源码确认）。第1关及以后未实机进入。",
+            "systems": "平台碰撞与斜跳物理（空中可再次起跳，实机利用）；饥饿倒计时与食物随机刷新；装备五件收集与被击掉落；敌人波次与投射物（第1关起，未实机）；黄金钥匙-宝箱随机奖励；暂停冻结游戏时钟（实机确认暂停下饥饿不流失）。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-c39929c0bb53",
+      "title": "Play Canyonwing - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/canyonwing",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-88c8cc3d9ee8",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "跑酷",
+            "core_gameplay": "玩家操控翼人角色自动向前飞行，通过点按拍翅控制高度，躲避峡谷岩柱、导弹与落石，穿越门洞与收集羽毛获取分数，追求更远距离与更高得分",
+            "controls": "SPACE/W/↑ → 拍翅上升；标题界面开始；结算界面重开 → 实机验证SPACE有效\nS/↓ → 俯冲加速下坠 → 菜单说明与源码确认，未单独实机\nCTRL → 摧毁下一枚导弹（需有充能） → 菜单说明与源码确认，未实机触发\nSHIFT → 减速1秒 → 菜单说明与源码确认，未实机触发\n鼠标/触摸按住画布 → 持续拍翅 → 源码确认，未实机验证",
+            "rules": "目标：尽可能远地飞行并获得高分。失败：撞岩柱/导弹/落石或飞出上下边界即结束。计分：基础分随时间与速度增长；穿普通门+35，宽门+55，窄门+170；红羽+100；导弹近距闪避+125（远距+30）；落石近距闪避+105（远距+35）。最高分持久保存",
+            "content": "固定内容：4个峡谷环境主题（SUNSPIRE/AMBER VEIL/VIOLET RIFT/STORM CROWN）随分数每4000分轮换；障碍、导弹、落石、羽毛拾取为程序生成；落石在5000分后出现，导弹随距离加密",
+            "systems": "对象：翼人主角、峡谷岩柱/分裂门、导弹（警告后追踪）、落石（预警尘后坠落）、红羽（缩小）与蓝羽（护盾）拾取物、粒子。状态：title→playing→dead→重开。系统交互：距离驱动速度、分数与障碍生成频率；护盾抵挡一次撞击；缩小降低判定半径；撞击触发结算并写入最佳纪录"
+          }
+        },
+        {
+          "version_id": "v-8bc8d7014588",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "横版躲避飞行（Flappy式无限飞行）",
+            "core_gameplay": "玩家操控翼人角色持续向右自动飞行，通过点按拍翅保持高度、避开峡谷岩柱障碍与导弹，追求更远距离与更高得分",
+            "controls": "SPACE/W/↑ → 拍翅上升/菜单开始/结算重开 → 实机验证SPACE有效\nS/↓ → 俯冲 → 菜单说明，未实机验证\nCTRL → 摧毁下一枚导弹 → 菜单说明，未实机验证\nSHIFT → 减速1秒 → 菜单说明，未实机验证",
+            "rules": "目标：尽可能远地飞行不撞界。成功：持续飞行累计分数与距离（实机观察得分随飞行增长，如10、22）。失败：TERMINATION: BOUNDARY撞界即结束。计分：分数与飞行距离相关（本局22分/735M）；最高纪录持久保存（BEST 000032）。阈值细节未确认。",
+            "content": "固定内容：ZONE 01·SUNSPIRE区域与峡谷场景已实机确认；导弹、红羽、落石、路线奖励等元素在结算面板存在统计项但本轮未全部触发；后续区域数量未验证。",
+            "systems": "对象：翼人主角、峡谷岩柱/平台障碍、导弹（菜单提及）。状态：菜单→飞行→结算→重开。触发：按键输入改变垂直速度；碰撞触发结算。系统交互：飞行距离驱动分数与最佳纪录；结算后写入localStorage最高纪录与debrief文本。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-f599905a0704",
+      "title": "Play Eventide Drop - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/eventide-drop",
+      "description": "授权：gcy；范围：本游戏代码与素材（按用户声明登记，原始来源及第三方许可保留）。",
+      "profiles": [
+        {
+          "version_id": "v-8d1a82fa3656",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "跑酷/动作",
+            "core_gameplay": "操控发光探针在无尽下坠的圆柱隧道截面内平移，躲避迎面而来的岩石碎片与旋转红色光束，尽可能下坠更深；一旦碰撞即结算，以下坠深度（米）计分",
+            "controls": "1. 鼠标/触摸按住并拖动 → 探针朝拖动方向平移 → 对局中在画布上按住移动\n2. ←/A（按住）→ 向左移动 → 对局中\n3. →/D（按住）→ 向右移动 → 对局中\n4. ↑/W（按住）→ 向上移动 → 对局中\n5. ↓/S（按住）→ 向下移动 → 对局中\n6. 点击DIVE按钮 → 开始或重开一局 → 标题/结算覆盖层显示时\n7. 点击右上角🔊按钮 → 切换音乐与音效静音 → 任意时刻\n（拖动与方向键映射经实机验证）",
+            "rules": "目标：下坠尽可能深。失败条件：探针与岩石碎片（半径距离判定）或光束（线段距离判定）相撞即结束本局。计分：深度按当前速度积分并向下取整为米数；无生命、无道具、无计时上限；成功即刷新BEST",
+            "content": "程序生成内容：障碍由4种岩石碎片组合模式与旋转光束按概率生成，位置、旋转、缩放随机；固定元素：隧道本体、9道循环光环、尽头奇点光晕、300个速度粒子、玩家探针；无手工关卡",
+            "systems": "对象：探针（目标点阻尼跟随、横向倾斜）、岩石（多碎片组合、三轴自旋）、光束（持续旋转）、粒子与光环（循环滚动）；状态：运行标志、深度、速度、生成计时、震屏量；交互：生成器按难度插值投放障碍→障碍迎面临近→碰撞检测→结算与最佳写入→覆盖层重开；相机随探针偏移并随速度扩大视野"
+          }
+        },
+        {
+          "version_id": "v-0e12eeab3fa0",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "跑酷/动作",
+            "core_gameplay": "操控发光探针在无尽下坠的圆柱隧道截面内平移，躲避迎面而来的岩石碎片与旋转红色光束，尽可能下坠更深；一旦碰撞即结算，以下坠深度（米）计分",
+            "controls": "1. 鼠标/触摸按住并拖动 → 探针朝拖动方向平移 → 对局中在画布上按住移动\n2. ←/A（按住）→ 向左移动 → 对局中\n3. →/D（按住）→ 向右移动 → 对局中\n4. ↑/W（按住）→ 向上移动 → 对局中\n5. ↓/S（按住）→ 向下移动 → 对局中\n6. 点击DIVE按钮 → 开始或重开一局 → 标题/结算覆盖层显示时\n7. 点击右上角🔊按钮 → 切换音乐与音效静音 → 任意时刻\n（拖动与方向键映射经实机验证）",
+            "rules": "目标：下坠尽可能深。失败条件：探针与岩石碎片（半径距离判定）或光束（线段距离判定）相撞即结束本局。计分：深度按当前速度积分并向下取整为米数；无生命、无道具、无计时上限；成功即刷新BEST",
+            "content": "程序生成内容：障碍由4种岩石碎片组合模式与旋转光束按概率生成，位置、旋转、缩放随机；固定元素：隧道本体、9道循环光环、尽头奇点光晕、300个速度粒子、玩家探针；无手工关卡",
+            "systems": "对象：探针（目标点阻尼跟随、横向倾斜）、岩石（多碎片组合、三轴自旋）、光束（持续旋转）、粒子与光环（循环滚动）；状态：运行标志、深度、速度、生成计时、震屏量；交互：生成器按难度插值投放障碍→障碍迎面临近→碰撞检测→结算与最佳写入→覆盖层重开；相机随探针偏移并随速度扩大视野"
+          }
+        },
+        {
+          "version_id": "v-666365d97bf3",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "3D无尽躲避/坠落生存类休闲游戏",
+            "core_gameplay": "驾驶探针在无尽隧道中持续下坠，左右上下移动躲避迎面而来的岩石碎片与旋转光束，尽可能下坠更深",
+            "controls": "鼠标/触摸按住拖动 → 探针朝拖动方向平移 → 需在画布上按下后移动；方向键或WASD → 持续平移探针 → 局内按住生效；点击DIVE → 开始或重新开始一局 → 位于标题/结算界面；点击喇叭图标 → 切换静音 → 任意时刻",
+            "rules": "目标：尽可能下坠更深。失败：探针与岩石碎片（半径判定）或光束（线段距离判定）接触即结束本局。计分：深度=下坠速度×时间×0.5，取整数米；无其他加分项",
+            "content": "障碍为程序生成的岩石碎片簇（四种组合模式）与旋转光束，随深度提升出现频率与密度增加；无固定关卡，为无尽模式",
+            "systems": "玩家探针（位置被限制在半径6.5范围内）；障碍系统：按计时器在深处生成，向相机方向移动并旋转，越界回收；难度系统：以深度/3000为因子插值生成间隔与双岩石概率；相机系统：跟随探针偏移并带撞击抖动与速度FOV；音频系统：循环背景音乐与碰撞音效，可静音"
+          }
+        },
+        {
+          "version_id": "v-079a65816085",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D 无尽坠落躲避类街机游戏（反应/闪避型，单关卡循环）",
+            "core_gameplay": "在任意位置拖拽以操控下落体转向，躲避下坠途中出现的岩石与光束障碍，尽可能下落到更大深度。",
+            "controls": "屏幕拖拽（鼠标或触摸，任意位置）→ 操控下落体转向 → 引导文案明示；进入游戏后生效未实机验证\n点击 DIVE 按钮 → 开始游戏 → 主菜单界面可见时；点击后画面未验证\n点击 🔊 静音按钮 → 推测切换音效开关 → 按钮存在已验证；实际效果未验证\n键盘按键 → 未确认，全部证据中未发现键盘操作说明",
+            "rules": "目标：尽量下落更深。成功/失败：无胜利终点（无尽模式）的证据；失败条件推测为碰撞岩石或光束，未实机验证。计分：以深度（米）为分数，HUD 格式为“N m”与“BEST N m”；计分公式（是否仅按下落距离、有无加成）未确认。已查证阈值：无；速度、碰撞判定范围、初始深度变化率等数值均未确认。",
+            "content": "固定数量资源（已确认存在）：1 个 GLB 模型（void-wedge.glb）、1 张贴图（void-wall.webp）、2 个音频（void-music.mp3、crash.mp3）、2 个 woff2 字体。障碍（岩石、光束）的模型来源、种类数量与是否程序生成/随机排布均未确认，岩石与光束未在资源列表中直接对应到独立文件。",
+            "systems": "对象（据证据与文案归纳）：下落体（玩家）、岩石障碍、光束障碍、墙体（void-wall.webp 贴图暗示隧道/井壁）、HUD（深度/最佳/静音）、音频（背景音乐、坠机音效）。状态：确认存在菜单状态（含 DIVE 与静音按钮）；游玩中、坠机/结算状态仅按资源与文案推断，未验证。触发：拖拽→转向（文案确认）；碰撞→坠机音效与局终（仅资源层面推断）；静音按钮→音频开关（按钮存在已确认，效果未验证）。系统交互：深度累计驱动 HUD 与 BEST 更新、碰撞驱动局终与音效——均为推断，未实机确认。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-9f7918d717d0",
+      "title": "Play Starwing - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/starwing-1",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-652d4eaba78f",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "街机 · 太空射击",
+            "core_gameplay": "Original insect-wave shooter, mouse steering/hold fire, original boss capture/rescue and stage definitions retained; actual Stage1defeat, no victory claim.",
+            "controls": "Mouse steer/hold left fire; P/Escape pause, original resume button and mute.",
+            "rules": "目标：击落敌机得分并存活。计分：击落敌机得分（画面显示100等分值），奖励关按命中数结算；失败：被敌机或敌弹命中损失生命，生命归零游戏结束；被俘战机可被击坠蜘蛛救回（阈值细节未逐项确认）。",
+            "content": "敌机含蜘蛛（boss）、蝴蝶、蜜蜂三类编队；关卡循环推进、每3关奖励关；具体总关卡数为程序循环生成，无固定上限（源码确认）。",
+            "systems": "对象：玩家机、双机、子弹、敌弹、三类敌机、粒子、飘字、星空；状态：title/play/paused/over；交互：入场路径→编队摆动→俯冲攻击；俘获/营救系统；暂停菜单含SOUND与RESUME。"
+          }
+        },
+        {
+          "version_id": "v-747d7345abb8",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "街机射击（类大蜜蜂/Galaga固定纵版射击）",
+            "core_gameplay": "驾驶战机左右移动并射击上方编队敌机；敌机沿路径入场后编队摆动并俯冲攻击；蜘蛛可俘获战机，击坠俯冲中的蜘蛛可救回战机组成双机。",
+            "controls": "鼠标移动 → 战机横向跟随 → 玩法状态下生效（实机验证）\n按住鼠标左键 → 连续射击 → 有射速与弹数上限（实机验证）\n点击画面 → 标题页开始游戏 / 暂停页恢复（实机验证）\nP 或右上PAUSE按钮 → 暂停/进入暂停菜单（实机验证）\n方向键←/→或A/D → 键盘左右移动（仅源码确认，本轮未实测）\n空格 → 键盘射击（仅源码确认）",
+            "rules": "目标：击落敌机得分并存活。计分：击落敌机得分（画面显示100等分值），奖励关按命中数结算；失败：被敌机或敌弹命中损失生命，生命归零游戏结束；被俘战机可被击坠蜘蛛救回（阈值细节未逐项确认）。",
+            "content": "敌机含蜘蛛（boss）、蝴蝶、蜜蜂三类编队；关卡循环推进、每3关奖励关；具体总关卡数为程序循环生成，无固定上限（源码确认）。",
+            "systems": "对象：玩家机、双机、子弹、敌弹、三类敌机、粒子、飘字、星空；状态：title/play/paused/over；交互：入场路径→编队摆动→俯冲攻击；俘获/营救系统；暂停菜单含SOUND与RESUME。"
+          }
+        },
+        {
+          "version_id": "v-9b2a3f2097fb",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "街机射击（类大蜜蜂/Galaga固定纵版射击）",
+            "core_gameplay": "驾驶战机左右移动并射击上方编队敌机；敌机沿路径入场后编队摆动并俯冲攻击；蜘蛛可俘获战机，击坠俯冲中的蜘蛛可救回战机组成双机。",
+            "controls": "鼠标移动 → 战机横向跟随 → 玩法状态下生效（实机验证）\n按住鼠标左键 → 连续射击 → 有射速与弹数上限（实机验证）\n点击画面 → 标题页开始游戏 / 暂停页恢复（实机验证）\nP 或右上PAUSE按钮 → 暂停/进入暂停菜单（实机验证）\n方向键←/→或A/D → 键盘左右移动（仅源码确认，本轮未实测）\n空格 → 键盘射击（仅源码确认）",
+            "rules": "目标：击落敌机得分并存活。计分：击落敌机得分（画面显示100等分值），奖励关按命中数结算；失败：被敌机或敌弹命中损失生命，生命归零游戏结束；被俘战机可被击坠蜘蛛救回（阈值细节未逐项确认）。",
+            "content": "敌机含蜘蛛（boss）、蝴蝶、蜜蜂三类编队；关卡循环推进、每3关奖励关；具体总关卡数为程序循环生成，无固定上限（源码确认）。",
+            "systems": "对象：玩家机、双机、子弹、敌弹、三类敌机、粒子、飘字、星空；状态：title/play/paused/over；交互：入场路径→编队摆动→俯冲攻击；俘获/营救系统；暂停菜单含SOUND与RESUME。"
+          }
+        },
+        {
+          "version_id": "v-1833bdf944dc",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "街机射击（类大蜜蜂/Galaga固定纵版射击）",
+            "core_gameplay": "驾驶战机左右移动并射击上方编队敌机；敌机沿路径入场后编队摆动并俯冲攻击；蜘蛛可俘获战机，击坠俯冲中的蜘蛛可救回战机组成双机。",
+            "controls": "鼠标移动 → 战机横向跟随 → 玩法状态下生效（实机验证）\n按住鼠标左键 → 连续射击 → 有射速与弹数上限（实机验证）\n点击画面 → 标题页开始游戏 / 暂停页恢复（实机验证）\nP 或右上PAUSE按钮 → 暂停/进入暂停菜单（实机验证）\n方向键←/→或A/D → 键盘左右移动（仅源码确认，本轮未实测）\n空格 → 键盘射击（仅源码确认）",
+            "rules": "目标：击落敌机得分并存活。计分：击落敌机得分（画面显示100等分值），奖励关按命中数结算；失败：被敌机或敌弹命中损失生命，生命归零游戏结束；被俘战机可被击坠蜘蛛救回（阈值细节未逐项确认）。",
+            "content": "敌机含蜘蛛（boss）、蝴蝶、蜜蜂三类编队；关卡循环推进、每3关奖励关；具体总关卡数为程序循环生成，无固定上限（源码确认）。",
+            "systems": "对象：玩家机、双机、子弹、敌弹、三类敌机、粒子、飘字、星空；状态：title/play/paused/over；交互：入场路径→编队摆动→俯冲攻击；俘获/营救系统；暂停菜单含SOUND与RESUME。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-234a38815a31",
+      "title": "Play Space Exploration 2D GAME - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/starform",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-841838803db0",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "射击",
+            "core_gameplay": "纵版射击细分：拖动操控飞船在竖屏战场走位，武器自动开火，击毁侦察、轰炸、冲锋等敌机得分，拾取掉落部件装配追踪导弹等模块并推进机体三阶段强化；时间推进后遭遇大型Boss，限时内击毁Boss达成CLEAR并按剩余时间评级。",
+            "controls": "1. 按住拖动 → 飞船跟随指针移动躲避敌弹 → 对局进行中生效（实机验证）\n2. 点击 → 开始、选船、结算确认与重开 → 菜单与结算界面（实机验证）\n3. 自动射击 → 无需按键持续开火，射速随机体阶段提升 → 进入战斗即生效（仅源码确认）\n4. 署名输入 → CLEAR进前五时输入3字母署名 → 结算上榜触发（仅源码确认，具体键位未确认）",
+            "rules": "目标：限时内击毁Boss。成功：Boss被毁判CLEAR，评级=80+剩余时间比例×20（上限约100）；超时判TIME UP，评级=50+（1-Boss剩余血量比例）×20；失败：HP归零判GAME OVER，评级不超过50（按存活时间与Boss受损比例）。计分：击毁敌机按其类型分值累加并飘分显示。已查证阈值：Boss出场时点与总时长为源码常量，具体秒数未确认。",
+            "content": "固定内容：两系列共6种三阶玩家机体外观、5类敌机（侦察/轰炸/冲锋/中型/Boss各一）、星空滚动背景、单一限时战役关卡结构；程序生成：敌机与中型敌的出场时机位置、掉落部件的模块类型（随机模块键）及约50%概率的额外炸弹掉落；多关卡内容未确认。",
+            "systems": "对象：玩家机（HP/无敌帧/阶段/射速/模块槽）、敌机（种类/血量/分值）、子弹与追踪导弹、部件掉落（模块/炸弹）、Boss（独立血条）；状态：开始/选择/对局/暂停/结算；触发：计时到点生成Boss、击毁触发掉落与连锁爆炸、受击扣HP并可能损失部件；系统交互：模块数量决定导弹发射频率，机体阶段决定主炮射速，炸弹造成清屏伤害，HP归零直接终结对局。"
+          }
+        },
+        {
+          "version_id": "v-429ab2584d65",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "2D纵向卷轴太空射击游戏",
+            "core_gameplay": "驾驶飞船左右移动，自动射击击落来袭敌机，在60秒倒计时内尽量得分；40秒出现Boss，集齐3个部件可变身为强化形态（最高3阶段）",
+            "controls": "方向键左右/拖动 → 飞船平移 → 已取得游戏焦点后生效（实机验证）；点击机体卡片 → 选择Star Blue（快速机动·激光）或Fire Red（慢速·火力150%）（实机验证）；点击Easy/Medium/Hard → 选择难度后按Enter开始（实机验证）；射击为自动进行，无需按键（实机验证）",
+            "rules": "目标：倒计时内击落敌机得分；40秒时Boss登场；60秒倒计时结束即结算并评价，超时成绩不可上榜；机体HP被敌机或子弹命中会扣减（具体阈值未确认）；集齐3个部件触发变身（最多3阶段，实机未达成）；计分公式未确认",
+            "content": "固定内容：2种机体、3档难度、Stage 1战斗与40秒Boss；敌机与掉落为程序生成；是否存在更多关卡未验证",
+            "systems": "机体系统：两种机体属性差异（速度/火力）；敌机系统：多种敌机按波次出现并被击坠；道具系统：击落敌机掉落部件，3个触发变身（实机未验证触发）；难度系统：Easy/Medium/Hard三档（差异数值未确认）；计时系统：60秒倒计时驱动阶段与Boss出场"
+          }
+        },
+        {
+          "version_id": "v-9e76ca2c86f5",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "2D纵向卷轴太空射击游戏",
+            "core_gameplay": "驾驶飞船左右移动，自动射击击落来袭敌机，在60秒倒计时内尽量得分；40秒出现Boss，集齐3个部件可变身为强化形态（最高3阶段）",
+            "controls": "方向键左右/拖动 → 飞船平移 → 已取得游戏焦点后生效（实机验证）；点击机体卡片 → 选择Star Blue（快速机动·激光）或Fire Red（慢速·火力150%）（实机验证）；点击Easy/Medium/Hard → 选择难度后按Enter开始（实机验证）；射击为自动进行，无需按键（实机验证）",
+            "rules": "目标：倒计时内击落敌机得分；40秒时Boss登场；60秒倒计时结束即结算并评价，超时成绩不可上榜；机体HP被敌机或子弹命中会扣减（具体阈值未确认）；集齐3个部件触发变身（最多3阶段，实机未达成）；计分公式未确认",
+            "content": "固定内容：2种机体、3档难度、Stage 1战斗与40秒Boss；敌机与掉落为程序生成；是否存在更多关卡未验证",
+            "systems": "机体系统：两种机体属性差异（速度/火力）；敌机系统：多种敌机按波次出现并被击坠；道具系统：击落敌机掉落部件，3个触发变身（实机未验证触发）；难度系统：Easy/Medium/Hard三档（差异数值未确认）；计时系统：60秒倒计时驱动阶段与Boss出场"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-2aa648e9fc34",
+      "title": "Play Fireteam Frontline - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/fireteam-frontline",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-e2097c913e7b",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "射击/策略",
+            "core_gameplay": "指挥小队（最多5人）在战场移动，靠近敌人自动射击，站入圆环占领控制点，拾取弹药箱补给；阶段推进解锁商店单位、武器与弹药。",
+            "controls": "点击/触摸战场 → 设置小队移动目标点 → 无（实机验证）\n按住拖动 → 持续引导小队移动 → 无（实机验证）\n点击DÉPLOYER L'ESCOUADE → 部署开始任务 → 主菜单（实机验证）\n点击HALL OF FAME → 查看本地TOP5 → 主菜单（实机验证）\nESC/点击PAUSE → 暂停与继续 → 战斗中（实机验证）\n射击自动进行 → 靠近敌人即开火，无需按键（实机验证）",
+            "rules": "目标：占领并保持控制点且小队生存；失败：小队全灭进入结算可重试；控制点需站入圆环保持数秒（实测捕获倒计时约10s→7s递减）；计分来自击杀与占点（实测结算Score 20），具体公式未确认。",
+            "content": "固定战役任务（实测Mission 01「OPÉRATION TERRESTRE」），商店含单位/武器/弹药三类商品按通关阶段解锁；总关卡数量未验证；敌人按波次增援（RENFORTS标记），非程序生成关卡未确认。",
+            "systems": "小队系统：最多5人、阵亡后增援补充；敌人AI：波次增援、争夺控制点、拾取弹药；控制点三态：中立/交战中/已压制；弹药系统：弹药箱A补给；商店系统：credits购买、阶段解锁；记录系统：本地TOP5最高分与玩家名。"
+          }
+        },
+        {
+          "version_id": "v-56f14cef3d81",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "战术小队射击（俯视角动作）",
+            "core_gameplay": "指挥小队于战场移动，武器自动开火，占领控制点并拾取弹药箱维持火力，直至占领成功或小队全灭。",
+            "controls": "触摸/鼠标按住并拖动 → 小队向目标点移动 → 战场任意位置生效（实机验证）\n射击 → 全自动，无需按键 → 敌人进入射程即开火（实机验证）\nEscape → 暂停 → 随时可用（仅界面文字确认）\n菜单与结算按钮 → 点击 → 部署/重试/返回（实机验证）",
+            "rules": "目标：占领控制点（0/1→1/1）并生存；失败：小队全灭进入ESCOUADE DÉCIMÉE结算；计分：任务得分随击杀/占点增加（实测10→40，失败时Score 20），精确计分公式未确认；编制：小队5员，实机显示2/5；弹药上限120，消耗后需拾取弹药箱。",
+            "content": "已实机验证MISSION 01 / STAGE 01（COMBAT TERRESTRE，1个控制点）；菜单存在HALL OF FAME排行；后续关卡数量与内容未验证。",
+            "systems": "小队系统：编制计数与PV血量，随受击下降；射击系统：自动索敌开火，消耗弹药；占领系统：小队停留在环形标记内推进捕获进度（实测约10s→7s递减）；补给系统：弹药箱A恢复弹药，RENFORTS标记疑似增援点（效果未完全验证）；敌AI：直接突击型（界面标注ASSAUT DIRECT）；结算系统：胜负判定、得分统计与重试。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-fd2fef2a92cf",
+      "title": "Play SUPERHOT MARIO - Free Online Game | Rosebud",
+      "canonical_url": "https://rosebud.ai/play/superhot-mario",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-7902c00c9b75",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "3D · 时间随动平台动作",
+            "core_gameplay": "Original12level3Dplatformer withtimefollowingmovement, jump/doublejump/longjump/stomp/crystals/checkpoints/flags. Actualfirst1-1clear and1-2continue only.",
+            "controls": "WASD/arrows move, Spacevariable/doublejump, run+Shiftlongjump/airpound, Ppause, Rretry, Tstats, optionaloriginalcamera.",
+            "rules": "目标：抵达关卡末端旗杆；失败：坠落/被敌人或子弹击中死亡；计分：金币与击杀加分（具体公式未确认）；HUD含TIME（游戏内时间）、DEATHS计数",
+            "content": "关卡为代码固定定义（源码LEVELS表，可见1-1 TIME IS A PLUMBER、1-2 SHELL GAME、1-3 BULLET BALLET等）；总关数未实机穷举",
+            "systems": "时间随动系统（不动时TIME×约0.03，操作时升高）；敌人含Goomba与Koopa射手（子弹随时间流动）；砖块/?砖可顶出金币或蘑菇；检查点与水晶收集；回放系统记录操作轨迹（仅源码确认）"
+          }
+        },
+        {
+          "version_id": "v-51b0ecbde085",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D平台跳跃（SUPERHOT式时间随动恶搞马里奥同人作）",
+            "core_gameplay": "时间只在玩家操作时流动；操控马里奥在白色极简3D关卡中移动、跳跃、踩敌、顶砖、拾金币与水晶，抵达旗杆过关",
+            "controls": "WASD → 角色移动（实机验证）；Space → 跳跃/二段跳（实机验证跳跃）；鼠标点击 → 标题开始/继续（实机验证）；P → 暂停/恢复（源码确认）；Shift/C → 空中下砸（仅源码确认）；F → 火焰（仅源码确认，需道具）；R → 重开（仅源码确认）；T → 统计面板（仅源码确认）",
+            "rules": "目标：抵达关卡末端旗杆；失败：坠落/被敌人或子弹击中死亡；计分：金币与击杀加分（具体公式未确认）；HUD含TIME（游戏内时间）、DEATHS计数",
+            "content": "关卡为代码固定定义（源码LEVELS表，可见1-1 TIME IS A PLUMBER、1-2 SHELL GAME、1-3 BULLET BALLET等）；总关数未实机穷举",
+            "systems": "时间随动系统（不动时TIME×约0.03，操作时升高）；敌人含Goomba与Koopa射手（子弹随时间流动）；砖块/?砖可顶出金币或蘑菇；检查点与水晶收集；回放系统记录操作轨迹（仅源码确认）"
+          }
+        },
+        {
+          "version_id": "v-970ecb321508",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D平台跳跃（SUPERHOT式时间随动恶搞马里奥同人作）",
+            "core_gameplay": "时间只在玩家操作时流动；操控马里奥在白色极简3D关卡中移动、跳跃、踩敌、顶砖、拾金币与水晶，抵达旗杆过关",
+            "controls": "WASD → 角色移动（实机验证）；Space → 跳跃/二段跳（实机验证跳跃）；鼠标点击 → 标题开始/继续（实机验证）；P → 暂停/恢复（源码确认）；Shift/C → 空中下砸（仅源码确认）；F → 火焰（仅源码确认，需道具）；R → 重开（仅源码确认）；T → 统计面板（仅源码确认）",
+            "rules": "目标：抵达关卡末端旗杆；失败：坠落/被敌人或子弹击中死亡；计分：金币与击杀加分（具体公式未确认）；HUD含TIME（游戏内时间）、DEATHS计数",
+            "content": "关卡为代码固定定义（源码LEVELS表，可见1-1 TIME IS A PLUMBER、1-2 SHELL GAME、1-3 BULLET BALLET等）；总关数未实机穷举",
+            "systems": "时间随动系统（不动时TIME×约0.03，操作时升高）；敌人含Goomba与Koopa射手（子弹随时间流动）；砖块/?砖可顶出金币或蘑菇；检查点与水晶收集；回放系统记录操作轨迹（仅源码确认）"
+          }
+        },
+        {
+          "version_id": "v-5b0eac8ba15a",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D平台跳跃（SUPERHOT式时间随动恶搞马里奥同人作）",
+            "core_gameplay": "时间只在玩家操作时流动；操控马里奥在白色极简3D关卡中移动、跳跃、踩敌、顶砖、拾金币与水晶，抵达旗杆过关",
+            "controls": "WASD → 角色移动（实机验证）；Space → 跳跃/二段跳（实机验证跳跃）；鼠标点击 → 标题开始/继续（实机验证）；P → 暂停/恢复（源码确认）；Shift/C → 空中下砸（仅源码确认）；F → 火焰（仅源码确认，需道具）；R → 重开（仅源码确认）；T → 统计面板（仅源码确认）",
+            "rules": "目标：抵达关卡末端旗杆；失败：坠落/被敌人或子弹击中死亡；计分：金币与击杀加分（具体公式未确认）；HUD含TIME（游戏内时间）、DEATHS计数",
+            "content": "关卡为代码固定定义（源码LEVELS表，可见1-1 TIME IS A PLUMBER、1-2 SHELL GAME、1-3 BULLET BALLET等）；总关数未实机穷举",
+            "systems": "时间随动系统（不动时TIME×约0.03，操作时升高）；敌人含Goomba与Koopa射手（子弹随时间流动）；砖块/?砖可顶出金币或蘑菇；检查点与水晶收集；回放系统记录操作轨迹（仅源码确认）"
+          }
+        },
+        {
+          "version_id": "v-269a6a0c4ead",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D平台跳跃（SUPERHOT式时间随动恶搞马里奥同人作）",
+            "core_gameplay": "时间只在玩家操作时流动；操控马里奥在白色极简3D关卡中移动、跳跃、踩敌、顶砖、拾金币与水晶，抵达旗杆过关",
+            "controls": "WASD → 角色移动（实机验证）；Space → 跳跃/二段跳（实机验证跳跃）；鼠标点击 → 标题开始/继续（实机验证）；P → 暂停/恢复（源码确认）；Shift/C → 空中下砸（仅源码确认）；F → 火焰（仅源码确认，需道具）；R → 重开（仅源码确认）；T → 统计面板（仅源码确认）",
+            "rules": "目标：抵达关卡末端旗杆；失败：坠落/被敌人或子弹击中死亡；计分：金币与击杀加分（具体公式未确认）；HUD含TIME（游戏内时间）、DEATHS计数",
+            "content": "关卡为代码固定定义（源码LEVELS表，可见1-1 TIME IS A PLUMBER、1-2 SHELL GAME、1-3 BULLET BALLET等）；总关数未实机穷举",
+            "systems": "时间随动系统（不动时TIME×约0.03，操作时升高）；敌人含Goomba与Koopa射手（子弹随时间流动）；砖块/?砖可顶出金币或蘑菇；检查点与水晶收集；回放系统记录操作轨迹（仅源码确认）"
+          }
+        },
+        {
+          "version_id": "v-6c38a1c06228",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D平台跳跃（SUPERHOT式时间随动恶搞马里奥同人作）",
+            "core_gameplay": "时间只在玩家操作时流动；操控马里奥在白色极简3D关卡中移动、跳跃、踩敌、顶砖、拾金币与水晶，抵达旗杆过关",
+            "controls": "WASD → 角色移动（实机验证）；Space → 跳跃/二段跳（实机验证跳跃）；鼠标点击 → 标题开始/继续（实机验证）；P → 暂停/恢复（源码确认）；Shift/C → 空中下砸（仅源码确认）；F → 火焰（仅源码确认，需道具）；R → 重开（仅源码确认）；T → 统计面板（仅源码确认）",
+            "rules": "目标：抵达关卡末端旗杆；失败：坠落/被敌人或子弹击中死亡；计分：金币与击杀加分（具体公式未确认）；HUD含TIME（游戏内时间）、DEATHS计数",
+            "content": "关卡为代码固定定义（源码LEVELS表，可见1-1 TIME IS A PLUMBER、1-2 SHELL GAME、1-3 BULLET BALLET等）；总关数未实机穷举",
+            "systems": "时间随动系统（不动时TIME×约0.03，操作时升高）；敌人含Goomba与Koopa射手（子弹随时间流动）；砖块/?砖可顶出金币或蘑菇；检查点与水晶收集；回放系统记录操作轨迹（仅源码确认）"
+          }
+        },
+        {
+          "version_id": "v-c4ce5dba5088",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D平台跳跃（SUPERHOT式时间随动恶搞马里奥同人作）",
+            "core_gameplay": "时间只在玩家操作时流动；操控马里奥在白色极简3D关卡中移动、跳跃、踩敌、顶砖、拾金币与水晶，抵达旗杆过关",
+            "controls": "WASD → 角色移动（实机验证）；Space → 跳跃/二段跳（实机验证跳跃）；鼠标点击 → 标题开始/继续（实机验证）；P → 暂停/恢复（源码确认）；Shift/C → 空中下砸（仅源码确认）；F → 火焰（仅源码确认，需道具）；R → 重开（仅源码确认）；T → 统计面板（仅源码确认）",
+            "rules": "目标：抵达关卡末端旗杆；失败：坠落/被敌人或子弹击中死亡；计分：金币与击杀加分（具体公式未确认）；HUD含TIME（游戏内时间）、DEATHS计数",
+            "content": "关卡为代码固定定义（源码LEVELS表，可见1-1 TIME IS A PLUMBER、1-2 SHELL GAME、1-3 BULLET BALLET等）；总关数未实机穷举",
+            "systems": "时间随动系统（不动时TIME×约0.03，操作时升高）；敌人含Goomba与Koopa射手（子弹随时间流动）；砖块/?砖可顶出金币或蘑菇；检查点与水晶收集；回放系统记录操作轨迹（仅源码确认）"
+          }
+        },
+        {
+          "version_id": "v-b896e51b020e",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D平台跳跃动作游戏（SUPERHOT×超级马里奥同人戏仿，注明与任天堂及SUPERHOT团队无关）",
+            "core_gameplay": "时间只在玩家移动时流动（TIME MOVES ONLY WHEN YOU MOVE）；在立体平台关卡中移动、跳跃、踩敌、躲避子弹、收集金币，向关卡终点推进",
+            "controls": "W/A/S/D → 前后左右移动 → 实机验证\n鼠标 → 转动视角 → 实机验证（指针锁定）\nSpace → 跳跃，空中再按一次二段跳 → 跳跃实机验证，二段跳源码确认\nShift 或 C → 空中下砸（ground pound） → 仅源码确认\nF → 火焰射击 → 仅源码确认，需火焰花道具\nR → 重开当前关卡 → 仅源码确认\nP → 暂停/恢复 → 仅源码确认\nT → 打开/关闭统计面板 → 仅源码确认\nN → 标题界面开始新游戏并清档 → 仅源码确认\n任意键/点击 → 跳过剧情、标题开始 → 实机验证\n数字1-5 → 过关后评分 → 仅源码确认",
+            "rules": "目标：抵达关卡旗帜过关；失败：被敌人侧面接触、中弹或坠落即死亡，可重试（死亡流程未实机验证）；计分：拾金币+200（实机观察000200/COINS 01），踩敌连击与踢壳递增（源码）；时间倍率随移动强度在约×0.03至×1间变化（实机观察）",
+            "content": "源码LEVELS数组含多个手工设计关卡，World 1可见1-1 TIME IS A PLUMBER、1-2 SHELL GAME、1-3 BULLET BALLET等固定布局，非程序生成；总关卡数未逐一点数确认；实机仅进入1-1",
+            "systems": "时间随动核心系统；玩家运动系统（跳跃/二段跳/下砸/蹬墙跳/长跳，含落地缓冲与土狼时间）；敌人系统（板栗仔巡逻、乌龟射手发射子弹、龟壳连锁）；道具系统（蘑菇变大、火焰花）；关卡对象（?砖块/砖块/水管/检查点/水晶/旗帜）；过关回放系统；piOS终端剧情框架；合成音效与语音"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-906e53b45e15",
+      "title": "Plane Wars - 免费在线玩! | Poki (宝玩)",
+      "canonical_url": "https://poki.com/zh/g/plane-wars",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-9f5e5d06b8d8",
+          "status": "approved",
+          "profile": {
+            "engine": "Three.js WebGL渲染与原自定义飞行、地形、海洋、AI和弹道逻辑。原打包ES模块可读改，没有原作者编辑器工程证据。",
+            "category": "射击 / 动作",
+            "core_gameplay": "飞机按机型速度自动前飞，无独立油门。鼠标移动改变目标偏航与俯仰，原平滑/滚转与俯冲参数控制运动；按住鼠标左键或Space连续射击。子弹命中、伤害、AI瞄准与地形碰撞使用原规则。玩家死亡后原坠落/残骸延时结束本轮，返回机库；普通购买按原现金扣款，不替换为赠送。",
+            "controls": "鼠标在画布点击后按正常浏览器规则锁定；移动鼠标控制转向/俯仰。左键按住或Space按住开火，松开停止；Escape释放鼠标锁定，不等于已验证的全局暂停。界面点击飞机卡→购买或选择→开始起飞。原触屏拖动控制与触摸开火代码存在，本轮未真实触屏；未把WASD写作已实现油门/方向输入。",
+            "rules": "玩家原机型Bravo默认HP180，基础速度165场景单位/秒，射速11次/秒，子弹速度900场景单位/秒、生命1.4秒、伤害25；家族参数可能不同，不能统一套用全部飞机。最大俯仰1.15弧度，碰撞hullRadius7。原首次教学战斗保护30秒、起飞后原保护2.2秒、残骸延迟1.4秒保持。训练保护可抬升地形下的飞机；过期后原碰撞可坠毁，不删保护或减难度。原机库教学未完成时ensureCash至少20，以购买BravoYellow20；这是原教学供给，非广告奖励或本次额外送币。",
+            "content": "原机库36款外观，9个机型家族，每族4款；同家族使用原家族速度/装甲等参数，不能把36款都写成36套独立性能。单一程序地形战区含岛屿、河流、山地与海洋，mapSize=12000场景单位。配置不是12000张地图或固定关卡。图形质量low/med/high分别配置16/24/32架AI，自动降档保留。",
+            "systems": "飞行积分/转向平滑、机型配置、原AI寻敌与射击、弹道和碰撞、死亡/残骸/重开、程序地形海洋大气云、模型材质/螺旋桨与喷流、音效音乐、质量自动降档、HUD与本局战况、机库价格/购买/选择、原教学、个人档案和本地成就。保留个人生涯统计原计算，移除全局榜网络读写/名次、账号登录、房间/联机传输、SDK/遥测和广告兑换。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-059232f26ece",
+      "title": "Plonky - 免费在线玩! | Poki (宝玩)",
+      "canonical_url": "https://poki.com/zh/g/plonky",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-b40983b06d56",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "平台跳跃 / 益智",
+            "core_gameplay": "操控角色跑动、跳跃并与场景物件发生物理互动，推倒铰接木架搭桥，跨越水沟、平台等障碍，利用绳索等机关朝关卡目标推进。失误落水或坠落后从原检查点继续。保留完整88个原关卡布局、原事件表、物理参数和素材。",
+            "controls": "方向键左/右 → 向左/右移动 → 游戏画面获焦时。\n方向键上 → 跳跃 → 满足原起跳条件时。\n方向键与跳跃配合 → 越障或跨沟 → 操作过程中。\n碰触并推动木架 → 改变物件位置 → 到达对应机关。\n点击右上暂停图标 → 打开原暂停菜单 → 游戏中。\n点击暂停菜单外观卡 → 请求当前外观项目 → 菜单中。\n点击本地领取 → 执行原对应奖励分支 → 确认提示中。\n点击取消或Esc → 不领取并返回 → 确认提示中。\n绳索等后续机关的完整键位组合未逐项验证，不编造操作。",
+            "rules": "目标：按原关卡机关与目标点规则向终点推进。角色移动、起跳、刚体碰撞、铰链、绳索、重力、水域和失败判定均沿用原数据与Box2D。\n失败：实测落水后角色进入原失败姿态，随后回检查点恢复操作。\n奖励：可选领取只在明确确认后触发原本项目，取消不触发；不模拟广告已观看或服务器成功。\n时间、货币、终局计分、星级和全关卡成功阈值未逐项确认，原值保留而不填入猜测公式。本轮不宣称全部关卡完成。",
+            "content": "原包固定数据包含88个关卡布局layout001—layout088，以及加载、菜单和素材仓库3个辅助布局；原项目计数分为72+16。88关的几何、事件、物理和对象数据完整保留，不以仅试玩前部场景裁剪后续内容。\n31份原配置声明的WebM/Opus音频全部齐备；原角色动画、图集、Box2D WASM与加载脚本保留。关卡数量与材料完整性来自源码/文件核对，不代表88关逐关通关。",
+            "systems": "角色系统：原移动、跳跃、布娃娃动画和碰撞。\n物理机关：可推木架、铰链、绳索、吊挂物及地形共同影响路线。\n关卡系统：原88布局、事件表、目标与检查点组织进度；未替换或生成新关卡。\n失败恢复：原死亡过程回到检查点。\n界面与外观：暂停、音量/音乐、重试等原菜单保留；可选外观项目通过本地确认/取消组件执行。\n资源：原图集、动画和WASM本地加载；补齐同版本声明音频。\n存储：保留原个人进度与外观存档。平台SDK、遥测、广告网络和宿主通信已移除。"
+          }
+        },
+        {
+          "version_id": "v-e5f7a14502d3",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "物理解谜平台跳跃游戏",
+            "core_gameplay": "操控角色在横向关卡中移动、跳跃，推动或撞倒场景中的木架等物件搭桥，翻越高墙、跨越断桥与水域，朝右侧目标箭头指示的终点前进。",
+            "controls": "ArrowRight/ArrowLeft → 向右/向左移动 → 需先点击画面取得焦点（实机验证）\nArrowUp → 跳跃/翻越 → 配合方向键越过障碍（实机验证）\n右上角暂停按钮 → 暂停 → 菜单内容未验证",
+            "rules": "目标：抵达关卡右侧目标点（画面箭头指示）。失败：落入深水溺亡或坠落，判定后黑屏回检查点。计分与阈值：未观察到计分，未确认。",
+            "content": "固定制作关卡（总数量未验证）；已观察首关包含地面、高墙、可推倒木架、断桥、水域与检查点；后续关卡未验证。",
+            "systems": "主角为物理驱动布娃娃角色（推翻木架、落水漂浮姿态实机可见）；场景物件可被撞倒并改变通行性（木架倒塌成桥）；深水触发溺亡判定；检查点在失败后恢复可操作状态；集成Poki SDK，宿主已置无广告模式。"
+          }
+        },
+        {
+          "version_id": "v-dc0e7342c2fd",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "物理解谜平台跳跃游戏",
+            "core_gameplay": "操控角色在横向关卡中移动、跳跃，推动或撞倒场景中的木架等物件搭桥，翻越高墙、跨越断桥与水域，朝右侧目标箭头指示的终点前进。",
+            "controls": "ArrowRight/ArrowLeft → 向右/向左移动 → 需先点击画面取得焦点（实机验证）\nArrowUp → 跳跃/翻越 → 配合方向键越过障碍（实机验证）\n右上角暂停按钮 → 暂停 → 菜单内容未验证",
+            "rules": "目标：抵达关卡右侧目标点（画面箭头指示）。失败：落入深水溺亡或坠落，判定后黑屏回检查点。计分与阈值：未观察到计分，未确认。",
+            "content": "固定制作关卡（总数量未验证）；已观察首关包含地面、高墙、可推倒木架、断桥、水域与检查点；后续关卡未验证。",
+            "systems": "主角为物理驱动布娃娃角色（推翻木架、落水漂浮姿态实机可见）；场景物件可被撞倒并改变通行性（木架倒塌成桥）；深水触发溺亡判定；检查点在失败后恢复可操作状态；集成Poki SDK，宿主已置无广告模式。"
+          }
+        },
+        {
+          "version_id": "v-5b1fd080f5fe",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "物理解谜平台跳跃游戏",
+            "core_gameplay": "操控角色在横向关卡中移动、跳跃，推动或撞倒场景中的木架等物件搭桥，翻越高墙、跨越断桥与水域，朝右侧目标箭头指示的终点前进。",
+            "controls": "ArrowRight/ArrowLeft → 向右/向左移动 → 需先点击画面取得焦点（实机验证）\nArrowUp → 跳跃/翻越 → 配合方向键越过障碍（实机验证）\n右上角暂停按钮 → 暂停 → 菜单内容未验证",
+            "rules": "目标：抵达关卡右侧目标点（画面箭头指示）。失败：落入深水溺亡或坠落，判定后黑屏回检查点。计分与阈值：未观察到计分，未确认。",
+            "content": "固定制作关卡（总数量未验证）；已观察首关包含地面、高墙、可推倒木架、断桥、水域与检查点；后续关卡未验证。",
+            "systems": "主角为物理驱动布娃娃角色（推翻木架、落水漂浮姿态实机可见）；场景物件可被撞倒并改变通行性（木架倒塌成桥）；深水触发溺亡判定；检查点在失败后恢复可操作状态；集成Poki SDK，宿主已置无广告模式。"
+          }
+        },
+        {
+          "version_id": "v-c156635d9cc1",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "物理解谜平台跳跃游戏",
+            "core_gameplay": "操控角色在横向关卡中移动、跳跃，推动或撞倒场景中的木架等物件搭桥，翻越高墙、跨越断桥与水域，朝右侧目标箭头指示的终点前进。",
+            "controls": "ArrowRight/ArrowLeft → 向右/向左移动 → 需先点击画面取得焦点（实机验证）\nArrowUp → 跳跃/翻越 → 配合方向键越过障碍（实机验证）\n右上角暂停按钮 → 暂停 → 菜单内容未验证",
+            "rules": "目标：抵达关卡右侧目标点（画面箭头指示）。失败：落入深水溺亡或坠落，判定后黑屏回检查点。计分与阈值：未观察到计分，未确认。",
+            "content": "固定制作关卡（总数量未验证）；已观察首关包含地面、高墙、可推倒木架、断桥、水域与检查点；后续关卡未验证。",
+            "systems": "主角为物理驱动布娃娃角色（推翻木架、落水漂浮姿态实机可见）；场景物件可被撞倒并改变通行性（木架倒塌成桥）；深水触发溺亡判定；检查点在失败后恢复可操作状态；集成Poki SDK，宿主已置无广告模式。"
+          }
+        },
+        {
+          "version_id": "v-e492ea314a37",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "物理解谜平台跳跃游戏",
+            "core_gameplay": "操控角色在横向关卡中移动、跳跃，推动或撞倒场景中的木架等物件搭桥，翻越高墙、跨越断桥与水域，朝右侧目标箭头指示的终点前进。",
+            "controls": "ArrowRight/ArrowLeft → 向右/向左移动 → 需先点击画面取得焦点（实机验证）\nArrowUp → 跳跃/翻越 → 配合方向键越过障碍（实机验证）\n右上角暂停按钮 → 暂停 → 菜单内容未验证",
+            "rules": "目标：抵达关卡右侧目标点（画面箭头指示）。失败：落入深水溺亡或坠落，判定后黑屏回检查点。计分与阈值：未观察到计分，未确认。",
+            "content": "固定制作关卡（总数量未验证）；已观察首关包含地面、高墙、可推倒木架、断桥、水域与检查点；后续关卡未验证。",
+            "systems": "主角为物理驱动布娃娃角色（推翻木架、落水漂浮姿态实机可见）；场景物件可被撞倒并改变通行性（木架倒塌成桥）；深水触发溺亡判定；检查点在失败后恢复可操作状态；集成Poki SDK，宿主已置无广告模式。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-f5bde4d086e4",
+      "title": "Rainbow Obby - 免费在线玩! | Poki (宝玩)",
+      "canonical_url": "https://poki.com/zh/g/rainbow-obby",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-7083c660a2d5",
+          "status": "approved",
+          "profile": {
+            "engine": "PlayCanvas 2.23.3 / Ammo",
+            "category": "动作 / 平台跳跃",
+            "core_gameplay": "观察空间距离、平台边缘与障碍，使用原移动、跳跃和相机跨越平台，在失败后从检查点继续。实测Classic首个检查点、正常坠落和恢复；没有改角色速度、跳跃、碰撞、关卡布局或原奖励。其余模式的特有难点未实测。",
+            "controls": "桌面W/A/S/D移动，Space跳跃，鼠标原画布输入与相机/指针锁；实测D+Space与W、鼠标选模式及Respawn。原界面标示Esc菜单、M商店；原触摸按钮/摇杆保留，但本轮未验证触屏和听觉。",
+            "rules": "原21场景的实体、几何、变换、物理和设置保持；只移除服务UI显示及广告/SDK脚本组件。原角色运动、检查点、金币、存档、普通物品和关卡条件保持。真实SDK、外联、房间和实时人数实现/入口/依赖退役；原作者NoServer分支用于其已有单人逻辑，不伪造服务器、对手、SDK成功或广告奖励。纯联网PVP/Knockout/Meow模式入口退役。",
+            "content": "",
+            "systems": ""
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-633e79a24b37",
+      "title": "🎮 Real Survival: Not Fake 🕹️ Play on CrazyGames",
+      "canonical_url": "https://www.crazygames.com/game/real-survival-not-fake",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-7f4f19ce2949",
+          "status": "review",
+          "profile": {
+            "engine": "Unity 6000.2.7f2 / WebGL",
+            "category": "生存 / 采集建造",
+            "core_gameplay": "主挑战为探索采集与生存管理：移动到树木附近获取木材，同时关注持续下降的饥饿与生命。次挑战为营地建设和资源规划：把真实携带木材投入建造区域，逐批支付原成本，再进入后续建造与升级目标。实际完成首个营地，不推断全部敌人、防守波次或后期地图。",
+            "controls": "W/A/S/D控制人物上下左右移动，可组合方向键。接近有效树木后角色自动挥斧，木材堆叠在人物背后；携带木材进入原建造区域即可按原流程逐件投入。鼠标点击左上齿轮、声音开关和关闭按钮操作设置。操作判断来自靠近资源、规划采集路线、返回营地以及饥饿管理。触屏未验证。",
+            "rules": "人物按方向键移动，接近有效树木自动采集。木材必须实际获得，建造区域逐批扣除背包木材，满足原成本才生成建筑；本轮首营地30木材按原价支付。饥饿降到0后生命持续减少，原自动重生、携带资源损失与已投入建造进度保持。设置面板可切换声音并关闭返回，不把它描述为暂停计时。原24小时宝箱继续计时，本轮没有领取或缩短等待。广告补给/资源恢复和充值入口不提供。",
+            "content": "本轮实际地图为FOREST LVL1雪地森林，含营火、可采集松树、岩石边界与原营地位置。原雪天/风雪表现与森林等级条已观察，未完成完整风暴防守。首个营地建成后可见围墙、主建筑、宝箱和后续两个建造点。所有资源继续使用原容器，未用其他地图或相似游戏替换；后续关卡与全部区域数量未验证。",
+            "systems": "原系统包含人物移动、自动采集/木材堆、资源库存、饥饿、生命和自动重生、建造区域/分阶段投入/完成状态、森林经验、天气、营地升级、声音设置与本地持久进度。木材从采集进入背包，再投入原建筑成本；饥饿与生命、死亡资源损失保持原规则。当前版本使用各存储入口原有的本地分支，不依赖账号或云存档。正常刷新已核对首营地、剩余8木材、原宝箱倒计时和关闭声音设置恢复。不同浏览器/域名不自动互通，任意历史存档未逐一验证。"
+          }
+        },
+        {
+          "version_id": "v-cf5e6ff4137c",
+          "status": "superseded",
+          "profile": {
+            "engine": "Unity 6000.2.7f2 / WebGL",
+            "category": "生存 / 采集建造",
+            "core_gameplay": "主挑战为探索采集与生存管理：移动到树木附近获取木材，同时关注持续下降的饥饿与生命。次挑战为营地建设和资源规划：把真实携带木材投入建造区域，逐批支付原成本，再进入后续建造与升级目标。实际完成首个营地，不推断全部敌人、防守波次或后期地图。",
+            "controls": "本轮实际使用W/A/S/D进行上下左右及组合移动；角色在有效树木范围内自动挥斧、掉落并携带木材。走入原建造区域后按原流程投放木材。设置齿轮、声音开关和关闭按钮用普通鼠标点击。操作难度主要来自接近资源、返回营地与饥饿时限的协调；没有执行游戏方法、修改分数、资源、内存或本地存档。触屏操作未验证。",
+            "rules": "WASD移动和原自动砍树机制保留。木材必须实际采集，建造以背包中真实木材逐批支付，未降低价格或放宽建造条件。饥饿消耗到0后出现持续生命损失，原自动重生与资源损失流程保留，建筑已投入的进度保持。本轮没有领取广告补给、恢复遗失资源、购买充值或直接发奖。设置面板可切换声音并返回，未把它描述为暂停计时。",
+            "content": "本轮实际地图为FOREST LVL1雪地森林，含营火、可采集松树、岩石边界与原营地位置。原雪天/风雪表现与森林等级条已观察，未完成完整风暴防守。首个营地建成后可见围墙、主建筑、宝箱和后续两个建造点。所有资源继续使用原容器，未用其他地图或相似游戏替换；后续关卡与全部区域数量未验证。",
+            "systems": "原系统包括角色移动、自动采集/木材堆、资源库存、饥饿、生命与自动重生、建造区/阶段/完成状态、森林经验、天气、营地升级、设置和本地持久进度。原本地存档路径、键规则与默认值保留，各存储分发使用相应原本地分支；不伪造云存档或SDK返回。实际SDK、统计、广告、充值及传输的定义/导入/入口/场景挂接退役；当前原生保留104,168函数，其中104,088函数原文保持，80个实际边界改造。完整WAT源码可离线编译，6个运行文件独立重建SHA相同。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-4b9a5eb6bc7f",
+      "title": "OvO Game 🏃 Play on CrazyGames",
+      "canonical_url": "https://www.crazygames.com/game/ovo",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-f1e04b4cb366",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "2D 平台跳跃（技巧/跑酷向）",
+            "core_gameplay": "操控小人奔跑、跳跃，借助蹬墙跳与俯冲越过平台、凹槽与尖刺，抵达终点旗帜过关，并可收集金币",
+            "controls": "←/→ 方向键 → 左右移动 → 关卡内（实机验证）\n↑ 方向键 → 跳跃，按住时间影响跳跃高度 → 关卡内（实机验证）\n贴墙时跳跃 → 蹬墙跳 → 角色贴附墙边（仅源码与音效确认）\n↓ 方向键 → 空中俯冲/地面滑铲 → 关卡内（仅源码与事件确认）\n鼠标点击 → 菜单按钮/PLAY 进入关卡 → 主菜单（实机验证）",
+            "rules": "目标：抵达终点旗帜完成关卡；失败：触碰尖刺或坠落导致死亡并重生（具体重生规则未完全验证）；计时器记录通关用时；收集金币与达成成就获得 Gold（实机验证：拾金币奖励 10 Gold）",
+            "content": "固定设计的多关卡（具体数量未验证，存在关卡选择与解锁机制）；可收集金币；成就列表（achievements.json）；多套可解锁皮肤（skins.json，皮肤界面未浏览）",
+            "systems": "平台物理系统（加速移动、可变高度跳跃、蹬墙跳、俯冲）；幽灵回放系统显示最佳成绩影像（实机画面可见半透明角色）；成就系统（实机验证弹窗触发）；金币收集系统（实机验证）；关卡物件含移动平台、按钮触发器、火箭、传送门等（素材与事件存在，未逐一游玩）"
+          }
+        },
+        {
+          "version_id": "v-5418562aab97",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "2D 平台跳跃（技巧/跑酷向）",
+            "core_gameplay": "操控小人奔跑、跳跃，借助蹬墙跳与俯冲越过平台、凹槽与尖刺，抵达终点旗帜过关，并可收集金币",
+            "controls": "←/→ 方向键 → 左右移动 → 关卡内（实机验证）\n↑ 方向键 → 跳跃，按住时间影响跳跃高度 → 关卡内（实机验证）\n贴墙时跳跃 → 蹬墙跳 → 角色贴附墙边（仅源码与音效确认）\n↓ 方向键 → 空中俯冲/地面滑铲 → 关卡内（仅源码与事件确认）\n鼠标点击 → 菜单按钮/PLAY 进入关卡 → 主菜单（实机验证）",
+            "rules": "目标：抵达终点旗帜完成关卡；失败：触碰尖刺或坠落导致死亡并重生（具体重生规则未完全验证）；计时器记录通关用时；收集金币与达成成就获得 Gold（实机验证：拾金币奖励 10 Gold）",
+            "content": "固定设计的多关卡（具体数量未验证，存在关卡选择与解锁机制）；可收集金币；成就列表（achievements.json）；多套可解锁皮肤（skins.json，皮肤界面未浏览）",
+            "systems": "平台物理系统（加速移动、可变高度跳跃、蹬墙跳、俯冲）；幽灵回放系统显示最佳成绩影像（实机画面可见半透明角色）；成就系统（实机验证弹窗触发）；金币收集系统（实机验证）；关卡物件含移动平台、按钮触发器、火箭、传送门等（素材与事件存在，未逐一游玩）"
+          }
+        },
+        {
+          "version_id": "v-a63cbe2cb3a2",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "2D 平台跳跃（技巧/跑酷向）",
+            "core_gameplay": "操控小人奔跑、跳跃，借助蹬墙跳与俯冲越过平台、凹槽与尖刺，抵达终点旗帜过关，并可收集金币",
+            "controls": "←/→ 方向键 → 左右移动 → 关卡内（实机验证）\n↑ 方向键 → 跳跃，按住时间影响跳跃高度 → 关卡内（实机验证）\n贴墙时跳跃 → 蹬墙跳 → 角色贴附墙边（仅源码与音效确认）\n↓ 方向键 → 空中俯冲/地面滑铲 → 关卡内（仅源码与事件确认）\n鼠标点击 → 菜单按钮/PLAY 进入关卡 → 主菜单（实机验证）",
+            "rules": "目标：抵达终点旗帜完成关卡；失败：触碰尖刺或坠落导致死亡并重生（具体重生规则未完全验证）；计时器记录通关用时；收集金币与达成成就获得 Gold（实机验证：拾金币奖励 10 Gold）",
+            "content": "固定设计的多关卡（具体数量未验证，存在关卡选择与解锁机制）；可收集金币；成就列表（achievements.json）；多套可解锁皮肤（skins.json，皮肤界面未浏览）",
+            "systems": "平台物理系统（加速移动、可变高度跳跃、蹬墙跳、俯冲）；幽灵回放系统显示最佳成绩影像（实机画面可见半透明角色）；成就系统（实机验证弹窗触发）；金币收集系统（实机验证）；关卡物件含移动平台、按钮触发器、火箭、传送门等（素材与事件存在，未逐一游玩）"
+          }
+        },
+        {
+          "version_id": "v-b19969c5d859",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "2D 平台跳跃（技巧/跑酷向）",
+            "core_gameplay": "操控小人奔跑、跳跃，借助蹬墙跳与俯冲越过平台、凹槽与尖刺，抵达终点旗帜过关，并可收集金币",
+            "controls": "←/→ 方向键 → 左右移动 → 关卡内（实机验证）\n↑ 方向键 → 跳跃，按住时间影响跳跃高度 → 关卡内（实机验证）\n贴墙时跳跃 → 蹬墙跳 → 角色贴附墙边（仅源码与音效确认）\n↓ 方向键 → 空中俯冲/地面滑铲 → 关卡内（仅源码与事件确认）\n鼠标点击 → 菜单按钮/PLAY 进入关卡 → 主菜单（实机验证）",
+            "rules": "目标：抵达终点旗帜完成关卡；失败：触碰尖刺或坠落导致死亡并重生（具体重生规则未完全验证）；计时器记录通关用时；收集金币与达成成就获得 Gold（实机验证：拾金币奖励 10 Gold）",
+            "content": "固定设计的多关卡（具体数量未验证，存在关卡选择与解锁机制）；可收集金币；成就列表（achievements.json）；多套可解锁皮肤（skins.json，皮肤界面未浏览）",
+            "systems": "平台物理系统（加速移动、可变高度跳跃、蹬墙跳、俯冲）；幽灵回放系统显示最佳成绩影像（实机画面可见半透明角色）；成就系统（实机验证弹窗触发）；金币收集系统（实机验证）；关卡物件含移动平台、按钮触发器、火箭、传送门等（素材与事件存在，未逐一游玩）"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-212925e7c19c",
+      "title": "Paradise Plunge",
+      "canonical_url": "https://remix.gg/g/paradise-plunge",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-5469dbc3ba11",
+          "status": "approved",
+          "profile": {
+            "engine": "Three.js 0.185.x、GLTFLoader与EffectComposer/UnrealBloom/OutputPass。",
+            "category": "体育 / 跑酷",
+            "core_gameplay": "点击开始→观察弯道和速度→左右转向或跳跃→沿赛道推进/触发WIPEOUT→检查点继续→终点入池后原统计结算。",
+            "controls": "A/D或左右方向键持续转向，Space跳跃；点击Plunge in开始，原结算Run again代码保留。实际仅按5步上限验证A和Space输入及刷新，未操作终点Run again。原移动按钮仍保留，真实触屏未测。",
+            "rules": "从起点沿原连续赛道到终点泳池；冲出赛道或原碰撞条件触发WIPEOUT与检查点恢复，并加3秒。最终分数至少0；计分和原落地区域逻辑不改。没有新增自动成功或减少惩罚。",
+            "content": "10个连续赛段：SUMMIT LAUNCH、THE WALL、THE DROP、THE GLASS RUN、THE SPLIT、THE SURGE、THE GAP、THE SPIRAL、PARADISE FALLS、THE PARADISE PLUNGE。是同一连续滑道的分段，不称10个独立关卡；全部配置保留，实测前两段。",
+            "systems": "泳圈物理/输入、分段路线、碰撞与检查点、计时/评分、镜头/水花/程序音频、原菜单和结果UI、桌面/移动输入。真实组队传输与宿主功能已退役。"
+          }
+        },
+        {
+          "version_id": "v-d81fff9d226c",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "跑酷/体育",
+            "core_gameplay": "玩家操控角色乘泳圈沿水上滑梯高速下滑，通过左右转向保持在赛道内，飞跃跳台，避开障碍，抵达终点泳池。",
+            "controls": "A/D或ArrowLeft/ArrowRight：控制左右转向，需持续按住调整方向；Space：在跳台边缘起跳；点击菜单按钮：开始游戏/重开。",
+            "rules": "目标：以最短时间抵达终点泳池；成功：进入终点水域触发结算；失败：冲出赛道或碰撞触发WIPEOUT，加时3秒后继续；计分：基于时间、速度、连锁、落地评价等综合计算，具体公式未确认。",
+            "content": "已验证赛段：SUMMIT LAUNCH、THE WALL；后续赛段数量未验证。",
+            "systems": "对象：玩家泳圈、赛道、跳台、障碍、广告牌、终点泳池；状态：滑行、空中、WIPEOUT、结算；触发：碰撞边缘/障碍触发WIPEOUT，进入终点触发结算；系统交互：速度影响转向灵敏度，连锁影响得分倍率。"
+          }
+        },
+        {
+          "version_id": "v-20afcb604682",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "竞速/动作",
+            "core_gameplay": "驾驶充气圈沿高架水槽高速下滑，左右转向保持在水槽内并贴壁滑行，适时起跳，避免WIPEOUT，串联技巧倍率积累分数，直至终点入池结算",
+            "controls": "A / D → 左右转向调整在水槽中的位置与姿态 → 滑行中持续生效（实机验证）\n← / → → 与A/D等效转向（菜单说明与源码确认，实机用A/D验证）\nSpace → 起跳短暂离壁 → 滑行中按帧触发（实机验证）\nSpace / Enter → 菜单界面开始单人滑行（源码确认）\nPLUNGE IN按钮 → 开始单人滑行（实机验证）\nTEAM FLOW WITH FRIENDS按钮 → 组队入口，当前宿主提示不可用（实测提示，联机未验证）",
+            "rules": "目标：滑完全部赛段抵达终点水池。失败惩罚：无生命概念，失误时间加3秒、CHAIN重置为1、损伤累积，回最近检查点继续。计分（源码）：总分=技巧分+落地加成+max(0,420-用时)*40+流畅时间*15+贴唇次数*200+滞空时间*25-失误次数*250，下限0；技巧得分=基础分*向下取整(CHAIN)，CHAIN上限8。损伤达到上限触发TUBE BLOWOUT。阈值公式为源码确认，实机仅验证WIPEOUT+3秒与CHAIN显示。",
+            "content": "固定10个手工定义赛段：SUMMIT LAUNCH、THE WALL、THE DROP、THE GLASS RUN、THE SPLIT、THE SURGE、THE GAP、THE SPIRAL、PARADISE FALLS、THE PARADISE PLUNGE；部分赛段含EXPERT/SHELTERED/OPEN GAP/CHUTE分岔路线；非程序生成。",
+            "systems": "对象：骑手与充气圈、分赛段水槽赛道（含分岔路线）、水花粒子、检查点。状态：滑行位置、速度、姿态角、CHAIN倍率、损伤、失误恢复计时。触发：离地角超过槽唇且高度不足判OVER THE EDGE；低于赛道或滞空过久判WIPEOUT；贴唇滑行判LIP CREST加分；平稳落地判CLEAN LANDING加分。相机、视野、音效随速度与赛段联动。"
+          }
+        },
+        {
+          "version_id": "v-b9c571717a7b",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "竞速/动作",
+            "core_gameplay": "驾驶充气圈沿高架水槽高速下滑，左右转向保持在水槽内并贴壁滑行，适时起跳，避免WIPEOUT，串联技巧倍率积累分数，直至终点入池结算",
+            "controls": "A / D → 左右转向调整在水槽中的位置与姿态 → 滑行中持续生效（实机验证）\n← / → → 与A/D等效转向（菜单说明与源码确认，实机用A/D验证）\nSpace → 起跳短暂离壁 → 滑行中按帧触发（实机验证）\nSpace / Enter → 菜单界面开始单人滑行（源码确认）\nPLUNGE IN按钮 → 开始单人滑行（实机验证）\nTEAM FLOW WITH FRIENDS按钮 → 组队入口，当前宿主提示不可用（实测提示，联机未验证）",
+            "rules": "目标：滑完全部赛段抵达终点水池。失败惩罚：无生命概念，失误时间加3秒、CHAIN重置为1、损伤累积，回最近检查点继续。计分（源码）：总分=技巧分+落地加成+max(0,420-用时)*40+流畅时间*15+贴唇次数*200+滞空时间*25-失误次数*250，下限0；技巧得分=基础分*向下取整(CHAIN)，CHAIN上限8。损伤达到上限触发TUBE BLOWOUT。阈值公式为源码确认，实机仅验证WIPEOUT+3秒与CHAIN显示。",
+            "content": "固定10个手工定义赛段：SUMMIT LAUNCH、THE WALL、THE DROP、THE GLASS RUN、THE SPLIT、THE SURGE、THE GAP、THE SPIRAL、PARADISE FALLS、THE PARADISE PLUNGE；部分赛段含EXPERT/SHELTERED/OPEN GAP/CHUTE分岔路线；非程序生成。",
+            "systems": "对象：骑手与充气圈、分赛段水槽赛道（含分岔路线）、水花粒子、检查点。状态：滑行位置、速度、姿态角、CHAIN倍率、损伤、失误恢复计时。触发：离地角超过槽唇且高度不足判OVER THE EDGE；低于赛道或滞空过久判WIPEOUT；贴唇滑行判LIP CREST加分；平稳落地判CLEAN LANDING加分。相机、视野、音效随速度与赛段联动。"
+          }
+        },
+        {
+          "version_id": "v-80921b6a6523",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D水上滑道竞速游戏（动作/体育类）",
+            "core_gameplay": "乘充气圈沿高架水槽高速下滑，用转向保持在管内、借弯壁过弯，Space短跳越过障碍，失误则从检查点复活并罚时，目标是滑完全程落入终点水池取得高分。",
+            "controls": "1. A / D → 向左右转向，调节在管壁上的姿态 → 滑行中持续生效（实机验证）\n2. ← / → → 同样转向，与A/D等效 → 滑行中生效（界面说明确认）\n3. Space → 起跳短跃 → 贴地滑行时按下（实机验证）\n4. 鼠标点击PLUNGE IN → 从主菜单开始单人滑行（实机验证）\n5. Run again按钮 → 结算后重开一局（仅源码确认，未实机到达）",
+            "rules": "目标：滑完全程入池并取得高分。失败/惩罚：冲出管缘或坠落触发WIPEOUT，加3秒罚时并从检查点复活，损伤累积可触发TUBE BLOWOUT（源码确认）。计分（源码确认）：技巧得分按连锁倍数放大；总分含技巧分、落水区域奖励、剩余时间奖励（420秒基准）、流畅度、过顶次数、滞空时间，扣除每次WIPEOUT 250分，最低0分。连锁倍数上限8，同类技巧连续获得时增量较小。",
+            "content": "固定赛道由10个命名赛段组成：SUMMIT LAUNCH、THE WALL、THE DROP、THE GLASS RUN、THE SPLIT、THE SURGE、THE GAP、THE SPIRAL、PARADISE FALLS、THE PARADISE PLUNGE（源码确认，实机仅推进到THE WALL）；另有多人Team Flow模式入口，宣称最多4人同滑并有团队加成，未验证。",
+            "systems": "骑手状态机：滑行/空中/失误恢复/终点漂浮；赛道由分段参数（长度、倾角、转向、半径、坡度）定义；检查点系统在失误后回退到最近检查点；损伤系统随失误累积并影响操控；连锁与标签系统驱动HUD提示；多人系统宣称经WebSocket联机，隔离环境未验证。"
+          }
+        },
+        {
+          "version_id": "v-210335d40965",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D水上滑道竞速技巧游戏，以单人计时滑行和技巧计分为核心，菜单提供多人组队入口",
+            "core_gameplay": "驾驶充气圈沿高架水槽高速下滑，通过左右转向保持走线，适时起跳，连续穿越赛段并争取技巧、连击、速度和落地奖励。",
+            "controls": "鼠标点击PLUNGE IN → 开始单人滑行 → 主菜单界面\nA或D → 向左右调整走线 → 正式滑行中\nArrowLeft或ArrowRight → 同方向转向 → 菜单说明，未单独实机\nSpace → 短跃或起跳 → 正式滑行中\n鼠标点击Run again → 结算后重新开局 → 仅源码确认",
+            "rules": "目标是在尽量短时间内完成赛道并进入终点水池。越界、坠落或损伤满值会触发WIPEOUT等失败状态，时间增加3秒、连击重置，并从检查点复活。源码计分为技巧分、落地奖励、剩余时间奖励、流畅时间、Crests、滞空时间之和，再扣除WIPEOUT惩罚，最低为0；连击倍率上限为8。",
+            "content": "源码确认固定10个赛段：SUMMIT LAUNCH、THE WALL、THE DROP、THE GLASS RUN、THE SPLIT、THE SURGE、THE GAP、THE SPIRAL、PARADISE FALLS、THE PARADISE PLUNGE。实机观察到前两个赛段。赛道由固定参数组成，未见随机生成证据；Team Flow多人内容未进入。",
+            "systems": "对象包括骑手、充气圈、水槽赛道、水面粒子、HUD和结算界面。状态包括滑行、飞行、失误恢复和终点漂移。转向影响横向位置与倾角，起跳进入飞行，着陆按角度和速度判定干净或粗糙；越界和损伤触发惩罚。技巧、连击、落地和时间共同进入计分。"
+          }
+        },
+        {
+          "version_id": "v-c1d29d85cd3d",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "水上滑道竞速技巧游戏（街机式3D滑行）",
+            "core_gameplay": "驾驶充气圈沿发光水管赛道高速滑行，用转向保持在走线带内、起跳跨越断口，逐段推进直至终点水池",
+            "controls": "A键 → 向左压弯转向 → 实机验证有效；\nD键 → 向右压弯转向 → 实机验证有效；\n←/→方向键 → 同样转向（菜单说明，未单独实机验证）；\nSpace → 小跳/起跳 → 实机验证有效；\n鼠标点击PLUNGE IN → 从主菜单开始一局 → 实机验证有效",
+            "rules": "目标：滑完全程入池。失败无终局，WIPEOUT罚时+3秒并回检查点，伤害累积至上限触发TUBE BLOWOUT；计分=技巧分+落地奖励+剩余时间奖励（420秒内每秒40分）+Flow时间×15+骑浪×200+滞空×25-失误×250（源码确认公式）；连击最高8倍",
+            "content": "固定10个赛段：SUMMIT LAUNCH、THE WALL、THE DROP、THE GLASS RUN、THE SPLIT、THE SURGE、THE GAP、THE SPIRAL、PARADISE FALLS、THE PARADISE PLUNGE（源码赛段名数组与参数表，实机确认前两段切换）",
+            "systems": "骑手物理（速度、倾角、起跳、落地判定）；技巧系统：CLEAN LANDING、LIP CREST、FAST FLOW等触发加分与连击；损伤系统：ROUGH LANDING与撞墙累积伤害；检查点系统：WIPEOUT后从赛段检查点复活；多人Team Flow（最多4人、+10000团队分）仅菜单与源码说明，未验证"
+          }
+        },
+        {
+          "version_id": "v-69891a45500f",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "街机竞速（高空水上滑道滑行）",
+            "core_gameplay": "乘充气圈沿高空管状滑道高速滑下，用左右转向把骑手保持在管壁可走线带内，利用水流加速带与浪峰获得奖励，最终跃入终点水池并按落点区域获得大奖分。",
+            "controls": "A 或 ← → 向左转向（改变管壁倾角） → 滑行中按住生效，实机已验证；\nD 或 → → 向右转向（改变管壁倾角） → 滑行中按住生效，实机已验证；\nSpace → 起跳小跃 → 贴地滑行中触发，实机已验证；\nSpace 或 Enter → 开始一局 → 主菜单界面，实机已验证；\n屏幕转向按钮（移动端） → 转向 → 仅源码确认，未实机验证。",
+            "rules": "目标：以尽量短时间滑完全程并最大化总分；失败：无终局失败，WIPEOUT加时3秒并回检查点；计分（源码确认）：技巧奖励累加（FAST FLOW/HIGH CARVE 22、SURGE RIDE 220、LIP CREST 250、SPLASHDOWN 500）×连击倍率（×1至×8），总分另加落点奖励（SAFE LANDING 2500/PRECISION! 7500/JACKPOT! 15000）、max(0,420−用时)×40、Flow时间×15、浪峰×200、滞空×25，减去WIPEOUT×250。",
+            "content": "固定10个赛段：SUMMIT LAUNCH、THE WALL、THE DROP、THE GLASS RUN、THE SPLIT、THE SURGE、THE GAP、THE SPIRAL、PARADISE FALLS、THE PARADISE PLUNGE，轨道由内置长度/坡度/曲率/半径参数表生成；第4/6赛段依入段倾角分流路线；3个落点奖励区；8种骑手配色（多人用）。",
+            "systems": "管壁倾角与横向速度物理、水流当前速度随赛段与走线贴合度变化、Flow加速带、浪峰判定、涌浪追击段、缺口跳跃、损伤累积（转向力衰减与阻力增加）、每约240米检查点、连击倍率、终点水池落点区域判定；多人Team Flow组队与+10000团队奖励存在但未验证。"
+          }
+        },
+        {
+          "version_id": "v-cfc35d213d02",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D竞速 / 水上乐园滑梯",
+            "core_gameplay": "玩家乘坐充气浮圈沿发光水滑梯高速下滑，通过左右转向维持最佳Flow走线、在缺口与浪尖处跳跃、最终落入终点泳池靶标完成比赛；全程比拼时间、连击、腾空与落地精度。",
+            "controls": "1. A / D 或 ← / →：左右转向（已实机验证，可改变浮圈在赛道上的theta角度并触发WIPEOUT恢复）。\n2. Space：跳跃/弹起（已实机验证，可触发hop并在缺口前获得腾空）。\n3. Enter / Space（菜单中）：从主菜单开始单人游戏（源码确认，实机验证可进入玩法）。\n4. 鼠标/触摸：源码存在移动端转向按钮，但未在1000×760桌面环境下实机验证。",
+            "rules": "目标：以最高分数完成全程并精准落入靶标。\n成功：到达终点泳池且未落入池外即完成，获得SPLASHDOWN奖励与落地靶标加成。\n失败/惩罚：冲出赛道、落地过猛、 Tube Blowout等触发WIPEOUT，时间+3秒、连击重置、损伤增加。\n计分公式（源码确认）：finalScore = score + landingBonus + max(0, 420-time)×40 + goodTime×15 + crests×200 + airtime×25 - wipeouts×250。",
+            "content": "固定10个赛段：SUMMIT LAUNCH、THE WALL、THE DROP、THE GLASS RUN、THE SPLIT、THE SURGE、THE GAP、THE SPIRAL、PARADISE FALLS、THE PARADISE PLUNGE；终点泳池包含SAFE LANDING、PRECISION、JACKPOT三个固定靶标。无程序生成内容。",
+            "systems": "1. 物理滑行系统：基于s（沿赛道里程）、theta（横向角度）、v（速度）、u（横向速度）计算重力、向心力、Flow加速与摩擦。\n2. Flow系统：贴近赛道最佳走线时获得current加速与FAST FLOW/HIGH CARVE奖励。\n3. 连击系统：chain随连续奖励上升，最高×8，影响得分倍率；WIPEOUT或失误会衰减。\n4. 缺口与跳跃：THE GAP等路段存在gap，需借助速度腾空；落地速度/角度过大会触发WIPEOUT或损伤。\n5. 终点落地：泳池内三个靶标按SAFE/PRECISION/JACKPOT分别提供2500/7500/15000加成。\n6. 本地SDK：local-host.js模拟Remix/Farcade宿主，处理gameOver、saveGameState与play_again事件。"
+          }
+        },
+        {
+          "version_id": "v-b0800b977565",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D竞速 / 水上乐园滑梯",
+            "core_gameplay": "玩家乘坐充气浮圈沿发光水滑梯高速下滑，通过左右转向维持最佳Flow走线、在缺口与浪尖处跳跃、最终落入终点泳池靶标完成比赛；全程比拼时间、连击、腾空与落地精度。",
+            "controls": "1. A / D 或 ← / →：左右转向（已实机验证，可改变浮圈在赛道上的theta角度并触发WIPEOUT恢复）。\n2. Space：跳跃/弹起（已实机验证，可触发hop并在缺口前获得腾空）。\n3. Enter / Space（菜单中）：从主菜单开始单人游戏（源码确认，实机验证可进入玩法）。\n4. 鼠标/触摸：源码存在移动端转向按钮，但未在1000×760桌面环境下实机验证。",
+            "rules": "目标：以最高分数完成全程并精准落入靶标。\n成功：到达终点泳池且未落入池外即完成，获得SPLASHDOWN奖励与落地靶标加成。\n失败/惩罚：冲出赛道、落地过猛、 Tube Blowout等触发WIPEOUT，时间+3秒、连击重置、损伤增加。\n计分公式（源码确认）：finalScore = score + landingBonus + max(0, 420-time)×40 + goodTime×15 + crests×200 + airtime×25 - wipeouts×250。",
+            "content": "固定10个赛段：SUMMIT LAUNCH、THE WALL、THE DROP、THE GLASS RUN、THE SPLIT、THE SURGE、THE GAP、THE SPIRAL、PARADISE FALLS、THE PARADISE PLUNGE；终点泳池包含SAFE LANDING、PRECISION、JACKPOT三个固定靶标。无程序生成内容。",
+            "systems": "1. 物理滑行系统：基于s（沿赛道里程）、theta（横向角度）、v（速度）、u（横向速度）计算重力、向心力、Flow加速与摩擦。\n2. Flow系统：贴近赛道最佳走线时获得current加速与FAST FLOW/HIGH CARVE奖励。\n3. 连击系统：chain随连续奖励上升，最高×8，影响得分倍率；WIPEOUT或失误会衰减。\n4. 缺口与跳跃：THE GAP等路段存在gap，需借助速度腾空；落地速度/角度过大会触发WIPEOUT或损伤。\n5. 终点落地：泳池内三个靶标按SAFE/PRECISION/JACKPOT分别提供2500/7500/15000加成。\n6. 本地SDK：local-host.js模拟Remix/Farcade宿主，处理gameOver、saveGameState与play_again事件。"
+          }
+        },
+        {
+          "version_id": "v-528288bed2cb",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "体育竞速 / 水上乐园滑梯竞速",
+            "core_gameplay": "玩家乘坐充气浮圈沿10段巨型夜光水滑梯高速滑下，通过A/D或左右方向键控制左右倾斜以维持最佳Flow线，按Space跳跃越过障碍与缺口，最终以最高速度落入终点泳池获取落地奖励。",
+            "controls": "A / ←：向左倾斜浮圈，改变滑行横向位置，实机验证有效。\nD / →：向右倾斜浮圈，改变滑行横向位置，实机验证有效。\nSpace：在地面时短距离跳跃腾空，用于越过缺口或调整落点，实机验证有效。",
+            "rules": "目标：以最短时间和最高评分完成全程。\n成功：落入终点泳池，触发“SPLASHDOWN”并进入结算。\n失败：多次WIPEOUT增加3秒时间并扣250分/次，damage累计会减速。\n计分：见progression字段。",
+            "content": "固定10段连续赛道，每段具有独立曲率、宽度、缺口与surge/jet气流区域；无程序生成关卡。",
+            "systems": "物理系统：浮圈在管状/开放式滑道上受重力、离心力、Flow吸附、气流Jet影响。\n奖励系统：FAST FLOW、HIGH CARVE、SURGE RIDE、LIP CREST、SPLASHDOWN及落地靶标奖励。\n连击系统：chain随连续奖励提升，最高×8，断连后重置。\n伤害系统：WIPEOUT增加damage并降低操控与速度。"
+          }
+        },
+        {
+          "version_id": "v-b8c59bf27d86",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D 竞速/滑行体育街机游戏",
+            "core_gameplay": "玩家操控充气浮圈沿高空水滑梯赛道高速下滑，通过左右转向保持在“Flow”快速水流区域，利用Space跳跃越过落差与障碍，最终飞入终点泳池并争取落在高分靶区。",
+            "controls": "A / D → 左右转向（源码确认+实机验证）\n← / → 方向键 → 也可左右转向（源码确认+实机验证）\nSpace → 跳跃/飞跃，空中可微调姿态（源码确认+实机验证）\n鼠标/触控 → 未确认，源码存在移动端转向按钮逻辑但未在本次实机中验证\nEsc → 未确认具体功能",
+            "rules": "目标：以最快速度完成全程并落在高分靶区。\n成功：角色进入终点泳池且未触发MISSSED THE POOL。\n失败/惩罚：摔出赛道、撞墙、落点过远会触发WIPEOUT，回退到检查点并+3秒；损伤过高会TUBE BLOWOUT。\n计分：基础分 + 落地奖励 + max(0, 420-耗时)×40 + 良好滑行时间×15 + 浪尖 crests×200 + 空中时间×25 - 摔车次数×250。",
+            "content": "固定单人赛道一条，由10个连续赛段组成（SUMMIT LAUNCH、THE WALL、THE DROP、THE GLASS RUN、THE SPLIT、THE SURGE、THE GAP、THE SPIRAL、PARADISE FALLS、THE PARADISE PLUNGE）；终点泳池设3个落地靶区（SAFE/PRECISION/JACKPOT）。未验证程序生成内容。",
+            "systems": "物理系统：浮圈沿曲面赛道运动，受重力、曲率向心力、Flow水流加速、跳跃抛物线影响。\n赛道系统：10段样条赛道，每段有半径、曲率、坡度与开口/闭口参数。\nFlow系统：处于赛道快速区域时获得额外加速并累积连击。\n连击系统：保持在Flow、完成浪尖等动作提升CHAIN，中断或摔车降低CHAIN。\n跳跃系统：Space触发起跳，空中可用方向键微调，落地过陡会损伤并扣分。\n落地奖励系统：终点泳池内设SAFE/PRECISION/JACKPOT三个靶区，命中分别+2500/+7500/+15000。\n粒子/特效系统：速度水花、落地烟花、夜景光照与 Bloom 后处理。"
+          }
+        },
+        {
+          "version_id": "v-a1072d24d21f",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D 水滑道竞速/技巧街机网页游戏（标题界面已验证，完整玩法未验证）",
+            "core_gameplay": "玩家乘坐充气浮圈沿热带水滑道下滑，通过左右转向与跳跃保持不脱离滑道，最终抵达终点；支持单人或最多 4 人 Team Flow 组队模式。",
+            "controls": "1. A键 / D键 → 控制浮圈左右转向 → 游戏进行中的滑行阶段（未验证）\n2. ←键 / →键 → 同样控制左右转向 → 游戏进行中的滑行阶段（未验证）\n3. 空格键 → 触发跳跃（Hop） → 游戏进行中的滑行阶段（未验证）\n4. 鼠标左键点击 → 触发标题界面按钮 → 标题画面获得焦点后（已实机验证）",
+            "rules": "目标：保持留在滑道上并抵达终点（根据标语推断，未验证）。\n成功条件：未实机验证；文本提示组队模式下最多 4 名骑手同时完成可获 +10000 团队奖励。\n失败条件：未确认，可能为偏离滑道或碰撞障碍物。\n计分公式：基础得分未知；团队同时完成奖励阈值 +10000（来自标题界面文本）。",
+            "content": "固定资源：标题界面、广告牌贴图、悬崖岩石、皇家棕榈树、支撑塔、发射平台、热带度假村、充气浮圈、骑手角色等 GLTF/WEBP 模型与贴图；程序生成内容未确认。",
+            "systems": "对象：3D 场景包含热带度假村建筑、发射平台、支撑塔、棕榈树、悬崖岩石、充气浮圈、骑手角色、广告牌贴图。\n状态：标题菜单状态已验证；游戏中/结算状态未验证。\n触发：标题界面按钮点击触发进入后续流程（具体后续未验证）。\n系统交互：Three.js 负责渲染；EffectComposer/RenderPass/UnrealBloomPass/OutputPass 负责后处理辉光；GLTFLoader 负责加载模型资源。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-03d6a3473bf4",
+      "title": "Paper Grove on Remix – Play Now & Create Your Own Games",
+      "canonical_url": "https://remix.gg/g/paper-grove",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-eddfc94b82c2",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "平台跳跃/冒险",
+            "core_gameplay": "在纸质立体书风格的开放场景中跑动、跳跃探索，爬上风车旁山丘登上纸飞机，驾驶飞机穿越圆环赛道进行计时挑战。",
+            "controls": "W/↑ → 前进；飞行时俯冲 → 地面实机验证，俯冲仅源码确认\nS/↓ → 后退；飞行时爬升 → 爬升仅源码确认\nA/D或←/→ → 转向 → 实机验证\nSpace → 跳跃/二段跳；飞行时加速 → 跳跃实机验证，加速仅源码确认\nF → 与纸飞机交互登机 → 提示已见，登机未由AI完成\n鼠标拖动 → 旋转视角 → 实机验证",
+            "rules": "目标：驾机穿越全部圆环；成功：全部通过并计时结算、记录最佳；失败：风力耗尽结束并显示过环数；擦地扣约2秒风力；每穿过一环补充风力（具体数值仅源码确认）。",
+            "content": "固定手工搭建的纸质场景（山丘、风车、书本地形、Portal装饰）与固定数量圆环飞行赛道；圆环总数由源码确认，未逐一实机清点；无程序生成内容证据。",
+            "systems": "角色平台移动（重力、跳跃、二段跳、空中控制）；纸飞机飞行（速度、俯仰、滚转、风力消耗与环补充、失速抖动）；本地成绩记录与成就解锁（仅源码确认）；Portal旅行在离线环境不可用。"
+          }
+        },
+        {
+          "version_id": "v-da216345967e",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "平台跳跃/冒险",
+            "core_gameplay": "在纸质立体书风格的开放场景中跑动、跳跃探索，爬上风车旁山丘登上纸飞机，驾驶飞机穿越圆环赛道进行计时挑战。",
+            "controls": "W/↑ → 前进；飞行时俯冲 → 地面实机验证，俯冲仅源码确认\nS/↓ → 后退；飞行时爬升 → 爬升仅源码确认\nA/D或←/→ → 转向 → 实机验证\nSpace → 跳跃/二段跳；飞行时加速 → 跳跃实机验证，加速仅源码确认\nF → 与纸飞机交互登机 → 提示已见，登机未由AI完成\n鼠标拖动 → 旋转视角 → 实机验证",
+            "rules": "目标：驾机穿越全部圆环；成功：全部通过并计时结算、记录最佳；失败：风力耗尽结束并显示过环数；擦地扣约2秒风力；每穿过一环补充风力（具体数值仅源码确认）。",
+            "content": "固定手工搭建的纸质场景（山丘、风车、书本地形、Portal装饰）与固定数量圆环飞行赛道；圆环总数由源码确认，未逐一实机清点；无程序生成内容证据。",
+            "systems": "角色平台移动（重力、跳跃、二段跳、空中控制）；纸飞机飞行（速度、俯仰、滚转、风力消耗与环补充、失速抖动）；本地成绩记录与成就解锁（仅源码确认）；Portal旅行在离线环境不可用。"
+          }
+        },
+        {
+          "version_id": "v-9d6ed116425a",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "平台跳跃/冒险",
+            "core_gameplay": "在纸质立体书风格的开放场景中跑动、跳跃探索，爬上风车旁山丘登上纸飞机，驾驶飞机穿越圆环赛道进行计时挑战。",
+            "controls": "W/↑ → 前进；飞行时俯冲 → 地面实机验证，俯冲仅源码确认\nS/↓ → 后退；飞行时爬升 → 爬升仅源码确认\nA/D或←/→ → 转向 → 实机验证\nSpace → 跳跃/二段跳；飞行时加速 → 跳跃实机验证，加速仅源码确认\nF → 与纸飞机交互登机 → 提示已见，登机未由AI完成\n鼠标拖动 → 旋转视角 → 实机验证",
+            "rules": "目标：驾机穿越全部圆环；成功：全部通过并计时结算、记录最佳；失败：风力耗尽结束并显示过环数；擦地扣约2秒风力；每穿过一环补充风力（具体数值仅源码确认）。",
+            "content": "固定手工搭建的纸质场景（山丘、风车、书本地形、Portal装饰）与固定数量圆环飞行赛道；圆环总数由源码确认，未逐一实机清点；无程序生成内容证据。",
+            "systems": "角色平台移动（重力、跳跃、二段跳、空中控制）；纸飞机飞行（速度、俯仰、滚转、风力消耗与环补充、失速抖动）；本地成绩记录与成就解锁（仅源码确认）；Portal旅行在离线环境不可用。"
+          }
+        },
+        {
+          "version_id": "v-7c93dec88884",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "平台跳跃/冒险",
+            "core_gameplay": "在纸质立体书风格的开放场景中跑动、跳跃探索，爬上风车旁山丘登上纸飞机，驾驶飞机穿越圆环赛道进行计时挑战。",
+            "controls": "W/↑ → 前进；飞行时俯冲 → 地面实机验证，俯冲仅源码确认\nS/↓ → 后退；飞行时爬升 → 爬升仅源码确认\nA/D或←/→ → 转向 → 实机验证\nSpace → 跳跃/二段跳；飞行时加速 → 跳跃实机验证，加速仅源码确认\nF → 与纸飞机交互登机 → 提示已见，登机未由AI完成\n鼠标拖动 → 旋转视角 → 实机验证",
+            "rules": "目标：驾机穿越全部圆环；成功：全部通过并计时结算、记录最佳；失败：风力耗尽结束并显示过环数；擦地扣约2秒风力；每穿过一环补充风力（具体数值仅源码确认）。",
+            "content": "固定手工搭建的纸质场景（山丘、风车、书本地形、Portal装饰）与固定数量圆环飞行赛道；圆环总数由源码确认，未逐一实机清点；无程序生成内容证据。",
+            "systems": "角色平台移动（重力、跳跃、二段跳、空中控制）；纸飞机飞行（速度、俯仰、滚转、风力消耗与环补充、失速抖动）；本地成绩记录与成就解锁（仅源码确认）；Portal旅行在离线环境不可用。"
+          }
+        },
+        {
+          "version_id": "v-d38334e9554f",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "平台跳跃",
+            "core_gameplay": "控制绿色纸人角色在Paper Grove 3D场景中跑跳移动，靠近纸飞机按F登机，起飞后穿越圆环计时挑战。",
+            "controls": "W/A/S/D或方向键→前后移动/左右转向→持续按住行走\nSpace→跳跃/飞行加速→点按\nF→与纸飞机/交互点互动→靠近出现提示后点按\n鼠标拖动→旋转视角→按住拖动",
+            "rules": "目标：登机后穿越全部圆环；成功：完成航线显示Course complete并记录最佳时间；失败：风力耗尽显示Out of wind并记录已穿环数；擦地会扣减风力时间。",
+            "content": "固定场景Paper Grove，含村庄、风车山丘、河流、Portal与纸飞机飞行挑战；未验证程序生成内容。",
+            "systems": "角色移动/跳跃系统、纸飞机登机 possess 系统、飞行动力与风力计时系统、圆环进度与本地记录/成就系统、场景 Portal 与提示 UI 系统。"
+          }
+        },
+        {
+          "version_id": "v-3c0f85d5678d",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "休闲探索 / 3D 平台飞行",
+            "core_gameplay": "玩家在纸艺风格的开放场景 Paper Grove 中步行探索，寻找位于 hill/windmill 的纸飞机停靠点；按 F 进入纸飞机后，通过 W/S 俯冲/爬升、A/D 转向、Space 加速，在有限 wind 能量内穿过圆环补充能量，完成一次飞行闭环后返回山丘。",
+            "controls": "键盘实机验证：\n1. W / ArrowUp → 步行前进；纸飞机中 W 俯冲（降低机头）。\n2. S / ArrowDown → 步行后退；纸飞机中 S 爬升（抬升机头）。\n3. A / ArrowLeft → 步行左转 / 纸飞机左转向。\n4. D / ArrowRight → 步行右转 / 纸飞机右转向。\n5. Space → 点按跳跃，空中再次点按触发二段跳；纸飞机中按住加速（消耗 wind）。\n6. F → 与可交互对象交互，如靠近纸飞机停靠点时触发 Fly。\n7. Shift → 冲刺（步行）。\n8. Q/E → 平移（源码存在 strafe 映射，实机未专门验证）。\n手柄源码确认：右摇杆转向、RT 加速、South 键加速/跳跃。",
+            "rules": "目标：驾驶纸飞机穿过尽量多的圆环并安全返回；\n成功：完成飞行后自动 homing 回到 hill；\n失败：wind 耗尽进入 gliding，一段时间后自动返航，或在边界外被风强制转向；\n计分：以穿过圆环数量与飞行时间为最佳记录依据（源码见 records.get(fo)）。",
+            "content": "固定单一场景 Paper Grove，包含书页地形、树木、房屋、风车、彩虹、Portal 拱门、纸箱、纸花等装饰物件；纸飞机停靠点固定于 hill/windmill 附近；后续 Portal 通往其他世界的内容未验证。",
+            "systems": "物理系统：重力 20、跳跃速度 9、跑步速度 6、支持二段跳；\n输入系统：键盘/手柄事件监听，WASD+Space 移动跳跃；\n交互系统：addInteractable 注册半径触发器，靠近显示 [F] 提示；\n纸飞机系统：seated→flying→gliding/homing→docked 状态机，wind 能量随时间消耗，圆环触发补充；\n相机系统：跟随角色或纸飞机，支持 orbit 与 FOV 拉伸。"
+          }
+        },
+        {
+          "version_id": "v-ae36df801f89",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "休闲探索 / 3D 平台飞行",
+            "core_gameplay": "玩家在纸艺风格的开放场景 Paper Grove 中步行探索，寻找位于 hill/windmill 的纸飞机停靠点；按 F 进入纸飞机后，通过 W/S 俯冲/爬升、A/D 转向、Space 加速，在有限 wind 能量内穿过圆环补充能量，完成一次飞行闭环后返回山丘。",
+            "controls": "键盘实机验证：\n1. W / ArrowUp → 步行前进；纸飞机中 W 俯冲（降低机头）。\n2. S / ArrowDown → 步行后退；纸飞机中 S 爬升（抬升机头）。\n3. A / ArrowLeft → 步行左转 / 纸飞机左转向。\n4. D / ArrowRight → 步行右转 / 纸飞机右转向。\n5. Space → 点按跳跃，空中再次点按触发二段跳；纸飞机中按住加速（消耗 wind）。\n6. F → 与可交互对象交互，如靠近纸飞机停靠点时触发 Fly。\n7. Shift → 冲刺（步行）。\n8. Q/E → 平移（源码存在 strafe 映射，实机未专门验证）。\n手柄源码确认：右摇杆转向、RT 加速、South 键加速/跳跃。",
+            "rules": "目标：驾驶纸飞机穿过尽量多的圆环并安全返回；\n成功：完成飞行后自动 homing 回到 hill；\n失败：wind 耗尽进入 gliding，一段时间后自动返航，或在边界外被风强制转向；\n计分：以穿过圆环数量与飞行时间为最佳记录依据（源码见 records.get(fo)）。",
+            "content": "固定单一场景 Paper Grove，包含书页地形、树木、房屋、风车、彩虹、Portal 拱门、纸箱、纸花等装饰物件；纸飞机停靠点固定于 hill/windmill 附近；后续 Portal 通往其他世界的内容未验证。",
+            "systems": "物理系统：重力 20、跳跃速度 9、跑步速度 6、支持二段跳；\n输入系统：键盘/手柄事件监听，WASD+Space 移动跳跃；\n交互系统：addInteractable 注册半径触发器，靠近显示 [F] 提示；\n纸飞机系统：seated→flying→gliding/homing→docked 状态机，wind 能量随时间消耗，圆环触发补充；\n相机系统：跟随角色或纸飞机，支持 orbit 与 FOV 拉伸。"
+          }
+        },
+        {
+          "version_id": "v-ac2c031f3572",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D平台探索与飞行小游戏",
+            "core_gameplay": "在纸艺绘本风格的开放小场景 Paper Grove 中步行探索，利用双段跳攀爬至 hill/windmill 区域，搭乘纸飞机后按圆环路线飞行，通过俯冲、爬升、转向和冲刺维持速度与风力，尝试穿过圆环完成挑战",
+            "controls": "1. W / 方向键上 → 角色前进 / 纸飞机俯冲（源码确认 W 在飞行中对应俯冲）。\n2. S / 方向键下 → 角色后退 / 纸飞机爬升（源码确认 S 在飞行中对应爬升）。\n3. A / D 或方向键左/右 → 角色转向 / 纸飞机侧倾转向（实机验证步行转向）。\n4. Space → 角色跳跃；飞行中按住加速/boost（源码确认）。\n5. Shift → 角色冲刺（源码与输入模块确认）。\n6. F → 与可交互对象互动，如纸飞机停靠点（源码确认 Ir 为交互键）。\n7. 鼠标 → 控制相机视角（实机验证）。\n8. 手柄 → 右摇杆视角、左右扳机对应鼠标左右键、右扳机/South 键加速（源码确认）。",
+            "rules": "目标：步行到达纸飞机停靠点并起飞，尽可能多地穿过圆环。成功/失败：风力耗尽会导致失速，飞出边界会被风推回或坠落重生，着陆/跳过平台会回到 hill。计分：以穿过圆环数与飞行时间记录最佳成绩，具体阈值未验证。",
+            "content": "固定单一开放场景 Paper Grove，包含书页地形、纸艺树木、风车、河流、彩虹、Portal 拱门等装饰；源码中注册了多个 Portal 目的地（如 craigs-kitchen、blocky-isles、neon-heights 等），但本验证流程未访问。",
+            "systems": "1. 角色物理：重力 20、奔跑速度 6、跳跃速度 9、支持双段跳、空中控制 0.8（源码确认）。\n2. 纸飞机物理：重力、阻力、升力、失速、俯冲/爬升、侧倾转向、boost 加速、风力资源（源码确认）。\n3. 交互系统：靠近可交互对象显示 [F] 提示并触发事件（源码确认）。\n4. Portal 系统：场景中存在多个传送门，可前往其他世界（未验证）。\n5. 相机系统：第三人称跟随、载具驾驶视角、FOV 随加速变化（源码确认）。"
+          }
+        },
+        {
+          "version_id": "v-4a1c5b60170f",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D平台探索与纸艺风格飞行迷你游戏",
+            "core_gameplay": "玩家在纸艺童话场景「Paper Grove」中行走、跳跃、探索场景；找到风车/山丘处的纸飞机后可触发飞行小游戏，驾驶纸飞机穿越空中的圆环并消耗/补充风力。",
+            "controls": "W / 方向键上 → 前进（地面）/ 飞机俯冲（W）；\nS / 方向键下 → 后退（地面）/ 飞机爬升（S）；\nA / 方向键左 → 左转；\nD / 方向键右 → 右转；\nSpace → 跳跃（地面，支持二段跳）/ 纸飞机加速；\nF → 与可交互对象交互（如纸飞机 Fly）；\n鼠标拖动 → 旋转视角；\nQ/E → 地面侧向平移（源码支持，实机未充分验证）。",
+            "rules": "地面目标：在书页地形上移动并到达各兴趣点；飞行目标：驾驶纸飞机穿过尽可能多的圆环；成功/失败：风力耗尽或坠毁结束飞行；计分：记录穿越圆环数与用时，具体阈值未验证。",
+            "content": "固定场景「Paper Grove」一座，包含书页地形、风车、山丘、河流、彩虹、Portal拱门等；源码中定义多个通过Portal前往的未验证世界（厨房、积木岛、霓虹高地、迷宫、庄园等）。",
+            "systems": "移动系统：WASD/方向键控制角色在地形上奔跑、跳跃、二段跳；相机系统：第三人称越肩跟随，鼠标控制偏航/俯仰；物理系统：重力、碰撞、掉落重生；交互系统：靠近可交互对象显示提示，按F触发；纸飞机系统：进入后切换为飞行状态，W/S控制俯仰、A/D转向、Space加速，圆环补充风力；Portal系统：显示旅行标签，但实际跨世界需要后端/Remix Desktop支持。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-037d37ab7f62",
+      "title": "Grow Run 3D",
+      "canonical_url": "https://remix.gg/g/grow-run-3d",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-a0f8fa9b686d",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "跑酷",
+            "core_gameplay": "自动向前奔跑的跑酷：左右转向变道、空格跳跃，收集路人扩大队伍人数，躲避栏杆与车辆等障碍，队伍人数充当生命，撞击损失成员，归零即结束",
+            "controls": "A / D 或 ← / → → 左右转向变道 → 对局中持续生效；SPACE → 跳跃 → 对局中；PLAY 按钮 → 开始游戏 → 标题界面；⏸ 按钮 → 暂停/继续 → 任意对局时刻；🔊/✨ 按钮 → 音效开关/画质切换 → 界面角落常驻（均实机验证）",
+            "rules": "目标：跑得更远、收集更多路人与道具获得高分；成功：无终点，持续推进；失败：队伍人数因撞击归零即本局结束；计分：距离（米）与收集加成实时累加，界面 ×1 为倍率显示，具体公式数值未确认",
+            "content": "程序生成的无尽跑道：障碍、车辆、收集物随距离循环出现，关卡数量无固定上限（实机与源码方向一致，未穷举）",
+            "systems": "对象：玩家队伍、路人、栏杆、车辆、金币、汉堡；状态：标题/奔跑/暂停/结算；触发：碰撞检测驱动收集与伤害；交互：收集路人增加人数与倍率、撞障减少人数、跳跃越过低矮障碍"
+          }
+        },
+        {
+          "version_id": "v-6fd9f0da3b55",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "休闲跑酷（无尽跑酷 / 人群收集）",
+            "core_gameplay": "角色在自动前进的三维道路上奔跑，通过左右转向躲避障碍物、收集路人壮大队伍并拾取道具，最终根据距离与队伍规模结算分数。",
+            "controls": "1. A / D 或 ← / →（按住/点按）→ 左右转向 → 实机验证有效；\n2. Space → 跳跃 → 实机验证可跨越障碍；\n3. 鼠标点击 PLAY / 再玩一次按钮 → 开始或重开一局 → 实机验证有效；\n4. 点击 🔊 / ✨ / ⏸ 图标 → 切换音效、画质或暂停 → 界面可见，具体功能未逐项验证。",
+            "rules": "目标：尽可能跑得更远并获得更高分数；成功：持续躲避障碍并收集路人；失败：撞到固定障碍或被车辆撞击；计分公式未在源码中完全确认，实机观察为距离与队伍规模共同影响结算分。",
+            "content": "固定：单一无尽道路场景、若干障碍物与收集物模型、角色外观；程序生成：障碍与路人/道具的摆放位置随进程动态生成。",
+            "systems": "1. 自动移动系统：角色持续向前奔跑；\n2. 输入系统：键盘转向/跳跃、按钮点击；\n3. 碰撞系统：与障碍物触发游戏结束，与路人/道具触发收集；\n4. 计分系统：实时更新分数、距离、队伍人数；\n5. 存档系统：localStorage 保存最佳分与设置；\n6. 宿主 SDK：本地离线版提供 gameOver 与 saveGameState 接口。"
+          }
+        },
+        {
+          "version_id": "v-91758fa4cb61",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D 休闲跑酷 / crowd-runner 网页游戏（标题为 GROW RUN，HUD 含金币、距离、队伍人数、倍数）",
+            "core_gameplay": "玩家操控主角在 3D 跑道上前进，使用 A/D 或 ←/→ 控制左右转向，空格键跳跃；途中收集金币、扩大队伍、累积倍数，以获取更高得分并刷新最佳记录。",
+            "controls": "1. 键盘输入：A / D 或方向键 ← / → 转向；SPACE 跳跃。\n2. 按钮输入：🔊 音效开关、✨ 画质切换、⏸ 暂停、PLAY 开始。\n3. 反馈：主角/镜头产生位移，HUD 实时更新分数、金币、距离、队伍人数与倍数；音效状态写入 localStorage。",
+            "rules": "目标：在赛道上尽可能跑得更远，收集金币并扩大队伍规模。\n成功/失败：未实机验证；推测碰撞障碍或坠落会导致失败，到达终点为通关。\n计分公式：未确认；HUD 显示 0 BEST 0、0🪙、5m、5👥、×1，说明得分、金币、距离、队伍人数、倍数为核心指标，具体权重与阈值未确认。",
+            "content": "固定内容：标题画面、字体、Three.js 核心库、CSS、HUD 元素。\n未确认内容：关卡几何、障碍物排布、收集物配置是手工固定还是程序生成，本次未实机验证。",
+            "systems": "1. 输入系统：监听键盘 A/D/←/→/SPACE 事件及按钮点击。\n2. 角色/队伍系统：维护主角位置、速度、队伍人数与倍数状态。\n3. 推进系统：角色自动沿跑道前进，玩家仅控制左右与跳跃。\n4. 收集系统：金币与增益/减益道具触发数值变化。\n5. 障碍系统：检测碰撞并影响队伍人数或判定失败。\n6. HUD/UI 系统：更新分数、金币、距离、人数、倍数与按钮状态。\n7. 音效/画质系统：控制开关与渲染质量。\n8. 本地存储系统：仅持久化音效开关。\n交互链：输入 → 角色移动 → 碰撞/收集检测 → 状态变更 → HUD 刷新。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-874320229982",
+      "title": "Coffin Coaster on Remix – Play Now & Create Your Own Games",
+      "canonical_url": "https://remix.gg/g/coffin-coaster",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-ec4ce479c35e",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "3D · 过山车特技竞速",
+            "core_gameplay": "Originalfour-maprocketcoffin/trackdriving/airflip/combo/orb/solo and3AIrace. ActualSnowycomplete69.3s37631fourth only.",
+            "controls": "W/Sthrottlebrake,A/Dsteer,Spacehop,ShiftNitro,Rcheckpoint; airborneWSflip/ADspin/QEroll; Escpause; titlemaps/riders.",
+            "rules": "目标：在赛道中获得尽可能高的分数并尽量收集全部ORB；成功：完成赛道或超越PAR时间获得好成绩；失败：坠毁或速度过低可通过R重生；得分公式=基础分×连击倍率，具体阈值未验证；PAR 1:50为实机观察",
+            "content": "已验证：Haunted Carnival地图、Bones/Rocket Coffin载具、RIDE SOLO模式、RACE THE DEAD模式入口；完整关卡数量、可解锁内容、商店项目未验证",
+            "systems": "物理驾驶系统：载具受重力、加速度和赛道曲率影响；氮气系统：Shift触发加速，NITRO HUD显示余量；连击倍率系统：连续特技维持倍率条，中断则重置；收集系统：ORB计数与分数加成；检查点系统：R重生至最近检查点；UI HUD系统：实时显示分数、时间、速度、倍率、收集进度"
+          }
+        },
+        {
+          "version_id": "v-e6af17d6fb52",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "竞速 / 特技驾驶",
+            "core_gameplay": "驾驶火箭棺材车在过山车式赛道上高速行驶，收集光球、触发加速垫、完成空中翻转与旋转特技，维持连击倍率以追求高分",
+            "controls": "W/S → 油门/刹车（实机验证）\nA/D → 转向（实机验证）\nSpace → 跳跃/弹跳（实机验证）\nQ/E → 空中翻转/旋转（源码提示，实机未充分验证）\nShift → 氮气加速（实机验证按键响应）\nR → 检查点重生（实机验证）",
+            "rules": "目标：在赛道中获得尽可能高的分数并尽量收集全部ORB；成功：完成赛道或超越PAR时间获得好成绩；失败：坠毁或速度过低可通过R重生；得分公式=基础分×连击倍率，具体阈值未验证；PAR 1:50为实机观察",
+            "content": "已验证：Haunted Carnival地图、Bones/Rocket Coffin载具、RIDE SOLO模式、RACE THE DEAD模式入口；完整关卡数量、可解锁内容、商店项目未验证",
+            "systems": "物理驾驶系统：载具受重力、加速度和赛道曲率影响；氮气系统：Shift触发加速，NITRO HUD显示余量；连击倍率系统：连续特技维持倍率条，中断则重置；收集系统：ORB计数与分数加成；检查点系统：R重生至最近检查点；UI HUD系统：实时显示分数、时间、速度、倍率、收集进度"
+          }
+        },
+        {
+          "version_id": "v-4ceed019ee4f",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "竞速 / 特技驾驶",
+            "core_gameplay": "驾驶火箭棺材车在过山车式赛道上高速行驶，收集光球、触发加速垫、完成空中翻转与旋转特技，维持连击倍率以追求高分",
+            "controls": "W/S → 油门/刹车（实机验证）\nA/D → 转向（实机验证）\nSpace → 跳跃/弹跳（实机验证）\nQ/E → 空中翻转/旋转（源码提示，实机未充分验证）\nShift → 氮气加速（实机验证按键响应）\nR → 检查点重生（实机验证）",
+            "rules": "目标：在赛道中获得尽可能高的分数并尽量收集全部ORB；成功：完成赛道或超越PAR时间获得好成绩；失败：坠毁或速度过低可通过R重生；得分公式=基础分×连击倍率，具体阈值未验证；PAR 1:50为实机观察",
+            "content": "已验证：Haunted Carnival地图、Bones/Rocket Coffin载具、RIDE SOLO模式、RACE THE DEAD模式入口；完整关卡数量、可解锁内容、商店项目未验证",
+            "systems": "物理驾驶系统：载具受重力、加速度和赛道曲率影响；氮气系统：Shift触发加速，NITRO HUD显示余量；连击倍率系统：连续特技维持倍率条，中断则重置；收集系统：ORB计数与分数加成；检查点系统：R重生至最近检查点；UI HUD系统：实时显示分数、时间、速度、倍率、收集进度"
+          }
+        },
+        {
+          "version_id": "v-ce86946bbd7c",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "竞速 / 特技驾驶",
+            "core_gameplay": "驾驶火箭棺材车在过山车式赛道上高速行驶，收集光球、触发加速垫、完成空中翻转与旋转特技，维持连击倍率以追求高分",
+            "controls": "W/S → 油门/刹车（实机验证）\nA/D → 转向（实机验证）\nSpace → 跳跃/弹跳（实机验证）\nQ/E → 空中翻转/旋转（源码提示，实机未充分验证）\nShift → 氮气加速（实机验证按键响应）\nR → 检查点重生（实机验证）",
+            "rules": "目标：在赛道中获得尽可能高的分数并尽量收集全部ORB；成功：完成赛道或超越PAR时间获得好成绩；失败：坠毁或速度过低可通过R重生；得分公式=基础分×连击倍率，具体阈值未验证；PAR 1:50为实机观察",
+            "content": "已验证：Haunted Carnival地图、Bones/Rocket Coffin载具、RIDE SOLO模式、RACE THE DEAD模式入口；完整关卡数量、可解锁内容、商店项目未验证",
+            "systems": "物理驾驶系统：载具受重力、加速度和赛道曲率影响；氮气系统：Shift触发加速，NITRO HUD显示余量；连击倍率系统：连续特技维持倍率条，中断则重置；收集系统：ORB计数与分数加成；检查点系统：R重生至最近检查点；UI HUD系统：实时显示分数、时间、速度、倍率、收集进度"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-c99d41c29150",
+      "title": "PolyRace on Remix – Play Now & Create Your Own Games",
+      "canonical_url": "https://remix.gg/g/polyrace-velocity",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-5f35048d66ed",
+          "status": "approved",
+          "profile": {
+            "engine": "原生Three.js与原@remix-gg/three运行组件；SDK宿主部分已拆成明确本地Canvas生命周期。",
+            "category": "竞速 / 时间挑战",
+            "core_gameplay": "选赛道→原倒计时→加速/转向/漂移驾驶→通过检查点与失误重生→终点计时/奖牌/PB/幽灵记录→原重试或下一赛道。",
+            "controls": "W/↑加速，S/↓刹车/倒车，A/D或←/→转向，Space漂移/手刹，R/Enter回检查点，T/Backspace重开，Esc菜单，C摄像机，G幽灵，V观看幽灵，N下一赛道。本次实测菜单点Summer1、Up加速、R重生和刷新；其余操作为原码确认，未额外试玩。",
+            "rules": "单人计时按原检查点顺序，失误可回检查点，重开新局另行计时；过终点按原作者/金银铜阈值给奖牌。原抓地、漂移、坠落重生与路面/加速带规则保持。",
+            "content": "七条固定赛道：Summer1、MeadowSprint、DuneSprint、LoopStation、WallRunner、DriftValley、Velocity；各有原作者/金银铜时间。单场比赛与幽灵数据不是新增关卡。",
+            "systems": "原车辆物理、路面定位、检查点/计时、重生/重开、速度档位、摄像机、粒子/轮痕、音频、菜单/结果、PB/奖牌/幽灵、原本地统计、八项成就条件。移除房间联机/大厅和在线榜单，不以假房间维持游戏。"
+          }
+        },
+        {
+          "version_id": "v-8208ef6b421f",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D 低多边形街机竞速 / 时间挑战赛（Time Trial Racing）",
+            "core_gameplay": "玩家从 7 条固定赛道中选择一条，以最短 elapsed time 独自完成全程；比赛过程中需通过检查点并冲过终点；系统同时显示作者参考成绩（AUTHOR）与个人最佳（PB），并可在完成后回放幽灵车以对比走线。本轮已实际进入 Summer 1 赛道并观察到可控驾驶、HUD、重生与重开。",
+            "controls": "菜单阶段：方向键 ↑/↓ 或鼠标选择赛道，Enter 进入比赛，Esc 返回上一级；比赛阶段：W 或 ↑ 加速，S 或 ↓ 刹车/倒车，A/← 与 D/→ 转向，Space 漂移/手刹，R 或 Enter 返回上一检查点，T 或 Backspace 重开本局，Esc 打开菜单，C 切换摄像机模式，G 开关幽灵车，V 观看幽灵回放。本轮已实际验证加速、转向、重生、重开、返回菜单。",
+            "rules": "目标：以最短 elapsed time 完成所选赛道。成功条件：通过全部检查点并冲过终点线（finish 音效与结果面板）。失败/重开：车辆偏离赛道、翻车、掉出边界或玩家手动按 T/Backspace；此时可 R/Enter 回到上一检查点或重开。计分：时间格式 mm:ss.mmm；奖牌阈值已观察到：Summer 1 AUTHOR 00:16.900、Meadow Sprint 00:21.600、Dune Sprint 00:23.300、Loop Station 00:23.600、Wall Runner 00:21.400、Drift Valley 00:25.000、Velocity 00:36.600；优于 AUTHOR 得 author 奖牌，依次递减为 gold/silver/bronze。总分公式 fi(e,t)=round(120000/max(4,e))+奖牌加成。",
+            "content": "固定内容：7 条手工赛道（Summer 1、Meadow Sprint、Dune Sprint、Loop Station、Wall Runner、Drift Valley、Velocity）及对应 AUTHOR/GOLD/SILVER/BRONZE 阈值；车辆 GLTF 模型；14 个音效资源（engine、tyres、wind、boost、checkpoint、countdown、go、crash、land、respawn、finish、record、click、select）。玩家产生的幽灵回放字符串与本地成绩为生成内容。未发现程序生成赛道证据。",
+            "systems": "1. 菜单/赛道选择：对象=7 个赛道按钮；状态=当前选中项、作者成绩、PB；触发=方向键/Enter/鼠标；交互=调用 loadTrack。2. 车辆物理：对象=车体与四轮；状态=位置/速度/旋转/接地/档位/转速；触发=驾驶输入/碰撞/斜坡/跳跃；交互=赛道表面采样、摄像机、粒子与 skid 系统。3. 赛道生成：对象=frames 序列；状态=路径点、法线、宽度、弯道、坡度；触发=关卡配置；交互=物理定位与渲染。4. 计时系统：状态=开始时间、经过时间、完成标志；触发=倒计时 go、检查点、终点线；交互=HUD 与排行榜。5. 幽灵回放：状态=Base64 编码的位置/旋转序列；触发=完赛刷新个人最佳；交互=比赛时叠加渲染或赛后观看。6. 检查点/重生：对象=检查点触发器；状态=最后有效检查点；触发=checkpoint 音效/crash/respawn；交互=车辆位置重置。7. 斜坡/容错：对象=ramp 几何体、forgiveness 区域；状态=接触；触发=车辆碰撞；交互=物理系统。8. 音效：对象=engine/tyres/wind/crash/finish 等音频；状态=播放/音量；触发=车辆事件/UI 事件；交互=车辆与 UI。9. 摄像机：对象=chase camera；状态=偏移、目标、shake；触发=车辆移动；交互=viewport。10. 本地存储：对象=localStorage 条目；状态=成绩与统计；触发=完赛/checkpoint/pagehide；交互=菜单读取。"
+          }
+        },
+        {
+          "version_id": "v-260c1d23179f",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "3D 低多边形街机竞速 / 时间挑战赛（Time Trial Racing）",
+            "core_gameplay": "玩家从 7 条固定赛道中选择一条，以最短 elapsed time 独自完成全程；比赛过程中需通过检查点并冲过终点；系统同时显示作者参考成绩（AUTHOR）与个人最佳（PB），并可在完成后回放幽灵车以对比走线。本轮已实际进入 Summer 1 赛道并观察到可控驾驶、HUD、重生与重开。",
+            "controls": "菜单阶段：方向键 ↑/↓ 或鼠标选择赛道，Enter 进入比赛，Esc 返回上一级；比赛阶段：W 或 ↑ 加速，S 或 ↓ 刹车/倒车，A/← 与 D/→ 转向，Space 漂移/手刹，R 或 Enter 返回上一检查点，T 或 Backspace 重开本局，Esc 打开菜单，C 切换摄像机模式，G 开关幽灵车，V 观看幽灵回放。本轮已实际验证加速、转向、重生、重开、返回菜单。",
+            "rules": "目标：以最短 elapsed time 完成所选赛道。成功条件：通过全部检查点并冲过终点线（finish 音效与结果面板）。失败/重开：车辆偏离赛道、翻车、掉出边界或玩家手动按 T/Backspace；此时可 R/Enter 回到上一检查点或重开。计分：时间格式 mm:ss.mmm；奖牌阈值已观察到：Summer 1 AUTHOR 00:16.900、Meadow Sprint 00:21.600、Dune Sprint 00:23.300、Loop Station 00:23.600、Wall Runner 00:21.400、Drift Valley 00:25.000、Velocity 00:36.600；优于 AUTHOR 得 author 奖牌，依次递减为 gold/silver/bronze。总分公式 fi(e,t)=round(120000/max(4,e))+奖牌加成。",
+            "content": "固定内容：7 条手工赛道（Summer 1、Meadow Sprint、Dune Sprint、Loop Station、Wall Runner、Drift Valley、Velocity）及对应 AUTHOR/GOLD/SILVER/BRONZE 阈值；车辆 GLTF 模型；14 个音效资源（engine、tyres、wind、boost、checkpoint、countdown、go、crash、land、respawn、finish、record、click、select）。玩家产生的幽灵回放字符串与本地成绩为生成内容。未发现程序生成赛道证据。",
+            "systems": "1. 菜单/赛道选择：对象=7 个赛道按钮；状态=当前选中项、作者成绩、PB；触发=方向键/Enter/鼠标；交互=调用 loadTrack。2. 车辆物理：对象=车体与四轮；状态=位置/速度/旋转/接地/档位/转速；触发=驾驶输入/碰撞/斜坡/跳跃；交互=赛道表面采样、摄像机、粒子与 skid 系统。3. 赛道生成：对象=frames 序列；状态=路径点、法线、宽度、弯道、坡度；触发=关卡配置；交互=物理定位与渲染。4. 计时系统：状态=开始时间、经过时间、完成标志；触发=倒计时 go、检查点、终点线；交互=HUD 与排行榜。5. 幽灵回放：状态=Base64 编码的位置/旋转序列；触发=完赛刷新个人最佳；交互=比赛时叠加渲染或赛后观看。6. 检查点/重生：对象=检查点触发器；状态=最后有效检查点；触发=checkpoint 音效/crash/respawn；交互=车辆位置重置。7. 斜坡/容错：对象=ramp 几何体、forgiveness 区域；状态=接触；触发=车辆碰撞；交互=物理系统。8. 音效：对象=engine/tyres/wind/crash/finish 等音频；状态=播放/音量；触发=车辆事件/UI 事件；交互=车辆与 UI。9. 摄像机：对象=chase camera；状态=偏移、目标、shake；触发=车辆移动；交互=viewport。10. 本地存储：对象=localStorage 条目；状态=成绩与统计；触发=完赛/checkpoint/pagehide；交互=菜单读取。"
+          }
+        },
+        {
+          "version_id": "v-4e54eb6e781c",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D 低多边形街机竞速 / 时间挑战赛（Time Trial Racing）",
+            "core_gameplay": "玩家选择固定赛道后独自发车，以最短用时冲过终点为核心目标；系统同时显示作者参考成绩（AUTHOR）与个人最佳（PERSONAL BEST），并保留本地排行榜（localStorage key: polyrace/leaderboards/v1/local）。本轮仅验证到主菜单，未实际进入比赛。",
+            "controls": "菜单阶段已确认：键盘 ↑/↓ 切换或鼠标点击赛道按钮，Enter 进入比赛，Esc 返回，音量默认 100%。比赛驾驶控制在当前运行时未触发：源码存在 gestures.js、audio.js（engine/tyres/crash 等音效），但油门/刹车/转向/漂移/加速的具体按键映射未在本轮验证。",
+            "rules": "目标：以最小 elapsed time 完成所选赛道。成功条件：冲过终点线（finish-2l3c.wav 为音效证据）。失败/重开条件未验证。计分：用时 mm:ss.mmm，与 AUTHOR 时间比较；AUTHOR 阈值已观察到：Summer 1 00:16.900、Meadow Sprint 00:21.600、Dune Sprint 00:23.300、Loop Station 00:23.600、Wall Runner 00:21.400、Drift Valley 00:25.000、Velocity 00:36.600。奖牌/星级规则未确认。",
+            "content": "固定内容：7 条赛道（Summer 1、Meadow Sprint、Dune Sprint、Loop Station、Wall Runner、Drift Valley、Velocity）及对应作者成绩；固定音效 12 条；3D 模型/材质通过 GLTFLoader 加载。玩家产生的幽灵回放与本地成绩为生成内容。未发现程序生成赛道证据。",
+            "systems": "1. 菜单/赛道选择：对象=7 个赛道按钮；状态=当前选中项、作者成绩、PB；触发=方向键/Enter/鼠标；交互=调用关卡加载。2. 车辆物理：对象=车体与车轮；状态=位置/速度/接地；触发=驾驶输入/碰撞；交互=斜坡/墙面/摄像机。3. 计时系统：状态=开始时间、经过时间、完成标志；触发=倒计时 go-Swaf.wav、终点线；交互=HUD 与排行榜。4. 幽灵回放：状态=记录的玩家位置/旋转；触发=完成比赛/开始比赛；交互=计时系统与渲染。5. 检查点/重生：对象=检查点触发器；状态=最后有效检查点；触发=checkpoint-Y4Np.wav/crash-IcGi.wav/respawn-athG.wav；交互=车辆位置重置。6. 斜坡/容错：对象=ramp 几何体、forgiveness 区域；状态=接触；触发=车辆碰撞；交互=物理系统。7. 音效：对象=engine/tyres/wind/crash/finish 等音频；状态=播放/音量；触发=车辆事件/UI 事件；交互=车辆与 UI。8. 摄像机：对象=chase camera；状态=偏移、目标；触发=车辆移动；交互=viewport。9. 排行榜/存储：对象=localStorage 条目；状态=成绩列表；触发=完赛；交互=菜单。10. 视口/光照：状态=尺寸、阴影模式；触发=resize；交互=Three.js 渲染器。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-0821c637caba",
+      "title": "Small Fries",
+      "canonical_url": "https://remix.gg/g/small-fries",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-72d7b1bce032",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "休闲派对竞技 / 多人障碍竞速淘汰赛",
+            "core_gameplay": "12 名小角色在天空赛道中奔跑、跳跃、俯冲并越过旋转摆锤、缓冲垫、跷跷板、移动门等障碍，按名次晋级，三轮后决出冠军。",
+            "controls": "WASD / 方向键 → 前后左右移动\n鼠标移动 / 右键拖拽 → 调整视角方向\nSPACE → 跳跃\nE / Ctrl → 俯冲\nShift / 鼠标左键 → 抓住对手或边缘\nR → 重置视角\nM → 静音切换\nEnter / 菜单按钮 → 开始比赛",
+            "rules": "目标：尽快到达终点或在时限内取得晋级名次。成功：进入每轮限定名次；失败：掉落或超时未晋级。计分：源码保存 totalScore / score 并在结算时取 best = max(best, score)。",
+            "content": "3 条固定赛道：Skyline Scramble、Tightrope Tumble、Crown Rush；每局 12 名角色（1 玩家 + 11 机器人）。",
+            "systems": "角色物理运动（速度、重力、地面判定、眩晕、俯冲冷却）、障碍动画系统（按时间函数旋转/摆动/移动）、摄像机跟随与抖动、粒子与音效事件、HUD 与菜单、键盘/鼠标/手柄输入、本地存档。"
+          }
+        },
+        {
+          "version_id": "v-edd4b01cc511",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "休闲派对竞技 / 多人障碍竞速淘汰赛",
+            "core_gameplay": "12 名小角色在天空赛道中奔跑、跳跃、俯冲并越过旋转摆锤、缓冲垫、跷跷板、移动门等障碍，按名次晋级，三轮后决出冠军。",
+            "controls": "WASD / 方向键 → 前后左右移动\n鼠标移动 / 右键拖拽 → 调整视角方向\nSPACE → 跳跃\nE / Ctrl → 俯冲\nShift / 鼠标左键 → 抓住对手或边缘\nR → 重置视角\nM → 静音切换\nEnter / 菜单按钮 → 开始比赛",
+            "rules": "目标：尽快到达终点或在时限内取得晋级名次。成功：进入每轮限定名次；失败：掉落或超时未晋级。计分：源码保存 totalScore / score 并在结算时取 best = max(best, score)。",
+            "content": "3 条固定赛道：Skyline Scramble、Tightrope Tumble、Crown Rush；每局 12 名角色（1 玩家 + 11 机器人）。",
+            "systems": "角色物理运动（速度、重力、地面判定、眩晕、俯冲冷却）、障碍动画系统（按时间函数旋转/摆动/移动）、摄像机跟随与抖动、粒子与音效事件、HUD 与菜单、键盘/鼠标/手柄输入、本地存档。"
+          }
+        },
+        {
+          "version_id": "v-82fd96a6f221",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "休闲派对竞技 / 多人障碍竞速淘汰赛",
+            "core_gameplay": "12 名小角色在天空赛道中奔跑、跳跃、俯冲并越过旋转摆锤、缓冲垫、跷跷板、移动门等障碍，按名次晋级，三轮后决出冠军。",
+            "controls": "WASD / 方向键 → 前后左右移动\n鼠标移动 / 右键拖拽 → 调整视角方向\nSPACE → 跳跃\nE / Ctrl → 俯冲\nShift / 鼠标左键 → 抓住对手或边缘\nR → 重置视角\nM → 静音切换\nEnter / 菜单按钮 → 开始比赛",
+            "rules": "目标：尽快到达终点或在时限内取得晋级名次。成功：进入每轮限定名次；失败：掉落或超时未晋级。计分：源码保存 totalScore / score 并在结算时取 best = max(best, score)。",
+            "content": "3 条固定赛道：Skyline Scramble、Tightrope Tumble、Crown Rush；每局 12 名角色（1 玩家 + 11 机器人）。",
+            "systems": "角色物理运动（速度、重力、地面判定、眩晕、俯冲冷却）、障碍动画系统（按时间函数旋转/摆动/移动）、摄像机跟随与抖动、粒子与音效事件、HUD 与菜单、键盘/鼠标/手柄输入、本地存档。"
+          }
+        },
+        {
+          "version_id": "v-b6bdf78a5f4b",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "休闲派对竞技 / 多人障碍竞速淘汰赛",
+            "core_gameplay": "12 名小角色在天空赛道中奔跑、跳跃、俯冲并越过旋转摆锤、缓冲垫、跷跷板、移动门等障碍，按名次晋级，三轮后决出冠军。",
+            "controls": "WASD / 方向键 → 前后左右移动\n鼠标移动 / 右键拖拽 → 调整视角方向\nSPACE → 跳跃\nE / Ctrl → 俯冲\nShift / 鼠标左键 → 抓住对手或边缘\nR → 重置视角\nM → 静音切换\nEnter / 菜单按钮 → 开始比赛",
+            "rules": "目标：尽快到达终点或在时限内取得晋级名次。成功：进入每轮限定名次；失败：掉落或超时未晋级。计分：源码保存 totalScore / score 并在结算时取 best = max(best, score)。",
+            "content": "3 条固定赛道：Skyline Scramble、Tightrope Tumble、Crown Rush；每局 12 名角色（1 玩家 + 11 机器人）。",
+            "systems": "角色物理运动（速度、重力、地面判定、眩晕、俯冲冷却）、障碍动画系统（按时间函数旋转/摆动/移动）、摄像机跟随与抖动、粒子与音效事件、HUD 与菜单、键盘/鼠标/手柄输入、本地存档。"
+          }
+        },
+        {
+          "version_id": "v-3721fc4c5f87",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "多人/单人平台闯关竞速派对游戏（淘汰制障碍赛）",
+            "core_gameplay": "控制圆滚滚角色在浮空赛道中奔跑、跳跃、俯冲、抓拽，穿越旋转锤、缓冲器、摆动球、闸门等障碍，在限定晋级名额内抵达终点；每轮淘汰未达标者，三轮后决出冠军。",
+            "controls": "W/A/S/D 或方向键 → 前后左右移动（已验证）\nSPACE → 跳跃（已验证）\nE / 鼠标右键 → 俯冲（已验证）\nSHIFT 或 鼠标左键按住 → 抓拽附近对手（已验证代码，AI对局中操作受限）\n鼠标移动 → 调整视角（已验证）\nR → 重置视角（源码确认）\nM → 静音开关（源码确认）\nENTER → 菜单开始比赛（源码确认）\n手柄：左摇杆移动、右摇杆视角、A跳跃、B俯冲、肩键抓拽（源码支持，未实机验证）",
+            "rules": "目标：每轮抵达终点且排名在晋级名额内\n成功：晋级下一轮；决赛唯一胜出触发 win\n失败：未在名额内抵达终点则 eliminated，转为旁观\n回合结束：晋级名额满或 raceTime ≥ 100 秒\n得分公式：总分累加每回合 (3 - round) × 200 + max(50, round(1000 - raceTime × 6))\n淘汰后仍可观看剩余选手，直到整局结束",
+            "content": "固定 3 条赛道：SKYLINE SCRAMBLE、TIGHTROPE TUMBLE、CROWN RUSH\n12 名角色：1 名本地玩家 + 11 名机器人\n障碍物类型：旋转锤、缓冲器、摆动球、闸门、跷跷板\n程序化元素：障碍物运动、AI 行为、粒子特效、动态相机",
+            "systems": "物理运动系统：速度、加速度、跳跃缓冲、土狼时间、俯冲、碰撞反弹、眩晕与坠落重置\n赛道几何：基于 deck 的地面高度检测与碰撞盒\n障碍物系统：spinner/bumper/pendulum/gate 的周期运动与角色碰撞\nAI 系统：bot 选择车道、躲避障碍、自动跳跃\n交互系统：抓拽会在两名角色间产生拉力与速度交换\n事件/音效：jump/land/dive/bump/fall/qualify/win/checkpoint 等事件驱动音效与震动\n网络同步：源码含多人状态同步，solo 模式未启用"
+          }
+        },
+        {
+          "version_id": "v-3ea2ce3414bf",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D 平台障碍竞速 / 派对淘汰（Party Knockout Racing），支持键盘鼠标与手柄输入",
+            "core_gameplay": "玩家在天空主题的障碍赛道上操控角色奔跑、跳跃、俯冲、抓取，穿越或躲避机关，争取在规定时间内抵达终点或取得晋级名次。每场比赛设定 12 名参赛者，通过多轮淘汰制决出冠军。",
+            "controls": "输入设备：键盘 W/A/S/D 移动，SPACE 跳跃，E 俯冲/俯冲动作，SHIFT 按住抓取，M 切换音效，R 视角复位，鼠标点击并移动以环视，ENTER 跳入；手柄：按任意键连接，具体按键映射未确认。\n条件：角色在地面/空中可执行不同动作；抓取可能在悬边、拉拽或推挤时触发。\n反馈：键盘/鼠标直接映射角色移动与视角；界面显示操作提示；对应动作触发 bump/checkpoint/click/countdown/dive/fall/go/grab/jump/land/qualify/step/win 等音效。",
+            "rules": "目标：每轮抵达终点或在淘汰前取得晋级名次；最终决赛获得第一名。\n成功：第一轮进入前 8 名，第二轮进入前 4 名，决赛夺冠。\n失败：未达晋级名次、掉出赛道或超时。\n计分公式：未确认；晋级阈值直接来自界面文案——'12 RACERS. ONE CROWN.'、'12 RACE / 8 QUALIFY / 4 FINALISTS'，即 12 人参赛、8 人晋级、4 人进决赛、1 人夺冠。是否按完赛时间、积分或生存顺序排名未确认。",
+            "content": "固定内容：12 名参赛者规模、三轮赛制（12 进 8、8 进 4、决赛 1 冠）、标题菜单、'THE SKYLINE SHOW' 主题、'YOUR LOOK' 下的 7 个外观选择按钮、14 个 WAV 音效文件和 1 首 MPEG 背景音乐《cloud-club-race.mpeg》。\n程序生成：赛道障碍布局、每轮地图是否随机、关卡数量均未确认；源码静态分析有限，无法确认程序化生成范围。",
+            "systems": "1. 角色系统：基于 GLTFLoader 与 SkeletonUtils，使用骨骼网格角色，支持动画状态机（具体动画与状态未确认）。\n2. 输入系统：键盘事件、鼠标视角、手柄检测（Gamepad API）。\n3. 移动/物理系统：WASD 移动、SPACE 跳跃、E 俯冲、SHIFT 抓取，包含碰撞检测、掉落检测与复位逻辑（具体参数未确认）。\n4. 摄像机系统：第三人称跟随，支持鼠标环视与 R 键复位。\n5. 赛道/机关系统：障碍、检查点、终点线，触发 checkpoint/qualify/win 等事件。\n6. 音频系统：通过 Web Audio / HTMLAudio 播放 bump、checkpoint、click、countdown、dive、fall、go、grab、jump、land、qualify、step、win 等音效。\n7. UI 系统：标题、按钮、操作提示、HUD（HUD 未在实机中验证）。\n8. 比赛管理系统：轮次控制、晋级判定、参赛人数同步；多人网络联机部分未验证。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-3e0696472a94",
+      "title": "Only Down: Worlds",
+      "canonical_url": "https://remix.gg/g/only-down-worlds",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-b1da7c9499f4",
+          "status": "approved",
+          "profile": {
+            "engine": "Three.js 0.185.1",
+            "category": "街机 / 环塔下落",
+            "core_gameplay": "旋转塔层使弹跳球穿过缺口下落得分，避免红区；宝石、连续穿层火球和碎层影响得分。首局65分失败；重开清0；刷新后正常操作触发DOUBLE、METEOR、SMASH+50、宝石+25和WARDEN首领HIT+100，最终405分失败。",
+            "controls": "最多5验收检查点，允许必要普通操作：启动；左右旋转下落；原红区失败/结算；PLAY AGAIN重开；刷新及正常操作核对。完整动作与时间记录见证据。左右箭头/A/D及屏幕左右半区按压为原输入，主要实测ArrowRight与普通重玩按钮；未调用隐藏游戏方法。",
+            "rules": "hitFloor/bounce/addScore/portal/update五原方法规范AST完全相同。givePower/pass/smash/hitBoss/bossDown/die六方法仅删除this.api.hapticFeedback可选宿主震动调用，删除该调用后与原规范AST一致。原普通层、缺口/ghost、红区、玻璃、多次击打碎层、jelly弹跳、portal和Boss判定保留，没有将危险变安全或自动放行。实际只验证普通旋转下落、宝石加分和红区失败。",
+            "content": "",
+            "systems": ""
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    },
+    {
+      "id": "game-77eacb55a2ab",
+      "title": "Neon Heights",
+      "canonical_url": "https://remix.gg/g/neon-heights",
+      "description": "",
+      "profiles": [
+        {
+          "version_id": "v-d2f78c3fd783",
+          "status": "approved",
+          "profile": {
+            "engine": null,
+            "category": "射击",
+            "core_gameplay": "在霓虹都市广场拿起悬浮枪（Blaster）后进入Glitch Hunt波次射击：故障机器人（drone/swarm/bot/brute）从裂隙刷出，玩家用准星射击消灭，波次递进；被敌人近身接触扣心，心归零游戏结束",
+            "controls": "[实机] W前进、E右平移组合接近枪座，F拾取/放下Blaster，鼠标左键按屏幕敌人位置瞄准射击。[源码] S后退、A/D转向、Q左平移、Space跳跃；其他操作和触屏未实测。",
+            "rules": "[源码] 目标是消灭原波次队列并生存，伤害、连杀倍率、波间奖励及恢复心数均保留原逻辑。[实机] 3心开局，射击取得100分、接触损伤至0心，第1波失败及原结算，重开0分；没有验证清波成功或完整计分公式。",
+            "content": "单一主广场地图（含周边屋顶、展台、弹跳垫、移动平台等环境元素，部分为其他区域入口）；敌人4种（drone、swarm、bot、brute），波次按配置队列递增刷出；具体波次总数未验证",
+            "systems": "[实机] 拾取交互/倒计时/HUD、正常指向射击与100分反馈、敌人接近/接触伤害、Game Over、重开、原本地最高分刷新恢复。[源码] 敌人种类、生成池、后续波次、5000分成就等保留但未实测。"
+          }
+        },
+        {
+          "version_id": "v-8bb2d651843c",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "射击",
+            "core_gameplay": "在霓虹都市广场拿起悬浮枪（Blaster）后进入Glitch Hunt波次射击：故障机器人（drone/swarm/bot/brute）从裂隙刷出，玩家用准星射击消灭，波次递进；被敌人近身接触扣心，心归零游戏结束",
+            "controls": "W/上方向 → 前进（实机验证有位移）\nS/下方向 → 后退（实机验证）\nA/D或左右方向 → 转向（实机验证，D为右转）\nQ/E → 左右平移（仅源码确认）\nSpace → 跳跃（仅源码确认）\nShift → 冲刺（仅源码确认）\nF → 交互：拾取/放下Blaster（源码确认，实机未触发）\n鼠标左键 → 持枪时射击（仅源码确认）\n鼠标移动 → 视角/准星（仅源码确认）\nTab或P → 菜单；H或/ → 帮助（仅源码确认）",
+            "rules": "目标：消灭每波全部敌人；成功：波次清空得奖励分，部分波次恢复一颗心；失败：被敌人接触扣心，心归零游戏结束；计分：击杀伤敌按敌人基础分（drone 22、swarm 12、bot 30、brute 70）乘以连杀倍率；5000分解锁成就（源码确认）",
+            "content": "单一主广场地图（含周边屋顶、展台、弹跳垫、移动平台等环境元素，部分为其他区域入口）；敌人4种（drone、swarm、bot、brute），波次按配置队列递增刷出；具体波次总数未验证",
+            "systems": "敌人系统：裂隙预告→生成→接近/环绕/冲锋AI→受击扣血→死亡爆裂；射击系统：准星射线检测、命中爆裂与得分浮字；波次系统：队列生成、最大同屏限制、波间间歇；交互系统：半径1.7米内F键拾取；HUD系统：分数、心数、倍率、波次进度；以上均仅源码确认，实机未进入狩猎"
+          }
+        },
+        {
+          "version_id": "v-83036d563517",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "射击",
+            "core_gameplay": "在霓虹都市广场拿起悬浮枪（Blaster）后进入Glitch Hunt波次射击：故障机器人（drone/swarm/bot/brute）从裂隙刷出，玩家用准星射击消灭，波次递进；被敌人近身接触扣心，心归零游戏结束",
+            "controls": "W/上方向 → 前进（实机验证有位移）\nS/下方向 → 后退（实机验证）\nA/D或左右方向 → 转向（实机验证，D为右转）\nQ/E → 左右平移（仅源码确认）\nSpace → 跳跃（仅源码确认）\nShift → 冲刺（仅源码确认）\nF → 交互：拾取/放下Blaster（源码确认，实机未触发）\n鼠标左键 → 持枪时射击（仅源码确认）\n鼠标移动 → 视角/准星（仅源码确认）\nTab或P → 菜单；H或/ → 帮助（仅源码确认）",
+            "rules": "目标：消灭每波全部敌人；成功：波次清空得奖励分，部分波次恢复一颗心；失败：被敌人接触扣心，心归零游戏结束；计分：击杀伤敌按敌人基础分（drone 22、swarm 12、bot 30、brute 70）乘以连杀倍率；5000分解锁成就（源码确认）",
+            "content": "单一主广场地图（含周边屋顶、展台、弹跳垫、移动平台等环境元素，部分为其他区域入口）；敌人4种（drone、swarm、bot、brute），波次按配置队列递增刷出；具体波次总数未验证",
+            "systems": "敌人系统：裂隙预告→生成→接近/环绕/冲锋AI→受击扣血→死亡爆裂；射击系统：准星射线检测、命中爆裂与得分浮字；波次系统：队列生成、最大同屏限制、波间间歇；交互系统：半径1.7米内F键拾取；HUD系统：分数、心数、倍率、波次进度；以上均仅源码确认，实机未进入狩猎"
+          }
+        },
+        {
+          "version_id": "v-cffb216f77f2",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "射击",
+            "core_gameplay": "在霓虹都市广场拿起悬浮枪（Blaster）后进入Glitch Hunt波次射击：故障机器人（drone/swarm/bot/brute）从裂隙刷出，玩家用准星射击消灭，波次递进；被敌人近身接触扣心，心归零游戏结束",
+            "controls": "W/上方向 → 前进（实机验证有位移）\nS/下方向 → 后退（实机验证）\nA/D或左右方向 → 转向（实机验证，D为右转）\nQ/E → 左右平移（仅源码确认）\nSpace → 跳跃（仅源码确认）\nShift → 冲刺（仅源码确认）\nF → 交互：拾取/放下Blaster（源码确认，实机未触发）\n鼠标左键 → 持枪时射击（仅源码确认）\n鼠标移动 → 视角/准星（仅源码确认）\nTab或P → 菜单；H或/ → 帮助（仅源码确认）",
+            "rules": "目标：消灭每波全部敌人；成功：波次清空得奖励分，部分波次恢复一颗心；失败：被敌人接触扣心，心归零游戏结束；计分：击杀伤敌按敌人基础分（drone 22、swarm 12、bot 30、brute 70）乘以连杀倍率；5000分解锁成就（源码确认）",
+            "content": "单一主广场地图（含周边屋顶、展台、弹跳垫、移动平台等环境元素，部分为其他区域入口）；敌人4种（drone、swarm、bot、brute），波次按配置队列递增刷出；具体波次总数未验证",
+            "systems": "敌人系统：裂隙预告→生成→接近/环绕/冲锋AI→受击扣血→死亡爆裂；射击系统：准星射线检测、命中爆裂与得分浮字；波次系统：队列生成、最大同屏限制、波间间歇；交互系统：半径1.7米内F键拾取；HUD系统：分数、心数、倍率、波次进度；以上均仅源码确认，实机未进入狩猎"
+          }
+        },
+        {
+          "version_id": "v-ccc95ae4d8aa",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D平台探索 + 波次射击小游戏",
+            "core_gameplay": "玩家在霓虹城市广场中自由移动、跳跃、探索传送门；在广场内的 GLITCH HUNT 基座可拾取一把光束枪，进入倒计时后面对逐波刷新的故障敌人，使用右键瞄准射击，积累分数并挑战更高波次。",
+            "controls": "1. W / S 或 ↑ / ↓：前进 / 后退（实机验证角色可移动）。\n2. A / D 或 ← / →：左转 / 右转（源码确认，实机验证视角跟随转向）。\n3. Q / E：左平移 / 右平移（源码确认）。\n4. Space：跳跃，连按可二段跳（源码确认，未在实机中专门验证）。\n5. Shift：冲刺（源码确认）。\n6. 鼠标拖动 / 指针移动：调整视角（实机验证画面响应）。\n7. F：与可互动物体交互，如 GLITCH HUNT 基座拾取武器（源码确认，实机未成功触发）。\n8. 鼠标右键：键盘模式下开火射击（源码确认）。\n9. 鼠标左键：仅手柄映射模式下开火（源码确认）。",
+            "rules": "目标：在 GLITCH HUNT 中尽可能存活并清除更多波次敌人。\n成功：清空当前波次全部敌人，获得奖励分并进入休整；部分波次结束后恢复 1 颗心。\n失败：生命值归零或离开战斗区超过约 2.5 秒触发 GAME OVER。\n计分：击杀敌人累计分数，波次结束追加奖励分；成就阈值 5000 分；未确认单敌分值。",
+            "content": "固定内容：Neon Heights 广场主场景、多层建筑、传送门框架、GLITCH HUNT 武器基座、霓虹标识与 UI 字体。\n程序生成：远景城市建筑群由算法随机分布（源码确认）。\n未验证：其他通过传送门到达的子世界。",
+            "systems": "1. 角色：胶囊体移动、二段跳、冲刺、坠落重生。\n2. 相机：第三人称追踪，支持鼠标拖拽与右摇杆，跌落/跳跃时动态调整。\n3. 交互：半径内可互动物体显示 F 提示，按 F 触发回调。\n4. 武器：拾取后进入备战/波次状态，右键发射追踪射线并生成弹丸。\n5. 敌人：对象池管理，种类包括无人机、群虫、机器人、壮汉，拥有各自血量与攻击逻辑。\n6. HUD：显示标题、分数、生命、波次进度与横幅提示。\n7. 记录/成就：本地最佳记录与成就解锁。\n8. 存档：portalKit 本地存储。"
+          }
+        },
+        {
+          "version_id": "v-040dadf02a7d",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D平台探索 + 波次射击小游戏",
+            "core_gameplay": "玩家在霓虹城市广场中自由移动、跳跃、探索传送门；在广场内的 GLITCH HUNT 基座可拾取一把光束枪，进入倒计时后面对逐波刷新的故障敌人，使用右键瞄准射击，积累分数并挑战更高波次。",
+            "controls": "1. W / S 或 ↑ / ↓：前进 / 后退（实机验证角色可移动）。\n2. A / D 或 ← / →：左转 / 右转（源码确认，实机验证视角跟随转向）。\n3. Q / E：左平移 / 右平移（源码确认）。\n4. Space：跳跃，连按可二段跳（源码确认，未在实机中专门验证）。\n5. Shift：冲刺（源码确认）。\n6. 鼠标拖动 / 指针移动：调整视角（实机验证画面响应）。\n7. F：与可互动物体交互，如 GLITCH HUNT 基座拾取武器（源码确认，实机未成功触发）。\n8. 鼠标右键：键盘模式下开火射击（源码确认）。\n9. 鼠标左键：仅手柄映射模式下开火（源码确认）。",
+            "rules": "目标：在 GLITCH HUNT 中尽可能存活并清除更多波次敌人。\n成功：清空当前波次全部敌人，获得奖励分并进入休整；部分波次结束后恢复 1 颗心。\n失败：生命值归零或离开战斗区超过约 2.5 秒触发 GAME OVER。\n计分：击杀敌人累计分数，波次结束追加奖励分；成就阈值 5000 分；未确认单敌分值。",
+            "content": "固定内容：Neon Heights 广场主场景、多层建筑、传送门框架、GLITCH HUNT 武器基座、霓虹标识与 UI 字体。\n程序生成：远景城市建筑群由算法随机分布（源码确认）。\n未验证：其他通过传送门到达的子世界。",
+            "systems": "1. 角色：胶囊体移动、二段跳、冲刺、坠落重生。\n2. 相机：第三人称追踪，支持鼠标拖拽与右摇杆，跌落/跳跃时动态调整。\n3. 交互：半径内可互动物体显示 F 提示，按 F 触发回调。\n4. 武器：拾取后进入备战/波次状态，右键发射追踪射线并生成弹丸。\n5. 敌人：对象池管理，种类包括无人机、群虫、机器人、壮汉，拥有各自血量与攻击逻辑。\n6. HUD：显示标题、分数、生命、波次进度与横幅提示。\n7. 记录/成就：本地最佳记录与成就解锁。\n8. 存档：portalKit 本地存储。"
+          }
+        },
+        {
+          "version_id": "v-144703cb5f51",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D第一人称街机波次射击小游戏",
+            "core_gameplay": "玩家在霓虹城市广场中拾取武器，进入竞技场式波次战斗，射击不断刷新的故障风格敌人以累积分数并存活更多波次",
+            "controls": "W/↑ → 前进；S/↓ → 后退；A/← → 左转；D/→ → 右转；Q → 左平移；E → 右平移（源码确认）\nF → 拾取/放下武器、确认交互（源码确认）\n鼠标左键 → 射击（源码确认）\n鼠标拖动/右键按住 → 环绕视角（实机验证可旋转视角）\n跳跃、冲刺、手柄映射仅源码涉及，未在本流程实机验证",
+            "rules": "目标：拾取武器并尽可能存活更多波次、获得高分。成功条件：清空当前波次所有敌人。失败条件：血心耗尽或离开竞技场超过2.5秒。计分：击杀敌人累加，每波结束获得bonus。阈值：5000分成就、首波成就",
+            "content": "固定场景：Neon Heights广场及周围高层建筑；一个可重复挑战的竞技场式小游戏。波次队列与敌人类型在源码中可读，具体总关卡数/无尽模式未实机验证",
+            "systems": "第一人称移动与独立轨道相机系统；半径1.7m的交互拾取系统；敌人生成池与波次队列；射线射击与自动瞄准；血心、受击无敌时间、护甲状态；HUD（分数、波次、血心、进度、提示横幅）；本地记录与成就系统"
+          }
+        },
+        {
+          "version_id": "v-dcf547d0cae7",
+          "status": "draft",
+          "profile": {
+            "engine": null,
+            "category": "3D动作射击 / 平台跳跃 / 沙盒广场探索",
+            "core_gameplay": "在Neon Heights广场探索并靠近GLITCH HUNT武器基座，按F拾取光枪后进入倒计时波次战斗；用鼠标瞄准并射击消灭刷新的故障敌人，获取分数、波次奖励与最高分记录。",
+            "controls": "WASD / 方向键 → 控制角色移动与转向；\n鼠标拖拽 → 旋转相机视角；\nSpace → 跳跃；\nShift → 冲刺；\nF → 交互 / 拾取武器；\n鼠标左键 / 右键 → 瞄准并射击；\n以上键位基于引擎输入系统与源码确认，拾取与射击实机反馈尚未验证。",
+            "rules": "目标：尽可能存活并清波得分；\n成功：清空波次，获得奖励；\n失败：生命归零触发GAME OVER；\n计分：击杀得分 + 波次奖励，最高分阈值为5000分；\n离开广场超过2.5秒会被强制结束狩猎。",
+            "content": "固定场景Neon Heights中心广场一座；\n包含Portal门、GLITCH HUNT武器基座、弹跳台/光柱、多层霓虹建筑；\n敌人类型至少drone/swarm/bot/brute；\n波次配置由源码Tn函数定义，具体总数未确认。",
+            "systems": "1) 输入系统：处理键盘/鼠标/手柄事件，输出pressed/held/axes/rayAt等；\n2) 移动系统：将输入转为世界坐标移动与相机跟随；\n3) 交互系统：addInteractable检测半径内目标，F键触发onInteract；\n4) 战斗系统：拾取进入arming状态，启动wave，敌人按波次刷新，执行射击；\n5) HUD系统：显示标题、分数、生命、波次进度与横幅；\n6) 存档系统：records.best写localStorage；\n7) 成就系统：解锁指定成就。"
+          }
+        }
+      ],
+      "known_candidate_profiles": []
+    }
+  ],
+  "status": "source_distinction_reviewed_before_UI",
+  "UI": 0,
+  "reviewed_at": "2026-11-19T00:55:44.692056+00:00",
+  "finding": "Native NormalMode.removePlatform stops current horizontal platform tween and releases the original player onto the next moving platform; first release stops original Tutorial. Timing alignment of successive horizontal platforms, original3lives/laser/bullets/powerups/local skin currency. Whole loop differs from existing helix tower rotation, free-fall lateral steering, gravity wall switching, slide driving and match/Tetris falling pieces.",
+  "native_methods": [
+    "NormalMode.removePlatform",
+    "NormalMode.create",
+    "Gameplay inputEnabled/emitter",
+    "UI.setGameOverScreen"
+  ],
+  "closest_comparisons": [
+    {
+      "candidate": "game-4f641750199b",
+      "distinction": "Existing wall-to-wall gravity flip, timed survival; native removes moving support to land on next support."
+    },
+    {
+      "candidate": "game-f599905a0704",
+      "distinction": "Existing steer probe through tunnel cross-section; native platform release timing/landing."
+    },
+    {
+      "candidate": "game-7f700db4c8cb",
+      "distinction": "Existing rotates cylindrical tower gaps; native removes translating horizontal platform."
+    },
+    {
+      "candidate": "game-f0cf11eb69d5",
+      "distinction": "Existing rotates helix rings around ball; native release/landing timing."
+    },
+    {
+      "candidate": "game-3280594049c2",
+      "distinction": "Existing directly steers continuously falling cat; native controls platform removal."
+    }
+  ],
+  "regex": "doodle.?drop|9nmj2s1n0x52|下落|下降|坠|falling.*platform|tap.to.drop",
+  "whole_loop_review_complete": true,
+  "unreviewed_broad_hits": [],
+  "all_historical_candidates": 928,
+  "source_sha256": "50cbac12240d6f5670952fc390e4999e909b1618623adb11da662d4cf5c00176",
+  "source_signature": "Native NormalMode.removePlatform stops current horizontal platform tween and releases the original player onto the next moving platform; first release stops original Tutorial. Timing alignment of successive horizontal platforms, original3lives/laser/bullets/powerups/local skin currency. Whole loop differs from existing helix tower rotation, free-fall lateral steering, gravity wall switching, slide driving and match/Tetris falling pieces.",
+  "reviewed_related": [
+    {
+      "id": "game-615a3d62e1c5",
+      "title": "Prism Pony Deluxe",
+      "row_sha256": "3fe33807311ae350a571be8e4d4238a3a093b5300bf49ee5d130bffa17b8cbaa"
+    },
+    {
+      "id": "game-073dc9ad7787",
+      "title": "Elementalist",
+      "row_sha256": "eb9e990e13355b91ff9312eec12fcabd8fc0cf290d3c51111eaa9f15030dfc44"
+    },
+    {
+      "id": "game-7f700db4c8cb",
+      "title": "看谁下的快",
+      "row_sha256": "b0740e6554ceb2e115f62b43561fc85354f025b8474c50e352323679894f705e"
+    },
+    {
+      "id": "game-e59ce736d129",
+      "title": "Mr.13lackie",
+      "row_sha256": "1f770c14b9aac92690d108b5438776927d342df94b4fcd01f38ea6ed06af706f"
+    },
+    {
+      "id": "game-70c764b6f86e",
+      "title": "Perfect Piano",
+      "row_sha256": "bf0f90db3da991c821c841cac043d1dc1f6828af6de5792bf21b23e6506f355b"
+    },
+    {
+      "id": "game-84b1d19a7a63",
+      "title": "NetShark",
+      "row_sha256": "7e3f0e3e332028d38341a2fabe1b39a0c895ea917e9a18909f3888e5b1182ac2"
+    },
+    {
+      "id": "game-fe86fdf00bd4",
+      "title": "Fat Kids on Trampoline",
+      "row_sha256": "560c493772a5802e25b8244d0b8464bfbe92f556cf4985196e91b70eeb448f84"
+    },
+    {
+      "id": "game-6935952c5b7b",
+      "title": "Time of enjoy",
+      "row_sha256": "ce5e709aa03aa390ae9dd0ba5f6f5475f5e6f5a3b787275702b95c2277334952"
+    },
+    {
+      "id": "game-8a6d49da5e2a",
+      "title": "Emoji Swap",
+      "row_sha256": "389bd40915c41635aa2849962476b9dfa421baf289b29c1a75c1acd2f8e52ee9"
+    },
+    {
+      "id": "game-cdfdb35a40c3",
+      "title": "Lucky 13",
+      "row_sha256": "ec7250e0f0bfd6218004b7b639578fcf1545ad268934ecb97dfc3ee03af94e3e"
+    },
+    {
+      "id": "game-3280594049c2",
+      "title": "Little adventure of Mr Cat",
+      "row_sha256": "9c65b43749743e15ff828a8b9116386ecfc8694b8190f828f8212dfb854bf4aa"
+    },
+    {
+      "id": "game-0e4f10bdb78e",
+      "title": "Reversed Ice Throwers",
+      "row_sha256": "810a48789bb3dbc6a6a5efbb133deb69250f9eb3fae46f95eea598c0599c0a1b"
+    },
+    {
+      "id": "game-c9c239e32e43",
+      "title": "Tetris monochrome",
+      "row_sha256": "0f4b3c637b96f20facd28772a259d22b7b02d05202b87ab3d9ee18aca3ff1c2d"
+    },
+    {
+      "id": "game-0be000a94497",
+      "title": "Sky Bridge Classic",
+      "row_sha256": "fdaf17d15f990ad4af904b1c750a78a649de450fdad9570e613fc22790cb04dd"
+    },
+    {
+      "id": "game-76bfe71911ef",
+      "title": "Depth Charge",
+      "row_sha256": "71e020d2b6d5b8474888b61fcc06b170967f72877a41e1f30ae7e0d57e7b8a5d"
+    },
+    {
+      "id": "game-d60fefda10d8",
+      "title": "Falling Blocks",
+      "row_sha256": "72dbe2da5036e06a8ca7c03bf72da489fe5c47f68821c81dbd3c7c389b2991b7"
+    },
+    {
+      "id": "game-2d8f77103b8b",
+      "title": "Tower of Colors",
+      "row_sha256": "36ce5ec93d6080ed324fa3a3c717d9a74c3a9439585452b4e7dd9fc638a9aef7"
+    },
+    {
+      "id": "game-001c35730b6c",
+      "title": "Snakes and Ladders",
+      "row_sha256": "36d867f0018e70ff05afccb10017be06014607dcb21c5d103527031fe290a627"
+    },
+    {
+      "id": "game-7b4a925a84aa",
+      "title": "帮帮猫猫星人",
+      "row_sha256": "e51ac5e4f8a64ac1e14dea26541c2ac3475288db8254adf941068a34c0daa00b"
+    },
+    {
+      "id": "game-55d58f6826fa",
+      "title": "苹果贪吃蛇",
+      "row_sha256": "5af45c1278cfef6be14fdc65af0900dc08c434f49e959e04eedf477750b0a340"
+    },
+    {
+      "id": "game-c429ecdeca63",
+      "title": "我火力贼猛",
+      "row_sha256": "f9691ca211836fa6b5a035beb8e5cafc023a06bdf26a606f2cfcd98045e863d9"
+    },
+    {
+      "id": "game-92620989ee42",
+      "title": "公主爱拼豆",
+      "row_sha256": "e8443da4344e4a93f265089f27e11877686e16c954a426ac985f97f2b7187634"
+    },
+    {
+      "id": "game-09a3548774a1",
+      "title": "割绳子",
+      "row_sha256": "2e646d47549310bb035fad4e71d59b79183f9435104bd09fd0c5ce5cf4c63efb"
+    },
+    {
+      "id": "game-31d1af2bd2d6",
+      "title": "国王逃脱",
+      "row_sha256": "c3c242403ebe8b8afe57dd98062821ffd9164aa0188f82305cfd193b5a6f89f5"
+    },
+    {
+      "id": "game-f2c212204941",
+      "title": "俄罗斯方块2",
+      "row_sha256": "3e4cf207fb835ad018107642dc73168191ff7a5b5aa0538ca7c7426d7c76f07b"
+    },
+    {
+      "id": "game-963c56f7755d",
+      "title": "流沙俄罗斯方块",
+      "row_sha256": "cec77ec06c4172c6b7dc9367c961beece52940e5c507f3863a85dfa209b5c9ba"
+    },
+    {
+      "id": "game-9cb8b9e49343",
+      "title": "方块大爆炸",
+      "row_sha256": "b6152fea4d3b3c79fec1cebf00652c44bfdff98fb956655a83b21566731ed726"
+    },
+    {
+      "id": "game-3548506348c1",
+      "title": "合成大西瓜",
+      "row_sha256": "200c738605a1bb316cb6912f1763f984d455ee58e8439ca6230747bede482ad6"
+    },
+    {
+      "id": "game-df7400a594e3",
+      "title": "方块坠落",
+      "row_sha256": "e3c7dc6ed686b15adb13979a98be6f71b2e62b7793cb66dd2dffb477eae7ee22"
+    },
+    {
+      "id": "game-f0cf11eb69d5",
+      "title": "欢乐球球",
+      "row_sha256": "9e5a748760f34efdafeca494d99483c355389a4b36c8e8cb1213632b05d6131a"
+    },
+    {
+      "id": "game-9f6c68959721",
+      "title": "俄罗斯方块",
+      "row_sha256": "f05e46d156b68eee692f35d4e4a9b295b1684762c1a4d6081ad9ac3a0c7767dc"
+    },
+    {
+      "id": "game-ddabbefb5c22",
+      "title": "Play Roll & Reload - Free Online Game | Rosebud",
+      "row_sha256": "d0e6991a7dd6976f3754540ff69320a8d5c4241005647177e1bb85ba50850350"
+    },
+    {
+      "id": "game-4c181f8deefd",
+      "title": "Play Finger Haunt – Haunted Survival FPS - Free Online Game | Rosebud",
+      "row_sha256": "01d73ae901a62e1c218c84f94ba233e712e43bcd9083e948f87e4a7f1c24ee1f"
+    },
+    {
+      "id": "game-0d0812f60f88",
+      "title": "Play Don't Trust the Game - Free Online Game | Rosebud",
+      "row_sha256": "4a1fdec290b20945636f9c9d8e19652b361ea14ca922b93456e266cf96b5a84b"
+    },
+    {
+      "id": "game-8d3089542fcd",
+      "title": "Play Whip Worm - Free Online Game | Rosebud",
+      "row_sha256": "ad81ec5ae985a35a1a2bdae9b06e1aaec252b3e98256102618a929c78b778d11"
+    },
+    {
+      "id": "game-1248b7d58504",
+      "title": "Play Trenchwing - Free Online Game | Rosebud",
+      "row_sha256": "59b0f5cf67cf2182993d343a29d6749643c6d0826aa1de0087ee5ef5fefa692e"
+    },
+    {
+      "id": "game-677de80809a1",
+      "title": "Play Spinted Postal - Free Online Game | Rosebud",
+      "row_sha256": "ec5f010dfc7e86f5434e1aecee087eb5cf4e74c20054656dc63dcc8100ba3f60"
+    },
+    {
+      "id": "game-f47cb1635501",
+      "title": "Play Jose’s Kingdom - Free Online Game | Rosebud",
+      "row_sha256": "0656c4f5493deacd188d5f2c023d5930d4a8c7e3408867b6f661ecc35413e775"
+    },
+    {
+      "id": "game-f8c1c3d4abaf",
+      "title": "Play Gaster: Fractured Pattern - Free Online Game | Rosebud",
+      "row_sha256": "4e13dacefc1df558db34fe9ab10333d90f9cf597034c191ab270c34268a67e42"
+    },
+    {
+      "id": "game-9418903b0dd7",
+      "title": "Play Elemental Oddities - Free Online Game | Rosebud",
+      "row_sha256": "3eb5b50f370ec7c753985d2f610ca36cccc792ac0dad15c25e617ea8b2b142ac"
+    },
+    {
+      "id": "game-4f641750199b",
+      "title": "Play Drop or Don’t - Free Online Game | Rosebud",
+      "row_sha256": "ba6211a24cad0f8d5fde1970f383ed89343c89a07ea39ae4a84aa6591cb80708"
+    },
+    {
+      "id": "game-b878598c196d",
+      "title": "Play Chubby Knight: Food and Glory - Free Online Game | Rosebud",
+      "row_sha256": "8518ba7a8c134162a75fc6a608d0558e52177fef6c5efe9872aacc8520be707b"
+    },
+    {
+      "id": "game-c39929c0bb53",
+      "title": "Play Canyonwing - Free Online Game | Rosebud",
+      "row_sha256": "cd3ebaa397be02d8d9e9625ecb9c1c7aac3ade633079efd9259c03d1bc4e725f"
+    },
+    {
+      "id": "game-f599905a0704",
+      "title": "Play Eventide Drop - Free Online Game | Rosebud",
+      "row_sha256": "70c9c2055b82bdd082af565b4715fe6180b4d3911cc1296ba731f24db321f7cb"
+    },
+    {
+      "id": "game-9f7918d717d0",
+      "title": "Play Starwing - Free Online Game | Rosebud",
+      "row_sha256": "6baad2c483fb6d36aff8dcc89de947f079324fdd6fa71c2ecdbea32fc61d058a"
+    },
+    {
+      "id": "game-234a38815a31",
+      "title": "Play Space Exploration 2D GAME - Free Online Game | Rosebud",
+      "row_sha256": "bfd500376d7b5c5747a4db007830d3d217d14ad296d270025d918fdfd752fadd"
+    },
+    {
+      "id": "game-2aa648e9fc34",
+      "title": "Play Fireteam Frontline - Free Online Game | Rosebud",
+      "row_sha256": "0022447e242cf256e5bc209e24d97dfec8d661a1ffead89eb5c08be806e8741f"
+    },
+    {
+      "id": "game-fd2fef2a92cf",
+      "title": "Play SUPERHOT MARIO - Free Online Game | Rosebud",
+      "row_sha256": "e98286f7d23b7b979c5101b8ee005f3d5d6f5dc4711773733ec4575b1d9781a6"
+    },
+    {
+      "id": "game-906e53b45e15",
+      "title": "Plane Wars - 免费在线玩! | Poki (宝玩)",
+      "row_sha256": "1b7394f45ea20d2b6cbcfa6cfbd881968cd159c5ee2e25f758c4b7bbe81d0cd8"
+    },
+    {
+      "id": "game-059232f26ece",
+      "title": "Plonky - 免费在线玩! | Poki (宝玩)",
+      "row_sha256": "ce5722d34c9deeedc53011d07093e4b03f2114f8796159b37643cf6e613be2f4"
+    },
+    {
+      "id": "game-f5bde4d086e4",
+      "title": "Rainbow Obby - 免费在线玩! | Poki (宝玩)",
+      "row_sha256": "297780bf1c6f51257b44d1bb5803abdef29d1646533ba009c585062991ffbbc7"
+    },
+    {
+      "id": "game-633e79a24b37",
+      "title": "🎮 Real Survival: Not Fake 🕹️ Play on CrazyGames",
+      "row_sha256": "7210da895080d6796ef686f0025746fd3d3b270e6fefcd463941ab56b4967daa"
+    },
+    {
+      "id": "game-4b9a5eb6bc7f",
+      "title": "OvO Game 🏃 Play on CrazyGames",
+      "row_sha256": "d81b8589a877f62f4d5ab6948d25ba8eb3f4051e38cf1a1b5c235734188747ac"
+    },
+    {
+      "id": "game-212925e7c19c",
+      "title": "Paradise Plunge",
+      "row_sha256": "41f56bd882a10362565010e647f04ae8d8606a67c150dcafbc8132e210d8e140"
+    },
+    {
+      "id": "game-03d6a3473bf4",
+      "title": "Paper Grove on Remix – Play Now & Create Your Own Games",
+      "row_sha256": "bedeb1572ca29254d65e3cdb6120a717b7adfe387e3370cff1a96b5404e20412"
+    },
+    {
+      "id": "game-037d37ab7f62",
+      "title": "Grow Run 3D",
+      "row_sha256": "a9d7e1d389952c24a3a961446d55311b27c4efa102a06f4b27d29a3873438b37"
+    },
+    {
+      "id": "game-874320229982",
+      "title": "Coffin Coaster on Remix – Play Now & Create Your Own Games",
+      "row_sha256": "3d487e2fc7462f0c0209236037762f60b42e150772bedd518665521ee099f79f"
+    },
+    {
+      "id": "game-c99d41c29150",
+      "title": "PolyRace on Remix – Play Now & Create Your Own Games",
+      "row_sha256": "83d8cc397566602c320047f5e604e14400c925b1515709e87e73edcffd116a2f"
+    },
+    {
+      "id": "game-0821c637caba",
+      "title": "Small Fries",
+      "row_sha256": "b8b5ed12a6670efb2566f21ecf9fbf71fd3d3afa882d0a55cfc4ecbca10eea98"
+    },
+    {
+      "id": "game-3e0696472a94",
+      "title": "Only Down: Worlds",
+      "row_sha256": "8e9b2174294ee9e8d0ebbbc8df8ee10647375d2ae4e374248e3f03a6a9c280f6"
+    },
+    {
+      "id": "game-77eacb55a2ab",
+      "title": "Neon Heights",
+      "row_sha256": "b360218333ecdd6f63d9dfc0c8c616cab9040d5a99f99a0a88646790d8f88ca7"
+    }
+  ]
+}

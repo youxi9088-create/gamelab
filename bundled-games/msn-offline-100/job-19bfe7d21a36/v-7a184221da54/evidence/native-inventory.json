@@ -1,0 +1,448 @@
+{
+  "source_only": true,
+  "native_or_SDK_executed": false,
+  "sha256": "50cbac12240d6f5670952fc390e4999e909b1618623adb11da662d4cf5c00176",
+  "service_consumers": [
+    {
+      "callee": "i.default.SDK.onGameLoad",
+      "owner": "a.prototype.preload",
+      "start": 1056846,
+      "end": 1056872,
+      "source": "i.default.SDK.onGameLoad()"
+    },
+    {
+      "callee": "i.default.SDK.onGameLoading",
+      "owner": "a.prototype.preload",
+      "start": 1057182,
+      "end": 1057212,
+      "source": "i.default.SDK.onGameLoading(a)"
+    },
+    {
+      "callee": "r.default.SDK.getDataMeta",
+      "owner": "o.prototype.onGameLoad",
+      "start": 1065182,
+      "end": 1065209,
+      "source": "r.default.SDK.getDataMeta()"
+    },
+    {
+      "callee": "r.default.SDK.getDataStars",
+      "owner": "o.prototype.onGameLoad",
+      "start": 1065210,
+      "end": 1065238,
+      "source": "r.default.SDK.getDataStars()"
+    },
+    {
+      "callee": "r.default.SDK.getDataHighScore",
+      "owner": "o.prototype.onGameLoad",
+      "start": 1065239,
+      "end": 1065271,
+      "source": "r.default.SDK.getDataHighScore()"
+    },
+    {
+      "callee": "r.default.SDK.HighestScore.toString",
+      "owner": "o.prototype.getDataHighScore",
+      "start": 1066248,
+      "end": 1066285,
+      "source": "r.default.SDK.HighestScore.toString()"
+    },
+    {
+      "callee": "s.default.SDK.setBase64Image",
+      "owner": "r.prototype.mainMenuStart",
+      "start": 1079495,
+      "end": 1079563,
+      "source": "s.default.SDK.setBase64Image(this.generateBase64(\"fbinstant_share\"))"
+    },
+    {
+      "callee": "s.default.SDK.onGameRestart",
+      "owner": "r.prototype.startGame",
+      "start": 1083300,
+      "end": 1083359,
+      "source": "s.default.SDK.onGameRestart(this.registry.get(\"highScore\"))"
+    },
+    {
+      "callee": "s.default.SDK.onGameStart",
+      "owner": "r.prototype.startGame",
+      "start": 1083385,
+      "end": 1083412,
+      "source": "s.default.SDK.onGameStart()"
+    },
+    {
+      "callee": "s.default.SDK.setDataMeta",
+      "owner": "r.prototype.setMeta",
+      "start": 1088555,
+      "end": 1088596,
+      "source": "s.default.SDK.setDataMeta(s.default.meta)"
+    },
+    {
+      "callee": "s.default.SDK.setDataStars",
+      "owner": "r.prototype.setStars",
+      "start": 1088725,
+      "end": 1088768,
+      "source": "s.default.SDK.setDataStars(s.default.stars)"
+    },
+    {
+      "callee": "s.default.SDK.createTournament",
+      "owner": "r.prototype.SDKCreateTournament",
+      "start": 1097161,
+      "end": 1097194,
+      "source": "s.default.SDK.createTournament(0)"
+    },
+    {
+      "callee": "s.default.SDK.onGameRestart",
+      "owner": "r.prototype.SDKStartTournament",
+      "start": 1097598,
+      "end": 1097657,
+      "source": "s.default.SDK.onGameRestart(this.registry.get(\"highScore\"))"
+    },
+    {
+      "callee": "s.default.SDK.onGameStart",
+      "owner": "r.prototype.SDKStartTournament",
+      "start": 1097683,
+      "end": 1097710,
+      "source": "s.default.SDK.onGameStart()"
+    },
+    {
+      "callee": "s.default.SDK.setDataHighScore",
+      "owner": "r.prototype.debugButton",
+      "start": 1098096,
+      "end": 1098130,
+      "source": "s.default.SDK.setDataHighScore(10)"
+    },
+    {
+      "callee": "s.default.SDK.setDataStars",
+      "owner": "r.prototype.debugButton",
+      "start": 1098131,
+      "end": 1098162,
+      "source": "s.default.SDK.setDataStars(5e3)"
+    },
+    {
+      "callee": "s.default.SDK.setDataMeta",
+      "owner": "r.prototype.debugButton",
+      "start": 1098163,
+      "end": 1098211,
+      "source": "s.default.SDK.setDataMeta(s.default.metaInitial)"
+    },
+    {
+      "callee": "s.default.SDK.setDataStars",
+      "owner": "i.prototype.addStars",
+      "start": 1107348,
+      "end": 1107391,
+      "source": "s.default.SDK.setDataStars(s.default.stars)"
+    },
+    {
+      "callee": "n.default.SDK.showAd",
+      "owner": "o.prototype.closeGame",
+      "start": 1142508,
+      "end": 1142565,
+      "source": "n.default.SDK.showAd(!1,this.onInterStitialAd.bind(this))"
+    },
+    {
+      "callee": "n.default.SDK.onGameExit",
+      "owner": "o.prototype.onInterStitialAd",
+      "start": 1142627,
+      "end": 1142710,
+      "source": "n.default.SDK.onGameExit(this.registry.get(\"score\"),this.registry.get(\"highScore\"))"
+    },
+    {
+      "callee": "n.default.SDK.showAd",
+      "owner": "o.prototype.showGameAd",
+      "start": 1143801,
+      "end": 1143853,
+      "source": "n.default.SDK.showAd(!0,this.onRewardsAd.bind(this))"
+    },
+    {
+      "callee": "n.default.SDK.sendScore",
+      "owner": "o.prototype.showRetryMenu",
+      "start": 1145006,
+      "end": 1145057,
+      "source": "n.default.SDK.sendScore(this.registry.get(\"score\"))"
+    },
+    {
+      "callee": "n.default.SDK.setDataHighScore",
+      "owner": "o.prototype.showRetryMenu",
+      "start": 1145169,
+      "end": 1145227,
+      "source": "n.default.SDK.setDataHighScore(n.default.SDK.HighestScore)"
+    },
+    {
+      "callee": "n.default.SDK.onResultScreen",
+      "owner": "o.prototype.showRetryMenu",
+      "start": 1145229,
+      "end": 1145316,
+      "source": "n.default.SDK.onResultScreen(this.registry.get(\"score\"),this.registry.get(\"highScore\"))"
+    },
+    {
+      "callee": "n.default.SDK.onGamePause",
+      "owner": "o.prototype.pauseGame",
+      "start": 1145391,
+      "end": 1145418,
+      "source": "n.default.SDK.onGamePause()"
+    },
+    {
+      "callee": "n.default.SDK.onGameResume",
+      "owner": "o.prototype.resumeGame",
+      "start": 1145878,
+      "end": 1145906,
+      "source": "n.default.SDK.onGameResume()"
+    },
+    {
+      "callee": "n.default.SDK.showStickyAds",
+      "owner": "o.prototype.restartGame",
+      "start": 1156220,
+      "end": 1156249,
+      "source": "n.default.SDK.showStickyAds()"
+    },
+    {
+      "callee": "n.default.SDK.onGameRestart",
+      "owner": "o.prototype.restartGame",
+      "start": 1156250,
+      "end": 1156309,
+      "source": "n.default.SDK.onGameRestart(this.registry.get(\"highScore\"))"
+    },
+    {
+      "callee": "n.default.SDK.shareAsPost",
+      "owner": "o.prototype.SDKShare",
+      "start": 1159917,
+      "end": 1159970,
+      "source": "n.default.SDK.shareAsPost(this.registry.get(\"score\"))"
+    }
+  ],
+  "selected_methods": [
+    {
+      "name": "a.prototype.loadSprites",
+      "start": 1057428,
+      "end": 1060966,
+      "source": "a.prototype.loadSprites=function(){this.load.image(\"logo\",\"Sprites/hammerplay-logo-flat.png\"),this.load.image(\"laser\",\"Sprites/laser.png\"),this.load.image(\"background-01\",\"Sprites/background-01.png\"),this.load.image(\"BG_Gradients\",\"Sprites/BG_Gradients.png\"),this.load.unityAtlas(\"BG_Patterns_0\",\"Sprites/BG_Patterns_0.png\",\"Sprites/BG_Patterns_0.png.meta\"),this.load.unityAtlas(\"bullet\",\"Sprites/bullet.png\",\"Sprites/bullet.png.meta\"),this.load.image(\"NextButton\",\"Sprites/next-button.png\"),this.load.image(\"Life\",\"Sprites/life-heart.png\"),this.load.image(\"Dead\",\"Sprites/life-heart-outline.png\"),this.load.image(\"GameLogo\",\"Sprites/game-logo.png\"),this.load.image(\"Character_Dead0\",\"Sprites/Character_Dead.png\"),this.load.image(\"Character_Dead1\",\"Sprites/Character_Dead_1.png\"),this.load.image(\"Character_Dead2\",\"Sprites/Character_Dead_2.png\"),this.load.image(\"Character_Dead3\",\"Sprites/Character_Dead_3.png\"),this.load.image(\"Character_Dead4\",\"Sprites/Character_Dead_4.png\"),this.load.image(\"Character_Dead5\",\"Sprites/Character_Dead_5.png\"),this.load.image(\"Character_Dead6\",\"Sprites/Character_Dead_6.png\"),this.load.image(\"Character_Dead7\",\"Sprites/Character_Dead_7.png\"),this.load.image(\"Character_Dead8\",\"Sprites/Character_Dead_8.png\"),this.load.image(\"Character_Dead9\",\"Sprites/Character_Dead_9.png\"),this.load.unityAtlas(\"Character_1\",\"Sprites/Character_1.png\",\"Sprites/Character_1.png.meta\"),this.load.unityAtlas(\"Characters_2\",\"Sprites/Characters_2.png\",\"Sprites/Characters_2.png.meta\"),this.load.unityAtlas(\"Characters_3\",\"Sprites/Characters_3.png\",\"Sprites/Characters_3.png.meta\"),this.load.image(\"english\",\"Sprites/english.png\"),this.load.image(\"french\",\"Sprites/french.png\"),this.load.image(\"spanish\",\"Sprites/spanish.png\"),this.load.unityAtlas(\"Clouds_2\",\"Sprites/Clouds_2.png\",\"Sprites/Clouds_2.png.meta\"),this.load.unityAtlas(\"explosion\",\"Sprites/explosion.png\",\"Sprites/explosion.png.meta\"),this.load.image(\"Glow\",\"Sprites/Glow.png\"),this.load.atlas(\"hand\",\"Sprites/hand.png\",\"Sprites/hand.json\"),this.load.unityAtlas(\"Platform\",\"Sprites/Platform.png\",\"Sprites/Platform.png.meta\"),this.load.unityAtlas(\"Platforms_1\",\"Sprites/Platforms_1.png\",\"Sprites/Platforms_1.png.meta\"),this.load.unityAtlas(\"Platforms_2\",\"Sprites/Platforms_2.png\",\"Sprites/Platforms_2.png.meta\"),this.load.unityAtlas(\"Platforms_3\",\"Sprites/Platforms_3.png\",\"Sprites/Platforms_3.png.meta\"),this.load.unityAtlas(\"PowerUps\",\"Sprites/PowerUps.png\",\"Sprites/PowerUps.png.meta\"),this.load.unityAtlas(\"RubixCube\",\"Sprites/RubixCube.png\",\"Sprites/RubixCube.png.meta\"),this.load.unityAtlas(\"ScoreBoard\",\"Sprites/ScoreBoard.png\",\"Sprites/ScoreBoard.png.meta\"),this.load.unityAtlas(\"smoke\",\"Sprites/smoke.png\",\"Sprites/smoke.png.meta\"),this.load.image(\"taptodrop\",\"Sprites/taptodrop.png\"),this.load.image(\"closeButton\",\"Sprites/closeButton.png\"),this.load.image(\"panel\",\"Sprites/closeButton.png\"),this.load.unityAtlas(\"UI_New\",\"Sprites/UI_New.png\",\"Sprites/UI_New.png.meta\"),this.load.unityAtlas(\"Ui\",\"Sprites/Ui.png\",\"Sprites/Ui.png.meta\"),this.load.unityAtlas(\"Ui_4\",\"Sprites/Ui_4.png\",\"Sprites/Ui_4.png.meta\"),this.load.unityAtlas(\"warning\",\"Sprites/warning.png\",\"Sprites/warning.png.meta\"),this.load.image(\"get-stars\",\"Sprites/get-stars.png\"),this.load.image(\"lock-icon\",\"Sprites/lock-icon.png\"),this.load.image(\"howtoplay1\",\"Sprites/howtoplay/howtoplay1.png\"),this.load.image(\"howtoplay2\",\"Sprites/howtoplay/howtoplay2.png\"),this.load.image(\"howtoplay3\",\"Sprites/howtoplay/howtoplay3.png\"),this.load.image(\"howtoplay4\",\"Sprites/howtoplay/howtoplay4.png\")}"
+    },
+    {
+      "name": "a.prototype.loadAudio",
+      "start": 1060967,
+      "end": 1061374,
+      "source": "a.prototype.loadAudio=function(){this.load.audio(\"bgm\",\"Audio/bgm.mp3\"),this.load.audio(\"Drop\",\"Audio/Score_swap.mp3\"),this.load.audio(\"Star\",\"Audio/coin_collect.mp3\"),this.load.audio(\"Power Up\",\"Audio/drop_item.mp3\"),this.load.audio(\"Fall\",\"Audio/DM-CGS-22.mp3\"),this.load.audio(\"Click\",\"Audio/DM-CGS-21.mp3\"),this.load.audio(\"Explosion\",\"Audio/explosion_2.mp3\"),this.load.audio(\"Laser\",\"Audio/Laser.mp3\")}"
+    },
+    {
+      "name": "a.prototype.proceedLoadStage",
+      "start": 1062439,
+      "end": 1062757,
+      "source": "a.prototype.proceedLoadStage=function(){var t=this;console.log(\"Load Stage A:\",this.loadStage),this.loadStage<2&&(this.loadStage++,2==this.loadStage&&(this.loadStage++,this.time.delayedCall(3e3,function(){t.loadingScreen.classList.add(\"hide\"),t.scene.launch(\"MainMenu\")}))),console.log(\"Load Stage B:\",this.loadStage)}"
+    },
+    {
+      "name": "o.prototype.getDataMeta",
+      "start": 1066804,
+      "end": 1067268,
+      "source": "o.prototype.getDataMeta=function(){r.default.meta=localStorage.getItem(\"hammerplay_doodledrop_meta\"),null==r.default.meta?(r.default.meta=r.default.metaInitial,localStorage.setItem(\"hammerplay_doodledrop_meta\",JSON.stringify(r.default.meta)),r.default.meta=JSON.parse(localStorage.getItem(\"hammerplay_doodledrop_meta\")),r.default.characterIndex=0):r.default.meta=JSON.parse(localStorage.getItem(\"hammerplay_doodledrop_meta\")),a.default.instance.proceedLoadStage()}"
+    },
+    {
+      "name": "o.prototype.setDataMeta",
+      "start": 1067269,
+      "end": 1067374,
+      "source": "o.prototype.setDataMeta=function(t){localStorage.setItem(\"hammerplay_doodledrop_meta\",JSON.stringify(t))}"
+    },
+    {
+      "name": "o.prototype.debugSDK",
+      "start": 1067375,
+      "end": 1067438,
+      "source": "o.prototype.debugSDK=function(t){this.canDebug&&console.log(t)}"
+    },
+    {
+      "name": "o.prototype.showAd",
+      "start": 1067553,
+      "end": 1068087,
+      "source": "o.prototype.showAd=function(t,e){console.log(\"Checking if msStart is available:\",null!=n),t?null!=n?n.loadAdsAsync(!0).then(function(t){n.showAdsAsync(t.instanceId).then(function(t){t.showAdsCompletedAsync.then(function(t){e(!0)}).catch(function(t){e(!1)})})}).catch(function(t){e(!1)}).catch(function(t){e(!1)}):e(!1):null!=n?n.loadAdsAsync().then(function(t){n.showAdsAsync(t.instanceId).then(function(t){t.showAdsCompletedAsync.then(function(t){e()}).catch(function(t){e()})})}).catch(function(t){e()}).catch(function(t){e()}):e()}"
+    },
+    {
+      "name": "r.prototype.createHowToPlayPanel",
+      "start": 1085547,
+      "end": 1087054,
+      "source": "r.prototype.createHowToPlayPanel=function(){var t=this,e=this.add.sprite(0,.8*s.default.MAX_HEIGHT_HALF,\"BG_Gradients\").setScale(3,1.125).setTint(16753110).setAlpha(.7333333).setScrollFactor(1,0);this.howToPlayContainer.add(e);var a=this.add.sprite(0,700,\"Ui\",\"Ui_0\").setScale(.375);a.setInteractive(),a.on(\"pointerup\",function(){t.sound.play(\"Click\"),t.howToPlayResetSlides(),t.howToPlayContainer.setVisible(!1),t.mainMenuContainer.setVisible(!0)},this),this.howToPlayContainer.add(a);var i=this.add.image(0,690,\"closeButton\").setScale(.66).setOrigin(.5);this.howToPlayContainer.add(i),this.howToPlayRightButton=this.add.image(440,-300,\"NextButton\").setInteractive(),this.howToPlayContainer.add(this.howToPlayRightButton),this.howToPlayRightButton.on(\"pointerup\",function(){t.sound.play(\"Click\"),t.howToPlayNextSlide()},this),this.howToPlayLeftButton=this.add.image(-440,-300,\"NextButton\").setFlipX(!0).setInteractive(),this.howToPlayContainer.add(this.howToPlayLeftButton),this.howToPlayLeftButton.on(\"pointerup\",function(){t.sound.play(\"Click\"),t.howToPlayPreviousSlide()},this),this.howToPlayLabelNode=this.add.text(0,420,\"How to play Doodle Drop?\",{fontFamily:\"FredokaOne\",fontSize:\"64px\",fontStyle:\"bold\",fill:\"#712E3A\"}).setOrigin(.5,.5),this.howToPlayContainer.add(this.howToPlayLabelNode),this.howToPlaySpriteNode=this.add.image(0,-300,\"closeButton\").setScale(1).setOrigin(.5),this.howToPlayContainer.add(this.howToPlaySpriteNode),this.howToPlayResetSlides(),this.howToPlayContainer.setVisible(!1)}"
+    },
+    {
+      "name": "r.prototype.howToPlayResetSlides",
+      "start": 1087055,
+      "end": 1087378,
+      "source": "r.prototype.howToPlayResetSlides=function(){this.howToPlayCurrentSlide=0,this.howToPlaySpriteNode.setTexture(this.howToPlaySprites[this.howToPlayCurrentSlide]),this.howToPlayLabelNode.setText(this.howToPlayLabels[this.howToPlayCurrentSlide]),this.howToPlayLeftButton.setVisible(!1),this.howToPlayRightButton.setVisible(!0)}"
+    },
+    {
+      "name": "r.prototype.howToPlayNextSlide",
+      "start": 1087379,
+      "end": 1087891,
+      "source": "r.prototype.howToPlayNextSlide=function(){this.howToPlayCurrentSlide<this.howToPlayLastSlide&&(this.howToPlayCurrentSlide++,this.howToPlaySpriteNode.setTexture(this.howToPlaySprites[this.howToPlayCurrentSlide]),this.howToPlayLabelNode.setText(this.howToPlayLabels[this.howToPlayCurrentSlide]),this.howToPlayCurrentSlide==this.howToPlayLastSlide?(this.howToPlayLeftButton.setVisible(!0),this.howToPlayRightButton.setVisible(!1)):(this.howToPlayLeftButton.setVisible(!0),this.howToPlayRightButton.setVisible(!0)))}"
+    },
+    {
+      "name": "r.prototype.howToPlayPreviousSlide",
+      "start": 1087892,
+      "end": 1088364,
+      "source": "r.prototype.howToPlayPreviousSlide=function(){this.howToPlayCurrentSlide>0&&(this.howToPlayCurrentSlide--,this.howToPlaySpriteNode.setTexture(this.howToPlaySprites[this.howToPlayCurrentSlide]),this.howToPlayLabelNode.setText(this.howToPlayLabels[this.howToPlayCurrentSlide]),0==this.howToPlayCurrentSlide?(this.howToPlayLeftButton.setVisible(!1),this.howToPlayRightButton.setVisible(!0)):(this.howToPlayLeftButton.setVisible(!0),this.howToPlayRightButton.setVisible(!0)))}"
+    },
+    {
+      "name": "r.prototype.getMeta",
+      "start": 1088365,
+      "end": 1088493,
+      "source": "r.prototype.getMeta=function(){for(var t=0;t<s.default.metaLength;t++)1==s.default.meta[t].status&&(s.default.characterIndex=t)}"
+    },
+    {
+      "name": "r.prototype.setMeta",
+      "start": 1088494,
+      "end": 1088597,
+      "source": "r.prototype.setMeta=function(t,e){s.default.meta[t].status=e,s.default.SDK.setDataMeta(s.default.meta)}"
+    },
+    {
+      "name": "r.prototype.SDKCreateTournament",
+      "start": 1097082,
+      "end": 1097455,
+      "source": "r.prototype.SDKCreateTournament=function(){var t=this;this.sound.play(\"Click\"),s.default.SDK.createTournament(0),this.tournamentHostContainer.setVisible(!1),this.tournamentListContainer.setVisible(!1),this.tournamentLoadingContainer.setVisible(!0),this.time.delayedCall(5e3,function(){t.tournamentLoadingContainer.setVisible(!1),t.tournamentStartContainer.setVisible(!0)})}"
+    },
+    {
+      "name": "r.prototype.SDKStartTournament",
+      "start": 1097456,
+      "end": 1097768,
+      "source": "r.prototype.SDKStartTournament=function(){this.sound.play(\"Click\"),this.scene.start(\"NormalMode\"),this.scene.start(\"UI\"),s.default.FIRST_TIME?s.default.SDK.onGameRestart(this.registry.get(\"highScore\")):(s.default.FIRST_TIME=!0,s.default.SDK.onGameStart()),s.default.TUTORIAL_SHOWN||this.scene.launch(\"Tutorial\")}"
+    },
+    {
+      "name": "i.prototype.setGameOver",
+      "start": 1110021,
+      "end": 1110096,
+      "source": "i.prototype.setGameOver=function(){s.default.vibrate(100),this.gameOver=!0}"
+    },
+    {
+      "name": "i.prototype.showGameOverMenu",
+      "start": 1110195,
+      "end": 1110303,
+      "source": "i.prototype.showGameOverMenu=function(){console.log(\"GAME OVER SCREEN\"),this.emitter.emit(\"gameOverScreen\")}"
+    },
+    {
+      "name": "i.prototype.spawnCollectibles",
+      "start": 1112572,
+      "end": 1112668,
+      "source": "i.prototype.spawnCollectibles=function(t){this.randomizeCollectibles(t),this.setCollectibles(t)}"
+    },
+    {
+      "name": "i.prototype.spawnCollectibles",
+      "start": 1137576,
+      "end": 1137701,
+      "source": "i.prototype.spawnCollectibles=function(t){this.currentCollectibles=\"star\",this.currentStar=\"rainbow\",this.setCollectibles(t)}"
+    },
+    {
+      "name": "o.prototype.onInterStitialAd",
+      "start": 1142567,
+      "end": 1142711,
+      "source": "o.prototype.onInterStitialAd=function(){this.goToMainMenu(),n.default.SDK.onGameExit(this.registry.get(\"score\"),this.registry.get(\"highScore\"))}"
+    },
+    {
+      "name": "o.prototype.setGameOverScreen",
+      "start": 1142712,
+      "end": 1143334,
+      "source": "o.prototype.setGameOverScreen=function(){var t=this;switch(this.inGame=!1,n.default.lives-=1,n.default.lives){case 0:this.lifeUI1.setTexture(\"Dead\");break;case 1:this.lifeUI2.setTexture(\"Dead\");break;case 2:this.lifeUI3.setTexture(\"Dead\")}n.default.lives>0?setTimeout(function(){t.inGame=!0,t.gameScene.revive()},500):(this.paused=!0,this.scene.isActive(\"NormalMode\")&&this.scene.pause(\"NormalMode\"),s.SDKManager.isAdWatch?(n.default.lives=0,this.pauseContainer.setVisible(!1),this.rubixContainer.setVisible(!1),this.lifeContainer.setVisible(!1),this.starsContainer.setVisible(!1),this.showRetryMenu()):this.showAdMenu())}"
+    },
+    {
+      "name": "o.prototype.showAdMenu",
+      "start": 1143335,
+      "end": 1143504,
+      "source": "o.prototype.showAdMenu=function(){this.gameScene.cameras.main.setAlpha(.5),this.retryContainer.setVisible(!1),this.adContainer.setVisible(!0),this.countDownTween.play()}"
+    },
+    {
+      "name": "o.prototype.onRewardsAd",
+      "start": 1143855,
+      "end": 1144646,
+      "source": "o.prototype.onRewardsAd=function(t){var e=this;this.adWaitingContainer.setVisible(!1),this.loadingPanel.setVisible(!1),this.sound.mute=!a.default.isAudioOn,console.log(\"Audio restored after ad:\",this.sound.mute),t&&!s.SDKManager.isAdWatch?(this.scene.isPaused(\"NormalMode\")&&this.scene.resume(\"NormalMode\"),s.SDKManager.isAdWatch=!0,console.log(\"Ad Watch\",s.SDKManager.isAdWatch),n.default.lives=1,this.lifeUI1.setTexture(\"Life\"),this.gameScene.cameras.main.setAlpha(1),setTimeout(function(){e.gameScene.revive()},550),this.pauseContainer.setVisible(!0),this.rubixContainer.setVisible(!0),this.lifeContainer.setVisible(!0),this.starsContainer.setVisible(!0),this.inGame=!0):(this.countDownTween.stop(),this.adContainer.setVisible(!1),this.retryContainer.setVisible(!1),this.showRetryMenu())}"
+    },
+    {
+      "name": "o.prototype.showRetryMenu",
+      "start": 1144647,
+      "end": 1145317,
+      "source": "o.prototype.showRetryMenu=function(){this.gameScene.cameras.main.setAlpha(.5),this.finalScoreText.setText(this.registry.get(\"score\")),this.finalHighScoreText.setText(i.Localisation.TEXTS.GAME_BEST_TEXT[n.default.langIndex]+\": \"+this.registry.get(\"highScore\")),this.retryContainer.setVisible(!0),this.scoreText.setVisible(!1),this.highScoreText.setVisible(!1),n.default.SDK.sendScore(this.registry.get(\"score\")),this.registry.get(\"score\")>=n.default.SDK.HighestScore&&(n.default.SDK.HighestScore=this.registry.get(\"score\"),n.default.SDK.setDataHighScore(n.default.SDK.HighestScore)),n.default.SDK.onResultScreen(this.registry.get(\"score\"),this.registry.get(\"highScore\"))}"
+    },
+    {
+      "name": "o.prototype.setRetryMenu",
+      "start": 1149556,
+      "end": 1151251,
+      "source": "o.prototype.setRetryMenu=function(){this.scoreBoard=this.add.image(0,0,\"ScoreBoard\",\"ScoreBoard_0\").setOrigin(.5).setScale(.75).setRotation(3.14),this.retryHeader=this.add.text(0,-266,i.Localisation.TEXTS.GAME_OVER_TEXT[n.default.langIndex],{fontFamily:\"FredokaOne\",fontSize:\"120px\",fontStyle:\"bold\",fill:\"#712E3A\",strokeThickness:16}).setOrigin(.5);var t=this.add.text(0,-.325*this.scoreBoard.displayHeight,i.Localisation.TEXTS.GAME_SCORE_TEXT[n.default.langIndex],{fontSize:\"105px\",fontStyle:\"bold\",fill:\"#FFF\",align:\"center\"}).setShadow(11.25,11.25,\"#EC8451\").setOrigin(.5);this.finalScoreText=this.add.text(0,3.75,\"0\",{fontSize:\"225px\",fontStyle:\"bold\",fill:\"#FFF\"}),this.finalScoreText.setShadow(18.75,18.75,\"#EC8451\").setOrigin(.5),this.finalHighScoreText=this.add.text(0,.29*this.scoreBoard.displayHeight,i.Localisation.TEXTS.GAME_BEST_TEXT[n.default.langIndex]+\": 0\",{fontSize:\"75px\",fontStyle:\"bold\",fill:\"#FFF\"}).setShadow(11.25,11.25,\"#EC8451\").setOrigin(.5,.5);var e=this.add.container(this.width_half,.4*this.height,[this.scoreBoard,t,this.finalScoreText,this.finalHighScoreText,this.retryHeader]);this.retryButton=this.add.image(0,0,\"UI_New\",\"UI_New_3\").setInteractive().setOrigin(.5);var s=this.add.image(0,0,\"UI_New\",\"UI_New_1\").setOrigin(.5),a=this.add.container(this.width_half-250,.6*this.height,[this.retryButton,s]).setScale(.5625);this.exitButton=this.add.image(0,0,\"UI_New\",\"UI_New_3\").setInteractive().setOrigin(.5);var o=this.add.image(0,0,\"closeButton\").setOrigin(.5),h=this.add.container(this.width_half+250,.6*this.height,[this.exitButton,o]).setScale(.5625);this.retryContainer=this.add.container(0,0,[e,a,h]),this.retryContainer.setVisible(!1).setScrollFactor(1,0)}"
+    },
+    {
+      "name": "o.prototype.SDKShare",
+      "start": 1159860,
+      "end": 1159971,
+      "source": "o.prototype.SDKShare=function(){this.sound.play(\"Click\"),n.default.SDK.shareAsPost(this.registry.get(\"score\"))}"
+    }
+  ],
+  "resources": [
+    "Audio/DM-CGS-21.mp3",
+    "Audio/DM-CGS-22.mp3",
+    "Audio/Laser.mp3",
+    "Audio/Score_swap.mp3",
+    "Audio/bgm.mp3",
+    "Audio/coin_collect.mp3",
+    "Audio/drop_item.mp3",
+    "Audio/explosion_2.mp3",
+    "Sprites/BG_Gradients.png",
+    "Sprites/BG_Patterns_0.png",
+    "Sprites/BG_Patterns_0.png.meta",
+    "Sprites/Character_1.png",
+    "Sprites/Character_1.png.meta",
+    "Sprites/Character_Dead.png",
+    "Sprites/Character_Dead_1.png",
+    "Sprites/Character_Dead_2.png",
+    "Sprites/Character_Dead_3.png",
+    "Sprites/Character_Dead_4.png",
+    "Sprites/Character_Dead_5.png",
+    "Sprites/Character_Dead_6.png",
+    "Sprites/Character_Dead_7.png",
+    "Sprites/Character_Dead_8.png",
+    "Sprites/Character_Dead_9.png",
+    "Sprites/Characters_2.png",
+    "Sprites/Characters_2.png.meta",
+    "Sprites/Characters_3.png",
+    "Sprites/Characters_3.png.meta",
+    "Sprites/Clouds_2.png",
+    "Sprites/Clouds_2.png.meta",
+    "Sprites/Glow.png",
+    "Sprites/Platform.png",
+    "Sprites/Platform.png.meta",
+    "Sprites/Platforms_1.png",
+    "Sprites/Platforms_1.png.meta",
+    "Sprites/Platforms_2.png",
+    "Sprites/Platforms_2.png.meta",
+    "Sprites/Platforms_3.png",
+    "Sprites/Platforms_3.png.meta",
+    "Sprites/PowerUps.png",
+    "Sprites/PowerUps.png.meta",
+    "Sprites/RubixCube.png",
+    "Sprites/RubixCube.png.meta",
+    "Sprites/ScoreBoard.png",
+    "Sprites/ScoreBoard.png.meta",
+    "Sprites/UI_New.png",
+    "Sprites/UI_New.png.meta",
+    "Sprites/Ui.png",
+    "Sprites/Ui.png.meta",
+    "Sprites/Ui_4.png",
+    "Sprites/Ui_4.png.meta",
+    "Sprites/background-01.png",
+    "Sprites/bullet.png",
+    "Sprites/bullet.png.meta",
+    "Sprites/closeButton.png",
+    "Sprites/english.png",
+    "Sprites/explosion.png",
+    "Sprites/explosion.png.meta",
+    "Sprites/french.png",
+    "Sprites/game-logo.png",
+    "Sprites/get-stars.png",
+    "Sprites/hammerplay-logo-flat.png",
+    "Sprites/hand.json",
+    "Sprites/hand.png",
+    "Sprites/howtoplay/howtoplay1.png",
+    "Sprites/howtoplay/howtoplay2.png",
+    "Sprites/howtoplay/howtoplay3.png",
+    "Sprites/howtoplay/howtoplay4.png",
+    "Sprites/laser.png",
+    "Sprites/life-heart-outline.png",
+    "Sprites/life-heart.png",
+    "Sprites/lock-icon.png",
+    "Sprites/next-button.png",
+    "Sprites/smoke.png",
+    "Sprites/smoke.png.meta",
+    "Sprites/spanish.png",
+    "Sprites/taptodrop.png",
+    "Sprites/warning.png",
+    "Sprites/warning.png.meta"
+  ]
+}
