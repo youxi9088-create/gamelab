@@ -1,0 +1,1939 @@
+{
+  "byte_parse_only": true,
+  "native_executed": false,
+  "wasm_bytes": 651091,
+  "sha256": "f8c12aaa9f2eef3c6cf3c3f4230980faca7a75a915c868d0ae0e059399a86681",
+  "imports": [
+    {
+      "module": "env",
+      "field": "emu_set_score",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glTexSubImage2D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glTexImage2D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "get_canvas_width",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "get_canvas_height",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "get_device_pixel_ratio",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "get_bounding_width",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "get_bounding_height",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "set_canvas_size",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glViewport",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glGenTextures",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glBindTexture",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glTexParameteri",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glCreateProgram",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glCreateShader",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glShaderSource",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glCompileShader",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glGetShaderiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glGetShaderInfoLog",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glAttachShader",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glLinkProgram",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glGetProgramiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glGetProgramInfoLog",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glGenBuffers",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glBindBuffer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glBufferData",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glEnableVertexAttribArray",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glVertexAttribPointer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_main_loop",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glDeleteTextures",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_cancel_main_loop",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glActiveTexture",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glClearColor",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glClear",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glUseProgram",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glDrawElements",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "glGetError",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_asm_const_ptr_sync_on_main_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_asm_const_int_sync_on_main_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_asm_const_int",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_sample_gamepad_data",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_get_num_gamepads",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_get_gamepad_status",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_gamepadconnected_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_gamepaddisconnected_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_has_asyncify",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_sleep",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglGetConfigAttrib",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglChooseConfig",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglTerminate",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglInitialize",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglGetDisplay",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGenQueriesEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteQueriesEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsQueryEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBeginQueryEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glEndQueryEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glQueryCounterEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetQueryivEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetQueryObjectivEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetQueryObjectuivEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetQueryObjecti64vEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetQueryObjectui64vEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBindVertexArrayOES",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteVertexArraysOES",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGenVertexArraysOES",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsVertexArrayOES",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawBuffersWEBGL",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawArraysInstancedANGLE",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawElementsInstancedANGLE",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttribDivisorANGLE",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glActiveTexture",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glAttachShader",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBindAttribLocation",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBindBuffer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBindFramebuffer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBindRenderbuffer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBindTexture",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBlendColor",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBlendEquation",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBlendEquationSeparate",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBlendFunc",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBlendFuncSeparate",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBufferData",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBufferSubData",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCheckFramebufferStatus",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glClear",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glClearColor",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glClearDepthf",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glClearStencil",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glColorMask",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCompileShader",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCompressedTexImage2D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCompressedTexSubImage2D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCopyTexImage2D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCopyTexSubImage2D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCreateProgram",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCreateShader",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCullFace",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteBuffers",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteFramebuffers",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteProgram",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteRenderbuffers",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteShader",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteTextures",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDepthFunc",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDepthMask",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDepthRangef",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDetachShader",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDisable",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDisableVertexAttribArray",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawArrays",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawElements",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glEnable",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glEnableVertexAttribArray",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glFinish",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glFlush",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glFramebufferRenderbuffer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glFramebufferTexture2D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glFrontFace",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGenBuffers",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGenerateMipmap",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGenFramebuffers",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGenRenderbuffers",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGenTextures",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetActiveAttrib",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetActiveUniform",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetAttachedShaders",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetAttribLocation",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetBooleanv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetBufferParameteriv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetError",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetFloatv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetFramebufferAttachmentParameteriv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetIntegerv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetProgramiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetProgramInfoLog",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetRenderbufferParameteriv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetShaderiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetShaderInfoLog",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetShaderPrecisionFormat",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetShaderSource",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetString",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetTexParameterfv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetTexParameteriv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetUniformfv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetUniformiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetUniformLocation",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetVertexAttribfv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetVertexAttribiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetVertexAttribPointerv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glHint",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsBuffer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsEnabled",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsFramebuffer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsProgram",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsRenderbuffer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsShader",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsTexture",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glLineWidth",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glLinkProgram",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glPixelStorei",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glPolygonOffset",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glReadPixels",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glReleaseShaderCompiler",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glRenderbufferStorage",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glSampleCoverage",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glScissor",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glShaderBinary",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glShaderSource",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glStencilFunc",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glStencilFuncSeparate",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glStencilMask",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glStencilMaskSeparate",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glStencilOp",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glStencilOpSeparate",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glTexImage2D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glTexParameterf",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glTexParameterfv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glTexParameteri",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glTexParameteriv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glTexSubImage2D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform1f",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform1fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform1i",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform1iv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform2f",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform2fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform2i",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform2iv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform3f",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform3fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform3i",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform3iv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform4f",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform4fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform4i",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform4iv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniformMatrix2fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniformMatrix3fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniformMatrix4fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUseProgram",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glValidateProgram",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttrib1f",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttrib1fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttrib2f",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttrib2fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttrib3f",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttrib3fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttrib4f",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttrib4fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttribPointer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glViewport",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glPolygonOffsetClampEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glClipControlEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glPolygonModeWEBGL",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttribDivisorEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawArraysInstancedEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawElementsInstancedNV",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawBuffersEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glReadBuffer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawRangeElements",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glTexImage3D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glTexSubImage3D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCopyTexSubImage3D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCompressedTexImage3D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCompressedTexSubImage3D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGenQueries",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteQueries",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsQuery",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBeginQuery",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glEndQuery",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetQueryiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetQueryObjectuiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawBuffers",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniformMatrix2x3fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniformMatrix3x2fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniformMatrix2x4fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniformMatrix4x2fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniformMatrix3x4fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniformMatrix4x3fv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBlitFramebuffer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glRenderbufferStorageMultisample",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glFramebufferTextureLayer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBindVertexArray",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteVertexArrays",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGenVertexArrays",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsVertexArray",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetIntegeri_v",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBeginTransformFeedback",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glEndTransformFeedback",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBindBufferRange",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBindBufferBase",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glTransformFeedbackVaryings",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetTransformFeedbackVarying",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttribIPointer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetVertexAttribIiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetVertexAttribIuiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttribI4i",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttribI4ui",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttribI4iv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttribI4uiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetUniformuiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetFragDataLocation",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform1ui",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform2ui",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform3ui",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform4ui",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform1uiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform2uiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform3uiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniform4uiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glClearBufferiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glClearBufferuiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glClearBufferfv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glClearBufferfi",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetStringi",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glCopyBufferSubData",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetUniformIndices",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetActiveUniformsiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetUniformBlockIndex",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetActiveUniformBlockiv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetActiveUniformBlockName",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glUniformBlockBinding",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawArraysInstanced",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawElementsInstanced",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glFenceSync",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsSync",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteSync",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glClientWaitSync",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glWaitSync",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetInteger64v",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetSynciv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetInteger64i_v",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetBufferParameteri64v",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGenSamplers",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteSamplers",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsSampler",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBindSampler",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glSamplerParameteri",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glSamplerParameteriv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glSamplerParameterf",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glSamplerParameterfv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetSamplerParameteriv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetSamplerParameterfv",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttribDivisor",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glBindTransformFeedback",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDeleteTransformFeedbacks",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGenTransformFeedbacks",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glIsTransformFeedback",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glPauseTransformFeedback",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glResumeTransformFeedback",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetProgramBinary",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glProgramBinary",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glProgramParameteri",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glInvalidateFramebuffer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glInvalidateSubFramebuffer",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glTexStorage2D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glTexStorage3D",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glGetInternalformativ",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttribDivisorNV",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glVertexAttribDivisorARB",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawArraysInstancedNV",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawArraysInstancedARB",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawElementsInstancedEXT",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_glDrawElementsInstancedARB",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglBindAPI",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglWaitGL",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglWaitNative",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglSwapInterval",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglSwapBuffers",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglMakeCurrent",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglDestroySurface",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglCreateWindowSurface",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglDestroyContext",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglCreateContext",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglGetError",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "eglQueryString",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_get_screen_size",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_request_pointerlock",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_exit_pointerlock",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_get_device_pixel_ratio",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_canvas_element_size",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_get_element_css_size",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_element_css_size",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_mousemove_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_mousedown_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_mouseup_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_mouseenter_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_mouseleave_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_wheel_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_focus_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_blur_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_touchstart_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_touchend_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_touchmove_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_touchcancel_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_pointerlockchange_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_keydown_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_keyup_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_keypress_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_fullscreenchange_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_resize_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_visibilitychange_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_beforeunload_callback_on_thread",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_set_window_title",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_request_fullscreen_strategy",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_exit_fullscreen",
+      "kind": 0
+    },
+    {
+      "module": "wasi_snapshot_preview1",
+      "field": "clock_time_get",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_date_now",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "__syscall_openat",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "__syscall_fcntl64",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "__syscall_ioctl",
+      "kind": 0
+    },
+    {
+      "module": "wasi_snapshot_preview1",
+      "field": "fd_write",
+      "kind": 0
+    },
+    {
+      "module": "wasi_snapshot_preview1",
+      "field": "fd_read",
+      "kind": 0
+    },
+    {
+      "module": "wasi_snapshot_preview1",
+      "field": "fd_close",
+      "kind": 0
+    },
+    {
+      "module": "wasi_snapshot_preview1",
+      "field": "environ_sizes_get",
+      "kind": 0
+    },
+    {
+      "module": "wasi_snapshot_preview1",
+      "field": "environ_get",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_get_now",
+      "kind": 0
+    },
+    {
+      "module": "wasi_snapshot_preview1",
+      "field": "fd_seek",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "__syscall_fstat64",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "__syscall_stat64",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "__syscall_newfstatat",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "__syscall_lstat64",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "_abort_js",
+      "kind": 0
+    },
+    {
+      "module": "env",
+      "field": "emscripten_resize_heap",
+      "kind": 0
+    }
+  ],
+  "remote_service_imports": []
+}

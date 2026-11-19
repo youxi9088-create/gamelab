@@ -1,0 +1,61 @@
+{
+  "id": "001",
+  "action": "goto",
+  "error": null,
+  "native": {
+    "title": "KEmu WebGL2",
+    "url": "http://127.0.0.1:18865/battlezone-offline-v1/index.html",
+    "visible_text": "How to Play\n1.\nPress ENTER to start game\n2.\nPress LEFT / RIGHT keys to move right track forward / backwards\n3.\nPress Z / X keys to move left track forward / backwards\n4.\nPress SPACE to shoot\n\n© 2025 Rebellion\n\nLoading Battlezone...\n\nPlease wait a moment.\n\nInstructions\nChoose your targets and drive your tank across the battlefield, using your viewfinder to line up shots.\nDestroy enemy tanks and obstacles to earn points while avoiding their fire. Keep moving to stay alive, watch for long-range threats, and use the terrain for cover.\nSurvive as long as possible to build a higher score.",
+    "canvas": [
+      {
+        "width": 648,
+        "height": 485,
+        "bounds": {
+          "x": 392,
+          "y": 204.5,
+          "width": 656,
+          "height": 491,
+          "top": 204.5,
+          "right": 1048,
+          "bottom": 695.5,
+          "left": 392
+        }
+      }
+    ],
+    "retired_provider_globals_present": []
+  },
+  "observer_error": null,
+  "frame_capture_error": null,
+  "ui_steps": 1,
+  "raw_ui_inputs": 1,
+  "network_events": 40,
+  "console": [
+    {
+      "level": "log",
+      "message": "PRG: "
+    },
+    {
+      "level": "warning",
+      "message": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
+    },
+    {
+      "level": "log",
+      "message": "audsize=512 samplerate=44100"
+    },
+    {
+      "level": "log",
+      "message": "resize: 640, 480 -> 648, 485 (1.000000)"
+    },
+    {
+      "level": "error",
+      "message": "Aborted(Attempt to set `Module.onRuntimeInitialized` after it has already been processed.  This can happen, for example, when code is injected via '--post-js' rather than '--pre-js')"
+    },
+    {
+      "level": "error",
+      "kind": "exception",
+      "message": "Aborted(Attempt to set `Module.onRuntimeInitialized` after it has already been processed.  This can happen, for example, when code is injected via '--post-js' rather than '--pre-js')",
+      "stack": "RuntimeError: Aborted(Attempt to set `Module.onRuntimeInitialized` after it has already been processed.  This can happen, for example, when code is injected via '--post-js' rather than '--pre-js')\n    at abort (http://127.0.0.1:18865/battlezone-offline-v1/BattleZone.js:625:11)\n    at Object.set (http://127.0.0.1:18865/battlezone-offline-v1/BattleZone.js:355:9)\n    at http://127.0.0.1:18865/battlezone-offline-v1/app.js:57:29"
+    }
+  ],
+  "closed": false
+}

@@ -1,0 +1,277 @@
+{
+  "msn_revision": "battlezone-offline-v2",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计原输入1"
+      },
+      {
+        "type": "goto",
+        "description": "累计原输入2"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入3"
+      },
+      {
+        "type": "key",
+        "description": "累计原输入4"
+      },
+      {
+        "type": "key",
+        "description": "累计原输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
+      }
+    ],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 20,
+    "responses": 20,
+    "tested_revision": "battlezone-offline-v2",
+    "delivery_revision": "battlezone-offline-v2",
+    "native_battle_start_and_life_progress_verified": true,
+    "Space_input_recorded": true,
+    "shot_or_hit_outcome_verified": false,
+    "track_movement_verified": false,
+    "mission_win_verified": false,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "scope": "累计5次真实输入：第1步v1载入触发原Module回调注册时序错误，完整保留；修正原app.js与BattleZone.js顺序后，第2步载入原菜单，第3步普通点击Click to Play，第4步普通Enter进入原生战场，显示ENEMY IN RANGE、Score0000及3个生命标识；第5步普通按住Space1200毫秒并释放，末帧仍是原生战场，Score0000、2个生命标识。没有第6次输入，也没有重置额度。 实际确认原生开局、战场/敌人/准星/雷达/分数/生命显示与正常战场推进；第5步记录的是实际Space输入和末帧状态，未捕获可明确归属该输入的炮弹/命中反馈，因此不声称已验证发射结果、击杀或得分。履带移动、连续战斗、全部敌人/全局结算、最高分跨刷新保存、真实触屏及声音未试玩。",
+    "cumulative_input_budget": 5
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "移除原HTML外源MSStart SDK；原代码未发现广告业务提供者/奖励消费者，不伪造回调。",
+      "evidence": [
+        "index.html",
+        "BattleZone.js",
+        "evidence/native-source-fidelity.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "removed",
+      "reason": "外源SDK不再加载；保留原emu_set_score的typeof setScore守卫，不新增分数上传、服务器确认或假本地榜单。",
+      "evidence": [
+        "index.html",
+        "BattleZone.js",
+        "evidence/wasm-imports-static.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原本地街机模拟器和完整二进制保留，386导入无网络/远端业务项，实际仅同源静态文件读取。",
+      "evidence": [
+        "evidence/wasm-imports-static.json",
+        "evidence/validation.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "发布物和实际网络记录未见支付业务或支付导入；没有补充虚拟支付实现。",
+      "evidence": [
+        "evidence/wasm-imports-static.json",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "街机 / 第一人称履带坦克",
+    "dimension": "3D",
+    "perspective": "",
+    "core_gameplay": "原说明为分别驱动左右履带改变坦克位置/方向，通过第一人称准星对准目标并用炮击对抗敌方火力，在战场维持生存和原计分。实际进入ENEMY IN RANGE战场并看到生命减少；未取得本轮命中/得分证明。",
+    "core_experience": "",
+    "controls": "原HTML说明：Enter开局；Left/Right控制右履带前进/后退，Z/X控制左履带前进/后退，Space射击。实测普通Play点击、Enter和Space按下/抬起；左右履带键、触屏未操作。没有主动调用原生处理函数或写入内存。",
+    "game_loop": "",
+    "content": "原街机游戏内容保存在完整Wasm/模拟器发布物中，本轮没有提取或改写关卡、波次或敌人配置，也没有用教学场景替代原游戏。不能以本次进入一个战场等同全关卡验收，关卡数量未知。",
+    "progression": "",
+    "save": "",
+    "rules": "原HTML明确四组键位和敌人/障碍/掩体/生存目标；原Wasm保留全部规则、控制和敌方行为。静态解析386项Wasm导入，没有发现网络/支付/登录/奖励/远端业务导入。具体命中判定、敌人血量和计分参数未逐项逆向，不填推测值。",
+    "systems": "原Emscripten Module、WebGL2画布/音频/键盘桥接、街机二进制、原待机/开局与战场、加载完成回调、原Play覆盖层与侧边键位说明。移除原HTML中未被游戏业务调用的外部MSStart SDK脚本、外源apple占位图和未使用manifest入口，删除原app.js的serviceworker注册；原Module画布、Play监听、真实onRuntimeInitialized和gameLoaded回调保留，仅调整注册顺序先于引擎。原BattleZone.js与BattleZone.wasm整份字节保持，不改ROM、敌人、规则、随机数、时间或输入处理，不创建SDK/服务器/身份/广告/奖励/得分替身。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5次真实输入：第1步v1载入触发原Module回调注册时序错误，完整保留；修正原app.js与BattleZone.js顺序后，第2步载入原菜单，第3步普通点击Click to Play，第4步普通Enter进入原生战场，显示ENEMY IN RANGE、Score0000及3个生命标识；第5步普通按住Space1200毫秒并释放，末帧仍是原生战场，Score0000、2个生命标识。没有第6次输入，也没有重置额度。 实际确认原生开局、战场/敌人/准星/雷达/分数/生命显示与正常战场推进；第5步记录的是实际Space输入和末帧状态，未捕获可明确归属该输入的炮弹/命中反馈，因此不声称已验证发射结果、击杀或得分。履带移动、连续战斗、全部敌人/全局结算、最高分跨刷新保存、真实触屏及声音未试玩。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "原WebGL2 / Emscripten / WebAssembly街机模拟器",
+    "programming_language": "JavaScript胶水 / WebAssembly发布物",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Battlezone / 战区坦克；MSN原生9n70c89hc1cv，Antstream Arcade v9。原WebGL2街机模拟器、Emscripten JavaScript与WebAssembly发布包。第一人称矢量线框坦克战场；原二进制中的作者源码语言和工程未恢复。Agent在52机器1440×900浏览器实际操作。",
+        "asset_types": "21运行文件：原HTML、CSS、JavaScript胶水、651091字节BattleZone.wasm、原PNG/ICO图片及真实TTF字体。18份运行文件与目标游戏成功捕获原字节一致；HTML/app.js分别为入口时序和外部集成退役修改，另1份同发行方共享字体有独立来源记录。原Battlezone CSS声明font/Jersey10-Regular.ttf，目标路径多种传输失败。启动壳说明文字使用同发行方已捕获BurgerTime包中的真实Jersey 10 Regular字体，内部name表核对，76636字节、SHA d661892ab865793dbbf1d4d9514ca2d3c5adb5b1f06ad302fff4d021042dd82a；未写进Battlezone原包目录，未冒充其目标URL下载成功，目标原字体字节等同性未知。仅宿主说明文字字体来源复用，游戏矢量画面/核心二进制未替换。",
+        "core_challenge": "原说明为分别驱动左右履带改变坦克位置/方向，通过第一人称准星对准目标并用炮击对抗敌方火力，在战场维持生存和原计分。实际进入ENEMY IN RANGE战场并看到生命减少；未取得本轮命中/得分证明。",
+        "controls": "原HTML说明：Enter开局；Left/Right控制右履带前进/后退，Z/X控制左履带前进/后退，Space射击。实测普通Play点击、Enter和Space按下/抬起；左右履带键、触屏未操作。没有主动调用原生处理函数或写入内存。",
+        "behavior_path": "累计5次真实输入：第1步v1载入触发原Module回调注册时序错误，完整保留；修正原app.js与BattleZone.js顺序后，第2步载入原菜单，第3步普通点击Click to Play，第4步普通Enter进入原生战场，显示ENEMY IN RANGE、Score0000及3个生命标识；第5步普通按住Space1200毫秒并释放，末帧仍是原生战场，Score0000、2个生命标识。没有第6次输入，也没有重置额度。",
+        "game_path": "原壳Click to Play→原街机待机/GAME OVER显示→Enter开局→第一人称战场、准星、雷达、敌人范围提示/生命/分数→原后续战斗与生命损失/结算。实测范围截至末帧2生命、0分；没有宣称看过完整Game Over流程或重开。",
+        "progression_path": "本轮见原SCORE0000、HIGH SCORE5000和3→2生命标识；5000是原显示值，不推断为本轮存档。未验证长期养成、解锁或最高分持久化；保留全部原Wasm及胶水数据。",
+        "core_loop": "原目标：避开敌方火力、利用履带驱动与准星炮击提高生存/分数。原规则与碰撞由未修改的本地二进制执行。原反馈：矢量战场、雷达、ENEMY IN RANGE、准星、SCORE和生命标识。本轮确认开局和战场生命变化，未确认炮击命中；后续目标继续依原游戏推进，不用自制演示或新关卡替换。",
+        "gameplay_rules": "原HTML明确四组键位和敌人/障碍/掩体/生存目标；原Wasm保留全部规则、控制和敌方行为。静态解析386项Wasm导入，没有发现网络/支付/登录/奖励/远端业务导入。具体命中判定、敌人血量和计分参数未逐项逆向，不填推测值。",
+        "key_numbers": "源Wasm651091字节，原JavaScript413021字节文本；具体字节SHA见证据。实际战场起始SCORE0000、HIGH SCORE5000、3个生命标识，末帧SCORE0000、2个生命标识。5次累计输入含首轮失败；Space按住1200毫秒，不推断武器射速或伤害。",
+        "level_configuration": "原街机游戏内容保存在完整Wasm/模拟器发布物中，本轮没有提取或改写关卡、波次或敌人配置，也没有用教学场景替代原游戏。不能以本次进入一个战场等同全关卡验收，关卡数量未知。",
+        "system_design": "原Emscripten Module、WebGL2画布/音频/键盘桥接、街机二进制、原待机/开局与战场、加载完成回调、原Play覆盖层与侧边键位说明。移除原HTML中未被游戏业务调用的外部MSStart SDK脚本、外源apple占位图和未使用manifest入口，删除原app.js的serviceworker注册；原Module画布、Play监听、真实onRuntimeInitialized和gameLoaded回调保留，仅调整注册顺序先于引擎。原BattleZone.js与BattleZone.wasm整份字节保持，不改ROM、敌人、规则、随机数、时间或输入处理，不创建SDK/服务器/身份/广告/奖励/得分替身。",
+        "theme": "原绿色矢量线框地形/坦克与红色分数、雷达和生命标识；保留Battlezone、Atari1980、Rebellion/Antstream标识及原壳绿色山景、坦克、键位图片和说明布局。截图均来自实际远端版本。",
+        "progression_economy": "未确认可购买货币、付费升级或成长系统；不编造本地商店/赠送奖励。原分数/生命规则保持，本轮未得分，不声称经济收益。",
+        "roster": "玩家以第一人称坦克视角呈现；实际可见原线框战场物体、远方敌方单位、准星与雷达。原HTML描述敌方坦克和障碍；完整单位种类与数值未提取，未用其他游戏素材替换。",
+        "monetization": "移除原HTML中未被游戏业务调用的外部MSStart SDK脚本、外源apple占位图和未使用manifest入口，删除原app.js的serviceworker注册；原Module画布、Play监听、真实onRuntimeInitialized和gameLoaded回调保留，仅调整注册顺序先于引擎。原BattleZone.js与BattleZone.wasm整份字节保持，不改ROM、敌人、规则、随机数、时间或输入处理，不创建SDK/服务器/身份/广告/奖励/得分替身。 当前只保留同源静态加载，20请求/20响应均200，无外联、网络失败或脚本错误；原ScriptProcessorNode等浏览器警告保留。实际确认原生开局、战场/敌人/准星/雷达/分数/生命显示与正常战场推进；第5步记录的是实际Space输入和末帧状态，未捕获可明确归属该输入的炮弹/命中反馈，因此不声称已验证发射结果、击杀或得分。履带移动、连续战斗、全部敌人/全局结算、最高分跨刷新保存、真实触屏及声音未试玩。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/002.png",
+        "caption": "修正版原Click to Play启动壳"
+      },
+      {
+        "path": "screenshots/003.png",
+        "caption": "普通点击Play后原街机待机画面"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "普通Enter进入战场，Score0000与3个生命标识"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "普通Space输入后末帧Score0000与2个生命标识；不证明命中"
+      }
+    ]
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "普通Enter开启真实战场，显示敌人范围/雷达/生命/分数；普通Space输入后原战场继续，生命3→2，0分；发射/命中结果和履带移动未确认。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "21运行文件全部远端HTTP/SHA匹配、当前资源0缺失；游戏JS/Wasm完整原字节，宿主共享字体来源和目标原字体等同性未知独立披露。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原启动壳/街机待机/第一人称线框战场真实显示。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原地形/障碍/远处敌方单位、雷达/准星/生命/分数可见，未伪造目标。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原玩家坦克第一人称视角和敌方单位保持，生命变化真实；没有验证独立移动。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原街机画面在开局后继续推进，雷达/战场敌人位置与生命显示变化；没有生成替代动画。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "原Play点击和Enter进入战场实际生效，Space事件按下/抬起记录，V5.1与当前截图绑定，未验证其余按键。",
+      "evidence": [
+        "screenshots/003.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-19T03:16:44.212460+00:00",
+    "observation_end": "2026-11-19T03:38:02.987765+00:00",
+    "elapsed_seconds": 1278.775305,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "首次已核实来源回执生成至证据归档的经过区间，不含回执前抓取，含后续解析/传输/等待/UI；不是纯工时，未分配逐游戏Token或费用，未知不填0。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

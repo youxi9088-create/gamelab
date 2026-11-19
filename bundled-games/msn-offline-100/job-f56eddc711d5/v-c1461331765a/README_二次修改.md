@@ -1,0 +1,5 @@
+HTML/CSS/app.js及Emscripten JavaScript可直接阅读和修改壳布局/键位桥接/静态资源加载。原街机游戏核心在未修改的Wasm/模拟器发布物中，未恢复作者C/C++工程或逐项逆向全部规则；不能声称已证明核心模块跨游戏复用。
+累计5次真实输入：第1步v1载入触发原Module回调注册时序错误，完整保留；修正原app.js与BattleZone.js顺序后，第2步载入原菜单，第3步普通点击Click to Play，第4步普通Enter进入原生战场，显示ENEMY IN RANGE、Score0000及3个生命标识；第5步普通按住Space1200毫秒并释放，末帧仍是原生战场，Score0000、2个生命标识。没有第6次输入，也没有重置额度。
+实际确认原生开局、战场/敌人/准星/雷达/分数/生命显示与正常战场推进；第5步记录的是实际Space输入和末帧状态，未捕获可明确归属该输入的炮弹/命中反馈，因此不声称已验证发射结果、击杀或得分。履带移动、连续战斗、全部敌人/全局结算、最高分跨刷新保存、真实触屏及声音未试玩。
+移除原HTML中未被游戏业务调用的外部MSStart SDK脚本、外源apple占位图和未使用manifest入口，删除原app.js的serviceworker注册；原Module画布、Play监听、真实onRuntimeInitialized和gameLoaded回调保留，仅调整注册顺序先于引擎。原BattleZone.js与BattleZone.wasm整份字节保持，不改ROM、敌人、规则、随机数、时间或输入处理，不创建SDK/服务器/身份/广告/奖励/得分替身。
+原Battlezone CSS声明font/Jersey10-Regular.ttf，目标路径多种传输失败。启动壳说明文字使用同发行方已捕获BurgerTime包中的真实Jersey 10 Regular字体，内部name表核对，76636字节、SHA d661892ab865793dbbf1d4d9514ca2d3c5adb5b1f06ad302fff4d021042dd82a；未写进Battlezone原包目录，未冒充其目标URL下载成功，目标原字体字节等同性未知。仅宿主说明文字字体来源复用，游戏矢量画面/核心二进制未替换。

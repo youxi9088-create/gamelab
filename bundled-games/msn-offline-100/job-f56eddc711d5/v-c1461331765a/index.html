@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' blob:; media-src 'self' blob:; font-src 'self' data:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battlezone - MSN Play</title>
+    
+    <meta name="theme-color" content="#FFD700" />
+    
+    
+    <link rel="stylesheet" href="style-prod.css" />
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+  </head>
+  <!-- Body is now a horizontal flex container -->
+  <body class="text-white flex flex-row items-center justify-center">
+    <div
+      id="start-screen"
+      class="flex flex-col items-center justify-center gap-8"
+    >
+      <img src="images/battlezone_logo.png" alt="Battlezone Logo" />
+      <img src="images/play_button.png" alt="Play Button" id="play-button" />
+    </div>
+    <!-- Background Characters -->
+    <img
+      src="images/battlezone_mountain_1.png"
+      alt="Mountain"
+      id="background"
+      class="absolute left"
+    />
+    <img
+      src="images/battlezone_mountain_2.png"
+      alt="Mountain"
+      id="background"
+      class="absolute right"
+    />
+    <!-- Content panel on the left -->
+    <aside
+      id="panel-wrapper-left"
+      class="panel-wrapper flex flex-col justify-between items-center"
+    >
+      <!-- Logo Image -->
+      <img
+        src="images/battlezone_logo.png"
+        alt="Battlezone Logo"
+        class="top-logo"
+      />
+      <!-- Text Content -->
+      <div id="content-panel" class="text-left text-sm space-y-4">
+        <div class="absolute flex items-center gap-2 h-24 panel-header">
+          <!-- Title Image -->
+          <div class="flex justify-center">
+            <img src="images/coin_character.png" alt="Coin Character" />
+          </div>
+          <!-- Panel Title -->
+          <h1>How to Play</h1>
+        </div>
+        <!-- Panel -->
+        <ul id="key-list" class="space-y-2">
+          <li>
+            <strong>1.</strong>
+            <div class="key-group">
+              <img src="images/key_enter.png" alt="Enter Key" class="wide" />
+            </div>
+            <span>Press ENTER to start game</span>
+          </li>
+          <li>
+            <strong>2.</strong>
+            <div class="key-group">
+              <img src="images/key_left.png" alt="Left Key" class="left-key" />
+              <img
+                src="images/key_right.png"
+                alt="Right Key"
+                class="right-key"
+              />
+            </div>
+            <span
+              >Press LEFT / RIGHT keys to move right track forward /
+              backwards</span
+            >
+          </li>
+          <li>
+            <strong>3.</strong>
+            <div class="key-group">
+              <div class="key-container" data-key="Z">
+                <img src="images/key_empty.png" alt="Z Key" />
+              </div>
+              <div class="key-container" data-key="X">
+                <img src="images/key_empty.png" alt="X Key" />
+              </div>
+            </div>
+            <span>Press Z / X keys to move left track forward / backwards</span>
+          </li>
+          <li>
+            <strong>4.</strong>
+            <div class="key-group">
+              <img src="images/key_space.png" alt="Space Key" class="wide" />
+            </div>
+            <span>Press SPACE to shoot</span>
+          </li>
+        </ul>
+      </div>
+      <!-- Trademark -->
+      <div id="game-studio" class="flex flex-col gap-2 text-xs small">
+        <img
+          src="images/rebellion_logo.png"
+          alt="Rebellion Logo"
+          class="studio-logo"
+        />
+        <p id="copyright">© 2025 Rebellion</p>
+      </div>
+    </aside>
+
+    <!-- Wrapper for the game canvas that will grow and shrink -->
+    <main id="game-area" class="flex items-center justify-center">
+      <div
+        id="small-instructions"
+        class="flex items-center justify-center gap-4 text-xs small mb-4 p-2 rounded-lg"
+      >
+        <span><strong>ENTER:</strong> Start</span>
+        <span><strong>LEFT/RIGHT:</strong> Move Right Track</span>
+        <span><strong>Z/X</strong> Move Left Track</span>
+        <span><strong>SPACE:</strong> Shoot</span>
+      </div>
+      <!-- This container holds the canvas and maintains the aspect ratio -->
+      <div
+        id="app-container"
+        class="flex items-center justify-center relative bg-black rounded-lg shadow-2xl border-2 border-gray-700"
+      >
+        <!-- Logos -->
+        <img
+          src="images/battlezone_logo.png"
+          alt="Battlezone Logo"
+          class="tall-logo top"
+        />
+        <img
+          src="images/antstream-logo.png"
+          alt="Antstream Logo"
+          class="tall-logo bottom"
+        />
+        <!-- Loading Indicator -->
+        <div
+          id="loading-indicator"
+          class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-90 z-50 transition-opacity duration-500 ease-out"
+        >
+          <svg
+            class="animate-spin h-12 w-12 sm:h-16 sm:w-16 text-yellow-400 mb-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          <p class="text-lg sm:text-xl font-semibold">Loading Battlezone...</p>
+          <p class="text-xs sm:text-sm text-gray-400 mt-1">
+            Please wait a moment.
+          </p>
+        </div>
+        <!-- Canvas -->
+        <canvas
+          id="canvas"
+          width="640"
+          height="480"
+          class="block w-full h-full border-4 rounded-lg"
+        ></canvas>
+      </div>
+    </main>
+
+    <!-- Content panel on the right -->
+    <aside
+      id="panel-wrapper-right"
+      class="panel-wrapper flex flex-col justify-between items-center"
+    >
+      <img
+        src="images/battlezone_tank.png"
+        alt="Tank"
+        id="background"
+        class="absolute bottom"
+      />
+      <img
+        src="images/antstream-logo.png"
+        alt="Antstream Logo"
+        class="top-logo"
+      />
+      <!-- Text Content -->
+      <div id="content-panel" class="text-left text-sm space-y-4">
+        <div class="absolute flex items-center gap-2 h-24 panel-header">
+          <!-- Logo Image -->
+          <div class="flex justify-center">
+            <img src="images/battlezone_icon.png" alt="Tank" />
+          </div>
+          <!-- Panel Title -->
+          <h1>Instructions</h1>
+        </div>
+        <!-- Panel -->
+        <ul class="space-y-4">
+          <li>
+            Choose your targets and drive your tank across the battlefield,
+            using your viewfinder to line up shots.
+          </li>
+          <li>
+            Destroy enemy tanks and obstacles to earn points while avoiding
+            their fire. Keep moving to stay alive, watch for long-range threats,
+            and use the terrain for cover.
+          </li>
+          <li>Survive as long as possible to build a higher score.</li>
+        </ul>
+      </div>
+    </aside>
+    <script>
+      var Module = { canvas: document.getElementById("canvas") };
+    </script>
+    <script src="app.js"></script>
+    <script src="BattleZone.js"></script>
+  </body>
+</html>

@@ -1,0 +1,310 @@
+{
+  "title": "Battlezone / 战区坦克",
+  "revision": "battlezone-offline-v2",
+  "job_id": "job-f56eddc711d5",
+  "version_id": "v-c1461331765a",
+  "artifact_id": "artifact-ae8f86fd2364",
+  "artifact_sha256": "890df808ad99d6d138dc5502ba69e5ba1cb19f5e4b8ac697f0314c7e47b898f3",
+  "remote_archive_commit": "35604b31f7266427c8bc606c2e01a492f2f0179d",
+  "files": {
+    "app.js": "f6700839221829081a6c6a6c75ee97bbe27b0b82e896f2e3e84a8c8dd7e0212f",
+    "BattleZone.js": "016bf846ec23c76b882a6ec583e87d91641b348288582a4f8199a8b4fec2f612",
+    "BattleZone.wasm": "f8c12aaa9f2eef3c6cf3c3f4230980faca7a75a915c868d0ae0e059399a86681",
+    "delivery-report.json": "e6bbf09be3bf40b342d10bee242c9ba193e0b21cd3b7c07e789e98a5d1a1fb1e",
+    "game-profile.json": "3547346765663f5c037f3e4061108820feef71031b62951c6416ede86c436ad0",
+    "GAME_SPECIFICATION.md": "63882a92ea87840906076cdd2921d9584d642a92bdb269178542efd5b557d7cb",
+    "index.html": "ca3bc92f4fd2f924feb1013cf129174af8beb55842889922e8bfada563597faa",
+    "README_二次修改.md": "130b59b686b4c387715371cf78c9a39dd206ec79b4514bdcf3f1868a2a86904e",
+    "style-prod.css": "9ff6cfe15b96fe8196df76310857b1ddd57adef1c42620c54fce6961aba3580a",
+    "evidence/battlebinary-keepalive-assets-source-receipt-v2.json": "d649699b0f90589caa4cbe3df54a9a8cb3be8aefef4fe3ef3a6e0b2a598b9d2a",
+    "evidence/battlefont-declared-static-source-receipt.json": "11ee17bcf95d928e2ea414941cca1a0472215658b5b44a70fe86bc3fe354f0ae",
+    "evidence/battlezone-pw-bootstrap-source-receipt.json": "f8a14e27e4f299b24f8cafaa33f40b842a603ee1c9f8f950c6cb650490885e3a",
+    "evidence/battlezone-remote-HTTP-preflight-v2.json": "c1586483a4a637c8bf4af4ba80c4729cdc2b4a9a77336a45e4e7b332b43af4e0",
+    "evidence/battlezone-terminal-journals.json": "b1386048e09c0cdefa6828ca0f97108ba03c4c72c64505cdd8fcb5467dc8d280",
+    "evidence/bootstrap-source-derivation-v2.json": "113976ccf4ef79a438a9a251a1654f446682a0ed81f2b44be2c889e6b583d605",
+    "evidence/dedup-intake-guard.json": "1f86fe76e1de9f0a133d1fa7ee28d44a66cd413d03bef6f443894883381dd280",
+    "evidence/gold-source-current-testsite.json": "85f3a219a3f11f499e89e2dcf2865749312d7d2e82ab7c4ab3ade9934d5594cd",
+    "evidence/launcher-font-provenance.json": "96855b191b178933dd4f422279f865b5ea8073d2c4707851f56b61668525fa24",
+    "evidence/native-source-fidelity.json": "2400049d3d88af779c04089d257f146b1c8c3d7f1e5cf2f487180f6a83267f2a",
+    "evidence/observation-001.json": "1f9cc932da0429e9f519ee0dc2a66ec7c40ab214c2f25765af64c804017c1cc0",
+    "evidence/observation-002.json": "fa0a192a21d19a67b78cc9e7eaa934ab647010e0ef5f4e594f287204cf128a1f",
+    "evidence/observation-003.json": "62ace90af008744a62411c5a4397f5f23d63283b7c328f6c16c942185b77b466",
+    "evidence/observation-004.json": "78de1c21be3320bea11321f9113b4cf1b4d590d5a05dbf5efaeb4f63097ffab0",
+    "evidence/observation-005.json": "97ea0195742cb206869b37c45c0c0cf6bfa83347ca8da841c6124aa804756562",
+    "evidence/original-source-sha256.json": "c6ab70bb1ae6232dc171180372ef4903d7dc9172773dcf9c4d3f68d2d39b5a24",
+    "evidence/original-source.zip": "0167464cc804ae7a190573a128e87da41ac2e71cd2ec071790cf30560d5d65c2",
+    "evidence/resource-audit.json": "d80b72ae27fe575dc5e8b3484e61654d2d1be19acfe86fa2bafb9cd01b94ebab",
+    "evidence/runtime-sha256.json": "a4387f61168d2f86392a2dafcbaab83ebde2b9aabcc99296bb46899d49f7d9b9",
+    "evidence/shared-font-original-source-receipt.json": "1ea195a897c546cc1005c88cb80c1134f0b6308cbc381a035c60910f779ea70e",
+    "evidence/validation.json": "1390ff8f12d5cc6d7f1a906ec598ccff5c3c6f06dbf8ee6baeec730ba17378bc",
+    "evidence/wasm-imports-static.json": "c8fda030f65a73b11a79c59691475bd86bf4309d7b8f97671de6e82c541a0540",
+    "font/Jersey10-Regular.ttf": "d661892ab865793dbbf1d4d9514ca2d3c5adb5b1f06ad302fff4d021042dd82a",
+    "images/antstream-logo.png": "b8c0d72a138e76d9faa441198655ea921ab6b03fc56fb9e4b369ce96ffa36ed2",
+    "images/battlezone_icon.png": "ca80a4214af0f02d981c75e385e8af96f1f18aa1a9443849544a24d37c6c3288",
+    "images/battlezone_logo.png": "d5a1d7bea990d3f5f5d9b38872769276abeaba33ecf837249677d296ffd33515",
+    "images/battlezone_mountain_1.png": "cec6aa5802d4b5ed7268c8f8d1b94b8e9f0d114611dc0aa1f5f378094ef49628",
+    "images/battlezone_mountain_2.png": "5eef52e5294d95e224bf1d5a23671ba1ef57f8f9425603b3a6a49ad99a0d7528",
+    "images/battlezone_tank.png": "5c7912b66ed53e3b30c267e0b50214d5b90fae3f6bdd4cc5670ae0378eb54adf",
+    "images/coin_character.png": "7c11fdb157ffb111ddb8bcb15d7d9c9419fd6baa6c9dbefd9e60b062d327618c",
+    "images/favicon.ico": "512efe3ac44575b38f98cd99dace3ff04f9468ec8f192bfcebb1206b5c117ff0",
+    "images/key_empty.png": "9ffef7b2b7ebc44758380f6bf95702d6b18fd1212a2f869f75f0cce0442c9508",
+    "images/key_enter.png": "fc47d15a83f4fcf074e7cd999dd8dca03254042e18e8ab478ea0434f244a81de",
+    "images/key_left.png": "b3b9edb367b42125fe9cf73e62a3facbeb81eb834797e6e039d9223721a19a50",
+    "images/key_right.png": "03bb732f63fd7207a69d4e72b633fefafc7e02cff9e55acb02aa200d635bc561",
+    "images/key_space.png": "6e92a01a3e8235a32c2205c43d699b59900e57cc97eb17d235ec77714c6335fc",
+    "images/play_button.png": "4dac5f1ddec788889b1f18da8161a1a9d89f2183d79db25a45b45ccb7e36e190",
+    "images/rebellion_logo.png": "8646a9e6b1882e937799e606362b72debd19fe393db2b8bbab40f8484e473bb2",
+    "screenshots/000-cover.png": "cd6180ca564b0f1e27c77214fbc94734f12a55bf5429b2210a791ed1bfdae5ea",
+    "screenshots/001.png": "96705340d67de68bfc26522250fb6ea3b35d908cd0325505d85500a298e8dff8",
+    "screenshots/002.png": "08d5c33cef466c0eb6cf130cf97718dbd0e33833e7970a6909a65dc2646b231e",
+    "screenshots/003.png": "358ce43c6dabe7e5d80232a1f740a4363aadb9852369b967e72bad2eede6a758",
+    "screenshots/004.png": "cd6180ca564b0f1e27c77214fbc94734f12a55bf5429b2210a791ed1bfdae5ea",
+    "screenshots/005.png": "cd616643e6ff4ee210e65612e8dadb1576616fcb39cb0362f2c923d01741e232"
+  },
+  "status_at_archive": "review",
+  "ui_checkpoints": 5,
+  "site_readback": {
+    "at": "2026-11-19T03:40:58.120975+00:00",
+    "version_id": "v-c1461331765a",
+    "job_id": "job-f56eddc711d5",
+    "status": "review",
+    "cover": "http://127.0.0.1:8766/play/artifact-ae8f86fd2364/screenshots/000-cover.png",
+    "sixteen_section_content_exact": true,
+    "runtime_files": [
+      {
+        "path": "BattleZone.js",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.237195+00:00",
+        "http": 200,
+        "sha256": "016bf846ec23c76b882a6ec583e87d91641b348288582a4f8199a8b4fec2f612",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "BattleZone.wasm",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.257731+00:00",
+        "http": 200,
+        "sha256": "f8c12aaa9f2eef3c6cf3c3f4230980faca7a75a915c868d0ae0e059399a86681",
+        "content_type": "application/wasm"
+      },
+      {
+        "path": "app.js",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.280402+00:00",
+        "http": 200,
+        "sha256": "f6700839221829081a6c6a6c75ee97bbe27b0b82e896f2e3e84a8c8dd7e0212f",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "font/Jersey10-Regular.ttf",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.355460+00:00",
+        "http": 200,
+        "sha256": "d661892ab865793dbbf1d4d9514ca2d3c5adb5b1f06ad302fff4d021042dd82a",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "images/antstream-logo.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.372700+00:00",
+        "http": 200,
+        "sha256": "b8c0d72a138e76d9faa441198655ea921ab6b03fc56fb9e4b369ce96ffa36ed2",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/battlezone_icon.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.391665+00:00",
+        "http": 200,
+        "sha256": "ca80a4214af0f02d981c75e385e8af96f1f18aa1a9443849544a24d37c6c3288",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/battlezone_logo.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.464700+00:00",
+        "http": 200,
+        "sha256": "d5a1d7bea990d3f5f5d9b38872769276abeaba33ecf837249677d296ffd33515",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/battlezone_mountain_1.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.552838+00:00",
+        "http": 200,
+        "sha256": "cec6aa5802d4b5ed7268c8f8d1b94b8e9f0d114611dc0aa1f5f378094ef49628",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/battlezone_mountain_2.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.563736+00:00",
+        "http": 200,
+        "sha256": "5eef52e5294d95e224bf1d5a23671ba1ef57f8f9425603b3a6a49ad99a0d7528",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/battlezone_tank.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.587029+00:00",
+        "http": 200,
+        "sha256": "5c7912b66ed53e3b30c267e0b50214d5b90fae3f6bdd4cc5670ae0378eb54adf",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/coin_character.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.610424+00:00",
+        "http": 200,
+        "sha256": "7c11fdb157ffb111ddb8bcb15d7d9c9419fd6baa6c9dbefd9e60b062d327618c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/favicon.ico",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.621467+00:00",
+        "http": 200,
+        "sha256": "512efe3ac44575b38f98cd99dace3ff04f9468ec8f192bfcebb1206b5c117ff0",
+        "content_type": "image/x-icon"
+      },
+      {
+        "path": "images/key_empty.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.680440+00:00",
+        "http": 200,
+        "sha256": "9ffef7b2b7ebc44758380f6bf95702d6b18fd1212a2f869f75f0cce0442c9508",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/key_enter.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.680892+00:00",
+        "http": 200,
+        "sha256": "fc47d15a83f4fcf074e7cd999dd8dca03254042e18e8ab478ea0434f244a81de",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/key_left.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.685124+00:00",
+        "http": 200,
+        "sha256": "b3b9edb367b42125fe9cf73e62a3facbeb81eb834797e6e039d9223721a19a50",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/key_right.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.743791+00:00",
+        "http": 200,
+        "sha256": "03bb732f63fd7207a69d4e72b633fefafc7e02cff9e55acb02aa200d635bc561",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/key_space.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.762038+00:00",
+        "http": 200,
+        "sha256": "6e92a01a3e8235a32c2205c43d699b59900e57cc97eb17d235ec77714c6335fc",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/play_button.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.773572+00:00",
+        "http": 200,
+        "sha256": "4dac5f1ddec788889b1f18da8161a1a9d89f2183d79db25a45b45ccb7e36e190",
+        "content_type": "image/png"
+      },
+      {
+        "path": "images/rebellion_logo.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.798647+00:00",
+        "http": 200,
+        "sha256": "8646a9e6b1882e937799e606362b72debd19fe393db2b8bbab40f8484e473bb2",
+        "content_type": "image/png"
+      },
+      {
+        "path": "index.html",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.814042+00:00",
+        "http": 200,
+        "sha256": "ca3bc92f4fd2f924feb1013cf129174af8beb55842889922e8bfada563597faa",
+        "content_type": "text/html; charset=utf-8"
+      },
+      {
+        "path": "style-prod.css",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.850020+00:00",
+        "http": 200,
+        "sha256": "9ff6cfe15b96fe8196df76310857b1ddd57adef1c42620c54fce6961aba3580a",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "screenshots/001.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.886741+00:00",
+        "http": 200,
+        "sha256": "96705340d67de68bfc26522250fb6ea3b35d908cd0325505d85500a298e8dff8",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/002.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.888698+00:00",
+        "http": 200,
+        "sha256": "08d5c33cef466c0eb6cf130cf97718dbd0e33833e7970a6909a65dc2646b231e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/003.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.925831+00:00",
+        "http": 200,
+        "sha256": "358ce43c6dabe7e5d80232a1f740a4363aadb9852369b967e72bad2eede6a758",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/004.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.982842+00:00",
+        "http": 200,
+        "sha256": "cd6180ca564b0f1e27c77214fbc94734f12a55bf5429b2210a791ed1bfdae5ea",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/005.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:57.988715+00:00",
+        "http": 200,
+        "sha256": "cd616643e6ff4ee210e65612e8dadb1576616fcb39cb0362f2c923d01741e232",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/000-cover.png",
+        "artifact_id": "artifact-ae8f86fd2364",
+        "observed_at": "2026-11-19T03:40:58.001353+00:00",
+        "http": 200,
+        "sha256": "cd6180ca564b0f1e27c77214fbc94734f12a55bf5429b2210a791ed1bfdae5ea",
+        "content_type": "image/png"
+      }
+    ],
+    "all_runtime_and_screenshots_exact": true,
+    "index_csp": "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' http://192.168.56.52:8765",
+    "gameplay_UI_reexecuted": false,
+    "cumulative_UI_steps": 5,
+    "native_battle_start_and_life_progress_verified": true,
+    "shot_or_hit_outcome_verified": false,
+    "track_movement_verified": false,
+    "mission_win_verified": false,
+    "request_failed_events_retained": 0,
+    "warnings_retained": 1,
+    "tested_revision": "battlezone-offline-v2",
+    "delivery_revision": "battlezone-offline-v2",
+    "browser_exit_code": 0,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "CSP_source_compatibility": "21runtimefiles+6actualscreenshots exactHTTPSreadback; actualnativegameplay remotelytestedunder18865selfCSP, noaddedUIunderpublicsiteCSP."
+  },
+  "scope": "Exact normal-review offline game and real evidence. Raw input counts and historical failures remain explicit; no approval, supply, game-state changes or added testing."
+}

@@ -1,0 +1,160 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计原输入1"
+      },
+      {
+        "type": "goto",
+        "description": "累计原输入2"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入3"
+      },
+      {
+        "type": "key",
+        "description": "累计原输入4"
+      },
+      {
+        "type": "key",
+        "description": "累计原输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
+      }
+    ],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 20,
+    "responses": 20,
+    "tested_revision": "battlezone-offline-v2",
+    "delivery_revision": "battlezone-offline-v2",
+    "native_battle_start_and_life_progress_verified": true,
+    "Space_input_recorded": true,
+    "shot_or_hit_outcome_verified": false,
+    "track_movement_verified": false,
+    "mission_win_verified": false,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "scope": "累计5次真实输入：第1步v1载入触发原Module回调注册时序错误，完整保留；修正原app.js与BattleZone.js顺序后，第2步载入原菜单，第3步普通点击Click to Play，第4步普通Enter进入原生战场，显示ENEMY IN RANGE、Score0000及3个生命标识；第5步普通按住Space1200毫秒并释放，末帧仍是原生战场，Score0000、2个生命标识。没有第6次输入，也没有重置额度。 实际确认原生开局、战场/敌人/准星/雷达/分数/生命显示与正常战场推进；第5步记录的是实际Space输入和末帧状态，未捕获可明确归属该输入的炮弹/命中反馈，因此不声称已验证发射结果、击杀或得分。履带移动、连续战斗、全部敌人/全局结算、最高分跨刷新保存、真实触屏及声音未试玩。",
+    "cumulative_input_budget": 5
+  },
+  "raw_inputs": 5,
+  "checkpoints": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/battlezone-offline-v1/index.html",
+      "at": "2026-11-19T03:26:34.608Z",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/battlezone-offline-v2/index.html",
+      "at": "2026-11-19T03:29:41.169Z",
+      "trajectory": []
+    },
+    {
+      "step": 3,
+      "action": "click",
+      "x": 720,
+      "y": 564,
+      "at": "2026-11-19T03:30:20.699Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 564
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "action": "key",
+      "at": "2026-11-19T03:30:45.356Z",
+      "trajectory": [
+        {
+          "event": "key-down",
+          "key": "Enter",
+          "at": "2026-11-19T03:30:45.358Z"
+        },
+        {
+          "event": "key-up",
+          "key": "Enter",
+          "at": "2026-11-19T03:30:45.482Z"
+        }
+      ],
+      "key": "Enter",
+      "hold_ms": 120
+    },
+    {
+      "step": 5,
+      "action": "key",
+      "at": "2026-11-19T03:31:20.241Z",
+      "trajectory": [
+        {
+          "event": "key-down",
+          "key": "Space",
+          "at": "2026-11-19T03:31:20.242Z"
+        },
+        {
+          "event": "key-up",
+          "key": "Space",
+          "at": "2026-11-19T03:31:21.454Z"
+        }
+      ],
+      "key": "Space",
+      "hold_ms": 1200
+    }
+  ],
+  "browser_sessions": [
+    32340,
+    81589
+  ],
+  "browser_actual_exit_codes": [
+    0,
+    0
+  ],
+  "owned_node_absent": true,
+  "node_pids": [
+    40360,
+    5700
+  ],
+  "screenshots_opened": true,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "accounting": {
+    "observation_start": "2026-11-19T03:16:44.212460+00:00",
+    "observation_end": "2026-11-19T03:38:02.987765+00:00",
+    "elapsed_seconds": 1278.775305,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "首次已核实来源回执生成至证据归档的经过区间，不含回执前抓取，含后续解析/传输/等待/UI；不是纯工时，未分配逐游戏Token或费用，未知不填0。"
+  },
+  "visual_result": "原Play后待机；Enter后原战场/ENEMY IN RANGE/3生命；Space实际输入末帧2生命/0分，不证明命中或履带操作。",
+  "prior_revision_error_retained": "v1真实回调注册时序abort完整保留；v2调整原脚本顺序后没有脚本错误。"
+}

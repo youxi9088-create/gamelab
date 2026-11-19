@@ -1,0 +1,12 @@
+{
+  "source_only": true,
+  "actual_failure": "battlezone-action-001.json: native abort setting Module.onRuntimeInitialized after processing",
+  "change": "Register existing original app.js native initialization callback before original BattleZone.js; retain original Module canvas, Play overlay/listener and actual native ready callback.",
+  "only_runtime_file_changed": "index.html",
+  "original_main_js_and_wasm_still_exact": true,
+  "native_code_or_SDK_executed_locally": false,
+  "game_or_service_readiness_synthesized": false,
+  "prior_UI_spent": 1,
+  "UI_budget_reset": false,
+  "runtime_verified": false
+}
