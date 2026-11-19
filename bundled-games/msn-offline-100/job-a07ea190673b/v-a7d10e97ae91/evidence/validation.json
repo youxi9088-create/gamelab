@@ -1,0 +1,244 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计原输入1"
+      },
+      {
+        "type": "goto",
+        "description": "累计原输入2"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入3"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入4"
+      },
+      {
+        "type": "drag",
+        "description": "累计原输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 123,
+    "responses": 123,
+    "tested_revision": "cricketlegends-offline-v2",
+    "delivery_revision": "cricketlegends-offline-v2",
+    "native_first_hit_6_score_verified": true,
+    "native_next_pitch_verified": true,
+    "whole_match_win_verified": false,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "scope": "累计5次真实输入：首版入口1次因原资源未齐失败并保留；补齐原资源后第2次载入原封面，第3次Touch the screen进入主菜单，第4次Quick Match进入原比赛，第5次一次连续向上滑动击球。只读截图显示原球越过边界，原计分0→6，第一球记录6，随后2/6投球与原第二次教程提示出现。没有第6次输入。 仅实际验证原快速比赛教程首击6分及下一投球；未完成整场、第二次教程操作、跑分、输赢结算、职业联赛、角色购买升级、设置、触屏或跨刷新存档恢复。完整原代码/场景/配置/资源保留不等于全部实玩。",
+    "cumulative_input_budget": 5
+  },
+  "raw_inputs": 5,
+  "checkpoints": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "phase": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/cricketlegends-offline-v1/index.html",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/cricketlegends-offline-v2/index.html",
+      "at": "2026-11-19T04:51:23.032Z",
+      "trajectory": []
+    },
+    {
+      "step": 3,
+      "action": "click",
+      "x": 720,
+      "y": 820,
+      "at": "2026-11-19T04:51:58.493Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 820
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "action": "click",
+      "x": 726,
+      "y": 680,
+      "at": "2026-11-19T04:52:29.239Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 726,
+          "y": 680
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "action": "drag",
+      "points": [
+        [
+          850,
+          760
+        ],
+        [
+          790,
+          475
+        ]
+      ],
+      "at": "2026-11-19T04:53:35.421Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 850,
+          "y": 760
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 846.25,
+          "y": 742.1875
+        },
+        {
+          "event": "move",
+          "x": 842.5,
+          "y": 724.375
+        },
+        {
+          "event": "move",
+          "x": 838.75,
+          "y": 706.5625
+        },
+        {
+          "event": "move",
+          "x": 835,
+          "y": 688.75
+        },
+        {
+          "event": "move",
+          "x": 831.25,
+          "y": 670.9375
+        },
+        {
+          "event": "move",
+          "x": 827.5,
+          "y": 653.125
+        },
+        {
+          "event": "move",
+          "x": 823.75,
+          "y": 635.3125
+        },
+        {
+          "event": "move",
+          "x": 820,
+          "y": 617.5
+        },
+        {
+          "event": "move",
+          "x": 816.25,
+          "y": 599.6875
+        },
+        {
+          "event": "move",
+          "x": 812.5,
+          "y": 581.875
+        },
+        {
+          "event": "move",
+          "x": 808.75,
+          "y": 564.0625
+        },
+        {
+          "event": "move",
+          "x": 805,
+          "y": 546.25
+        },
+        {
+          "event": "move",
+          "x": 801.25,
+          "y": 528.4375
+        },
+        {
+          "event": "move",
+          "x": 797.5,
+          "y": 510.625
+        },
+        {
+          "event": "move",
+          "x": 793.75,
+          "y": 492.8125
+        },
+        {
+          "event": "move",
+          "x": 790,
+          "y": 475
+        },
+        {
+          "event": "up"
+        }
+      ]
+    }
+  ],
+  "browser_sessions": [
+    66541,
+    84299
+  ],
+  "browser_actual_exit_codes": [
+    0,
+    0
+  ],
+  "owned_node_absent": true,
+  "node_pids": [
+    28612,
+    26940
+  ],
+  "screenshots_opened": true,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "accounting": {
+    "observation_start": "2026-11-18T17:56:56.358022+00:00",
+    "observation_end": "2026-11-19T04:58:04.166198+00:00",
+    "elapsed_seconds": 39667.808176,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "首次确认公开原生入口至本证据归档的跨日经过区间，含来源故障、暂缓、其他游戏工作、开发、等待、资源传输和试玩，非该游戏纯处理耗时。逐游戏Token/费用缺乏实测归属，未知不填0。"
+  },
+  "visual_result": "真实连续普通滑动打出原6分，随后进入第二次教程投球；未完成整场。",
+  "prior_revision_error_retained": "v1缺少原外置字体/音乐/骨骼/纹理，原1次输入保留；v2只增加41原资源，无规则或预算重置。"
+}

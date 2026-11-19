@@ -1,0 +1,374 @@
+{
+  "native_id": "9p9nt6t0v98f",
+  "original_sha256": "4746d327d6a26e44c46f6c49c18684ea4b68c215312e85cb6e93d26b40513d6f",
+  "runtime_sha256": "2d2fdb2c05232323b9408935d98c2c6e1cca2855374b49e26eb03ceccbebb48d",
+  "edits": [
+    {
+      "start": 130827,
+      "end": 131002,
+      "text": "void 0",
+      "reason": "Remove native analytics initialization and return-tracking consumer"
+    },
+    {
+      "start": 132627,
+      "end": 134044,
+      "text": "void 0",
+      "reason": "Retire analytics-only return tracking method and date storage"
+    },
+    {
+      "start": 182852,
+      "end": 182982,
+      "text": "void 0",
+      "reason": "Remove analytics event, retain surrounding native match transition"
+    },
+    {
+      "start": 183631,
+      "end": 183713,
+      "text": "void 0",
+      "reason": "Remove original interstitial consumer; preserve match result, coins and counters"
+    },
+    {
+      "start": 184320,
+      "end": 184621,
+      "text": "void 0",
+      "reason": "Remove original interstitial consumer; preserve match result, coins and counters"
+    },
+    {
+      "start": 187344,
+      "end": 187469,
+      "text": "void 0",
+      "reason": "Remove analytics event, retain surrounding native match transition"
+    }
+  ],
+  "changed_modules": [
+    "GameManager",
+    "MatchManager"
+  ],
+  "unchanged_modules": [
+    {
+      "name": "AboutSetting",
+      "sha256": "c5c62c68e3c9edda760e1498b25d2c7ffe21d8221fad19ce677a7603bba77e50",
+      "byte_exact": true
+    },
+    {
+      "name": "AchievementItems",
+      "sha256": "53e8679b9535de0cfa6418f3111c09ca8100b363a4f02c87b5f7e981d09b382f",
+      "byte_exact": true
+    },
+    {
+      "name": "AchievementNoti",
+      "sha256": "4bebfc47e41d828bb29da2e4191f9179c907492441dbc97511f1839d160d7f96",
+      "byte_exact": true
+    },
+    {
+      "name": "Achievement",
+      "sha256": "b95325dc3b912dc5f996a0cc6a104deb95e2551c42016fce11ae3acf209dc963",
+      "byte_exact": true
+    },
+    {
+      "name": "ActionPhaseAnimationController",
+      "sha256": "fc381b30f06b6e90a98e7cc2703defbafa1d37aedefe3f9dedfd0a3e93d88794",
+      "byte_exact": true
+    },
+    {
+      "name": "AudienceAnimation",
+      "sha256": "2f5c2234fc058bd2fb2b98c73684f89e11ae73c305a603d447bc7426197832dc",
+      "byte_exact": true
+    },
+    {
+      "name": "BallIndicator",
+      "sha256": "9419f85a71b5536d190365ab4f0858df7091b0c1ba7c1e443a7c0c85438eee4b",
+      "byte_exact": true
+    },
+    {
+      "name": "BallSecondChanceBehavior",
+      "sha256": "cb67c965574a6bb161b990d3a039688c0a9980005955a53de3346fdf019d26bc",
+      "byte_exact": true
+    },
+    {
+      "name": "Ball",
+      "sha256": "0402930480ca306c07047f594e82d02b35c9ba6f82424ea4c87f5b6543cc9fe6",
+      "byte_exact": true
+    },
+    {
+      "name": "Batsman",
+      "sha256": "cf3bcdaa612887f07f207b7bc89974e6d10df2e919eb315c794dc74b68ca412f",
+      "byte_exact": true
+    },
+    {
+      "name": "Bat",
+      "sha256": "0dae2e3fd280d5eb4a418652adea93efd695ee6384eafa5017522a7f23cce780",
+      "byte_exact": true
+    },
+    {
+      "name": "Bowler",
+      "sha256": "a9b7bcd71b5351174ccb3c83c32e76260e6e9610d0d3baae43e49c0606b77b5b",
+      "byte_exact": true
+    },
+    {
+      "name": "ButtonBehavior",
+      "sha256": "232060cad3edcd440b0621f8ffc01329143ff0e9b344f1053dd06af38910590a",
+      "byte_exact": true
+    },
+    {
+      "name": "CameraRotationFollower",
+      "sha256": "b65236737b2b564664d65f156e9147b4500aab02a2b8b89e8fb84e3b25988514",
+      "byte_exact": true
+    },
+    {
+      "name": "CharacterManager",
+      "sha256": "cae9832e9052c6cb478419e84664b741b2e2676eb1c293f9bb1aed5c5f2bb1e0",
+      "byte_exact": true
+    },
+    {
+      "name": "CustomWidget",
+      "sha256": "be6a9769f7351b1f872db923ecd341a86e3b333be635e1cc1828a0faf1e81ef8",
+      "byte_exact": true
+    },
+    {
+      "name": "EnvironmentManager",
+      "sha256": "50c4d4cf77716e41803cb61dd849bdcbc9e7d076f134106f335e22ae3e1e487b",
+      "byte_exact": true
+    },
+    {
+      "name": "Fielder",
+      "sha256": "19a702f64f0fc6713aeb869eb541d856e65a9d278b261b676fa81f7fb393ef92",
+      "byte_exact": true
+    },
+    {
+      "name": "GameCamera",
+      "sha256": "f201a4712ad25f69664357fb7f910aabacd0d82589f111eb8cafac2d5dea96b1",
+      "byte_exact": true
+    },
+    {
+      "name": "GameConst",
+      "sha256": "d440702ca8ff12104cf3f92f029104229dbb7d34a7d84ca153912d0e5fddeaba",
+      "byte_exact": true
+    },
+    {
+      "name": "GameUtils",
+      "sha256": "9864b563e44662f4a985631a533f3244482e5fc4f56005f99d377a80a574b55a",
+      "byte_exact": true
+    },
+    {
+      "name": "Inventory",
+      "sha256": "d183c4295be5b0dcf82af21836ae9dd46e0967c4cccb8d1ca839f0958a017e96",
+      "byte_exact": true
+    },
+    {
+      "name": "LabelLocalized",
+      "sha256": "bfa8a3da11eb27a211488436b738527f495e9fe6822b9dea01566a8326fb2516",
+      "byte_exact": true
+    },
+    {
+      "name": "LanguageSetting",
+      "sha256": "58f3e3eb00c00e87b5b8ae626fcac281a3de87a4d303359aa8917fbbd1339ac4",
+      "byte_exact": true
+    },
+    {
+      "name": "LeagueItem",
+      "sha256": "d4ddc3d2705855507ee04bdcff654f44d230aa6e5c627a527dc54d4290873076",
+      "byte_exact": true
+    },
+    {
+      "name": "LeagueManager",
+      "sha256": "aec55f06a4ecaa1cdf385bf0975c176077fddc56989ab899a45bed57827b8eb9",
+      "byte_exact": true
+    },
+    {
+      "name": "LeagueRankingRow",
+      "sha256": "c39edab445b41a6df368df0dd2a8ea92b8ea47ad57e55005dad1ed8068cbfd5b",
+      "byte_exact": true
+    },
+    {
+      "name": "LeagueResultRow",
+      "sha256": "d2e2edfa89d3d85d401fd2c2fa2cd5a636006a47254d62e2e361880b87a3485f",
+      "byte_exact": true
+    },
+    {
+      "name": "LeagueScheduleRow",
+      "sha256": "fcedec58d2c5e4a9673a3a4dc7fb084ceb7f3a709a1bb147e47be711d29ab37a",
+      "byte_exact": true
+    },
+    {
+      "name": "MainMenu",
+      "sha256": "61871af783c359a7f925a35b204fc51ed05bd8d3b9b098a8408d9a7b6fe81348",
+      "byte_exact": true
+    },
+    {
+      "name": "PanelBehavior",
+      "sha256": "8a6052632c5111364bfd99106039afbe5ce535a53a305d539ec69f21f408c6c1",
+      "byte_exact": true
+    },
+    {
+      "name": "RichTextLocalized",
+      "sha256": "a587710e6466a958be67c118f2e68fa99c73527e20e624a078222eab67a5198a",
+      "byte_exact": true
+    },
+    {
+      "name": "SaveGameManager",
+      "sha256": "4c7169d8583f04cd5542eb220a59afb90eaa79320fd75e9de3dbf0795cb9b94c",
+      "byte_exact": true
+    },
+    {
+      "name": "ScoreNotiBehavior",
+      "sha256": "28df1c8c2d3fe726fab93cf87e3975e33b97b0bbc5a45a72c0873c55ef386eef",
+      "byte_exact": true
+    },
+    {
+      "name": "Shadow",
+      "sha256": "bacd96f07e7b543c5ebb8fefd481cea9a660a44dba4e97d9712ce74fab0f7881",
+      "byte_exact": true
+    },
+    {
+      "name": "SkillBehavior",
+      "sha256": "573fa6a81b9bf03557f22fbbe694aacb7edbe7079a7fbaba440e0332c5daf225",
+      "byte_exact": true
+    },
+    {
+      "name": "SoundManager",
+      "sha256": "81fef9685483ee6f44c097a88478b4c4d3598b5524400db0876a0fe34e14ba31",
+      "byte_exact": true
+    },
+    {
+      "name": "SpineCharacterEmotion",
+      "sha256": "c99e329eb07cc2515f0da8d340dc0a29469f2b78d192578037fc2420e3b9c9f7",
+      "byte_exact": true
+    },
+    {
+      "name": "SpineUIDecorate",
+      "sha256": "4844ee151e5d325d29566ba18cb703f98e26078197b965ec4ee04be5d63c8704",
+      "byte_exact": true
+    },
+    {
+      "name": "TextCell",
+      "sha256": "fa028290640574a0d15688178ebc5b50ebcb9756488c9385945ee64d719967ef",
+      "byte_exact": true
+    },
+    {
+      "name": "Trail",
+      "sha256": "3d8d5cd53a3a736d12dfe61695329547efb1c7feefee3bfc0b79d3e2b7c55b9a",
+      "byte_exact": true
+    },
+    {
+      "name": "TransparentContainer",
+      "sha256": "b47bac014f4006c639da57e06ed1369a70b92c6ce47bae882d677f965a84f4fb",
+      "byte_exact": true
+    },
+    {
+      "name": "UIAnimationController",
+      "sha256": "c8adb0894ceeb13048b008fea3f8e5a510e407400afb70573b4109a2e2267144",
+      "byte_exact": true
+    },
+    {
+      "name": "UIPanelManager",
+      "sha256": "7d59defc976cfb8f9b8f45d7e8d86b668b5239bb93300b0e35167acefc34faef",
+      "byte_exact": true
+    },
+    {
+      "name": "Umpire",
+      "sha256": "33701007b63aefb9c1330e25540fa635fdbecbdf6447fb0440e34b0ad09055cc",
+      "byte_exact": true
+    },
+    {
+      "name": "Wicket",
+      "sha256": "d879d2b434a1326d936fb2a8c6960e0649b03f63b8fd28bffcf6136688cb05ce",
+      "byte_exact": true
+    },
+    {
+      "name": "WinLose",
+      "sha256": "fa643becc697eb3ec086e435c82842c326ace5b51c7914bda2941d3583b106fb",
+      "byte_exact": true
+    },
+    {
+      "name": "br",
+      "sha256": "1081afc9e6db1818cb8cb4d25e9717ec7ff38863ba08d4c5b6d5e705d12eac63",
+      "byte_exact": true
+    },
+    {
+      "name": "de",
+      "sha256": "ed9b353a1427d8391aed6ef41d98bf098961d483d25ae4d0c7a2a67a120d87af",
+      "byte_exact": true
+    },
+    {
+      "name": "en",
+      "sha256": "e28afe9ed16fe8d3e21939f4bd2cced0ecfe3d0b187df27e2d80ee874658c50c",
+      "byte_exact": true
+    },
+    {
+      "name": "es",
+      "sha256": "19ace7c4d9f47cd351367dc2f2f79b1906be63ef8b73e9918b0c457ca079ec70",
+      "byte_exact": true
+    },
+    {
+      "name": "fr",
+      "sha256": "60b35ba85cc3a1243a7ac8e0d50121f9ed129e3d4ac3cf50728d6f0572158873",
+      "byte_exact": true
+    },
+    {
+      "name": "i18n-supported-languages",
+      "sha256": "aa41a01c2e7af75310c711b707b25570ee2805fc06c8dfa8e44a560fa7613106",
+      "byte_exact": true
+    },
+    {
+      "name": "i18n",
+      "sha256": "8474ef842990726032d7bb0543daee4a94fe60fc733484406d6d934c680cdde3",
+      "byte_exact": true
+    },
+    {
+      "name": "id",
+      "sha256": "8df05d4577b159c43912a7f97f14daa7f1ab8aede389a1f75b967e9a420c402a",
+      "byte_exact": true
+    },
+    {
+      "name": "it",
+      "sha256": "e4b7d4ba6e0080ef0f045aa3133ef8830ea30133759fc19b460935860fab7b21",
+      "byte_exact": true
+    },
+    {
+      "name": "polyglot",
+      "sha256": "34351623953c00a4e18eaf69048feac7fbc24356fa879e14e1de7b8d33bff399",
+      "byte_exact": true
+    },
+    {
+      "name": "preview-lang",
+      "sha256": "58c6f5724a78f8a67b82815640e4e25211c047a299471e44dd0cf980081b3dd8",
+      "byte_exact": true
+    },
+    {
+      "name": "ru",
+      "sha256": "bcae99861de5a0c27051dd3e301f625eed7fd8ef9c76563bcad6d0e60511e8d8",
+      "byte_exact": true
+    },
+    {
+      "name": "sc",
+      "sha256": "2a28d430af4129f523c25d67caaec3f8fb3e6ce142c65a725b7e086e0e743e7a",
+      "byte_exact": true
+    },
+    {
+      "name": "tc",
+      "sha256": "533c440c037d7b39644ee4294324aba66745f9fe427d8f4d28aa9b0825e99d01",
+      "byte_exact": true
+    },
+    {
+      "name": "th",
+      "sha256": "8b48afa908268310483ec9acd48c12143dc0627f4429514b57a913741ee69c8d",
+      "byte_exact": true
+    },
+    {
+      "name": "tr",
+      "sha256": "df3e15d2c598b47159c02c28c564561f021e9ed039faf93012e804516ab728c8",
+      "byte_exact": true
+    },
+    {
+      "name": "vi",
+      "sha256": "379fce678d1b5e3f29ae356e34f9fb823eeefc339e0d6e37206a11b0b5ad87a8",
+      "byte_exact": true
+    }
+  ],
+  "native_module_count": 66,
+  "no_SDK_facade": true,
+  "no_reward_success_callback_added": true,
+  "no_save_score_rng_clock_injection": true,
+  "native_or_SDK_executed": false
+}

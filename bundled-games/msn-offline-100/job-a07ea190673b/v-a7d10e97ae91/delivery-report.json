@@ -1,0 +1,264 @@
+{
+  "msn_revision": "cricketlegends-offline-v2",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计原输入1"
+      },
+      {
+        "type": "goto",
+        "description": "累计原输入2"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入3"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入4"
+      },
+      {
+        "type": "drag",
+        "description": "累计原输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 123,
+    "responses": 123,
+    "tested_revision": "cricketlegends-offline-v2",
+    "delivery_revision": "cricketlegends-offline-v2",
+    "native_first_hit_6_score_verified": true,
+    "native_next_pitch_verified": true,
+    "whole_match_win_verified": false,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "scope": "累计5次真实输入：首版入口1次因原资源未齐失败并保留；补齐原资源后第2次载入原封面，第3次Touch the screen进入主菜单，第4次Quick Match进入原比赛，第5次一次连续向上滑动击球。只读截图显示原球越过边界，原计分0→6，第一球记录6，随后2/6投球与原第二次教程提示出现。没有第6次输入。 仅实际验证原快速比赛教程首击6分及下一投球；未完成整场、第二次教程操作、跑分、输赢结算、职业联赛、角色购买升级、设置、触屏或跨刷新存档恢复。完整原代码/场景/配置/资源保留不等于全部实玩。",
+    "cumulative_input_budget": 5
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "原插屏消费者已删除，无广告SDK加载/奖励成功回调，不赠送原金币/升级/复活。",
+      "evidence": [
+        "evidence/native-source-fidelity.json",
+        "evidence/validation.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "absent",
+      "reason": "原职业联赛仅本地AI球队排名，相关赛程/排名原样保留；无在线排行榜访问。",
+      "evidence": [
+        "evidence/native-source-fidelity.json",
+        "evidence/validation.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "单人原AI投球/守场/联赛，没有新增多人或服务器协议。",
+      "evidence": [
+        "evidence/native-source-fidelity.json",
+        "evidence/validation.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "原角色库存/硬币系统为本地玩法，原25起始值保持，未增加支付或在线订单。",
+      "evidence": [
+        "evidence/native-source-fidelity.json",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "体育 / 板球击球",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "在原投球时机与球路下滑动击球，原挥棒时机/球物理/接球与边界判定决定得分，有限投球内追赶目标分数。原教程使用原投球冻结提示，本次一次滑动真实打出6分并进入下一投球；没有修改时钟、球速、RNG、教程、分数或碰撞。",
+    "core_experience": "",
+    "controls": "普通点击原Touch the screen与Quick Match；比赛中按下、向上连续拖动、释放完成一次挥棒。此次1440×900窗口从850,760到790,475，坐标仅是实际轨迹记录。原Canvas的TOUCH_START/TOUCH_END计算起止位置、距离、时间与挥棒；原Tap-to-run分支保留但未操作。",
+    "game_loop": "",
+    "content": "非固定关卡地图闯关；保留原快速比赛动态目标、三档职业联赛配置和赛程生成、Train/Beach/Eden三环境资源路径及原角色/球场配置。419原序列化资产和全部131运行文件已保留并核对；三联赛场数属于配置，不当作已完成21关。",
+    "progression": "",
+    "save": "",
+    "rules": "原MatchManager/球/球棒/角色/裁判/守场员规则完整保留。实测首场目标8分、6球，首击6分，仍差2分；第二投球教程原样出现。普通比赛原失误、接杀、跑分与终局分支保留，未量化验证全部判定。离线改编只移除平台统计/插屏消费者。",
+    "systems": "保留66个原模块；64个模块逐字节一致，只在GameManager/MatchManager共6处删除统计初始化/回访跟踪/事件上报和插屏广告消费者，原比赛切换、计分、硬币、回合计数保持。没有新增SDK替身、奖励成功回调或账号/服务器协议。v2只增加41份实际原资源，原v1的90文件全部字节不变。 原Cocos渲染/物理、Spine角色/观众/裁判、投球/击球/追球/跑分、镜头、联赛赛程/本地排名、角色库存、技能、音效、设置/多语言与本地存档保留。原联赛排名是本地球队比赛统计，不伪造在线排行榜服务。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5次真实输入：首版入口1次因原资源未齐失败并保留；补齐原资源后第2次载入原封面，第3次Touch the screen进入主菜单，第4次Quick Match进入原比赛，第5次一次连续向上滑动击球。只读截图显示原球越过边界，原计分0→6，第一球记录6，随后2/6投球与原第二次教程提示出现。没有第6次输入。 仅实际验证原快速比赛教程首击6分及下一投球；未完成整场、第二次教程操作、跑分、输赢结算、职业联赛、角色购买升级、设置、触屏或跨刷新存档恢复。完整原代码/场景/配置/资源保留不等于全部实玩。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "Cocos Creator2.3.0 / 原JavaScript发布物",
+    "programming_language": "JavaScript",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Cricket Legends / 板球传奇；MSN原生9p9nt6t0v98f，Gameloft/Ludigames公开原包。Cocos Creator2.3.0，JavaScript发布代码，2D骨骼角色与带纵深投影的球场。以击球手后方视角进行单人板球击球。原鼠标/触摸输入，本次仅远端桌面鼠标实际验证。",
+        "asset_types": "131运行文件，包含原Cocos引擎/物理库、原项目与设置JS、HTML/CSS、原text-res.zip和images1/images2图集数据、PNG/JPG/WebP纹理、MP3音效/音乐、Spine二进制skel与Rubik-Regular.ttf字体。419个原序列化资产条目、64个嵌入纹理引用已静态分析，遗漏的41个外置依赖按原路径抓取并保留SHA。没有替换人物、场景或原音乐。",
+        "core_challenge": "在原投球时机与球路下滑动击球，原挥棒时机/球物理/接球与边界判定决定得分，有限投球内追赶目标分数。原教程使用原投球冻结提示，本次一次滑动真实打出6分并进入下一投球；没有修改时钟、球速、RNG、教程、分数或碰撞。",
+        "controls": "普通点击原Touch the screen与Quick Match；比赛中按下、向上连续拖动、释放完成一次挥棒。此次1440×900窗口从850,760到790,475，坐标仅是实际轨迹记录。原Canvas的TOUCH_START/TOUCH_END计算起止位置、距离、时间与挥棒；原Tap-to-run分支保留但未操作。",
+        "behavior_path": "原封面触屏提示→主菜单Quick Match→投手/击球手/守场员进入比赛→原Swipe to hit the ball教程→连续滑动→原球飞出、守场员追逐→原第一球计6分→下一投球。首版资源缺失故障和修复记录在验证附件，不作为玩法步骤。",
+        "game_path": "原封面→主菜单→快速比赛或Career职业入口→原比赛及目标分数/投球计数→原结算/后续比赛。实测快速比赛首击及下一投球，Career和整场结算仅源码确认，未实玩；没有跳过原教程或解锁门槛。",
+        "progression_path": "原QuickMatchPlayed驱动初期目标/投球配置；原职业联赛1/2/3保留报名费、赛程、排名、冠军与每场奖励。原角色库存/购买/升级与技能冷却保留。原SaveGameManager用productKey cricketSmash加键名并Base64编码存入localStorage；未刷新验证持久化。",
+        "core_loop": "目标：在有限球数内达到原目标分数。规则：原AI投球、真实普通滑动、原挥棒时机/碰撞、边界或接球/跑分决定得分与失误。反馈：原挥棒/球轨迹/球场镜头/追球动画、得分与每球分值更新。激励与下一目标：原下一投球继续追赶目标、整场奖励与联赛推进；实际仅0→6分并进入2/6，未宣称整场获胜。",
+        "gameplay_rules": "原MatchManager/球/球棒/角色/裁判/守场员规则完整保留。实测首场目标8分、6球，首击6分，仍差2分；第二投球教程原样出现。普通比赛原失误、接杀、跑分与终局分支保留，未量化验证全部判定。离线改编只移除平台统计/插屏消费者。",
+        "key_numbers": "源码：初期球数[6,6,8,8,10]，目标[8,10,12,14,15]；默认硬币25，快速比赛固定奖励10；职业比赛12球。三联赛场数5/7/9，报名50/100/150，每场奖励20/30/50，冠军200/300/500。实测主菜单25硬币、首场目标8分、第一球6分和2/6；其余数值为源码确认，未实际获奖/扣费。",
+        "level_configuration": "非固定关卡地图闯关；保留原快速比赛动态目标、三档职业联赛配置和赛程生成、Train/Beach/Eden三环境资源路径及原角色/球场配置。419原序列化资产和全部131运行文件已保留并核对；三联赛场数属于配置，不当作已完成21关。",
+        "system_design": "保留66个原模块；64个模块逐字节一致，只在GameManager/MatchManager共6处删除统计初始化/回访跟踪/事件上报和插屏广告消费者，原比赛切换、计分、硬币、回合计数保持。没有新增SDK替身、奖励成功回调或账号/服务器协议。v2只增加41份实际原资源，原v1的90文件全部字节不变。 原Cocos渲染/物理、Spine角色/观众/裁判、投球/击球/追球/跑分、镜头、联赛赛程/本地排名、角色库存、技能、音效、设置/多语言与本地存档保留。原联赛排名是本地球队比赛统计，不伪造在线排行榜服务。",
+        "theme": "原板球体育卡通包装：印度蓝衣击球手、橙衣投手/守场员、火车背景、观众看台、木球棒、红球、球门柱及原Quick Match记分牌。实际截图显示原投球/击球飞行/追球、得分与第二次教程手势，没有生成替代场景。",
+        "progression_economy": "原25起始硬币、比赛奖励与联赛报名、角色购买升级保留；五原角色关联POWER_SHOT、FORTUNE_BATSMAN、DOUBLE_RUN、SECOND_CHANCE、BOUNDARY_STRIKE。没有赠币、免费解锁、免费复活或奖励回调，当前未实际验证购买/升级/技能/获奖。",
+        "roster": "原五角色资源Virat/Sakib/David/Babar/Sachin及India/Bangladesh/Australia/Pakistan/Legend皮肤配置；实际蓝衣击球手、橙衣投手/守场员、裁判和观众可见，原挥棒/飞球/追球镜头运行。完整原角色资源保留，未逐角色试玩或验证各技能。",
+        "monetization": "保留66个原模块；64个模块逐字节一致，只在GameManager/MatchManager共6处删除统计初始化/回访跟踪/事件上报和插屏广告消费者，原比赛切换、计分、硬币、回合计数保持。没有新增SDK替身、奖励成功回调或账号/服务器协议。v2只增加41份实际原资源，原v1的90文件全部字节不变。 当前修正版123个请求/123个响应均同源200，0外部请求、0失败、0脚本错误。首版缺失资源失败另行完整保留；不把修正版清洁网络结果冒充累计所有运行无错。仅实际验证原快速比赛教程首击6分及下一投球；未完成整场、第二次教程操作、跑分、输赢结算、职业联赛、角色购买升级、设置、触屏或跨刷新存档恢复。完整原代码/场景/配置/资源保留不等于全部实玩。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/004.png",
+        "caption": "原Quick Match比赛，0分/目标8/6球"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "一次普通滑动后的原飞球及守场员追球"
+      },
+      {
+        "path": "screenshots/102.png",
+        "caption": "原第一球6分，随后2/6投球教程"
+      }
+    ]
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "普通连续滑动真实打出原6分，第一球显示6并进入2/6下一投球。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/102.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "全部131运行文件远端HTTP及SHA通过；实际123同源请求均200，41原遗漏依赖已补齐。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/102.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原封面、主菜单、火车看台球场及击球后追球镜头实际渲染。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/102.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原球棒/球门柱/红球/计分牌可见，击球及球飞行和得分正常。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/102.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原蓝衣击球手、橙衣投手/守场员、裁判及观众显示，未替换。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/102.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原挥棒飞球、球场镜头、守场员追球、下一投球/教程手势动画实际出现。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/102.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "原封面触屏提示、Quick Match、一次普通滑动生效；原记分牌0→6及1/6→2/6。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "screenshots/102.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-18T17:56:56.358022+00:00",
+    "observation_end": "2026-11-19T04:58:04.166198+00:00",
+    "elapsed_seconds": 39667.808176,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "首次确认公开原生入口至本证据归档的跨日经过区间，含来源故障、暂缓、其他游戏工作、开发、等待、资源传输和试玩，非该游戏纯处理耗时。逐游戏Token/费用缺乏实测归属，未知不填0。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}
