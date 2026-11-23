@@ -1,0 +1,185 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "原累计输入1"
+      },
+      {
+        "type": "goto",
+        "description": "原累计输入2"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入3"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入4"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      }
+    ],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 134,
+    "responses": 134,
+    "delivery_revision_requests": 67,
+    "delivery_revision_responses": 67,
+    "tested_revision": "drop4-offline-v3",
+    "delivery_revision": "drop4-offline-v3",
+    "native_two_player_drops_verified": true,
+    "native_two_AI_replies_verified": true,
+    "visual_board_discs_after_drops": [
+      2,
+      4
+    ],
+    "full_match_verified": false,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "scope": "累计5步：第1步v2加载原首页，发现退役菜单残留；v3清理完整菜单片段后第2步重新加载，第3步普通点击原“训练/与AI对战”，第4步点击可见第4列落1枚红棋，原本地AI回应第3列1枚黄棋；第5步再次点击第4列，红棋按重力堆到上一行，AI同样在第3列回应。最终棋盘2红2黄，顶部浮动红棋为下次落子预览，不计为已落棋子。两个版本合计5个输入，未重置预算；实际玩法3次点击全部在交付v3。 只验证原菜单进入、两次普通重力落子和两次本地AI回应/换手。未验证四子连线胜负、平局、满列、完整对局、重赛、同机双人、设置点击、刷新进度或移动端。第2步是对未开局首页的重新加载，不是对局存档恢复验证。未读隐藏棋盘/AI搜索结果或调用业务方法；两次都点击同一可见列，不声称最优走法。",
+    "cumulative_input_budget": 5,
+    "prior_attempts": [
+      {
+        "revision": "drop4-offline-v2",
+        "actual_inputs": 1,
+        "scope": "originalmenuonly;retiredGUItextdetected;latercleanedinv3"
+      }
+    ]
+  },
+  "raw_inputs": 5,
+  "checkpoints": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/drop4-offline-v2/index.html",
+      "at": "2026-11-23T14:21:39.772Z",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/drop4-offline-v3/index.html",
+      "at": "2026-11-23T14:27:02.982Z",
+      "trajectory": []
+    },
+    {
+      "step": 3,
+      "action": "click",
+      "x": 1000,
+      "y": 550,
+      "at": "2026-11-23T14:27:47.535Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 1000,
+          "y": 550
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "action": "click",
+      "x": 720,
+      "y": 135,
+      "at": "2026-11-23T14:28:20.385Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 135
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "action": "click",
+      "x": 720,
+      "y": 135,
+      "at": "2026-11-23T14:28:56.087Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 135
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    }
+  ],
+  "browser_sessions": [
+    17257,
+    37048
+  ],
+  "browser_actual_exit_codes": [
+    0,
+    0
+  ],
+  "owned_node_absent": true,
+  "node_pids": [
+    38200,
+    3224
+  ],
+  "screenshots_opened": true,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "hidden_board_or_AI_reads": false,
+  "accounting": {
+    "observation_start": "2026-11-23T14:07:10.199392+00:00",
+    "observation_end": "2026-11-23T14:32:44.502096+00:00",
+    "elapsed_seconds": 1534.302704,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "原入口捕获回执时间至证据生成的经过区间，含原资源下载、源码分析/服务退役、浏览器/工具观察等待与GUI修订，不是本款独占工时。逐游戏Token/费用不可归属，未知不填0。"
+  },
+  "visual_result": "累计5步：第1步v2加载原首页，发现退役菜单残留；v3清理完整菜单片段后第2步重新加载，第3步普通点击原“训练/与AI对战”，第4步点击可见第4列落1枚红棋，原本地AI回应第3列1枚黄棋；第5步再次点击第4列，红棋按重力堆到上一行，AI同样在第3列回应。最终棋盘2红2黄，顶部浮动红棋为下次落子预览，不计为已落棋子。两个版本合计5个输入，未重置预算；实际玩法3次点击全部在交付v3。",
+  "scope_boundary": "只验证原菜单进入、两次普通重力落子和两次本地AI回应/换手。未验证四子连线胜负、平局、满列、完整对局、重赛、同机双人、设置点击、刷新进度或移动端。第2步是对未开局首页的重新加载，不是对局存档恢复验证。未读隐藏棋盘/AI搜索结果或调用业务方法；两次都点击同一可见列，不声称最优走法。",
+  "console_information_retained": []
+}

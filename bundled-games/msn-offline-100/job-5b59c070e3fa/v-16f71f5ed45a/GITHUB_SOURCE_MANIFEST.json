@@ -1,0 +1,925 @@
+{
+  "title": "Drop 4 / 四子连线",
+  "revision": "drop4-offline-v3",
+  "job_id": "job-5b59c070e3fa",
+  "version_id": "v-16f71f5ed45a",
+  "artifact_id": "artifact-20591ebe7b51",
+  "artifact_sha256": "3400e5cdc541c716a2329c5dc1a83b6c5c0f0257f46a129b68a99a7ac364bc17",
+  "remote_archive_commit": "2e5ff4d69395698d5375ead58ccb56b100136265",
+  "files": {
+    "delivery-report.json": "154b8a5df9b2b33d275e42e661243d4fce76368f4c331df4d2e68d47b6537b70",
+    "favicon.ico": "62d14c030ca0ec59c7b42a5d71837174c3a3febca16e199958cf56cdc6c30846",
+    "game-profile.json": "d87fbfcbb8dd9248eaf6574f4a2ecde74301b1438c86fe516a8c4a6008e42979",
+    "GAME_SPECIFICATION.md": "fc4058b2e9ce8a2ae734b15a96e1d338effe8d60c9c4d5d903367e010dd82643",
+    "index.html": "d0ec232920b5ce5dc9eeb85ab48dbd36450409c35dfb1cf8f22ed96a1b6d320a",
+    "README_二次修改.md": "97a7f4c4af0d6387803a087b84e7a1ab0cc10fa891b2cd1ec83733add99d4940",
+    "css/ios_fullscreen.css": "d99ea542ab7b26c53aee3f94ddbc89b2482a63d7331b5972b41153ea51c2d800",
+    "css/main.css": "860ce6fcb03bf80c826c9a4c68aabbf0b5163f39577c09a5812574150f7a91f6",
+    "css/orientation_utils.css": "c87ba53e0bd0857e8b1dd26ec8f45486bbdff574327d1f80cbfd81a38d2616fd",
+    "css/reset.css": "7b5be04e538eb27e858f26694e59bff49ea57d79cc125bdcfb10e35f1a93dfc1",
+    "css/Roboto-Black.eot": "1ca293c6a2bed752cf0fad89fa88a6f0d56195d820ac1171ffa62cb60bbff5dd",
+    "css/Roboto-Black.svg": "3cbbb7a574868df9b9b03149831adc748a8584820d33e43f59e8fc6483119837",
+    "css/Roboto-Black.ttf": "e8151607eeaa5a24a80c7c904a7ae01cc19a61eb8a186b3b4c8b8dcf21b1c010",
+    "css/Roboto-Black.woff": "10a498a5fa8499c775a7d2d7f9376c11c9f808b8329a4cb73a2b9fb3a251afba",
+    "css/Roboto-Black.woff2": "c15b71fd1202c2282e85b3d4ebbd3234b7353de3aae0bd8eb5689a83d6e2de3a",
+    "css/Roboto-Regular.eot": "6bf7ccf35e2c7ed209df1ec8a89420a9805e6fb739466c2a607262dba145d2a4",
+    "css/Roboto-Regular.svg": "adab27284de76307a68927214c6f71a823042fa2d7fa7a9535a2f15f5c0b6730",
+    "css/Roboto-Regular.ttf": "887bdfd8b34df8d1543db653e0776581b75fe0f24d5f1a40f61ab3ea24a5c42b",
+    "css/Roboto-Regular.woff": "effd804b13be0ca84ea15b9e916044b6192fe37ada4d67da1a4e92d8e8f6e1d7",
+    "css/Roboto-Regular.woff2": "857709801e886e4622299e8333ba3fe43dee321c4351cd90a2199f2425e5c805",
+    "evidence/drop4-bootstrap-source.json": "70cf099e172b729b4345bb67bf3db50f294c15cf8ddad7e9e3a51b23ce951557",
+    "evidence/drop4-current-dedup-proof.json": "ec43d8e139df0def786af46837e5f840630949b47f2baadf11495156e178dab2",
+    "evidence/drop4-entry-source.json": "7295ad4c9e24eb989a9468cfad3424d34569b6722f7084ef8ce42151b7965353",
+    "evidence/drop4-GUI-entry-retirement-v3.json": "da1451eb7b747ecd1fb0a644c70c8991ecfa54be45b6526727c63a4497a29d2b",
+    "evidence/drop4-http-export-probe-proof.json": "b534bf1e76fc9c6ec702431ef58dc98e6e55b29299afa8552734eaec26a15f34",
+    "evidence/drop4-native-assets-plan.json": "e2840c64e0771ee3be2fc5983de72e92e0b701e6189a06dd6047997c261f6a86",
+    "evidence/drop4-native-assets-source.json": "b3d43c9d4ee89abe98cd3f46f68ff941875310d80eb0a5e40b2daeb87a420564",
+    "evidence/drop4-native-core-audit.json": "aeeef12f7af51a46fbb1eb03e3a98e9bbd5b76f045bbcd348f9b329fc84408c4",
+    "evidence/drop4-offline-v3-runtime-preparation.json": "47803908c8922a0848ed0de7fb59c8d3d19595187831897cc058766e1c104282",
+    "evidence/drop4-remote-preflight-v3.json": "0ed86e3261a8afb2ab423a644706bfcb49a9320f50bb25dd26878cd0267ce6d7",
+    "evidence/drop4-service-retirement-proof.json": "067d869fd41aca230b9477f40b053a72be91860456a144ffe0eed6ef440fb435",
+    "evidence/drop4-stage-v3.json": "02b1b6e6f3e73d1e3e74fd38982f1e7aa87d00a2ba4e2dfc1f69d53c4df1c919",
+    "evidence/drop4-supplement-source.json": "222cbafad0003584e3235608750d2b0dcd2014e6bd8e8573acfce34345aae5e2",
+    "evidence/drop4-v2-terminal-journals.json": "6f895e2ec2a61d95565fbc68878f14d8b97a6f81d11f24d6368dd5989c29ead2",
+    "evidence/drop4-v3-terminal-journals.json": "d9649ef27c2c55c06206a7fe425bef158a8593135730e063b3c9d23070472247",
+    "evidence/observation-001.json": "7fcda7e7fb074d7214a2a347b9383220703816686fac447140c8278625b031dc",
+    "evidence/observation-002.json": "755225e27e8354a7646ac12e8d4ced72421caef8b722f4ab2d3b0bf5d6b2e7ac",
+    "evidence/observation-003.json": "90d7faf72445e74b58b191f7e61d01cfed1300b434e3d1b996c8f817db862c3f",
+    "evidence/observation-004.json": "ab0677f8b0044ddedf1b37f84f64a99b7b0829e44076aa657e069d210b4de833",
+    "evidence/observation-005.json": "5d2709d752a01e03e3234315172b11f57e01d8d18c9fc2bf75eccb01d9ba001a",
+    "evidence/original-source-sha256.json": "e0c0cabb7b6400c18afc3de2b805866a5921c65459f0ba9517c44da1a04b80e2",
+    "evidence/original-source.zip": "566d0ac399b623d005dce3a7746a32de7bef1c4036b0af3c8057e0cecec7a9bd",
+    "evidence/resource-audit.json": "b802ff8d0514ae16a6cb5059da04cead9ea4a8bd0b9b4f2b4fdd2f668625605d",
+    "evidence/runtime-sha256.json": "733080000701d19302d93708e4bb84128756c05181e917371adad34282a20ee5",
+    "evidence/validation.json": "a5bc0c71b3094179a86cf13dda4cf0560ccfd50565ebe29907fe7a4f63a5e009",
+    "font/ctl-multiplayer-icons.eot": "671ef2838100c39de960368855f7604e950751abba0d0bf3b1d20df8dc97ea25",
+    "font/ctl-multiplayer-icons.svg": "05baec6831940298fb7747f6057801631ab3ffc8110e11e8bbfd6df7c693e0b7",
+    "font/ctl-multiplayer-icons.ttf": "c5102945da479342797847533cea22fd20d76acee161de636dbe43630d7b3af4",
+    "font/ctl-multiplayer-icons.woff": "8db969c6bfd7499f84da3ab1482892990ea5074383e907490b2999a2f7295237",
+    "font/ctl-multiplayer-icons.woff2": "cfbe79950848ef3740aa2619d20e87d6bfad44c72d046c8842887c609dc60ac2",
+    "js/CLang.js": "93217472216f175fb0ae89b3b59106fcc59ac722440feda86f2651b9eee3229a",
+    "js/main.js": "5d8da0a91c3f7dbe11522c34d01ce34282798921e615c8d16f276b3bb89b7214",
+    "screenshots/000-cover.png": "aa9a8d86c4b48636de380905d05792615233fff0cece9be2efcf52d43b6da2a6",
+    "screenshots/001.png": "aa9a8d86c4b48636de380905d05792615233fff0cece9be2efcf52d43b6da2a6",
+    "screenshots/002.png": "aa9a8d86c4b48636de380905d05792615233fff0cece9be2efcf52d43b6da2a6",
+    "screenshots/003.png": "82cd9590e08ab11806e225029d1ed07235254f1feedf9b4861fa30b759af0f38",
+    "screenshots/004.png": "eb12ee9292fc563e22dec2a512d3bef6d6bcc9be86269338ca337c33bf3a8845",
+    "screenshots/005.png": "39f9a3e11923c2e5a779523952af864df1d234e06ae46fa974f24ba095540500",
+    "sounds/click.mp3": "d9ab78268f4ff92b7e59dcecede0904a41a91ef44d470bd4a422c9eba5136961",
+    "sounds/drop.mp3": "be6d59c4e44d42561f805d782a86ed0db8c9a2bb24ee8949d11c62389502d02c",
+    "sounds/game_over.mp3": "708833ecfdec0a390875458a68e67a4c14c07f02e37c69277a8a1755d4fa8c29",
+    "sounds/hurryup.mp3": "b3e42767c15e9a73dd8849afac7c37cedcebdd4f9e63589afa652f21a06267bc",
+    "sounds/match_found.mp3": "241d7fbc46e2f502a5c4c3a8d81d5cf2e6ce96583cb5891abd1e8d98fa5e0720",
+    "sounds/pawn_release.mp3": "05c096916bc62b7ff4906c84cfe2b47001b24e45d03980a168073943d0a972a1",
+    "sounds/soundtrack.mp3": "312bbec7cbbd886c723e9cfd44f58c37b39b1fd89b56f6bcafed9394ee1f7bca",
+    "sounds/win.mp3": "de46ee22a2300cd73cb5375db5fbd17895af5139ef391f054eb73fa75a67da44",
+    "sprites/bg_game.jpg": "93311643b6e25bba3c7bbf6b769f795d87e0c7a228ebe9fcc02b9b5c17545641",
+    "sprites/bg_menu.jpg": "f039e0d6fedd7178c3b4b8c575d63951a182ef2ab44739556b6c51d3527455cb",
+    "sprites/bg_turn_red.png": "fe3fadbbe6f0ab525d8e9885a73e90c890c97b56dac8f0a58b1d97604b620bb3",
+    "sprites/bg_turn_yellow.png": "560fe978df0e0d2fd9a8ab3bf4b303f7155cbf7294cd614d3e67b906e129a182",
+    "sprites/board_back.png": "a0bb54f5f5cc854da846d65a9f2df5188b1c6e178b295889920af19ed7a199c9",
+    "sprites/board_front.png": "c7078e634a7dd4b4e2498fd429b62b397f1d6c654b9acf8a9a5798ec74da715f",
+    "sprites/but_check.png": "4c50abf0ee6982c3c55e35f286045f2c26b649881d5762ca7fc1d2cb5b3571d5",
+    "sprites/but_home.png": "33ebda6a5baaa0913af354cfdd105db1154620bbeffb2105f7003bd150e808af",
+    "sprites/but_long_red.png": "82e9bb2dffa144d6a7551e1c28ff5c338887b91debfa49052ae343a129f6aab6",
+    "sprites/but_long_yellow.png": "29e81c069b31908ccf709f19043a9e843ebe6540cefe750ee190fb38ab344e19",
+    "sprites/but_no.png": "21d8dad67ef344be8a23258c27115c37dc58c2b65dcdce44ae6c9e239d86d002",
+    "sprites/but_restart.png": "d7dc06013d077333e4f2826a34d53634bb0f69e611bf279e71a6265e5c5fde7c",
+    "sprites/but_yes.png": "622049ed3aae004835d6ee800b7f953f35aa169eeb551e4b82df53ee5e8ef12f",
+    "sprites/ctl_logo.png": "ae758135f1be2134ab30f8f20fd76bf08d7a22120c7c3e3271fe79c5a3f56d50",
+    "sprites/disc.png": "fd2dd7f97200008bd008bcca5f3ddae4723ff878810776bd4332ac69258e1698",
+    "sprites/icon_local.png": "98ff4dc1444ad5902a07fd41b47ef53be61b1020d1ef32de6bf16414d61b9822",
+    "sprites/icon_multiplayer.png": "60666f148cb7b64f0d6a32821a074ae4453671d756c7ceb73451403685d43221",
+    "sprites/icon_training.png": "0bc87fe49a7a31034327c7b4768a6b3aa99085ecd68ef7a5e348fcbb185e291d",
+    "sprites/logo.png": "5ad07c4aeed281ced57fb2332a9cf6fe36ba99e3e2343b0f7d6d175448ae5f94",
+    "sprites/msg_box.png": "0a0d3265d2bd819328ca44fe11254d4ed1be10733998029ce7091a8b687b6eef",
+    "sprites/shadow_0.png": "0df0f06bad3092f378a4188ad374f6941843acba1bf04c4a339988dc835398da",
+    "sprites/shadow_1.png": "f0c2e54e6da70386414a54764c3e28adec73a4685a06efb02452b79c5b4155a5",
+    "sprites/shadow_2.png": "29d3c5e0b9450934141299a6005e06133379c66f590bfd8ab727fec4c3384879",
+    "sprites/shadow_3.png": "2a42044a7ee440e15486a5b61dbe7ba314bc2ba1d5de06b9b064cf3928fa5e52",
+    "sprites/swipe.png": "20cbb3b8aa44e40a38d92ce334641cc51aae42dd4e3db598ff597d7068efe207",
+    "sprites/table.png": "1da41c94371c9421874380a1ae378d5497effd1fd7f5e69ba784e6463e92943d",
+    "sprites/win_effect.png": "c4d9fb0b7ca291b6080e942fa81663eb9c8d24f8f2d4eef4d995b70ce09918c8",
+    "sprites/preloader/ctl_disclaimer.png": "8ead1d6b577cdc93d2f20a2ab9a39b9a189953b642ff4a1c3c9cc6812b3d5f13",
+    "sprites/preloader/ctl_preloader.png": "0564dd8dc052aad9e89a6c4df8d2ad83b3ec5b767bad7d75c997416bfe917f93",
+    "sprites/preloader/progress_bar_bg.png": "5f02eb3aca6fc5f03dd3f5bdd64a6ffc1e0106b72139d25ded2e606a18c00cab",
+    "sprites/preloader/progress_dot.png": "1463cd78eee5394879f7b924a9d6016debc13421d74b96646c1e3394f0fa10f6",
+    "js/lib/createjs.min.js": "a8678d5b4bde7b1b179bcba1f2533967c478dae80d40866898d125edb7fed936",
+    "js/lib/howler.min.js": "125eddcb1755a757b5bf4c608ebae9cebe7e04edbda703f441f978d150df7e22",
+    "js/lib/screenfull.min.js": "3bfe89c0bb3287db3dc2b1d6cf391d31f7fba8f54cee61c04e9714ec242dd92a",
+    "ctl_ui/css/flags.css": "b83c843c0fe5293427983d64d60101d83b2614d84bf689cf98645a42acf22ee5",
+    "ctl_ui/css/style.css": "cd6a2112aab8fc245112e8033d5c18c87e11ed6e804958c0e5d7bd69d8496a3d",
+    "ctl_ui/css/theme.css": "8e1a047161f09940799c3aeb14e844660ab8532b7b8da7d4a83de94941ba4bcb",
+    "ctl_ui/hamburger/hamburgers.min.css": "c684b88ca57c3324e3307c6019b8166c5465f310db58b62fa81588ad7f9c0bc3",
+    "ctl_ui/js/CEventsHandler.js": "bd24312d04eac222ea859aecb0937b32ff08a0e274c52ef493cd2a69db31618a",
+    "ctl_ui/js/CGUIController.js": "46b47bf620e45d1716c0359c51e8718f681b92e765e3fe182a15de03591bc672",
+    "ctl_ui/js/jquery-3.7.1.min.js": "99e691fae5e88eb36bafb24758b35f0f990708295f8f2abe2221891e328f776a",
+    "ctl_ui/js/lang.js": "a40905359da7c112a16dd39a8dfefc0adb2bc41507681659aacd6414bac08b21",
+    "ctl_ui/sprites/badge_100.png": "c040a1f6cd56c99d6890bb1d3fac198a8ad4aed5d6a6998b465bee309eccf34b",
+    "ctl_ui/sprites/codethislab-logo-white.svg": "636c3002b4f16da0393c32fd42ac5bae47a3370e1cdb2ea86906d5217f86f024",
+    "ctl_ui/sprites/flags.png": "9c7d3a86a9aef5aa868595c3d19a652cc49835243e31c131ad0af000bff827f4",
+    "ctl_ui/sprites/flags_small.png": "7c42867e9c91624feaffd53e6c41c73dbd1c609ca4d566ecf3073f8cb7dfbcde",
+    "ctl_ui/sprites/logo_payoff_ctl_white.svg": "a37f25be11826294fc8e0d6a24056217e38437d6cf424e36caf5e4f8a2d6885c",
+    "ctl_ui/fontawesome/css/brands.css": "c52dea08d79421d5ad69e9728057bcf4924f472db1d9efb630c7663b8e97d3c6",
+    "ctl_ui/fontawesome/css/fontawesome.css": "1212299d4fb349781e015a455b241ce6acd0e34d490a62deca6e7bc4b1c72a1c",
+    "ctl_ui/fontawesome/css/solid.css": "e4621a07dcf4d09abdb45b512385ec7aa68db244d28037ac4efe510173a10e67",
+    "ctl_ui/fontawesome/webfonts/fa-brands-400.ttf": "5656d596bc597165a42182f67b2b9f17d2ae47a9e3ef1b042b9a729739730705",
+    "ctl_ui/fontawesome/webfonts/fa-brands-400.woff2": "3a8924cd5203a28628716aedb5cef0943da4c3b44e3ffcee90ab06387b41c490",
+    "ctl_ui/fontawesome/webfonts/fa-solid-900.ttf": "fbbf06d7437aa30f3cd44c968380193545a8fc3eadfb7ad897bbb101eefec5a2",
+    "ctl_ui/fontawesome/webfonts/fa-solid-900.woff2": "9fc85f3a4544ab0d570c7f8f9bbb88db8d92c359b2707580ea8b07c75673eae2",
+    "ctl_ui/bootstrap/css/bootstrap.min.css": "3017df4a76db5f01c2b99b603d88b03106df13bcfe18e67b7c13c2341d3a67df",
+    "ctl_ui/bootstrap/js/bootstrap.min.js": "60c6bec0033a424572cfdf7da1d5fb94f4719286006a7f2cb9e76ee24d99babf",
+    "ctl_ui/bootstrap/js/popper.min.js": "41d59b04452edce75331c4416ff9435de714df5f1183e4e620d259d54874f9af",
+    "ctl_ui/animatecss/css/animate.min.css": "5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f"
+  },
+  "status_at_archive": "review",
+  "ui_checkpoints": 5,
+  "site_readback": {
+    "at": "2026-11-23T14:39:57.786862+00:00",
+    "version_id": "v-16f71f5ed45a",
+    "job_id": "job-5b59c070e3fa",
+    "status": "review",
+    "cover": "http://127.0.0.1:8766/play/artifact-20591ebe7b51/screenshots/000-cover.png",
+    "sixteen_section_content_exact": true,
+    "runtime_files": [
+      {
+        "path": "css/Roboto-Black.eot",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:49.214006+00:00",
+        "http": 200,
+        "sha256": "1ca293c6a2bed752cf0fad89fa88a6f0d56195d820ac1171ffa62cb60bbff5dd",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "css/Roboto-Black.svg",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:49.220826+00:00",
+        "http": 200,
+        "sha256": "3cbbb7a574868df9b9b03149831adc748a8584820d33e43f59e8fc6483119837",
+        "content_type": "image/svg+xml"
+      },
+      {
+        "path": "css/Roboto-Black.ttf",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:49.241591+00:00",
+        "http": 200,
+        "sha256": "e8151607eeaa5a24a80c7c904a7ae01cc19a61eb8a186b3b4c8b8dcf21b1c010",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "css/Roboto-Black.woff",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:49.465389+00:00",
+        "http": 200,
+        "sha256": "10a498a5fa8499c775a7d2d7f9376c11c9f808b8329a4cb73a2b9fb3a251afba",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "css/Roboto-Black.woff2",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:49.648711+00:00",
+        "http": 200,
+        "sha256": "c15b71fd1202c2282e85b3d4ebbd3234b7353de3aae0bd8eb5689a83d6e2de3a",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "css/Roboto-Regular.eot",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:49.764484+00:00",
+        "http": 200,
+        "sha256": "6bf7ccf35e2c7ed209df1ec8a89420a9805e6fb739466c2a607262dba145d2a4",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "css/Roboto-Regular.svg",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:49.768355+00:00",
+        "http": 200,
+        "sha256": "adab27284de76307a68927214c6f71a823042fa2d7fa7a9535a2f15f5c0b6730",
+        "content_type": "image/svg+xml"
+      },
+      {
+        "path": "css/Roboto-Regular.ttf",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:49.781694+00:00",
+        "http": 200,
+        "sha256": "887bdfd8b34df8d1543db653e0776581b75fe0f24d5f1a40f61ab3ea24a5c42b",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "css/Roboto-Regular.woff",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:49.945978+00:00",
+        "http": 200,
+        "sha256": "effd804b13be0ca84ea15b9e916044b6192fe37ada4d67da1a4e92d8e8f6e1d7",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "css/Roboto-Regular.woff2",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:49.946258+00:00",
+        "http": 200,
+        "sha256": "857709801e886e4622299e8333ba3fe43dee321c4351cd90a2199f2425e5c805",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "css/ios_fullscreen.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:49.970777+00:00",
+        "http": 200,
+        "sha256": "d99ea542ab7b26c53aee3f94ddbc89b2482a63d7331b5972b41153ea51c2d800",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "css/main.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.000572+00:00",
+        "http": 200,
+        "sha256": "860ce6fcb03bf80c826c9a4c68aabbf0b5163f39577c09a5812574150f7a91f6",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "css/orientation_utils.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.040278+00:00",
+        "http": 200,
+        "sha256": "c87ba53e0bd0857e8b1dd26ec8f45486bbdff574327d1f80cbfd81a38d2616fd",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "css/reset.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.082937+00:00",
+        "http": 200,
+        "sha256": "7b5be04e538eb27e858f26694e59bff49ea57d79cc125bdcfb10e35f1a93dfc1",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/animatecss/css/animate.min.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.130084+00:00",
+        "http": 200,
+        "sha256": "5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/bootstrap/css/bootstrap.min.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.146049+00:00",
+        "http": 200,
+        "sha256": "3017df4a76db5f01c2b99b603d88b03106df13bcfe18e67b7c13c2341d3a67df",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/bootstrap/js/bootstrap.min.js",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.167664+00:00",
+        "http": 200,
+        "sha256": "60c6bec0033a424572cfdf7da1d5fb94f4719286006a7f2cb9e76ee24d99babf",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/bootstrap/js/popper.min.js",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.228650+00:00",
+        "http": 200,
+        "sha256": "41d59b04452edce75331c4416ff9435de714df5f1183e4e620d259d54874f9af",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/css/flags.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.268654+00:00",
+        "http": 200,
+        "sha256": "b83c843c0fe5293427983d64d60101d83b2614d84bf689cf98645a42acf22ee5",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/css/style.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.321907+00:00",
+        "http": 200,
+        "sha256": "cd6a2112aab8fc245112e8033d5c18c87e11ed6e804958c0e5d7bd69d8496a3d",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/css/theme.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.367972+00:00",
+        "http": 200,
+        "sha256": "8e1a047161f09940799c3aeb14e844660ab8532b7b8da7d4a83de94941ba4bcb",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/fontawesome/css/brands.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.395747+00:00",
+        "http": 200,
+        "sha256": "c52dea08d79421d5ad69e9728057bcf4924f472db1d9efb630c7663b8e97d3c6",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/fontawesome/css/fontawesome.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.432002+00:00",
+        "http": 200,
+        "sha256": "1212299d4fb349781e015a455b241ce6acd0e34d490a62deca6e7bc4b1c72a1c",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/fontawesome/css/solid.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.467544+00:00",
+        "http": 200,
+        "sha256": "e4621a07dcf4d09abdb45b512385ec7aa68db244d28037ac4efe510173a10e67",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/fontawesome/webfonts/fa-brands-400.ttf",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.476630+00:00",
+        "http": 200,
+        "sha256": "5656d596bc597165a42182f67b2b9f17d2ae47a9e3ef1b042b9a729739730705",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "ctl_ui/fontawesome/webfonts/fa-brands-400.woff2",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.536909+00:00",
+        "http": 200,
+        "sha256": "3a8924cd5203a28628716aedb5cef0943da4c3b44e3ffcee90ab06387b41c490",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "ctl_ui/fontawesome/webfonts/fa-solid-900.ttf",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:50.541576+00:00",
+        "http": 200,
+        "sha256": "fbbf06d7437aa30f3cd44c968380193545a8fc3eadfb7ad897bbb101eefec5a2",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "ctl_ui/fontawesome/webfonts/fa-solid-900.woff2",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.180527+00:00",
+        "http": 200,
+        "sha256": "9fc85f3a4544ab0d570c7f8f9bbb88db8d92c359b2707580ea8b07c75673eae2",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "ctl_ui/hamburger/hamburgers.min.css",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.344011+00:00",
+        "http": 200,
+        "sha256": "c684b88ca57c3324e3307c6019b8166c5465f310db58b62fa81588ad7f9c0bc3",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/js/CEventsHandler.js",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.344336+00:00",
+        "http": 200,
+        "sha256": "bd24312d04eac222ea859aecb0937b32ff08a0e274c52ef493cd2a69db31618a",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/js/CGUIController.js",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.345007+00:00",
+        "http": 200,
+        "sha256": "46b47bf620e45d1716c0359c51e8718f681b92e765e3fe182a15de03591bc672",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/js/jquery-3.7.1.min.js",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.462033+00:00",
+        "http": 200,
+        "sha256": "99e691fae5e88eb36bafb24758b35f0f990708295f8f2abe2221891e328f776a",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/js/lang.js",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.467082+00:00",
+        "http": 200,
+        "sha256": "a40905359da7c112a16dd39a8dfefc0adb2bc41507681659aacd6414bac08b21",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "ctl_ui/sprites/badge_100.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.470525+00:00",
+        "http": 200,
+        "sha256": "c040a1f6cd56c99d6890bb1d3fac198a8ad4aed5d6a6998b465bee309eccf34b",
+        "content_type": "image/png"
+      },
+      {
+        "path": "ctl_ui/sprites/codethislab-logo-white.svg",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.596536+00:00",
+        "http": 200,
+        "sha256": "636c3002b4f16da0393c32fd42ac5bae47a3370e1cdb2ea86906d5217f86f024",
+        "content_type": "image/svg+xml"
+      },
+      {
+        "path": "ctl_ui/sprites/flags.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.596766+00:00",
+        "http": 200,
+        "sha256": "9c7d3a86a9aef5aa868595c3d19a652cc49835243e31c131ad0af000bff827f4",
+        "content_type": "image/png"
+      },
+      {
+        "path": "ctl_ui/sprites/flags_small.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.596892+00:00",
+        "http": 200,
+        "sha256": "7c42867e9c91624feaffd53e6c41c73dbd1c609ca4d566ecf3073f8cb7dfbcde",
+        "content_type": "image/png"
+      },
+      {
+        "path": "ctl_ui/sprites/logo_payoff_ctl_white.svg",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.653988+00:00",
+        "http": 200,
+        "sha256": "a37f25be11826294fc8e0d6a24056217e38437d6cf424e36caf5e4f8a2d6885c",
+        "content_type": "image/svg+xml"
+      },
+      {
+        "path": "favicon.ico",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.654456+00:00",
+        "http": 200,
+        "sha256": "62d14c030ca0ec59c7b42a5d71837174c3a3febca16e199958cf56cdc6c30846",
+        "content_type": "image/x-icon"
+      },
+      {
+        "path": "font/ctl-multiplayer-icons.eot",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.654784+00:00",
+        "http": 200,
+        "sha256": "671ef2838100c39de960368855f7604e950751abba0d0bf3b1d20df8dc97ea25",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "font/ctl-multiplayer-icons.svg",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.759453+00:00",
+        "http": 200,
+        "sha256": "05baec6831940298fb7747f6057801631ab3ffc8110e11e8bbfd6df7c693e0b7",
+        "content_type": "image/svg+xml"
+      },
+      {
+        "path": "font/ctl-multiplayer-icons.ttf",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.789889+00:00",
+        "http": 200,
+        "sha256": "c5102945da479342797847533cea22fd20d76acee161de636dbe43630d7b3af4",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "font/ctl-multiplayer-icons.woff",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:51.876140+00:00",
+        "http": 200,
+        "sha256": "8db969c6bfd7499f84da3ab1482892990ea5074383e907490b2999a2f7295237",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "font/ctl-multiplayer-icons.woff2",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:52.555468+00:00",
+        "http": 200,
+        "sha256": "cfbe79950848ef3740aa2619d20e87d6bfad44c72d046c8842887c609dc60ac2",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "index.html",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:52.558559+00:00",
+        "http": 200,
+        "sha256": "d0ec232920b5ce5dc9eeb85ab48dbd36450409c35dfb1cf8f22ed96a1b6d320a",
+        "content_type": "text/html; charset=utf-8"
+      },
+      {
+        "path": "js/CLang.js",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:52.569692+00:00",
+        "http": 200,
+        "sha256": "93217472216f175fb0ae89b3b59106fcc59ac722440feda86f2651b9eee3229a",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/lib/createjs.min.js",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:52.628342+00:00",
+        "http": 200,
+        "sha256": "a8678d5b4bde7b1b179bcba1f2533967c478dae80d40866898d125edb7fed936",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/lib/howler.min.js",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:52.628568+00:00",
+        "http": 200,
+        "sha256": "125eddcb1755a757b5bf4c608ebae9cebe7e04edbda703f441f978d150df7e22",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/lib/screenfull.min.js",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:52.703229+00:00",
+        "http": 200,
+        "sha256": "3bfe89c0bb3287db3dc2b1d6cf391d31f7fba8f54cee61c04e9714ec242dd92a",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/main.js",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.175761+00:00",
+        "http": 200,
+        "sha256": "5d8da0a91c3f7dbe11522c34d01ce34282798921e615c8d16f276b3bb89b7214",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "sounds/click.mp3",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.175969+00:00",
+        "http": 200,
+        "sha256": "d9ab78268f4ff92b7e59dcecede0904a41a91ef44d470bd4a422c9eba5136961",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/drop.mp3",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.176247+00:00",
+        "http": 200,
+        "sha256": "be6d59c4e44d42561f805d782a86ed0db8c9a2bb24ee8949d11c62389502d02c",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/game_over.mp3",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.252075+00:00",
+        "http": 200,
+        "sha256": "708833ecfdec0a390875458a68e67a4c14c07f02e37c69277a8a1755d4fa8c29",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/hurryup.mp3",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.266507+00:00",
+        "http": 200,
+        "sha256": "b3e42767c15e9a73dd8849afac7c37cedcebdd4f9e63589afa652f21a06267bc",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/match_found.mp3",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.380051+00:00",
+        "http": 200,
+        "sha256": "241d7fbc46e2f502a5c4c3a8d81d5cf2e6ce96583cb5891abd1e8d98fa5e0720",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/pawn_release.mp3",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.401176+00:00",
+        "http": 200,
+        "sha256": "05c096916bc62b7ff4906c84cfe2b47001b24e45d03980a168073943d0a972a1",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/soundtrack.mp3",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.419273+00:00",
+        "http": 200,
+        "sha256": "312bbec7cbbd886c723e9cfd44f58c37b39b1fd89b56f6bcafed9394ee1f7bca",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sounds/win.mp3",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.455727+00:00",
+        "http": 200,
+        "sha256": "de46ee22a2300cd73cb5375db5fbd17895af5139ef391f054eb73fa75a67da44",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "sprites/bg_game.jpg",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.477756+00:00",
+        "http": 200,
+        "sha256": "93311643b6e25bba3c7bbf6b769f795d87e0c7a228ebe9fcc02b9b5c17545641",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "sprites/bg_menu.jpg",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.545606+00:00",
+        "http": 200,
+        "sha256": "f039e0d6fedd7178c3b4b8c575d63951a182ef2ab44739556b6c51d3527455cb",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "sprites/bg_turn_red.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.926843+00:00",
+        "http": 200,
+        "sha256": "fe3fadbbe6f0ab525d8e9885a73e90c890c97b56dac8f0a58b1d97604b620bb3",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/bg_turn_yellow.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.928399+00:00",
+        "http": 200,
+        "sha256": "560fe978df0e0d2fd9a8ab3bf4b303f7155cbf7294cd614d3e67b906e129a182",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/board_back.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:53.929436+00:00",
+        "http": 200,
+        "sha256": "a0bb54f5f5cc854da846d65a9f2df5188b1c6e178b295889920af19ed7a199c9",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/board_front.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.029513+00:00",
+        "http": 200,
+        "sha256": "c7078e634a7dd4b4e2498fd429b62b397f1d6c654b9acf8a9a5798ec74da715f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_check.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.029683+00:00",
+        "http": 200,
+        "sha256": "4c50abf0ee6982c3c55e35f286045f2c26b649881d5762ca7fc1d2cb5b3571d5",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_home.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.029967+00:00",
+        "http": 200,
+        "sha256": "33ebda6a5baaa0913af354cfdd105db1154620bbeffb2105f7003bd150e808af",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_long_red.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.431114+00:00",
+        "http": 200,
+        "sha256": "82e9bb2dffa144d6a7551e1c28ff5c338887b91debfa49052ae343a129f6aab6",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_long_yellow.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.431474+00:00",
+        "http": 200,
+        "sha256": "29e81c069b31908ccf709f19043a9e843ebe6540cefe750ee190fb38ab344e19",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_no.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.431653+00:00",
+        "http": 200,
+        "sha256": "21d8dad67ef344be8a23258c27115c37dc58c2b65dcdce44ae6c9e239d86d002",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_restart.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.496567+00:00",
+        "http": 200,
+        "sha256": "d7dc06013d077333e4f2826a34d53634bb0f69e611bf279e71a6265e5c5fde7c",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/but_yes.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.501652+00:00",
+        "http": 200,
+        "sha256": "622049ed3aae004835d6ee800b7f953f35aa169eeb551e4b82df53ee5e8ef12f",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/ctl_logo.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.508835+00:00",
+        "http": 200,
+        "sha256": "ae758135f1be2134ab30f8f20fd76bf08d7a22120c7c3e3271fe79c5a3f56d50",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/disc.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.597934+00:00",
+        "http": 200,
+        "sha256": "fd2dd7f97200008bd008bcca5f3ddae4723ff878810776bd4332ac69258e1698",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/icon_local.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.613332+00:00",
+        "http": 200,
+        "sha256": "98ff4dc1444ad5902a07fd41b47ef53be61b1020d1ef32de6bf16414d61b9822",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/icon_multiplayer.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.616034+00:00",
+        "http": 200,
+        "sha256": "60666f148cb7b64f0d6a32821a074ae4453671d756c7ceb73451403685d43221",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/icon_training.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.708537+00:00",
+        "http": 200,
+        "sha256": "0bc87fe49a7a31034327c7b4768a6b3aa99085ecd68ef7a5e348fcbb185e291d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/logo.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.733966+00:00",
+        "http": 200,
+        "sha256": "5ad07c4aeed281ced57fb2332a9cf6fe36ba99e3e2343b0f7d6d175448ae5f94",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/msg_box.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.736681+00:00",
+        "http": 200,
+        "sha256": "0a0d3265d2bd819328ca44fe11254d4ed1be10733998029ce7091a8b687b6eef",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/preloader/ctl_disclaimer.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:54.860452+00:00",
+        "http": 200,
+        "sha256": "8ead1d6b577cdc93d2f20a2ab9a39b9a189953b642ff4a1c3c9cc6812b3d5f13",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/preloader/ctl_preloader.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.139962+00:00",
+        "http": 200,
+        "sha256": "0564dd8dc052aad9e89a6c4df8d2ad83b3ec5b767bad7d75c997416bfe917f93",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/preloader/progress_bar_bg.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.140303+00:00",
+        "http": 200,
+        "sha256": "5f02eb3aca6fc5f03dd3f5bdd64a6ffc1e0106b72139d25ded2e606a18c00cab",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/preloader/progress_dot.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.140490+00:00",
+        "http": 200,
+        "sha256": "1463cd78eee5394879f7b924a9d6016debc13421d74b96646c1e3394f0fa10f6",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/shadow_0.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.212237+00:00",
+        "http": 200,
+        "sha256": "0df0f06bad3092f378a4188ad374f6941843acba1bf04c4a339988dc835398da",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/shadow_1.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.212529+00:00",
+        "http": 200,
+        "sha256": "f0c2e54e6da70386414a54764c3e28adec73a4685a06efb02452b79c5b4155a5",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/shadow_2.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.213638+00:00",
+        "http": 200,
+        "sha256": "29d3c5e0b9450934141299a6005e06133379c66f590bfd8ab727fec4c3384879",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/shadow_3.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.478363+00:00",
+        "http": 200,
+        "sha256": "2a42044a7ee440e15486a5b61dbe7ba314bc2ba1d5de06b9b064cf3928fa5e52",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/swipe.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.626849+00:00",
+        "http": 200,
+        "sha256": "20cbb3b8aa44e40a38d92ce334641cc51aae42dd4e3db598ff597d7068efe207",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/table.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.689103+00:00",
+        "http": 200,
+        "sha256": "1da41c94371c9421874380a1ae378d5497effd1fd7f5e69ba784e6463e92943d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "sprites/win_effect.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.782887+00:00",
+        "http": 200,
+        "sha256": "c4d9fb0b7ca291b6080e942fa81663eb9c8d24f8f2d4eef4d995b70ce09918c8",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/001.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.942535+00:00",
+        "http": 200,
+        "sha256": "aa9a8d86c4b48636de380905d05792615233fff0cece9be2efcf52d43b6da2a6",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/002.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.953308+00:00",
+        "http": 200,
+        "sha256": "aa9a8d86c4b48636de380905d05792615233fff0cece9be2efcf52d43b6da2a6",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/003.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:55.962092+00:00",
+        "http": 200,
+        "sha256": "82cd9590e08ab11806e225029d1ed07235254f1feedf9b4861fa30b759af0f38",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/004.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:56.201670+00:00",
+        "http": 200,
+        "sha256": "eb12ee9292fc563e22dec2a512d3bef6d6bcc9be86269338ca337c33bf3a8845",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/005.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:56.317660+00:00",
+        "http": 200,
+        "sha256": "39f9a3e11923c2e5a779523952af864df1d234e06ae46fa974f24ba095540500",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/000-cover.png",
+        "artifact_id": "artifact-20591ebe7b51",
+        "observed_at": "2026-11-23T14:39:56.515832+00:00",
+        "http": 200,
+        "sha256": "aa9a8d86c4b48636de380905d05792615233fff0cece9be2efcf52d43b6da2a6",
+        "content_type": "image/png"
+      }
+    ],
+    "all_runtime_and_screenshots_exact": true,
+    "index_csp": "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' http://192.168.56.52:8765",
+    "gameplay_UI_reexecuted": false,
+    "cumulative_UI_steps": 5,
+    "native_player_drops_verified": 2,
+    "native_AI_replies_verified": 2,
+    "full_match_verified": false,
+    "whole_tutorial_verified": false,
+    "request_failed_events_retained": 0,
+    "warnings_retained": 3,
+    "tested_revision": "drop4-offline-v3",
+    "delivery_revision": "drop4-offline-v3",
+    "browser_exit_code": 0,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "CSP_source_compatibility": "89runtimefiles+6actualscreenshots exactHTTPSreadback; actualnativegameplay remotelytestedunder18865selfCSP, noaddedUIunderpublicsiteCSP."
+  },
+  "scope": "Exact normal-review offline game and real evidence. Raw input counts and historical failures remain explicit; no approval, supply, game-state changes or added testing."
+}

@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-23T14:17:59.269Z",
+  "source_only": true,
+  "UI": 0,
+  "original_sha256": "e439bebf8de2df0582273906d2c1dceff2387c661efb2152ef1c28420ce4e7e5",
+  "rewritten_sha256": "a8678d5b4bde7b1b179bcba1f2533967c478dae80d40866898d125edb7fed936",
+  "changes": [
+    {
+      "start": 213508,
+      "end": 213795,
+      "kind": "remove_unreachable_file_protocol_only_probe"
+    },
+    {
+      "start": 213235,
+      "end": 213345,
+      "kind": "retain_exact_original_HTTP_capability_branch"
+    }
+  ],
+  "basis": "Both actual isolated gameplay and GameLab public artifacts run HTTP/HTTPS. Original CreateJS short-circuits before file-XHR probe on these protocols. Keep original consequent(capability generation/realAudioContext check),remove file-only compatibility probe implementation. No dummy file,no fabricated XHR result,no weakened guard.",
+  "deployment_requires_HTTP": true,
+  "SDK_or_success_facade_created": false,
+  "native_rules_edited": false
+}

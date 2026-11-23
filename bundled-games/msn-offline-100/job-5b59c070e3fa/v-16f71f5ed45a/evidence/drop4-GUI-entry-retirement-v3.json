@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-23T14:24:47.428Z",
+  "source_only": true,
+  "UI": 0,
+  "prior_native_UI": 1,
+  "original_retired_GUI_sha256": "6d3b2089ec088d050fdeb29c97e51ffe2826e784994e65d0588684a936b919a0",
+  "rewritten_GUI_sha256": "46b47bf620e45d1716c0359c51e8718f681b92e765e3fe182a15de03591bc672",
+  "changes": [
+    "remove_complete_report_button_markup",
+    "remove_orphan_ad_icon_text_and_closing_button",
+    "remove_retired_purchase_restore_button",
+    "remove_retired_moregames_entry_and_refresh",
+    "remove_retired_moregames_entry_and_refresh",
+    "remove_report_label_refresh",
+    "remove_retired_ad_purchase_label_refresh"
+  ],
+  "native_game_rules_edited": false,
+  "source_cause": "Observed DOM still contained orphan ads labels/retiredreport andmoregames entries. Remove complete HTML construction groups and corresponding label refresh paths,without modifying native game or input state.",
+  "UI_budget_carried_forward": 1,
+  "SDK_or_server_facade_created": false
+}

@@ -1,0 +1,1099 @@
+{
+  "at": "2026-11-23T14:14:22.292Z",
+  "source_only": true,
+  "native_game_or_SDK_executed": false,
+  "native_id": "9nbcsm4zpkh2",
+  "main_edits": [
+    {
+      "start": 9444,
+      "end": 9509,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "cc8af6e74a7147408a2b2f9aa5fef13895c6cc33752d3925fa570d97d8dac60d"
+    },
+    {
+      "start": 9509,
+      "end": 9572,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "d6883449794c108204a67b3456500fc60a89d3cc08492b7fb5cf913362b7ffd3"
+    },
+    {
+      "start": 10675,
+      "end": 10704,
+      "text": "void 0",
+      "why": "Remove call to physically retired online provider",
+      "source_sha256": "ae29d7279689fa7f6741f765b8f22e9af31e94497a0e362155b29e6a26a85acc"
+    },
+    {
+      "start": 12767,
+      "end": 24502,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "99b699f0ef41b18d574915eb095c13d1c873f78a0703c85cbb3493dfc4c2287d"
+    },
+    {
+      "start": 24502,
+      "end": 26727,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "007fe481d0e8d2ec5a4ef09015d8c4dec72b93c04924f9987fdcf25819c315bc"
+    },
+    {
+      "start": 26727,
+      "end": 26892,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "be3e7c651fd501be29425aa5f85c8891f15e16330ce2cec141b515a48c54800d"
+    },
+    {
+      "start": 26892,
+      "end": 27138,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "7e5481d33e0ed58dcf0d30d56e15535a9e8071e1e19d04a4d07ee9a83b26d234"
+    },
+    {
+      "start": 27138,
+      "end": 27282,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "ecae71608794e144ba6715de0d30f6e32a77614a7daac8943d5f3b6ccd7eaa33"
+    },
+    {
+      "start": 27282,
+      "end": 27400,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "180c37925a52c4b1e4c0438b993844e444d0855eed1d4bea4c614c3bd40883c9"
+    },
+    {
+      "start": 27400,
+      "end": 27517,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "05d087e59015c236b4b356441e2f7f237380e6331b9a2d3d01fe205fece7a039"
+    },
+    {
+      "start": 27517,
+      "end": 27637,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "e857944d8be83e3b2ad5d440e16ffb2e72efbad2ffa0f1c2d104e56a04c8984b"
+    },
+    {
+      "start": 27637,
+      "end": 27750,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "e714ad62334dad17d48f87437f456387b80fc6aa782af7376cda60406b7af30c"
+    },
+    {
+      "start": 27750,
+      "end": 27828,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "34400c69102d016f94eea13b6d7c335e65378620bbd016004721b5f6ceefb1e9"
+    },
+    {
+      "start": 27828,
+      "end": 28031,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "955e1b93847696411dea004c7b9abd45ec727ee670a0970d48edaf7e2c265a04"
+    },
+    {
+      "start": 28031,
+      "end": 28102,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "560229a3512b59b455c39895536f217777b043bebbcfee0a87cba230cddd532e"
+    },
+    {
+      "start": 28102,
+      "end": 28171,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "11845ea51ab1cf3c9a081ce290adefd22b9f529076f84305d0b4313c19b4d841"
+    },
+    {
+      "start": 28171,
+      "end": 28238,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "2b46569330d9f009813cd5c74a0f93c20bc30c42db9ca5a98355fe6f5eac80a6"
+    },
+    {
+      "start": 28238,
+      "end": 28351,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "631990fdc3b46022e14816ddd22d761250edf0d18fa90eda1b9970f3976e6924"
+    },
+    {
+      "start": 67050,
+      "end": 67088,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "b5d241f60587ea8e93a1eeda9ee89c13f6531bd2e7e2a901eb0b2e511bb2c196"
+    },
+    {
+      "start": 68625,
+      "end": 68986,
+      "text": "function(id,reason){document.querySelector(\"#block_game\").style.display=\"none\";console.error(\"Local audio failed\",id,reason);}",
+      "why": "Report actual local resource failure; no online reconnect or fake success",
+      "source_sha256": "0813ebf870f727b389f6fb11122d5c18f7ef5496bd496763e6da5e68d673c409"
+    },
+    {
+      "start": 69469,
+      "end": 69747,
+      "text": "function(id,reason){document.querySelector(\"#block_game\").style.display=\"none\";console.error(\"Local audio failed\",id,reason);}",
+      "why": "Report actual local resource failure; no online reconnect or fake success",
+      "source_sha256": "ba157e1dbdf66613f1b535c5f482ade351ea4261390d227173d2b419f5d9f573"
+    },
+    {
+      "start": 72319,
+      "end": 72410,
+      "text": "void 0",
+      "why": "Remove online constructor/transition; native single-game and CPU preserved",
+      "source_sha256": "140a7cc13c26dea499596548ab1367ecb4400ca89983adf910588e39e40f160b"
+    },
+    {
+      "start": 72411,
+      "end": 72510,
+      "text": "void 0",
+      "why": "Remove online constructor/transition; native single-game and CPU preserved",
+      "source_sha256": "6b1458f75f0c9af3f65b13b9e2fca4c6b873bf581678d1796c1fe7a84a1cfa6d"
+    },
+    {
+      "start": 72745,
+      "end": 72757,
+      "text": "void 0",
+      "why": "Remove external publisher notification/ad/score/branding caller",
+      "source_sha256": "b87ad138512e92cceca80eb143085cc044c61d16da8b1b462083ce411e7ddfca"
+    },
+    {
+      "start": 72947,
+      "end": 72961,
+      "text": "void 0",
+      "why": "Remove external publisher notification/ad/score/branding caller",
+      "source_sha256": "31ce01d0bb182c7b18dba8631fce9eb0e5e0b6c47bfb097889874d4266772329"
+    },
+    {
+      "start": 73443,
+      "end": 73452,
+      "text": "(navigator.language||'en').split('-')[0]",
+      "why": "Read actual browser language locally; original supported-language fallback stays unchanged",
+      "source_sha256": "5fa4a2c2a0f2ab2d0ca14aa11304bf1bbd910a02a98bfc4ab31ee6bda368eb85"
+    },
+    {
+      "start": 73720,
+      "end": 73735,
+      "text": "void 0",
+      "why": "Remove external publisher notification/ad/score/branding caller",
+      "source_sha256": "7632689e75e7c683024461d69fd1bda6677ad3d9043429dec05e0df32cf61475"
+    },
+    {
+      "start": 74607,
+      "end": 74909,
+      "text": "",
+      "why": "Remove online-room button and its registration/layout entry",
+      "source_sha256": "f806c7d84621e97bd92e78885e21d146ede7be18011b53aa226c6e01da300bba"
+    },
+    {
+      "start": 75770,
+      "end": 75799,
+      "text": "void 0",
+      "why": "Remove callbacks to retired online menu control",
+      "source_sha256": "3a9c3bb3ee015fea933fb60f26abf9b4c7391031ae079b4b65dc41b0444ddd3d"
+    },
+    {
+      "start": 75963,
+      "end": 75973,
+      "text": "void 0",
+      "why": "Remove callbacks to retired online menu control",
+      "source_sha256": "0f527aad1952098520eb2a82199964b63fead6c4c2c587f595f261c4b836e37d"
+    },
+    {
+      "start": 76719,
+      "end": 77241,
+      "text": "void 0",
+      "why": "Remove online room/matchmaking transition",
+      "source_sha256": "15d933abeffdc16155dd2a1329a3dd937bdcb45aa5515b5a6292bad8d1883faf"
+    },
+    {
+      "start": 77268,
+      "end": 77283,
+      "text": "void 0",
+      "why": "Remove external publisher notification/ad/score/branding caller",
+      "source_sha256": "92abc06405889b559fe377743ce89ec3eaeafdb1bbda8c769399a0aa3c4ce5f8"
+    },
+    {
+      "start": 77334,
+      "end": 77390,
+      "text": "void 0",
+      "why": "Retire publisher DOM protocol; only an original parameter-free ordinary continuation may run locally",
+      "source_sha256": "76e64e35b370ff337ad3f35d8816371a61b2563c9c0e5165e98c60a2e8ec44a4"
+    },
+    {
+      "start": 77456,
+      "end": 77471,
+      "text": "void 0",
+      "why": "Remove external publisher notification/ad/score/branding caller",
+      "source_sha256": "92abc06405889b559fe377743ce89ec3eaeafdb1bbda8c769399a0aa3c4ce5f8"
+    },
+    {
+      "start": 77522,
+      "end": 77578,
+      "text": "void 0",
+      "why": "Retire publisher DOM protocol; only an original parameter-free ordinary continuation may run locally",
+      "source_sha256": "76e64e35b370ff337ad3f35d8816371a61b2563c9c0e5165e98c60a2e8ec44a4"
+    },
+    {
+      "start": 77611,
+      "end": 78138,
+      "text": "void 0",
+      "why": "Remove online room/matchmaking transition",
+      "source_sha256": "e20b60a9f9f98fa55d1e1c69ba71a658087c7917a79f7944dff77780dc5019a4"
+    },
+    {
+      "start": 78139,
+      "end": 78274,
+      "text": "void 0",
+      "why": "Remove online room/matchmaking transition",
+      "source_sha256": "9a5c865299ebf174498a95c9b8e2bd787f4e8ad89632a24bdc7bfd860e569873"
+    },
+    {
+      "start": 78275,
+      "end": 78344,
+      "text": "void 0",
+      "why": "Remove online room/matchmaking transition",
+      "source_sha256": "a8f57bbf76f3b28ac6fc61a1d8de916fdaae29b7c7aebcb7254eee104f3dfdd5"
+    },
+    {
+      "start": 78345,
+      "end": 78852,
+      "text": "void 0",
+      "why": "Remove online room/matchmaking transition",
+      "source_sha256": "d7c58e7894817a4de21b338f6b79cb091f2df8c8204789eaf6ece026fc1b01c1"
+    },
+    {
+      "start": 78853,
+      "end": 78899,
+      "text": "void 0",
+      "why": "Remove online room/matchmaking transition",
+      "source_sha256": "82ce5f6b56b1f3d07400ddc0c042558ccc06b0d03eca0dbbffe4dd18dbcbd9e7"
+    },
+    {
+      "start": 78981,
+      "end": 79007,
+      "text": "void 0",
+      "why": "Remove callbacks to retired online menu control",
+      "source_sha256": "10bc561f557f10fd577000a73d7ebfcba61cb1e58c6edf5bee4b976e90875ee7"
+    },
+    {
+      "start": 79470,
+      "end": 79502,
+      "text": "void 0",
+      "why": "Remove callbacks to retired online menu control",
+      "source_sha256": "7dbd1786c39f80ec5e0ad529b24a2269a2881841152ad1cad2c83be39c184017"
+    },
+    {
+      "start": 79503,
+      "end": 79540,
+      "text": "void 0",
+      "why": "Remove callbacks to retired online menu control",
+      "source_sha256": "9673d22a441317cb278a19397afc4f59ce917b9503ddbb0d1b705ef8d4d63470"
+    },
+    {
+      "start": 80275,
+      "end": 80410,
+      "text": "",
+      "why": "Remove complete online-only implementation",
+      "source_sha256": "02084615132bdbd5b9eac9415c6bd3a4438fd6bbe21c8a550bae0412cb896292"
+    },
+    {
+      "start": 83206,
+      "end": 83221,
+      "text": "void 0",
+      "why": "Remove external publisher notification/ad/score/branding caller",
+      "source_sha256": "7632689e75e7c683024461d69fd1bda6677ad3d9043429dec05e0df32cf61475"
+    },
+    {
+      "start": 83907,
+      "end": 83979,
+      "text": "void 0",
+      "why": "Retire publisher DOM protocol; only an original parameter-free ordinary continuation may run locally",
+      "source_sha256": "2b5cb6c416c63d8e8f79ece47694af190f02e085e2332657fb943d0feb304610"
+    },
+    {
+      "start": 83980,
+      "end": 84053,
+      "text": "void 0",
+      "why": "Retire publisher DOM protocol; only an original parameter-free ordinary continuation may run locally",
+      "source_sha256": "0e80fdbde87bccdd198372922a4cba0a8bfb1c29576e933a8f55453bf59ac9bf"
+    },
+    {
+      "start": 103172,
+      "end": 103320,
+      "text": "var s_bIsKeyboardOpen,browserName,s_oMenu,s_oInterface;",
+      "why": "Remove obsolete network globals and JSON shadow, use actual built-in browser JSON",
+      "source_sha256": "1b3cb5a30d9d249256a72687219f7582e9f48a273d275a12d7d9a2554580e378"
+    },
+    {
+      "start": 103320,
+      "end": 199553,
+      "text": "",
+      "why": "Remove complete PlayerIO/transport/serialization provider bundle; preserve separate original platform/browser utility",
+      "source_sha256": "0452f3369e4ca44352b1ecd7ccc2153801b882147647ab797059440f16117ac4"
+    },
+    {
+      "start": 218104,
+      "end": 218154,
+      "text": "void 0",
+      "why": "Remove call to physically retired online provider",
+      "source_sha256": "f17a43c53df7160092243ea03f5ca9f824807f6a223fb04fd3688a9ebf704206"
+    },
+    {
+      "start": 238729,
+      "end": 240208,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "003f986729ecd3b856e79ee0c53da7da14e431c007b9d28383db9bfc10d728b2"
+    },
+    {
+      "start": 240208,
+      "end": 240257,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "f25cce8f2fba611d5a77dc8afb5ddcd4c3b2398bfdb8b0e789d1e5745b501b5b"
+    },
+    {
+      "start": 240257,
+      "end": 240608,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "10db106a9c49616925212346e4abe6cbceeb1c8678db11ece58a58040106ccb9"
+    },
+    {
+      "start": 240608,
+      "end": 241353,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "5343d81fd526bdb18df179f52fe5c99b12cca77a2ff26592bf495e92b9363656"
+    },
+    {
+      "start": 241353,
+      "end": 242165,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "929d1285c4a577228f0fc1ce0fd8df54928bd784a53ab1d40ec7da106d130af2"
+    },
+    {
+      "start": 242165,
+      "end": 243610,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "a3e727dc55f483a5d9b1092e5b915104c521dac2be774e4806e1f13953db982a"
+    },
+    {
+      "start": 243610,
+      "end": 244181,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "c0e9109991adb933fb9d3d8a2d8fa6a363803eefe8772a530b6a671634133fa2"
+    },
+    {
+      "start": 244181,
+      "end": 245122,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "a3338e8f7656f70a1530a2acca9a5f85eceb7b9ab088dafb767cfabe98ba1b87"
+    },
+    {
+      "start": 245122,
+      "end": 245575,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "a38469c89ba0e1dbbe767965777ad506db8611d2853b607e8406d72364b7489e"
+    },
+    {
+      "start": 245575,
+      "end": 246114,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "ea169e7bdebd8b019ec8b0c373da5c373f85dc0e1de4dfc384b12bca3d0cb84b"
+    },
+    {
+      "start": 246114,
+      "end": 246254,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "addae05ee4ca0d60499d408f8552731b41329d6d9c6f23f7201f66cc1f0efff8"
+    },
+    {
+      "start": 246254,
+      "end": 246351,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "d13f8046d679d702814edcde2b06bd4b3072933539baf790b62fe3bbc87e477a"
+    },
+    {
+      "start": 246351,
+      "end": 246468,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "e8a51d660f1a1a7996eac3b0c452852dc80e7da28a57d3722765741ca121aa01"
+    },
+    {
+      "start": 246468,
+      "end": 246668,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "f540133af3d7f4d74672546ca77bbbcd0eb1bb496307c164136e6872e829cba2"
+    },
+    {
+      "start": 246668,
+      "end": 247479,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "6366ad887e472fb5df9e2e30c3028d725660dd180cc8e4a45a308fc2e15868c5"
+    },
+    {
+      "start": 247479,
+      "end": 247718,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "21f77db93c0ef074434821ae459da270e5c883c0c72c968e3a91a99d6c376a9a"
+    },
+    {
+      "start": 247718,
+      "end": 248050,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "b815cb57d3131fec2a89cb856d7537bccf007e4eebbd316a7501a5f68e3c11d4"
+    },
+    {
+      "start": 248050,
+      "end": 248308,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "8fe1bff68d4ebe24bfa1b0eb306d483445c908a68c0a1b6d92daab260ddf0893"
+    },
+    {
+      "start": 248308,
+      "end": 248800,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "6fda876161c9ed1109865fd94c4de36c757272457394fd6f682cefac8db4e5c0"
+    },
+    {
+      "start": 248800,
+      "end": 250043,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "eca889cdca88dd254f712e8e6d44072333d9cbec5a5e98e5408599a76cd69b0a"
+    },
+    {
+      "start": 250043,
+      "end": 251030,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "0e5d1f33a636e120fc034d1c5c0a751dd070e5fc4ca435b33bfe02c19c822532"
+    },
+    {
+      "start": 251030,
+      "end": 252493,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "90e25eccb2e96b7ed1c9a5eb5acb036a3f7ffe49364444a0dbdcb19c706e2e76"
+    },
+    {
+      "start": 252493,
+      "end": 252632,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "06334b2b717abac59055405a40d477976d8380bab7137b77b1533280b30dcacc"
+    },
+    {
+      "start": 252632,
+      "end": 252881,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "678cd02abf7201c3fda1f8e05066ce2dd44b779997af8e9a2ed5b12ae23b9645"
+    },
+    {
+      "start": 252881,
+      "end": 253018,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "bb51322ea674fdec951fa2f4302785aa4612c5da1eda4c2989c1ca2a30b93229"
+    },
+    {
+      "start": 253018,
+      "end": 253361,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "b79df66ddde825a9ab1a9d8469cb9eccfa6ed91b76280ae0b4b685a0a02e2c8e"
+    },
+    {
+      "start": 253361,
+      "end": 253438,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "91d5c7fb2c00bc7965aaa260178d91fc2a8f14442e893832d0423d02621db88e"
+    },
+    {
+      "start": 253438,
+      "end": 253650,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "7fc4f8d4fce8e10eb3fbcd47f1712fa49a07bd1e116806e0241553fe99cc52ab"
+    },
+    {
+      "start": 253650,
+      "end": 253750,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "68d57cf5b8dd452a2b323d5f91cd756562cb1581e1a352e39d5fa56b29e4f383"
+    },
+    {
+      "start": 253750,
+      "end": 253791,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "c980fb5dd5fa4839b9f1fad19295c6ac60bc815119ea197faea3b9cc439d8d1e"
+    },
+    {
+      "start": 253791,
+      "end": 253831,
+      "text": "void 0",
+      "why": "Remove call to physically retired online provider",
+      "source_sha256": "f34f512791c487a62439bae45d70857994ae027ea0c51677c0b58d1887297d74"
+    },
+    {
+      "start": 256269,
+      "end": 256442,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "d9af9206e150888b3775a6617f229a997b16594316b7711459936e90fa725fc0"
+    },
+    {
+      "start": 256442,
+      "end": 256638,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "017d4277291c7e909322f3468b8c984f01c634fbf60bfdadd612e428f23938f8"
+    },
+    {
+      "start": 256638,
+      "end": 256773,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "96ee6933d03833c955184bb3716dfa38c1d71716ddea106a7c66475bc24b58a8"
+    },
+    {
+      "start": 256773,
+      "end": 256866,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "54eb626d4480cf7981b3235f55a9701b547884a8ab26725d9030bf1531f9bc22"
+    },
+    {
+      "start": 256866,
+      "end": 256955,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "2a3a1c97fff0e92c64bd369afe6a5ffcc0b3842cdf715155a459e36d96e16fc9"
+    },
+    {
+      "start": 256955,
+      "end": 257083,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "819e97763a66d35d27905aee558f26688e2fc835e0ebc99b110c3a6758f9125b"
+    },
+    {
+      "start": 257083,
+      "end": 257714,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "3cc9617b77fa3d4c7e00a19548267e62602797751d7ef0e73ee4bdf81d51ab13"
+    },
+    {
+      "start": 257714,
+      "end": 259078,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "5b0d16f4eea7f1ecc1e9b090383d170a1c7524fab7a1ea634a7a4589f3da048b"
+    },
+    {
+      "start": 259078,
+      "end": 259930,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "915fa8b84f7d96c0a6d2a24a55835717b8c5093d9e47667a7693aee4481dde50"
+    },
+    {
+      "start": 259930,
+      "end": 260013,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "890b08d74b059824cb64a4fb11b2c5b8ea4a1ad186c014d8f1c928480bc5e8fe"
+    },
+    {
+      "start": 260013,
+      "end": 260188,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "499185a3e7080359bddde09c2e20547a6280f7f43302850dcb22541fdd97955f"
+    },
+    {
+      "start": 260188,
+      "end": 260373,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "9dd5a3d9d127fe82d6125e3de74765df5850dd311c3a015dee3ab97cb4dcc438"
+    },
+    {
+      "start": 260373,
+      "end": 260616,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "1e7fb490572e941d5c965309ec1b6ff311724a35c4a1274fbdc13fecf4a8a70c"
+    },
+    {
+      "start": 260616,
+      "end": 261572,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "2aa82100646231a33ddc8179722afbca9a4d2d3e62966e89676cc454d0649f5c"
+    },
+    {
+      "start": 261572,
+      "end": 263059,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "4c31d8e1241393f73aa6ad93f160f7c38ef7dd549d5b37a95ac95ea81c956a3e"
+    },
+    {
+      "start": 263059,
+      "end": 263247,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "73d302d2df7ef4697d695b2e4aba7dd4a269c91281ed2ddebf68f8de45afc1ef"
+    },
+    {
+      "start": 263247,
+      "end": 263501,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "edc813a3b087be48222e1ca6a983a85a26b6551c37e6626774d88499f5539afe"
+    },
+    {
+      "start": 263501,
+      "end": 263701,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "7fda609634e56cb51ab7ea28ccfd98d6690340fffdde66fd180b944d228d3cf6"
+    },
+    {
+      "start": 263701,
+      "end": 263838,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "22fb6681e44fca39c8fdb2d76bc368ccdb5cbe12d5a4a6bd47871794120cf621"
+    },
+    {
+      "start": 263838,
+      "end": 263874,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "4ed903e1cf3df89ed120a80615146986614e14118f0fcbf92f98ffc112cb7561"
+    },
+    {
+      "start": 324220,
+      "end": 324235,
+      "text": "void 0",
+      "why": "Remove external publisher notification/ad/score/branding caller",
+      "source_sha256": "92abc06405889b559fe377743ce89ec3eaeafdb1bbda8c769399a0aa3c4ce5f8"
+    },
+    {
+      "start": 328420,
+      "end": 328435,
+      "text": "void 0",
+      "why": "Remove external publisher notification/ad/score/branding caller",
+      "source_sha256": "92abc06405889b559fe377743ce89ec3eaeafdb1bbda8c769399a0aa3c4ce5f8"
+    },
+    {
+      "start": 328436,
+      "end": 328553,
+      "text": "(()=>{s_oGame.unload(),s_oMain.gotoMenu()})()",
+      "why": "Retire publisher DOM protocol; only an original parameter-free ordinary continuation may run locally",
+      "source_sha256": "d6ee32d3effbf553cdf593a3d7dfb26a2c73cac35c9209aa172899f629f763d2"
+    },
+    {
+      "start": 330724,
+      "end": 330739,
+      "text": "void 0",
+      "why": "Remove external publisher notification/ad/score/branding caller",
+      "source_sha256": "92abc06405889b559fe377743ce89ec3eaeafdb1bbda8c769399a0aa3c4ce5f8"
+    },
+    {
+      "start": 330740,
+      "end": 330865,
+      "text": "(()=>{s_oGame._oEndPanel.hide(),s_oGame.restart()})()",
+      "why": "Retire publisher DOM protocol; only an original parameter-free ordinary continuation may run locally",
+      "source_sha256": "0d7932e133723dc5a5254744c68fd9be39ec2a1e2eba427816f1a8bddb2a4882"
+    },
+    {
+      "start": 330867,
+      "end": 330975,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "2fb2ffe6f6cb93198e2c7d98174c9ff49f788e5617b1edbbbac8d1b56a24d87f"
+    },
+    {
+      "start": 330975,
+      "end": 331041,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "82134041d6d9bcc473febcd0901f80619855b966fca83c341d9d4683811b3c6f"
+    },
+    {
+      "start": 331041,
+      "end": 331101,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "c8b1314ac6df725ddd35a3afa92bc1c80e75a2c674769839effee7ebdcebb9a6"
+    },
+    {
+      "start": 331101,
+      "end": 331640,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "bb083d2c9f7cde9cb3f667ba9735b74c637e27cdfc9bcf108423a282df0c23bc"
+    },
+    {
+      "start": 331640,
+      "end": 331914,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "02dae779d0e42aba8db429862e7b250d78018dc8596cc4187c8d0e833eff1edf"
+    },
+    {
+      "start": 331914,
+      "end": 332351,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "7d9b1cbe99684946f4bc12487a23207aeff1073c509577ec8a99ac3c3ad0445c"
+    },
+    {
+      "start": 332351,
+      "end": 332476,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "67a924413dcf3f0fcd4ce9823bcfd1dcf60903043c49d52ec021379ed8c2c6ea"
+    },
+    {
+      "start": 332476,
+      "end": 332724,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "00da9cd5cd7e5f5d170b47ce7fa39bd69ca1ed99df09ff4c774c0eb1014c8f82"
+    },
+    {
+      "start": 332724,
+      "end": 333223,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "a80d1a583ed4bf8c6a7c75cf22e9c24619728ad14fb4062372c4b78fe477c434"
+    },
+    {
+      "start": 333223,
+      "end": 333464,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "732acdd2f790bd51c03584b4c60873a3b266948280f2954e7bdda3fc09c31593"
+    },
+    {
+      "start": 333464,
+      "end": 333576,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "723906c2f0ed9a8a7ffc1bb0dc06f5acf828dcdde7eb97b27975e454b987c84b"
+    },
+    {
+      "start": 333576,
+      "end": 334151,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "ea881976fc2b8ff353155386a9d4856bbd45e8e2a2ee74135c0a4d1a79247025"
+    },
+    {
+      "start": 334151,
+      "end": 334393,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "3cde4a08710fe589e58ade6151166c3dff6c1a8503df1d5707a746a255279cff"
+    },
+    {
+      "start": 334393,
+      "end": 334449,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "8b69b8d800daf53c4b485b2fcb94f36783063b3f29340b4b518891e7d157eb4a"
+    },
+    {
+      "start": 334449,
+      "end": 334493,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "208b995838335b10a47ba96946fed79ab3e646ecb6b7077b8de6599bad9d9a8a"
+    },
+    {
+      "start": 334493,
+      "end": 335079,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "7f67e1c58a72f77c62b224f1ec8e661ef2440bf4bde25d397b256676f75d91fc"
+    },
+    {
+      "start": 335079,
+      "end": 335227,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "ae4f971ba817e257f24e3dee4b9869f1283a1ef86daab016f3217a1b221f9d85"
+    },
+    {
+      "start": 335227,
+      "end": 335493,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "9b29bd9c9df166efc6fa9459f2236cd496103c4ed845d8feaf0c76931738e789"
+    },
+    {
+      "start": 335493,
+      "end": 335984,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "7ab9d51a35764cdc8da16a4fe195082766ede96fc05ddc4144dd3d43243e3572"
+    },
+    {
+      "start": 335984,
+      "end": 336101,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "3b97ea709836e802a4b6c50af4f29728dc886fd58b5617437a91623640d73230"
+    },
+    {
+      "start": 336101,
+      "end": 336273,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "33c12b7d68940cc77f84e9d9b50a644cc15d2f1f0c4fb2d93c8f91bb12be0c80"
+    },
+    {
+      "start": 336273,
+      "end": 336364,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "8b46a3d26e873223c95ce7f946ea127342941b04fe79fd26c69032e3676775bd"
+    },
+    {
+      "start": 336364,
+      "end": 336932,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "a73b03f8014439836360469a3312b24785e2ed343ae70ae5944a64b681860efc"
+    },
+    {
+      "start": 336932,
+      "end": 336986,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "cc520d753a340b93d5bffbef5cdc7d14da4d422ac99f788c09d855626b805c6e"
+    },
+    {
+      "start": 336986,
+      "end": 337088,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "f60c19352edb1814ac052ed5d1207bf382afb2f631d8f74ab5de7be048dbaac9"
+    },
+    {
+      "start": 337088,
+      "end": 337433,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "6c684a7cd1f08f2ea6c51e6e442c97d5d7fd284d7d65e8a9b15b508c860ef04d"
+    },
+    {
+      "start": 337433,
+      "end": 337631,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "71c43604dcd19fe347b124529b570231a48e2463404dda3aa1f0ac0eb6c33c50"
+    },
+    {
+      "start": 337631,
+      "end": 337905,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "30d964bc5dbb687303498cef2fc26cb59bab3ef55efd03d410b04173695e4503"
+    },
+    {
+      "start": 337905,
+      "end": 338076,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "ec67abd306f0beebc0c153afd2ce1b7565ff552ec328c7b7dc090b55e1d28474"
+    },
+    {
+      "start": 338076,
+      "end": 338432,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "23f27c5b90fa50d2a24f6cda93ee3e2140c944a0d8f9a0de5d71763227f6c3db"
+    },
+    {
+      "start": 338432,
+      "end": 338820,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "f8b5675ca7bc0a0ad37d7c717f1bec951f0c39679fb28679d411012dd44b1a61"
+    },
+    {
+      "start": 338820,
+      "end": 339349,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "2239fd55a1a051ae48bba289815f5d6565cdef5a47dc7434d6c339ccede9219e"
+    },
+    {
+      "start": 339349,
+      "end": 339821,
+      "text": "",
+      "why": "Remove online-only script/prototype assignment",
+      "source_sha256": "c4b50205b62b94a4fff2f5cd2c1e82952bc6bbcb503c430b32555e46e2fc3ba1"
+    }
+  ],
+  "gui_removed_methods": [
+    "resetPlayerValues",
+    "onRefreshRanking",
+    "refreshPlayerInfos",
+    "checkPendingInvitation",
+    "onUserLogged",
+    "onUserLogout",
+    "onLogout",
+    "_joinRoomAsGuest",
+    "onRoomJoined",
+    "onPlayerInfosRetrieved",
+    "calculateBadgeLevelByRanking",
+    "getBadgePointsByIndex",
+    "getWinPointByRank",
+    "showCartButton",
+    "hideCartButton",
+    "showPrivacyButton",
+    "hidePrivacyButton",
+    "__createLoginPlayerModal",
+    "__createRegisterPanelModal",
+    "__createSendEmailModal",
+    "__createStatsModal",
+    "__createMoregamesModal",
+    "_loadMoregamesInfos",
+    "onMoreGames",
+    "onRemoveAds",
+    "onAcceptSubscription",
+    "onAcceptRemoveAdsDurable",
+    "onRestoreIOS",
+    "onConfirmRestoreIOS",
+    "onGoToWebSite",
+    "onPrivacy",
+    "onClickSubmitLogin",
+    "onClickSubmitRegister",
+    "clearAlertTexts",
+    "onClickRestorePwd",
+    "onPwdRestoreSuccess",
+    "onPwdRestoreError",
+    "onLoginPlayer",
+    "onLoginError",
+    "onRegisterPlayer",
+    "onRegisterError",
+    "_checkCodethislabLink",
+    "getLeaderboardEntries",
+    "getPlayerNeighbors",
+    "__createLeaderboardDialog",
+    "_refreshLeaderboardTopPlayer",
+    "_refreshLeaderboardLastPlayer",
+    "getLeaderboardTopRankings",
+    "getLeaderboardPlayerRanking",
+    "getLeaderboardNeighbourRanking",
+    "clearLeaderboards",
+    "resetLeaderboard",
+    "refreshLeadeboard",
+    "onSelectLeaderboardGeneral",
+    "onSelectLeaderboardMonthly",
+    "onSelectLeaderboardDaily",
+    "parseLeaderboardEntry",
+    "getRanking",
+    "getWinMatches",
+    "getLossMatches",
+    "getTotMatches",
+    "getBadgeLevel",
+    "getRoomAccess",
+    "getNumBadges"
+  ],
+  "source_main_SHA256": "d3df1af5279c6bd399b341dc2252b82fb416f61e318abb186580f86a571b78b3",
+  "revision_main_SHA256": "5d8da0a91c3f7dbe11522c34d01ce34282798921e615c8d16f276b3bb89b7214",
+  "source_GUI_SHA256": "6fc93befd48041fd449586f5c01280edb84709b8438bd1791b440e79266ff689",
+  "revision_GUI_SHA256": "6d3b2089ec088d050fdeb29c97e51ffe2826e784994e65d0588684a936b919a0",
+  "native_protected_functions": [
+    {
+      "name": "CBoard",
+      "AST_exact": true,
+      "source_sha256": "6599a17ec95caf8896add91792ae156b9a95b007d973e10218b173fe53c3034f",
+      "rewritten_sha256": "6599a17ec95caf8896add91792ae156b9a95b007d973e10218b173fe53c3034f",
+      "original_bytes_exact": true
+    },
+    {
+      "name": "CDisc",
+      "AST_exact": true,
+      "source_sha256": "01113921d9e2c493a35f5750230347e9eb6c85dbfe184d01510a6093b01a99b4",
+      "rewritten_sha256": "01113921d9e2c493a35f5750230347e9eb6c85dbfe184d01510a6093b01a99b4",
+      "original_bytes_exact": true
+    },
+    {
+      "name": "CAIController",
+      "AST_exact": true,
+      "source_sha256": "c3f82470fac1a45c31465c33c25edf8eb00e8bcdb0fedd4755cc7ba158b43078",
+      "rewritten_sha256": "c3f82470fac1a45c31465c33c25edf8eb00e8bcdb0fedd4755cc7ba158b43078",
+      "original_bytes_exact": true
+    },
+    {
+      "name": "CInfoTurn",
+      "AST_exact": true,
+      "source_sha256": "4bf4acda3da88023e72f108e059c3ef00ae7dce6a8c16aafe61f344c64704c9a",
+      "rewritten_sha256": "4bf4acda3da88023e72f108e059c3ef00ae7dce6a8c16aafe61f344c64704c9a",
+      "original_bytes_exact": true
+    },
+    {
+      "name": "CThinking",
+      "AST_exact": true,
+      "source_sha256": "324a434b75e3988d4ee9ee72eb67cdb1e15c88a08835bfb169369aad2d05c359",
+      "rewritten_sha256": "324a434b75e3988d4ee9ee72eb67cdb1e15c88a08835bfb169369aad2d05c359",
+      "original_bytes_exact": true
+    },
+    {
+      "name": "CMsgBox",
+      "AST_exact": true,
+      "source_sha256": "90498d38f4d0b400548c59e43ff0e606db88d5bf0ab1d088631a561f40e3bfb3",
+      "rewritten_sha256": "90498d38f4d0b400548c59e43ff0e606db88d5bf0ab1d088631a561f40e3bfb3",
+      "original_bytes_exact": true
+    }
+  ],
+  "SDK_or_online_facade_created": false,
+  "synthetic_provider_success_or_reward_events_emitted": false,
+  "original_local_CPU_and_two_human_game_retained": true,
+  "UI": 0
+}
