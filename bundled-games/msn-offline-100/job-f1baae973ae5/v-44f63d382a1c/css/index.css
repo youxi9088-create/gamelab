@@ -1,0 +1,58 @@
+head,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    -ms-touch-action: none;
+
+    -webkit-touch-callout: none !important;
+    -webkit-text-size-adjust: none !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+
+    transition: all 0.35s ease;
+
+    /* background: url('/assets/shine.png') no-repeat center center fixed; */
+    background-color: #6994ad;
+    background-size: cover;
+
+}
+
+#game {
+    margin: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+}
+
+#background-gradient-left  {
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    z-index: -1;
+}
+
+#dark-overlay {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.0);
+    z-index: -1;
+}
+
+/* 
+#background-gradient-right {
+    position: absolute;
+    width: 20px;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+} */

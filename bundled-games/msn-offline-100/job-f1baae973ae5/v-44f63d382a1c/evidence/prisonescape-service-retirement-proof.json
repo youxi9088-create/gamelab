@@ -1,0 +1,230 @@
+{
+  "at": "2026-11-23T10:23:22.190Z",
+  "native_id": "9p4147dk22wx",
+  "source_sha256": "46a25ee9df995ed52b3302218b63b472d5240577e8c62bd8b979a3a29b3d90ca",
+  "rewritten_sha256": "cf1b954e3634d74333fd2b72c2d71e678284262b2d54ded94762c19e1a810174",
+  "original_native_methods": 381,
+  "retained_native_methods": 381,
+  "AST_identical_native_methods": 367,
+  "changed_native_methods": [
+    "GameOverContainer.handleRescueButtonClick",
+    "GameOverContainer.animateShowCrashedContainer1",
+    "GameScene.createButtons",
+    "GameScene.handleStartButtonClick",
+    "GameScene.startGame",
+    "GameScene.startGameCallback",
+    "GameScene.handleTurnOnboarding",
+    "GameScene.animateCreateHelicopterWatchAdImage",
+    "GameScene.handleHelicopterClick",
+    "GameScene.animateHelicopterTakeCar",
+    "GameScene.handleGameOverContinue",
+    "GameScene.handleGameOverFinish",
+    "GameScene.updateHelicopter",
+    "GameScene.onBoosterFinished"
+  ],
+  "removed_native_methods": [],
+  "native_non_ad_choices": [
+    {
+      "method": "handleRescueButtonClick",
+      "original_non_ad_alternate": "this.handleRescueButtonClickNonAd()"
+    },
+    {
+      "method": "animateShowCrashedContainer1",
+      "original_non_ad_alternate": "this.watchAdImage.setVisible(!1),this.rescueText.setPosition(this.rescueButton.x-.45*this.rescueButton.displayWidth,this.rescueButton.y),this.rescueText.setOrigin(0,.5)"
+    },
+    {
+      "method": "animateShowCrashedContainer1",
+      "original_non_ad_alternate": "this.animateShowCrashedContainer1NonAd(a,b)"
+    },
+    {
+      "method": "startGame",
+      "original_non_ad_alternate": "this.playSound(\"button\"),this.playSound(\"siren\"),this.startGameCallback()"
+    },
+    {
+      "method": "handleHelicopterClick",
+      "original_non_ad_alternate": "this.animateHelicopterTakeCar()"
+    },
+    {
+      "method": "updateHelicopter",
+      "original_non_ad_alternate": "3>Phaser.Math.Between(0,5)&&getStorageProperty(\"onboardingHelicopterUsed\")?this.helicopterUsed=this.helicopterOnce=!0:this.startHelicopterProcedure()"
+    }
+  ],
+  "native_generic_generator_polyfill_retained": true,
+  "engine_prefix_raw_exact": true,
+  "ordinary_native_start_continuation_lifted": 1,
+  "paid_rescue_original_methods_AST_identical": true,
+  "provider_globals_created": false,
+  "reward_callbacks_injected": false,
+  "storage_RNG_tutorial_or_prices_modified": false,
+  "UI": 0,
+  "service_edits": [
+    {
+      "start": 7721025,
+      "end": 7744305,
+      "why": "Remove actual ads/analytics/MSStart providers, fake reward callbacks, advertising initialization and service worker; preserve native generic generator polyfill",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7764280,
+      "end": 7764833,
+      "why": "Select original authored non-ad branch: paid crash rescue and owned/upgraded helicopter retain original costs, spawn gates and random availability; no reward callback",
+      "replacement_bytes": 37
+    },
+    {
+      "start": 7767227,
+      "end": 7767488,
+      "why": "Select original authored non-ad branch: paid crash rescue and owned/upgraded helicopter retain original costs, spawn gates and random availability; no reward callback",
+      "replacement_bytes": 170
+    },
+    {
+      "start": 7767489,
+      "end": 7768424,
+      "why": "Select original authored non-ad branch: paid crash rescue and owned/upgraded helicopter retain original costs, spawn gates and random availability; no reward callback",
+      "replacement_bytes": 45
+    },
+    {
+      "start": 7832557,
+      "end": 7835922,
+      "why": "Remove actual ads/analytics/MSStart providers, fake reward callbacks, advertising initialization and service worker; preserve native generic generator polyfill",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7835989,
+      "end": 7836232,
+      "why": "Physically retire rewarded-ad provider and fake success fallback; retain original onGameOver callback",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7855196,
+      "end": 7855452,
+      "why": "Lift original ordinary start continuation; retain original conditional native updateCoins binding, no ad or reward callback",
+      "replacement_bytes": 127
+    },
+    {
+      "start": 7861819,
+      "end": 7861878,
+      "why": "Remove nonreward ad notification; keep original game continuation",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7862052,
+      "end": 7862286,
+      "why": "Select original authored non-ad branch: paid crash rescue and owned/upgraded helicopter retain original costs, spawn gates and random availability; no reward callback",
+      "replacement_bytes": 75
+    },
+    {
+      "start": 7862462,
+      "end": 7862484,
+      "why": "Preserve exact original ordinary audio continuation without advertising wrapper",
+      "replacement_bytes": 21
+    },
+    {
+      "start": 7877072,
+      "end": 7877157,
+      "why": "Retire tutorial telemetry only; native tutorial state/turn gates retained",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7884886,
+      "end": 7884969,
+      "why": "Remove advertising icon selection; native non-ad help button uses original ordinary icon",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7890659,
+      "end": 7890796,
+      "why": "Select original authored non-ad branch: paid crash rescue and owned/upgraded helicopter retain original costs, spawn gates and random availability; no reward callback",
+      "replacement_bytes": 33
+    },
+    {
+      "start": 7894059,
+      "end": 7894081,
+      "why": "Preserve exact original ordinary audio continuation without advertising wrapper",
+      "replacement_bytes": 21
+    },
+    {
+      "start": 7896088,
+      "end": 7896146,
+      "why": "Remove nonreward ad notification; keep original game continuation",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7897477,
+      "end": 7897535,
+      "why": "Remove nonreward ad notification; keep original game continuation",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7903770,
+      "end": 7903968,
+      "why": "Select original authored non-ad branch: paid crash rescue and owned/upgraded helicopter retain original costs, spawn gates and random availability; no reward callback",
+      "replacement_bytes": 151
+    },
+    {
+      "start": 7908780,
+      "end": 7908850,
+      "why": "Retire ad-only post-booster helicopter offer; original owned-upgrade non-ad scheduling remains",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7918312,
+      "end": 7918345,
+      "why": "Remove service-only identity/config/external lifecycle assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7918345,
+      "end": 7918382,
+      "why": "Remove service-only identity/config/external lifecycle assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7918382,
+      "end": 7918420,
+      "why": "Remove service-only identity/config/external lifecycle assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7918420,
+      "end": 7918447,
+      "why": "Remove service-only identity/config/external lifecycle assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7918449,
+      "end": 7918486,
+      "why": "Remove service-only identity/config/external lifecycle assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7918486,
+      "end": 7918674,
+      "why": "Remove service-only identity/config/external lifecycle assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7918674,
+      "end": 7918780,
+      "why": "Remove service-only identity/config/external lifecycle assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7918780,
+      "end": 7918888,
+      "why": "Remove service-only identity/config/external lifecycle assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7920210,
+      "end": 7920226,
+      "why": "Remove provider initialization",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 7922360,
+      "end": 7925194,
+      "why": "Remove actual ads/analytics/MSStart providers, fake reward callbacks, advertising initialization and service worker; preserve native generic generator polyfill",
+      "replacement_bytes": 0
+    }
+  ]
+}

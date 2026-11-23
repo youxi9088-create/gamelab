@@ -1,0 +1,183 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计原输入1"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入2"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入3"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入4"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 49,
+    "responses": 49,
+    "tested_revision": "prisonescape-offline-v1",
+    "delivery_revision": "prisonescape-offline-v1",
+    "native_two_turns_verified": true,
+    "native_coin_collection_verified": true,
+    "native_distance14m_visible": true,
+    "whole_tutorial_verified": false,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "scope": "累计5步：载入原TAP TO CONTINUE→点击进入原菜单→点击START，原车自行行驶到首个转向教程，显示内部7m/方向1→普通点击原Tap区，方向1→0、路上行驶到13m并真实收集1币→再普通点击Tap区，方向0→1、画面14m。原教学在弯角等待下一次点击；没有第6步。5张截图逐张已打开，浏览器正常关闭exit0且实际PID不存在。 实际只验证原菜单进入、两次正常方向切换、行驶推进和1金币收集。最终仍在教程，原onboardingTurnsCompleted内部值3包含首次提示计数，不能称作3次玩家转向或教程完成；实际仅2次转向。囚犯数0、最高纪录0、直升机未购买/使用。未验证抓捕、监狱工坊、收费救援、直升机、升级购买、失败重试、刷新存档或移动端；不宣称完整一局或终局胜利。",
+    "cumulative_input_budget": 5
+  },
+  "raw_inputs": 5,
+  "checkpoints": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/prisonescape-offline-v1/index.html",
+      "at": "2026-11-23T10:26:53.531Z",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "action": "click",
+      "x": 719,
+      "y": 811,
+      "at": "2026-11-23T10:27:32.560Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 719,
+          "y": 811
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "action": "click",
+      "x": 721,
+      "y": 762,
+      "at": "2026-11-23T10:28:16.313Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 721,
+          "y": 762
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "action": "click",
+      "x": 720,
+      "y": 594,
+      "at": "2026-11-23T10:29:07.548Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 594
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "action": "click",
+      "x": 720,
+      "y": 594,
+      "at": "2026-11-23T10:29:57.130Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 594
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    }
+  ],
+  "browser_sessions": [
+    97734
+  ],
+  "browser_actual_exit_codes": [
+    0
+  ],
+  "owned_node_absent": true,
+  "node_pids": [
+    27252
+  ],
+  "screenshots_opened": true,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "accounting": {
+    "observation_start": "2026-11-23T10:04:02.080000+00:00",
+    "observation_end": "2026-11-23T10:33:41.888384+00:00",
+    "elapsed_seconds": 1779.808384,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "首次原入口静态捕获至证据生成的经过区间，含源码/资源/环境等待、并行处理其他游戏的封装修正与本款试玩，不是本款独占工时。逐游戏Token/费用不可归属，未知不填0。"
+  },
+  "visual_result": "累计5步：载入原TAP TO CONTINUE→点击进入原菜单→点击START，原车自行行驶到首个转向教程，显示内部7m/方向1→普通点击原Tap区，方向1→0、路上行驶到13m并真实收集1币→再普通点击Tap区，方向0→1、画面14m。原教学在弯角等待下一次点击；没有第6步。5张截图逐张已打开，浏览器正常关闭exit0且实际PID不存在。",
+  "scope_boundary": "实际只验证原菜单进入、两次正常方向切换、行驶推进和1金币收集。最终仍在教程，原onboardingTurnsCompleted内部值3包含首次提示计数，不能称作3次玩家转向或教程完成；实际仅2次转向。囚犯数0、最高纪录0、直升机未购买/使用。未验证抓捕、监狱工坊、收费救援、直升机、升级购买、失败重试、刷新存档或移动端；不宣称完整一局或终局胜利。",
+  "console_information_retained": [
+    {
+      "level": "info",
+      "message": "Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: http://127.0.0.1:18865/prisonescape-offline-v1/assets/fonts/sadanasquare.ttf"
+    },
+    {
+      "level": "info",
+      "message": "Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: http://127.0.0.1:18865/prisonescape-offline-v1/assets/fonts/playbold.TTF"
+    },
+    {
+      "level": "info",
+      "message": "%c %c   Inlogic Games 2024 | Prison Escape v1.0.0 | 08.03.2024 13:11  %c  background:#353AFB background:#000080;color:#fff background:#353AFB"
+    }
+  ]
+}

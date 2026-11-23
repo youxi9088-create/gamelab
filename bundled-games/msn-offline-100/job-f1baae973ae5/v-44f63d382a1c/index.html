@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; frame-src 'none'; worker-src 'none'; form-action 'none'; base-uri 'self'">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+
+
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>1st Prison Escape</title>
+
+
+
+
+    <link rel="stylesheet" href="css/index.css">
+
+    <style type="text/css">
+        @font-face {
+            font-family: 'gameFont';
+            src: url('assets/fonts/sadanasquare.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'russianFont';
+            src: url('assets/fonts/playbold.TTF') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="icon" type="image/png" href="assets/favicon/icon-144x144.png" sizes="144x144">
+    <link rel="icon" type="image/png" href="assets/favicon/icon-152x152.png" sizes="152x152">
+    <link rel="icon" type="image/png" href="assets/favicon/icon-512x512.png" sizes="512x512">
+
+    <link rel="apple-touch-icon" type="image/png" href="assets/favicon/icon-144x144.png" sizes="144x144">
+    <link rel="apple-touch-icon" type="image/png" href="assets/favicon/icon-152x152.png" sizes="152x152">
+    <link rel="apple-touch-icon" type="image/png" href="assets/favicon/icon-512x512.png" sizes="512x512">
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+    <div class="wrapper">
+        <div class="font_preload" style="opacity: 0">
+            <span style="font-family: 'gameFont', 'Arial', 'normal';"></span>
+            <span style="font-family: 'russianFont', 'Arial', 'normal';"></span>
+
+            <!-- <span style="font-family: 'menuFont', 'Arial', normal;"></span> -->
+        </div>
+        <div>
+            <img src="assets/shine.png" alt="" srcset="" id="background-gradient-left" class="gradient-background" style="touch-action: none;">
+        </div>
+        <div id="dark-overlay"></div>
+
+
+        <div id="game">
+            
+
+            <script src="js/game.js"></script>
+        
+
+        </div>
+        <div id="wrongRotation"
+            style="	display: none; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 15; touch-action: none;">
+            <img src="assets/rotate_screen.png" alt="" />
+        </div>
+
+           </div>
+
+    <div class="fullscreen-image-overlay"></div>
+
+
+</body>
+
+</html>

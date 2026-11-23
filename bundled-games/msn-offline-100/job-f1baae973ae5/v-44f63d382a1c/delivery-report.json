@@ -1,0 +1,265 @@
+{
+  "msn_revision": "prisonescape-offline-v1",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计原输入1"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入2"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入3"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入4"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 49,
+    "responses": 49,
+    "tested_revision": "prisonescape-offline-v1",
+    "delivery_revision": "prisonescape-offline-v1",
+    "native_two_turns_verified": true,
+    "native_coin_collection_verified": true,
+    "native_distance14m_visible": true,
+    "whole_tutorial_verified": false,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "scope": "累计5步：载入原TAP TO CONTINUE→点击进入原菜单→点击START，原车自行行驶到首个转向教程，显示内部7m/方向1→普通点击原Tap区，方向1→0、路上行驶到13m并真实收集1币→再普通点击Tap区，方向0→1、画面14m。原教学在弯角等待下一次点击；没有第6步。5张截图逐张已打开，浏览器正常关闭exit0且实际PID不存在。 实际只验证原菜单进入、两次正常方向切换、行驶推进和1金币收集。最终仍在教程，原onboardingTurnsCompleted内部值3包含首次提示计数，不能称作3次玩家转向或教程完成；实际仅2次转向。囚犯数0、最高纪录0、直升机未购买/使用。未验证抓捕、监狱工坊、收费救援、直升机、升级购买、失败重试、刷新存档或移动端；不宣称完整一局或终局胜利。",
+    "cumulative_input_budget": 5
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "实际广告/奖励/统计提供方移除，保留原收费非广告救援与原已购升级分支，无SDK/广告成功替身。",
+      "evidence": [
+        "evidence/prisonescape-service-retirement-proof.json",
+        "evidence/validation.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "absent",
+      "reason": "本地距离高分与存档，远程统计身份提供方退役。",
+      "evidence": [
+        "evidence/prisonescape-service-retirement-proof.json",
+        "evidence/validation.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原本地警车追捕，无多人服务器协议。",
+      "evidence": [
+        "evidence/prisonescape-service-retirement-proof.json",
+        "evidence/validation.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "原本地金币/囚犯规则与原价升级保留，无外部支付/充值。",
+      "evidence": [
+        "evidence/prisonescape-service-retirement-proof.json",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "等距道路驾驶 / 警车追捕与经营成长",
+    "dimension": "2.5D",
+    "perspective": "",
+    "core_gameplay": "在狭窄等距折线路面上判断弯角时机，以一次点击切换警车方向，避免驶出道路，沿途收币并逐步接近逃犯；原长期循环还包括抓捕、监狱收益和升级。操作时机与路线预判是主挑战，资源升级是后续策略。实测两次方向变化1→0→1、原行驶推进7→13→14m、1金币收集；没有实证抓捕。",
+    "core_experience": "",
+    "controls": "原普通点击切换左右前进方向，原教程在指定弯角暂停并提示Tap，点击后继续原移动；本轮两次普通90ms按下/释放位于可见Tap区。第1步载入、第2步点击继续、第3步START，第4/5步各一次转向。无业务方法调用、调试键、地图/状态/随机/存储注入，也没有组合或自动导航。触控和设置/全屏原代码保留但未实测。",
+    "game_loop": "",
+    "content": "原无限/程序化折线路径和教程段，使用原道路瓦片池、单/双弯选择、金币/逃犯/加速生成与镜头滚动；未替换成固定演示路面。保留所有原生成器/升级参数。8对图集不是8关，MAX_TILES等深度/池常量不能当作已验证关卡数量；本轮只实测最初教程段到14m。",
+    "progression": "",
+    "save": "",
+    "rules": "保持原TilePool/PathGenerator、路面生成、车辆移动/方向、道路外事故、金币接触收集、逃犯与监狱/直升机规则。原教程会在转弯点暂停；不得把暂停误判为卡死，也不能通过调用handleClickAutopilot或改教程标记跳过。普通点击实际触发方向1→0→1与里程推进，金币按原碰撞+延时记账增加1。",
+    "systems": "完整移除实际InLogic统计/身份/广告/奖励广告、Adinplay和MSStart提供方/回调/启动与PWA服务工作者。没有建立SDK替身、广告成功回调、身份或奖励注入。选择原作者已有非广告分支：撞车救援仍调用原NonAd方法，仅原50金币以上入口可用，原扣款max(50,floor(余额/2))保持；已购直升机仍保留原升级门槛/非广告随机机会/飞行距离与原教程，未变成无条件免费广告奖励。原381个原生类方法全部保留，其中367个AST完全一致；14处为服务调用/原普通继续逻辑/原非广告分支选择，原非广告收费救援两方法AST完全一致。原引擎前缀与通用生成器polyfill保留，原存储/随机/教程/价格不改。 原预加载/多语言、GameScene、警车/道路/金币、逃犯/监狱/工坊、直升机/加速、音频/设置与本地数据层保留。CSP与实际请求均限定同源，49请求/49同源200、0失败、0外联、0错误。原adRewardInputFix名称虽含ad，但其指针去粘连行为被普通流程使用，保留原本地输入行为，不把变量命名当作外部SDK。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5步：载入原TAP TO CONTINUE→点击进入原菜单→点击START，原车自行行驶到首个转向教程，显示内部7m/方向1→普通点击原Tap区，方向1→0、路上行驶到13m并真实收集1币→再普通点击Tap区，方向0→1、画面14m。原教学在弯角等待下一次点击；没有第6步。5张截图逐张已打开，浏览器正常关闭exit0且实际PID不存在。 实际只验证原菜单进入、两次正常方向切换、行驶推进和1金币收集。最终仍在教程，原onboardingTurnsCompleted内部值3包含首次提示计数，不能称作3次玩家转向或教程完成；实际仅2次转向。囚犯数0、最高纪录0、直升机未购买/使用。未验证抓捕、监狱工坊、收费救援、直升机、升级购买、失败重试、刷新存档或移动端；不宣称完整一局或终局胜利。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "Phaser / 原生JavaScript HTML5",
+    "programming_language": "JavaScript",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "1st Prison Escape / 监狱追捕，MSN原生9p4147dk22wx，Inlogic Games2024，原BuildVersion1.0.0、08.03.2024 13:11。原Phaser JavaScript HTML5等距2D警车道路追捕游戏，公开构建v23。实际操控为警车，不因标题便推断玩家扮演逃犯。远端桌面1440×900，原画布900×1020按比例显示。",
+        "asset_types": "67运行文件：原Phaser与游戏合并JS、HTML/CSS、8对PNG/JSON图集、原Logo/背景光/旋转提示/粒子、2个TTF字体、language.xml和17组OGG/MP3音频。64项原静态资源逐SHA核对，8对原图集完整配对，包含车/UI/金币/监狱/人物/直升机/设置/加速。全部使用原素材，没有重绘或缩成替代游戏。",
+        "core_challenge": "在狭窄等距折线路面上判断弯角时机，以一次点击切换警车方向，避免驶出道路，沿途收币并逐步接近逃犯；原长期循环还包括抓捕、监狱收益和升级。操作时机与路线预判是主挑战，资源升级是后续策略。实测两次方向变化1→0→1、原行驶推进7→13→14m、1金币收集；没有实证抓捕。",
+        "controls": "原普通点击切换左右前进方向，原教程在指定弯角暂停并提示Tap，点击后继续原移动；本轮两次普通90ms按下/释放位于可见Tap区。第1步载入、第2步点击继续、第3步START，第4/5步各一次转向。无业务方法调用、调试键、地图/状态/随机/存储注入，也没有组合或自动导航。触控和设置/全屏原代码保留但未实测。",
+        "behavior_path": "累计5步：载入原TAP TO CONTINUE→点击进入原菜单→点击START，原车自行行驶到首个转向教程，显示内部7m/方向1→普通点击原Tap区，方向1→0、路上行驶到13m并真实收集1币→再普通点击Tap区，方向0→1、画面14m。原教学在弯角等待下一次点击；没有第6步。5张截图逐张已打开，浏览器正常关闭exit0且实际PID不存在。",
+        "game_path": "原品牌/资源加载→TAP TO CONTINUE→监狱和警车首页→START→折线路面驾驶与转向教程→原道路抓捕/收币/事故结算→返回监狱、车辆和工坊升级→再次追捕。实际停在转向教程；抓捕与事故后完整流程只有源码/素材依据，不写成已通过。",
+        "progression_path": "原金币、囚犯、最高距离、四类升级与教程标记保存到原inl-prisonescape本地数据；工坊/直升机/加速/金币收益升级保留原成本和回报曲线。原首次教程强制路线/转向暂停规则保留。本轮金币0→1，囚犯0、高分0，尚未完成首次游戏，因此不声称长期成长、存档刷新或升级已验证。",
+        "core_loop": "目标：沿折线道路维持警车在路面上、接近并抓捕逃犯、获取原金币/囚犯资源。规则：按原时机切方向、道路边界与碰撞判定、原收币/距离/事故规则。反馈：警车朝向和横向位置改变、金币1、13m/14m、教程Tap提示与目标距离标记。下一目标为继续教学后抓捕、回到监狱经营；本轮没有跨越这条验证边界。",
+        "gameplay_rules": "保持原TilePool/PathGenerator、路面生成、车辆移动/方向、道路外事故、金币接触收集、逃犯与监狱/直升机规则。原教程会在转弯点暂停；不得把暂停误判为卡死，也不能通过调用handleClickAutopilot或改教程标记跳过。普通点击实际触发方向1→0→1与里程推进，金币按原碰撞+延时记账增加1。",
+        "key_numbers": "实际初始金币0、囚犯0、高分0；方向1→0→1；内部/可见里程7→13→14m，金币0→1，囚犯保持0。原ONBOARDING_MAX_TURNS=3，内部提示计数1→2→3不等于已操作3次。原非广告救援入口条件50<金币，费用max(50,floor(余额/2))；本轮未购买或验证费用扣款。原路径曲率常量0.27/0.7保留，不据此虚报固定关卡数。",
+        "level_configuration": "原无限/程序化折线路径和教程段，使用原道路瓦片池、单/双弯选择、金币/逃犯/加速生成与镜头滚动；未替换成固定演示路面。保留所有原生成器/升级参数。8对图集不是8关，MAX_TILES等深度/池常量不能当作已验证关卡数量；本轮只实测最初教程段到14m。",
+        "system_design": "完整移除实际InLogic统计/身份/广告/奖励广告、Adinplay和MSStart提供方/回调/启动与PWA服务工作者。没有建立SDK替身、广告成功回调、身份或奖励注入。选择原作者已有非广告分支：撞车救援仍调用原NonAd方法，仅原50金币以上入口可用，原扣款max(50,floor(余额/2))保持；已购直升机仍保留原升级门槛/非广告随机机会/飞行距离与原教程，未变成无条件免费广告奖励。原381个原生类方法全部保留，其中367个AST完全一致；14处为服务调用/原普通继续逻辑/原非广告分支选择，原非广告收费救援两方法AST完全一致。原引擎前缀与通用生成器polyfill保留，原存储/随机/教程/价格不改。 原预加载/多语言、GameScene、警车/道路/金币、逃犯/监狱/工坊、直升机/加速、音频/设置与本地数据层保留。CSP与实际请求均限定同源，49请求/49同源200、0失败、0外联、0错误。原adRewardInputFix名称虽含ad，但其指针去粘连行为被普通流程使用，保留原本地输入行为，不把变量命名当作外部SDK。",
+        "theme": "原像素块面卡通警车、逃犯、监狱建筑、漂浮等距道路、金币/粒子/直升机和橙色按钮；原英文/多语言、字体与音乐素材保留。实际原标题插画、草地监狱/警车首页和折线驾驶场景均已看到；人物NPC只保留原源码/图集，不声称本轮已抓捕或操作NPC。",
+        "progression_economy": "原金币与囚犯为本地规则资源，原工坊定时收益、四类升级和距离纪录保持；原金币真实收集1，本轮没有直接给币、囚犯或解锁。原非广告事故救援仍收费，不调用广告领奖回调；直升机只沿原升级和可用机会分支。相关购买/收费救援未实玩，不能写作已经成功支付。",
+        "roster": "玩家单位为原警车，原车架/警灯/转向与道路投影可见并响应普通输入；逃犯、监狱、直升机与加速对象按原源码/图集保留。本轮警车两次转向和金币拾取已观察，逃犯数0；后续车皮、工坊和直升机不是本轮已解锁或已使用的角色。",
+        "monetization": "完整移除实际InLogic统计/身份/广告/奖励广告、Adinplay和MSStart提供方/回调/启动与PWA服务工作者。没有建立SDK替身、广告成功回调、身份或奖励注入。选择原作者已有非广告分支：撞车救援仍调用原NonAd方法，仅原50金币以上入口可用，原扣款max(50,floor(余额/2))保持；已购直升机仍保留原升级门槛/非广告随机机会/飞行距离与原教程，未变成无条件免费广告奖励。原381个原生类方法全部保留，其中367个AST完全一致；14处为服务调用/原普通继续逻辑/原非广告分支选择，原非广告收费救援两方法AST完全一致。原引擎前缀与通用生成器polyfill保留，原存储/随机/教程/价格不改。 实际未出现外部广告/登录/支付请求。保留原本地经济，不把原作者已有收费救援分支变成免费服务。全部原始网络/控制台与截图保留；最初字体载入的浏览器性能信息为info，未清除或冒充人工听音验证。实际只验证原菜单进入、两次正常方向切换、行驶推进和1金币收集。最终仍在教程，原onboardingTurnsCompleted内部值3包含首次提示计数，不能称作3次玩家转向或教程完成；实际仅2次转向。囚犯数0、最高纪录0、直升机未购买/使用。未验证抓捕、监狱工坊、收费救援、直升机、升级购买、失败重试、刷新存档或移动端；不宣称完整一局或终局胜利。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/002.png",
+        "caption": "原监狱/警车首页与START"
+      },
+      {
+        "path": "screenshots/004.png",
+        "caption": "首次普通转向后13m、真实金币1"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "第二次转向后14m，仍在原教程"
+      }
+    ]
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "两次普通点击转向1→0→1，7→13→14m，原碰撞收集1币。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "67运行文件远端HTTP逐SHA一致，49同源200，无缺失/外联。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原标题插画、监狱首页、等距折线路面/跟车视图正常。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "警车、路面、监狱、金币与目标距离/HUD均原素材真实渲染。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "主操控警车原模型/警灯/方向回应输入；NPC保留原图集但未声称抓捕。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "原警灯、车辆方向/位移、金币拾取与教程手势真实观察。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "TAP TO CONTINUE/START/两次Tap指针交互与HUD真实；设置未测。",
+      "evidence": [
+        "screenshots/002.png",
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "observation_start": "2026-11-23T10:04:02.080000+00:00",
+    "observation_end": "2026-11-23T10:33:41.888384+00:00",
+    "elapsed_seconds": 1779.808384,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "首次原入口静态捕获至证据生成的经过区间，含源码/资源/环境等待、并行处理其他游戏的封装修正与本款试玩，不是本款独占工时。逐游戏Token/费用不可归属，未知不填0。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}
