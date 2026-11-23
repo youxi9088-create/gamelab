@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; form-action 'none'; base-uri 'self'">
+<link rel="icon" href="assets/favicon/icon-512x512.png">
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Archery Master</title>
+
+
+
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    <style>
+        html, body {
+            overflow: hidden;
+            width   : 100%;
+            height  : 100%;
+            margin  : 0;
+            padding : 0;
+
+            -webkit-touch-callout: none !important;                /* prevent callout to copy image, etc when tap to hold */
+            -webkit-text-size-adjust: none !important;             /* prevent webkit from resizing text to fit */
+            -webkit-user-select: none !important;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+
+            background-color: black;
+        }
+
+        #renderCanvas {
+            width   : 100%;
+            height  : 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            touch-action: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            border: none;
+
+        }
+    </style>
+    <title>1st Archery Master</title>
+
+
+
+
+
+    
+
+</head>
+<body>
+
+
+
+    <script src="js/lib/babylon.js"></script>
+
+    <input id="keyboard_hide_input" type="hidden">
+    <canvas id="renderCanvas" touch-action="none"></canvas>
+
+
+    <script src="js/game.js"></script>
+        
+
+
+
+
+
+    <div id="nameInputOverlay" style="
+    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;
+">
+        <div style="
+        position:relative; background:#1a1a1a; padding:20px; border-radius:20px;
+        width:300px; text-align:center;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.5); border: 4px solid #C8FF00;
+    ">
+            <!-- ✖️ CLOSE BUTTON -->
+            <div onclick="window.hideNameInputGlobal()" style="
+            position:absolute; top:10px; right:10px;
+            width:28px; height:28px;
+            background:#C8FF00; border-radius:50%;
+            font-weight:bold; font-family:sans-serif;
+            line-height:28px; font-size:16px; color:black;
+            cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.5);
+        ">
+                ×
+            </div>
+
+            <div style="font-family:Arial Black, sans-serif; font-size:18px; color:white; margin-bottom:10px;">
+
+            </div>
+            <input id="nameInputBox" type="text" maxlength="12" style="
+            width:90%; padding:10px; border:none; border-radius:10px;
+            font-size:16px; text-align:center;
+        " />
+            <br><br>
+            <button onclick="window.submitNameGlobal()" style="
+            background:#C8FF00; border:none; border-radius:12px; padding:10px 20px;
+            font-weight:bold; font-size:16px; cursor:pointer; box-shadow:0 4px 10px #000;
+        ">
+                OK
+            </button>
+        </div>
+    </div>
+</body>
+</html>

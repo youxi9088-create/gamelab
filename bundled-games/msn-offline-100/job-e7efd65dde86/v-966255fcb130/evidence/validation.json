@@ -1,0 +1,327 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计原输入1"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入2"
+      },
+      {
+        "type": "drag",
+        "description": "累计原输入3"
+      },
+      {
+        "type": "drag",
+        "description": "累计原输入4"
+      },
+      {
+        "type": "reload",
+        "description": "累计原输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 191,
+    "responses": 191,
+    "tested_revision": "archerymaster-offline-v1",
+    "delivery_revision": "archerymaster-offline-v1",
+    "native_arrow_hits_verified": 2,
+    "native_total_score": 12,
+    "reload_verified": true,
+    "whole_tutorial_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "scope": "累计5步：载入原启动页；普通点击TAP TO CONTINUE进入原首局教程；一次连续按住/拖动/松开拉弓射箭，原命中6分；第二次独立连续手势再命中6分，累计12分、风力显示0.2；普通刷新返回原启动页。两次拉弓保持截图和5张步骤图全部已打开检查，共7张。 实际只验证首局教程中的拉弓、瞄准、箭矢飞行、两次命中计分和刷新加载。没有射完5箭或完成教程，没有实玩普通AI对局、胜负结算、奖杯/基础收益、商店、弓升级、开箱和全部场馆/距离/移动靶。刷新时原教程未完成，原OnboardingStep回0，不能声称已保存完成进度。没有听音或触屏/移动端验证。",
+    "cumulative_input_budget": 5
+  },
+  "raw_inputs": 5,
+  "checkpoints": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/archerymaster-offline-v1/index.html",
+      "at": "2026-11-23T11:27:34.994Z",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "action": "click",
+      "x": 720,
+      "y": 765,
+      "at": "2026-11-23T11:28:13.314Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 765
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "action": "drag",
+      "points": [
+        [
+          720,
+          600
+        ],
+        [
+          720,
+          450
+        ]
+      ],
+      "at": "2026-11-23T11:28:49.305Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 600
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 590.625
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 581.25
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 571.875
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 562.5
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 553.125
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 543.75
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 534.375
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 525
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 515.625
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 506.25
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 496.875
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 487.5
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 478.125
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 468.75
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 459.375
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 450
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "action": "drag",
+      "points": [
+        [
+          720,
+          600
+        ],
+        [
+          720,
+          480
+        ]
+      ],
+      "at": "2026-11-23T11:29:27.108Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 600
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 592.5
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 585
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 577.5
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 570
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 562.5
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 555
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 547.5
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 540
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 532.5
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 525
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 517.5
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 510
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 502.5
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 495
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 487.5
+        },
+        {
+          "event": "move",
+          "x": 720,
+          "y": 480
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "action": "reload",
+      "at": "2026-11-23T11:29:57.111Z",
+      "trajectory": []
+    }
+  ],
+  "browser_sessions": [
+    40355
+  ],
+  "browser_actual_exit_codes": [
+    0
+  ],
+  "node_pids": [
+    43868
+  ],
+  "owned_node_absent": true,
+  "screenshots_opened": 7,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "accounting": {
+    "observation_start": "2026-11-23T11:00:30.875000+00:00",
+    "observation_end": "2026-11-23T11:44:07.113051+00:00",
+    "elapsed_seconds": 2616.238051,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "首次原入口静态捕获至证据生成的经过区间，含其他游戏分析、源码/资源/环境等待与本款试玩，不是独占工时。逐游戏Token/费用未知，不填0。"
+  },
+  "visual_result": "累计5步：载入原启动页；普通点击TAP TO CONTINUE进入原首局教程；一次连续按住/拖动/松开拉弓射箭，原命中6分；第二次独立连续手势再命中6分，累计12分、风力显示0.2；普通刷新返回原启动页。两次拉弓保持截图和5张步骤图全部已打开检查，共7张。",
+  "scope_boundary": "实际只验证首局教程中的拉弓、瞄准、箭矢飞行、两次命中计分和刷新加载。没有射完5箭或完成教程，没有实玩普通AI对局、胜负结算、奖杯/基础收益、商店、弓升级、开箱和全部场馆/距离/移动靶。刷新时原教程未完成，原OnboardingStep回0，不能声称已保存完成进度。没有听音或触屏/移动端验证。"
+}

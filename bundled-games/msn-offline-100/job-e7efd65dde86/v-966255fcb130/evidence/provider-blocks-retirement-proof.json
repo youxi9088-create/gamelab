@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-23T11:17:20.332Z",
+  "source_only": true,
+  "native_or_SDK_executed": false,
+  "UI": 0,
+  "source_sha256": "05f8cb9d6d66212428ff45863c1a73eb502c8c56948b7ccce9d5ba27bc994316",
+  "partial_output_sha256": "a674e7bfef8c2ed47b91765bfec20addd8695ae8ae7397e4f2c4830daca16b02",
+  "all_bytes_outside_exact_provider_ranges_preserved": true,
+  "original_result_constants_raw_preserved": [
+    "const GAMEOVER_BY_WIN = 1;",
+    "const GAMEOVER_BY_LOSE = 0;",
+    "const GAMEOVER_BY_USER = -1;"
+  ],
+  "provider_or_reward_stub_created": false,
+  "not_runnable_delivery": true,
+  "remaining": "Native ad consumers, ad-only UI methods, original ordinary navigation continuation and actual non-ad result branch require second pass. Do not stage or execute this partial source.",
+  "edits": [
+    {
+      "start": 0,
+      "end": 51639,
+      "kind": "Actual shared ad/analytics/SDK modules and fake-ad overlays removed; preserve three original result constants",
+      "replacement_characters": 83
+    },
+    {
+      "start": 1040888,
+      "end": 1044292,
+      "kind": "Actual Adinplay provider/callback machinery removed",
+      "replacement_characters": 0
+    },
+    {
+      "start": 1072140,
+      "end": 1072585,
+      "kind": "Actual rewarded-ad provider removed, no stub/callback result",
+      "replacement_characters": 0
+    },
+    {
+      "start": 1295685,
+      "end": 1298863,
+      "kind": "Actual service-worker registration and MSStart provider footer removed",
+      "replacement_characters": 0
+    }
+  ]
+}

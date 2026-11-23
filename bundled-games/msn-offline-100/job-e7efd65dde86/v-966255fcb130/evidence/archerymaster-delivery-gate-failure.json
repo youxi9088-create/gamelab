@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-23T11:35:46.390366+00:00",
+  "status": "normal_delivery_gate_failed_no_intake_started",
+  "phase": "offline_delivery.inspect",
+  "code": "OFFLINE_FEATURE_REMAINS",
+  "feature": "multiplayer",
+  "file": "js/game.js",
+  "symbol": "findMatch",
+  "finding_count": 5,
+  "actual_source_context": "Original MobileDetect g.findMatch loops regex table a with a[c].test(b), returns matched rule name/null. Calls only pass g.mobileDetectRules.tablets/phones/oss0/oss/uas and actual native user-agent. This is not original OpponentAI or remote matchmaking. Original source, runtime bytes,5inputs unchanged.",
+  "required_fix": "Shared auditor must use scoped/callee semantic evidence to distinguish this pure device-regex lookup from real matchmaking, fail closed if cannot prove. No game-specific ID/name exemption or flag override; preserve detection of actual findMatch networking functions and mixed lexical scopes. Isolated positive/negative tests plus same remote shared checker required before normal admission. Do not rename/remove original device detection merely to make a name-only check green.",
+  "runtime_already_verified": true,
+  "UI_used": 5,
+  "extra_UI_allowed": false,
+  "original_packages_preserved": true,
+  "V51_sections": 16,
+  "partial_evidence_generated": true,
+  "final_report_or_manifest_written": false,
+  "admission_started": false,
+  "GitHub_new_delivery_started": false
+}

@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-23T11:18:01.422335+00:00",
+  "history_at": "2026-11-23T11:16:06.416744+00:00",
+  "all_candidates_including_paused_and_historical_profiles": 1133,
+  "native_id": "9nwr5gkn2zcp",
+  "original_source_sha256": "05f8cb9d6d66212428ff45863c1a73eb502c8c56948b7ccce9d5ba27bc994316",
+  "exact_native_identity_absent": true,
+  "shortlist": [
+    {
+      "id": "game-f3d38292bce6",
+      "title": "部落联盟战争"
+    },
+    {
+      "id": "game-275c5913abee",
+      "title": "Archery King"
+    },
+    {
+      "id": "game-27fb6a1ab996",
+      "title": "防御塔大作战"
+    }
+  ],
+  "closest_game": "game-275c5913abee / Archery King",
+  "whole_loop_comparison": "Existing Archery King is CreateJS24fixed score-threshold levels (level1twoarrows,stars8/14/18); original Archery Master is independent Babylon project, native5-arrow versus localOpponentAI rounds, stadium/trophy progression and bow upgrades/lootboxes. Both have aim/release/wind, so must not justify solely bydifferenttitle/art/engine. Distinct complete progression/competition loop and original source/assets, not a reskin of same24level project. Other2shortlist games are troop/tower defense with archers, not archery target shooting.",
+  "original_local_AI_proof": "ScreenGame.update calls original OpponentAI.update; ScreenSearchingOpponent original name/avatar shuffle and timer calls screenGame.showScene. Do not replace with remote protocol/mockopponent packets.",
+  "short_initial_UI_path_source": "ScreenSplash.tap branches original first save to screenGame.showScene(null,true); no mandatory menu/name dialog in first-session tutorial. Native pointer down/hold/drag/up controls original aim and arrow. Need actual UI <=5, source not runtime proof.",
+  "source_methods": [
+    "ScreenSplash.allAssetsLoaded",
+    "ScreenGame.showScene",
+    "ScreenGame.pointerEvent",
+    "ScreenSearchingOpponent.shuffleFinished"
+  ],
+  "UI": 0,
+  "runtime_verified": false,
+  "admitted": false
+}
