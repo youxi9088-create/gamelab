@@ -1,0 +1,220 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "累计原输入1"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入2"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入3"
+      },
+      {
+        "type": "click",
+        "description": "累计原输入4"
+      },
+      {
+        "type": "reload",
+        "description": "累计原输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 159,
+    "responses": 159,
+    "tested_revision": "towerdefenders-offline-v2",
+    "delivery_revision": "towerdefenders-offline-v2",
+    "native_enemy_defeat_verified": true,
+    "native_upgrade_purchase_verified": true,
+    "native_projectile_choice_verified": true,
+    "whole_wave_win_verified": false,
+    "reload_verified": true,
+    "saved_progress_reload_verified": true,
+    "all_levels_verified": false,
+    "scope": "累计5步：载入原教程→普通鼠标在敌人处按住900ms释放，教程敌人1→0、金币15→16→原伤害升级花费5，金币16→11、伤害1→2→点击原CHOOSE确认默认高亮VENOM，进入正常6敌战斗→浏览器刷新，加载到原永久升级教学。全部5张截图已逐张打开核对，浏览器正常关闭exit0且实际PID不存在。 仅证明教程敌人击倒、原价伤害升级、弹种选择/正常波次启动和刷新加载。第四步后至刷新间原游戏继续自然运行，未拍完整胜负过程；不宣称打通第1波、所有波次、永久升级购买、技能、暂停设置、触屏或全部教程完成。刷新画面显示永久升级基础伤害1，不宣称局内伤害2仍显示或22.25金币可见；22.25只为只读内部Money值，画面此时仅显示5宝石。",
+    "cumulative_input_budget": 5
+  },
+  "raw_inputs": 5,
+  "checkpoints": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/towerdefenders-offline-v2/index.html",
+      "at": "2026-11-23T09:52:57.017Z",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "action": "click",
+      "x": 952,
+      "y": 430,
+      "at": "2026-11-23T09:53:45.450Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 952,
+          "y": 430
+        },
+        {
+          "event": "down",
+          "hold_ms": 900
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "action": "click",
+      "x": 557,
+      "y": 857,
+      "at": "2026-11-23T09:54:17.736Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 557,
+          "y": 857
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "action": "click",
+      "x": 719,
+      "y": 678,
+      "at": "2026-11-23T09:54:55.991Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 719,
+          "y": 678
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "action": "reload",
+      "at": "2026-11-23T09:55:31.293Z",
+      "trajectory": []
+    }
+  ],
+  "browser_sessions": [
+    59373
+  ],
+  "browser_actual_exit_codes": [
+    0
+  ],
+  "owned_node_absent": true,
+  "node_pids": [
+    16136
+  ],
+  "screenshots_opened": true,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "accounting": {
+    "observation_start": "2026-11-23T09:37:48.354000+00:00",
+    "observation_end": "2026-11-23T09:58:38.844649+00:00",
+    "elapsed_seconds": 1250.490649,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "首次原入口静态捕获至证据生成的经过区间，含源码分析/传输/环境等待/修复/试玩，不是纯人工工时。逐游戏Token/费用不可归属，未知不填0。"
+  },
+  "visual_result": "累计5步：载入原教程→普通鼠标在敌人处按住900ms释放，教程敌人1→0、金币15→16→原伤害升级花费5，金币16→11、伤害1→2→点击原CHOOSE确认默认高亮VENOM，进入正常6敌战斗→浏览器刷新，加载到原永久升级教学。全部5张截图已逐张打开核对，浏览器正常关闭exit0且实际PID不存在。",
+  "scope_boundary": "仅证明教程敌人击倒、原价伤害升级、弹种选择/正常波次启动和刷新加载。第四步后至刷新间原游戏继续自然运行，未拍完整胜负过程；不宣称打通第1波、所有波次、永久升级购买、技能、暂停设置、触屏或全部教程完成。刷新画面显示永久升级基础伤害1，不宣称局内伤害2仍显示或22.25金币可见；22.25只为只读内部Money值，画面此时仅显示5宝石。",
+  "pre_UI_static_revision": "v1静态检查遗漏广告弹窗轮询引用，在任何游戏载入前已修复为v2；v1未试玩，5步全部属于v2。"
+}

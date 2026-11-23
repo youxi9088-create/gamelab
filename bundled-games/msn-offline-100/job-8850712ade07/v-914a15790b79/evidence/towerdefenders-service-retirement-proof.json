@@ -1,0 +1,227 @@
+{
+  "at": "2026-11-23T09:50:21.954Z",
+  "native_id": "9n8tv164mxzf",
+  "source_sha256": "7ee2f090ba52a1b8358fefca0b9a10bb08d6dd095397813e97a66a0649b31c3e",
+  "rewritten_sha256": "726ee9cb4884da2530e9401f55ec4b4c9cb4f9c1d969395c497348309863cc23",
+  "original_native_methods": 320,
+  "retained_native_methods": 313,
+  "AST_identical_native_methods": 299,
+  "changed_native_methods": [
+    "Zombie.death",
+    "ScenePreload.preload",
+    "ScenePreload.loadAllAssets",
+    "SceneGame.create",
+    "SceneGame.update",
+    "SceneGame.resize",
+    "ContainerMenu.showWaveScreen",
+    "ContainerMenu.updateZombies",
+    "ContainerMenuUpgrade.createGUI",
+    "ContainerMenuUpgrade.upgradeTower",
+    "ContainerCardSelect.createGUI",
+    "ContainerZombies.startWave",
+    "ContainerZombies._startWave",
+    "ContainerZombies._startOnboardingWave"
+  ],
+  "removed_service_only_methods": [
+    "ContainerMenu.activateReward",
+    "ContainerRewards.initialize",
+    "ContainerRewards.create",
+    "ContainerRewards.createRewardButton",
+    "ContainerRewards.createGUI",
+    "ContainerRewards.update",
+    "ContainerRewards.resize"
+  ],
+  "engine_prefix_raw_exact": true,
+  "original_defaults_tutorial_physics_economy_retained": true,
+  "SDK_globals_created": false,
+  "reward_callbacks_or_state_injected": false,
+  "UI": 0,
+  "service_edits": [
+    {
+      "start": 2562462,
+      "end": 2592726,
+      "why": "Remove shared ads, analytics, identity, fake-ad providers and their isolated polyfill prelude",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2642676,
+      "end": 2642774,
+      "why": "Remove unreachable reward-ad lifecycle caller; preserve ordinary wave/upgrade actions",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2643606,
+      "end": 2643662,
+      "why": "Remove nonreward ad trigger while preserving original gameplay continuation",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2646691,
+      "end": 2646751,
+      "why": "Remove nonreward ad trigger while preserving original gameplay continuation",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2656675,
+      "end": 2656719,
+      "why": "Remove retired reward-ad UI construction",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2658212,
+      "end": 2658381,
+      "why": "Remove ad-consent popup lifecycle polling",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2658928,
+      "end": 2658957,
+      "why": "Remove retired reward-ad UI update/resize",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2659814,
+      "end": 2659847,
+      "why": "Remove retired reward-ad UI update/resize",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2667089,
+      "end": 2667234,
+      "why": "Retire ad reward activation method and its property separator",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2671674,
+      "end": 2671744,
+      "why": "Remove nonreward ad trigger while preserving original gameplay continuation",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2674778,
+      "end": 2674844,
+      "why": "Remove unreachable reward-ad lifecycle caller; preserve ordinary wave/upgrade actions",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2691025,
+      "end": 2691084,
+      "why": "Remove nonreward ad trigger while preserving original gameplay continuation",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2692159,
+      "end": 2692225,
+      "why": "Remove unreachable reward-ad lifecycle caller; preserve ordinary wave/upgrade actions",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2748327,
+      "end": 2748384,
+      "why": "Remove nonreward ad trigger while preserving original gameplay continuation",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2749478,
+      "end": 2749535,
+      "why": "Remove nonreward ad trigger while preserving original gameplay continuation",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2791824,
+      "end": 2795403,
+      "why": "Physically retire reward-ad UI, its callbacks and coin grant path",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2797919,
+      "end": 2798100,
+      "why": "Lift only original ordinary wave continuation out of nonreward ad lifecycle",
+      "replacement_bytes": 79
+    },
+    {
+      "start": 2798271,
+      "end": 2798341,
+      "why": "Remove unreachable reward-ad lifecycle caller; preserve ordinary wave/upgrade actions",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2801048,
+      "end": 2801118,
+      "why": "Remove unreachable reward-ad lifecycle caller; preserve ordinary wave/upgrade actions",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2808848,
+      "end": 2808912,
+      "why": "Remove unreachable reward-ad lifecycle caller; preserve ordinary wave/upgrade actions",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2809597,
+      "end": 2810073,
+      "why": "Physically retire rewarded-ad provider; no fake completion or reward",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2814798,
+      "end": 2814833,
+      "why": "Remove service-only identity/config/callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2814833,
+      "end": 2814860,
+      "why": "Remove service-only identity/config/callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2814860,
+      "end": 2814893,
+      "why": "Remove service-only identity/config/callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2814893,
+      "end": 2814930,
+      "why": "Remove service-only identity/config/callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2814930,
+      "end": 2814967,
+      "why": "Remove service-only identity/config/callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2814967,
+      "end": 2815067,
+      "why": "Remove service-only identity/config/callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2815067,
+      "end": 2815169,
+      "why": "Remove service-only identity/config/callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2815169,
+      "end": 2815215,
+      "why": "Remove service-only identity/config/callback assignment",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2815886,
+      "end": 2815902,
+      "why": "Remove ad-provider initialization",
+      "replacement_bytes": 0
+    },
+    {
+      "start": 2818207,
+      "end": 2821039,
+      "why": "Remove service worker, Microsoft ad/reward/banner graph and startup",
+      "replacement_bytes": 0
+    }
+  ]
+}
