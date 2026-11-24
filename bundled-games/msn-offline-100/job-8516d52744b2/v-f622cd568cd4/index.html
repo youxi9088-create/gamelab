@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    
+    
+    
+    
+    
+
+    <script>window.__GO_BUILD = {"version":"0.2.7","number":38,"label":"tornado-fix"};</script>
+
+    <meta charset="utf-8" /><meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' data: blob:; object-src 'none'; frame-src 'none'; worker-src 'self' blob:; form-action 'none'; base-uri 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <!-- The game draws its own colours: no browser or WebView darkens them (Samsung Internet, Android). -->
+    <meta name="color-scheme" content="only light" />
+    <meta name="theme-color" content="#69bfef" />
+    <title>Clean House</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <style>
+      html, body { margin: 0; height: 100%; background: #69bfef; overflow: hidden; overscroll-behavior: none; }
+      #app { position: fixed; inset: 0; }
+      /* The original's loading screen (style.css), its pictures beside the build. */
+      #go-shell { position: fixed; inset: 0; background: #69bfef url(ch/splash/background.webp) 30% center / cover no-repeat; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: max(6vh, env(safe-area-inset-top)) 16px max(8vh, env(safe-area-inset-bottom)); z-index: 50; overflow: hidden; transition: opacity .5s; }
+      #go-shell[hidden] { display: none; }
+      #go-shell .logo { width: min(78vw, 560px); height: auto; filter: drop-shadow(0 8px 10px rgba(10, 40, 110, .35)); animation: ld-pop .7s cubic-bezier(.2, 1.6, .4, 1) both, ld-float 3s ease-in-out .7s infinite; }
+      @keyframes ld-pop { from { transform: scale(.4); opacity: 0; } }
+      @keyframes ld-float { 50% { transform: translateY(-8px) rotate(-1deg); } }
+      #go-shell .bar { width: min(60vw, 360px); height: 22px; border-radius: 11px; background: rgba(10, 40, 110, .35); border: 3px solid #fff; box-shadow: 0 4px 0 rgba(10, 40, 110, .35); overflow: hidden; margin-top: auto; }
+      #go-shell .bar > i { display: block; height: 100%; width: 0; border-radius: 8px; background: linear-gradient(180deg, #ffe26a, #ffb21f); transition: width .2s; }
+      #go-shell .msg { color: #fff; font: bold 14px sans-serif; min-height: 1em; margin-top: 10px; text-shadow: 0 1px 3px rgba(0, 0, 0, .6); }
+    </style>
+    <script type="module" crossorigin src="./assets/index-BdOHA6Qs.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/engine-bnF_cDiu.js">
+    <link rel="modulepreload" crossorigin href="./assets/SkeletonUtils-BCVmgslc.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-C6_D-GwL.css">
+  </head>
+  <body>
+    <div id="app"><canvas id="game"></canvas></div>
+    <div id="ui"></div>
+    <div id="joystick"><div class="knob"></div></div>
+    <button id="mute" aria-label="Sound"></button>
+    <div id="go-shell">
+      <img class="logo" src="ch/splash/logo.webp" alt="Clean House" />
+      <div class="bar"><i id="go-bar"></i></div>
+      <div class="msg"></div>
+    </div>
+    <script>
+      // The loader shell paints before any module downloads. main.ts drives it.
+      window.__GO_SHELL = {
+        progress: (f) => {
+          var b = document.getElementById('go-bar');
+          if (b) b.style.width = `${Math.round(f * 100)}%`;
+        },
+        done: () => {
+          var s = document.getElementById('go-shell');
+          if (!s) return;
+          s.style.opacity = '0';
+          setTimeout(() => { s.hidden = true; }, 500);
+        },
+      };
+    </script>
+  </body>
+</html>
