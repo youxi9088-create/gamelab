@@ -1,0 +1,174 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "原累计输入1"
+      },
+      {
+        "type": "goto",
+        "description": "原累计输入2"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入3"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入4"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "Failed to execute 'write' on 'Document': It isn't possible to write into a document from an asynchronously-loaded external script unless it is explicitly opened."
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 68,
+    "responses": 68,
+    "tested_revision": "urbanstack-offline-v3",
+    "delivery_revision": "urbanstack-offline-v3",
+    "native_floor_drop_verified": true,
+    "full_round_verified": false,
+    "reload_verified": false,
+    "all_levels_verified": false,
+    "cumulative_input_budget": 5,
+    "scope": "累计5步：v1加载发现原内建字体JSON缺失；补齐原字体JSON和TTF后，第2步加载v3，第3步原Play，第4步原城市首座楼，第5步普通点击放下一块楼层。实拍首楼目标至少60%、楼层0/8→1/8→2/8、第一次教学落层后原对齐100%、花窗/墙体与下一块楼层，未调用业务处理器或写进度。 5步累计额度已满。未完成8层整楼、人口收益、城市解锁、后续20项楼配置、失误/重试/撤销、设置、存档刷新或触屏/听音验证。68请求/68同源200，0外联/失败/脚本error；保留原document.write异步警告和AudioContext手势前警告。",
+    "prior_attempts": [
+      {
+        "revision": "urbanstack-offline-v1",
+        "UI": 1,
+        "missing_builtin_font_import": "d48496f4-6544-438e-8f2f-e2e647608cbe",
+        "resolution": "Actual original font import JSON95bytes andJosefinSans-Regular.ttf87260bytes captured; no replacement font or synthetic asset."
+      }
+    ]
+  },
+  "raw_inputs": 5,
+  "checkpoints": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/urbanstack-offline-v1/index.html",
+      "at": "2026-11-24T05:40:08.222Z",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/urbanstack-offline-v3/index.html",
+      "at": "2026-11-24T05:43:05.029Z",
+      "trajectory": []
+    },
+    {
+      "step": 3,
+      "action": "click",
+      "x": 850,
+      "y": 738,
+      "at": "2026-11-24T05:43:58.783Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 850,
+          "y": 738
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "action": "click",
+      "x": 721,
+      "y": 656,
+      "at": "2026-11-24T05:44:47.746Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 721,
+          "y": 656
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "action": "click",
+      "x": 722,
+      "y": 614,
+      "at": "2026-11-24T05:45:59.268Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 722,
+          "y": 614
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    }
+  ],
+  "browser_actual_exit_codes": [
+    0,
+    0
+  ],
+  "owned_node_absent": true,
+  "node_pids": [
+    42304,
+    36276
+  ],
+  "screenshots_opened": 6,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "hidden_board_or_solver_reads": false,
+  "accounting": {
+    "native_id": "9p18nfng0wzt",
+    "title": "Urban-Stack",
+    "status": "packaged",
+    "observation_start": "2026-11-24T05:08:00.223552+00:00",
+    "observation_start_basis": "Actual first outer-entry source-capture receipt",
+    "observation_end": "2026-11-24T05:50:12.970151+00:00",
+    "elapsed_seconds": 2532.746599,
+    "pure_processing_seconds": null,
+    "waiting_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "首次实际原入口捕获至打包的经过区间，包含分析、下载、修复、验证、等待及沟通；非纯处理工时。纯处理/等待/Token/价格无逐游戏测量，保持未知。"
+  },
+  "visual_result": "累计5步：v1加载发现原内建字体JSON缺失；补齐原字体JSON和TTF后，第2步加载v3，第3步原Play，第4步原城市首座楼，第5步普通点击放下一块楼层。实拍首楼目标至少60%、楼层0/8→1/8→2/8、第一次教学落层后原对齐100%、花窗/墙体与下一块楼层，未调用业务处理器或写进度。",
+  "scope_boundary": "5步累计额度已满。未完成8层整楼、人口收益、城市解锁、后续20项楼配置、失误/重试/撤销、设置、存档刷新或触屏/听音验证。68请求/68同源200，0外联/失败/脚本error；保留原document.write异步警告和AudioContext手势前警告。"
+}

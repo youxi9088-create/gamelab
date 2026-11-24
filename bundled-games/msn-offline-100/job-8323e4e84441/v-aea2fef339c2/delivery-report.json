@@ -1,0 +1,273 @@
+{
+  "msn_revision": "urbanstack-offline-v3",
+  "runtime_verified": true,
+  "runtime_smoke": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "原累计输入1"
+      },
+      {
+        "type": "goto",
+        "description": "原累计输入2"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入3"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入4"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "Failed to execute 'write' on 'Document': It isn't possible to write into a document from an asynchronously-loaded external script unless it is explicitly opened."
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 68,
+    "responses": 68,
+    "tested_revision": "urbanstack-offline-v3",
+    "delivery_revision": "urbanstack-offline-v3",
+    "native_floor_drop_verified": true,
+    "full_round_verified": false,
+    "reload_verified": false,
+    "all_levels_verified": false,
+    "cumulative_input_budget": 5,
+    "scope": "累计5步：v1加载发现原内建字体JSON缺失；补齐原字体JSON和TTF后，第2步加载v3，第3步原Play，第4步原城市首座楼，第5步普通点击放下一块楼层。实拍首楼目标至少60%、楼层0/8→1/8→2/8、第一次教学落层后原对齐100%、花窗/墙体与下一块楼层，未调用业务处理器或写进度。 5步累计额度已满。未完成8层整楼、人口收益、城市解锁、后续20项楼配置、失误/重试/撤销、设置、存档刷新或触屏/听音验证。68请求/68同源200，0外联/失败/脚本error；保留原document.write异步警告和AudioContext手势前警告。",
+    "prior_attempts": [
+      {
+        "revision": "urbanstack-offline-v1",
+        "UI": 1,
+        "missing_builtin_font_import": "d48496f4-6544-438e-8f2f-e2e647608cbe",
+        "resolution": "Actual original font import JSON95bytes andJosefinSans-Regular.ttf87260bytes captured; no replacement font or synthetic asset."
+      }
+    ]
+  },
+  "offline_features": {
+    "advertising": {
+      "status": "removed",
+      "reason": "真实移除enableADS/广告调用与等待、遥测和更多游戏外链消费端；选原非广告分支，无发奖替身。",
+      "evidence": [
+        "evidence/service-retirement-proof.json",
+        "evidence/validation.json"
+      ]
+    },
+    "leaderboard": {
+      "status": "absent",
+      "reason": "原本地人口/成就保持，无在线排行服务；遥测退役。",
+      "evidence": [
+        "evidence/service-retirement-proof.json",
+        "evidence/validation.json"
+      ]
+    },
+    "multiplayer": {
+      "status": "absent",
+      "reason": "原单人城市叠楼，无联机/匹配。",
+      "evidence": [
+        "evidence/service-retirement-proof.json",
+        "evidence/validation.json"
+      ]
+    },
+    "payments": {
+      "status": "absent",
+      "reason": "无支付接入或模拟付款；不伪造人口/奖励。",
+      "evidence": [
+        "evidence/service-retirement-proof.json",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "game_profile": {
+    "category": "2D叠楼 / 时机对齐与城市建设",
+    "dimension": "2D",
+    "perspective": "",
+    "core_gameplay": "观察横向移动的悬置楼层与下方已建部分，选择放下时机，提高对齐率，达到楼配置要求并积累人口解锁城市。首次原生教学会将第一活动层移动到中心，本次100%出现在该教学阶段，不能当作自由难度精确操作证明。",
+    "core_experience": "",
+    "controls": "原鼠标/触摸一次按下放楼；本次只实际鼠标普通Play、首楼和一次放层。首次与修复后加载各1步，累计5。未操纵坐标、随机数、原处理器、时钟或本地存档。",
+    "game_loop": "",
+    "content": "原Global序列化levelDesign含20项配置，floorSpeed保留各楼速度序列；3原场景全保留。城市地图本次实见首楼0%及后续锁楼人口12、27；进入首楼目标60%/8层，仅完成一次教学落层。配置数量不是通关数量。",
+    "progression": "",
+    "save": "",
+    "rules": "原Tower与Global整模块未改；楼层原触摸只在moveState1时开始落下，停止横移并保留原碰撞/目标判定。原percentToPerfect90、losePercent50、numPerfectToUndo5等定义保持，实际场景序列化值优先。首楼HUD目标60%、8层；本次2/8未达整楼目标。",
+    "systems": "去除外层两层广告/宿主iframe和Ludi/MSStart接入；实际移除广告判断、调用/等待和遥测消费者、外部更多游戏导航处理器，原更多游戏节点保持隐藏。广告条件分支取原非广告路径；原楼层倒计时保留非广告计时，不造SDK、广告成功或奖励。Global/Tower/Towers/Interactive/EventManager/SoundManager/i18n整模块字节保持，floor模块只将原enableADS三元式取原非广告分支，其余物理、放层、碰撞、完美判定、重力、难度与教程保持。 原Spriter、图集、粒子、云/背景、城市缩放/滚动、人口/成就、声音、语言、设置和本地存档代码保留；界面未操作的系统不当成运行验证。",
+    "ui_flow": "",
+    "level_design": "",
+    "verification": "累计5步：v1加载发现原内建字体JSON缺失；补齐原字体JSON和TTF后，第2步加载v3，第3步原Play，第4步原城市首座楼，第5步普通点击放下一块楼层。实拍首楼目标至少60%、楼层0/8→1/8→2/8、第一次教学落层后原对齐100%、花窗/墙体与下一块楼层，未调用业务处理器或写进度。 5步累计额度已满。未完成8层整楼、人口收益、城市解锁、后续20项楼配置、失误/重试/撤销、设置、存档刷新或触屏/听音验证。68请求/68同源200，0外联/失败/脚本error；保留原document.write异步警告和AudioContext手势前警告。",
+    "evidence": "",
+    "gameplay_signature": "",
+    "session_mechanism": "",
+    "replay_mechanism": "",
+    "drive_mechanism": "",
+    "goal_mechanism": "",
+    "achievement_mechanism": "",
+    "feedback_mechanism": "",
+    "continuation_mechanism": "",
+    "motivation_mechanism": "",
+    "core_goal_reachability": "",
+    "engine": "Cocos Creator 1.9.0 / JavaScript HTML5",
+    "programming_language": "JavaScript",
+    "game_summary": "",
+    "resource_types": "",
+    "engine_asset_system": "",
+    "core_challenge_details": "",
+    "core_challenge_type": "",
+    "input_elements": "",
+    "app_suitability": "",
+    "core_loop": "",
+    "churn_risk": "",
+    "progression_loop": "",
+    "core_closure": "",
+    "loop_completeness": "",
+    "playability": "",
+    "key_numbers": "",
+    "level_structure": "",
+    "system_completeness": "",
+    "theme_details": "",
+    "theme_position": "",
+    "economy": "",
+    "roles": "",
+    "roster_summary": "",
+    "monetization_details": "",
+    "monetization": "",
+    "specification": {
+      "template_version": "5.1",
+      "sections": {
+        "basic_facts": "Urban Stack / 城市叠楼，MSN原生9p18nfng0wzt，Gameloft/Ludigames公开原Cocos Creator1.9.0发布物。原2D城市场景与楼层叠建，JavaScript/WebGL，52远端1440×900中原489×870纵向画布。",
+        "asset_types": "87项运行文件，原引擎/47模块项目脚本、5个序列化资源包、21张纹理/图集、23个MP3、原Spriter SCML/SCON和脚本、2份内嵌粒子图的PLIST、原JosefinSans-Regular字体/字体JSON、13语言脚本、加载图及图标。94项取得的原文件另ZIP和SHA保留；不把未捕获广告SDK当作原包完整。",
+        "core_challenge": "观察横向移动的悬置楼层与下方已建部分，选择放下时机，提高对齐率，达到楼配置要求并积累人口解锁城市。首次原生教学会将第一活动层移动到中心，本次100%出现在该教学阶段，不能当作自由难度精确操作证明。",
+        "controls": "原鼠标/触摸一次按下放楼；本次只实际鼠标普通Play、首楼和一次放层。首次与修复后加载各1步，累计5。未操纵坐标、随机数、原处理器、时钟或本地存档。",
+        "behavior_path": "累计5步：v1加载发现原内建字体JSON缺失；补齐原字体JSON和TTF后，第2步加载v3，第3步原Play，第4步原城市首座楼，第5步普通点击放下一块楼层。实拍首楼目标至少60%、楼层0/8→1/8→2/8、第一次教学落层后原对齐100%、花窗/墙体与下一块楼层，未调用业务处理器或写进度。",
+        "game_path": "原菜单→城市地图→首楼目标至少60%→底层自动落地→原教学提示越准确人口越多→普通一次落层和100%/2/8。5步累计额度已满。未完成8层整楼、人口收益、城市解锁、后续20项楼配置、失误/重试/撤销、设置、存档刷新或触屏/听音验证。68请求/68同源200，0外联/失败/脚本error；保留原document.write异步警告和AudioContext手势前警告。",
+        "progression_path": "原Global读取本地教程/人口/建筑状态与城市解锁，原i18n存语言。直接入口使用原代码默认urbanStack存储命名空间，不填造玩家身份/奖励。首次放层按原代码持久化教程结束，本轮没有刷新实证恢复。",
+        "core_loop": "选择可用建筑→读该楼对齐/时限目标→观察原横向楼层→一次按下落层→原碰撞/对齐/人口评估→后续楼层/结算→城市与建筑解锁。本轮只证实一次教学放层，后续完整闭环仅保留原代码。",
+        "gameplay_rules": "原Tower与Global整模块未改；楼层原触摸只在moveState1时开始落下，停止横移并保留原碰撞/目标判定。原percentToPerfect90、losePercent50、numPerfectToUndo5等定义保持，实际场景序列化值优先。首楼HUD目标60%、8层；本次2/8未达整楼目标。",
+        "key_numbers": "原3个场景Main_Menu/game/TyCoon、5资源包、47项目模块；本次累计5输入，最后68请求/68个200、0外联/失败/error、2条原警告，楼层0/8→1/8→2/8、对齐0%→100%。纯处理/等待/Token/费用未知，不填零。",
+        "level_configuration": "原Global序列化levelDesign含20项配置，floorSpeed保留各楼速度序列；3原场景全保留。城市地图本次实见首楼0%及后续锁楼人口12、27；进入首楼目标60%/8层，仅完成一次教学落层。配置数量不是通关数量。",
+        "system_design": "去除外层两层广告/宿主iframe和Ludi/MSStart接入；实际移除广告判断、调用/等待和遥测消费者、外部更多游戏导航处理器，原更多游戏节点保持隐藏。广告条件分支取原非广告路径；原楼层倒计时保留非广告计时，不造SDK、广告成功或奖励。Global/Tower/Towers/Interactive/EventManager/SoundManager/i18n整模块字节保持，floor模块只将原enableADS三元式取原非广告分支，其余物理、放层、碰撞、完美判定、重力、难度与教程保持。 原Spriter、图集、粒子、云/背景、城市缩放/滚动、人口/成就、声音、语言、设置和本地存档代码保留；界面未操作的系统不当成运行验证。",
+        "theme": "原粉紫/青绿渐变天空、运河小舟/起重机、复古多彩城楼、白色施工告示牌、黄色警戒条、青色门窗墙体、对齐齿轮条和层数HUD。插图均为本次真实原游戏截图，未换皮或仿造素材。",
+        "progression_economy": "原楼层对齐与完美连击影响人口和城市解锁，原城市人口与成就保留。广告门禁/广告等待退役，不代发货币、人口、皮肤或广告奖励；本次人口初始0，未到结算，不能声称已验证收益。",
+        "roster": "原城楼/底层/活动楼层、门窗装饰、吊台与起重机、云和城市背景、居民头像和成就图。实测底层自动放置、一次活动层落下、完工装饰出现和下一活动层；未检验全部楼形/全部动画。",
+        "monetization": "单机交付无广告、线上身份、支付、服务器排行榜或联机；原消费端实际移除，不使用SDK占位、假广告回调、伪付款或服务端响应。原本地人口/成就/建筑进度逻辑保持。"
+      }
+    },
+    "illustrations": [
+      {
+        "path": "screenshots/004.png",
+        "caption": "原首楼目标至少60%/8层"
+      },
+      {
+        "path": "screenshots/005.png",
+        "caption": "原教学普通放层后100%和2/8"
+      }
+    ]
+  },
+  "foundation_checks": {
+    "gameplay": {
+      "status": "verified",
+      "reason": "真实进入城市首楼并一次普通放层，对齐100%/2of8；未完成整楼。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "resources": {
+      "status": "verified",
+      "reason": "87运行/94原始文件、原3场景/图集/声音/字体齐备；最终68同源200、无失败。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "scene": {
+      "status": "verified",
+      "reason": "原菜单/城市地图/目标告示/建筑场景截图均已打开。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "objects": {
+      "status": "verified",
+      "reason": "原底楼、活动楼层、青色门窗、装饰与起重机可见；落层后下一楼层出现。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "characters": {
+      "status": "verified",
+      "reason": "原居民头像与城市人口HUD显示，非角色动作玩法；居民奖励未验证。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "animation": {
+      "status": "verified",
+      "reason": "底楼自然落地、单次按下后楼层落下并出现装饰/下一层，原动画未改。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    },
+    "ui": {
+      "status": "verified",
+      "reason": "原Play、城市首楼点击、目标60%/8层、原教学告示、100%与2/8反馈已查看。",
+      "evidence": [
+        "screenshots/004.png",
+        "screenshots/005.png",
+        "evidence/validation.json"
+      ]
+    }
+  },
+  "verification_evidence": "evidence/validation.json",
+  "execution_accounting": {
+    "native_id": "9p18nfng0wzt",
+    "title": "Urban-Stack",
+    "status": "packaged",
+    "observation_start": "2026-11-24T05:08:00.223552+00:00",
+    "observation_start_basis": "Actual first outer-entry source-capture receipt",
+    "observation_end": "2026-11-24T05:50:12.970151+00:00",
+    "elapsed_seconds": 2532.746599,
+    "pure_processing_seconds": null,
+    "waiting_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "首次实际原入口捕获至打包的经过区间，包含分析、下载、修复、验证、等待及沟通；非纯处理工时。纯处理/等待/Token/价格无逐游戏测量，保持未知。"
+  },
+  "offline_delivery": {
+    "policy_revision": "2026-11-04-offline-1",
+    "status": "verified",
+    "findings": [],
+    "finding_count": 0,
+    "unreviewed_features": [],
+    "runtime_observed": true,
+    "scope": "static_source 表示包内源码保留请求调用；runtime_observation 表示本轮浏览器记录了请求。两者均需处理；本轮实测不覆盖全部关卡。"
+  }
+}

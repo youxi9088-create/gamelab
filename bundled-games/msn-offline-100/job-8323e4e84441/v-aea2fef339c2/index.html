@@ -1,0 +1,34 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self' data:; connect-src 'self' blob:; object-src 'none'; frame-src 'none'; worker-src 'none'; form-action 'none'; base-uri 'self'"><title>Urban Stack</title><link rel="icon" href="favicon.ico"><link id="stylesheet" rel="stylesheet" href="style-mobile.css"><link rel="stylesheet" href="style-custom.css"></head><body><script>window.productKey="urbanStack";</script><script src="i18n-supported-languages.js"></script><script>
+function insertScript(d,tag,id,url){var s=d.createElement(tag);s.id=id;s.src=url;d.head.appendChild(s);}
+        var lang_load = localStorage.getItem(window.btoa(productKey+"__gamesave-language"));
+		if(lang_load == null){
+			var currLanguage_load = window.navigator.language;
+			currLanguage_load = currLanguage_load ? currLanguage_load : window.navigator.browserLanguage;
+			currLanguage_load = currLanguage_load ? currLanguage_load.split("-")[0] : "en";
+			var supported_languages_load = window.i18n.supported_languages || [];
+			if(supported_languages_load.length > 0 && supported_languages_load.indexOf(currLanguage_load) == -1) {   // system lang not support -> choose the 1st
+				currLanguage_load = supported_languages_load[0];
+			}
+			lang_load = currLanguage_load;
+			
+		}else{
+			lang_load = window.atob(lang_load);
+		}
+		
+		insertScript(document,'script', 'lodingText', lang_load + '.js');
+		window.loading_index = 1;
+		function setLoadingText(){
+			if(document.getElementById("loadingText") && window.i18n.languages){
+				document.getElementById("loadingText").innerHTML = window.i18n.languages[lang_load].main["loading_"+window.loading_index];
+				window.loading_index += 1;
+				if(window.loading_index > 5){
+					window.loading_index = 1;
+					clearInterval(window.loadingTimer);
+				}
+			}
+		}
+		window.loadInterval = 3000;
+		window.loadingTimer = setInterval(setLoadingText, window.loadInterval);
+		
+
+</script><div id="GameDiv" style="width:640px;height:960px;display:none"></div><canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0"></canvas><div id="splash"><div class="loadingText" id="loadingText"></div><div class="line" id="line"><img class="line" src="UI_loading_line.png"></div><div class="load_bg" id="load_bg"></div><div class="truck" id="truck"><img class="truck" src="UI_loading_truck.png"></div></div><script src="src/settings.js"></script><script src="main.js"></script><script src="post-custom.js"></script></body></html>

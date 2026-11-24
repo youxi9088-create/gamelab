@@ -1,0 +1,149 @@
+{
+  "at": "2026-11-24T05:30:16.418Z",
+  "source_only": true,
+  "native_or_SDK_executed": false,
+  "UI": 0,
+  "original_sha256": "374bcca06de7740df1a2410b02fd838e1e85a9d89651ba6ade6c1e47e61a77e4",
+  "modified_sha256": "9aedd52ffa184bd66e746d3ec405405a4240d9767ec51626499b34e5c8d182b6",
+  "original_modules": 47,
+  "modified_modules": [
+    "Game_UI",
+    "Game",
+    "Main_Menu",
+    "TyCoon",
+    "floor",
+    "setting-handle"
+  ],
+  "unchanged_modules_byte_exact": [
+    "Achievement_Item",
+    "Achievement_List",
+    "Achievement",
+    "CloudAction",
+    "Define",
+    "DetailEffect",
+    "Effect",
+    "EventManager",
+    "GameMessage",
+    "Global",
+    "Interactive",
+    "LabelLocalized",
+    "MoveAround",
+    "Pin",
+    "PositionFollow",
+    "SoundManager",
+    "Towers",
+    "Tower",
+    "TycoonUnlock",
+    "WrapTo",
+    "br",
+    "button-scaler",
+    "cc_spriter_component",
+    "credit-handle",
+    "de",
+    "en",
+    "es",
+    "fr",
+    "i18n-supported-languages",
+    "i18n",
+    "id",
+    "it",
+    "polyglot",
+    "preview-lang",
+    "ru",
+    "scrollBG",
+    "sc",
+    "tc",
+    "th",
+    "tr",
+    "vi"
+  ],
+  "changes": [
+    {
+      "reason": "Remove analytics emission consumer",
+      "start": 837,
+      "end": 967
+    },
+    {
+      "reason": "Remove advertising-only conditional side effects",
+      "start": 2468,
+      "end": 2691
+    },
+    {
+      "reason": "Retain original nonadvertising continuation",
+      "module": "Game_UI"
+    },
+    {
+      "reason": "Remove analytics emission consumer",
+      "start": 5382,
+      "end": 5512
+    },
+    {
+      "reason": "Remove advertising-only conditional side effects",
+      "start": 6498,
+      "end": 6566
+    },
+    {
+      "reason": "Remove advertising-only conditional side effects",
+      "start": 8710,
+      "end": 8895
+    },
+    {
+      "reason": "Retain original nonadvertising continuation",
+      "module": "Game_UI"
+    },
+    {
+      "reason": "Remove analytics emission consumer",
+      "start": 1592,
+      "end": 1717
+    },
+    {
+      "reason": "Retain original nonadvertising continuation",
+      "module": "Game"
+    },
+    {
+      "reason": "Retire analytics return ledger",
+      "module": "Main_Menu"
+    },
+    {
+      "reason": "Remove telemetry initialization",
+      "start": 1957,
+      "end": 1982
+    },
+    {
+      "reason": "Keep removed external publisher control hidden",
+      "module": "Main_Menu"
+    },
+    {
+      "reason": "Disable external publisher entry at original menu initialization",
+      "module": "Main_Menu"
+    },
+    {
+      "reason": "Remove analytics emission consumer",
+      "start": 4968,
+      "end": 5097
+    },
+    {
+      "reason": "Keep removed external publisher control hidden",
+      "module": "Main_Menu"
+    },
+    {
+      "reason": "Keep removed external publisher control hidden",
+      "module": "Main_Menu"
+    },
+    {
+      "reason": "Remove advertising-only conditional side effects",
+      "start": 7538,
+      "end": 7670
+    },
+    {
+      "reason": "Retain original nonadvertising continuation",
+      "module": "floor"
+    },
+    {
+      "reason": "Remove external publisher navigation handler",
+      "start": 2912,
+      "end": 3115
+    }
+  ],
+  "scope": "Physical removal of ad/telemetry/external-navigation consumers; native nonad continuation retained. No SDK facade, synthetic identity, advertisement success or free reward. Boot/resource closure and real runtime verification remain pending."
+}
