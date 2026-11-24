@@ -1,0 +1,258 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "原累计输入1"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入2"
+      },
+      {
+        "type": "drag",
+        "description": "原累计输入3"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入4"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 50,
+    "responses": 50,
+    "tested_revision": "cuttherope-offline-v1",
+    "delivery_revision": "cuttherope-offline-v1",
+    "native_first_level_three_stars_verified": true,
+    "native_drawing_collection_verified": true,
+    "native_next_level_verified": true,
+    "full_round_verified": true,
+    "reload_verified": false,
+    "all_levels_verified": false,
+    "cumulative_input_budget": 5,
+    "scope": "累计5步：加载原菜单→普通Play进入Level1-1→一次横向划过可见绳索，原糖果下落、星星收取与喂食→原Drawing found/Collect→原Excellent三星结果与普通Next进入Level1-2。另2次只观察未加输入，7张实际截图均已打开。没有调用业务方法、读隐藏关卡解法或写分数/关卡/奖励。 只实测首关三星、原绘画收集和进入第二关；未操作第二关、撤销/重试/设置、广告道具、存档刷新或其他424关。最终50同源请求/50个200，无外联/失败/console error或warning。"
+  },
+  "raw_inputs": 5,
+  "checkpoints": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/cuttherope-offline-v1/index.html",
+      "at": "2026-11-24T06:28:51.842Z",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "action": "click",
+      "x": 715,
+      "y": 611,
+      "at": "2026-11-24T06:30:19.551Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 715,
+          "y": 611
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "action": "drag",
+      "points": [
+        [
+          590,
+          220
+        ],
+        [
+          840,
+          220
+        ]
+      ],
+      "at": "2026-11-24T06:32:58.292Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 590,
+          "y": 220
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 605.625,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 621.25,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 636.875,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 652.5,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 668.125,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 683.75,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 699.375,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 715,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 730.625,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 746.25,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 761.875,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 777.5,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 793.125,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 808.75,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 824.375,
+          "y": 220
+        },
+        {
+          "event": "move",
+          "x": 840,
+          "y": 220
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "action": "click",
+      "x": 720,
+      "y": 829,
+      "at": "2026-11-24T06:37:05.820Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 829
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "action": "click",
+      "x": 721,
+      "y": 809,
+      "at": "2026-11-24T06:44:19.531Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 721,
+          "y": 809
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    }
+  ],
+  "browser_actual_exit_codes": [
+    0
+  ],
+  "owned_node_absent": true,
+  "node_pids": [
+    25108
+  ],
+  "screenshots_opened": 7,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "hidden_board_or_solver_reads": false,
+  "accounting": {
+    "native_id": "9npxcz4n8jw7",
+    "title": "Cut the Rope",
+    "status": "packaged",
+    "observation_start": "2026-11-24T06:03:10.464534+00:00",
+    "observation_start_basis": "Actual first parent entry source receipt",
+    "observation_end": "2026-11-24T06:52:10.161505+00:00",
+    "elapsed_seconds": 2939.696971,
+    "pure_processing_seconds": null,
+    "waiting_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "原入口捕获至本次打包的实际经过区间，含分析/下载/修复/验证和等待，不是纯处理工时；纯处理/等待/Token/费用无法逐款计量，保持未知。"
+  },
+  "visual_result": "累计5步：加载原菜单→普通Play进入Level1-1→一次横向划过可见绳索，原糖果下落、星星收取与喂食→原Drawing found/Collect→原Excellent三星结果与普通Next进入Level1-2。另2次只观察未加输入，7张实际截图均已打开。没有调用业务方法、读隐藏关卡解法或写分数/关卡/奖励。",
+  "scope_boundary": "只实测首关三星、原绘画收集和进入第二关；未操作第二关、撤销/重试/设置、广告道具、存档刷新或其他424关。最终50同源请求/50个200，无外联/失败/console error或warning。"
+}
