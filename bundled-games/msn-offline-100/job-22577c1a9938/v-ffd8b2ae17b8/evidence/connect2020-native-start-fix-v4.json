@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-24T03:52:21.003Z",
+  "source_only": true,
+  "native_id": "9mwzvztmcq0w",
+  "cumulative_UI": 2,
+  "remaining_UI": 3,
+  "input_sha256": "6b4694a7e175e3ac4684feee1f0ba94e5be8a9cea0c0ad1b8e3dc034fc3b5d94",
+  "output_sha256": "8b760e8756f30565cfcb523578be1d52b456876b207715495795734f93875ee9",
+  "cause": "Stage1 removed entire sequence statement containing both telemetry registration and native startup choice. Runtime reached local assets/stats/audio but Main.startGame had no action.",
+  "fix": "Delete only actual analytics CallExpression, retain exact original FTUE Gameplay/MainMenu conditional. No state injection or bypass of native tutorial.",
+  "original_native_start_conditional_AST_exact": true,
+  "protected_rule_namespaces_byte_exact": [
+    "HexCellState_LOCKED_FREE.js",
+    "HexDirection_TOP_LEFT_TOP.js",
+    "HexCell.js",
+    "HexDirectionUtil.js",
+    "HexGrid.js",
+    "ItemType_ITEM_1_ITEM_2.js",
+    "ItemTypeUtil.js",
+    "Item.js",
+    "ItemsPool.js",
+    "Path.js",
+    "Pathfinder.js",
+    "ItemsCombo.js",
+    "GameplayHelper.js",
+    "GameplaySpawner.js",
+    "GridsCollection.js"
+  ],
+  "executed": false
+}

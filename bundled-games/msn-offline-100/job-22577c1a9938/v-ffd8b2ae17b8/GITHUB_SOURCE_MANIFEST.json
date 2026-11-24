@@ -1,0 +1,879 @@
+{
+  "title": "2020 Connect / 数字连通",
+  "revision": "connect2020-offline-v4",
+  "job_id": "job-22577c1a9938",
+  "version_id": "v-ffd8b2ae17b8",
+  "artifact_id": "artifact-411a713d4db2",
+  "artifact_sha256": "04bbbfefb3e6b4ab5468ddca460464abf0e081baa00b2e666444ac4a9bb1b3af",
+  "remote_archive_commit": "454fd0de85138d2d69640f40745def93a888b49b",
+  "files": {
+    "delivery-report.json": "d970be3ce693725666576adb2ccff6225c148191c4c70029798c7054cfcd6105",
+    "game-profile.json": "b718f161ce3360cb4f078082f8573dec477b9c612c8ed3dd219c65736a642650",
+    "GAME_SPECIFICATION.md": "923e5a8d2b4ead7437b2f746eb5ef617adc6e16c358ebdd135741bd3541f2c83",
+    "index.html": "8f3943f34e64e08bb0c76e381781decf1cf959cae68bda9a5e300465b97be7b8",
+    "README_二次修改.md": "a38e1c7bf844573d5254a4a7f9715351285040f2c4b0eef062884fcc956f2f7f",
+    "assets/texts.json": "24c802c1a7514b7b341c6e3c02518d1f9c04f8c3929113522e61dc17d725ae92",
+    "css/style.css": "5ba02f4f7417dae15ab48d75122ffe3b90798852a0c99805386cde1ff580ccd7",
+    "evidence/connect2020-boot-retirement-stage1.json": "cb9336ca1902296487cc0b33acdaa100e64da60703e4da586b04ffdace85d25f",
+    "evidence/connect2020-click-audio-source.json": "dae982159162125172d9d2aae69b553e03e2576febd831de6a4e255f0355a079",
+    "evidence/connect2020-config-source.json": "8366cf3e518f6449bd128da826aaf5d185fea72c24573b98d59724db64b21ff9",
+    "evidence/connect2020-current-dedup-proof.json": "49b8c600883aaefe61f7ee838765f86469036b612e95f097345c1a45e856d91a",
+    "evidence/connect2020-dependent-assets-source.json": "b1ac99f17aab87d81313f796d32a8aaaf26978a52cca393e496ae24d73d3a783",
+    "evidence/connect2020-game-source.json": "cab85f5eb9f91f987da186c8f105bc877094febdf5a598eae22c49352e0b701e",
+    "evidence/connect2020-local-ready-stage6.json": "b7e336e26d6f38c5383db0d15cc406ecbc115ec49951e760dd470d1256aab98a",
+    "evidence/connect2020-native-assets-source.json": "b774dc6115ede9d571bff200eb3d4c0cca707845f7f7fd1de3611aaec7244f51",
+    "evidence/connect2020-native-gameplay-proof.json": "d71f2d19f238df27af90a64b944f388bc2872a2ba7dbde2c72d2a0a89c0f7e85",
+    "evidence/connect2020-native-start-fix-v4.json": "ea851f812fc6fd6e61243e88a5cf339f86c5e8a69974c386d5e77ceab1f6394b",
+    "evidence/connect2020-original-source-v3-sha256.json": "0797eda41f44e0f2028f45318790b86d8228aa258805096ef4f7d405ba4eecf7",
+    "evidence/connect2020-remote-preflight-v4.json": "b946153c863be60cc7019c9652f28e5db86facbe85f0310da3527c0fa97d2413",
+    "evidence/connect2020-reward-ui-retirement-stage3.json": "55b2518f0190570d62163a6abbd25a98e0dc6d4029cc5c7abec9ff0713531267",
+    "evidence/connect2020-score-retirement-stage5.json": "cff5c52ae9c2ce69482cd885dc341f1e1b74790c2f2ea5a56b55a3eb4c4ff503",
+    "evidence/connect2020-social-retirement-stage4.json": "1486bfa05e7758d8eed1dde284896a6e458989d882efc4fec8e1820b92980364",
+    "evidence/connect2020-stage-v4.json": "4e89d699653b804dd2754e9ea53cc2a58b1c030a7db7e4ec26d3032d084e6183",
+    "evidence/connect2020-telemetry-retirement-stage2.json": "ae2c7402cd96e3032d261a57aec1d3dae506b0919adf55642e824eae24fd87a9",
+    "evidence/connect2020-v2-terminal-journals.json": "068426152fc78ba6ab992d36683e5192bb01893ef2f33ef6ef810616ed08e3cf",
+    "evidence/connect2020-v3-source-correction.json": "c8313302cd129d66580aa290f775ba6b2b23e05bda2f0372b485a61b919aa8b2",
+    "evidence/connect2020-v3-terminal-journals.json": "c75634f25ab6c7db57108a786cb485101774eb0d4fdaf541a88552be74aae764",
+    "evidence/connect2020-v4-runtime-preparation.json": "887832e453fcf4c0216ec9e0872d6a976d6b4f96aae41bd318b67d2096243a74",
+    "evidence/connect2020-v4-terminal-journals.json": "5f87587f81f53876b271794cc1ed6603c4d546d948bee9924769cc04e3a181a1",
+    "evidence/observation-001.json": "0b295fa59373aa824ac4d13abeac9ab72931f73b7a990aa9533eb1ca0c530075",
+    "evidence/observation-002.json": "1e97d8635d15c0afd40fdc21265253c9539139b7afd76bfbc5084cf7625c87db",
+    "evidence/observation-003.json": "d48d25ff0275e549849c288c262e344560abe21a724df382d0639245add177d7",
+    "evidence/observation-004.json": "8f1c9636964997423fb4b06c2c343af1d60afb1831ec8b48c3221ff55d533cc3",
+    "evidence/observation-005.json": "e91295c57c215e44462bfc70ea7838b0b9284586218492b7b89d5105a0d25799",
+    "evidence/original-source-sha256.json": "0797eda41f44e0f2028f45318790b86d8228aa258805096ef4f7d405ba4eecf7",
+    "evidence/original-source.zip": "84a24fbdfc0eafb108ad76f67ffb5159b9bf65d1223e06812415bf4c626f4592",
+    "evidence/resource-audit.json": "a3d3b0f1823d36a2f71d36ec6ad67ee1fecf1c541d9521bb8a5f652027bb6835",
+    "evidence/runtime-sha256.json": "c3d8edf587932df1cc22f13e9050eaf025cd3ee46c8467540abb7626f565d51d",
+    "evidence/validation.json": "8085f615ce8bc4bbdb154e24c676567bc3de2d1270d3d1385be177d3b915991b",
+    "js/easystar-0.4.1.min.js": "3717dbfde6d115bd7884722e3e402be63de3f5dd24dc3181daffbcce0dbd9c2a",
+    "js/game.min.js": "8b760e8756f30565cfcb523578be1d52b456876b207715495795734f93875ee9",
+    "js/lodash.min.js": "23258114961c94563c3e7df66f059d487995e01f4ce666f2e5b84f1c499e63cc",
+    "js/phaser-cachebuster.min.js": "e54df15c1f510290c4d660384a95ee2fb74d0c221f4aefa569eae699412b0c1b",
+    "js/phaser-monocolor.min.js": "ee583ebf365f94a9620b5c436e303fcde4193263870ff82356101fc399ba0cf9",
+    "js/phaser-nineslice.min.js": "b67273725437224b64cfdeb98610abfe778995b89f999b0af87bada6ac38248d",
+    "js/phaser.min.js": "4fd6e14bd2ab63a32c45cbb7634cd5dcb570d02da4436c68335603675a727747",
+    "screenshots/000-cover.png": "10f143b51a43b83840b0bf7044d82137d5ab7cdfc89c64ee71d1b852cbddf58a",
+    "screenshots/001.png": "8c08d4eb6849e3decc7b100b6f6fcac9551e0ad90fd2135b225bf217664febe6",
+    "screenshots/002.png": "8c08d4eb6849e3decc7b100b6f6fcac9551e0ad90fd2135b225bf217664febe6",
+    "screenshots/003.png": "deadea88899f5ed9e7cbb3ba8af6ba35ecea7207dcde58155a72eb910bea7007",
+    "screenshots/004.png": "ec907a5119917e54ac4b3e7ec068e978aa69431a39c4c43af50b62ae31afdc3e",
+    "screenshots/005-held.png": "2d10584d250347548272ce420dca949fb079ee7e8430fb61b454b7bd981d50d2",
+    "screenshots/005.png": "10f143b51a43b83840b0bf7044d82137d5ab7cdfc89c64ee71d1b852cbddf58a",
+    "assets/audio/appear.mp3": "e1106f0eb870c6271b694404a9a71f98dea8081947519413aea7d3819a8cd92f",
+    "assets/audio/appear.ogg": "82bc2cee8eb139e1e7a877ac3860c9f1f557b1f8b2f2d48dd8a4eb36bd6dcca0",
+    "assets/audio/blocked.mp3": "6f217ff5efe4848f54db5fbc5db74fd99e90aec4709e1a219951d1658a01a8de",
+    "assets/audio/blocked.ogg": "6bde86fd95ceeaf699f3444d66ddcfb548cc4b220dea9eeef98d1fdcc61cd8ba",
+    "assets/audio/booster.mp3": "67e843959e2d3a0205ba366bc6e322c0fd57d452dd4c315cc9e3e6e6926f1f4d",
+    "assets/audio/booster.ogg": "1b9a8a4c0056cb20b06a59ec6d80bf77b1fc8e2f5cde86690498a90472ab035a",
+    "assets/audio/cell.mp3": "36758a7d92c6a818bf4d4ec2f89e7f1b6ca35c5e9d62426d64ba974bb09f14ce",
+    "assets/audio/cell.ogg": "74322feec8ae736d07d2bbcf556c05f1dd0008930519ef0ac242c78d7f0df5b7",
+    "assets/audio/click.mp3": "3f4dc2f5676eb6dc1b750289d50e80c94400588e35022e2b82ab5183d8780194",
+    "assets/audio/click.ogg": "5f11a86fdbea24a970924d84153284437fd0a0308202cd35f043a81056a286e8",
+    "assets/audio/coin.mp3": "2e736ac9d24c25a6ae72d75e454259b5121720f644128cfccf633a9d2c4ffc33",
+    "assets/audio/coin.ogg": "0c4f2d681c8afd7b5bbfb3596187c4ad68c9a0f41ce9524e0481e68bdb279610",
+    "assets/audio/collect.mp3": "b69568a942030efee1b3e27dbdfeaec348b98798181ca62c660ab154a15f17b7",
+    "assets/audio/collect.ogg": "34a7ee39f726ba1a3d551fd93e30695cd573ee8ed548c14bf16fb176a8cabb9d",
+    "assets/audio/convert_item.mp3": "a3f5a43237d20b25ad1d4d2d507d7fce0aca8ab8c7758abcd90628ae4cf3400a",
+    "assets/audio/convert_item.ogg": "bd34b1e22c6a81ea0b1494cfc6eecd0987350a2399fad24609a44085689dc17f",
+    "assets/audio/extra1.mp3": "2079f2f3d024147307ce44f88a4c487b1e7deb4b8d2536015074700c8700719a",
+    "assets/audio/extra1.ogg": "e16e89f2f1907ca233394a878a7d6051da036540669a0036602e8d5159ff5dca",
+    "assets/audio/extra2.mp3": "79bacf859228a25599c41df38de9708eaa55b2ebbccb0cb638149d557ddadac5",
+    "assets/audio/extra2.ogg": "a00bad50d5ab92ac15b6333e0040c069ba77497e66ea5425a0c8687132e167bd",
+    "assets/audio/fail.mp3": "aa05e2e4700c30e7df7160b62f612d002138b47c193931d2ae11b905a0537b8d",
+    "assets/audio/fail.ogg": "e5a7b3fb141bf48a4b4f02059a7ac0d65bc3b177d81581e468f6de977f20f964",
+    "assets/audio/finish.mp3": "0f083a389219ec522f87300911c3586d0e4e697503adce94726f93d6897ac314",
+    "assets/audio/finish.ogg": "c591764bfd4c8e646f6a8d8b49a1333cbc1bdfe696f0313cfa9fd27bbcac8d25",
+    "assets/audio/gift.mp3": "a3c4b70074eeddd4f0f1ca51d29206792dfee1307444b0aeff5cf54e8afd317c",
+    "assets/audio/gift.ogg": "6e29758869752db3b3592be38bb3ab090735ec324475f441c8998b95b1bb512e",
+    "assets/audio/highscore.mp3": "18295ef7942b684e5cd0ca35ab7d87e9ad55e630c33732e5c72c133e5948f318",
+    "assets/audio/highscore.ogg": "51c27631d1f7d8e750d320844e629a2f6952fec8cb893423961887d68f8a629b",
+    "assets/audio/move.mp3": "834994fcab57e2d944b4a6dde45d0ce0cf319772b359b07e4b1829b3d94aa38a",
+    "assets/audio/move.ogg": "908b9b0764666f059a8d72bc1bf7a666286038638d998b9dbc5b7352d996b8b1",
+    "assets/audio/music.mp3": "de4facfdcd97770cee1c822ac79d1fb7c51a160c4d3a9d0b673896b1719ceb10",
+    "assets/audio/music.ogg": "183ac2d56b0a94a9204623232c2cc42cb36a328b00ff0e4fbbf305bb09dd07b5",
+    "assets/audio/popup.mp3": "83076ad55ab20b3b974e53f5258216cbfb4daacf20cd562441ba07c1f7e09fa3",
+    "assets/audio/popup.ogg": "b2136615b45ee6b26795b15ba281b23d5ddc57f1994454280809dfe030863068",
+    "assets/audio/remove.mp3": "81ed433b698a1d2efcd6c1a2beb926992e2b7be476ed0390d3fe22d15c73570a",
+    "assets/audio/remove.ogg": "229e945bc0e1680f85325ad4c114fad805e62332c43c3e223684832ed4c584dd",
+    "assets/audio/select.mp3": "91ce1e70cdb558c931a12bb6c04c7183b98d9b18d548d25f4656c8c54969cd1e",
+    "assets/audio/select.ogg": "914c5b879aaf5a858d20bf636283c0b9f1a0c8c0c7e617b8e70b4dc2f2b65faa",
+    "assets/audio/shout.mp3": "971889a8044d1f4d6b48799ddfe3774efabc4bbe44caaa722b5ba8a0c2979a68",
+    "assets/audio/shout.ogg": "ac8191468746a2128042e3f8a38374ce3c64a79e6b9604f9ebd4827b7b84b8a7",
+    "assets/audio/stop.mp3": "7f07a0bc51b60bd310f8c32c4ab5b4c501fd1ca42857c7f896671e315ef27f95",
+    "assets/audio/stop.ogg": "c6ded7000811926a0bb4a70191dca6b1c2f1f1de12eaefbac1a35a72dd697d9c",
+    "assets/audio/unite.mp3": "371f01232f44697fc29bc5b07f9674f5a01983a2e8daef37d6d22319c15d3e25",
+    "assets/audio/unite.ogg": "0b9ea19076df0e56bc06b226f31b45a40aaee6d6eb25e309857aff0a3ff47264",
+    "assets/audio/upcoming.mp3": "2946e6599441b7c5e4782a3a038bbf68e6f1f786b9e89fc49a215deff8f75ac6",
+    "assets/audio/upcoming.ogg": "1359c0fd77099d45e1f5fe045ebc894e760df466df76c1f36243ebc2c36e3c6c",
+    "assets/configs/boosters.json": "632131d0ef38bcc3a17d94d391a6fdd6c2ce44fe191bb45a362ab8b8d4ce759d",
+    "assets/configs/grids.json": "fe63296522dd208f68b736938ee9814683bc33c8ab47889083246f0b7e1f6937",
+    "assets/configs/missions.json": "aa402ae006e1f29240fab4f2b8ec7b99656293264d1b4235369a245814649c93",
+    "assets/configs/params.json": "54023ba4707782210c6d932cdc72a8719978bb43467aa2090e0e615dffefc18a",
+    "assets/fonts/buttons_font.fnt": "2a92bb2ac730490fd8948b1271c84d31e79cfb0c523297b219f8f9d1d44f6876",
+    "assets/fonts/Candara-Bold.woff": "87854dfc3f870c2447b8dce33a24c4f9d107af4deb0da10c59c37fbddfcb7cb5",
+    "assets/fonts/candara.fnt": "2ddb14454052e8f9ff2f068ea4a79f99024c63b1cd1ba9474085030c09fc5f82",
+    "assets/fonts/numbers_font.fnt": "8f78252553c1574175aa5cb3083ff789649559837afcb72efd6e660855e84a37",
+    "assets/fonts/PatuaOne-Regular.woff": "b94c633fa9d9b51d5e185e227b5a493795c33438897ba55cda318eb040a495da",
+    "assets/fonts/points_bonus.fnt": "17f39734c019faa095b716950d19656f55cfc4d616861048a8d1edec4e9e3c7f",
+    "assets/fonts/points_fx.fnt": "68d9b4281a2fc23c86cbb94d588e4bd450f415b206517e4369f393ca85dc76c0",
+    "assets/fonts/title_font.fnt": "e1d27be43ddd5ed77473f90478032e3aa7dff88667a330164c3ed5997a4f9308",
+    "assets/graphics/animations.json": "6fc7dce075ec61364ddc0d35e5c07dc4db3e5ecbfb3f4130cc31f01349621dc4",
+    "assets/graphics/animations.png": "301b729fac25bcdd8cbabecdf3a5d62fc70931b9622778c0192ab6c62e00ed69",
+    "assets/graphics/backgrounds.json": "c99a5f10d2a202bac157193e658071ddcd3eca3c8d81fc078fe0d67fd33cd79b",
+    "assets/graphics/backgrounds.png": "c3b58e177716eb8a6f80f203c6d089735ae8be22769abfc65f337e3f643b4a32",
+    "assets/graphics/gameplay.json": "216c036511258110b51179facfd5dc36b1dd03ea775fe7d3c5f7f429352ba02b",
+    "assets/graphics/gameplay.png": "9ef199f984c6803d1f83217f8bf6ea163d0468288378268576b19179ce8d24c7",
+    "assets/graphics/missions.jpg": "33b90137344fb013e8d98146dd7bb2b004e712de3f40574ab9414d963d69129e",
+    "assets/graphics/missions.json": "53b986c9462d1deb31b7bb04ce06d31abd8ce6cb639b3e0a9b03496a99682dcb",
+    "assets/graphics/preloader.json": "3fcab3f1c70aff831b480b68b8e46ae9b166bf1a7061a7d2ddbb6589d612dde5",
+    "assets/graphics/preloader.png": "007b67489adc18534da5b6429e31392884e7122fe24ed3aa080c6fc50b779715",
+    "assets/graphics/rotate-phone.png": "ec83549cef15359c79a28251a153329a9c55fca20c757dfc0b84a4c4af5d2005",
+    "assets/graphics/title_screen.json": "1c359d3a37c5430b7b03aa47680f458c6b2556b942c69d8fe6f7911459042046",
+    "assets/graphics/title_screen.png": "a17a13a7ec97b899c48db005379d5d37a76f419c292dfc1c7c8a0f4dfbf8700e",
+    "assets/graphics/title_screen_ja.png": "c58464da570a12c297994ee983ab92d75715bfc5523d7bc6f05308b85972af5d"
+  },
+  "status_at_archive": "review",
+  "ui_checkpoints": 5,
+  "site_readback": {
+    "at": "2026-11-24T04:05:53.577290+00:00",
+    "version_id": "v-ffd8b2ae17b8",
+    "job_id": "job-22577c1a9938",
+    "status": "review",
+    "cover": "http://127.0.0.1:8766/play/artifact-411a713d4db2/screenshots/000-cover.png",
+    "sixteen_section_content_exact": true,
+    "runtime_files": [
+      {
+        "path": "assets/audio/appear.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:48.726622+00:00",
+        "http": 200,
+        "sha256": "e1106f0eb870c6271b694404a9a71f98dea8081947519413aea7d3819a8cd92f",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/appear.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:48.709631+00:00",
+        "http": 200,
+        "sha256": "82bc2cee8eb139e1e7a877ac3860c9f1f557b1f8b2f2d48dd8a4eb36bd6dcca0",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/blocked.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:48.720394+00:00",
+        "http": 200,
+        "sha256": "6f217ff5efe4848f54db5fbc5db74fd99e90aec4709e1a219951d1658a01a8de",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/blocked.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:48.968619+00:00",
+        "http": 200,
+        "sha256": "6bde86fd95ceeaf699f3444d66ddcfb548cc4b220dea9eeef98d1fdcc61cd8ba",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/booster.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:48.982349+00:00",
+        "http": 200,
+        "sha256": "67e843959e2d3a0205ba366bc6e322c0fd57d452dd4c315cc9e3e6e6926f1f4d",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/booster.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.033058+00:00",
+        "http": 200,
+        "sha256": "1b9a8a4c0056cb20b06a59ec6d80bf77b1fc8e2f5cde86690498a90472ab035a",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/cell.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.188989+00:00",
+        "http": 200,
+        "sha256": "36758a7d92c6a818bf4d4ec2f89e7f1b6ca35c5e9d62426d64ba974bb09f14ce",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/cell.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.216786+00:00",
+        "http": 200,
+        "sha256": "74322feec8ae736d07d2bbcf556c05f1dd0008930519ef0ac242c78d7f0df5b7",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/click.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.227043+00:00",
+        "http": 200,
+        "sha256": "3f4dc2f5676eb6dc1b750289d50e80c94400588e35022e2b82ab5183d8780194",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/click.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.539216+00:00",
+        "http": 200,
+        "sha256": "5f11a86fdbea24a970924d84153284437fd0a0308202cd35f043a81056a286e8",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/coin.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.554403+00:00",
+        "http": 200,
+        "sha256": "2e736ac9d24c25a6ae72d75e454259b5121720f644128cfccf633a9d2c4ffc33",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/coin.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.565064+00:00",
+        "http": 200,
+        "sha256": "0c4f2d681c8afd7b5bbfb3596187c4ad68c9a0f41ce9524e0481e68bdb279610",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/collect.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.629522+00:00",
+        "http": 200,
+        "sha256": "b69568a942030efee1b3e27dbdfeaec348b98798181ca62c660ab154a15f17b7",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/collect.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.644223+00:00",
+        "http": 200,
+        "sha256": "34a7ee39f726ba1a3d551fd93e30695cd573ee8ed548c14bf16fb176a8cabb9d",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/convert_item.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.673282+00:00",
+        "http": 200,
+        "sha256": "a3f5a43237d20b25ad1d4d2d507d7fce0aca8ab8c7758abcd90628ae4cf3400a",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/convert_item.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.697256+00:00",
+        "http": 200,
+        "sha256": "bd34b1e22c6a81ea0b1494cfc6eecd0987350a2399fad24609a44085689dc17f",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/extra1.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.744125+00:00",
+        "http": 200,
+        "sha256": "2079f2f3d024147307ce44f88a4c487b1e7deb4b8d2536015074700c8700719a",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/extra1.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.761980+00:00",
+        "http": 200,
+        "sha256": "e16e89f2f1907ca233394a878a7d6051da036540669a0036602e8d5159ff5dca",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/extra2.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.775311+00:00",
+        "http": 200,
+        "sha256": "79bacf859228a25599c41df38de9708eaa55b2ebbccb0cb638149d557ddadac5",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/extra2.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.821902+00:00",
+        "http": 200,
+        "sha256": "a00bad50d5ab92ac15b6333e0040c069ba77497e66ea5425a0c8687132e167bd",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/fail.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.857147+00:00",
+        "http": 200,
+        "sha256": "aa05e2e4700c30e7df7160b62f612d002138b47c193931d2ae11b905a0537b8d",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/fail.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.870405+00:00",
+        "http": 200,
+        "sha256": "e5a7b3fb141bf48a4b4f02059a7ac0d65bc3b177d81581e468f6de977f20f964",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/finish.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.883163+00:00",
+        "http": 200,
+        "sha256": "0f083a389219ec522f87300911c3586d0e4e697503adce94726f93d6897ac314",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/finish.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.896972+00:00",
+        "http": 200,
+        "sha256": "c591764bfd4c8e646f6a8d8b49a1333cbc1bdfe696f0313cfa9fd27bbcac8d25",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/gift.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.931423+00:00",
+        "http": 200,
+        "sha256": "a3c4b70074eeddd4f0f1ca51d29206792dfee1307444b0aeff5cf54e8afd317c",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/gift.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.970976+00:00",
+        "http": 200,
+        "sha256": "6e29758869752db3b3592be38bb3ab090735ec324475f441c8998b95b1bb512e",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/highscore.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:49.991934+00:00",
+        "http": 200,
+        "sha256": "18295ef7942b684e5cd0ca35ab7d87e9ad55e630c33732e5c72c133e5948f318",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/highscore.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.043563+00:00",
+        "http": 200,
+        "sha256": "51c27631d1f7d8e750d320844e629a2f6952fec8cb893423961887d68f8a629b",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/move.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.061010+00:00",
+        "http": 200,
+        "sha256": "834994fcab57e2d944b4a6dde45d0ce0cf319772b359b07e4b1829b3d94aa38a",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/move.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.081007+00:00",
+        "http": 200,
+        "sha256": "908b9b0764666f059a8d72bc1bf7a666286038638d998b9dbc5b7352d996b8b1",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/music.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.134998+00:00",
+        "http": 200,
+        "sha256": "de4facfdcd97770cee1c822ac79d1fb7c51a160c4d3a9d0b673896b1719ceb10",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/music.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.141521+00:00",
+        "http": 200,
+        "sha256": "183ac2d56b0a94a9204623232c2cc42cb36a328b00ff0e4fbbf305bb09dd07b5",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/popup.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.150900+00:00",
+        "http": 200,
+        "sha256": "83076ad55ab20b3b974e53f5258216cbfb4daacf20cd562441ba07c1f7e09fa3",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/popup.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.400316+00:00",
+        "http": 200,
+        "sha256": "b2136615b45ee6b26795b15ba281b23d5ddc57f1994454280809dfe030863068",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/remove.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.439792+00:00",
+        "http": 200,
+        "sha256": "81ed433b698a1d2efcd6c1a2beb926992e2b7be476ed0390d3fe22d15c73570a",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/remove.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.489376+00:00",
+        "http": 200,
+        "sha256": "229e945bc0e1680f85325ad4c114fad805e62332c43c3e223684832ed4c584dd",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/select.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.501507+00:00",
+        "http": 200,
+        "sha256": "91ce1e70cdb558c931a12bb6c04c7183b98d9b18d548d25f4656c8c54969cd1e",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/select.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.553996+00:00",
+        "http": 200,
+        "sha256": "914c5b879aaf5a858d20bf636283c0b9f1a0c8c0c7e617b8e70b4dc2f2b65faa",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/shout.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.558928+00:00",
+        "http": 200,
+        "sha256": "971889a8044d1f4d6b48799ddfe3774efabc4bbe44caaa722b5ba8a0c2979a68",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/shout.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.628808+00:00",
+        "http": 200,
+        "sha256": "ac8191468746a2128042e3f8a38374ce3c64a79e6b9604f9ebd4827b7b84b8a7",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/stop.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.712659+00:00",
+        "http": 200,
+        "sha256": "7f07a0bc51b60bd310f8c32c4ab5b4c501fd1ca42857c7f896671e315ef27f95",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/stop.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.714170+00:00",
+        "http": 200,
+        "sha256": "c6ded7000811926a0bb4a70191dca6b1c2f1f1de12eaefbac1a35a72dd697d9c",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/unite.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.811321+00:00",
+        "http": 200,
+        "sha256": "371f01232f44697fc29bc5b07f9674f5a01983a2e8daef37d6d22319c15d3e25",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/unite.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.811483+00:00",
+        "http": 200,
+        "sha256": "0b9ea19076df0e56bc06b226f31b45a40aaee6d6eb25e309857aff0a3ff47264",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/audio/upcoming.mp3",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.922973+00:00",
+        "http": 200,
+        "sha256": "2946e6599441b7c5e4782a3a038bbf68e6f1f786b9e89fc49a215deff8f75ac6",
+        "content_type": "audio/mpeg"
+      },
+      {
+        "path": "assets/audio/upcoming.ogg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.924053+00:00",
+        "http": 200,
+        "sha256": "1359c0fd77099d45e1f5fe045ebc894e760df466df76c1f36243ebc2c36e3c6c",
+        "content_type": "audio/ogg"
+      },
+      {
+        "path": "assets/configs/boosters.json",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:50.997134+00:00",
+        "http": 200,
+        "sha256": "632131d0ef38bcc3a17d94d391a6fdd6c2ce44fe191bb45a362ab8b8d4ce759d",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/configs/grids.json",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.011318+00:00",
+        "http": 200,
+        "sha256": "fe63296522dd208f68b736938ee9814683bc33c8ab47889083246f0b7e1f6937",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/configs/missions.json",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.053846+00:00",
+        "http": 200,
+        "sha256": "aa402ae006e1f29240fab4f2b8ec7b99656293264d1b4235369a245814649c93",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/configs/params.json",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.054675+00:00",
+        "http": 200,
+        "sha256": "54023ba4707782210c6d932cdc72a8719978bb43467aa2090e0e615dffefc18a",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/fonts/Candara-Bold.woff",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.122801+00:00",
+        "http": 200,
+        "sha256": "87854dfc3f870c2447b8dce33a24c4f9d107af4deb0da10c59c37fbddfcb7cb5",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/fonts/PatuaOne-Regular.woff",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.140622+00:00",
+        "http": 200,
+        "sha256": "b94c633fa9d9b51d5e185e227b5a493795c33438897ba55cda318eb040a495da",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/fonts/buttons_font.fnt",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.222626+00:00",
+        "http": 200,
+        "sha256": "2a92bb2ac730490fd8948b1271c84d31e79cfb0c523297b219f8f9d1d44f6876",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/fonts/candara.fnt",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.265974+00:00",
+        "http": 200,
+        "sha256": "2ddb14454052e8f9ff2f068ea4a79f99024c63b1cd1ba9474085030c09fc5f82",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/fonts/numbers_font.fnt",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.300448+00:00",
+        "http": 200,
+        "sha256": "8f78252553c1574175aa5cb3083ff789649559837afcb72efd6e660855e84a37",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/fonts/points_bonus.fnt",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.358954+00:00",
+        "http": 200,
+        "sha256": "17f39734c019faa095b716950d19656f55cfc4d616861048a8d1edec4e9e3c7f",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/fonts/points_fx.fnt",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.361963+00:00",
+        "http": 200,
+        "sha256": "68d9b4281a2fc23c86cbb94d588e4bd450f415b206517e4369f393ca85dc76c0",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/fonts/title_font.fnt",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.407876+00:00",
+        "http": 200,
+        "sha256": "e1d27be43ddd5ed77473f90478032e3aa7dff88667a330164c3ed5997a4f9308",
+        "content_type": "application/octet-stream"
+      },
+      {
+        "path": "assets/graphics/animations.json",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.457352+00:00",
+        "http": 200,
+        "sha256": "6fc7dce075ec61364ddc0d35e5c07dc4db3e5ecbfb3f4130cc31f01349621dc4",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/graphics/animations.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.457865+00:00",
+        "http": 200,
+        "sha256": "301b729fac25bcdd8cbabecdf3a5d62fc70931b9622778c0192ab6c62e00ed69",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/graphics/backgrounds.json",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.482269+00:00",
+        "http": 200,
+        "sha256": "c99a5f10d2a202bac157193e658071ddcd3eca3c8d81fc078fe0d67fd33cd79b",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/graphics/backgrounds.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.514802+00:00",
+        "http": 200,
+        "sha256": "c3b58e177716eb8a6f80f203c6d089735ae8be22769abfc65f337e3f643b4a32",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/graphics/gameplay.json",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.556788+00:00",
+        "http": 200,
+        "sha256": "216c036511258110b51179facfd5dc36b1dd03ea775fe7d3c5f7f429352ba02b",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/graphics/gameplay.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.585593+00:00",
+        "http": 200,
+        "sha256": "9ef199f984c6803d1f83217f8bf6ea163d0468288378268576b19179ce8d24c7",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/graphics/missions.jpg",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.632510+00:00",
+        "http": 200,
+        "sha256": "33b90137344fb013e8d98146dd7bb2b004e712de3f40574ab9414d963d69129e",
+        "content_type": "image/jpeg"
+      },
+      {
+        "path": "assets/graphics/missions.json",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.664963+00:00",
+        "http": 200,
+        "sha256": "53b986c9462d1deb31b7bb04ce06d31abd8ce6cb639b3e0a9b03496a99682dcb",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/graphics/preloader.json",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.776840+00:00",
+        "http": 200,
+        "sha256": "3fcab3f1c70aff831b480b68b8e46ae9b166bf1a7061a7d2ddbb6589d612dde5",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/graphics/preloader.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.821123+00:00",
+        "http": 200,
+        "sha256": "007b67489adc18534da5b6429e31392884e7122fe24ed3aa080c6fc50b779715",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/graphics/rotate-phone.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.821396+00:00",
+        "http": 200,
+        "sha256": "ec83549cef15359c79a28251a153329a9c55fca20c757dfc0b84a4c4af5d2005",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/graphics/title_screen.json",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.866208+00:00",
+        "http": 200,
+        "sha256": "1c359d3a37c5430b7b03aa47680f458c6b2556b942c69d8fe6f7911459042046",
+        "content_type": "application/json"
+      },
+      {
+        "path": "assets/graphics/title_screen.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.916354+00:00",
+        "http": 200,
+        "sha256": "a17a13a7ec97b899c48db005379d5d37a76f419c292dfc1c7c8a0f4dfbf8700e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/graphics/title_screen_ja.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.943728+00:00",
+        "http": 200,
+        "sha256": "c58464da570a12c297994ee983ab92d75715bfc5523d7bc6f05308b85972af5d",
+        "content_type": "image/png"
+      },
+      {
+        "path": "assets/texts.json",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:51.970929+00:00",
+        "http": 200,
+        "sha256": "24c802c1a7514b7b341c6e3c02518d1f9c04f8c3929113522e61dc17d725ae92",
+        "content_type": "application/json"
+      },
+      {
+        "path": "css/style.css",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.175198+00:00",
+        "http": 200,
+        "sha256": "5ba02f4f7417dae15ab48d75122ffe3b90798852a0c99805386cde1ff580ccd7",
+        "content_type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "index.html",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.187568+00:00",
+        "http": 200,
+        "sha256": "8f3943f34e64e08bb0c76e381781decf1cf959cae68bda9a5e300465b97be7b8",
+        "content_type": "text/html; charset=utf-8"
+      },
+      {
+        "path": "js/easystar-0.4.1.min.js",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.206621+00:00",
+        "http": 200,
+        "sha256": "3717dbfde6d115bd7884722e3e402be63de3f5dd24dc3181daffbcce0dbd9c2a",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/game.min.js",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.267223+00:00",
+        "http": 200,
+        "sha256": "8b760e8756f30565cfcb523578be1d52b456876b207715495795734f93875ee9",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/lodash.min.js",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.267413+00:00",
+        "http": 200,
+        "sha256": "23258114961c94563c3e7df66f059d487995e01f4ce666f2e5b84f1c499e63cc",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/phaser-cachebuster.min.js",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.291815+00:00",
+        "http": 200,
+        "sha256": "e54df15c1f510290c4d660384a95ee2fb74d0c221f4aefa569eae699412b0c1b",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/phaser-monocolor.min.js",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.429361+00:00",
+        "http": 200,
+        "sha256": "ee583ebf365f94a9620b5c436e303fcde4193263870ff82356101fc399ba0cf9",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/phaser-nineslice.min.js",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.444788+00:00",
+        "http": 200,
+        "sha256": "b67273725437224b64cfdeb98610abfe778995b89f999b0af87bada6ac38248d",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "js/phaser.min.js",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.460143+00:00",
+        "http": 200,
+        "sha256": "4fd6e14bd2ab63a32c45cbb7634cd5dcb570d02da4436c68335603675a727747",
+        "content_type": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "screenshots/001.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.534318+00:00",
+        "http": 200,
+        "sha256": "8c08d4eb6849e3decc7b100b6f6fcac9551e0ad90fd2135b225bf217664febe6",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/002.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.622802+00:00",
+        "http": 200,
+        "sha256": "8c08d4eb6849e3decc7b100b6f6fcac9551e0ad90fd2135b225bf217664febe6",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/003.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.701010+00:00",
+        "http": 200,
+        "sha256": "deadea88899f5ed9e7cbb3ba8af6ba35ecea7207dcde58155a72eb910bea7007",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/004.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:52.756811+00:00",
+        "http": 200,
+        "sha256": "ec907a5119917e54ac4b3e7ec068e978aa69431a39c4c43af50b62ae31afdc3e",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/005.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:53.044401+00:00",
+        "http": 200,
+        "sha256": "10f143b51a43b83840b0bf7044d82137d5ab7cdfc89c64ee71d1b852cbddf58a",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/005-held.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:53.070256+00:00",
+        "http": 200,
+        "sha256": "2d10584d250347548272ce420dca949fb079ee7e8430fb61b454b7bd981d50d2",
+        "content_type": "image/png"
+      },
+      {
+        "path": "screenshots/000-cover.png",
+        "artifact_id": "artifact-411a713d4db2",
+        "observed_at": "2026-11-24T04:05:53.411424+00:00",
+        "http": 200,
+        "sha256": "10f143b51a43b83840b0bf7044d82137d5ab7cdfc89c64ee71d1b852cbddf58a",
+        "content_type": "image/png"
+      }
+    ],
+    "all_runtime_and_screenshots_exact": true,
+    "index_csp": "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' http://192.168.56.52:8765",
+    "gameplay_UI_reexecuted": false,
+    "cumulative_UI_steps": 5,
+    "native_four_equal_tiles_merge_verified": true,
+    "visible_points": 8,
+    "visible_coins": 1,
+    "full_round_verified": false,
+    "whole_tutorial_verified": false,
+    "request_failed_events_retained": 0,
+    "warnings_retained": 17,
+    "tested_revision": "connect2020-offline-v4",
+    "delivery_revision": "connect2020-offline-v4",
+    "browser_exit_code": 0,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "CSP_source_compatibility": "82runtimefiles+7actualscreenshots exactHTTPSreadback; actualnativegameplay remotelytestedunder18865selfCSP, noaddedUIunderpublicsiteCSP."
+  },
+  "scope": "Exact normal-review offline game and real evidence. Raw input counts and historical failures remain explicit; no approval, supply, game-state changes or added testing."
+}

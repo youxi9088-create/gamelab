@@ -1,0 +1,244 @@
+{
+	"enabled": true,
+	"missions_per_day": 3,
+	"missions_ftue": [
+		{
+			"id": "mission_ftue1",
+			"type": "play_x_rounds",
+			"dynamicParam": {
+				"start": 1,
+				"max": 1,
+				"increment": 0
+			},
+			"rewards": [{
+				"type": "boosters",
+				"boosterType": "Remove",
+				"num": 3
+			}],
+			"imgAtlas": "missions",
+			"imgSlot": "play_rounds"
+		}, {
+			"id": "mission_ftue2",
+			"type": "get_tile",
+			"staticParams": { "tile": 128 },
+			"dynamicParam": {
+				"start": 1,
+				"max": 1,
+				"increment": 0
+			},
+			"rewards": [
+				{
+					"type": "gamefieldExpansion",
+					"num": 1
+				}
+			],
+			"imgAtlas": "missions",
+			"imgSlot": "tile_512"
+		}, {
+			"id": "mission_ftue3",
+			"type": "earn_scores_within_round",
+			"staticParams": {
+				"capMax": 1000,
+				"capMin": 1000
+			},
+			"dynamicParam": {
+				"start": 1
+			},
+			"rewards": [
+				{
+					"type": "gamefieldExpansion",
+					"num": 1
+				}
+			],
+			"imgAtlas": "missions",
+			"imgSlot": "earn_score"
+		}, {
+			"id": "mission_ftue4",
+			"type": "get_tile",
+			"staticParams": { "tile": 512 },
+			"dynamicParam": {
+				"start": 4,
+				"max": 4,
+				"increment": 0
+			},
+			"rewards": [
+				{
+					"type": "boosters",
+					"boosterType": "Change_Upcoming",
+					"num": 3
+				},
+				{
+					"type": "boosters",
+					"boosterType": "Clear_Type",
+					"num": 3
+				},
+				{
+					"type": "boosters",
+					"boosterType": "Remove_5",
+					"num": 1
+				}
+			],
+			"imgAtlas": "missions",
+			"imgSlot": "tile_512"
+		}
+	],
+	"missions": [
+		{
+			"id": "mission1",
+			"type": "earn_scores_within_round",
+			"staticParams": {
+				"capMax": 10000,
+				"capMin": 250
+			},
+			"dynamicParam": {
+				"start": 0.8
+			},
+			"rewards": [
+				{
+					"type": "coins",
+					"num": 50
+				}
+			],
+			"imgAtlas": "missions",
+			"imgSlot": "earn_score"
+		},
+		{
+			"id": "mission2a",
+			"type": "get_tile",
+			"staticParams": { "tile": 512 },
+			"dynamicParam": {
+				"start": 3,
+				"max": 10,
+				"increment": 1
+			},
+			"rewards": [
+				{
+					"type": "boosters",
+					"num": 1,
+					"boosterType": "Remove"
+				}
+			],
+			"imgAtlas": "missions",
+			"imgSlot": "tile_512"
+		},
+		{
+			"id": "mission2b",
+			"type": "get_tile",
+			"staticParams": { "tile": 1024 },
+			"dynamicParam": {
+				"start": 2,
+				"max": 10,
+				"increment": 1
+			},
+			"rewards": [
+				{
+					"type": "boosters",
+					"num": 1,
+					"boosterType": "Remove_5"
+				}, {
+					"type": "coins",
+					"num": 100
+				}
+			],
+			"imgAtlas": "missions",
+			"imgSlot": "tile_1024"
+		},
+		{
+			"id": "mission3",
+			"type": "play_x_rounds",
+			"dynamicParam": {
+				"start": 1,
+				"max": 5,
+				"increment": 1
+			},
+			"rewards": [{
+				"type": "coins",
+				"num": 50
+			}],
+			"imgAtlas": "missions",
+			"imgSlot": "play_rounds"
+		},
+		{
+			"id": "mission4",
+			"type": "matches_in_row",
+			"staticParams": { "num": 5 },
+			"rewards": [
+				{
+					"type": "boosters",
+					"num": 3,
+					"boosterType": "Change_Upcoming"
+				}
+			],
+			"imgAtlas": "missions",
+			"imgSlot": "match_5_tiles"
+		},
+		{
+			"id": "mission5",
+			"type": "match_x_tiles",
+			"staticParams": { "num": 7 },
+			"requirements": {
+				"completedMissionsCount": 4
+			},
+			"rewards": [
+				{
+					"type": "boosters",
+					"num": 2,
+					"boosterType": "Clear_Type"
+				}
+			],
+			"imgAtlas": "missions",
+			"imgSlot": "match_7_tiles"
+		},
+		{
+			"id": "mission6",
+			"type": "match_x_tiles_of_y",
+			"staticParams": {
+				"num": 5,
+				"tile": 64
+			},
+			"requirements": {
+				"completedMissionsCount": 5
+			},
+			"rewards": [
+				{
+					"type": "coins",
+					"num": 100
+				}
+			],
+			"imgAtlas": "missions",
+			"imgSlot": "match_5x_64"
+		},
+		{
+			"id": "mission7",
+			"type": "match_combo",
+			"staticParams": { "num": 2 },
+			"requirements": {
+				"completedMissionsCount": 6
+			},
+			"rewards": [
+				{
+					"type": "coins",
+					"num": 100
+				}
+			],
+			"imgAtlas": "missions",
+			"imgSlot": "match_5_tiles"
+		},
+		{
+			"id": "mission8",
+			"type": "match_combo",
+			"staticParams": { "num": 3 },
+			"requirements": {
+				"completedMissionsCount": 7
+			},
+			"rewards": [
+				{
+					"type": "coins",
+					"num": 250
+				}
+			],
+			"imgAtlas": "missions",
+			"imgSlot": "match_7_tiles"
+		}
+	]
+}

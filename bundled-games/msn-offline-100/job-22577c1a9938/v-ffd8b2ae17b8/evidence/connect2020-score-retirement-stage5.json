@@ -1,0 +1,104 @@
+{
+  "at": "2026-11-24T03:34:19.162Z",
+  "native_id": "9mwzvztmcq0w",
+  "source_only": true,
+  "UI": 0,
+  "input_sha256": "181bbf23942d3c659f5b045ca784d8d3f57fd3f89fee1e6961a1d22654f67c41",
+  "output_sha256": "0906960c9635a772cf6c1fdd624677792acd308bd4b0588fd6355df939412629",
+  "edits": [
+    {
+      "start": 49173,
+      "end": 51414,
+      "text": "void 0",
+      "why": "Remove complete original online leaderboard/table/avatar-loading namespace",
+      "source_sha256": "ed4804a100fa9024ed5fe3deb1e5a4a3da19a201523fd490c8a143d07457b677"
+    },
+    {
+      "start": 51415,
+      "end": 52731,
+      "text": "void 0",
+      "why": "Remove complete original online leaderboard/table/avatar-loading namespace",
+      "source_sha256": "16436c1656ed0960339bd50122c3870f1f28e1812fd929a28b25e7b3b7904ddc"
+    },
+    {
+      "start": 52732,
+      "end": 55774,
+      "text": "void 0",
+      "why": "Remove complete original online leaderboard/table/avatar-loading namespace",
+      "source_sha256": "a477fef1e34069fb470c1832cb52c40c5fb8bcc064f4318d75d4a6f52b18ee10"
+    },
+    {
+      "start": 55789,
+      "end": 57705,
+      "text": "void 0",
+      "why": "Remove complete original online leaderboard/table/avatar-loading namespace",
+      "source_sha256": "8f4a1dc8b525c8faedda212ef67d3194af9083ac75d72744e2337ec0ee1ae3e8"
+    },
+    {
+      "start": 57713,
+      "end": 58772,
+      "text": "void 0",
+      "why": "Remove complete original online leaderboard/table/avatar-loading namespace",
+      "source_sha256": "7ff7d77301a900ff82be29f7e4689a23294a0ae31eb149f1ab89b6f16fdc8210"
+    },
+    {
+      "start": 58773,
+      "end": 64834,
+      "text": "void 0",
+      "why": "Remove complete original online leaderboard/table/avatar-loading namespace",
+      "source_sha256": "b5aaa66010903405539e3b1f96afad8c85f6357a26a6f262a2d93f5cb7271593"
+    },
+    {
+      "start": 187566,
+      "end": 187631,
+      "text": "this.displayNotEnoughCoins()",
+      "why": "Retain exact original insufficient-coins feedback after removing advertisement offer",
+      "source_sha256": "ae2d577b5590a0e52363e7ff8c604333f34b64e6c6d3cfc0e8e9d560af96e13f"
+    },
+    {
+      "start": 188380,
+      "end": 189525,
+      "text": "switch(t.label){case 0:return[4,(e=h.stats).getLocalStorageNumber(l.GameStatsStoreKey.BEST_SCORE_LS_RESUBMIT,0)];case 1:return n=t.sent(),[4,e.getLocalStorageNumber(l.GameStatsStoreKey.BEST_SCORE_LS_REMOTE_CACHE,0)];case 2:return i=t.sent(),[4,e.getLocalStorageNumber(l.GameStatsStoreKey.BEST_SCORE_LS_LOCAL,0)];case 3:if(s=t.sent(),s=Math.max(a,r,n,s),e.setLocalStorageNumber(l.GameStatsStoreKey.BEST_SCORE_LS_LOCAL,s),!(i<s))return[3,7];t.label=4;case 4:return t.trys.push([4,6,,7]),[4,h.stats.saveValue(l.GameStatsStoreKey.BEST_SCORE,s)];case 5:return t.sent(),e.setLocalStorageNumber(l.GameStatsStoreKey.BEST_SCORE_LS_REMOTE_CACHE,s),[3,7];case 6:return s=t.sent(),console.error(\"Failed to save score: %O\",s),[3,7];case 7:return[2];}",
+      "why": "Keep original real local high-score storage/error handling cases0-6; terminate at original async completion code2 after local save. Physically remove remote submission/challenge and retry bookkeeping cases8-11.",
+      "source_sha256": "df19bd4ce053ce34b8f4b975bbaaa69b4d8fc323e403dff79b2049c337e2f7b7"
+    },
+    {
+      "start": 189682,
+      "end": 189951,
+      "text": "void 0",
+      "why": "Remove actual remote score submission implementation",
+      "source_sha256": "73ba98bffcbe892d403a01f38a209fff3351c2b465e35e00ccd7c5279c94a6ae"
+    },
+    {
+      "start": 338979,
+      "end": 339003,
+      "text": "s.stats.isFTUE",
+      "why": "Tutorial waits for actual native GameStats local-load/isFTUE promise; original nonadvertising tutorial booster initialization unchanged",
+      "source_sha256": "0fa21c90cb589a5f1a3b8143e50a2d187c57129bc9430cce5d93c58e3d245c03"
+    }
+  ],
+  "local_score_generator_cases_0_to_6_AST_exact": true,
+  "ranking_namespaces_removed": 6,
+  "protected_rule_namespaces_byte_exact": [
+    "HexCellState_LOCKED_FREE.js",
+    "HexDirection_TOP_LEFT_TOP.js",
+    "HexCell.js",
+    "HexDirectionUtil.js",
+    "HexGrid.js",
+    "ItemType_ITEM_1_ITEM_2.js",
+    "ItemTypeUtil.js",
+    "Item.js",
+    "ItemsPool.js",
+    "Path.js",
+    "Pathfinder.js",
+    "ItemsCombo.js",
+    "GameplayHelper.js",
+    "GameplaySpawner.js",
+    "GridsCollection.js"
+  ],
+  "provider_or_reward_success_emitted": false,
+  "runtime_ready": false,
+  "executed": false,
+  "admitted": false,
+  "pending": "Full unresolved-reference/asset/static-guard audit and dedup before any native UI."
+}

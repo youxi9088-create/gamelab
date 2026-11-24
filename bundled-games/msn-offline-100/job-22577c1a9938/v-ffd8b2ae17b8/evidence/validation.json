@@ -1,0 +1,403 @@
+{
+  "runtime": {
+    "environment": "deployment",
+    "passed": true,
+    "network_observation_complete": true,
+    "actions": [
+      {
+        "type": "goto",
+        "description": "原累计输入1"
+      },
+      {
+        "type": "goto",
+        "description": "原累计输入2"
+      },
+      {
+        "type": "goto",
+        "description": "原累计输入3"
+      },
+      {
+        "type": "click",
+        "description": "原累计输入4"
+      },
+      {
+        "type": "drag",
+        "description": "原累计输入5"
+      }
+    ],
+    "external": [],
+    "required_external": [],
+    "blocked_external": [],
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "level": "warning",
+        "message": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "request_failed_events": [],
+    "missing": [],
+    "unresolved_missing": [],
+    "requests": 62,
+    "responses": 62,
+    "tested_revision": "connect2020-offline-v4",
+    "delivery_revision": "connect2020-offline-v4",
+    "native_four_equal_tiles_merge_verified": true,
+    "visible_points": 8,
+    "visible_coins": 1,
+    "full_round_verified": false,
+    "tutorial_complete": false,
+    "reload_verified": false,
+    "saved_progress_reload_verified": false,
+    "all_levels_verified": false,
+    "scope": "累计5步：v2第1次加载发现重复启动和点击音效缺失；v3第2次加载单画布、资源正常，但开局停滞；修正源代码中误删的原生开局选择后，v4第3次加载进入原六边形数字棋盘及教程，第4步普通点击关闭说明，第5步从可见蓝色2按住，经空格连续拖至三枚2旁的空格后释放。原四个2合并成8，界面分数0→8、金币0→1，随后原手势指向新8。实际动作与原奖励全由原逻辑产生。 只验证首个原教程提示、一次合法移动及四枚同值合并。没有完成整个教程、整局、任务领取、普通金币购买、道具、设置、换背景、全部棋盘、刷新或存档恢复、触屏/移动端和听音。首两步是失败启动版本，不是成功重载或存档恢复。5步已满，不再追加输入。未读取隐藏棋盘/寻路结果/教程坐标、调用业务方法或改写状态、存档、时钟、随机数、奖励。",
+    "cumulative_input_budget": 5,
+    "prior_attempts": [
+      {
+        "revision": "connect2020-offline-v2",
+        "actual_inputs": 1,
+        "failure": "duplicateintroducedstartupandmissingnativeclickaudio",
+        "raw_journal": "evidence/connect2020-v2-terminal-journals.json"
+      },
+      {
+        "revision": "connect2020-offline-v3",
+        "actual_inputs": 1,
+        "failure": "nativeMain.startGamebranchmistakenlyremovedwithtelemetrysequence",
+        "raw_journal": "evidence/connect2020-v3-terminal-journals.json"
+      }
+    ]
+  },
+  "raw_inputs": 5,
+  "checkpoints": 5,
+  "all_inputs": [
+    {
+      "step": 1,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/connect2020-offline-v2/index.html",
+      "at": "2026-11-24T03:42:23.665Z",
+      "trajectory": []
+    },
+    {
+      "step": 2,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/connect2020-offline-v3/index.html",
+      "at": "2026-11-24T03:49:46.540Z",
+      "trajectory": []
+    },
+    {
+      "step": 3,
+      "action": "goto",
+      "url": "http://127.0.0.1:18865/connect2020-offline-v4/index.html",
+      "at": "2026-11-24T03:55:06.200Z",
+      "trajectory": []
+    },
+    {
+      "step": 4,
+      "action": "click",
+      "x": 720,
+      "y": 450,
+      "at": "2026-11-24T03:56:12.808Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 720,
+          "y": 450
+        },
+        {
+          "event": "down",
+          "hold_ms": 90
+        },
+        {
+          "event": "up"
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "action": "drag",
+      "points": [
+        [
+          787,
+          314
+        ],
+        [
+          719,
+          350
+        ],
+        [
+          719,
+          427
+        ]
+      ],
+      "at": "2026-11-24T03:56:47.521Z",
+      "trajectory": [
+        {
+          "event": "move",
+          "x": 787,
+          "y": 314
+        },
+        {
+          "event": "down"
+        },
+        {
+          "event": "move",
+          "x": 782.75,
+          "y": 316.25
+        },
+        {
+          "event": "move",
+          "x": 778.5,
+          "y": 318.5
+        },
+        {
+          "event": "move",
+          "x": 774.25,
+          "y": 320.75
+        },
+        {
+          "event": "move",
+          "x": 770,
+          "y": 323
+        },
+        {
+          "event": "move",
+          "x": 765.75,
+          "y": 325.25
+        },
+        {
+          "event": "move",
+          "x": 761.5,
+          "y": 327.5
+        },
+        {
+          "event": "move",
+          "x": 757.25,
+          "y": 329.75
+        },
+        {
+          "event": "move",
+          "x": 753,
+          "y": 332
+        },
+        {
+          "event": "move",
+          "x": 748.75,
+          "y": 334.25
+        },
+        {
+          "event": "move",
+          "x": 744.5,
+          "y": 336.5
+        },
+        {
+          "event": "move",
+          "x": 740.25,
+          "y": 338.75
+        },
+        {
+          "event": "move",
+          "x": 736,
+          "y": 341
+        },
+        {
+          "event": "move",
+          "x": 731.75,
+          "y": 343.25
+        },
+        {
+          "event": "move",
+          "x": 727.5,
+          "y": 345.5
+        },
+        {
+          "event": "move",
+          "x": 723.25,
+          "y": 347.75
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 350
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 354.8125
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 359.625
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 364.4375
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 369.25
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 374.0625
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 378.875
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 383.6875
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 388.5
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 393.3125
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 398.125
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 402.9375
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 407.75
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 412.5625
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 417.375
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 422.1875
+        },
+        {
+          "event": "move",
+          "x": 719,
+          "y": 427
+        },
+        {
+          "event": "up"
+        }
+      ]
+    }
+  ],
+  "browser_sessions": [
+    16819,
+    23535,
+    31545
+  ],
+  "browser_actual_exit_codes": [
+    0,
+    0,
+    0
+  ],
+  "owned_node_absent": true,
+  "node_pids": [
+    21492,
+    6248,
+    27888
+  ],
+  "screenshots_opened": 6,
+  "state_injection": false,
+  "native_handler_calls": false,
+  "hidden_board_or_solver_reads": false,
+  "accounting": {
+    "observation_start": "2026-11-23T15:01:53.820734+00:00",
+    "observation_end": "2026-11-24T04:01:54.088538+00:00",
+    "elapsed_seconds": 46800.267804,
+    "pure_processing_seconds": null,
+    "tokens": null,
+    "price": null,
+    "scope": "原入口捕获至本包证据生成的经过区间，包含跨日暂停、其他工作、下载/源码分析/工具观察等待与启动修订；不是纯处理工时，不按区间分摊Token/费用，未知不填0。"
+  },
+  "visual_result": "累计5步：v2第1次加载发现重复启动和点击音效缺失；v3第2次加载单画布、资源正常，但开局停滞；修正源代码中误删的原生开局选择后，v4第3次加载进入原六边形数字棋盘及教程，第4步普通点击关闭说明，第5步从可见蓝色2按住，经空格连续拖至三枚2旁的空格后释放。原四个2合并成8，界面分数0→8、金币0→1，随后原手势指向新8。实际动作与原奖励全由原逻辑产生。",
+  "scope_boundary": "只验证首个原教程提示、一次合法移动及四枚同值合并。没有完成整个教程、整局、任务领取、普通金币购买、道具、设置、换背景、全部棋盘、刷新或存档恢复、触屏/移动端和听音。首两步是失败启动版本，不是成功重载或存档恢复。5步已满，不再追加输入。未读取隐藏棋盘/寻路结果/教程坐标、调用业务方法或改写状态、存档、时钟、随机数、奖励。"
+}

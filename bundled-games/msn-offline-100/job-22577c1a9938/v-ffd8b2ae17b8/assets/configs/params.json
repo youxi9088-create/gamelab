@@ -1,0 +1,78 @@
+{
+	"build_time": "2026-03-23T15:37:26.614Z",
+	"build_version": "2.5.2",
+	"music_volume": 0.2,
+	"crossfade_duration": 300,
+	"ads_first_time": 2,
+	"ads_frequency": 2,
+	"reward_coins": 50,
+	"chars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщьыъэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯ!№;%:?*()_+-=.,/|\"'@#$^&{}[]0123456789üßÄäöá¡úí¿ééá",
+	"daily_bonus": {
+		"enabled": false,
+		"interval": 86400000,
+		"bonuses": [
+			{
+				"type": "coins",
+				"num": 20
+			},
+			{
+				"type": "coins",
+				"num": 50
+			},
+			{
+				"type": "booster",
+				"num": 1,
+				"booster_type": "Remove"
+			},
+			{
+				"type": "booster",
+				"num": 3,
+				"booster_type": "Change_Upcoming"
+			}
+		]
+	},
+	"ingameGift": {
+		"enabled": true,
+		"minSeconds": -1,
+		"minScore": 150,
+		"pieces": [
+			{
+				"weight": 1,
+				"value": {
+					"type": "coins",
+					"num": 25
+				}
+			},
+			{
+				"weight": 1,
+				"value": {
+					"type": "coins",
+					"num": 50
+				}
+			},
+			{
+				"weight": 1,
+				"value": {
+					"type": "coins",
+					"num": 75
+				}
+			},
+			{
+				"weight": 1,
+				"value": {
+					"type": "coins",
+					"num": 100
+				}
+			}
+		]
+	},
+	"gameplay": {
+		"cells_x_spacing": 2,
+		"cells_y_spacing": 11,
+		"hint_delay_first": 4000,
+		"hint_delay": 8000,
+		"hint_enabled": true,
+		"filled_cells_percent": 20,
+		"booster_button_repeat_delay": 5000
+	}
+}

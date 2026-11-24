@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-24T03:36:33.608799+00:00",
+  "source_only": true,
+  "UI": 0,
+  "input_sha256": "0906960c9635a772cf6c1fdd624677792acd308bd4b0588fd6355df939412629",
+  "output_sha256": "6b4694a7e175e3ac4684feee1f0ba94e5be8a9cea0c0ad1b8e3dc034fc3b5d94",
+  "edits": [
+    {
+      "old": "this.game.abTesting.groupsDecided",
+      "new": "this.game.stats.isFTUE",
+      "why": "Original settings waits for actual local stats load; retains original default A-group audio-visibility branch. No fake AB completion, identity or provider promise."
+    }
+  ],
+  "runtime_executed": false
+}

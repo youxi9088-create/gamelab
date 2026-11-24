@@ -1,0 +1,107 @@
+{
+  "at": "2026-11-24T03:19:35.162Z",
+  "native_id": "9mwzvztmcq0w",
+  "source_only": true,
+  "UI": 0,
+  "source_sha256": "4b00ad40d792743f5746c123d9b13a5f6cec82ab9f83a81e439843bf4388a557",
+  "output_sha256": "2d49da3e76f969f697a4965c116a1945c64789f0ae76f6d2ef396a13fd77d061",
+  "edits": [
+    {
+      "start": 3099,
+      "end": 3218,
+      "text": "(function(){new game.Main(e)})()",
+      "why": "Execute original ordinary Main constructor continuation without telemetry",
+      "source_sha256": "c20196709ecccc7aac642e7cb12966f98e615a18dc8a322f42584f9754e01204"
+    },
+    {
+      "start": 3319,
+      "end": 3563,
+      "text": "",
+      "why": "Remove complete external telemetry initializer",
+      "source_sha256": "880689e6197e4a7650037abfe3a75836028211b792eea21273b66e62a1cffddf"
+    },
+    {
+      "start": 47195,
+      "end": 48563,
+      "text": "async function(){await this.game.stats.loadInitialValues();await this.game.stats.isFTUE;this.game.ftue=new o.FTUEManager(this.game);this.game.dailyBonus=new o.DailyBonusManager(this.game);this.game.texts=new o.GameTexts(this.game);this.game.missionsManager=new o.MissionsManager(this.game);this.game.boosters=new o.BoostersManager(this.game);o.Main.grids=new o.GridsCollection(this.game.cache.getJSON(\"grids\"));this.game.audio=new o.GameAudio(this.game);this.loadAudioDelayed();this.setupVisibilityChange();this.game.startGame();}",
+      "why": "Await actual native local stats and asset completion. Retain authored constructor AB defaults. No storageReady/localeReady/groupsDecided or fake SDK fulfillment; reward producer omitted.",
+      "source_sha256": "870500e2aaf2f324491b2167cd84f2c947d768d47d79df4b65d67e997f95e2cd"
+    },
+    {
+      "start": 64719,
+      "end": 67102,
+      "text": "void 0",
+      "why": "Physically remove actual provider/cloud adapter namespace SoftgamesStore.js",
+      "source_sha256": "967c807f704d4635bb35c1787a2aff3b2ca405cd7a8f05c90dc00425ac5cb267"
+    },
+    {
+      "start": 67103,
+      "end": 77448,
+      "text": "void 0",
+      "why": "Physically remove actual provider/cloud adapter namespace SoftgamesSDKWrapper_LeaderboardScopeType.js",
+      "source_sha256": "5cb6a732611bfbcb55b3bffbe829f8f6b42aa3f8a5eef544b4db9e21e53e012a"
+    },
+    {
+      "start": 347426,
+      "end": 347552,
+      "text": "function(){return this.getLangFromQuery()||this.getBrowserLanguage()||\"en\";}",
+      "why": "Use original supported query/browser language fallbacks, no provider locale",
+      "source_sha256": "03370d7aa7f0f21b80bc8a336b9e61d12f2db549b4d2d062657a2953aefa9cc3"
+    },
+    {
+      "start": 347732,
+      "end": 347945,
+      "text": "void 0",
+      "why": "Delete provider-only locale method and callers",
+      "source_sha256": "a74a329af88a30c429b68642ea1a8a988e85e4b814840c830f041c1a459f7330"
+    },
+    {
+      "start": 347946,
+      "end": 348178,
+      "text": "void 0",
+      "why": "Delete provider-only locale method and callers",
+      "source_sha256": "86266ccd88cfd09065868d094a7a39f93d03669e6c725b1c58fa5f2f70a0f1b8"
+    },
+    {
+      "start": 408479,
+      "end": 408742,
+      "text": "function(){var i=this;}",
+      "why": "Remove startup analytics listener only; original FTUE/menu decision unchanged",
+      "source_sha256": "01977df96d47597019d836ee44b361ef0c2f187691827731472af74c211f3711"
+    },
+    {
+      "start": 409185,
+      "end": 409639,
+      "text": "function n(t){var e=i.call(this,{width:\"100\",height:\"100\",renderer:Phaser.AUTO,transparent:!1,antialias:!0,enableDebug:o.getParamBool(\"debug\")})||this;return e.isFacebook=!1,n.params=t,e.detectFacebook(),e.detectDevMode(),e.abTesting=new s.ABTesting(),e.stats=new s.GameStats(e),e.fonts=new s.GameFonts(e),e.addStates(),e;}",
+      "why": "Use original local stats/fonts/AB defaults and ordinary addStates; remove provider constructor and SDK callback gate",
+      "source_sha256": "9737c094094052dfcff56e56d5d4db9b448cbd1fb554fbd2870393958d1a0417"
+    }
+  ],
+  "protected_rule_namespaces_byte_exact": [
+    "HexCellState_LOCKED_FREE.js",
+    "HexDirection_TOP_LEFT_TOP.js",
+    "HexCell.js",
+    "HexDirectionUtil.js",
+    "HexGrid.js",
+    "ItemType_ITEM_1_ITEM_2.js",
+    "ItemTypeUtil.js",
+    "Item.js",
+    "ItemsPool.js",
+    "Path.js",
+    "Pathfinder.js",
+    "ItemsCombo.js",
+    "GameplayHelper.js",
+    "GameplaySpawner.js",
+    "GridsCollection.js"
+  ],
+  "runtime_ready": false,
+  "executed": false,
+  "admitted": false,
+  "SDK_facade_created": false,
+  "provider_identity_or_reward_callback_emitted": false,
+  "pending": [
+    "Remaining .softgames consumers and analytics/leaderboard/social/reward-only UI must be physically retired before execution.",
+    "GameStats FBChallenge context and MainMenu/Gameplay ordinary completion paths require reviewed local-only continuations.",
+    "Whole-loop dedup and <=5input path proof still required."
+  ]
+}
